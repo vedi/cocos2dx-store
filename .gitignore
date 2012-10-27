@@ -62,3 +62,7 @@ cocos2dx-store/proj.android/.settings
 cocos2dx-store/proj.android/gen
 cocos2dx-store/proj.android/bin
 cocos2dx-store/proj.android/out
+
+.idea/workspace.xml
+
+cocos2dx-store/proj.android/.idea/workspace.xml
