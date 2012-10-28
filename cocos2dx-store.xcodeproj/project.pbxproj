@@ -55,7 +55,7 @@
 		C069308F163C86D60037E975 /* libcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B04372163C84860015400E /* libcocos2dx.a */; };
 		C0693091163C876C0037E975 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C0693090163C876C0037E975 /* libz.dylib */; };
 		C0693093163C87760037E975 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C0693092163C87760037E975 /* libxml2.dylib */; };
-		C0B042D5163BFD150015400E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0B042D4163BFD150015400E /* Info.plist */; };
+		C06930A1163D86E30037E975 /* cocos2dx_StoreInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = C06930A0163D86E30037E975 /* cocos2dx_StoreInfo.mm */; };
 		C0B042DC163BFD2B0015400E /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B042D6163BFD2B0015400E /* Icon-72.png */; };
 		C0B042DD163BFD2B0015400E /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B042D7163BFD2B0015400E /* Icon-Small-50.png */; };
 		C0B042DE163BFD2B0015400E /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B042D8163BFD2B0015400E /* Icon-Small.png */; };
@@ -66,7 +66,6 @@
 		C0B042F2163BFE960015400E /* MainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0B042E9163BFE960015400E /* MainScene.cpp */; };
 		C0B042F3163BFE960015400E /* StoreAScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0B042EC163BFE960015400E /* StoreAScene.cpp */; };
 		C0B042F4163BFE960015400E /* StoreBScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0B042EE163BFE960015400E /* StoreBScene.cpp */; };
-		C0B04305163C067F0015400E /* AnalyticXStringUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0B04304163C067F0015400E /* AnalyticXStringUtil.mm */; };
 		C0B04308163C59700015400E /* iOSHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0B04306163C59700015400E /* iOSHelper.mm */; };
 		C0B04310163C5DDE0015400E /* MuffinRushAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B0430F163C5DDE0015400E /* MuffinRushAssets.m */; };
 		C0B0431B163C7B250015400E /* cocos2dx_StoreInventory.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0B0431A163C7B250015400E /* cocos2dx_StoreInventory.mm */; };
@@ -170,6 +169,8 @@
 		C031BE341637FE84005F73E3 /* cocos2dx_StoreInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_StoreInventory.h; path = Classes/cocos2dx_StoreInventory.h; sourceTree = "<group>"; };
 		C0693090163C876C0037E975 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		C0693092163C87760037E975 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		C0693095163D27730037E975 /* cocos2dx_StoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_StoreInfo.h; path = Classes/cocos2dx_StoreInfo.h; sourceTree = "<group>"; };
+		C06930A0163D86E30037E975 /* cocos2dx_StoreInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = cocos2dx_StoreInfo.mm; path = ios/cocos2dx_StoreInfo.mm; sourceTree = "<group>"; };
 		C0B042D3163BFCB50015400E /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		C0B042D4163BFD150015400E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ios/Resources/Info.plist; sourceTree = "<group>"; };
 		C0B042D6163BFD2B0015400E /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "ios/Resources/Icon-72.png"; sourceTree = "<group>"; };
@@ -189,8 +190,6 @@
 		C0B042EE163BFE960015400E /* StoreBScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StoreBScene.cpp; path = Classes/StoreBScene.cpp; sourceTree = "<group>"; };
 		C0B042EF163BFE960015400E /* StoreBScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreBScene.h; path = Classes/StoreBScene.h; sourceTree = "<group>"; };
 		C0B042F5163C023A0015400E /* Includes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Includes.h; path = Classes/Includes.h; sourceTree = "<group>"; };
-		C0B04303163C067F0015400E /* AnalyticXStringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnalyticXStringUtil.h; path = Classes/AnalyticXStringUtil.h; sourceTree = "<group>"; };
-		C0B04304163C067F0015400E /* AnalyticXStringUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AnalyticXStringUtil.mm; path = Classes/AnalyticXStringUtil.mm; sourceTree = "<group>"; };
 		C0B04306163C59700015400E /* iOSHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSHelper.mm; path = ios/iOSHelper.mm; sourceTree = "<group>"; };
 		C0B04307163C59700015400E /* iOSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iOSHelper.h; path = ios/iOSHelper.h; sourceTree = "<group>"; };
 		C0B0430E163C5DDE0015400E /* MuffinRushAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MuffinRushAssets.h; path = ios/MuffinRushAssets.h; sourceTree = "<group>"; };
@@ -303,12 +302,11 @@
 				C031BAA41635BDBA005F73E3 /* RootViewController.h */,
 				C031BAA51635BDBA005F73E3 /* RootViewController.mm */,
 				C031BAA71635BDBA005F73E3 /* main.m */,
-				C0B04303163C067F0015400E /* AnalyticXStringUtil.h */,
-				C0B04304163C067F0015400E /* AnalyticXStringUtil.mm */,
 				C0B04306163C59700015400E /* iOSHelper.mm */,
 				C0B04307163C59700015400E /* iOSHelper.h */,
 				C031BD471635C4C7005F73E3 /* cocos2dx_StoreController.mm */,
 				C0B0431A163C7B250015400E /* cocos2dx_StoreInventory.mm */,
+				C06930A0163D86E30037E975 /* cocos2dx_StoreInfo.mm */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -335,9 +333,10 @@
 				C0B042EF163BFE960015400E /* StoreBScene.h */,
 				C031BD251635BDBD005F73E3 /* AppDelegate.h */,
 				C031BD261635BDBD005F73E3 /* AppDelegate.cpp */,
+				C0B042F5163C023A0015400E /* Includes.h */,
 				C031BD4A1635C551005F73E3 /* cocos2dx_StoreController.h */,
 				C031BE341637FE84005F73E3 /* cocos2dx_StoreInventory.h */,
-				C0B042F5163C023A0015400E /* Includes.h */,
+				C0693095163D27730037E975 /* cocos2dx_StoreInfo.h */,
 				C0B042E8163BFE960015400E /* cocos2dx_InsufficientFundsException.h */,
 				C0B042EB163BFE960015400E /* cocos2dx_NotEnoughGoodsException.h */,
 				C031BE3116370E9B005F73E3 /* cocos2dx_VirtualItemNotFoundException.h */,
@@ -544,7 +543,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0B042D5163BFD150015400E /* Info.plist in Resources */,
 				C0B042DC163BFD2B0015400E /* Icon-72.png in Resources */,
 				C0B042DD163BFD2B0015400E /* Icon-Small-50.png in Resources */,
 				C0B042DE163BFD2B0015400E /* Icon-Small.png in Resources */,
@@ -601,11 +599,11 @@
 				C0B042F2163BFE960015400E /* MainScene.cpp in Sources */,
 				C0B042F3163BFE960015400E /* StoreAScene.cpp in Sources */,
 				C0B042F4163BFE960015400E /* StoreBScene.cpp in Sources */,
-				C0B04305163C067F0015400E /* AnalyticXStringUtil.mm in Sources */,
 				C0B04308163C59700015400E /* iOSHelper.mm in Sources */,
 				C0B04310163C5DDE0015400E /* MuffinRushAssets.m in Sources */,
 				C0B0431B163C7B250015400E /* cocos2dx_StoreInventory.mm in Sources */,
 				C0B0431E163C7C980015400E /* StoreInventory.m in Sources */,
+				C06930A1163D86E30037E975 /* cocos2dx_StoreInfo.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

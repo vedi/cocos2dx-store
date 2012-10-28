@@ -9,8 +9,9 @@ class StoreBScene : public cocos2d::CCLayerColor
 {
 private:
 	const char* productIdFromTag(int tag);
-	void createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visibleSize, int tag, const char* img, const char* name, const char* info, float price);
-	
+	void createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visibleSize, int tag, const char* img);
+	const char* itemIdFromTag(int tag);
+		
 	static CCLabelTTF* pLabelBalance;
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone

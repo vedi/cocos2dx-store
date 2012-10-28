@@ -36,15 +36,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
     {
         // iphone
         
-        if (pDirector->enableRetinaDisplay(true))
-        {
+//        if (pDirector->enableRetinaDisplay(true))
+//        {
             // iphone hd
             CCFileUtils::sharedFileUtils()->setResourceDirectory("iphonehd");
-        }
-        else 
-        {
-            CCFileUtils::sharedFileUtils()->setResourceDirectory("iphone");
-        }
+//        }
+//        else
+//        {
+//            CCFileUtils::sharedFileUtils()->setResourceDirectory("iphone");
+//        }
+        
+        CCEGLView::sharedOpenGLView()->setDesignResolutionSize(720, 1280, kResolutionNoBorder);
     }
     else 
     {

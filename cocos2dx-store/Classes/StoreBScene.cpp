@@ -3,6 +3,7 @@
 #include "StoreAScene.h"
 #include "cocos2dx_StoreInventory.h"
 #include "cocos2dx_StoreController.h"
+#include "cocos2dx_StoreInfo.h"
 #include "Includes.h"
 
 #include <string>
@@ -75,11 +76,11 @@ bool StoreBScene::init()
 	// In Game Menu
 	CCMenu* menu = CCMenu::create(backItem, NULL);
 
-	createListViewItem(origin, menu, visibleSize, 0, "no_ads.png", "Remove Ads!", "Test purchase of MANAGED item.", 5.99);
-	createListViewItem(origin, menu, visibleSize, 1, "muffins01.png", "10 Muffins", "Test refund of an item", 0.99);
-	createListViewItem(origin, menu, visibleSize, 2, "muffins02.png", "50 Muffins", "Test cancellation of an item", 1.99);
-	createListViewItem(origin, menu, visibleSize, 3, "muffins03.png", "400 Muffins", "Test purchase of an item", 4.99);
-	createListViewItem(origin, menu, visibleSize, 4, "muffins04.png", "1000 Muffins", "Test item unavailable", 8.99);
+	createListViewItem(origin, menu, visibleSize, 0, "no_ads.png");
+	createListViewItem(origin, menu, visibleSize, 1, "muffins01.png");
+	createListViewItem(origin, menu, visibleSize, 2, "muffins02.png");
+	createListViewItem(origin, menu, visibleSize, 3, "muffins03.png");
+	createListViewItem(origin, menu, visibleSize, 4, "muffins04.png");
 
 	menu->setPosition(CCPointZero);
 	this->addChild(menu);
@@ -143,11 +144,33 @@ void StoreBScene::setCurrencyBalanceLabel() {
 	pLabelBalance->setString(convert.str().c_str());
 }
 
-void StoreBScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visibleSize, int tag, const char* img, const char* name, const char* info, float price) {
+void StoreBScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visibleSize, int tag, const char* img) {
 	GameMenuItem *pChooseItem = GameMenuItem::itemWithLabel(
 		CCSprite::create("button.png"),
 					this,
 					menu_selector(StoreBScene::menuChooseCallback));
+
+	char itemId[512];
+	snprintf(itemId, sizeof(itemId), itemIdFromTag(tag));
+
+	char name[512];
+	char info[512];
+	double price = 0;
+	int balance = 0;
+	if (strcmp (itemId,"ERROR") == 0) {
+		snprintf(name, sizeof(name), "Remove Ads!");
+		snprintf(info, sizeof(info), "Test purchase of MANAGED item.");
+		price = 5.99f;
+	}
+	else {
+		// TODO: exception handling ..
+	    string nameS = cocos2dx_StoreInfo::getPackName(itemId);
+		string infoS = cocos2dx_StoreInfo::getPackDescription(itemId);
+		price = cocos2dx_StoreInfo::getPackPrice(itemId);
+
+		snprintf(name, sizeof(name), nameS.c_str());
+		snprintf(info, sizeof(info), infoS.c_str());
+	}
 
 	float yOffset = - 200;
 
@@ -190,23 +213,37 @@ void StoreBScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visi
 }
 
 const char* StoreBScene::productIdFromTag(int tag) {
+	
+	char itemId[512];
+	snprintf(itemId, sizeof(itemId), itemIdFromTag(tag));
+	
+	if (strcmp (itemId,"ERROR") == 0) {
+		return "no_ads";
+	}
+	else {
+		// TODO: exception handling ..
+	    string p = cocos2dx_StoreInfo::getPackProductId(itemId);
+		return p.c_str();
+	}
+	
+	return "ERROR";
+}
+
+const char* StoreBScene::itemIdFromTag(int tag) {
 	switch (tag)
 	{
-	case 0: return "no_ads";
+	case 1: return "muffins_10";
 	    break;
-	case 1: return "android.test.refunded";
+	case 2: return "muffins_50";
 	    break;
-	case 2: return "android.test.canceled";
+	case 3: return "muffins_400";
 	    break;
-	case 3: return "android.test.purchased";
+	case 4: return "muffins_1000";
 	    break;
-	case 4: return "android.test.item_unavailable";
-		break;
 	default: return "ERROR";
 		break;
 	}
 	
 	return "ERROR";
 }
-
 

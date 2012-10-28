@@ -8,7 +8,7 @@ USING_NS_CC;
 class StoreAScene : public cocos2d::CCLayerColor
 {
 private:
-	void createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visibleSize, int tag, const char* img, const char* name, const char* info, int price, int balance);
+	void createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visibleSize, int tag, const char* img);
 	const char* itemIdFromTag(int tag);
 	static int tagFromItemId(const char* itemId);
 	

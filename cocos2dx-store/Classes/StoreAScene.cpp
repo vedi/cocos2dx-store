@@ -4,6 +4,7 @@
 #include "StoreBScene.h"
 #include "cocos2dx_StoreController.h"
 #include "cocos2dx_StoreInventory.h"
+#include "cocos2dx_StoreInfo.h"
 #include "Includes.h"
 
 #include <string>
@@ -86,10 +87,10 @@ bool StoreAScene::init()
 	// In Game Menu
 	CCMenu* menu = CCMenu::create(getMoreItem, backItem, NULL);
 
-	createListViewItem(origin, menu, visibleSize, 0, "fruit_cake.png", "Fruit Cake", "Customers buy a double portion on each purchase of this cake", 225, 0);
-	createListViewItem(origin, menu, visibleSize, 1, "pavlova.png", "Pavlova", "Gives customers a sugar rush and they call their friends", 175, 0);
-	createListViewItem(origin, menu, visibleSize, 2, "cream_cup.png", "Cream Cup", "Increase bakery reputation with this original pastry", 50, 0);
-	createListViewItem(origin, menu, visibleSize, 3, "chocolate_cake.png", "Chocolate Cake", "A classic cake to maximize customer satisfaction", 250, 0);
+	createListViewItem(origin, menu, visibleSize, 0, "fruit_cake.png");
+	createListViewItem(origin, menu, visibleSize, 1, "pavlova.png");
+	createListViewItem(origin, menu, visibleSize, 2, "cream_cup.png");
+	createListViewItem(origin, menu, visibleSize, 3, "chocolate_cake.png");
 	
 	menu->setPosition(CCPointZero);
 	this->addChild(menu);
@@ -149,12 +150,23 @@ void StoreAScene::menuChooseCallback(CCObject* pSender)
 	}
 }
 
-void StoreAScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visibleSize, int tag, const char* img, const char* name, const char* info, int price, int balance) {
+void StoreAScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visibleSize, int tag, const char* img) {
 	GameMenuItem *pChooseItem = GameMenuItem::itemWithLabel(
 		CCSprite::create("button.png"),
 					this,
 					menu_selector(StoreAScene::menuChooseCallback));
 
+	char itemId[512];
+	snprintf(itemId, sizeof(itemId), itemIdFromTag(tag));
+	
+	// TODO: exception handling ..
+    string nameS = cocos2dx_StoreInfo::getGoodName(itemId);
+	string infoS = cocos2dx_StoreInfo::getGoodDescription(itemId);
+	int price = cocos2dx_StoreInfo::getGoodPriceForCurrency(itemId, "currency_muffin");
+	int balance = 0;
+	const char * name = nameS.c_str();
+	const char * info = infoS.c_str();
+	
 	float yOffset = - 200;
 
 	pChooseItem->setPosition(ccp(origin.x + visibleSize.width/2, yOffset + origin.y + visibleSize.height - 100 - (tag * pChooseItem->boundingBox().size.height)));
@@ -193,9 +205,6 @@ void StoreAScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visi
 	pChooseItem->addChild(goodsPriceBalanceLabels[tag]);
 
 	menu->addChild(pChooseItem, 1);
-	
-	char itemId[512];
-	snprintf(itemId, sizeof(itemId), itemIdFromTag(tag));
 	
 	setPriceBalanceLabel(itemId);
 }

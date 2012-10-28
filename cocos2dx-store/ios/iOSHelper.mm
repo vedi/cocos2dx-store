@@ -7,9 +7,8 @@
 //
 
 #include "iOSHelper.h"
-#import "AnalyticXStringUtil.h"
     
 void iOSHelper::LogMessage(const char* msg) {
-    NSString *message = [AnalyticXStringUtil nsstringFromCString:msg];
+    NSString *message = [[NSString alloc] initWithBytes:msg length:strlen(msg) encoding:NSUTF8StringEncoding];
     NSLog(@"%@", message);
 }

@@ -18,7 +18,7 @@
 using namespace std;
 
 class cocos2dx_StoreController {
-    
+
 public:
     
     //iOS + Android

@@ -5,7 +5,6 @@
 #import "InsufficientFundsException.h"
 #import "NotEnoughGoodsException.h"
 #import "MuffinRushAssets.h"
-#import "AnalyticXStringUtil.h"
 
 void cocos2dx_StoreController::storeOpening() {
     [[StoreController getInstance] storeOpening];
@@ -25,7 +24,7 @@ void cocos2dx_StoreController::initialize(bool debug) {
 
 void cocos2dx_StoreController::buyCurrencyPack(string productId) throw(cocos2dx_VirtualItemNotFoundException&) {
     @try {
-        NSString *str = [AnalyticXStringUtil nsstringFromCString:productId.c_str()];
+        NSString * str = [[NSString alloc] initWithBytes:productId.c_str() length:strlen(productId.c_str()) encoding:NSUTF8StringEncoding];
         [[StoreController getInstance] buyCurrencyPackWithProcuctId:str];
     }
     @catch (VirtualItemNotFoundException *exception) {
@@ -35,7 +34,7 @@ void cocos2dx_StoreController::buyCurrencyPack(string productId) throw(cocos2dx_
 
 void cocos2dx_StoreController::buyVirtualGood(string itemId) throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_InsufficientFundsException&) {
     @try {
-        NSString *str = [AnalyticXStringUtil nsstringFromCString:itemId.c_str()];
+        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
         [[StoreController getInstance] buyVirtualGood:str];
     }
     @catch (VirtualItemNotFoundException *exception) {
@@ -55,7 +54,7 @@ void cocos2dx_StoreController::buyManagedItem(string productId) throw(cocos2dx_V
 
 void cocos2dx_StoreController::equipVirtualGood(string itemId) throw (cocos2dx_NotEnoughGoodsException&, cocos2dx_VirtualItemNotFoundException&) {
     @try {
-        NSString *str = [AnalyticXStringUtil nsstringFromCString:itemId.c_str()];
+        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
         [[StoreController getInstance] equipVirtualGood:str];
     }
     @catch (VirtualItemNotFoundException *exception) {
@@ -68,7 +67,7 @@ void cocos2dx_StoreController::equipVirtualGood(string itemId) throw (cocos2dx_N
 
 void cocos2dx_StoreController::unequipVirtualGood(string itemId) throw(cocos2dx_VirtualItemNotFoundException&) {
     @try {
-        NSString *str = [AnalyticXStringUtil nsstringFromCString:itemId.c_str()];
+        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
         [[StoreController getInstance] unequipVirtualGood:str];
     }
     @catch (VirtualItemNotFoundException *exception) {
