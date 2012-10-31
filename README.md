@@ -34,7 +34,7 @@ Instructions for iOS
 ---
 
 If you're building your cocos2dx applicaiton for the iOS platform, open our xCode project and see how to integrate it with ios-store.
-This is what's relevant to you:
+The example ios project needs to be enough, but if you want more info than this is what's relevant to you:
 
 1. You'll have to create your implementation of IStoreAssets that'll represent the assets in your specific game. We created an IStoreAsset's implementation for an imaginary game called Muffin Rush and we called it [MuffinRushAssets](https://github.com/refaelos/cocos2dx-store/blob/master/cocos2dx-store/ios/MuffinRushAssets.m).
 2. We've created our cocos2dx UI in cocos2dx-store/Classes. You don't need these files. Just look into [AppDelegate.cpp](https://github.com/refaelos/cocos2dx-store/blob/master/cocos2dx-store/Classes/AppDelegate.cpp) and see where we initialize cocos2dx_StoreController and do the same in your game.
