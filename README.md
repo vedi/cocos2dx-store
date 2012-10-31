@@ -14,3 +14,15 @@ In cocos2dx-store there are 3 relevant scenes: MainScene, StoreAScene and StoreB
     MainScene - the welcome scene from where you open the store.
     StoreAScene - the store's first window that contains a list of VirtualGoods.
     StoreBScene - the store's second window that contains a list of VirtualCurrencyPacks.
+
+Getting Started
+---
+
+In order to run the iOS and Android projects you'll need to recursively clone cocos2dx-store:
+
+    ```
+    git clone --recursive git@github.com:soomla/cocos2dx-store.git
+    ```
+
+> The Android project is an IntelliJ project. Just open the folder cocos2dx-store/cocos2dx-store/proj.android from IntelliJ to use it.
+
