@@ -5,6 +5,9 @@ import com.soomla.store.domain.data.GoogleMarketItem;
 import com.soomla.store.domain.data.VirtualGood;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
+/**
+ * This bridge is used to populate events from the store to cocos2dx (through JNI).
+ */
 public class EventHandlerBridge implements IStoreEventHandler {
 
     private Cocos2dxGLSurfaceView mGLThread;

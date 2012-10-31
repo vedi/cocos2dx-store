@@ -4,6 +4,11 @@ import android.util.Log;
 import com.soomla.store.StoreInventory;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 
+/**
+ * This bridge is used to let cocos2dx functions perform actions on StoreInventory (through JNI).
+ *
+ * You can see the documentation of every function in {@link StoreInventory}
+ */
 public class StoreInventoryBridge {
 
     static int getCurrencyBalance(String currencyItemId) throws VirtualItemNotFoundException {

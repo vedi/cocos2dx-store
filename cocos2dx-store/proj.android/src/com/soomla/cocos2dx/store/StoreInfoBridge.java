@@ -5,6 +5,11 @@ import com.soomla.store.domain.data.VirtualCurrencyPack;
 import com.soomla.store.domain.data.VirtualGood;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 
+/**
+ * This bridge is used to let cocos2dx functions retrieve data from StoreInfo (through JNI).
+ *
+ * You can see the documentation of every function in {@link StoreInfo}
+ */
 public class StoreInfoBridge {
 
     static String getPackProductId(String itemId) throws VirtualItemNotFoundException {

@@ -3,7 +3,6 @@ package com.soomla.cocos2dx.store;
 import android.app.Activity;
 import android.os.Handler;
 import android.util.Log;
-import com.soomla.cocos2dx.example.MuffinRushAssets;
 import com.soomla.store.IStoreAssets;
 import com.soomla.store.StoreController;
 import com.soomla.store.StoreEventHandlers;
@@ -12,10 +11,15 @@ import com.soomla.store.exceptions.NotEnoughGoodsException;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
+/**
+ * This bridge is used to let cocos2dx functions perform actions on StoreController (through JNI).
+ *
+ * You can see the documentation of every function in {@link StoreController}
+ */
 public class StoreControllerBridge {
 
-    private static Activity mActivity   = null;
-    private static Handler  mHandler    = null;
+    private static Activity mActivity          = null;
+    private static Handler  mHandler           = null;
     private static IStoreAssets mStoreAssets   = null;
     private static String mPublicKey           = "";
 
