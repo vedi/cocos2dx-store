@@ -20,9 +20,9 @@ Getting Started
 
 In order to run the iOS and Android projects you'll need to recursively clone cocos2dx-store:
 
-    ```
-    git clone --recursive git@github.com:soomla/cocos2dx-store.git
-    ```
+```
+git clone --recursive git@github.com:soomla/cocos2dx-store.git
+```
 
 > The Android project is an IntelliJ project. Just open the folder cocos2dx-store/cocos2dx-store/proj.android from IntelliJ to use it.
 
