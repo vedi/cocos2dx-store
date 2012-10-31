@@ -24,5 +24,16 @@ In order to run the iOS and Android projects you'll need to recursively clone co
 git clone --recursive git@github.com:soomla/cocos2dx-store.git
 ```
 
-> The Android project is an IntelliJ project. Just open the folder cocos2dx-store/cocos2dx-store/proj.android from IntelliJ to use it.
+> The **Android** project is an IntelliJ project. Just open the folder cocos2dx-store/cocos2dx-store/proj.android from IntelliJ to use it.
 
+#### StoreController initialization
+
+StoreController is intialized through cocos2dx_StoreController class. You'll need to initialize StoreController ONLY once from AppDelegate::applicationDidFinishLaunching ([example](https://github.com/refaelos/cocos2dx-store/blob/master/cocos2dx-store/Classes/AppDelegate.cpp)).
+
+Instructions for iOS
+---
+
+If you're building your cocos2dx applicaiton for iOS platforms you can open our xCode project and see how to integrate it with ios-store.
+These is what's relevant to you:
+
+1. You'll have to create your implementation of IStoreAssets that'll represent the assets in your specific game. We created an IStoreAsset's implementation for an imaginary game called Muffin Rush and we called it [MuffinRushAssets](https://github.com/refaelos/cocos2dx-store/blob/master/cocos2dx-store/ios/MuffinRushAssets.m).
