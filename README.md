@@ -15,6 +15,10 @@ In cocos2dx-store there are 3 relevant scenes: MainScene, StoreAScene and StoreB
     StoreAScene - the store's first window that contains a list of VirtualGoods.
     StoreBScene - the store's second window that contains a list of VirtualCurrencyPacks.
 
+We suggest that you go obver the information on ios-store and android-store:
+- ios-store [project](https://github.com/soomla/ios-store) [wiki](https://github.com/soomla/ios-store/wiki)
+- android-store [project](https://github.com/soomla/android-store) [wiki](https://github.com/soomla/android-store/wiki)
+
 Getting Started
 ---
 
@@ -57,6 +61,23 @@ The example Android project needs to be enough, but if you want more info than t
 6. In the above [Getting Started](https://github.com/soomla/cocos2dx-store#getting-started), we said you need to recursively clone cocos2dx-store. By doing that you also cloned [android-store](https://www.github.com/soomla/android-store) into the folder 'submodules'. Make sure you add the folder 'SoomlaAndroidStore/src' from android-store into your classpath as a source folder.
 7. Make sure you go over [ios-store Getting Started](https://github.com/soomla/android-store#getting-started) for more instructions.
 
+Contribution
+---
 
+We want you!
+
+Fork -> Clone -> Implement -> Test -> Pull-Request. We have great RESPECT for contributors.
+
+SOOMLA, Elsewhere ...
+---
+
++ [Website](http://project.soom.la/)
++ [On Facebook](https://www.facebook.com/pages/The-SOOMLA-Project/389643294427376).
++ [On AngelList](https://angel.co/the-soomla-project)
+
+License
+---
+MIT License. Copyright (c) 2012 SOOMLA. http://project.soom.la
++ http://www.opensource.org/licenses/MIT
 
 
