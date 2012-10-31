@@ -8,11 +8,11 @@ LOCAL_MODULE_FILENAME := libhellocpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../Classes/JniHelpers.cpp \
-                   ../../Classes/cocos2dx_StoreController.cpp \
-                   ../../Classes/cocos2dx_StoreInventory.cpp \
-                   ../../Classes/cocos2dx_StoreInfo.cpp \
-                   ../../Classes/com_soomla_store_EventHandlerBridge.cpp \
+                   ../../Classes/StoreBridge/JniHelpers.cpp \
+                   ../../Classes/StoreBridge/cocos2dx_StoreController.cpp \
+                   ../../Classes/StoreBridge/cocos2dx_StoreInventory.cpp \
+                   ../../Classes/StoreBridge/cocos2dx_StoreInfo.cpp \
+                   ../../Classes/StoreBridge/com_soomla_cocos2dx_store_EventHandlerBridge.cpp \
                    ../../Classes/GameMenuItem.cpp \
                    ../../Classes/MainScene.cpp \
                    ../../Classes/StoreAScene.cpp \

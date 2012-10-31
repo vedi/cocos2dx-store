@@ -2,17 +2,15 @@
 #include "GameMenuItem.h"
 #include "MainScene.h"
 #include "StoreBScene.h"
-#include "cocos2dx_StoreController.h"
-#include "cocos2dx_StoreInventory.h"
-#include "cocos2dx_StoreInfo.h"
+#include "StoreBridge/cocos2dx_StoreController.h"
+#include "StoreBridge/cocos2dx_StoreInventory.h"
+#include "StoreBridge/cocos2dx_StoreInfo.h"
 #include "Includes.h"
 
-#include <string>
 #include <sstream> 
 #include <pthread.h>
 
 USING_NS_CC;
-using namespace std;
 
 CCLabelTTF* StoreAScene::goodsPriceBalanceLabels[];
 CCLabelTTF* StoreAScene::pLabelBalance;
@@ -128,10 +126,9 @@ void StoreAScene::menuChooseCallback(CCObject* pSender)
 		GameMenuItem* item = (GameMenuItem*)pSender;
 
 		int tag = item->getTag();
-		char itemId[512];
-		snprintf(itemId, sizeof(itemId), itemIdFromTag(tag));
+		string itemId = itemIdFromTag(tag);
 		try{
-			cocos2dx_StoreController::buyVirtualGood(itemId);
+			cocos2dx_StoreController::buyVirtualGood(itemId.c_str());
 		}
 		catch (cocos2dx_VirtualItemNotFoundException& e) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -156,13 +153,12 @@ void StoreAScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visi
 					this,
 					menu_selector(StoreAScene::menuChooseCallback));
 
-	char itemId[512];
-	snprintf(itemId, sizeof(itemId), itemIdFromTag(tag));
+	string itemId = itemIdFromTag(tag);
 	
 	// TODO: exception handling ..
-    string nameS = cocos2dx_StoreInfo::getGoodName(itemId);
-	string infoS = cocos2dx_StoreInfo::getGoodDescription(itemId);
-	int price = cocos2dx_StoreInfo::getGoodPriceForCurrency(itemId, "currency_muffin");
+    string nameS = cocos2dx_StoreInfo::getGoodName(itemId.c_str());
+	string infoS = cocos2dx_StoreInfo::getGoodDescription(itemId.c_str());
+	int price = cocos2dx_StoreInfo::getGoodPriceForCurrency(itemId.c_str(), "currency_muffin");
 	int balance = 0;
 	const char * name = nameS.c_str();
 	const char * info = infoS.c_str();
@@ -206,7 +202,7 @@ void StoreAScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visi
 
 	menu->addChild(pChooseItem, 1);
 	
-	setPriceBalanceLabel(itemId);
+	setPriceBalanceLabel(itemId.c_str());
 }
 
 void StoreAScene::setCurrencyBalanceLabel() {
@@ -264,22 +260,34 @@ int StoreAScene::tagFromItemId(const char* itemId) {
 	return 0;
 }
 
-const char* StoreAScene::itemIdFromTag(int tag) {
+string StoreAScene::itemIdFromTag(int tag) {
+	string ret;
 	switch (tag)
 	{
-	case 0: return "fruit_cake";
+	case 0: 
+		ret = "fruit_cake";
+		return ret;
 	    break;
-	case 1: return "pavlova";
+	case 1: 
+		ret = "pavlova";
+		return ret;
 	    break;
-	case 2: return "cream_cup";
+	case 2: 
+		ret = "cream_cup";
+		return ret;
 	    break;
-	case 3: return "chocolate_cake";
+	case 3: 
+		ret = "chocolate_cake";
+		return ret;
 	    break;
-	default: return "ERROR";
+	default: 
+		ret = "ERROR";
+		return ret;
 		break;
 	}
 	
-	return "ERROR";
+	ret = "ERROR";
+	return ret;
 }
 
 

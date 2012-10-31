@@ -1,17 +1,15 @@
 #include "StoreBScene.h"
 #include "GameMenuItem.h"
 #include "StoreAScene.h"
-#include "cocos2dx_StoreInventory.h"
-#include "cocos2dx_StoreController.h"
-#include "cocos2dx_StoreInfo.h"
+#include "StoreBridge/cocos2dx_StoreInventory.h"
+#include "StoreBridge/cocos2dx_StoreController.h"
+#include "StoreBridge/cocos2dx_StoreInfo.h"
 #include "Includes.h"
 
-#include <string>
 #include <sstream> 
 
 
 USING_NS_CC;
-using namespace std;
 
 CCLabelTTF* StoreBScene::pLabelBalance;
 
@@ -108,7 +106,7 @@ void StoreBScene::menuChooseCallback(CCObject* pSender)
 
 		int tag = item->getTag();
 		char productId[512];
-		snprintf(productId, sizeof(productId), productIdFromTag(tag));
+		snprintf(productId, sizeof(productId), productIdFromTag(tag).c_str());
 		try{
 			if (tag == 0) {
 				
@@ -150,23 +148,22 @@ void StoreBScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visi
 					this,
 					menu_selector(StoreBScene::menuChooseCallback));
 
-	char itemId[512];
-	snprintf(itemId, sizeof(itemId), itemIdFromTag(tag));
+	string itemId = itemIdFromTag(tag);
 
 	char name[512];
 	char info[512];
 	double price = 0;
 	int balance = 0;
-	if (strcmp (itemId,"ERROR") == 0) {
+	if (itemId == "ERROR") {
 		snprintf(name, sizeof(name), "Remove Ads!");
 		snprintf(info, sizeof(info), "Test purchase of MANAGED item.");
 		price = 5.99f;
 	}
 	else {
 		// TODO: exception handling ..
-	    string nameS = cocos2dx_StoreInfo::getPackName(itemId);
-		string infoS = cocos2dx_StoreInfo::getPackDescription(itemId);
-		price = cocos2dx_StoreInfo::getPackPrice(itemId);
+	    string nameS = cocos2dx_StoreInfo::getPackName(itemId.c_str());
+		string infoS = cocos2dx_StoreInfo::getPackDescription(itemId.c_str());
+		price = cocos2dx_StoreInfo::getPackPrice(itemId.c_str());
 
 		snprintf(name, sizeof(name), nameS.c_str());
 		snprintf(info, sizeof(info), infoS.c_str());
@@ -212,24 +209,24 @@ void StoreBScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visi
 	menu->addChild(pChooseItem, 1);
 }
 
-const char* StoreBScene::productIdFromTag(int tag) {
+string StoreBScene::productIdFromTag(int tag) {
 	
-	char itemId[512];
-	snprintf(itemId, sizeof(itemId), itemIdFromTag(tag));
+	string itemId = itemIdFromTag(tag);
 	
-	if (strcmp (itemId,"ERROR") == 0) {
-		return "no_ads";
+	if (itemId == "ERROR") {
+		string ret("no_ads");
+		return ret;
 	}
 	else {
 		// TODO: exception handling ..
-	    string p = cocos2dx_StoreInfo::getPackProductId(itemId);
-		return p.c_str();
+	    return cocos2dx_StoreInfo::getPackProductId(itemId.c_str());
 	}
 	
-	return "ERROR";
+	string ret("ERROR");
+	return ret;
 }
 
-const char* StoreBScene::itemIdFromTag(int tag) {
+string StoreBScene::itemIdFromTag(int tag) {
 	switch (tag)
 	{
 	case 1: return "muffins_10";

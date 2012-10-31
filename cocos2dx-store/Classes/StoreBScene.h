@@ -2,15 +2,17 @@
 #define __STOREB_SCENE_H__
 
 #include "cocos2d.h"
+#include <string>
 
 USING_NS_CC;
+using namespace std;
 
 class StoreBScene : public cocos2d::CCLayerColor
 {
 private:
-	const char* productIdFromTag(int tag);
+	string productIdFromTag(int tag);
 	void createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visibleSize, int tag, const char* img);
-	const char* itemIdFromTag(int tag);
+	string itemIdFromTag(int tag);
 		
 	static CCLabelTTF* pLabelBalance;
 public:

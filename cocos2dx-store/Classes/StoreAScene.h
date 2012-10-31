@@ -2,14 +2,16 @@
 #define __STOREA_SCENE_H__
 
 #include "cocos2d.h"
+#include <string>
 
 USING_NS_CC;
+using namespace std;
 
 class StoreAScene : public cocos2d::CCLayerColor
 {
 private:
 	void createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visibleSize, int tag, const char* img);
-	const char* itemIdFromTag(int tag);
+	string itemIdFromTag(int tag);
 	static int tagFromItemId(const char* itemId);
 	
 	static CCLabelTTF* goodsPriceBalanceLabels[4];

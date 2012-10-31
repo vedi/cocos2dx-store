@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "MainScene.h"
-#include "cocos2dx_StoreController.h"
+#include "StoreBridge/cocos2dx_StoreController.h"
 
 USING_NS_CC;
 

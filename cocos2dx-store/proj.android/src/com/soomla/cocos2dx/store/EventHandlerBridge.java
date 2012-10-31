@@ -1,5 +1,6 @@
 package com.soomla.cocos2dx.store;
 
+import com.soomla.store.IStoreEventHandler;
 import com.soomla.store.domain.data.GoogleMarketItem;
 import com.soomla.store.domain.data.VirtualGood;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;

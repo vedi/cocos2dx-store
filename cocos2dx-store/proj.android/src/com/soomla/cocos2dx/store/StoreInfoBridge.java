@@ -7,7 +7,7 @@ import com.soomla.store.exceptions.VirtualItemNotFoundException;
 
 public class StoreInfoBridge {
 
-    static String getPackitemId(String itemId) throws VirtualItemNotFoundException {
+    static String getPackProductId(String itemId) throws VirtualItemNotFoundException {
         VirtualCurrencyPack pack = StoreInfo.getInstance().getPackByItemId(itemId);
         return pack.getProductId();
     }

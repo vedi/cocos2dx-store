@@ -102,7 +102,6 @@
 		C031BD251635BDBD005F73E3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		C031BD261635BDBD005F73E3 /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = Classes/AppDelegate.cpp; sourceTree = "<group>"; };
 		C031BD471635C4C7005F73E3 /* cocos2dx_StoreController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = cocos2dx_StoreController.mm; path = ios/cocos2dx_StoreController.mm; sourceTree = "<group>"; };
-		C031BD4A1635C551005F73E3 /* cocos2dx_StoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_StoreController.h; path = Classes/cocos2dx_StoreController.h; sourceTree = "<group>"; };
 		C031BDCB1635C645005F73E3 /* JSONConsts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONConsts.h; sourceTree = "<group>"; };
 		C031BDCC1635C645005F73E3 /* JSONConsts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONConsts.m; sourceTree = "<group>"; };
 		C031BDCD1635C645005F73E3 /* StorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageManager.h; sourceTree = "<group>"; };
@@ -165,11 +164,8 @@
 		C031BE2A1635C714005F73E3 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		C031BE2C1635C71A005F73E3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C031BE2E1635C720005F73E3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		C031BE3116370E9B005F73E3 /* cocos2dx_VirtualItemNotFoundException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_VirtualItemNotFoundException.h; path = Classes/cocos2dx_VirtualItemNotFoundException.h; sourceTree = "<group>"; };
-		C031BE341637FE84005F73E3 /* cocos2dx_StoreInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_StoreInventory.h; path = Classes/cocos2dx_StoreInventory.h; sourceTree = "<group>"; };
 		C0693090163C876C0037E975 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		C0693092163C87760037E975 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		C0693095163D27730037E975 /* cocos2dx_StoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_StoreInfo.h; path = Classes/cocos2dx_StoreInfo.h; sourceTree = "<group>"; };
 		C06930A0163D86E30037E975 /* cocos2dx_StoreInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = cocos2dx_StoreInfo.mm; path = ios/cocos2dx_StoreInfo.mm; sourceTree = "<group>"; };
 		C0B042D3163BFCB50015400E /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		C0B042D4163BFD150015400E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ios/Resources/Info.plist; sourceTree = "<group>"; };
@@ -181,10 +177,8 @@
 		C0B042DB163BFD2B0015400E /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "ios/Resources/Icon@2x.png"; sourceTree = "<group>"; };
 		C0B042E6163BFE960015400E /* GameMenuItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameMenuItem.cpp; path = Classes/GameMenuItem.cpp; sourceTree = "<group>"; };
 		C0B042E7163BFE960015400E /* GameMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameMenuItem.h; path = Classes/GameMenuItem.h; sourceTree = "<group>"; };
-		C0B042E8163BFE960015400E /* cocos2dx_InsufficientFundsException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_InsufficientFundsException.h; path = Classes/cocos2dx_InsufficientFundsException.h; sourceTree = "<group>"; };
 		C0B042E9163BFE960015400E /* MainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MainScene.cpp; path = Classes/MainScene.cpp; sourceTree = "<group>"; };
 		C0B042EA163BFE960015400E /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainScene.h; path = Classes/MainScene.h; sourceTree = "<group>"; };
-		C0B042EB163BFE960015400E /* cocos2dx_NotEnoughGoodsException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_NotEnoughGoodsException.h; path = Classes/cocos2dx_NotEnoughGoodsException.h; sourceTree = "<group>"; };
 		C0B042EC163BFE960015400E /* StoreAScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StoreAScene.cpp; path = Classes/StoreAScene.cpp; sourceTree = "<group>"; };
 		C0B042ED163BFE960015400E /* StoreAScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreAScene.h; path = Classes/StoreAScene.h; sourceTree = "<group>"; };
 		C0B042EE163BFE960015400E /* StoreBScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StoreBScene.cpp; path = Classes/StoreBScene.cpp; sourceTree = "<group>"; };
@@ -200,6 +194,12 @@
 		C0B0435C163C83B30015400E /* iphone */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iphone; path = Resources/iphone; sourceTree = "<group>"; };
 		C0B0435D163C83B30015400E /* iphonehd */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iphonehd; path = Resources/iphonehd; sourceTree = "<group>"; };
 		C0B0436A163C84860015400E /* cocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2dx.xcodeproj; path = "cocos2dx-store/libs/cocos2dx/proj.ios/cocos2dx.xcodeproj"; sourceTree = "<group>"; };
+		C0C3E20616413CAA00E5C103 /* cocos2dx_InsufficientFundsException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_InsufficientFundsException.h; sourceTree = "<group>"; };
+		C0C3E20716413CAA00E5C103 /* cocos2dx_NotEnoughGoodsException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_NotEnoughGoodsException.h; sourceTree = "<group>"; };
+		C0C3E20916413CAA00E5C103 /* cocos2dx_StoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_StoreController.h; sourceTree = "<group>"; };
+		C0C3E20B16413CAA00E5C103 /* cocos2dx_StoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_StoreInfo.h; sourceTree = "<group>"; };
+		C0C3E20D16413CAA00E5C103 /* cocos2dx_StoreInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_StoreInventory.h; sourceTree = "<group>"; };
+		C0C3E20E16413CAA00E5C103 /* cocos2dx_VirtualItemNotFoundException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_VirtualItemNotFoundException.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +323,7 @@
 		C031BD241635BDBD005F73E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C0C3E20516413CAA00E5C103 /* StoreBridge */,
 				C0B042E6163BFE960015400E /* GameMenuItem.cpp */,
 				C0B042E7163BFE960015400E /* GameMenuItem.h */,
 				C0B042E9163BFE960015400E /* MainScene.cpp */,
@@ -334,12 +335,6 @@
 				C031BD251635BDBD005F73E3 /* AppDelegate.h */,
 				C031BD261635BDBD005F73E3 /* AppDelegate.cpp */,
 				C0B042F5163C023A0015400E /* Includes.h */,
-				C031BD4A1635C551005F73E3 /* cocos2dx_StoreController.h */,
-				C031BE341637FE84005F73E3 /* cocos2dx_StoreInventory.h */,
-				C0693095163D27730037E975 /* cocos2dx_StoreInfo.h */,
-				C0B042E8163BFE960015400E /* cocos2dx_InsufficientFundsException.h */,
-				C0B042EB163BFE960015400E /* cocos2dx_NotEnoughGoodsException.h */,
-				C031BE3116370E9B005F73E3 /* cocos2dx_VirtualItemNotFoundException.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -475,6 +470,20 @@
 				C0B04372163C84860015400E /* libcocos2dx.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C0C3E20516413CAA00E5C103 /* StoreBridge */ = {
+			isa = PBXGroup;
+			children = (
+				C0C3E20616413CAA00E5C103 /* cocos2dx_InsufficientFundsException.h */,
+				C0C3E20716413CAA00E5C103 /* cocos2dx_NotEnoughGoodsException.h */,
+				C0C3E20916413CAA00E5C103 /* cocos2dx_StoreController.h */,
+				C0C3E20B16413CAA00E5C103 /* cocos2dx_StoreInfo.h */,
+				C0C3E20D16413CAA00E5C103 /* cocos2dx_StoreInventory.h */,
+				C0C3E20E16413CAA00E5C103 /* cocos2dx_VirtualItemNotFoundException.h */,
+			);
+			name = StoreBridge;
+			path = Classes/StoreBridge;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

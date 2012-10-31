@@ -30,7 +30,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import com.soomla.store.StoreControllerBridge;
+import com.soomla.cocos2dx.store.StoreControllerBridge;
 import org.cocos2dx.lib.Cocos2dxActivity;
 
 import android.os.Bundle;
