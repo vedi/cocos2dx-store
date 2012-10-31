@@ -8,6 +8,10 @@
 
 #include <sstream> 
 
+/**
+ * This is the second scene (the window where the VirtualCurrencyPacks are shown).
+ * In this file you can find example calls to the store's interfaces.
+ **/
 
 USING_NS_CC;
 

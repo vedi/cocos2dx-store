@@ -13,6 +13,10 @@ AppDelegate::~AppDelegate()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
+    
+    /**
+     * The initialization of StoreController. This is the first and ONLY time it's initialized.
+     **/
     cocos2dx_StoreController::initialize(true);
     
     // initialize director

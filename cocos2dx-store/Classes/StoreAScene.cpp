@@ -12,6 +12,13 @@
 
 USING_NS_CC;
 
+
+/**
+ * This is the first scene (the window where the VirtualGoods are shown).
+ * In this file you can find example calls to the store's interfaces.
+ **/
+
+
 CCLabelTTF* StoreAScene::goodsPriceBalanceLabels[];
 CCLabelTTF* StoreAScene::pLabelBalance;
 

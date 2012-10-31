@@ -4,6 +4,12 @@
 
 USING_NS_CC;
 
+/**
+ * This is the welcome scene.
+ * In this file you can find example calls to the store's interfaces.
+ **/
+
+
 Soomla* Soomla::create(const char *pszFileName, CCSprite* pSpriteBox)
 {
 	Soomla *pobSprite = new Soomla();
