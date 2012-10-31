@@ -22,6 +22,12 @@ extern NSString* const FIFTYMUFF_PACK_PRODUCT_ID;
 extern NSString* const FORTYMUFF_PACK_PRODUCT_ID;
 extern NSString* const THOUSANDMUFF_PACK_PRODUCT_ID;
 
+
+/**
+ * This is an example of an implementation of IStoreAssets.
+ * You'll need to create you implementation of IStoreAssets so the store will know what are the assets for your specific game.
+ */
+
 @interface MuffinRushAssets : NSObject <IStoreAsssets>{
     
 }

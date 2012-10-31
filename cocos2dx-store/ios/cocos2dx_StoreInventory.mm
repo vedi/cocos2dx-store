@@ -10,6 +10,14 @@
 #import "StoreInventory.h"
 #import "VirtualItemNotFoundException.h"
 
+
+/**
+ * This implementation is used to let cocos2dx functions perform actions on StoreInventory.
+ *
+ * You can see the documentation of every function in StoreInventory.
+ */
+
+
 int cocos2dx_StoreInventory::getCurrencyBalance(string currencyItemId) throw (cocos2dx_VirtualItemNotFoundException&){
     @try {
         NSString * str = [[NSString alloc] initWithBytes:currencyItemId.c_str() length:strlen(currencyItemId.c_str()) encoding:NSUTF8StringEncoding];

@@ -13,6 +13,13 @@
 #import "AppStoreItem.h"
 #import "VirtualItemNotFoundException.h"
 
+/**
+ * This implementation is used to let cocos2dx functions retrieve data from StoreInfo.
+ *
+ * You can see the documentation of every function in StoreInfo.
+ */
+
+
 string cocos2dx_StoreInfo::getPackProductId(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
         NSString * str = [[NSString alloc] initWithBytes:itemId length:strlen(itemId) encoding:NSUTF8StringEncoding];

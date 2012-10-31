@@ -6,6 +6,12 @@
 #import "NotEnoughGoodsException.h"
 #import "MuffinRushAssets.h"
 
+/**
+ * This implementation is used to let cocos2dx functions perform actions on StoreController.
+ *
+ * You can see the documentation of every function in StoreController.
+ */
+
 void cocos2dx_StoreController::storeOpening() {
     [[StoreController getInstance] storeOpening];
 }
@@ -17,6 +23,8 @@ void cocos2dx_StoreController::storeClosing() {
 void cocos2dx_StoreController::initialize(bool debug) {
     /**
      * We initialize StoreController when the application loads !
+     * 
+     * You'll have to provide your implementation of IStoreAssets instead of MuffinRushAssets.
      */
     [[StoreController getInstance] initializeWithStoreAssets:[[MuffinRushAssets alloc] init]];
 
