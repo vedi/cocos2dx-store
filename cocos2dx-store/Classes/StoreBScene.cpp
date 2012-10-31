@@ -218,8 +218,15 @@ string StoreBScene::productIdFromTag(int tag) {
 		return ret;
 	}
 	else {
-		// TODO: exception handling ..
-	    return cocos2dx_StoreInfo::getPackProductId(itemId.c_str());
+		try {
+            return cocos2dx_StoreInfo::getPackProductId(itemId.c_str());
+        } catch (cocos2dx_VirtualItemNotFoundException& e) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+			__android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "Cought cocos2dx_VirtualItemNotFoundException from NATIVE!");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+            iOSHelper::LogMessage("Cought cocos2dx_VirtualItemNotFoundException!");
+#endif
+        }
 	}
 	
 	string ret("ERROR");
