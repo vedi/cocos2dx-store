@@ -167,6 +167,7 @@
 		C0693090163C876C0037E975 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		C0693092163C87760037E975 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		C06930A0163D86E30037E975 /* cocos2dx_StoreInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = cocos2dx_StoreInfo.mm; path = ios/cocos2dx_StoreInfo.mm; sourceTree = "<group>"; };
+		C08CF1C4164165FE007603E8 /* Includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Includes.h; sourceTree = "<group>"; };
 		C0B042D3163BFCB50015400E /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		C0B042D4163BFD150015400E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ios/Resources/Info.plist; sourceTree = "<group>"; };
 		C0B042D6163BFD2B0015400E /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "ios/Resources/Icon-72.png"; sourceTree = "<group>"; };
@@ -183,7 +184,6 @@
 		C0B042ED163BFE960015400E /* StoreAScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreAScene.h; path = Classes/StoreAScene.h; sourceTree = "<group>"; };
 		C0B042EE163BFE960015400E /* StoreBScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StoreBScene.cpp; path = Classes/StoreBScene.cpp; sourceTree = "<group>"; };
 		C0B042EF163BFE960015400E /* StoreBScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreBScene.h; path = Classes/StoreBScene.h; sourceTree = "<group>"; };
-		C0B042F5163C023A0015400E /* Includes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Includes.h; path = Classes/Includes.h; sourceTree = "<group>"; };
 		C0B04306163C59700015400E /* iOSHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iOSHelper.mm; path = ios/iOSHelper.mm; sourceTree = "<group>"; };
 		C0B04307163C59700015400E /* iOSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iOSHelper.h; path = ios/iOSHelper.h; sourceTree = "<group>"; };
 		C0B0430E163C5DDE0015400E /* MuffinRushAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MuffinRushAssets.h; path = ios/MuffinRushAssets.h; sourceTree = "<group>"; };
@@ -334,7 +334,6 @@
 				C0B042EF163BFE960015400E /* StoreBScene.h */,
 				C031BD251635BDBD005F73E3 /* AppDelegate.h */,
 				C031BD261635BDBD005F73E3 /* AppDelegate.cpp */,
-				C0B042F5163C023A0015400E /* Includes.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -475,6 +474,7 @@
 		C0C3E20516413CAA00E5C103 /* StoreBridge */ = {
 			isa = PBXGroup;
 			children = (
+				C08CF1C4164165FE007603E8 /* Includes.h */,
 				C0C3E20616413CAA00E5C103 /* cocos2dx_InsufficientFundsException.h */,
 				C0C3E20716413CAA00E5C103 /* cocos2dx_NotEnoughGoodsException.h */,
 				C0C3E20916413CAA00E5C103 /* cocos2dx_StoreController.h */,

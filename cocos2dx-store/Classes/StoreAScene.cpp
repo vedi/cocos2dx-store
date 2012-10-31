@@ -5,7 +5,7 @@
 #include "StoreBridge/cocos2dx_StoreController.h"
 #include "StoreBridge/cocos2dx_StoreInventory.h"
 #include "StoreBridge/cocos2dx_StoreInfo.h"
-#include "Includes.h"
+#include "StoreBridge/Includes.h"
 
 #include <sstream> 
 #include <pthread.h>
