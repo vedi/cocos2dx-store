@@ -1,6 +1,7 @@
-package com.soomla.store;
+package com.soomla.cocos2dx.store;
 
 import android.util.Log;
+import com.soomla.store.StoreInventory;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 
 public class StoreInventoryBridge {

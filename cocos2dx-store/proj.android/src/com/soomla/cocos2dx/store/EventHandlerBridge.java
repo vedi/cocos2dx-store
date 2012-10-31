@@ -1,4 +1,4 @@
-package com.soomla.store;
+package com.soomla.cocos2dx.store;
 
 import com.soomla.store.domain.data.GoogleMarketItem;
 import com.soomla.store.domain.data.VirtualGood;

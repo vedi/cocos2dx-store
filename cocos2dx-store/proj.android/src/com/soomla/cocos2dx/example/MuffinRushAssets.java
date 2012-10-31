@@ -1,4 +1,4 @@
-package com.soomla.example;
+package com.soomla.cocos2dx.example;
 
 import com.soomla.store.IStoreAssets;
 import com.soomla.store.domain.data.*;

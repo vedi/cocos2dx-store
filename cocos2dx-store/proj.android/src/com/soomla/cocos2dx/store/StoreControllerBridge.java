@@ -1,9 +1,11 @@
-package com.soomla.store;
+package com.soomla.cocos2dx.store;
 
 import android.app.Activity;
 import android.os.Handler;
 import android.util.Log;
-import com.soomla.example.MuffinRushAssets;
+import com.soomla.cocos2dx.example.MuffinRushAssets;
+import com.soomla.store.StoreController;
+import com.soomla.store.StoreEventHandlers;
 import com.soomla.store.exceptions.InsufficientFundsException;
 import com.soomla.store.exceptions.NotEnoughGoodsException;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
