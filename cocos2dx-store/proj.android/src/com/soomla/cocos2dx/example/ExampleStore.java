@@ -38,12 +38,11 @@ import org.cocos2dx.lib.Cocos2dxEditText;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.cocos2dx.lib.Cocos2dxRenderer;
 
+/**
+ * This class holds the OpenGL view of cocosedx.
+ */
 public class ExampleStore extends Cocos2dxActivity{
     private Cocos2dxGLSurfaceView mGLView;
-
-//    static {
-//        System.loadLibrary("game");
-//    }
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -88,7 +87,11 @@ public class ExampleStore extends Cocos2dxActivity{
             finish();
         }
 
-        StoreControllerBridge.initialize(this, new Handler(), mGLView);
+        /**
+         * initialize the StoreControllerBridge
+         */
+        StoreControllerBridge.initialize(this, new Handler(), mGLView,
+                new MuffinRushAssets(), "[YOUR PUBLIC KEY FROM GOOGLE PLAY]");
     }
 
     @Override

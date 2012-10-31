@@ -5,6 +5,10 @@ import com.soomla.store.domain.data.*;
 
 import java.util.HashMap;
 
+/**
+ * This is an example of an implementation of IStoreAssets.
+ * You'll need to create you implementation of IStoreAssets so the store will know what are the assets for your specific game.
+ */
 public class MuffinRushAssets implements IStoreAssets {
 
     @Override

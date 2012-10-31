@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Handler;
 import android.util.Log;
 import com.soomla.cocos2dx.example.MuffinRushAssets;
+import com.soomla.store.IStoreAssets;
 import com.soomla.store.StoreController;
 import com.soomla.store.StoreEventHandlers;
 import com.soomla.store.exceptions.InsufficientFundsException;
@@ -13,24 +14,24 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 public class StoreControllerBridge {
 
-    private static Activity        mActivity   = null;
-    private static Handler         mHandler    = null;
+    private static Activity mActivity   = null;
+    private static Handler  mHandler    = null;
+    private static IStoreAssets mStoreAssets   = null;
+    private static String mPublicKey           = "";
 
-    public static void initialize(Activity activity, Handler handler, Cocos2dxGLSurfaceView mGLView) {
+    public static void initialize(Activity activity, Handler handler,
+                                  Cocos2dxGLSurfaceView mGLView, IStoreAssets storeAssets, String publicKey) {
         mActivity   = activity;
         mHandler    = handler;
+        mStoreAssets = storeAssets;
+        mPublicKey = publicKey;
 
         StoreEventHandlers.getInstance().addEventHandler(new EventHandlerBridge(mGLView));
     }
 
     static void initialize(boolean debug) {
         Log.d("SOOMLA", "initialize is called from java !");
-        StoreController.getInstance().initialize(mActivity, new MuffinRushAssets(),
-                "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAndHbBVrbynZ9LOQhRCA/+dzYyQeT7qcbo6BD16O+7ltau6JLy78emOo4615" +
-                        "+N3dl5RJ3FBlRw14aS+KhNAf0gMlrk3RBQA5d+sY/8oD22kC8Gn7blwsmk3LWYqOiGGXFtRxUyBxdibjFo0+qBz+BXJzfKY" +
-                        "V+Y3wSDz0RBUoY9+akbF3EHuB6d02fXLeeIAswB28OlAM4PUuHSbj9lDNFefJwawQ7kgUALETJ98ImKlPUzG0jVh1t9vUOa" +
-                        "rsIZdzWmVu69+Au3mniqzcGY9gZyfYf0n7cNR3isSDfNOjeisDpfNpY/ljf71/6ns3/WjDwtXB2eDal5fz7fbsLEWRkSwID" +
-                        "AQAB", debug);
+        StoreController.getInstance().initialize(mActivity, mStoreAssets, mPublicKey, debug);
     }
 
     static void storeOpening() {
