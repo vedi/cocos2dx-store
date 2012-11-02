@@ -61,6 +61,71 @@ The example Android project needs to be enough, but if you want more info than t
 6. In the above [Getting Started](https://github.com/soomla/cocos2dx-store#getting-started), we said you need to recursively clone cocos2dx-store. By doing that you also cloned [android-store](https://www.github.com/soomla/android-store) into the folder 'submodules'. Make sure you add the folder 'SoomlaAndroidStore/src' from android-store into your classpath as a source folder.
 7. Make sure you go over [ios-store Getting Started](https://github.com/soomla/android-store#getting-started) for more instructions.
 
+What's next? In App Purchasing.
+---
+
+android-store and ios-store provides you with VirtualCurrencyPacks. VirtualCurrencyPack is a representation of a "bag" of currencies that you want to let your users purchase in Google Play or App-Store. You define VirtualCurrencyPacks in your game specific assets file which is your implemetation of IStoreAssets (examples: [android](https://github.com/soomla/android-store/blob/master/SoomlaAndroidExample/src/com/soomla/example/MuffinRushAssets.java) [ios](https://github.com/soomla/ios-store/blob/master/SoomlaiOSStoreExample/SoomlaiOSStoreExample/MuffinRushAssets.m)). 
+After you do that you can use cocos2dx-store to call cocos2dx_StoreController to make actual purchases and android-store or ios-store will take care of the rest.
+
+Example:
+
+Lets say you have a VirtualCurrencyPack you call TEN_COINS_PACK, a VirtualCurrency you call COIN_CURRENCY and a VirtualCategory you call CURRENCYPACKS_CATEGORY:
+
+```Java
+VirtualCurrencyPack TEN_COINS_PACK = new VirtualCurrencyPack(
+        "10 Coins",                // name
+        "A pack of 10 coins",      // description
+        "10_coins",                // item id
+        TEN_COINS_PACK_PRODUCT_ID, // product id in Google Market
+        1.99,                      // actual price in $$
+        10,                        // number of currencies in the pack
+        COIN_CURRENCY);            // the associated currency
+```
+
+```objective-c
+VirtualCurrencyPack* TEN_COINS_PACK = [[VirtualCurrencyPack alloc] initWithName:@"10 Coins"
+                                              andDescription:@"A pack of 10 coins"
+                                                   andItemId:@"10_coins"
+                                                    andPrice:0.99
+                                                andProductId:TEN_COINS_PACK_PRODUCT_ID
+                                           andCurrencyAmount:10
+                                                 andCurrency:COIN_CURRENCY];
+```
+
+Now you can use cocos2dx_StoreController to call the in-app purchasing mechanism:
+
+>This is a full example the shows you how to do everything from the click event handler to the actual purchase and event handling. You can find the full example [here](https://github.com/soomla/cocos2dx-store/blob/master/cocos2dx-store/Classes/StoreBScene.cpp).
+
+```cpp
+void StoreScene::menuChooseCallback(CCObject* pSender)
+{
+    if (pSender)
+    {
+		GameMenuItem* item = (GameMenuItem*)pSender;
+
+		int tag = item->getTag();
+		char productId[512];
+		snprintf(productId, sizeof(productId), productIdFromTag(tag).c_str());
+		try{
+			if (tag == 0) {
+
+			} else {
+				cocos2dx_StoreController::buyCurrencyPack(productId);
+			}
+		}
+		catch (cocos2dx_VirtualItemNotFoundException& e) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+			__android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "Cought cocos2dx_VirtualItemNotFoundException from NATIVE!");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+            iOSHelper::LogMessage("Cought cocos2dx_VirtualItemNotFoundException!");
+#endif
+		}
+	}
+}
+```
+
+And that's it! android-store and ios-store knows how to contact Google Play and the App Store for you and redirect the user to the purchasing mechanism. Don't forget to handle in cocos2dx_EventHandler.cpp in order to get the events of successful or failed purchase.
+
 Contribution
 ---
 
