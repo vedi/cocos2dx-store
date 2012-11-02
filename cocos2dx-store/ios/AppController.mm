@@ -4,6 +4,11 @@
 #import "cocos2d.h"
 #import "EAGLView.h"
 #import "AppDelegate.h"
+#import "EventHandling.h"
+#import "cocos2dx_EventHandler.h"
+#import "VirtualCurrencyPack.h"
+#import "AppStoreItem.h"
+#import "VirtualGood.h"
 
 #import "RootViewController.h"
 
@@ -39,6 +44,8 @@ static AppDelegate s_sharedApplication;
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
+    
+    [EventHandling observeAllEventsWithObserver:self withSelector:@selector(eventFired:)];
 
     cocos2d::CCApplication::sharedApplication()->run();
     return YES;
@@ -80,6 +87,51 @@ static AppDelegate s_sharedApplication;
      Called when the application is about to terminate.
      See also applicationDidEnterBackground:.
      */
+}
+
+- (void)eventFired:(NSNotification*)notification{
+    if ([notification.name isEqualToString:EVENT_VIRTUAL_CURRENCY_PACK_PURCHASED]) {
+        VirtualCurrencyPack* pack = (VirtualCurrencyPack*)[notification.userInfo objectForKey:@"VirtualCurrencyPack"];
+        string productId([pack.appstoreItem.productId UTF8String]);
+        cocos2dx_EventHandler::marketPurchase(productId);
+    }
+    else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_PURCHASED]) {
+        VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
+        string itemId([good.itemId UTF8String]);
+        cocos2dx_EventHandler::virtualGoodPurchased(itemId);
+    }
+    else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_EQUIPPED]) {
+        VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
+        string itemId([good.itemId UTF8String]);
+        cocos2dx_EventHandler::virtualGoodEquipped(itemId);
+    }
+    else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_UNEQUIPPED]) {
+        VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
+        string itemId([good.itemId UTF8String]);
+        cocos2dx_EventHandler::virtualGoodUnequipped(itemId);
+    }
+    else if ([notification.name isEqualToString:EVENT_BILLING_SUPPORTED]) {
+        cocos2dx_EventHandler::billingSupported();
+    }
+    else if ([notification.name isEqualToString:EVENT_BILLING_NOT_SUPPORTED]) {
+        cocos2dx_EventHandler::billingNotSupported();
+    }
+    else if ([notification.name isEqualToString:EVENT_MARKET_PURCHASE_STARTED]) {
+        string productId("");
+        cocos2dx_EventHandler::marketPurchaseProcessStarted(productId);
+    }
+    else if ([notification.name isEqualToString:EVENT_GOODS_PURCHASE_STARTED]) {
+        cocos2dx_EventHandler::goodsPurchaseProcessStarted();
+    }
+    else if ([notification.name isEqualToString:EVENT_CLOSING_STORE]) {
+        cocos2dx_EventHandler::closingStore();
+    }
+    else if ([notification.name isEqualToString:EVENT_OPENING_STORE]) {
+        cocos2dx_EventHandler::openingStore();
+    }
+    else if ([notification.name isEqualToString:EVENT_UNEXPECTED_ERROR_IN_STORE]) {
+        cocos2dx_EventHandler::unexpectedErrorInStore();
+    }
 }
 
 
