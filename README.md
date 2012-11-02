@@ -124,7 +124,42 @@ void StoreScene::menuChooseCallback(CCObject* pSender)
 }
 ```
 
-And that's it! android-store and ios-store knows how to contact Google Play and the App Store for you and redirect the user to the purchasing mechanism. Don't forget to handle in cocos2dx_EventHandler.cpp in order to get the events of successful or failed purchase.
+And that's it! android-store and ios-store knows how to contact Google Play and the App Store for you and redirect the user to the purchasing mechanism. 
+**IMPORTANT:** Don't forget to handle in cocos2dx_EventHandler.cpp in order to get the events of successful or failed purchase.
+
+Storage & Meta-Data
+---
+
+When you initialize cocos2dx_StoreController, ios-store and android-store automatically initializes two other classes: StorageManager and StoreInfo which makes 2 cocos2dx classes relevant: 
+* cocos2dx_StoreInventory is used to acccess all stoaage related instances in your game. Use it to access tha balances of virtual currencies and virtual goods (ususally, using their itemIds). 
+* cocos2dx_StoreInfo is the mother of all meta data information about your specific game. ios-store and android-store initializes StoreInfo with your implementation of IStoreAssets so you can use cocos2dx_StoreInfo to retrieve information about your specific game.
+
+The on-device storage is encrypted and kept in a SQLite database. SOOMLA is preparing a cloud-based storage service that'll allow this SQLite to be synced to a cloud-based repository that you'll define. Stay tuned... this is just one of the goodies we prepare for you.
+
+Example Usages
+
+Add 10 coins to the virtual currency with itemId "currency_coin":
+
+```cpp
+string itemId("currency_coin");
+cocos2dx_StoreInventory::addCurrencyAmount(itemId, 10);
+```
+
+Remove 10 virtual goods with itemId "green_hat":
+
+```cpp
+string itemId("green_hat");
+cocos2dx_StoreInventory::removeGoodAmount(itemId, 10);
+```
+
+Get the current balance of green hats (virtual goods with itemId "green_hat"):
+
+```cpp
+string itemId("green_hat");
+int balance = cocos2dx_StoreInventory::getCurrencyBalance(itemId);
+```
+
+>Make sure you handle the appropriate exceptions when using any cocos2dx_* class. Look in the header files in ../Classes/StoreBridge to see what exceptions are thrown.
 
 Contribution
 ---
