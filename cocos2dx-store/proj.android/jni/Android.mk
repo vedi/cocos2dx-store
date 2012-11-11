@@ -11,10 +11,11 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/StoreBridge/JniHelpers.cpp \
                    ../../Classes/StoreBridge/cocos2dx_StoreController.cpp \
                    ../../Classes/StoreBridge/cocos2dx_StoreInventory.cpp \
-				   ../../Classes/StoreBridge/cocos2dx_EventHandler.cpp \
+				   ../../Classes/StoreBridge/cocos2dx_EventHandlers.cpp \
                    ../../Classes/StoreBridge/cocos2dx_StoreInfo.cpp \
                    ../../Classes/StoreBridge/com_soomla_cocos2dx_store_EventHandlerBridge.cpp \
                    ../../Classes/GameMenuItem.cpp \
+                   ../../Classes/EventHandler.cpp \
                    ../../Classes/MainScene.cpp \
                    ../../Classes/StoreAScene.cpp \
                    ../../Classes/StoreBScene.cpp

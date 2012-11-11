@@ -5,7 +5,7 @@
 #import "EAGLView.h"
 #import "AppDelegate.h"
 #import "EventHandling.h"
-#import "cocos2dx_EventHandler.h"
+#import "cocos2dx_EventHandlers.h"
 #import "VirtualCurrencyPack.h"
 #import "AppStoreItem.h"
 #import "VirtualGood.h"
@@ -13,6 +13,14 @@
 #import "RootViewController.h"
 
 @implementation AppController
+
+static RootViewController* viewController;
+
++ (UIViewController*) rootViewController {
+    return viewController;
+}
+
+
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -93,44 +101,44 @@ static AppDelegate s_sharedApplication;
     if ([notification.name isEqualToString:EVENT_VIRTUAL_CURRENCY_PACK_PURCHASED]) {
         VirtualCurrencyPack* pack = (VirtualCurrencyPack*)[notification.userInfo objectForKey:@"VirtualCurrencyPack"];
         string productId([pack.appstoreItem.productId UTF8String]);
-        cocos2dx_EventHandler::marketPurchase(productId);
+        cocos2dx_EventHandlers::getInstance()->marketPurchase(productId);
     }
     else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_PURCHASED]) {
         VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
         string itemId([good.itemId UTF8String]);
-        cocos2dx_EventHandler::virtualGoodPurchased(itemId);
+        cocos2dx_EventHandlers::getInstance()->virtualGoodPurchased(itemId);
     }
     else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_EQUIPPED]) {
         VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
         string itemId([good.itemId UTF8String]);
-        cocos2dx_EventHandler::virtualGoodEquipped(itemId);
+        cocos2dx_EventHandlers::getInstance()->virtualGoodEquipped(itemId);
     }
     else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_UNEQUIPPED]) {
         VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
         string itemId([good.itemId UTF8String]);
-        cocos2dx_EventHandler::virtualGoodUnequipped(itemId);
+        cocos2dx_EventHandlers::getInstance()->virtualGoodUnequipped(itemId);
     }
     else if ([notification.name isEqualToString:EVENT_BILLING_SUPPORTED]) {
-        cocos2dx_EventHandler::billingSupported();
+        cocos2dx_EventHandlers::getInstance()->billingSupported();
     }
     else if ([notification.name isEqualToString:EVENT_BILLING_NOT_SUPPORTED]) {
-        cocos2dx_EventHandler::billingNotSupported();
+        cocos2dx_EventHandlers::getInstance()->billingNotSupported();
     }
     else if ([notification.name isEqualToString:EVENT_MARKET_PURCHASE_STARTED]) {
         string productId("");
-        cocos2dx_EventHandler::marketPurchaseProcessStarted(productId);
+        cocos2dx_EventHandlers::getInstance()->marketPurchaseProcessStarted(productId);
     }
     else if ([notification.name isEqualToString:EVENT_GOODS_PURCHASE_STARTED]) {
-        cocos2dx_EventHandler::goodsPurchaseProcessStarted();
+        cocos2dx_EventHandlers::getInstance()->goodsPurchaseProcessStarted();
     }
     else if ([notification.name isEqualToString:EVENT_CLOSING_STORE]) {
-        cocos2dx_EventHandler::closingStore();
+        cocos2dx_EventHandlers::getInstance()->closingStore();
     }
     else if ([notification.name isEqualToString:EVENT_OPENING_STORE]) {
-        cocos2dx_EventHandler::openingStore();
+        cocos2dx_EventHandlers::getInstance()->openingStore();
     }
     else if ([notification.name isEqualToString:EVENT_UNEXPECTED_ERROR_IN_STORE]) {
-        cocos2dx_EventHandler::unexpectedErrorInStore();
+        cocos2dx_EventHandlers::getInstance()->unexpectedErrorInStore();
     }
 }
 

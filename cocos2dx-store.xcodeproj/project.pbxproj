@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C005144D1650216600078EBB /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C005144B1650216600078EBB /* EventHandler.cpp */; };
+		C00514501650217300078EBB /* cocos2dx_EventHandlers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C005144E1650217300078EBB /* cocos2dx_EventHandlers.cpp */; };
 		C031BA781635BDBA005F73E3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C031BA771635BDBA005F73E3 /* QuartzCore.framework */; };
 		C031BA7A1635BDBA005F73E3 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C031BA791635BDBA005F73E3 /* OpenGLES.framework */; };
 		C031BA7C1635BDBA005F73E3 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C031BA7B1635BDBA005F73E3 /* OpenAL.framework */; };
@@ -56,7 +58,6 @@
 		C0693091163C876C0037E975 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C0693090163C876C0037E975 /* libz.dylib */; };
 		C0693093163C87760037E975 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C0693092163C87760037E975 /* libxml2.dylib */; };
 		C06930A1163D86E30037E975 /* cocos2dx_StoreInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = C06930A0163D86E30037E975 /* cocos2dx_StoreInfo.mm */; };
-		C0AF59541643E57100773053 /* cocos2dx_EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0AF59521643E57100773053 /* cocos2dx_EventHandler.cpp */; };
 		C0B042DC163BFD2B0015400E /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B042D6163BFD2B0015400E /* Icon-72.png */; };
 		C0B042DD163BFD2B0015400E /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B042D7163BFD2B0015400E /* Icon-Small-50.png */; };
 		C0B042DE163BFD2B0015400E /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B042D8163BFD2B0015400E /* Icon-Small.png */; };
@@ -86,6 +87,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C005144B1650216600078EBB /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventHandler.cpp; path = Classes/EventHandler.cpp; sourceTree = "<group>"; };
+		C005144C1650216600078EBB /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventHandler.h; path = Classes/EventHandler.h; sourceTree = "<group>"; };
+		C005144E1650217300078EBB /* cocos2dx_EventHandlers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_EventHandlers.cpp; sourceTree = "<group>"; };
+		C005144F1650217300078EBB /* cocos2dx_EventHandlers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_EventHandlers.h; sourceTree = "<group>"; };
 		C031BA731635BDBA005F73E3 /* cocos2dx-store.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cocos2dx-store.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C031BA771635BDBA005F73E3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C031BA791635BDBA005F73E3 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -169,8 +174,6 @@
 		C0693092163C87760037E975 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		C06930A0163D86E30037E975 /* cocos2dx_StoreInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = cocos2dx_StoreInfo.mm; path = ios/cocos2dx_StoreInfo.mm; sourceTree = "<group>"; };
 		C08CF1C4164165FE007603E8 /* Includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Includes.h; sourceTree = "<group>"; };
-		C0AF59521643E57100773053 /* cocos2dx_EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_EventHandler.cpp; sourceTree = "<group>"; };
-		C0AF59531643E57100773053 /* cocos2dx_EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_EventHandler.h; sourceTree = "<group>"; };
 		C0B042D3163BFCB50015400E /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		C0B042D4163BFD150015400E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ios/Resources/Info.plist; sourceTree = "<group>"; };
 		C0B042D6163BFD2B0015400E /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "ios/Resources/Icon-72.png"; sourceTree = "<group>"; };
@@ -329,6 +332,8 @@
 				C0C3E20516413CAA00E5C103 /* StoreBridge */,
 				C0B042E6163BFE960015400E /* GameMenuItem.cpp */,
 				C0B042E7163BFE960015400E /* GameMenuItem.h */,
+				C005144B1650216600078EBB /* EventHandler.cpp */,
+				C005144C1650216600078EBB /* EventHandler.h */,
 				C0B042E9163BFE960015400E /* MainScene.cpp */,
 				C0B042EA163BFE960015400E /* MainScene.h */,
 				C0B042EC163BFE960015400E /* StoreAScene.cpp */,
@@ -484,8 +489,8 @@
 				C0C3E20B16413CAA00E5C103 /* cocos2dx_StoreInfo.h */,
 				C0C3E20D16413CAA00E5C103 /* cocos2dx_StoreInventory.h */,
 				C0C3E20E16413CAA00E5C103 /* cocos2dx_VirtualItemNotFoundException.h */,
-				C0AF59521643E57100773053 /* cocos2dx_EventHandler.cpp */,
-				C0AF59531643E57100773053 /* cocos2dx_EventHandler.h */,
+				C005144E1650217300078EBB /* cocos2dx_EventHandlers.cpp */,
+				C005144F1650217300078EBB /* cocos2dx_EventHandlers.h */,
 			);
 			name = StoreBridge;
 			path = Classes/StoreBridge;
@@ -618,7 +623,8 @@
 				C0B0431B163C7B250015400E /* cocos2dx_StoreInventory.mm in Sources */,
 				C0B0431E163C7C980015400E /* StoreInventory.m in Sources */,
 				C06930A1163D86E30037E975 /* cocos2dx_StoreInfo.mm in Sources */,
-				C0AF59541643E57100773053 /* cocos2dx_EventHandler.cpp in Sources */,
+				C005144D1650216600078EBB /* EventHandler.cpp in Sources */,
+				C00514501650217300078EBB /* cocos2dx_EventHandlers.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

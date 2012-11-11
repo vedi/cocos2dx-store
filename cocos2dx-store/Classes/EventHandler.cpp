@@ -14,55 +14,56 @@
  * limitations under the License.
  */
 
-#include "cocos2dx_EventHandler.h"
+#include "EventHandler.h"
 #include "StoreAScene.h"
 #include "StoreBScene.h"
 
-void cocos2dx_EventHandler::marketPurchase(string& productId) {
+void EventHandler::marketPurchase(string& productId) {
 	StoreBScene::setCurrencyBalanceLabel();
 }
 
-void cocos2dx_EventHandler::marketRefund(string& productId) {
+void EventHandler::marketRefund(string& productId) {
 	StoreBScene::setCurrencyBalanceLabel();
 }
 
-void cocos2dx_EventHandler::virtualGoodPurchased(string& itemId) {
+void EventHandler::virtualGoodPurchased(string& itemId) {
 	StoreAScene::setPriceBalanceLabel(itemId.c_str());
 	StoreAScene::setCurrencyBalanceLabel();
 }
 
-void cocos2dx_EventHandler::virtualGoodEquipped(string& itemId) {
+void EventHandler::virtualGoodEquipped(string& itemId) {
 	
 }
 
-void cocos2dx_EventHandler::virtualGoodUnequipped(string& itemId) {
-	
+void EventHandler::virtualGoodUnequipped(string& itemId) {
+
 }
 
-void cocos2dx_EventHandler::billingSupported() {
-	
+void EventHandler::billingSupported() {
+
 }
 
-void cocos2dx_EventHandler::billingNotSupported() {
-	
+void EventHandler::billingNotSupported() {
+
 }
 
-void cocos2dx_EventHandler::marketPurchaseProcessStarted(string& productId) {
-	
+void EventHandler::marketPurchaseProcessStarted(string& productId) {
+
 }
 
-void cocos2dx_EventHandler::goodsPurchaseProcessStarted() {
-	
+void EventHandler::goodsPurchaseProcessStarted() {
+
 }
 
-void cocos2dx_EventHandler::closingStore() {
-	
+void EventHandler::closingStore() {
+
 }
 
-void cocos2dx_EventHandler::unexpectedErrorInStore() {
-	
+void EventHandler::unexpectedErrorInStore() {
+
 }
 
-void cocos2dx_EventHandler::openingStore() {
-	
+void EventHandler::openingStore() {
+
 }
+

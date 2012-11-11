@@ -17,15 +17,18 @@
 #include "AppDelegate.h"
 #include "MainScene.h"
 #include "StoreBridge/cocos2dx_StoreController.h"
+#include "StoreBridge/cocos2dx_EventHandlers.h"
 
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
-
+	handler = new EventHandler();
 }
 
 AppDelegate::~AppDelegate() 
 {
+	cocos2dx_EventHandlers::getInstance()->removeHandler(handler);
+	delete handler;
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -34,6 +37,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
      * The initialization of StoreController. This is the first and ONLY time it's initialized.
      **/
     cocos2dx_StoreController::initialize(true);
+	cocos2dx_EventHandlers::getInstance()->addHandler(handler);
     
     // initialize director
     CCDirector *pDirector = CCDirector::sharedDirector();

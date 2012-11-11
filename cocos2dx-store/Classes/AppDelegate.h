@@ -18,6 +18,7 @@
 #define  _APP_DELEGATE_H_
 
 #include "cocos2d.h"
+#include "EventHandler.h"
 
 /**
 @brief    The cocos2d Application.
@@ -26,6 +27,8 @@ The reason for implement as private inheritance is to hide some interface call b
 */
 class  AppDelegate : private cocos2d::CCApplication
 {
+private:
+	EventHandler* handler;
 public:
     AppDelegate();
     virtual ~AppDelegate();
