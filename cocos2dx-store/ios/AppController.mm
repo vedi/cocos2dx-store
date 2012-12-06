@@ -98,9 +98,9 @@ static AppDelegate s_sharedApplication;
 }
 
 - (void)eventFired:(NSNotification*)notification{
-    if ([notification.name isEqualToString:EVENT_VIRTUAL_CURRENCY_PACK_PURCHASED]) {
-        VirtualCurrencyPack* pack = (VirtualCurrencyPack*)[notification.userInfo objectForKey:@"VirtualCurrencyPack"];
-        string productId([pack.appstoreItem.productId UTF8String]);
+    if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASED]) {
+        AppStoreItem* apItem = (AppStoreItem*)[notification.userInfo objectForKey:@"AppStoreItem"];
+        string productId([apItem.productId UTF8String]);
         cocos2dx_EventHandlers::getInstance()->marketPurchase(productId);
     }
     else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_PURCHASED]) {
