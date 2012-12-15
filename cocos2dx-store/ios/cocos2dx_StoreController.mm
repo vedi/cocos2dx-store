@@ -34,7 +34,7 @@ void cocos2dx_StoreController::storeClosing() {
     [[StoreController getInstance] storeClosing];
 }
 
-void cocos2dx_StoreController::initialize(bool debug) {
+void cocos2dx_StoreController::initialize() {
     /**
      * We initialize StoreController when the application loads !
      * 

@@ -146,4 +146,8 @@ VirtualCurrencyPack* THOUSANDMUFF_PACK;
     return @[GENERAL_CATEGORY];
 }
 
+- (NSArray*)appStoreNonConsumableItems{
+    return @[];
+}
+
 @end
