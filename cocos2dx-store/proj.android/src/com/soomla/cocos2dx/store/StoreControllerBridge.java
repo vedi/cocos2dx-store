@@ -1,11 +1,11 @@
 package com.soomla.cocos2dx.store;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
-import com.soomla.store.IStoreAssets;
-import com.soomla.store.StoreController;
-import com.soomla.store.StoreEventHandlers;
+import com.soomla.store.*;
 import com.soomla.store.exceptions.InsufficientFundsException;
 import com.soomla.store.exceptions.NotEnoughGoodsException;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
@@ -17,25 +17,30 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
  * You can see the documentation of every function in {@link StoreController}
  */
 public class StoreControllerBridge {
-
     private static Activity mActivity          = null;
     private static Handler  mHandler           = null;
     private static IStoreAssets mStoreAssets   = null;
     private static String mPublicKey           = "";
+    private static String mCustomSec           = "";
 
-    public static void initialize(Activity activity, Handler handler,
-                                  Cocos2dxGLSurfaceView mGLView, IStoreAssets storeAssets, String publicKey) {
-        mActivity   = activity;
-        mHandler    = handler;
+    public static void initialize(Handler handler,
+                                  Cocos2dxGLSurfaceView mGLView,
+                                  IStoreAssets storeAssets,
+                                  String publicKey,
+                                  String customSecret,
+                                  Activity activity) {
+        mHandler     = handler;
         mStoreAssets = storeAssets;
-        mPublicKey = publicKey;
+        mPublicKey   = publicKey;
+        mCustomSec   = customSecret;
+        mActivity    = activity;
 
         StoreEventHandlers.getInstance().addEventHandler(new EventHandlerBridge(mGLView));
     }
 
-    static void initialize(boolean debug) {
+    static void initialize() {
         Log.d("SOOMLA", "initialize is called from java !");
-        StoreController.getInstance().initialize(mActivity, mStoreAssets, mPublicKey, debug);
+        StoreController.getInstance().initialize(mStoreAssets, mPublicKey, mCustomSec);
     }
 
     static void storeOpening() {
@@ -73,4 +78,5 @@ public class StoreControllerBridge {
         StoreController.getInstance().unequipVirtualGood(itemId);
     }
 
+    private static String TAG = "StoreControllerBridge";
 }

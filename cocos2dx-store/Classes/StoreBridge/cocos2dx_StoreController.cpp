@@ -33,11 +33,10 @@ void cocos2dx_StoreController::storeClosing() {
 
 }
 
-void cocos2dx_StoreController::initialize(bool debug) {
+void cocos2dx_StoreController::initialize() {
 	JniHelpers::jniCommonVoidCall(
 		"initialize", 
-		"com/soomla/cocos2dx/store/StoreControllerBridge", 
-		debug
+		"com/soomla/cocos2dx/store/StoreControllerBridge"
 	);
 }
 
