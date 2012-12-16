@@ -3,7 +3,7 @@
 Didn't you ever wanted an in-app purchase one liner that looks like this ?!
 
 ```cpp
-    cocos2dx_StoreController::buyCurrencyPack("[Your product id here]");
+    cocos2dx_StoreController::buyCurrencyPack("[Product id here]");
 ```
 
 cocos2dx-store
@@ -18,6 +18,8 @@ In cocos2dx-store there are 3 relevant scenes: MainScene, StoreAScene and StoreB
 We suggest that you go obver the information on ios-store and android-store:
 - ios-store [project](https://github.com/soomla/ios-store) [wiki](https://github.com/soomla/ios-store/wiki)
 - android-store [project](https://github.com/soomla/android-store) [wiki](https://github.com/soomla/android-store/wiki)
+
+>If you also want to create a storefront you can do that using our [Store Designer](designer.soom.la).
 
 Getting Started
 ---
