@@ -32,9 +32,15 @@ git clone --recursive git@github.com:soomla/cocos2dx-store.git
 
 > The **Android** project is an IntelliJ project. Just open the folder cocos2dx-store/cocos2dx-store/proj.android from IntelliJ to use it.
 
+#### Applciation secret
+
+The first thing you should do is go to StoreConfig.java (Android) and StoreConfig.m (iOS) and change the value for the variable SOOM_SEC. Do this now! **This value is set once and cannot be changed after you publish you game.**
+
 #### StoreController initialization
 
-StoreController is intialized through cocos2dx_StoreController class. You'll need to initialize StoreController ONLY once from AppDelegate::applicationDidFinishLaunching ([example](https://github.com/soomla/cocos2dx-store/blob/master/cocos2dx-store/Classes/AppDelegate.cpp)).
+StoreController is intialized through cocos2dx_StoreController class. "initialize" is called with another secret. This secret is also unchangable and it's purpose is to provide more security to your game's data. **This value is set once and cannot be changed after you publish you game.**
+
+You'll need to initialize StoreController ONLY once from AppDelegate::applicationDidFinishLaunching ([example](https://github.com/soomla/cocos2dx-store/blob/master/cocos2dx-store/Classes/AppDelegate.cpp)).
 
 Instructions for iOS
 ---
