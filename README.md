@@ -32,7 +32,7 @@ git clone --recursive git@github.com:soomla/cocos2dx-store.git
 
 > The **Android** project is an IntelliJ project. Just open the folder cocos2dx-store/cocos2dx-store/proj.android from IntelliJ to use it.
 
-#### Applciation secret
+#### Application secret
 
 The first thing you should do is go to StoreConfig.java (Android) and StoreConfig.m (iOS) and change the value for the variable SOOM_SEC. Do this now! **This value is set once and cannot be changed after you publish you game.**
 
