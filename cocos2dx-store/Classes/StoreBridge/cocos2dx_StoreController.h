@@ -32,7 +32,7 @@ public:
     //iOS + Android
     static void storeOpening();
     static void storeClosing();
-    static void initialize();
+    static void initialize(string customSecret);
 	static void buyCurrencyPack(string productId) throw(cocos2dx_VirtualItemNotFoundException&);
 	static void buyVirtualGood(string itemId) throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_InsufficientFundsException&);
 	static void buyManagedItem(string productId) throw(cocos2dx_VirtualItemNotFoundException&);

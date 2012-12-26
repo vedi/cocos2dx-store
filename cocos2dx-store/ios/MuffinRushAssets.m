@@ -23,7 +23,7 @@
 
 NSString* const MUFFIN_CURRENCY_ITEM_ID      = @"currency_muffin";
 NSString* const TENMUFF_PACK_PRODUCT_ID      = @"";
-NSString* const FIFTYMUFF_PACK_PRODUCT_ID    = @"";
+NSString* const FIFTYMUFF_PACK_PRODUCT_ID    = @"android.test.purchased";
 NSString* const FORTYMUFF_PACK_PRODUCT_ID    = @"com.soomla.SoomlaiOSStoreExampleDevice.test_product_one";
 NSString* const THOUSANDMUFF_PACK_PRODUCT_ID = @"com.soomla.SoomlaiOSStoreExampleDevice.second_test";
 

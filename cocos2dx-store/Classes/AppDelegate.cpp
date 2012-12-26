@@ -36,7 +36,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     /**
      * The initialization of StoreController. This is the first and ONLY time it's initialized.
      **/
-    cocos2dx_StoreController::initialize();
+    cocos2dx_StoreController::initialize("ExampleCustomSecret");
 	cocos2dx_EventHandlers::getInstance()->addHandler(handler);
     
     // initialize director

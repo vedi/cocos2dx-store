@@ -27,20 +27,18 @@ public class StoreControllerBridge {
                                   Cocos2dxGLSurfaceView mGLView,
                                   IStoreAssets storeAssets,
                                   String publicKey,
-                                  String customSecret,
                                   Activity activity) {
         mHandler     = handler;
         mStoreAssets = storeAssets;
         mPublicKey   = publicKey;
-        mCustomSec   = customSecret;
         mActivity    = activity;
 
         StoreEventHandlers.getInstance().addEventHandler(new EventHandlerBridge(mGLView));
     }
 
-    static void initialize() {
+    static void initialize(String customSecret) {
         Log.d("SOOMLA", "initialize is called from java !");
-        StoreController.getInstance().initialize(mStoreAssets, mPublicKey, mCustomSec);
+        StoreController.getInstance().initialize(mStoreAssets, mPublicKey, customSecret);
     }
 
     static void storeOpening() {

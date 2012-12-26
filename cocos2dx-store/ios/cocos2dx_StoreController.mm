@@ -34,13 +34,14 @@ void cocos2dx_StoreController::storeClosing() {
     [[StoreController getInstance] storeClosing];
 }
 
-void cocos2dx_StoreController::initialize() {
+void cocos2dx_StoreController::initialize(string customSecret) {
     /**
      * We initialize StoreController when the application loads !
      * 
      * You'll have to provide your implementation of IStoreAssets instead of MuffinRushAssets.
      */
-    [[StoreController getInstance] initializeWithStoreAssets:[[MuffinRushAssets alloc] init]];
+    NSString * str = [[NSString alloc] initWithBytes:customSecret.c_str() length:strlen(customSecret.c_str()) encoding:NSUTF8StringEncoding];
+    [[StoreController getInstance] initializeWithStoreAssets:[[MuffinRushAssets alloc] init] andCustomSecret:str];
 
 }
 

@@ -67,13 +67,14 @@
 		C0C5F881167CDF0900620409 /* NotEnoughGoodsException.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C5F855167CDF0900620409 /* NotEnoughGoodsException.m */; };
 		C0C5F882167CDF0900620409 /* VirtualItemNotFoundException.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C5F857167CDF0900620409 /* VirtualItemNotFoundException.m */; };
 		C0C5F883167CDF0900620409 /* FBEncryptorAES.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C5F85A167CDF0900620409 /* FBEncryptorAES.m */; };
-		C0C5F884167CDF0900620409 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C5F85C167CDF0900620409 /* NSData+Base64.m */; };
 		C0C5F885167CDF0900620409 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C5F860167CDF0900620409 /* JSONKit.m */; };
 		C0C5F886167CDF0900620409 /* StoreConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C5F863167CDF0900620409 /* StoreConfig.m */; };
 		C0C5F887167CDF0900620409 /* StoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C5F865167CDF0900620409 /* StoreController.m */; };
 		C0C5F888167CDF0900620409 /* StoreInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C5F867167CDF0900620409 /* StoreInventory.m */; };
-		C0C5F889167CDF0900620409 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C5F86A167CDF0900620409 /* NSString+MD5Addition.m */; };
-		C0C5F88A167CDF0900620409 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C5F86C167CDF0900620409 /* UIDevice+IdentifierAddition.m */; };
+		C0EFC96E168B7ED300948037 /* NSString-MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = C0EFC96B168B7ED300948037 /* NSString-MD5Addition.m */; };
+		C0EFC96F168B7ED300948037 /* UIDevice-IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = C0EFC96D168B7ED300948037 /* UIDevice-IdentifierAddition.m */; };
+		C0EFC972168B7EE000948037 /* NSData-Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = C0EFC971168B7EE000948037 /* NSData-Base64.m */; };
+		C0EFC975168B7F0500948037 /* ObscuredNSUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C0EFC974168B7F0500948037 /* ObscuredNSUserDefaults.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,8 +192,6 @@
 		C0C5F857167CDF0900620409 /* VirtualItemNotFoundException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VirtualItemNotFoundException.m; sourceTree = "<group>"; };
 		C0C5F859167CDF0900620409 /* FBEncryptorAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBEncryptorAES.h; sourceTree = "<group>"; };
 		C0C5F85A167CDF0900620409 /* FBEncryptorAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBEncryptorAES.m; sourceTree = "<group>"; };
-		C0C5F85B167CDF0900620409 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		C0C5F85C167CDF0900620409 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		C0C5F85D167CDF0900620409 /* IStoreAsssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IStoreAsssets.h; sourceTree = "<group>"; };
 		C0C5F85F167CDF0900620409 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		C0C5F860167CDF0900620409 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
@@ -203,10 +202,14 @@
 		C0C5F865167CDF0900620409 /* StoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreController.m; sourceTree = "<group>"; };
 		C0C5F866167CDF0900620409 /* StoreInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreInventory.h; sourceTree = "<group>"; };
 		C0C5F867167CDF0900620409 /* StoreInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreInventory.m; sourceTree = "<group>"; };
-		C0C5F869167CDF0900620409 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
-		C0C5F86A167CDF0900620409 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
-		C0C5F86B167CDF0900620409 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
-		C0C5F86C167CDF0900620409 /* UIDevice+IdentifierAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+IdentifierAddition.m"; sourceTree = "<group>"; };
+		C0EFC96A168B7ED300948037 /* NSString-MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-MD5Addition.h"; sourceTree = "<group>"; };
+		C0EFC96B168B7ED300948037 /* NSString-MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-MD5Addition.m"; sourceTree = "<group>"; };
+		C0EFC96C168B7ED300948037 /* UIDevice-IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice-IdentifierAddition.h"; sourceTree = "<group>"; };
+		C0EFC96D168B7ED300948037 /* UIDevice-IdentifierAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-IdentifierAddition.m"; sourceTree = "<group>"; };
+		C0EFC970168B7EE000948037 /* NSData-Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-Base64.h"; sourceTree = "<group>"; };
+		C0EFC971168B7EE000948037 /* NSData-Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-Base64.m"; sourceTree = "<group>"; };
+		C0EFC973168B7F0500948037 /* ObscuredNSUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObscuredNSUserDefaults.h; sourceTree = "<group>"; };
+		C0EFC974168B7F0500948037 /* ObscuredNSUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObscuredNSUserDefaults.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,6 +402,8 @@
 		C0C5F828167CDF0900620409 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				C0EFC973168B7F0500948037 /* ObscuredNSUserDefaults.h */,
+				C0EFC974168B7F0500948037 /* ObscuredNSUserDefaults.m */,
 				C0C5F829167CDF0900620409 /* JSONConsts.h */,
 				C0C5F82A167CDF0900620409 /* JSONConsts.m */,
 				C0C5F82B167CDF0900620409 /* NonConsumableStorage.h */,
@@ -472,8 +477,8 @@
 			children = (
 				C0C5F859167CDF0900620409 /* FBEncryptorAES.h */,
 				C0C5F85A167CDF0900620409 /* FBEncryptorAES.m */,
-				C0C5F85B167CDF0900620409 /* NSData+Base64.h */,
-				C0C5F85C167CDF0900620409 /* NSData+Base64.m */,
+				C0EFC970168B7EE000948037 /* NSData-Base64.h */,
+				C0EFC971168B7EE000948037 /* NSData-Base64.m */,
 			);
 			path = FBEncryptor;
 			sourceTree = "<group>";
@@ -490,10 +495,10 @@
 		C0C5F868167CDF0900620409 /* UIDevice-UUID */ = {
 			isa = PBXGroup;
 			children = (
-				C0C5F869167CDF0900620409 /* NSString+MD5Addition.h */,
-				C0C5F86A167CDF0900620409 /* NSString+MD5Addition.m */,
-				C0C5F86B167CDF0900620409 /* UIDevice+IdentifierAddition.h */,
-				C0C5F86C167CDF0900620409 /* UIDevice+IdentifierAddition.m */,
+				C0EFC96A168B7ED300948037 /* NSString-MD5Addition.h */,
+				C0EFC96B168B7ED300948037 /* NSString-MD5Addition.m */,
+				C0EFC96C168B7ED300948037 /* UIDevice-IdentifierAddition.h */,
+				C0EFC96D168B7ED300948037 /* UIDevice-IdentifierAddition.m */,
 			);
 			path = "UIDevice-UUID";
 			sourceTree = "<group>";
@@ -620,13 +625,14 @@
 				C0C5F881167CDF0900620409 /* NotEnoughGoodsException.m in Sources */,
 				C0C5F882167CDF0900620409 /* VirtualItemNotFoundException.m in Sources */,
 				C0C5F883167CDF0900620409 /* FBEncryptorAES.m in Sources */,
-				C0C5F884167CDF0900620409 /* NSData+Base64.m in Sources */,
 				C0C5F885167CDF0900620409 /* JSONKit.m in Sources */,
 				C0C5F886167CDF0900620409 /* StoreConfig.m in Sources */,
 				C0C5F887167CDF0900620409 /* StoreController.m in Sources */,
 				C0C5F888167CDF0900620409 /* StoreInventory.m in Sources */,
-				C0C5F889167CDF0900620409 /* NSString+MD5Addition.m in Sources */,
-				C0C5F88A167CDF0900620409 /* UIDevice+IdentifierAddition.m in Sources */,
+				C0EFC96E168B7ED300948037 /* NSString-MD5Addition.m in Sources */,
+				C0EFC96F168B7ED300948037 /* UIDevice-IdentifierAddition.m in Sources */,
+				C0EFC972168B7EE000948037 /* NSData-Base64.m in Sources */,
+				C0EFC975168B7F0500948037 /* ObscuredNSUserDefaults.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

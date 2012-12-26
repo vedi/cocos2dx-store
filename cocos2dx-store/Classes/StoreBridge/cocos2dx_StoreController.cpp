@@ -33,10 +33,11 @@ void cocos2dx_StoreController::storeClosing() {
 
 }
 
-void cocos2dx_StoreController::initialize() {
+void cocos2dx_StoreController::initialize(string customSecret) {
 	JniHelpers::jniCommonVoidCall(
 		"initialize", 
-		"com/soomla/cocos2dx/store/StoreControllerBridge"
+		"com/soomla/cocos2dx/store/StoreControllerBridge",
+		customSecret.c_str()
 	);
 }
 
