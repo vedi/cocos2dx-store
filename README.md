@@ -133,7 +133,7 @@ void StoreScene::menuChooseCallback(CCObject* pSender)
 ```
 
 And that's it! android-store and ios-store knows how to contact Google Play and the App Store for you and redirect the user to the purchasing mechanism. 
-**IMPORTANT:** Don't forget to handle in cocos2dx_EventHandler.cpp in order to get the events of successful or failed purchase.
+**IMPORTANT:** Don't forget to handle in cocos2dx_EventHandler.cpp in order to get the events of successful or failed purchases.
 
 Storage & Meta-Data
 ---
