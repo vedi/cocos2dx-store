@@ -45,10 +45,10 @@ void cocos2dx_StoreController::initialize(string customSecret) {
 
 }
 
-void cocos2dx_StoreController::buyCurrencyPack(string productId) throw(cocos2dx_VirtualItemNotFoundException&) {
+void cocos2dx_StoreController::buyMarketItem(string productId) throw(cocos2dx_VirtualItemNotFoundException&) {
     @try {
         NSString * str = [[NSString alloc] initWithBytes:productId.c_str() length:strlen(productId.c_str()) encoding:NSUTF8StringEncoding];
-        [[StoreController getInstance] buyCurrencyPackWithProcuctId:str];
+        [[StoreController getInstance] buyAppStoreItemWithProcuctId:str];
     }
     @catch (VirtualItemNotFoundException *exception) {
         throw cocos2dx_VirtualItemNotFoundException();
@@ -66,13 +66,6 @@ void cocos2dx_StoreController::buyVirtualGood(string itemId) throw (cocos2dx_Vir
     @catch (InsufficientFundsException *exception) {
         throw cocos2dx_InsufficientFundsException();
     }
-}
-
-void cocos2dx_StoreController::buyManagedItem(string productId) throw(cocos2dx_VirtualItemNotFoundException&) {
-    NSException *exception = [NSException exceptionWithName: NSInternalInconsistencyException
-                                                     reason: @"MANAGED items are not supported in ios-store yet."
-                                                   userInfo: nil];
-    @throw exception;
 }
 
 void cocos2dx_StoreController::equipVirtualGood(string itemId) throw (cocos2dx_NotEnoughGoodsException&, cocos2dx_VirtualItemNotFoundException&) {

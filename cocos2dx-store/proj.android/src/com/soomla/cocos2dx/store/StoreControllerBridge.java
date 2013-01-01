@@ -51,19 +51,14 @@ public class StoreControllerBridge {
         StoreController.getInstance().storeClosing();
     }
 
-    static void buyCurrencyPack(String productId) throws VirtualItemNotFoundException {
+    static void buyGoogleMarketItem(String productId) throws VirtualItemNotFoundException {
         Log.d("SOOMLA", "buyCurrencyPack is called from java with productId: " + productId + " !");
-        StoreController.getInstance().buyCurrencyPack(productId);
+        StoreController.getInstance().buyGoogleMarketItem(productId);
     }
 
     static void buyVirtualGood(String itemId) throws VirtualItemNotFoundException, InsufficientFundsException {
         Log.d("SOOMLA", "buyVirtualGood is called from java with itemId: " + itemId + " !");
         StoreController.getInstance().buyVirtualGood(itemId);
-    }
-
-    static void buyManagedItem(String productId) throws VirtualItemNotFoundException {
-        Log.d("SOOMLA", "buyManagedItem is called from java with productId: " + productId + " !");
-        StoreController.getInstance().buyManagedItem(productId);
     }
 
     static void equipVirtualGood(String itemId) throws NotEnoughGoodsException, VirtualItemNotFoundException {

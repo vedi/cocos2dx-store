@@ -33,9 +33,8 @@ public:
     static void storeOpening();
     static void storeClosing();
     static void initialize(string customSecret);
-	static void buyCurrencyPack(string productId) throw(cocos2dx_VirtualItemNotFoundException&);
+	static void buyMarketItem(string productId) throw(cocos2dx_VirtualItemNotFoundException&);
 	static void buyVirtualGood(string itemId) throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_InsufficientFundsException&);
-	static void buyManagedItem(string productId) throw(cocos2dx_VirtualItemNotFoundException&);
 	static void equipVirtualGood(string itemId) throw (cocos2dx_NotEnoughGoodsException&, cocos2dx_VirtualItemNotFoundException&);
 	static void unequipVirtualGood(string itemId) throw(cocos2dx_VirtualItemNotFoundException&);
 	
