@@ -3,7 +3,7 @@
 Haven't you ever wanted an in-app purchase one liner that looks like this ?!
 
 ```cpp
-    cocos2dx_StoreController::buyCurrencyPack("[Product id here]");
+    cocos2dx_StoreController::buyMarketItem("[Product id here]");
 ```
 
 cocos2dx-store
@@ -118,7 +118,7 @@ void StoreScene::menuChooseCallback(CCObject* pSender)
 			if (tag == 0) {
 
 			} else {
-				cocos2dx_StoreController::buyCurrencyPack(productId);
+				cocos2dx_StoreController::buyMarketItem(productId);
 			}
 		}
 		catch (cocos2dx_VirtualItemNotFoundException& e) {
