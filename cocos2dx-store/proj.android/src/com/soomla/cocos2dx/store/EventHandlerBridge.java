@@ -2,6 +2,7 @@ package com.soomla.cocos2dx.store;
 
 import com.soomla.store.IStoreEventHandler;
 import com.soomla.store.domain.data.GoogleMarketItem;
+import com.soomla.store.domain.data.VirtualCurrency;
 import com.soomla.store.domain.data.VirtualGood;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
@@ -138,6 +139,26 @@ public class EventHandlerBridge implements IStoreEventHandler {
         });
     }
 
+    @Override
+    public void onCurrencyBalanceChanged(final VirtualCurrency currency, final int balance) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                currencyBalanceChanged(currency.getItemId(), balance);
+            }
+        });
+    }
+
+    @Override
+    public void onGoodBalanceChanged(final VirtualGood good, final int balance) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                goodBalanceChanged(good.getItemId(), balance);
+            }
+        });
+    }
+
     native void marketPurchase(String productId);
     native void marketRefund(String productId);
     native void virtualGoodPurchased(String itemId);
@@ -150,4 +171,6 @@ public class EventHandlerBridge implements IStoreEventHandler {
     native void closingStore();
     native void unexpectedErrorInStore();
     native void openingStore();
+    native void currencyBalanceChanged(String itemId, int balance);
+    native void goodBalanceChanged(String itemId, int balance);
 }
