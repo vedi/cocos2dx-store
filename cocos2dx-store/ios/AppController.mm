@@ -9,6 +9,7 @@
 #import "VirtualCurrencyPack.h"
 #import "AppStoreItem.h"
 #import "VirtualGood.h"
+#import "VirtualCurrency.h"
 
 #import "RootViewController.h"
 
@@ -139,7 +140,19 @@ static AppDelegate s_sharedApplication;
     }
     else if ([notification.name isEqualToString:EVENT_UNEXPECTED_ERROR_IN_STORE]) {
         cocos2dx_EventHandlers::getInstance()->unexpectedErrorInStore();
-    }
+    } 
+    else if ([notification.name isEqualToString:EVENT_CHANGED_CURRENCY_BALANCE]) {
+		int balance = [(NSNumber*)[notification.userInfo objectForKey:@"balance"] intValue];
+		VirtualCurrency* currency = (VirtualCurrency*)[notification.userInfo objectForKey:@"VirtualCurrency"];
+		string itemId([currency.itemId UTF8String]);
+        cocos2dx_EventHandlers::getInstance()->currencyBalanceChanged(itemId, balance);
+    } 
+    else if ([notification.name isEqualToString:EVENT_CHANGED_GOOD_BALANCE]) {
+		int balance = [(NSNumber*)[notification.userInfo objectForKey:@"balance"] intValue];
+		VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
+		string itemId([good.itemId UTF8String]);
+        cocos2dx_EventHandlers::getInstance()->goodBalanceChanged(itemId, balance);
+    } 
 }
 
 

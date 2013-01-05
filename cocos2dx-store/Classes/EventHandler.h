@@ -36,6 +36,8 @@ public:
     void closingStore();
     void unexpectedErrorInStore();
     void openingStore();
+	void currencyBalanceChanged(string &itemId, int balance);
+	void goodBalanceChanged(string &itemId, int balance);
 };
 
 #endif

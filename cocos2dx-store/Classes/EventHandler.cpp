@@ -19,16 +19,15 @@
 #include "StoreBScene.h"
 
 void EventHandler::marketPurchase(string& productId) {
-	StoreBScene::setCurrencyBalanceLabel();
+	
 }
 
 void EventHandler::marketRefund(string& productId) {
-	StoreBScene::setCurrencyBalanceLabel();
+	
 }
 
 void EventHandler::virtualGoodPurchased(string& itemId) {
-	StoreAScene::setPriceBalanceLabel(itemId.c_str());
-	StoreAScene::setCurrencyBalanceLabel();
+	
 }
 
 void EventHandler::virtualGoodEquipped(string& itemId) {
@@ -65,5 +64,14 @@ void EventHandler::unexpectedErrorInStore() {
 
 void EventHandler::openingStore() {
 
+}
+
+void EventHandler::currencyBalanceChanged(string &itemId, int balance) {
+	StoreBScene::setCurrencyBalanceLabel();
+    StoreAScene::setCurrencyBalanceLabel();
+}
+
+void EventHandler::goodBalanceChanged(string &itemId, int balance) {
+	StoreAScene::setPriceBalanceLabel(itemId.c_str());
 }
 

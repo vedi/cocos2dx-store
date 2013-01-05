@@ -126,3 +126,26 @@ JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_opening
 	  
 	  cocos2dx_EventHandlers::getInstance()->openingStore();
   }
+  
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_currencyBalanceChanged
+  (JNIEnv * env, jobject obj, jstring itemId, jint balance){
+	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
+	  string msg("Currency balance changed for: ");
+	  msg += itemIdStr;
+	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+  	  
+	  
+  	  cocos2dx_EventHandlers::getInstance()->currencyBalanceChanged(itemIdStr, balance);
+  }
+  
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_goodBalanceChanged
+  (JNIEnv * env, jobject obj, jstring itemId, jint balance){
+  	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
+  	  string msg("Good balance changed for: ");
+  	  msg += itemIdStr;
+  	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+  	  
+	  
+   	  cocos2dx_EventHandlers::getInstance()->goodBalanceChanged(itemIdStr, balance);
+  }
+	

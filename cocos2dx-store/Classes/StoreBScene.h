@@ -50,6 +50,12 @@ public:
 	{
 		menuBackCallback(NULL);
 	}
+    
+    ~StoreBScene() {
+        if (pLabelBalance) {
+            pLabelBalance = NULL;
+        }
+    }
 	
 	static void setCurrencyBalanceLabel();
 };

@@ -53,6 +53,12 @@ public:
 	{
 		menuBackCallback(NULL);
 	}
+    
+    ~StoreAScene() {
+        if (pLabelBalance) {
+            pLabelBalance = NULL;
+        }
+    }
 	
 	static void setCurrencyBalanceLabel();
 	static void setPriceBalanceLabel(const char* itemId);

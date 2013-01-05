@@ -118,6 +118,22 @@ JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_unexpec
  */
 JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_openingStore
   (JNIEnv *, jobject);
+ 
+/*
+ * Class:     com_soomla_cocos2dx_store_EventHandlerBridge
+ * Method:    currencyBalanceChanged
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_currencyBalanceChanged
+  (JNIEnv *, jobject, jstring itemId, jint balance);
+ 
+/*
+ * Class:     com_soomla_cocos2dx_store_EventHandlerBridge
+ * Method:    goodBalanceChanged
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_goodBalanceChanged
+  (JNIEnv *, jobject, jstring itemId, jint balance);
 
 #ifdef __cplusplus
 }

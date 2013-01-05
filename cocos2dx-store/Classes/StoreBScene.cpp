@@ -145,6 +145,10 @@ void StoreBScene::menuChooseCallback(CCObject* pSender)
 }
 
 void StoreBScene::setCurrencyBalanceLabel() {
+    if (!pLabelBalance) {
+        return;
+    }
+    
 	int balance = 0;
 	try{
 		balance = cocos2dx_StoreInventory::getCurrencyBalance("currency_muffin");

@@ -106,3 +106,15 @@ void cocos2dx_EventHandlers::openingStore() {
 	    (*itr)->openingStore();
 }
 
+void cocos2dx_EventHandlers::currencyBalanceChanged(string& itemId, int balance) {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->currencyBalanceChanged(itemId, balance);
+}
+
+void cocos2dx_EventHandlers::goodBalanceChanged(string& itemId, int balance) {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->goodBalanceChanged(itemId, balance);
+}
+

@@ -36,6 +36,8 @@ public:
     virtual void closingStore() = 0;
     virtual void unexpectedErrorInStore() = 0;
     virtual void openingStore() = 0;
+	virtual void currencyBalanceChanged(string &itemId, int balance) = 0;
+	virtual void goodBalanceChanged(string &itemId, int balance) = 0;
 };
 
 class cocos2dx_EventHandlers {
@@ -60,6 +62,8 @@ public:
     void closingStore();
     void unexpectedErrorInStore();
     void openingStore();
+	void currencyBalanceChanged(string &itemId, int balance);
+	void goodBalanceChanged(string &itemId, int balance);
 };
 
 #endif /* defined(__cocos2dx_store__cocos2dx_EventHandler__) */
