@@ -22,6 +22,7 @@ public class StoreControllerBridge {
     private static IStoreAssets mStoreAssets   = null;
     private static String mPublicKey           = "";
     private static String mCustomSec           = "";
+    private static EventHandlerBridge mEventHandler = null;
 
     public static void initialize(Handler handler,
                                   Cocos2dxGLSurfaceView mGLView,
@@ -33,7 +34,8 @@ public class StoreControllerBridge {
         mPublicKey   = publicKey;
         mActivity    = activity;
 
-        StoreEventHandlers.getInstance().addEventHandler(new EventHandlerBridge(mGLView));
+
+        EventHandlerBridge mEventHandler = new EventHandlerBridge(mGLView);
     }
 
     static void initialize(String customSecret) {

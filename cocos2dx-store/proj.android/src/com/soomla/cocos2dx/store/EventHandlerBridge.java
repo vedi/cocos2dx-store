@@ -1,15 +1,16 @@
 package com.soomla.cocos2dx.store;
 
-import com.soomla.store.IStoreEventHandler;
 import com.soomla.store.domain.data.GoogleMarketItem;
 import com.soomla.store.domain.data.VirtualCurrency;
 import com.soomla.store.domain.data.VirtualGood;
+import com.soomla.store.events.*;
+import com.squareup.otto.Subscribe;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 /**
  * This bridge is used to populate events from the store to cocos2dx (through JNI).
  */
-public class EventHandlerBridge implements IStoreEventHandler {
+public class EventHandlerBridge {
 
     private Cocos2dxGLSurfaceView mGLThread;
 
@@ -17,60 +18,60 @@ public class EventHandlerBridge implements IStoreEventHandler {
         mGLThread = glThread;
     }
 
-    @Override
-    public void onMarketPurchase(final GoogleMarketItem googleMarketItem) {
+    @Subscribe
+    public void onMarketPurchase(final MarketPurchaseEvent marketPurchaseEvent) {
 
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                marketPurchase(googleMarketItem.getProductId());
+                marketPurchase(marketPurchaseEvent.getGoogleMarketItem().getProductId());
             }
         });
 
     }
 
-    @Override
-    public void onMarketRefund(final GoogleMarketItem googleMarketItem) {
+    @Subscribe
+    public void onMarketRefund(final MarketRefundEvent marketRefundEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                marketRefund(googleMarketItem.getProductId());
+                marketRefund(marketRefundEvent.getGoogleMarketItem().getProductId());
             }
         });
     }
 
-    @Override
-    public void onVirtualGoodPurchased(final VirtualGood good) {
+    @Subscribe
+    public void onVirtualGoodPurchased(final GoodPurchasedEvent goodPurchasedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                virtualGoodPurchased(good.getItemId());
+                virtualGoodPurchased(goodPurchasedEvent.getGood().getItemId());
             }
         });
     }
 
-    @Override
-    public void onVirtualGoodEquipped(final VirtualGood good) {
+    @Subscribe
+    public void onVirtualGoodEquipped(final VirtualGoodEquippedEvent virtualGoodEquippedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                virtualGoodEquipped(good.getItemId());
+                virtualGoodEquipped(virtualGoodEquippedEvent.getGood().getItemId());
             }
         });
     }
 
-    @Override
-    public void onVirtualGoodUnequipped(final VirtualGood good) {
+    @Subscribe
+    public void onVirtualGoodUnequipped(final VirtualGoodUnEquippedEvent virtualGoodUnEquippedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                virtualGoodUnequipped(good.getItemId());
+                virtualGoodUnequipped(virtualGoodUnEquippedEvent.getGood().getItemId());
             }
         });
     }
 
-    @Override
-    public void onBillingSupported() {
+    @Subscribe
+    public void onBillingSupported(BillingSupportedEvent billingSupportedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
@@ -79,8 +80,8 @@ public class EventHandlerBridge implements IStoreEventHandler {
         });
     }
 
-    @Override
-    public void onBillingNotSupported() {
+    @Subscribe
+    public void onBillingNotSupported(BillingNotSupportedEvent billingNotSupportedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
@@ -89,18 +90,18 @@ public class EventHandlerBridge implements IStoreEventHandler {
         });
     }
 
-    @Override
-    public void onMarketPurchaseProcessStarted(final GoogleMarketItem googleMarketItem) {
+    @Subscribe
+    public void onMarketPurchaseProcessStarted(final MarketPurchaseStartedEvent marketPurchaseStartedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                marketPurchaseProcessStarted(googleMarketItem.getProductId());
+                marketPurchaseProcessStarted(marketPurchaseStartedEvent.getGoogleMarketItem().getProductId());
             }
         });
     }
 
-    @Override
-    public void onGoodsPurchaseProcessStarted() {
+    @Subscribe
+    public void onGoodsPurchaseProcessStarted(GoodPurchaseStartedEvent goodPurchaseStartedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
@@ -109,8 +110,8 @@ public class EventHandlerBridge implements IStoreEventHandler {
         });
     }
 
-    @Override
-    public void onClosingStore() {
+    @Subscribe
+    public void onClosingStore(ClosingStoreEvent closingStoreEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
@@ -119,8 +120,8 @@ public class EventHandlerBridge implements IStoreEventHandler {
         });
     }
 
-    @Override
-    public void onUnexpectedErrorInStore() {
+    @Subscribe
+    public void onUnexpectedErrorInStore(UnexpectedStoreErrorEvent unexpectedStoreErrorEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
@@ -129,8 +130,8 @@ public class EventHandlerBridge implements IStoreEventHandler {
         });
     }
 
-    @Override
-    public void onOpeningStore() {
+    @Subscribe
+    public void onOpeningStore(OpeningStoreEvent openingStoreEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
@@ -139,22 +140,22 @@ public class EventHandlerBridge implements IStoreEventHandler {
         });
     }
 
-    @Override
-    public void onCurrencyBalanceChanged(final VirtualCurrency currency, final int balance) {
+    @Subscribe
+    public void onCurrencyBalanceChanged(final CurrencyBalanceChangedEvent currencyBalanceChangedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                currencyBalanceChanged(currency.getItemId(), balance);
+                currencyBalanceChanged(currencyBalanceChangedEvent.getCurrency().getItemId(), currencyBalanceChangedEvent.getBalance());
             }
         });
     }
 
-    @Override
-    public void onGoodBalanceChanged(final VirtualGood good, final int balance) {
+    @Subscribe
+    public void onGoodBalanceChanged(final GoodBalanceChangedEvent goodBalanceChangedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                goodBalanceChanged(good.getItemId(), balance);
+                goodBalanceChanged(goodBalanceChangedEvent.getGood().getItemId(), goodBalanceChangedEvent.getBalance());
             }
         });
     }
