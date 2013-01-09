@@ -29,6 +29,7 @@
 		C0693091163C876C0037E975 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C0693090163C876C0037E975 /* libz.dylib */; };
 		C0693093163C87760037E975 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C0693092163C87760037E975 /* libxml2.dylib */; };
 		C06930A1163D86E30037E975 /* cocos2dx_StoreInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = C06930A0163D86E30037E975 /* cocos2dx_StoreInfo.mm */; };
+		C0A7ADE6169D97D800F4F029 /* NonConsumableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A7ADE5169D97D800F4F029 /* NonConsumableItem.m */; };
 		C0B042DC163BFD2B0015400E /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B042D6163BFD2B0015400E /* Icon-72.png */; };
 		C0B042DD163BFD2B0015400E /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B042D7163BFD2B0015400E /* Icon-Small-50.png */; };
 		C0B042DE163BFD2B0015400E /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B042D8163BFD2B0015400E /* Icon-Small.png */; };
@@ -116,6 +117,8 @@
 		C0693092163C87760037E975 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		C06930A0163D86E30037E975 /* cocos2dx_StoreInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = cocos2dx_StoreInfo.mm; path = ios/cocos2dx_StoreInfo.mm; sourceTree = "<group>"; };
 		C08CF1C4164165FE007603E8 /* Includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Includes.h; sourceTree = "<group>"; };
+		C0A7ADE4169D97D800F4F029 /* NonConsumableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonConsumableItem.h; sourceTree = "<group>"; };
+		C0A7ADE5169D97D800F4F029 /* NonConsumableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NonConsumableItem.m; sourceTree = "<group>"; };
 		C0B042D3163BFCB50015400E /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		C0B042D4163BFD150015400E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ios/Resources/Info.plist; sourceTree = "<group>"; };
 		C0B042D6163BFD2B0015400E /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "ios/Resources/Icon-72.png"; sourceTree = "<group>"; };
@@ -455,6 +458,8 @@
 				C0C5F84C167CDF0900620409 /* VirtualGood.m */,
 				C0C5F84D167CDF0900620409 /* VirtualItem.h */,
 				C0C5F84E167CDF0900620409 /* VirtualItem.m */,
+				C0A7ADE4169D97D800F4F029 /* NonConsumableItem.h */,
+				C0A7ADE5169D97D800F4F029 /* NonConsumableItem.m */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -633,6 +638,7 @@
 				C0EFC96F168B7ED300948037 /* UIDevice-IdentifierAddition.m in Sources */,
 				C0EFC972168B7EE000948037 /* NSData-Base64.m in Sources */,
 				C0EFC975168B7F0500948037 /* ObscuredNSUserDefaults.m in Sources */,
+				C0A7ADE6169D97D800F4F029 /* NonConsumableItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

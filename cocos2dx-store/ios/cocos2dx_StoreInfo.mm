@@ -65,7 +65,7 @@ double cocos2dx_StoreInfo::getPackPrice(const char* itemId) throw (cocos2dx_Virt
     @try {
         NSString * str = [[NSString alloc] initWithBytes:itemId length:strlen(itemId) encoding:NSUTF8StringEncoding];
         VirtualCurrencyPack* pack = [[StoreInfo getInstance] currencyPackWithItemId:str];
-        return pack.price;
+        return pack.appstoreItem.price;
     }
     @catch (VirtualItemNotFoundException *exception) {
         throw cocos2dx_VirtualItemNotFoundException();

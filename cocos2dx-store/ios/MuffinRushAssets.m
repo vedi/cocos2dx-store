@@ -130,6 +130,10 @@ VirtualCurrencyPack* THOUSANDMUFF_PACK;
     
 }
 
+- (int) getVersion {
+    return 0;
+}
+
 - (NSArray*)virtualCurrencies{
     return @[MUFFIN_CURRENCY];
 }
@@ -146,7 +150,7 @@ VirtualCurrencyPack* THOUSANDMUFF_PACK;
     return @[GENERAL_CATEGORY];
 }
 
-- (NSArray*)appStoreNonConsumableItems{
+- (NSArray*)nonConsumableItems{
     return @[];
 }
 
