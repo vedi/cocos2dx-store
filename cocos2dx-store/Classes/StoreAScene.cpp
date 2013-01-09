@@ -89,11 +89,6 @@ bool StoreAScene::init()
 	pLabelBalance->setPosition(ccp(origin.x + visibleSize.width - 40, visibleSize.height + origin.y - 50));
 	this->addChild(pLabelBalance, 1);
 	setCurrencyBalanceLabel();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    __android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "HHHHHHHHHHHHHHH");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    iOSHelper::LogMessage("HHHHHHHHHHHHHHH");
-#endif
 
 	GameMenuItem* getMoreItem = GameMenuItem::itemWithLabel(
 		CCSprite::create("get_more.png"),

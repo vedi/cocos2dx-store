@@ -21,7 +21,6 @@ public class StoreControllerBridge {
     private static Handler  mHandler           = null;
     private static IStoreAssets mStoreAssets   = null;
     private static String mPublicKey           = "";
-    private static String mCustomSec           = "";
     private static EventHandlerBridge mEventHandler = null;
 
     public static void initialize(Handler handler,
@@ -35,7 +34,7 @@ public class StoreControllerBridge {
         mActivity    = activity;
 
 
-        EventHandlerBridge mEventHandler = new EventHandlerBridge(mGLView);
+        mEventHandler = new EventHandlerBridge(mGLView);
     }
 
     static void initialize(String customSecret) {
