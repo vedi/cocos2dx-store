@@ -45,7 +45,8 @@ VirtualCurrencyPack* THOUSANDMUFF_PACK;
     // The muffin rush theme doesn't support categories, so we just put everything under a general category.
     
     GENERAL_CATEGORY = [[VirtualCategory alloc] initWithName:@"General"
-                                                       andId:0];
+                                                       andId:0
+                                           andEquippingModel:kNone];
     
     /** Virtual Currencies **/
     
