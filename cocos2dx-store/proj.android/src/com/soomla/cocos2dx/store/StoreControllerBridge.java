@@ -18,7 +18,6 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
  */
 public class StoreControllerBridge {
     private static Activity mActivity          = null;
-    private static Handler  mHandler           = null;
     private static IStoreAssets mStoreAssets   = null;
     private static String mPublicKey           = "";
     private static EventHandlerBridge mEventHandler = null;
@@ -28,7 +27,6 @@ public class StoreControllerBridge {
                                   IStoreAssets storeAssets,
                                   String publicKey,
                                   Activity activity) {
-        mHandler     = handler;
         mStoreAssets = storeAssets;
         mPublicKey   = publicKey;
         mActivity    = activity;
@@ -44,7 +42,7 @@ public class StoreControllerBridge {
 
     static void storeOpening() {
         Log.d("SOOMLA", "storeOpening is called from java !");
-        StoreController.getInstance().storeOpening(mActivity, mHandler);
+        StoreController.getInstance().storeOpening(mActivity);
     }
 
     static void storeClosing() {
