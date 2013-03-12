@@ -82,6 +82,12 @@ void cocos2dx_EventHandlers::marketPurchaseProcessStarted(string& productId) {
 	    (*itr)->marketPurchaseProcessStarted(productId);
 }
 
+void cocos2dx_EventHandlers::marketPurchaseCancelled(string& productId) {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->marketPurchaseCancelled(productId);
+}
+
 void cocos2dx_EventHandlers::goodsPurchaseProcessStarted() {
 	set<IEventHandler*>::iterator itr;
 	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )

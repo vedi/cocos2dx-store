@@ -17,6 +17,7 @@
 #include "EventHandler.h"
 #include "StoreAScene.h"
 #include "StoreBScene.h"
+#include "Includes.h"
 
 void EventHandler::marketPurchase(string& productId) {
 	
@@ -48,6 +49,14 @@ void EventHandler::billingNotSupported() {
 
 void EventHandler::marketPurchaseProcessStarted(string& productId) {
 
+}
+
+void EventHandler::marketPurchaseCancelled(string& productId) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    __android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "Market purchase cancelled by user!");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    iOSHelper::LogMessage("Market purchase cancelled by user!");
+#endif
 }
 
 void EventHandler::goodsPurchaseProcessStarted() {

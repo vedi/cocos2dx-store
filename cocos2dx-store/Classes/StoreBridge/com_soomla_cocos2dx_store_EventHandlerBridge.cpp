@@ -99,6 +99,16 @@ JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_marketP
 	  cocos2dx_EventHandlers::getInstance()->marketPurchaseProcessStarted(productIdStr);
   }
 
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_marketPurchaseCancelled
+  (JNIEnv * env, jobject obj, jstring productId){
+  	  string productIdStr = cocos2d::JniHelper::jstring2string(productId);
+  	  string msg("bc Market purchase just cancelled for: ");
+  	  msg += productIdStr;
+  	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+	  
+  	  cocos2dx_EventHandlers::getInstance()->marketPurchaseCancelled(productIdStr);
+  }
+	
 JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_goodsPurchaseProcessStarted
   (JNIEnv * env, jobject obj){
 	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "VirtualGoods purchase started.");

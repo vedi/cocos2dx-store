@@ -64,8 +64,7 @@ VirtualCurrencyPack* THOUSANDMUFF_PACK;
                                          andDescription:@"Customers buy a double portion on each purchase of this cake"
                                               andItemId:@"fruit_cake"
                                           andPriceModel:[[StaticPriceModel alloc] initWithCurrencyValue:MUFFINCAKE_PRICE]
-                                            andCategory:GENERAL_CATEGORY
-                                         andEquipStatus:NO];
+                                            andCategory:GENERAL_CATEGORY];
     
     NSDictionary* PAVLOVA_PRICE = [[NSDictionary alloc] initWithObjectsAndKeys:
                                       [NSNumber numberWithInt:175], MUFFIN_CURRENCY_ITEM_ID,
@@ -74,8 +73,7 @@ VirtualCurrencyPack* THOUSANDMUFF_PACK;
                                          andDescription:@"Gives customers a sugar rush and they call their friends"
                                               andItemId:@"pavlova"
                                           andPriceModel:[[StaticPriceModel alloc] initWithCurrencyValue:PAVLOVA_PRICE]
-                                            andCategory:GENERAL_CATEGORY
-                                         andEquipStatus:NO];
+                                            andCategory:GENERAL_CATEGORY];
     
     NSDictionary* CHOCLATECAKE_PRICE = [[NSDictionary alloc] initWithObjectsAndKeys:
                                    [NSNumber numberWithInt:250], MUFFIN_CURRENCY_ITEM_ID,
@@ -84,8 +82,7 @@ VirtualCurrencyPack* THOUSANDMUFF_PACK;
                                       andDescription:@"A classic cake to maximize customer satisfaction"
                                            andItemId:@"chocolate_cake"
                                        andPriceModel:[[StaticPriceModel alloc] initWithCurrencyValue:CHOCLATECAKE_PRICE]
-                                         andCategory:GENERAL_CATEGORY
-                                      andEquipStatus:NO];
+                                         andCategory:GENERAL_CATEGORY];
     
 
     NSDictionary* CREAMCUP_PRICE = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -95,8 +92,7 @@ VirtualCurrencyPack* THOUSANDMUFF_PACK;
                                            andDescription:@"Increase bakery reputation with this original pastry"
                                                 andItemId:@"cream_cup"
                                             andPriceModel:[[StaticPriceModel alloc] initWithCurrencyValue:CREAMCUP_PRICE]
-                                              andCategory:GENERAL_CATEGORY
-                                           andEquipStatus:NO];
+                                              andCategory:GENERAL_CATEGORY];
     
     
     /** Virtual Currency Pack **/

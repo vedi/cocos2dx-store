@@ -86,6 +86,14 @@ JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_billing
  */
 JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_marketPurchaseProcessStarted
   (JNIEnv *, jobject, jstring);
+ 
+/*
+ * Class:     com_soomla_cocos2dx_store_EventHandlerBridge
+ * Method:    marketPurchaseCancelled
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_marketPurchaseCancelled
+  (JNIEnv *, jobject, jstring);
 
 /*
  * Class:     com_soomla_cocos2dx_store_EventHandlerBridge

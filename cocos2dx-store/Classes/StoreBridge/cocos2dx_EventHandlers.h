@@ -32,6 +32,7 @@ public:
     virtual void billingSupported() = 0;
     virtual void billingNotSupported() = 0;
     virtual void marketPurchaseProcessStarted(string& productId) = 0;
+    virtual void marketPurchaseCancelled(string& productId) = 0;
     virtual void goodsPurchaseProcessStarted() = 0;
     virtual void closingStore() = 0;
     virtual void unexpectedErrorInStore() = 0;
@@ -58,6 +59,7 @@ public:
     void billingSupported();
     void billingNotSupported();
     void marketPurchaseProcessStarted(string& productId);
+    void marketPurchaseCancelled(string& productId);
     void goodsPurchaseProcessStarted();
     void closingStore();
     void unexpectedErrorInStore();

@@ -32,6 +32,7 @@ public:
     void billingSupported();
     void billingNotSupported();
     void marketPurchaseProcessStarted(string& productId);
+    void marketPurchaseCancelled(string& productId);
     void goodsPurchaseProcessStarted();
     void closingStore();
     void unexpectedErrorInStore();

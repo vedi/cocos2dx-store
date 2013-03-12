@@ -4,12 +4,6 @@
 #import "cocos2d.h"
 #import "EAGLView.h"
 #import "AppDelegate.h"
-#import "EventHandling.h"
-#import "cocos2dx_EventHandlers.h"
-#import "VirtualCurrencyPack.h"
-#import "AppStoreItem.h"
-#import "VirtualGood.h"
-#import "VirtualCurrency.h"
 
 #import "RootViewController.h"
 
@@ -53,8 +47,6 @@ static AppDelegate s_sharedApplication;
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
-    
-    [EventHandling observeAllEventsWithObserver:self withSelector:@selector(eventFired:)];
 
     cocos2d::CCApplication::sharedApplication()->run();
     return YES;
@@ -97,64 +89,6 @@ static AppDelegate s_sharedApplication;
      See also applicationDidEnterBackground:.
      */
 }
-
-- (void)eventFired:(NSNotification*)notification{
-    if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASED]) {
-        AppStoreItem* apItem = (AppStoreItem*)[notification.userInfo objectForKey:@"AppStoreItem"];
-        string productId([apItem.productId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->marketPurchase(productId);
-    }
-    else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_PURCHASED]) {
-        VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
-        string itemId([good.itemId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->virtualGoodPurchased(itemId);
-    }
-    else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_EQUIPPED]) {
-        VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
-        string itemId([good.itemId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->virtualGoodEquipped(itemId);
-    }
-    else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_UNEQUIPPED]) {
-        VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
-        string itemId([good.itemId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->virtualGoodUnequipped(itemId);
-    }
-    else if ([notification.name isEqualToString:EVENT_BILLING_SUPPORTED]) {
-        cocos2dx_EventHandlers::getInstance()->billingSupported();
-    }
-    else if ([notification.name isEqualToString:EVENT_BILLING_NOT_SUPPORTED]) {
-        cocos2dx_EventHandlers::getInstance()->billingNotSupported();
-    }
-    else if ([notification.name isEqualToString:EVENT_MARKET_PURCHASE_STARTED]) {
-        string productId("");
-        cocos2dx_EventHandlers::getInstance()->marketPurchaseProcessStarted(productId);
-    }
-    else if ([notification.name isEqualToString:EVENT_GOODS_PURCHASE_STARTED]) {
-        cocos2dx_EventHandlers::getInstance()->goodsPurchaseProcessStarted();
-    }
-    else if ([notification.name isEqualToString:EVENT_CLOSING_STORE]) {
-        cocos2dx_EventHandlers::getInstance()->closingStore();
-    }
-    else if ([notification.name isEqualToString:EVENT_OPENING_STORE]) {
-        cocos2dx_EventHandlers::getInstance()->openingStore();
-    }
-    else if ([notification.name isEqualToString:EVENT_UNEXPECTED_ERROR_IN_STORE]) {
-        cocos2dx_EventHandlers::getInstance()->unexpectedErrorInStore();
-    } 
-    else if ([notification.name isEqualToString:EVENT_CHANGED_CURRENCY_BALANCE]) {
-		int balance = [(NSNumber*)[notification.userInfo objectForKey:@"balance"] intValue];
-		VirtualCurrency* currency = (VirtualCurrency*)[notification.userInfo objectForKey:@"VirtualCurrency"];
-		string itemId([currency.itemId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->currencyBalanceChanged(itemId, balance);
-    } 
-    else if ([notification.name isEqualToString:EVENT_CHANGED_GOOD_BALANCE]) {
-		int balance = [(NSNumber*)[notification.userInfo objectForKey:@"balance"] intValue];
-		VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
-		string itemId([good.itemId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->goodBalanceChanged(itemId, balance);
-    } 
-}
-
 
 #pragma mark -
 #pragma mark Memory management

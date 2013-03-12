@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 #include "cocos2dx_StoreController.h"
 #import "StoreController.h"
 #import "VirtualItemNotFoundException.h"
 #import "InsufficientFundsException.h"
 #import "NotEnoughGoodsException.h"
 #import "MuffinRushAssets.h"
+#import "cocos2dx_EventDispatcher.h"
 
 /**
  * This implementation is used to let cocos2dx functions perform actions on StoreController.
@@ -37,12 +39,12 @@ void cocos2dx_StoreController::storeClosing() {
 void cocos2dx_StoreController::initialize(string customSecret) {
     /**
      * We initialize StoreController when the application loads !
-     * 
-     * You'll have to provide your implementation of IStoreAssets instead of MuffinRushAssets.
+     *
      */
     NSString * str = [[NSString alloc] initWithBytes:customSecret.c_str() length:strlen(customSecret.c_str()) encoding:NSUTF8StringEncoding];
     [[StoreController getInstance] initializeWithStoreAssets:[[MuffinRushAssets alloc] init] andCustomSecret:str];
 
+    [cocos2dx_EventDispatcher initialize];
 }
 
 void cocos2dx_StoreController::buyMarketItem(string productId) throw(cocos2dx_VirtualItemNotFoundException&) {

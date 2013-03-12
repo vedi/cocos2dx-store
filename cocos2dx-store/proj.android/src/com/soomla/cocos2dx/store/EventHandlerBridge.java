@@ -102,6 +102,16 @@ public class EventHandlerBridge {
             }
         });
     }
+	
+    @Subscribe
+    public void onMarketPurchaseCancelled(final MarketPurchaseCancelledEvent marketPurchaseCancelledEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                marketPurchaseCancelled(marketPurchaseCancelledEvent.getGoogleMarketItem().getProductId());
+            }
+        });
+    }
 
     @Subscribe
     public void onGoodsPurchaseProcessStarted(GoodPurchaseStartedEvent goodPurchaseStartedEvent) {
@@ -171,6 +181,7 @@ public class EventHandlerBridge {
     native void billingSupported();
     native void billingNotSupported();
     native void marketPurchaseProcessStarted(String productId);
+    native void marketPurchaseCancelled(String productId);
     native void goodsPurchaseProcessStarted();
     native void closingStore();
     native void unexpectedErrorInStore();
