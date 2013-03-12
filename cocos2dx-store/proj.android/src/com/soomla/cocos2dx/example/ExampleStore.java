@@ -91,7 +91,7 @@ public class ExampleStore extends Cocos2dxActivity{
          * initialize the StoreControllerBridge
          * You'll need to provide an implementation of IStoreAssets and your public key from Google Play.
          */
-        StoreControllerBridge.initialize(new Handler(), mGLView,
+        StoreControllerBridge.initialize(mGLView,
                 new MuffinRushAssets(), "AAA", this);
     }
 

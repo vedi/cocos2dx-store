@@ -22,8 +22,7 @@ public class StoreControllerBridge {
     private static String mPublicKey           = "";
     private static EventHandlerBridge mEventHandler = null;
 
-    public static void initialize(Handler handler,
-                                  Cocos2dxGLSurfaceView mGLView,
+    public static void initialize(Cocos2dxGLSurfaceView mGLView,
                                   IStoreAssets storeAssets,
                                   String publicKey,
                                   Activity activity) {
