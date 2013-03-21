@@ -27,6 +27,21 @@
 }
  
 */
+
+- (BOOL)shouldAutorotate
+{
+    //returns true if want to allow orientation change
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskLandscape;
+	
+    // switch to this line if you want to set portrait view
+    // return UIInterfaceOrientationMaskPortrait;
+}
+
 // Override to allow orientations other than the default landscape orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return UIInterfaceOrientationIsLandscape( interfaceOrientation );

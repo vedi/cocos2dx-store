@@ -41,11 +41,20 @@ static AppDelegate s_sharedApplication;
     viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     viewController.wantsFullScreenLayout = YES;
     viewController.view = __glView;
-
+    
     // Set RootViewController to window
-    [window addSubview: viewController.view];
+    NSString *reqSysVer = @"6.0";
+    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
+    
+    if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
+    {
+        [window setRootViewController:viewController]; //iOS 6
+    } else
+    {
+        [window addSubview: viewController.view]; //iOS 5 or less
+    }
     [window makeKeyAndVisible];
-
+    __glView.multipleTouchEnabled = YES;
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
 
     cocos2d::CCApplication::sharedApplication()->run();

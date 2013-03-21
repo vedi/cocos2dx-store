@@ -54,7 +54,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
         CCFileUtils::sharedFileUtils()->setResourceDirectory("iphonehd");
         
         // don't enable retina because we don't have ipad hd resource
-        CCEGLView::sharedOpenGLView()->setDesignResolutionSize(960, 640, kResolutionNoBorder);
+        CCEGLView::sharedOpenGLView()->setDesignResolutionSize(720, 1280, kResolutionNoBorder);
     }
     else if (target == kTargetIphone)
     {

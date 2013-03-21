@@ -124,6 +124,9 @@ bool MainScene::init()
 	CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
 	CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
+    CCLabelTTF* pLabelGame = CCLabelTTF::create("[YOUR GAME HERE]", "GoodDog.otf", 54);
+	pLabelGame->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 - 0 + origin.y));
+	this->addChild(pLabelGame, 1);
 
 	CCSprite* bgSprite = CCSprite::create("img_direct.jpg");
 	bgSprite->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
@@ -133,19 +136,15 @@ bool MainScene::init()
 	pLabelTitle->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height - 100 + origin.y));
 	this->addChild(pLabelTitle, 1);
 
-	CCLabelTTF* pLabelGame = CCLabelTTF::create("[YOUR GAME HERE]", "GoodDog.otf", 54);
-	pLabelGame->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 - 0 + origin.y));
-	this->addChild(pLabelGame, 1);
-
 	pRightBox = CCSprite::create("right_bg.png");
 	pRightBox->setScale(2.0f);
 	pRightBox->setPosition(ccp(origin.x + visibleSize.width - (pRightBox->boundingBox().size.width / 2) - 50, 250 + origin.y));
-	this->addChild(pRightBox, 0);
+	this->addChild(pRightBox, 2);
 
 	Soomla* pSoomla = Soomla::create("soomla_logo_new.png", pRightBox);
 	pSoomla->setScale(2.0f);
 	pSoomla->setPosition(ccp(origin.x + (pSoomla->boundingBox().size.width / 2) + 50, 250 + origin.y));
-	this->addChild(pSoomla, 0);
+	this->addChild(pSoomla, 2);
 
 
 	CCLabelTTF* pLabelInstructions = CCLabelTTF::create("Drag the SooMLA-bot to the box top open store", "GoodDog.otf", 24);
