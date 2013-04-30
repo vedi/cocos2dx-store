@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2010-2011 cocos2d-x.org
+Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2011      Zynga Inc.
 
@@ -35,7 +35,16 @@ THE SOFTWARE.
 #include "CCStdC.h"
 
 #ifndef CCAssert
-#define CCAssert(cond, msg)         CC_ASSERT(cond)
+#if COCOS2D_DEBUG > 0
+extern void CC_DLL cc_assert_script_compatible(bool cond, const char *msg);
+#define CCAssert(cond, msg)                             \
+    {                                                   \
+        cc_assert_script_compatible(!!(cond), (msg));   \
+        CC_ASSERT(cond);                                \
+    }
+#else
+#define CCAssert(cond, msg)
+#endif
 #endif  // CCAssert
 
 #include "ccConfig.h"
@@ -69,7 +78,7 @@ simple macro that swaps 2 variables
  */
 #define CC_RADIANS_TO_DEGREES(__ANGLE__) ((__ANGLE__) * 57.29577951f) // PI * 180
 
-#define kCCRepeatForever UINT_MAX -1
+#define kCCRepeatForever (UINT_MAX -1)
 
 /** @def CC_BLEND_SRC
 default gl blend src function. Compatible with premultiplied alpha images.
@@ -84,11 +93,11 @@ default gl blend src function. Compatible with premultiplied alpha images.
  */
 #define CC_NODE_DRAW_SETUP() \
 do { \
-    ccGLEnable( m_glServerState ); \
+    ccGLEnable(m_eGLServerState); \
     CCAssert(getShaderProgram(), "No shader program set for this node"); \
     { \
         getShaderProgram()->use(); \
-        getShaderProgram()->setUniformForModelViewProjectionMatrix(); \
+        getShaderProgram()->setUniformsForBuiltins(); \
     } \
 } while(0)
 
@@ -163,7 +172,7 @@ CCSizeMake( (__size_in_points__).width * CC_CONTENT_SCALE_FACTOR(), (__size_in_p
             void operator=(const TypeName&)
 
 /**
-Helper marcos which converts 4-byte little/big endian 
+Helper macros which converts 4-byte little/big endian 
 integral number to the machine native number representation
  
 It should work same as apples CFSwapInt32LittleToHost(..)

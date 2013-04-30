@@ -77,6 +77,7 @@ NS_CC_BEGIN
 
 CCEGLView::CCEGLView()
 : bIsInit(false)
+, m_fFrameZoomFactor(1.0f)
 {
 }
 
@@ -109,6 +110,7 @@ void charEventHandle(int iCharID,int iCharState) {
 
 void mouseButtonEventHandle(int iMouseID,int iMouseState) {
 	if (iMouseID == GLFW_MOUSE_BUTTON_LEFT) {
+        CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
 		//get current mouse pos
 		int x,y;
 		glfwGetMousePos(&x, &y);
@@ -120,12 +122,14 @@ void mouseButtonEventHandle(int iMouseID,int iMouseState) {
 			return;
 		}
 		*/
+         oPoint.x /= pEGLView->m_fFrameZoomFactor;
+         oPoint.y /= pEGLView->m_fFrameZoomFactor;
 		int id = 0;
 		if (iMouseState == GLFW_PRESS) {
-			CCEGLView::sharedOpenGLView()->handleTouchesBegin(1, &id, &oPoint.x, &oPoint.y);
+			pEGLView->handleTouchesBegin(1, &id, &oPoint.x, &oPoint.y);
 
 		} else if (iMouseState == GLFW_RELEASE) {
-			CCEGLView::sharedOpenGLView()->handleTouchesEnd(1, &id, &oPoint.x, &oPoint.y);
+			pEGLView->handleTouchesEnd(1, &id, &oPoint.x, &oPoint.y);
 		}
 	}
 }
@@ -135,11 +139,19 @@ void mousePosEventHandle(int iPosX,int iPosY) {
 
 	//to test move
 	if (iButtonState == GLFW_PRESS) {
-	      int id = 0;
-	      float x = (float)iPosX;
-	      float y = (float)iPosY;
-	      CCEGLView::sharedOpenGLView()->handleTouchesMove(1, &id, &x, &y);
+            CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
+            int id = 0;
+            float x = (float)iPosX;
+            float y = (float)iPosY;
+            x /= pEGLView->m_fFrameZoomFactor;
+            y /= pEGLView->m_fFrameZoomFactor;
+            pEGLView->handleTouchesMove(1, &id, &x, &y);
 	}
+}
+
+int closeEventHandle() {
+	CCDirector::sharedDirector()->end();
+	return GL_TRUE;
 }
 
 void CCEGLView::setFrameSize(float width, float height)
@@ -169,7 +181,7 @@ void CCEGLView::setFrameSize(float width, float height)
 		case 16:
 		{
 			/* Updates video mode */
-			eResult = (glfwOpenWindow(width, height, 5, 6, 5, 0, 16, 0, (int)u32GLFWFlags) != false) ? true : false;
+			eResult = (glfwOpenWindow(width, height, 5, 6, 5, 0, 16, 8, (int)u32GLFWFlags) != false) ? true : false;
 
 			break;
 		}
@@ -178,7 +190,7 @@ void CCEGLView::setFrameSize(float width, float height)
 		case 24:
 		{
 			/* Updates video mode */
-			eResult = (glfwOpenWindow(width, height, 8, 8, 8, 0, 16, 0, (int)u32GLFWFlags) != false) ? true : false;
+			eResult = (glfwOpenWindow(width, height, 8, 8, 8, 0, 16, 8, (int)u32GLFWFlags) != false) ? true : false;
 
 			break;
 		}
@@ -188,7 +200,7 @@ void CCEGLView::setFrameSize(float width, float height)
 		case 32:
 		{
 			/* Updates video mode */
-			eResult = (glfwOpenWindow(width, height, 8, 8, 8, 8, 16, 0, (int)u32GLFWFlags) != GL_FALSE) ? true :false;
+			eResult = (glfwOpenWindow(width, height, 8, 8, 8, 8, 16, 8, (int)u32GLFWFlags) != GL_FALSE) ? true :false;
 			break;
 		}
 	}
@@ -217,6 +229,8 @@ void CCEGLView::setFrameSize(float width, float height)
 		//register the glfw mouse pos event
 		glfwSetMousePosCallback(mousePosEventHandle);
 
+		glfwSetWindowCloseCallback(closeEventHandle);
+
 		//Inits extensions
 		eResult = initExtensions();
 
@@ -226,6 +240,35 @@ void CCEGLView::setFrameSize(float width, float height)
 		initGL();
 	}
 }
+
+void CCEGLView::setFrameZoomFactor(float fZoomFactor)
+{
+    m_fFrameZoomFactor = fZoomFactor;
+    glfwSetWindowSize(m_obScreenSize.width * fZoomFactor, m_obScreenSize.height * fZoomFactor);
+    CCDirector::sharedDirector()->setProjection(CCDirector::sharedDirector()->getProjection());
+}
+
+float CCEGLView::getFrameZoomFactor()
+{
+    return m_fFrameZoomFactor;
+}
+
+void CCEGLView::setViewPortInPoints(float x , float y , float w , float h)
+{
+    glViewport((GLint)(x * m_fScaleX * m_fFrameZoomFactor+ m_obViewPortRect.origin.x * m_fFrameZoomFactor),
+        (GLint)(y * m_fScaleY * m_fFrameZoomFactor + m_obViewPortRect.origin.y * m_fFrameZoomFactor),
+        (GLsizei)(w * m_fScaleX * m_fFrameZoomFactor),
+        (GLsizei)(h * m_fScaleY * m_fFrameZoomFactor));
+}
+
+void CCEGLView::setScissorInPoints(float x , float y , float w , float h)
+{
+    glScissor((GLint)(x * m_fScaleX * m_fFrameZoomFactor + m_obViewPortRect.origin.x * m_fFrameZoomFactor),
+              (GLint)(y * m_fScaleY * m_fFrameZoomFactor + m_obViewPortRect.origin.y * m_fFrameZoomFactor),
+              (GLsizei)(w * m_fScaleX * m_fFrameZoomFactor),
+              (GLsizei)(h * m_fScaleY * m_fFrameZoomFactor));
+}
+
 
 bool CCEGLView::isOpenGLReady()
 {
@@ -277,6 +320,10 @@ bool CCEGLView::initGL()
     {
         CCLog("OpenGL 2.0 not supported\n");
     }
+
+    // Enable point size by default on linux.
+    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+
     return true;
 }
 

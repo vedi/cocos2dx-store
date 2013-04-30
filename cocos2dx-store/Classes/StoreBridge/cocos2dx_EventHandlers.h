@@ -24,21 +24,24 @@ using namespace std;
 
 class IEventHandler {
 public:
-    virtual void marketPurchase(string& productId) = 0;
-    virtual void marketRefund(string& productId) = 0;
-    virtual void virtualGoodPurchased(string& itemId) = 0;
-    virtual void virtualGoodEquipped(string& itemId) = 0;
-    virtual void virtualGoodUnequipped(string& itemId) = 0;
     virtual void billingSupported() = 0;
     virtual void billingNotSupported() = 0;
-    virtual void marketPurchaseProcessStarted(string& productId) = 0;
-    virtual void marketPurchaseCancelled(string& productId) = 0;
-    virtual void goodsPurchaseProcessStarted() = 0;
-    virtual void closingStore() = 0;
-    virtual void unexpectedErrorInStore() = 0;
+	virtual void closingStore() = 0;
+	virtual void currencyBalanceChanged(string &itemId, int balance, int amountAdded) = 0;
+	virtual void goodBalanceChanged(string &itemId, int balance, int amountAdded) = 0;
+    virtual void goodEquipped(string& itemId) = 0;
+    virtual void goodUnequipped(string& itemId) = 0;
+    virtual void goodUpgrade(string& itemId, string& upgradeItemId) = 0;
+	virtual void itemPurchased(string& itemId) = 0;
+	virtual void itemPurchaseStarted() = 0;
     virtual void openingStore() = 0;
-	virtual void currencyBalanceChanged(string &itemId, int balance) = 0;
-	virtual void goodBalanceChanged(string &itemId, int balance) = 0;
+	virtual void marketPurchaseCancelled(string& itemId) = 0;
+    virtual void marketPurchase(string& itemId) = 0;
+    virtual void marketPurchaseStarted(string& itemId) = 0;
+    virtual void marketRefund(string& itemId) = 0;
+    virtual void restoreTransactions(bool success) = 0;
+	virtual void restoreTransactionsStarted() = 0;
+    virtual void unexpectedErrorInStore() = 0;
 };
 
 class cocos2dx_EventHandlers {
@@ -51,21 +54,24 @@ public:
 	void addHandler(IEventHandler* handler);
 	void removeHandler(IEventHandler* handler);
 	    
-    void marketPurchase(string& productId);
-    void marketRefund(string& productId);
-    void virtualGoodPurchased(string& itemId);
-    void virtualGoodEquipped(string& itemId);
-    void virtualGoodUnequipped(string& itemId);
     void billingSupported();
     void billingNotSupported();
-    void marketPurchaseProcessStarted(string& productId);
-    void marketPurchaseCancelled(string& productId);
-    void goodsPurchaseProcessStarted();
-    void closingStore();
-    void unexpectedErrorInStore();
+	void closingStore();
+	void currencyBalanceChanged(string &itemId, int balance, int amountAdded);
+	void goodBalanceChanged(string &itemId, int balance, int amountAdded);
+    void goodEquipped(string& itemId);
+    void goodUnequipped(string& itemId);
+    void goodUpgrade(string& itemId, string& upgradeItemId);
+	void itemPurchased(string& itemId);
+	void itemPurchaseStarted();
     void openingStore();
-	void currencyBalanceChanged(string &itemId, int balance);
-	void goodBalanceChanged(string &itemId, int balance);
+	void marketPurchaseCancelled(string& itemId);
+    void marketPurchase(string& itemId);
+    void marketPurchaseStarted(string& itemId);
+    void marketRefund(string& itemId);
+    void restoreTransactions(bool success);
+	void restoreTransactionsStarted();
+    void unexpectedErrorInStore();
 };
 
 #endif /* defined(__cocos2dx_store__cocos2dx_EventHandler__) */

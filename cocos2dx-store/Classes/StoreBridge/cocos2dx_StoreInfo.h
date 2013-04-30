@@ -26,13 +26,14 @@ using namespace std;
 class cocos2dx_StoreInfo {
 public:
     
-    static string getPackProductId(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&);
-    static string getPackName(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&);
-    static string getPackDescription(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&);
-    static double getPackPrice(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&);
-    static string getGoodName(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&);
-    static string getGoodDescription(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&);
-    static int getGoodPriceForCurrency(const char* goodItemId, const char* currencyItemId) throw (cocos2dx_VirtualItemNotFoundException&);
+    // static string getVirtualItem(string itemId) throw (cocos2dx_VirtualItemNotFoundException&);
+    // static string getPurchasableItem(string productId) throw (cocos2dx_VirtualItemNotFoundException&);
+    static string getGoodFirstUpgrade(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&);
+    static string getGoodLastUpgrade(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&);
+	static string getItemProductId(string itemId) throw (cocos2dx_VirtualItemNotFoundException&);        
+    static string getItemName(string itemId) throw (cocos2dx_VirtualItemNotFoundException&);
+    static string getItemDescription(string itemId) throw (cocos2dx_VirtualItemNotFoundException&);
+	static double getItemPrice(string itemId) throw (cocos2dx_VirtualItemNotFoundException&);
 
 };
 

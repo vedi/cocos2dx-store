@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2010-2011 cocos2d-x.org
+Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2009-2010 Ricardo Quesada
 Copyright (c) 2011      Zynga Inc.
 
@@ -90,15 +90,15 @@ class CC_DLL CCTMXLayerInfo : public CCObject
 {
     CC_PROPERTY(CCDictionary*, m_pProperties, Properties);
 public:
-    std::string            m_sName;
-    CCSize                m_tLayerSize;
+    std::string         m_sName;
+    CCSize              m_tLayerSize;
     unsigned int        *m_pTiles;
     bool                m_bVisible;
-    unsigned char        m_cOpacity;
+    unsigned char       m_cOpacity;
     bool                m_bOwnTiles;
     unsigned int        m_uMinGID;
     unsigned int        m_uMaxGID;
-    CCPoint                m_tOffset;
+    CCPoint             m_tOffset;
 public:
     CCTMXLayerInfo();
     virtual ~CCTMXLayerInfo();
@@ -106,7 +106,7 @@ public:
 
 /** @brief CCTMXTilesetInfo contains the information about the tilesets like:
 - Tileset name
-- Tilset spacing
+- Tileset spacing
 - Tileset margin
 - size of the tiles
 - Image used for the tiles
@@ -117,15 +117,15 @@ This information is obtained from the TMX file.
 class CC_DLL CCTMXTilesetInfo : public CCObject
 {
 public:
-    std::string        m_sName;
+    std::string     m_sName;
     unsigned int    m_uFirstGid;
-    CCSize            m_tTileSize;
+    CCSize          m_tTileSize;
     unsigned int    m_uSpacing;
     unsigned int    m_uMargin;
     //! filename containing the tiles (should be spritesheet / texture atlas)
-    std::string        m_sSourceImage;
+    std::string     m_sSourceImage;
     //! size in pixels of the image
-    CCSize            m_tImageSize;
+    CCSize          m_tImageSize;
 public:
     CCTMXTilesetInfo();
     virtual ~CCTMXTilesetInfo();
@@ -166,7 +166,7 @@ public:
     CC_SYNTHESIZE(unsigned int, m_uParentGID, ParentGID);
     /// layer attribs
     CC_SYNTHESIZE(int, m_nLayerAttribs, LayerAttribs);
-    /// is stroing characters?
+    /// is storing characters?
     CC_SYNTHESIZE(bool, m_bStoringCharacters, StoringCharacters);
     /// properties
     CC_PROPERTY(CCDictionary*, m_pProperties, Properties);
@@ -177,13 +177,13 @@ public:
     static CCTMXMapInfo * formatWithTMXFile(const char *tmxFile);
     /** creates a TMX Format with an XML string and a TMX resource path */
     static CCTMXMapInfo * formatWithXML(const char* tmxString, const char* resourcePath);
-    /** initializes a TMX format witha  tmx file */
+    /** initializes a TMX format with a  tmx file */
     bool initWithTMXFile(const char *tmxFile);
     /** initializes a TMX format with an XML string and a TMX resource path */
     bool initWithXML(const char* tmxString, const char* resourcePath);
-    /** initalises parsing of an XML file, either a tmx (Map) file or tsx (Tileset) file */
+    /** initializes parsing of an XML file, either a tmx (Map) file or tsx (Tileset) file */
     bool parseXMLFile(const char *xmlFilename);
-    /* initalises parsing of an XML string, either a tmx (Map) string or tsx (Tileset) string */
+    /* initializes parsing of an XML string, either a tmx (Map) string or tsx (Tileset) string */
     bool parseXMLString(const char *xmlString);
 
     CCDictionary* getTileProperties();
@@ -209,6 +209,7 @@ protected:
     std::string m_sCurrentString;
     //! tile properties
     CCDictionary* m_pTileProperties;
+    unsigned int m_uCurrentFirstGID;
 };
 
 // end of tilemap_parallax_nodes group

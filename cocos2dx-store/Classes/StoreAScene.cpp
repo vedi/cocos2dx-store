@@ -151,7 +151,7 @@ void StoreAScene::menuChooseCallback(CCObject* pSender)
 		int tag = item->getTag();
 		string itemId = itemIdFromTag(tag);
 		try{
-			cocos2dx_StoreController::buyVirtualGood(itemId.c_str());
+			cocos2dx_StoreInventory::buy(itemId.c_str());
 		}
 		catch (cocos2dx_VirtualItemNotFoundException& e) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -179,9 +179,11 @@ void StoreAScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visi
 	string itemId = itemIdFromTag(tag);
 	
 	// TODO: exception handling ..
-    string nameS = cocos2dx_StoreInfo::getGoodName(itemId.c_str());
-	string infoS = cocos2dx_StoreInfo::getGoodDescription(itemId.c_str());
-	int price = cocos2dx_StoreInfo::getGoodPriceForCurrency(itemId.c_str(), "currency_muffin");
+
+    string nameS = cocos2dx_StoreInfo::getItemName(itemId);
+	string infoS = cocos2dx_StoreInfo::getItemDescription(itemId);
+	int price = cocos2dx_StoreInfo::getItemPrice(itemId);
+
 	int balance = 0;
 	const char * name = nameS.c_str();
 	const char * info = infoS.c_str();
@@ -235,7 +237,7 @@ void StoreAScene::setCurrencyBalanceLabel() {
     
 	int balance = 0;
 	try{
-		balance = cocos2dx_StoreInventory::getCurrencyBalance("currency_muffin");
+		balance = cocos2dx_StoreInventory::getItemBalance("currency_muffin");
 	} catch (cocos2dx_VirtualItemNotFoundException& e) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         __android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "getCurrencyBalance Cought cocos2dx_VirtualItemNotFoundException from NATIVE!"); 
@@ -254,7 +256,7 @@ void StoreAScene::setCurrencyBalanceLabel() {
 void StoreAScene::setPriceBalanceLabel(const char* itemId) {
 	try{
 		int tag = tagFromItemId(itemId);
-		int balance = cocos2dx_StoreInventory::getGoodBalance(itemId);
+		int balance = cocos2dx_StoreInventory::getItemBalance(itemId);
 			
 		ostringstream convert;
 		convert << balance;

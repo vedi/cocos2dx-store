@@ -25,62 +25,13 @@
 
 using namespace std;
 
-JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_marketPurchase
-  (JNIEnv * env, jobject obj, jstring productId){
-	  string productIdStr = cocos2d::JniHelper::jstring2string(productId);
-	  string msg(productIdStr);
-	  msg.append(" was just purchased.");
-	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
-	  
-	  cocos2dx_EventHandlers::getInstance()->marketPurchase(productIdStr);
-  }
-
-JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_marketRefund
-  (JNIEnv * env, jobject obj, jstring productId){
-	  string productIdStr = cocos2d::JniHelper::jstring2string(productId);
-	  string msg(productIdStr);
-	  msg.append(" was just refunded.");
-	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
-	  
-	  cocos2dx_EventHandlers::getInstance()->marketRefund(productIdStr);
-  }
-
-JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_virtualGoodPurchased
-  (JNIEnv * env, jobject obj, jstring itemId){
-	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
-	  string msg(itemIdStr);
-	  msg.append(" was just purchased.");
-	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
-
-	  cocos2dx_EventHandlers::getInstance()->virtualGoodPurchased(itemIdStr);	  
-  }
-
-JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_virtualGoodEquipped
-  (JNIEnv * env, jobject obj, jstring itemId){
-	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
-	  string msg(itemIdStr);
-	  msg.append(" was just equipped.");
-	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
-	  
-	  cocos2dx_EventHandlers::getInstance()->virtualGoodEquipped(itemIdStr);
-  }
-
-JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_virtualGoodUnequipped
-  (JNIEnv * env, jobject obj, jstring itemId){
-	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
-	  string msg(itemIdStr);
-	  msg.append(" was just unequipped.");
-	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
-	  
-	  cocos2dx_EventHandlers::getInstance()->virtualGoodUnequipped(itemIdStr);
-  }
-
 JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_billingSupported
   (JNIEnv * env, jobject obj){
 	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "Billing is supported.");
 	  
 	  cocos2dx_EventHandlers::getInstance()->billingSupported();
   }
+
 
 JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_billingNotSupported
   (JNIEnv * env, jobject obj){
@@ -89,32 +40,6 @@ JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_billing
 	  cocos2dx_EventHandlers::getInstance()->billingNotSupported();
   }
 
-JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_marketPurchaseProcessStarted
-  (JNIEnv * env, jobject obj, jstring productId){
-	  string productIdStr = cocos2d::JniHelper::jstring2string(productId);
-	  string msg("bc Market purchase just started for: ");
-	  msg += productIdStr;
-	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
-	  
-	  cocos2dx_EventHandlers::getInstance()->marketPurchaseProcessStarted(productIdStr);
-  }
-
-JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_marketPurchaseCancelled
-  (JNIEnv * env, jobject obj, jstring productId){
-  	  string productIdStr = cocos2d::JniHelper::jstring2string(productId);
-  	  string msg("bc Market purchase just cancelled for: ");
-  	  msg += productIdStr;
-  	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
-	  
-  	  cocos2dx_EventHandlers::getInstance()->marketPurchaseCancelled(productIdStr);
-  }
-	
-JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_goodsPurchaseProcessStarted
-  (JNIEnv * env, jobject obj){
-	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "VirtualGoods purchase started.");
-	  
-	  cocos2dx_EventHandlers::getInstance()->goodsPurchaseProcessStarted();
-  }
 
 JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_closingStore
   (JNIEnv * env, jobject obj){
@@ -123,39 +48,149 @@ JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_closing
 	  cocos2dx_EventHandlers::getInstance()->closingStore();
   }
 
-JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_unexpectedErrorInStore
-  (JNIEnv * env, jobject obj){
-	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "Unexpected error occured.");
-	  
-	  cocos2dx_EventHandlers::getInstance()->unexpectedErrorInStore();
-  }
-
-JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_openingStore
-  (JNIEnv * env, jobject obj){
-	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "Store is opening.");
-	  
-	  cocos2dx_EventHandlers::getInstance()->openingStore();
-  }
-  
 JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_currencyBalanceChanged
-  (JNIEnv * env, jobject obj, jstring itemId, jint balance){
+  (JNIEnv * env, jobject obj, jstring itemId, jint balance, jint amountAdded){
 	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
 	  string msg("Currency balance changed for: ");
 	  msg += itemIdStr;
 	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
   	  
 	  
-  	  cocos2dx_EventHandlers::getInstance()->currencyBalanceChanged(itemIdStr, balance);
+  	  cocos2dx_EventHandlers::getInstance()->currencyBalanceChanged(itemIdStr, balance, amountAdded);
   }
-  
+
 JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_goodBalanceChanged
-  (JNIEnv * env, jobject obj, jstring itemId, jint balance){
-  	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
-  	  string msg("Good balance changed for: ");
-  	  msg += itemIdStr;
-  	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+  (JNIEnv * env, jobject obj, jstring itemId, jint balance, jint amountAdded){
+      string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
+      string msg("Good balance changed for: ");
+      msg += itemIdStr;
+      __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
   	  
 	  
-   	  cocos2dx_EventHandlers::getInstance()->goodBalanceChanged(itemIdStr, balance);
+      cocos2dx_EventHandlers::getInstance()->goodBalanceChanged(itemIdStr, balance, amountAdded);
   }
+
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_goodEquipped
+  (JNIEnv * env, jobject obj, jstring itemId){
+	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
+	  string msg(itemIdStr);
+	  msg.append(" was just equipped.");
+	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+  
+	  cocos2dx_EventHandlers::getInstance()->goodEquipped(itemIdStr);
+  }
+
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_goodUnequipped
+   (JNIEnv * env, jobject obj, jstring itemId){
+  	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
+  	  string msg(itemIdStr);
+  	  msg.append(" was just unequipped.");
+  	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+	  
+  	  cocos2dx_EventHandlers::getInstance()->goodUnequipped(itemIdStr);
+  }
+  
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_goodUpgrade
+  (JNIEnv * env, jobject obj, jstring itemId, jstring upgradeItemId){
+   	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
+	  string upgradeItemIdStr = cocos2d::JniHelper::jstring2string(upgradeItemId);
+   	  string msg(itemIdStr);
+   	  msg.append(" was just Upgraded.");
+   	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+  
+  	  cocos2dx_EventHandlers::getInstance()->goodUpgrade(itemIdStr, upgradeItemIdStr);
+  }
+
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_itemPurchased
+  (JNIEnv * env, jobject obj, jstring itemId){
+  	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
+  	  string msg(itemIdStr);
+  	  msg.append(" was just purchased.");
+  	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+
+  	  cocos2dx_EventHandlers::getInstance()->itemPurchased(itemIdStr);	  
+  }
+
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_itemPurchaseStarted
+  (JNIEnv * env, jobject obj, jstring itemId){
+   	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
+   	  string msg(itemIdStr);
+   	  msg.append(" was just purchased.");
+   	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+
+   	  cocos2dx_EventHandlers::getInstance()->itemPurchased(itemIdStr);	  
+  }
+
+
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_openingStore
+  (JNIEnv * env, jobject obj){
+	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "Store is opening.");
+	  
+  	  cocos2dx_EventHandlers::getInstance()->openingStore();
+  }
+
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_playPurchaseCancelled
+  (JNIEnv * env, jobject obj, jstring itemId){
+   	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
+   	  string msg("Market purchase just cancelled for: ");
+   	  msg += itemIdStr;
+   	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+
+   	  cocos2dx_EventHandlers::getInstance()->marketPurchaseCancelled(itemIdStr);
+  }
+
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_playPurchase
+  (JNIEnv * env, jobject obj, jstring itemId){
+   	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
+   	  string msg("Market purchase for: ");
+  	  msg += itemIdStr;
+   	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+
+   	  cocos2dx_EventHandlers::getInstance()->marketPurchase(itemIdStr);
+  }
+  
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_playPurchaseStarted
+  (JNIEnv * env, jobject obj, jstring itemId){
+   	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
+   	  string msg("Market purchase started for: ");
+  	  msg += itemIdStr;
+   	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+
+   	  cocos2dx_EventHandlers::getInstance()->marketPurchaseStarted(itemIdStr);
+  }
+
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_playRefund
+  (JNIEnv * env, jobject obj, jstring itemId){
+   	  string itemIdStr = cocos2d::JniHelper::jstring2string(itemId);
+   	  string msg("Market purchase refund for: ");
+  	  msg += itemIdStr;
+   	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", msg.c_str());
+
+   	  cocos2dx_EventHandlers::getInstance()->marketRefund(itemIdStr);
+  }
+  
+  
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_restoreTransactions
+  (JNIEnv * env, jobject obj, jboolean success){
+	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "transactions restored.");
+	  
+	  cocos2dx_EventHandlers::getInstance()->restoreTransactions(success);
+  }
+  
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_restoreTransactionsStarted
+  (JNIEnv * env, jobject obj, jstring itemId){
+  	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "transactions restored started.");
+	  
+  	  cocos2dx_EventHandlers::getInstance()->restoreTransactionsStarted();
+  }
+
+
+JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_unexpectedErrorInStore
+  (JNIEnv * env, jobject obj){
+  	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "Unexpected error occured.");
+	  
+  	  cocos2dx_EventHandlers::getInstance()->unexpectedErrorInStore();
+  }
+
+
 	

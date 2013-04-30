@@ -20,8 +20,6 @@
 #include <iostream>
 #include <string>
 #include "cocos2dx_VirtualItemNotFoundException.h"
-#include "cocos2dx_InsufficientFundsException.h"
-#include "cocos2dx_NotEnoughGoodsException.h"
 
 using namespace std;
 
@@ -34,9 +32,7 @@ public:
     static void storeClosing();
     static void initialize(string customSecret);
 	static void buyMarketItem(string productId) throw(cocos2dx_VirtualItemNotFoundException&);
-	static void buyVirtualGood(string itemId) throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_InsufficientFundsException&);
-	static void equipVirtualGood(string itemId) throw (cocos2dx_NotEnoughGoodsException&, cocos2dx_VirtualItemNotFoundException&);
-	static void unequipVirtualGood(string itemId) throw(cocos2dx_VirtualItemNotFoundException&);
+	static void restoreTransactions();
 	
 };
 

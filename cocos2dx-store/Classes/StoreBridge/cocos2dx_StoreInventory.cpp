@@ -17,54 +17,118 @@
 #include "cocos2dx_StoreInventory.h"
 #include "JniHelpers.h"
 
-int cocos2dx_StoreInventory::getCurrencyBalance(string currencyItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
-	return JniHelpers::jniCommonIntCall(
-		"getCurrencyBalance", 
+
+void cocos2dx_StoreInventory::buy(string itemId) throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_InsufficientFundsException&) {
+	JniHelpers::jniCommonVoidCall(
+		"buy", 
 		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
-		currencyItemId.c_str()
+		itemId.c_str()
 	); 
 }
 
-int cocos2dx_StoreInventory::addCurrencyAmount(string currencyItemId, int amount)  throw (cocos2dx_VirtualItemNotFoundException&) {
+int cocos2dx_StoreInventory::getItemBalance(string itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
 	return JniHelpers::jniCommonIntCall(
-		"addCurrencyAmount", 
+		"getItemBalance", 
 		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
-		currencyItemId.c_str(),
+		itemId.c_str()
+	); 
+}
+
+void cocos2dx_StoreInventory::giveItem(string itemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&) {
+	JniHelpers::jniCommonVoidCall(
+		"giveItem", 
+		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
+		itemId.c_str(),
 		amount
 	); 
 }
 
-int cocos2dx_StoreInventory::removeCurrencyAmount(string currencyItemId, int amount)  throw (cocos2dx_VirtualItemNotFoundException&) {
-	return JniHelpers::jniCommonIntCall(
-		"removeCurrencyAmount", 
+void cocos2dx_StoreInventory::takeVirtualItem(string itemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&) {
+	JniHelpers::jniCommonVoidCall(
+		"takeItem", 
 		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
-		currencyItemId.c_str(),
+		itemId.c_str(),
 		amount
 	); 
 }
 
-int cocos2dx_StoreInventory::getGoodBalance(string goodItemId)  throw (cocos2dx_VirtualItemNotFoundException&) {
+void cocos2dx_StoreInventory::equipGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+	JniHelpers::jniCommonVoidCall(
+		"equipGood", 
+		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
+		goodItemId.c_str()
+	); 
+}
+
+void cocos2dx_StoreInventory::unEquipGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+	JniHelpers::jniCommonVoidCall(
+		"unEquipGood", 
+		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
+		goodItemId.c_str()
+	); 
+}
+
+bool cocos2dx_StoreInventory::isGoodEquipped(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+	return JniHelpers::jniCommonBoolCall(
+		"isGoodEquipped", 
+		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
+		goodItemId.c_str()
+	); 
+}
+
+int cocos2dx_StoreInventory::getGoodUpgradeLevel(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&)  {
 	return JniHelpers::jniCommonIntCall(
-		"getGoodBalance", 
+		"getGoodUpgradeLevel", 
 		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
 		goodItemId.c_str()
 	);
 }
 
-int cocos2dx_StoreInventory::addGoodAmount(string goodItemId, int amount)  throw (cocos2dx_VirtualItemNotFoundException&) {
-	return JniHelpers::jniCommonIntCall(
-		"addGoodAmount", 
+string cocos2dx_StoreInventory::getGoodCurrentUpgrade(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+	return JniHelpers::jniCommonStringCall(
+		"getGoodCurrentUpgrade", 
 		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
-		goodItemId.c_str(),
-		amount
+		goodItemId.c_str()
 	);
 }
 
-int cocos2dx_StoreInventory::removeGoodAmount(string goodItemId, int amount)  throw (cocos2dx_VirtualItemNotFoundException&) {
-	return JniHelpers::jniCommonIntCall(
-		"removeGoodAmount", 
+void cocos2dx_StoreInventory::upgradeVirtualGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_InsufficientFundsException&) {
+	JniHelpers::jniCommonVoidCall(
+		"upgradeVirtualGood", 
 		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
-		goodItemId.c_str(),
-		amount
+		goodItemId.c_str()
 	);
 }
+
+void cocos2dx_StoreInventory::removeUpgrades(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&)  {
+	JniHelpers::jniCommonVoidCall(
+		"removeUpgrades", 
+		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
+		goodItemId.c_str()
+	);
+}
+
+bool cocos2dx_StoreInventory::nonConsumableItemExists(string nonConsItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+	return JniHelpers::jniCommonBoolCall(
+		"nonConsumableItemExists", 
+		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
+		nonConsItemId.c_str()
+	);
+}
+
+void cocos2dx_StoreInventory::addNonConsumableItem(string nonConsItemId) throw (cocos2dx_VirtualItemNotFoundException&)  {
+	JniHelpers::jniCommonVoidCall(
+		"addNonConsumableItem", 
+		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
+		nonConsItemId.c_str()
+	);
+}
+
+void cocos2dx_StoreInventory::removeNonConsumableItem(string nonConsItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+	JniHelpers::jniCommonVoidCall(
+		"removeNonConsumableItem", 
+		"com/soomla/cocos2dx/store/StoreInventoryBridge", 
+		nonConsItemId.c_str()
+	);
+}
+

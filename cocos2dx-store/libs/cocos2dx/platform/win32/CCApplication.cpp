@@ -1,7 +1,8 @@
 #include "CCApplication.h"
 #include "CCEGLView.h"
 #include "CCDirector.h"
-
+#include <algorithm>
+#include "platform/CCFileUtils.h"
 /**
 @brief    This function change the PVRFrame show/hide setting in register.
 @param  bEnable If true show the PVRFrame window, otherwise hide.
@@ -117,6 +118,9 @@ ccLanguageType CCApplication::getCurrentLanguage()
         case LANG_CHINESE:
             ret = kLanguageChinese;
             break;
+        case LANG_ENGLISH:
+            ret = kLanguageEnglish;
+            break;
         case LANG_FRENCH:
             ret = kLanguageFrench;
             break;
@@ -132,6 +136,21 @@ ccLanguageType CCApplication::getCurrentLanguage()
         case LANG_RUSSIAN:
             ret = kLanguageRussian;
             break;
+        case LANG_KOREAN:
+            ret = kLanguageKorean;
+            break;
+        case LANG_JAPANESE:
+            ret = kLanguageJapanese;
+            break;
+        case LANG_HUNGARIAN:
+            ret = kLanguageHungarian;
+            break;
+        case LANG_PORTUGUESE:
+            ret = kLanguagePortuguese;
+            break;
+        case LANG_ARABIC:
+            ret = kLanguageArabic;
+            break;
     }
 
     return ret;
@@ -140,6 +159,31 @@ ccLanguageType CCApplication::getCurrentLanguage()
 TargetPlatform CCApplication::getTargetPlatform()
 {
     return kTargetWindows;
+}
+
+void CCApplication::setResourceRootPath(const std::string& rootResDir)
+{
+    m_resourceRootPath = rootResDir;
+    std::replace(m_resourceRootPath.begin(), m_resourceRootPath.end(), '\\', '/');
+    if (m_resourceRootPath[m_resourceRootPath.length() - 1] != '/')
+    {
+        m_resourceRootPath += '/';
+    }
+    CCFileUtils* pFileUtils = CCFileUtils::sharedFileUtils();
+    std::vector<std::string> searchPaths = pFileUtils->getSearchPaths();
+    searchPaths.insert(searchPaths.begin(), m_resourceRootPath);
+    pFileUtils->setSearchPaths(searchPaths);
+}
+
+const std::string& CCApplication::getResourceRootPath(void)
+{
+    return m_resourceRootPath;
+}
+
+void CCApplication::setStartupScriptFilename(const std::string& startupScriptFile)
+{
+    m_startupScriptFilename = startupScriptFile;
+    std::replace(m_startupScriptFilename.begin(), m_startupScriptFilename.end(), '\\', '/');
 }
 
 NS_CC_END

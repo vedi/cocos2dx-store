@@ -2,6 +2,7 @@ package com.soomla.cocos2dx.store;
 
 import android.util.Log;
 import com.soomla.store.StoreInventory;
+import com.soomla.store.exceptions.InsufficientFundsException;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 
 /**
@@ -11,33 +12,74 @@ import com.soomla.store.exceptions.VirtualItemNotFoundException;
  */
 public class StoreInventoryBridge {
 
-    static int getCurrencyBalance(String currencyItemId) throws VirtualItemNotFoundException {
+    static void buy(String itemId) throws VirtualItemNotFoundException, InsufficientFundsException {
+        Log.d("SOOMLA", "buy is called from java !");
+        StoreInventory.buy(itemId);
+    }
+
+    static int getItemBalance(String itemId) throws VirtualItemNotFoundException {
         Log.d("SOOMLA", "getCurrencyBalance is called from java !");
-        return StoreInventory.getCurrencyBalance(currencyItemId);
+        return StoreInventory.getVirtualItemBalance(itemId);
     }
 
-    static int addCurrencyAmount(String currencyItemId, int amount) throws VirtualItemNotFoundException {
+    static void giveItem(String itemId, int amount) throws VirtualItemNotFoundException {
         Log.d("SOOMLA", "addCurrencyAmount is called from java !");
-        return StoreInventory.addCurrencyAmount(currencyItemId, amount);
+        StoreInventory.giveVirtualItem(itemId, amount);
     }
 
-    static int removeCurrencyAmount(String currencyItemId, int amount) throws VirtualItemNotFoundException {
+    static void takeItem(String itemId, int amount) throws VirtualItemNotFoundException {
         Log.d("SOOMLA", "removeCurrencyAmount is called from java !");
-        return StoreInventory.removeCurrencyAmount(currencyItemId, amount);
+        StoreInventory.takeVirtualItem(itemId, amount);
     }
 
-    static int getGoodBalance(String goodItemId) throws VirtualItemNotFoundException {
-        Log.d("SOOMLA", "getGoodBalance is called from java !");
-        return StoreInventory.getGoodBalance(goodItemId);
+    static void equipGood(String goodItemId) throws VirtualItemNotFoundException {
+        Log.d("SOOMLA", "equipGood is called from java !");
+        StoreInventory.equipVirtualGood(goodItemId);
     }
 
-    static int addGoodAmount(String goodItemId, int amount) throws VirtualItemNotFoundException {
-        Log.d("SOOMLA", "addGoodAmount is called from java !");
-        return StoreInventory.addGoodAmount(goodItemId, amount);
+    static void unEquipGood(String goodItemId) throws VirtualItemNotFoundException {
+        Log.d("SOOMLA", "unEquipGood is called from java !");
+        StoreInventory.unEquipVirtualGood(goodItemId);
     }
 
-    static int removeGoodAmount(String goodItemId, int amount) throws VirtualItemNotFoundException {
+    static boolean isGoodEquipped(String goodItemId) throws VirtualItemNotFoundException {
+        Log.d("SOOMLA", "isGoodEquipped is called from java !");
+        return StoreInventory.isVirtualGoodEquipped(goodItemId);
+    }
+
+    static int getGoodUpgradeLevel(String goodItemId) throws VirtualItemNotFoundException {
+        Log.d("SOOMLA", "getGoodUpgradeLevel is called from java !");
+        return StoreInventory.getGoodUpgradeLevel(goodItemId);
+    }
+
+    static String getGoodCurrentUpgrade(String goodItemId) throws VirtualItemNotFoundException {
         Log.d("SOOMLA", "removeGoodAmount is called from java !");
-        return StoreInventory.removeGoodAmount(goodItemId, amount);
+        return StoreInventory.getGoodCurrentUpgrade(goodItemId);
     }
+
+    static void upgradeVirtualGood(String goodItemId) throws VirtualItemNotFoundException, InsufficientFundsException {
+        Log.d("SOOMLA", "upgradeVirtualGood is called from java !");
+        StoreInventory.upgradeVirtualGood(goodItemId);
+    }
+
+    static void removeUpgrades(String goodItemId) throws VirtualItemNotFoundException {
+        Log.d("SOOMLA", "removeUpgrades is called from java !");
+        StoreInventory.removeUpgrades(goodItemId);
+    }
+
+    static boolean nonConsumableItemExists(String nonConsItemId) throws VirtualItemNotFoundException, ClassCastException {
+        Log.d("SOOMLA", "nonConsumableItemExists is called from java !");
+        return StoreInventory.nonConsumableItemExists(nonConsItemId);
+    }
+
+    static void addNonConsumableItem(String nonConsItemId) throws VirtualItemNotFoundException, ClassCastException {
+        Log.d("SOOMLA", "addNonConsumableItem is called from java !");
+        StoreInventory.addNonConsumableItem(nonConsItemId);
+    }
+
+    static void removeNonConsumableItem(String nonConsItemId) throws VirtualItemNotFoundException, ClassCastException {
+        Log.d("SOOMLA", "removeNonConsumableItem is called from java !");
+        StoreInventory.removeNonConsumableItem(nonConsItemId);
+    }
+
 }

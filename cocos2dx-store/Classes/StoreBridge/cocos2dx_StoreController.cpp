@@ -43,33 +43,15 @@ void cocos2dx_StoreController::initialize(string customSecret) {
 
 void cocos2dx_StoreController::buyMarketItem(string productId) throw(cocos2dx_VirtualItemNotFoundException&){
 	JniHelpers::jniCommonVoidCall(
-		"buyGoogleMarketItem", 
+		"buyWithGooglePlay", 
 		"com/soomla/cocos2dx/store/StoreControllerBridge", 
 		productId.c_str()
 	);
 }
 
-void cocos2dx_StoreController::buyVirtualGood(string itemId) throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_InsufficientFundsException&) {
+void cocos2dx_StoreController::restoreTransactions() {
 	JniHelpers::jniCommonVoidCall(
-		"buyVirtualGood", 
-		"com/soomla/cocos2dx/store/StoreControllerBridge", 
-		itemId.c_str()
+		"restoreTransactions", 
+		"com/soomla/cocos2dx/store/StoreControllerBridge"
 	);
 }
-
-void cocos2dx_StoreController::equipVirtualGood(string itemId) throw (cocos2dx_NotEnoughGoodsException&, cocos2dx_VirtualItemNotFoundException&) {
-	JniHelpers::jniCommonVoidCall(
-		"equipVirtualGood", 
-		"com/soomla/cocos2dx/store/StoreControllerBridge", 
-		itemId.c_str()
-	);
-}
-
-void cocos2dx_StoreController::unequipVirtualGood(string itemId) throw(cocos2dx_VirtualItemNotFoundException&) {
-	JniHelpers::jniCommonVoidCall(
-		"unequipVirtualGood", 
-		"com/soomla/cocos2dx/store/StoreControllerBridge", 
-		itemId.c_str()
-	);
-}
-

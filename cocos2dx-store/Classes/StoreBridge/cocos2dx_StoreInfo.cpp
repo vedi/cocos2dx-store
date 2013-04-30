@@ -17,62 +17,63 @@
 #include "cocos2dx_StoreInfo.h"
 #include "JniHelpers.h"
 
-string cocos2dx_StoreInfo::getPackProductId(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+
+// string cocos2dx_StoreInfo::getVirtualItem(string itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+	// return JniHelpers::jniCommonStringCall(
+		// "getPackProductId", 
+		// "com/soomla/cocos2dx/store/StoreInfoBridge", 
+		// itemId
+	// ); 
+// }
+
+// string cocos2dx_StoreInfo::getPurchasableItem(string productId) throw (cocos2dx_VirtualItemNotFoundException&) {
+	// 
+// }
+
+string cocos2dx_StoreInfo::getGoodFirstUpgrade(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
 	return JniHelpers::jniCommonStringCall(
-		"getPackProductId", 
+		"getGoodFirstUpgrade", 
 		"com/soomla/cocos2dx/store/StoreInfoBridge", 
-		itemId
+		goodItemId.c_str()
 	); 
 }
 
-string cocos2dx_StoreInfo::getPackName(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+string cocos2dx_StoreInfo::getGoodLastUpgrade(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
 	return JniHelpers::jniCommonStringCall(
-		"getPackName", 
+		"getGoodLastUpgrade", 
 		"com/soomla/cocos2dx/store/StoreInfoBridge", 
-		itemId
+		goodItemId.c_str()
 	); 
 }
 
-string cocos2dx_StoreInfo::getPackDescription(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+string cocos2dx_StoreInfo::getItemProductId(string itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
 	return JniHelpers::jniCommonStringCall(
-		"getPackDescription", 
+		"getItemProductId", 
 		"com/soomla/cocos2dx/store/StoreInfoBridge", 
-		itemId
-	);
+		itemId.c_str()
+	); 
 }
 
-double cocos2dx_StoreInfo::getPackPrice(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+string cocos2dx_StoreInfo::getItemName(string itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+	return JniHelpers::jniCommonStringCall(
+		"getItemName", 
+		"com/soomla/cocos2dx/store/StoreInfoBridge", 
+		itemId.c_str()
+	); 
+}
+
+string cocos2dx_StoreInfo::getItemDescription(string itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+	return JniHelpers::jniCommonStringCall(
+		"getItemDescription", 
+		"com/soomla/cocos2dx/store/StoreInfoBridge", 
+		itemId.c_str()
+	); 
+}
+
+double cocos2dx_StoreInfo::getItemPrice(string itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
 	return JniHelpers::jniCommonDoubleCall(
-		"getPackPrice", 
+		"getItemPrice", 
 		"com/soomla/cocos2dx/store/StoreInfoBridge", 
-		itemId
+		itemId.c_str()
 	);
 }
-
-string cocos2dx_StoreInfo::getGoodName(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
-	return JniHelpers::jniCommonStringCall(
-		"getGoodName", 
-		"com/soomla/cocos2dx/store/StoreInfoBridge", 
-		itemId
-	);
-}
-
-string cocos2dx_StoreInfo::getGoodDescription(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
-	return JniHelpers::jniCommonStringCall(
-		"getGoodDescription", 
-		"com/soomla/cocos2dx/store/StoreInfoBridge", 
-		itemId
-	);
-}
-
-int cocos2dx_StoreInfo::getGoodPriceForCurrency(const char* goodItemId, const char* currencyItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
-	return JniHelpers::jniCommonIntCall(
-		"getGoodPriceForCurrency", 
-		"com/soomla/cocos2dx/store/StoreInfoBridge", 
-		goodItemId,
-		currencyItemId
-	);
-}
-
-
-

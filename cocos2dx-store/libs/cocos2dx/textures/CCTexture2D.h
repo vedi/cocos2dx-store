@@ -114,7 +114,7 @@ public:
     void releaseData(void *data);
     void* keepData(void *data, unsigned int length);
 
-    /** Intializes with a texture2d with data */
+    /** Initializes with a texture2d with data */
     bool initWithData(const void* data, CCTexture2DPixelFormat pixelFormat, unsigned int pixelsWide, unsigned int pixelsHigh, const CCSize& contentSize);
 
     /**
@@ -135,7 +135,7 @@ public:
     bool initWithImage(CCImage * uiImage);
 
     /** Initializes a texture from a string with dimensions, alignment, font name and font size */
-    bool initWithString(const char *text, const CCSize& dimensions, CCTextAlignment hAlignment, CCVerticalTextAlignment vAlignment, const char *fontName, float fontSize);
+    bool initWithString(const char *text,  const char *fontName, float fontSize, const CCSize& dimensions, CCTextAlignment hAlignment, CCVerticalTextAlignment vAlignment);
     /** Initializes a texture from a string with font name and font size */
     bool initWithString(const char *text, const char *fontName, float fontSize);
 
@@ -251,7 +251,7 @@ private:
     CC_PROPERTY_READONLY(CCTexture2DPixelFormat, m_ePixelFormat, PixelFormat)
     /** width in pixels */
     CC_PROPERTY_READONLY(unsigned int, m_uPixelsWide, PixelsWide)
-    /** hight in pixels */
+    /** height in pixels */
     CC_PROPERTY_READONLY(unsigned int, m_uPixelsHigh, PixelsHigh)
 
     /** texture name */

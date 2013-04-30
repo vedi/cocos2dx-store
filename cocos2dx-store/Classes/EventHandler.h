@@ -24,21 +24,24 @@ using namespace std;
 
 class EventHandler : public IEventHandler {
 public:
-    void marketPurchase(string& productId);
-    void marketRefund(string& productId);
-    void virtualGoodPurchased(string& itemId);
-    void virtualGoodEquipped(string& itemId);
-    void virtualGoodUnequipped(string& itemId);
     void billingSupported();
     void billingNotSupported();
-    void marketPurchaseProcessStarted(string& productId);
-    void marketPurchaseCancelled(string& productId);
-    void goodsPurchaseProcessStarted();
-    void closingStore();
-    void unexpectedErrorInStore();
+	void closingStore();
+	void currencyBalanceChanged(string &itemId, int balance, int amountAdded);
+	void goodBalanceChanged(string &itemId, int balance, int amountAdded);
+    void goodEquipped(string& itemId);
+    void goodUnequipped(string& itemId);
+    void goodUpgrade(string& itemId, string& upgradeItemId);
+	void itemPurchased(string& itemId);
+	void itemPurchaseStarted();
     void openingStore();
-	void currencyBalanceChanged(string &itemId, int balance);
-	void goodBalanceChanged(string &itemId, int balance);
+	void marketPurchaseCancelled(string& itemId);
+    void marketPurchase(string& itemId);
+    void marketPurchaseStarted(string& itemId);
+    void marketRefund(string& itemId);
+    void restoreTransactions(bool success);
+	void restoreTransactionsStarted();
+    void unexpectedErrorInStore();
 };
 
 #endif

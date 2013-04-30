@@ -19,7 +19,8 @@
 #include "platform/android/jni/JniHelper.h"
 #include <android/log.h>
 
-void JniHelpers::jniCommonVoidCall(const char* methodName, const char* classPath) {
+void JniHelpers::jniCommonVoidCall(const char* methodName, const char* classPath)
+					throw(cocos2dx_VirtualItemNotFoundException&, cocos2dx_NotEnoughGoodsException&, cocos2dx_InsufficientFundsException&){
     cocos2d::JniMethodInfo minfo;
     
     bool isHave = cocos2d::JniHelper::getStaticMethodInfo(minfo,classPath,methodName, "()V"); 
@@ -31,7 +32,8 @@ void JniHelpers::jniCommonVoidCall(const char* methodName, const char* classPath
     }
 }
 
-void JniHelpers::jniCommonVoidCall(const char* methodName, const char* classPath, bool arg0) {
+void JniHelpers::jniCommonVoidCall(const char* methodName, const char* classPath, bool arg0) 
+					throw(cocos2dx_VirtualItemNotFoundException&, cocos2dx_NotEnoughGoodsException&, cocos2dx_InsufficientFundsException&){
     cocos2d::JniMethodInfo minfo;
     
     bool isHave = cocos2d::JniHelper::getStaticMethodInfo(minfo,classPath,methodName, "(Z)V"); 
@@ -44,7 +46,7 @@ void JniHelpers::jniCommonVoidCall(const char* methodName, const char* classPath
 }
 
 void JniHelpers::jniCommonVoidCall(const char* methodName, const char* classPath, const char* arg0) 
-					throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_NotEnoughGoodsException&, cocos2dx_InsufficientFundsException&) {
+					throw(cocos2dx_VirtualItemNotFoundException&, cocos2dx_NotEnoughGoodsException&, cocos2dx_InsufficientFundsException&) {
     cocos2d::JniMethodInfo minfo;
 	
     bool isHave = cocos2d::JniHelper::getStaticMethodInfo(minfo, classPath, methodName, "(Ljava/lang/String;)V"); 
@@ -87,8 +89,52 @@ void JniHelpers::jniCommonVoidCall(const char* methodName, const char* classPath
     }
 }
 
+void JniHelpers::jniCommonVoidCall(const char* methodName, const char* classPath, const char* arg0, int arg1)
+					throw(cocos2dx_VirtualItemNotFoundException&, cocos2dx_NotEnoughGoodsException&, cocos2dx_InsufficientFundsException&){
+	cocos2d::JniMethodInfo minfo;
+	
+    bool isHave = cocos2d::JniHelper::getStaticMethodInfo(minfo, classPath, methodName, "(Ljava/lang/String;I)V"); 
+
+    if (!isHave) {
+        //do nothing
+    } else {
+		jstring stringArg0 = minfo.env->NewStringUTF(arg0);
+
+        minfo.env->CallStaticVoidMethod(minfo.classID, minfo.methodID, stringArg0, arg1);
+
+		minfo.env->DeleteLocalRef(stringArg0);		
+
+		if(minfo.env->ExceptionCheck() == JNI_TRUE ) {
+			__android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "HAS EXCEPTION"); 
+			jthrowable exceptionObj = minfo.env->ExceptionOccurred();
+			minfo.env->ExceptionClear();
+
+			jclass vinfEx = cocos2d::JniHelper::getClassID("com/soomla/store/exceptions/VirtualItemNotFoundException", minfo.env);
+			if (minfo.env->IsInstanceOf(exceptionObj, vinfEx)) {
+				__android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "Cought VirtualItemNotFoundException!"); 
+
+				throw cocos2dx_VirtualItemNotFoundException();
+			}
+
+			vinfEx = cocos2d::JniHelper::getClassID("com/soomla/store/exceptions/NotEnoughGoodsException", minfo.env);
+			if (minfo.env->IsInstanceOf(exceptionObj, vinfEx)) {
+				__android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "Cought NotEnoughGoodsException!"); 
+
+				throw cocos2dx_NotEnoughGoodsException();
+			}
+
+			vinfEx = cocos2d::JniHelper::getClassID("com/soomla/store/exceptions/InsufficientFundsException", minfo.env);
+			if (minfo.env->IsInstanceOf(exceptionObj, vinfEx)) {
+				__android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "Cought InsufficientFundsException!"); 
+
+				throw cocos2dx_InsufficientFundsException();
+			}
+		}
+    }
+}
+
 int JniHelpers::jniCommonIntCall(const char* methodName, const char* classPath, const char* arg0) 
-		throw (cocos2dx_VirtualItemNotFoundException&) {
+					throw(cocos2dx_VirtualItemNotFoundException&, cocos2dx_NotEnoughGoodsException&, cocos2dx_InsufficientFundsException&){
     cocos2d::JniMethodInfo minfo;
 	
     bool isHave = cocos2d::JniHelper::getStaticMethodInfo(minfo,classPath,methodName, "(Ljava/lang/String;)I"); 
@@ -122,7 +168,7 @@ int JniHelpers::jniCommonIntCall(const char* methodName, const char* classPath, 
 }
 
 int JniHelpers::jniCommonIntCall(const char* methodName, const char* classPath, const char* arg0, int arg1) 
-		throw (cocos2dx_VirtualItemNotFoundException&) {
+					throw(cocos2dx_VirtualItemNotFoundException&, cocos2dx_NotEnoughGoodsException&, cocos2dx_InsufficientFundsException&){
     cocos2d::JniMethodInfo minfo;
 	
     bool isHave = cocos2d::JniHelper::getStaticMethodInfo(minfo,classPath,methodName, "(Ljava/lang/String;I)I"); 
@@ -156,7 +202,7 @@ int JniHelpers::jniCommonIntCall(const char* methodName, const char* classPath, 
 }
 
 int JniHelpers::jniCommonIntCall(const char* methodName, const char* classPath, const char* arg0, const char* arg1) 
-	throw (cocos2dx_VirtualItemNotFoundException&) {
+					throw(cocos2dx_VirtualItemNotFoundException&, cocos2dx_NotEnoughGoodsException&, cocos2dx_InsufficientFundsException&){
     cocos2d::JniMethodInfo minfo;
 	
     bool isHave = cocos2d::JniHelper::getStaticMethodInfo(minfo,classPath,methodName, "(Ljava/lang/String;Ljava/lang/String;)I"); 
@@ -192,7 +238,7 @@ int JniHelpers::jniCommonIntCall(const char* methodName, const char* classPath, 
 }
 
 string JniHelpers::jniCommonStringCall(const char* methodName, const char* classPath, const char* arg0) 
-	throw (cocos2dx_VirtualItemNotFoundException&) {
+					throw(cocos2dx_VirtualItemNotFoundException&, cocos2dx_NotEnoughGoodsException&, cocos2dx_InsufficientFundsException&){
     cocos2d::JniMethodInfo minfo;
 	
     bool isHave = cocos2d::JniHelper::getStaticMethodInfo(minfo,classPath,methodName, "(Ljava/lang/String;)Ljava/lang/String;"); 
@@ -230,7 +276,7 @@ string JniHelpers::jniCommonStringCall(const char* methodName, const char* class
 }
 
 double JniHelpers::jniCommonDoubleCall(const char* methodName, const char* classPath, const char* arg0) 
-	throw (cocos2dx_VirtualItemNotFoundException&) {
+					throw(cocos2dx_VirtualItemNotFoundException&, cocos2dx_NotEnoughGoodsException&, cocos2dx_InsufficientFundsException&){
     cocos2d::JniMethodInfo minfo;
 	
     bool isHave = cocos2d::JniHelper::getStaticMethodInfo(minfo,classPath,methodName, "(Ljava/lang/String;)D"); 
@@ -261,5 +307,41 @@ double JniHelpers::jniCommonDoubleCall(const char* methodName, const char* class
     }
 	
 	return 0;	
+}
+
+bool JniHelpers::jniCommonBoolCall(const char* methodName, const char* classPath, const char* arg0) 
+	throw(cocos2dx_VirtualItemNotFoundException&, cocos2dx_NotEnoughGoodsException&, cocos2dx_InsufficientFundsException&) {
+	
+    cocos2d::JniMethodInfo minfo;
+
+    bool isHave = cocos2d::JniHelper::getStaticMethodInfo(minfo,classPath,methodName, "(Ljava/lang/String;)Z"); 
+
+    if (!isHave) {
+        //do nothing
+    } else {
+		jstring stringArg0 = minfo.env->NewStringUTF(arg0);
+	
+        jdouble ret = minfo.env->CallStaticBooleanMethod(minfo.classID, minfo.methodID, stringArg0);
+	
+		minfo.env->DeleteLocalRef(stringArg0);
+	
+		if(minfo.env->ExceptionCheck() == JNI_TRUE ) {
+			__android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "HAS EXCEPTION"); 
+			jthrowable exceptionObj = minfo.env->ExceptionOccurred();
+			minfo.env->ExceptionClear();
+		
+			jclass vinfEx = cocos2d::JniHelper::getClassID("com/soomla/store/exceptions/VirtualItemNotFoundException", minfo.env);
+			if (minfo.env->IsInstanceOf(exceptionObj, vinfEx)) {
+				__android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "Cought VirtualItemNotFoundException!"); 
+
+				throw cocos2dx_VirtualItemNotFoundException();
+			}
+		}
+	
+		return (double)ret;
+    }
+
+	return 0;
+		
 }
 
