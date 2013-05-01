@@ -1,14 +1,12 @@
 package com.soomla.cocos2dx.store;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Handler;
 import android.util.Log;
 import com.soomla.store.*;
-import com.soomla.store.exceptions.InsufficientFundsException;
-import com.soomla.store.exceptions.NotEnoughGoodsException;
+import com.soomla.store.data.StoreInfo;
+import com.soomla.store.domain.PurchasableVirtualItem;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
+import com.soomla.store.purchaseTypes.PurchaseWithMarket;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 /**
@@ -49,24 +47,19 @@ public class StoreControllerBridge {
         StoreController.getInstance().storeClosing();
     }
 
-    static void buyGoogleMarketItem(String productId) throws VirtualItemNotFoundException {
-        Log.d("SOOMLA", "buyCurrencyPack is called from java with productId: " + productId + " !");
-        StoreController.getInstance().buyGoogleMarketItem(productId);
+    static void buyWithGooglePlay(String productId) throws VirtualItemNotFoundException {
+        Log.d("SOOMLA", "buyWithGooglePlay is called from java with productId: " + productId + " !");
+        PurchasableVirtualItem pvi = StoreInfo.getPurchasableItem(productId);
+        if(pvi.getPurchaseType() instanceof PurchaseWithMarket) {
+            StoreController.getInstance().buyWithGooglePlay(((PurchaseWithMarket)pvi.getPurchaseType()).getGoogleMarketItem(), "");
+        } else {
+            throw new VirtualItemNotFoundException("productId", productId);
+        }
     }
 
-    static void buyVirtualGood(String itemId) throws VirtualItemNotFoundException, InsufficientFundsException {
-        Log.d("SOOMLA", "buyVirtualGood is called from java with itemId: " + itemId + " !");
-        StoreController.getInstance().buyVirtualGood(itemId);
-    }
-
-    static void equipVirtualGood(String itemId) throws NotEnoughGoodsException, VirtualItemNotFoundException {
-        Log.d("SOOMLA", "equipVirtualGood is called from java with itemId: " + itemId + " !");
-        StoreController.getInstance().equipVirtualGood(itemId);
-    }
-
-    static void unequipVirtualGood(String itemId) throws VirtualItemNotFoundException{
-        Log.d("SOOMLA", "unequipVirtualGood is called from java with itemId: " + itemId + " !");
-        StoreController.getInstance().unequipVirtualGood(itemId);
+    static void restoreTransactions() {
+        Log.d("SOOMLA", "restoreTransactions is called from java !");
+        StoreController.getInstance().restoreTransactions();
     }
 
     private static String TAG = "StoreControllerBridge";

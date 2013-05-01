@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2010-2011 cocos2d-x.org
+Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2009      On-Core
  
 http://www.cocos2d-x.org
@@ -50,7 +50,7 @@ public:
     void afterRender(CCTexture2D *pTexture);
 
 protected:
-    GLuint m_fbo;
+    GLuint m_FBO;
     GLint m_oldFBO;
     GLfloat    m_oldClearColor[4];
 };

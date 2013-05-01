@@ -1,9 +1,6 @@
 package com.soomla.cocos2dx.store;
 
 import com.soomla.store.BusProvider;
-import com.soomla.store.domain.data.GoogleMarketItem;
-import com.soomla.store.domain.data.VirtualCurrency;
-import com.soomla.store.domain.data.VirtualGood;
 import com.soomla.store.events.*;
 import com.squareup.otto.Subscribe;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
@@ -19,58 +16,6 @@ public class EventHandlerBridge {
         mGLThread = glThread;
 
         BusProvider.getInstance().register(this);
-    }
-
-    @Subscribe
-    public void onMarketPurchase(final MarketPurchaseEvent marketPurchaseEvent) {
-
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                marketPurchase(marketPurchaseEvent.getGoogleMarketItem().getProductId());
-            }
-        });
-
-    }
-
-    @Subscribe
-    public void onMarketRefund(final MarketRefundEvent marketRefundEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                marketRefund(marketRefundEvent.getGoogleMarketItem().getProductId());
-            }
-        });
-    }
-
-    @Subscribe
-    public void onVirtualGoodPurchased(final GoodPurchasedEvent goodPurchasedEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                virtualGoodPurchased(goodPurchasedEvent.getGood().getItemId());
-            }
-        });
-    }
-
-    @Subscribe
-    public void onVirtualGoodEquipped(final VirtualGoodEquippedEvent virtualGoodEquippedEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                virtualGoodEquipped(virtualGoodEquippedEvent.getGood().getItemId());
-            }
-        });
-    }
-
-    @Subscribe
-    public void onVirtualGoodUnequipped(final VirtualGoodUnEquippedEvent virtualGoodUnEquippedEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                virtualGoodUnequipped(virtualGoodUnEquippedEvent.getGood().getItemId());
-            }
-        });
     }
 
     @Subscribe
@@ -94,36 +39,6 @@ public class EventHandlerBridge {
     }
 
     @Subscribe
-    public void onMarketPurchaseProcessStarted(final MarketPurchaseStartedEvent marketPurchaseStartedEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                marketPurchaseProcessStarted(marketPurchaseStartedEvent.getGoogleMarketItem().getProductId());
-            }
-        });
-    }
-	
-    @Subscribe
-    public void onMarketPurchaseCancelled(final MarketPurchaseCancelledEvent marketPurchaseCancelledEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                marketPurchaseCancelled(marketPurchaseCancelledEvent.getGoogleMarketItem().getProductId());
-            }
-        });
-    }
-
-    @Subscribe
-    public void onGoodsPurchaseProcessStarted(GoodPurchaseStartedEvent goodPurchaseStartedEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                goodsPurchaseProcessStarted();
-            }
-        });
-    }
-
-    @Subscribe
     public void onClosingStore(ClosingStoreEvent closingStoreEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
@@ -134,11 +49,75 @@ public class EventHandlerBridge {
     }
 
     @Subscribe
-    public void onUnexpectedErrorInStore(UnexpectedStoreErrorEvent unexpectedStoreErrorEvent) {
+    public void onCurrencyBalanceChanged(final CurrencyBalanceChangedEvent currencyBalanceChangedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                unexpectedErrorInStore();
+                currencyBalanceChanged(currencyBalanceChangedEvent.getCurrency().getItemId(),
+                        currencyBalanceChangedEvent.getBalance(),
+                        currencyBalanceChangedEvent.getAmountAdded());
+            }
+        });
+    }
+
+    @Subscribe
+    public void onGoodBalanceChanged(final GoodBalanceChangedEvent goodBalanceChangedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                goodBalanceChanged(goodBalanceChangedEvent.getGood().getItemId(),
+                        goodBalanceChangedEvent.getBalance(),
+                        goodBalanceChangedEvent.getAmountAdded());
+            }
+        });
+    }
+
+    @Subscribe
+    public void onGoodEquipped(final GoodEquippedEvent goodEquippedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                goodEquipped(goodEquippedEvent.getGood().getItemId());
+            }
+        });
+    }
+
+    @Subscribe
+    public void onGoodUnequipped(final GoodUnEquippedEvent goodUnEquippedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                goodUnequipped(goodUnEquippedEvent.getGood().getItemId());
+            }
+        });
+    }
+
+    @Subscribe
+    public void onGoodUpgrade(final GoodUpgradeEvent goodUpgradeEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                goodUpgrade(goodUpgradeEvent.getGood().getItemId(), goodUpgradeEvent.getCurrentUpgrade().getItemId());
+            }
+        });
+    }
+
+    @Subscribe
+    public void onItemPurchased(final ItemPurchasedEvent itemPurchasedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                itemPurchased(itemPurchasedEvent.getPurchasableVirtualItem().getItemId());
+            }
+        });
+    }
+
+    @Subscribe
+    public void onItemPurchaseStarted(final ItemPurchaseStartedEvent itemPurchaseStartedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                itemPurchaseStarted(itemPurchaseStartedEvent.getPurchasableVirtualItem().getItemId());
             }
         });
     }
@@ -154,38 +133,97 @@ public class EventHandlerBridge {
     }
 
     @Subscribe
-    public void onCurrencyBalanceChanged(final CurrencyBalanceChangedEvent currencyBalanceChangedEvent) {
+    public void onPlayPurchaseCancelled(final PlayPurchaseCancelledEvent playPurchaseCancelledEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                currencyBalanceChanged(currencyBalanceChangedEvent.getCurrency().getItemId(), currencyBalanceChangedEvent.getBalance());
+                playPurchaseCancelled(playPurchaseCancelledEvent.getPurchasableVirtualItem().getItemId());
             }
         });
     }
 
     @Subscribe
-    public void onGoodBalanceChanged(final GoodBalanceChangedEvent goodBalanceChangedEvent) {
+    public void onPlayPurchase(final PlayPurchaseEvent playPurchaseEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                goodBalanceChanged(goodBalanceChangedEvent.getGood().getItemId(), goodBalanceChangedEvent.getBalance());
+                playPurchase(playPurchaseEvent.getPurchasableVirtualItem().getItemId());
             }
         });
     }
 
-    native void marketPurchase(String productId);
-    native void marketRefund(String productId);
-    native void virtualGoodPurchased(String itemId);
-    native void virtualGoodEquipped(String itemId);
-    native void virtualGoodUnequipped(String itemId);
+    @Subscribe
+    public void onPlayPurchaseStarted(final PlayPurchaseStartedEvent playPurchaseStartedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                playPurchaseStarted(playPurchaseStartedEvent.getPurchasableVirtualItem().getItemId());
+            }
+        });
+    }
+
+    @Subscribe
+    public void onPlayRefund(final PlayRefundEvent playRefundEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                playRefund(playRefundEvent.getPurchasableVirtualItem().getItemId());
+            }
+        });
+    }
+
+    @Subscribe
+    public void onRestoreTransactions(final RestoreTransactionsEvent restoreTransactionsEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                restoreTransactions(restoreTransactionsEvent.isSuccess());
+            }
+        });
+    }
+
+    @Subscribe
+    public void onRestoreTransactionsStarted(final RestoreTransactionsStartedEvent restoreTransactionsStartedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                restoreTransactionsStarted();
+            }
+        });
+    }
+
+    @Subscribe
+    public void onUnexpectedErrorInStore(UnexpectedStoreErrorEvent unexpectedStoreErrorEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                unexpectedErrorInStore();
+            }
+        });
+    }
+
+
+
+
+
     native void billingSupported();
     native void billingNotSupported();
-    native void marketPurchaseProcessStarted(String productId);
-    native void marketPurchaseCancelled(String productId);
-    native void goodsPurchaseProcessStarted();
     native void closingStore();
-    native void unexpectedErrorInStore();
+    native void currencyBalanceChanged(String itemId, int balance, int amountAdded);
+    native void goodBalanceChanged(String itemId, int balance, int amountAdded);
+    native void goodEquipped(String itemId);
+    native void goodUnequipped(String itemId);
+    native void goodUpgrade(String itemId, String upgradeItemId);
+    native void itemPurchased(String itemId);
+    native void itemPurchaseStarted(String itemId);
     native void openingStore();
-    native void currencyBalanceChanged(String itemId, int balance);
-    native void goodBalanceChanged(String itemId, int balance);
+    native void playPurchaseCancelled(String itemId);
+    native void playPurchase(String itemId);
+    native void playPurchaseStarted(String itemId);
+    native void playRefund(String itemId);
+    native void restoreTransactions(boolean success);
+    native void restoreTransactionsStarted();
+    native void unexpectedErrorInStore();
+
+
 }

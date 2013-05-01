@@ -34,93 +34,95 @@ void cocos2dx_EventHandlers::removeHandler(IEventHandler* handler) {
 	handlers.erase(handler);
 }
 
-void cocos2dx_EventHandlers::marketPurchase(string& productId) {
-	set<IEventHandler*>::iterator itr;
-	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
-	    (*itr)->marketPurchase(productId);
-}
-
-void cocos2dx_EventHandlers::marketRefund(string& productId) {
-	set<IEventHandler*>::iterator itr;
-	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
-	    (*itr)->marketRefund(productId);
-}
-
-void cocos2dx_EventHandlers::virtualGoodPurchased(string& itemId) {
-	set<IEventHandler*>::iterator itr;
-	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
-	    (*itr)->virtualGoodPurchased(itemId);
-}
-
-void cocos2dx_EventHandlers::virtualGoodEquipped(string& itemId) {
-	set<IEventHandler*>::iterator itr;
-	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
-	    (*itr)->virtualGoodEquipped(itemId);
-}
-
-void cocos2dx_EventHandlers::virtualGoodUnequipped(string& itemId) {
-	set<IEventHandler*>::iterator itr;
-	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
-	    (*itr)->virtualGoodUnequipped(itemId);
-}
 
 void cocos2dx_EventHandlers::billingSupported() {
 	set<IEventHandler*>::iterator itr;
 	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
 	    (*itr)->billingSupported();
 }
-
 void cocos2dx_EventHandlers::billingNotSupported() {
 	set<IEventHandler*>::iterator itr;
 	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
 	    (*itr)->billingNotSupported();
 }
-
-void cocos2dx_EventHandlers::marketPurchaseProcessStarted(string& productId) {
-	set<IEventHandler*>::iterator itr;
-	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
-	    (*itr)->marketPurchaseProcessStarted(productId);
-}
-
-void cocos2dx_EventHandlers::marketPurchaseCancelled(string& productId) {
-	set<IEventHandler*>::iterator itr;
-	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
-	    (*itr)->marketPurchaseCancelled(productId);
-}
-
-void cocos2dx_EventHandlers::goodsPurchaseProcessStarted() {
-	set<IEventHandler*>::iterator itr;
-	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
-	    (*itr)->goodsPurchaseProcessStarted();
-}
-
 void cocos2dx_EventHandlers::closingStore() {
 	set<IEventHandler*>::iterator itr;
 	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
 	    (*itr)->closingStore();
 }
-
-void cocos2dx_EventHandlers::unexpectedErrorInStore() {
+void cocos2dx_EventHandlers::currencyBalanceChanged(string &itemId, int balance, int amountAdded) {
 	set<IEventHandler*>::iterator itr;
 	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
-	    (*itr)->unexpectedErrorInStore();
+	    (*itr)->currencyBalanceChanged(itemId, balance, amountAdded);
 }
-
+void cocos2dx_EventHandlers::goodBalanceChanged(string &itemId, int balance, int amountAdded) {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->goodBalanceChanged(itemId, balance, amountAdded);
+}
+void cocos2dx_EventHandlers::goodEquipped(string& itemId) {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->goodEquipped(itemId);
+}
+void cocos2dx_EventHandlers::goodUnequipped(string& itemId) {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->goodUnequipped(itemId);
+}
+void cocos2dx_EventHandlers::goodUpgrade(string& itemId, string& upgradeItemId) {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->goodUpgrade(itemId, upgradeItemId);
+}
+void cocos2dx_EventHandlers::itemPurchased(string& itemId) {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->itemPurchased(itemId);
+}
+void cocos2dx_EventHandlers::itemPurchaseStarted() {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->itemPurchaseStarted();
+}
 void cocos2dx_EventHandlers::openingStore() {
 	set<IEventHandler*>::iterator itr;
 	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
 	    (*itr)->openingStore();
 }
-
-void cocos2dx_EventHandlers::currencyBalanceChanged(string& itemId, int balance) {
+void cocos2dx_EventHandlers::marketPurchaseCancelled(string& itemId) {
 	set<IEventHandler*>::iterator itr;
 	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
-	    (*itr)->currencyBalanceChanged(itemId, balance);
+	    (*itr)->marketPurchaseCancelled(itemId);
 }
-
-void cocos2dx_EventHandlers::goodBalanceChanged(string& itemId, int balance) {
+void cocos2dx_EventHandlers::marketPurchase(string& itemId) {
 	set<IEventHandler*>::iterator itr;
 	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
-	    (*itr)->goodBalanceChanged(itemId, balance);
+	    (*itr)->marketPurchase(itemId);
+}
+void cocos2dx_EventHandlers::marketPurchaseStarted(string& itemId) {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->marketPurchaseStarted(itemId);
+}
+void cocos2dx_EventHandlers::marketRefund(string& itemId) {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->marketRefund(itemId);
+}
+void cocos2dx_EventHandlers::restoreTransactions(bool success) {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->restoreTransactions(success);
+}
+void cocos2dx_EventHandlers::restoreTransactionsStarted() {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->restoreTransactionsStarted();
+}
+void cocos2dx_EventHandlers::unexpectedErrorInStore() {
+	set<IEventHandler*>::iterator itr;
+	for ( itr = handlers.begin(); itr != handlers.end(); itr++ )
+	    (*itr)->unexpectedErrorInStore();
 }
 

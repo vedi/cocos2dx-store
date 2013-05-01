@@ -23,26 +23,26 @@
  ****************************************************************************/
 
 #import "CCApplication.h"
-
 #import <Cocoa/Cocoa.h>
-
-#import "CCGeometry.h"
+#include <algorithm>
+#include "platform/CCFileUtils.h"
+#include "CCGeometry.h"
 #include "CCDirector.h"
 #import "CCDirectorCaller.h"
 
-NS_CC_BEGIN;
+NS_CC_BEGIN
 
 CCApplication* CCApplication::sm_pSharedApplication = 0;
 
 CCApplication::CCApplication()
 {
-    CC_ASSERT(! sm_pSharedApplication);
+    CCAssert(! sm_pSharedApplication, "sm_pSharedApplication already exist");
     sm_pSharedApplication = this;
 }
 
 CCApplication::~CCApplication()
 {
-    CC_ASSERT(this == sm_pSharedApplication);
+    CCAssert(this == sm_pSharedApplication, "sm_pSharedApplication != this");
     sm_pSharedApplication = 0;
 }
 
@@ -71,7 +71,7 @@ TargetPlatform CCApplication::getTargetPlatform()
 
 CCApplication* CCApplication::sharedApplication()
 {
-    CC_ASSERT(sm_pSharedApplication);
+    CCAssert(sm_pSharedApplication, "sm_pSharedApplication not set");
     return sm_pSharedApplication;
 }
 
@@ -95,8 +95,69 @@ ccLanguageType CCApplication::getCurrentLanguage()
     {
         ret = kLanguageEnglish;
     }
-
+    else if ([languageCode isEqualToString:@"fr"]){
+        ret = kLanguageFrench;
+    }
+    else if ([languageCode isEqualToString:@"it"]){
+        ret = kLanguageItalian;
+    }
+    else if ([languageCode isEqualToString:@"de"]){
+        ret = kLanguageGerman;
+    }
+    else if ([languageCode isEqualToString:@"es"]){
+        ret = kLanguageSpanish;
+    }
+    else if ([languageCode isEqualToString:@"ru"]){
+        ret = kLanguageRussian;
+    }
+    else if ([languageCode isEqualToString:@"ko"]){
+        ret = kLanguageKorean;
+    }
+    else if ([languageCode isEqualToString:@"ja"]){
+        ret = kLanguageJapanese;
+    }
+    else if ([languageCode isEqualToString:@"hu"]){
+        ret = kLanguageHungarian;
+    }
+    else if ([languageCode isEqualToString:@"pt"])
+    {
+        ret = kLanguagePortuguese;
+    }
+    else if ([languageCode isEqualToString:@"ar"])
+    {
+        ret = kLanguageArabic;
+    }
+    
     return ret;
 }
 
-NS_CC_END;
+void CCApplication::setResourceRootPath(const std::string& rootResDir)
+{
+    m_resourceRootPath = rootResDir;
+    if (m_resourceRootPath[m_resourceRootPath.length() - 1] != '/')
+    {
+        m_resourceRootPath += '/';
+    }
+    CCFileUtils* pFileUtils = CCFileUtils::sharedFileUtils();
+    std::vector<std::string> searchPaths = pFileUtils->getSearchPaths();
+    searchPaths.insert(searchPaths.begin(), m_resourceRootPath);
+    pFileUtils->setSearchPaths(searchPaths);
+}
+
+const std::string& CCApplication::getResourceRootPath(void)
+{
+    return m_resourceRootPath;
+}
+
+void CCApplication::setStartupScriptFilename(const std::string& startupScriptFile)
+{
+    m_startupScriptFilename = startupScriptFile;
+    std::replace(m_startupScriptFilename.begin(), m_startupScriptFilename.end(), '\\', '/');
+}
+
+const std::string& CCApplication::getStartupScriptFilename(void)
+{
+    return m_startupScriptFilename;
+}
+
+NS_CC_END

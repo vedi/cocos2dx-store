@@ -19,68 +19,66 @@
 #include "StoreBScene.h"
 #include "StoreBridge/Includes.h"
 
-void EventHandler::marketPurchase(string& productId) {
-	
-}
-
-void EventHandler::marketRefund(string& productId) {
-	
-}
-
-void EventHandler::virtualGoodPurchased(string& itemId) {
-	
-}
-
-void EventHandler::virtualGoodEquipped(string& itemId) {
-	
-}
-
-void EventHandler::virtualGoodUnequipped(string& itemId) {
-
-}
-
 void EventHandler::billingSupported() {
-
+	
 }
-
 void EventHandler::billingNotSupported() {
-
+	
 }
-
-void EventHandler::marketPurchaseProcessStarted(string& productId) {
-
+void EventHandler::closingStore() {
+	
 }
-
-void EventHandler::marketPurchaseCancelled(string& productId) {
+void EventHandler::currencyBalanceChanged(string &itemId, int balance, int amountAdded) {
+	StoreBScene::setCurrencyBalanceLabel();
+    StoreAScene::setCurrencyBalanceLabel();
+}
+void EventHandler::goodBalanceChanged(string &itemId, int balance, int amountAdded) {
+	StoreAScene::setPriceBalanceLabel(itemId.c_str());
+}
+void EventHandler::goodEquipped(string& itemId) {
+	
+}
+void EventHandler::goodUnequipped(string& itemId) {
+	
+}
+void EventHandler::goodUpgrade(string& itemId, string& upgradeItemId) {
+	
+}
+void EventHandler::itemPurchased(string& itemId) {
+	
+}
+void EventHandler::itemPurchaseStarted() {
+	
+}
+void EventHandler::openingStore() {
+	
+}
+void EventHandler::marketPurchaseCancelled(string& itemId) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     __android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "Market purchase cancelled by user!");
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     iOSHelper::LogMessage("Market purchase cancelled by user!");
 #endif
 }
-
-void EventHandler::goodsPurchaseProcessStarted() {
-
+void EventHandler::marketPurchase(string& itemId) {
+	
 }
-
-void EventHandler::closingStore() {
-
+void EventHandler::marketPurchaseStarted(string& itemId) {
+	
 }
-
+void EventHandler::marketRefund(string& itemId) {
+	
+}
+void EventHandler::restoreTransactions(bool success) {
+	
+}
+void EventHandler::restoreTransactionsStarted() {
+	
+}
 void EventHandler::unexpectedErrorInStore() {
-
+	
 }
 
-void EventHandler::openingStore() {
 
-}
 
-void EventHandler::currencyBalanceChanged(string &itemId, int balance) {
-	StoreBScene::setCurrencyBalanceLabel();
-    StoreAScene::setCurrencyBalanceLabel();
-}
-
-void EventHandler::goodBalanceChanged(string &itemId, int balance) {
-	StoreAScene::setPriceBalanceLabel(itemId.c_str());
-}
 

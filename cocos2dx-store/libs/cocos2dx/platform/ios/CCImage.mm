@@ -23,14 +23,11 @@ THE SOFTWARE.
 ****************************************************************************/
 #import "CCImage.h"
 #import "CCFileUtils.h"
+#import "CCCommon.h"
 #import <string>
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
-// FontLabel support
-#import "FontLabel/FontManager.h"
-#import "FontLabel/FontLabelStringDrawing.h"
 
 typedef struct
 {
@@ -171,7 +168,7 @@ static bool _isValidFontName(const char *fontName)
     return ret;
 }
 
-static CGSize _calculateStringSizeWithFontOrZFont(NSString *str, id font, CGSize *constrainSize, bool isZfont)
+static CGSize _calculateStringSize(NSString *str, id font, CGSize *constrainSize)
 {
     NSArray *listItems = [str componentsSeparatedByString: @"\n"];
     CGSize dim = CGSizeZero;
@@ -184,15 +181,7 @@ static CGSize _calculateStringSizeWithFontOrZFont(NSString *str, id font, CGSize
     
     for (NSString *s in listItems)
     {
-        CGSize tmp;
-        if (isZfont)
-        {
-            tmp = [FontLabelStringDrawingHelper sizeWithZFont:s zfont:font constrainedToSize:textRect];
-        }
-        else
-        {
-           tmp = [s sizeWithFont:font constrainedToSize:textRect]; 
-        }
+        CGSize tmp = [s sizeWithFont:font constrainedToSize:textRect];
         
         if (tmp.width > dim.width)
         {
@@ -223,37 +212,38 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         constrainSize.width = pInfo->width;
         constrainSize.height = pInfo->height;
         
+        // On iOS custom fonts must be listed beforehand in the App info.plist (in order to be usable) and referenced only the by the font family name itself when
+        // calling [UIFont fontWithName]. Therefore even if the developer adds 'SomeFont.ttf' or 'fonts/SomeFont.ttf' to the App .plist, the font must
+        // be referenced as 'SomeFont' when calling [UIFont fontWithName]. Hence we strip out the folder path components and the extension here in order to get just
+        // the font family name itself. This stripping step is required especially for references to user fonts stored in CCB files; CCB files appear to store
+        // the '.ttf' extensions when referring to custom fonts.
+        fntName = [[fntName lastPathComponent] stringByDeletingPathExtension];
+        
         // create the font   
-        id font;
-        font = [UIFont fontWithName:fntName size:nSize];  
+        id font = [UIFont fontWithName:fntName size:nSize];
+        
         if (font)
         {
-            dim = _calculateStringSizeWithFontOrZFont(str, font, &constrainSize, false);
-        }      
-        
-        if (! font)
-        {
-            font = [[FontManager sharedManager] zFontWithName:fntName pointSize:nSize];
-            if (font)
-            {
-                dim =_calculateStringSizeWithFontOrZFont(str, font, &constrainSize, true);
-            }  
+            dim = _calculateStringSize(str, font, &constrainSize);
         }
-
-        if (! font)
+        else
         {
-            fntName = _isValidFontName(pFontName) ? fntName : @"MarkerFelt-Wide";
-            font = [UIFont fontWithName:fntName size:nSize];
-                
-            if (! font) 
+            if (!_isValidFontName(pFontName))
+            {
+                // Attempted to load a non system font. Attempt this fallback first before the default system font:
+                CCLOGERROR("Error! Failed to load the custom font '%s'! A default font will be used instead.", pFontName);
+                font = [UIFont fontWithName: @"MarkerFelt-Wide" size:nSize];
+            }
+            
+            if (!font)
             {
                 font = [UIFont systemFontOfSize:nSize];
             }
                 
             if (font)
             {
-                dim = _calculateStringSizeWithFontOrZFont(str, font, &constrainSize, false);
-            }  
+                dim = _calculateStringSize(str, font, &constrainSize);
+            }
         }
 
         CC_BREAK_IF(! font);
@@ -286,7 +276,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         if (constrainSize.height > 0 && constrainSize.height > dim.height)
         {
             dim.height = constrainSize.height;
-        }         
+        }
         
         unsigned char* data = new unsigned char[(int)(dim.width * dim.height * 4)];
         memset(data, 0, (int)(dim.width * dim.height * 4));
@@ -314,6 +304,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
                                 : UITextAlignmentLeft);
         
         // normal fonts
+        /*
         if( [font isKindOfClass:[UIFont class] ] )
         {
             [str drawInRect:CGRectMake(0, startH, dim.width, dim.height) withFont:font lineBreakMode:(UILineBreakMode)UILineBreakModeWordWrap alignment:align];
@@ -322,6 +313,8 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         {
             [FontLabelStringDrawingHelper drawInRect:str rect:CGRectMake(0, startH, dim.width, dim.height) withZFont:font lineBreakMode:(UILineBreakMode)UILineBreakModeWordWrap alignment:align];
         }
+         */
+        [str drawInRect:CGRectMake(0, startH, dim.width, dim.height) withFont:font lineBreakMode:(UILineBreakMode)UILineBreakModeWordWrap alignment:align];
         
         UIGraphicsPopContext();
         
@@ -363,7 +356,7 @@ bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = e
 	bool bRet = false;
     unsigned long nSize = 0;
     unsigned char* pBuffer = CCFileUtils::sharedFileUtils()->getFileData(
-				CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(strPath),
+				CCFileUtils::sharedFileUtils()->fullPathForFilename(strPath).c_str(),
 				"rb",
 				&nSize);
 				
@@ -407,6 +400,10 @@ bool CCImage::initWithImageData(void * pData,
         {
             bRet = _initWithRawData(pData, nDataLen, nWidth, nHeight, nBitsPerComponent);
         }
+        else if (eFmt == kFmtWebp)
+        {
+            bRet = _initWithWebpData(pData, nDataLen);
+        }
         else // init with png or jpg file data
         {
             bRet = _initWithData(pData, nDataLen, &info);
@@ -437,7 +434,7 @@ bool CCImage::_initWithRawData(void *pData, int nDatalen, int nWidth, int nHeigh
         m_nWidth    = (short)nWidth;
         m_bHasAlpha = true;
 
-        // only RGBA8888 surported
+        // only RGBA8888 supported
         int nBytesPerComponent = 4;
         int nSize = nHeight * nWidth * nBytesPerComponent;
         m_pData = new unsigned char[nSize];

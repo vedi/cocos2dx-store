@@ -9,8 +9,8 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../libs/cocos2dx/platform/android/java/src_common">
-      <sourceFolder url="file://$MODULE_DIR$/../libs/cocos2dx/platform/android/java/src_common" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../libs/cocos2dx/platform/android/java/src">
+      <sourceFolder url="file://$MODULE_DIR$/../libs/cocos2dx/platform/android/java/src" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" />

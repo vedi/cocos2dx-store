@@ -46,12 +46,15 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	
     
     TargetPlatform target = getTargetPlatform();
+	
+	std::vector<std::string> searchPaths;
+	searchPaths.push_back("iphonehd");
+    CCFileUtils::sharedFileUtils()->setSearchPaths(searchPaths);
     
     if (target == kTargetIpad)
     {
         // ipad
-        
-        CCFileUtils::sharedFileUtils()->setResourceDirectory("iphonehd");
+        // CCFileUtils::sharedFileUtils()->setResourceDirectory("iphonehd");
         
         // don't enable retina because we don't have ipad hd resource
         CCEGLView::sharedOpenGLView()->setDesignResolutionSize(720, 1280, kResolutionNoBorder);
@@ -63,7 +66,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 //        if (pDirector->enableRetinaDisplay(true))
 //        {
             // iphone hd
-            CCFileUtils::sharedFileUtils()->setResourceDirectory("iphonehd");
+            // CCFileUtils::sharedFileUtils()->setResourceDirectory("iphonehd");
 //        }
 //        else
 //        {
@@ -76,7 +79,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     {
         // android, windows, blackberry, linux or mac
         // use 960*640 resources as design resolution size
-        CCFileUtils::sharedFileUtils()->setResourceDirectory("iphonehd");
+		
+        // CCFileUtils::sharedFileUtils()->setResourceDirectory("iphonehd");
         CCEGLView::sharedOpenGLView()->setDesignResolutionSize(720, 1280, kResolutionNoBorder);
     }
 

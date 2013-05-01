@@ -38,6 +38,7 @@ THE SOFTWARE.
 #import "CCIMEDispatcher.h"
 #import "CCWindow.h"
 #import "CCEventDispatcher.h"
+#import "CCEGLView.h"
 
 
 //USING_NS_CC;
@@ -45,7 +46,7 @@ static EAGLView *view;
 
 @implementation EAGLView
 
-@synthesize eventDelegate = eventDelegate_, isFullScreen = isFullScreen_;
+@synthesize eventDelegate = eventDelegate_, isFullScreen = isFullScreen_, frameZoomFactor=frameZoomFactor_;
 
 +(id) sharedEGLView
 {
@@ -83,9 +84,28 @@ static EAGLView *view;
 		// event delegate
 		eventDelegate_ = [CCEventDispatcher sharedDispatcher];
 	}
+    
+    cocos2d::CCEGLView::sharedOpenGLView()->setFrameSize(frameRect.size.width, frameRect.size.height);
+    
+    frameZoomFactor_ = 1.0f;
 	
 	view = self;
 	return self;
+}
+
+- (id) initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat *)format{
+    // event delegate
+    eventDelegate_ = [CCEventDispatcher sharedDispatcher];
+    
+    cocos2d::CCEGLView::sharedOpenGLView()->setFrameSize(frameRect.size.width, frameRect.size.height);
+    
+    frameZoomFactor_ = 1.0f;
+	
+	view = self;
+    
+    [super initWithFrame:frameRect pixelFormat:format];
+
+    return self;
 }
 
 - (void) update
@@ -117,6 +137,29 @@ static EAGLView *view;
 	return 24;
 }
 
+- (void) setFrameZoomFactor:(float)frameZoomFactor
+{
+    frameZoomFactor_ = frameZoomFactor;
+    
+    NSRect winRect = [[self window] frame];
+    NSRect viewRect = [self frame];
+    
+    // compute the margin width and margin height
+    float diffX = winRect.size.width - viewRect.size.width;
+    float diffY = winRect.size.height - viewRect.size.height;
+    
+    // new window width and height
+    float newWindowWidth = (int)(viewRect.size.width * frameZoomFactor + diffX);
+    float newWindowHeight = (int)(viewRect.size.height * frameZoomFactor + diffY);
+    
+    // display window in the center of the screen
+    NSRect screenRect = [[NSScreen mainScreen] frame];
+    float originX = (screenRect.size.width - newWindowWidth) / 2;
+    float originY = (screenRect.size.height - newWindowHeight) / 2;
+    
+    [[self window] setFrame:NSMakeRect(originX, originY, newWindowWidth, newWindowHeight) display:true];
+}
+
 - (void) reshape
 {
 	// We draw on a secondary thread through the display link
@@ -125,12 +168,12 @@ static EAGLView *view;
 
 	[self lockOpenGLContext];
 	
-	NSRect rect = [self bounds];
+//	NSRect rect = [self bounds];
 	
 	cocos2d::CCDirector *director = cocos2d::CCDirector::sharedDirector();
-	CGSize size = NSSizeToCGSize(rect.size);
-	cocos2d::CCSize ccsize = cocos2d::CCSizeMake(size.width, size.height);
-	director->reshapeProjection(ccsize);
+//	CGSize size = NSSizeToCGSize(rect.size);
+//	cocos2d::CCSize ccsize = cocos2d::CCSizeMake(size.width, size.height);
+	//director->reshapeProjection(ccsize);
 	
 	// avoid flicker
 	director->drawScene();
@@ -158,8 +201,7 @@ static EAGLView *view;
 
 - (void) dealloc
 {
-	CCLOGINFO(@"cocos2d: deallocing %@", self);
-
+	CCLOGINFO(@"cocos2d: deallocing EAGLView %@", self);
 	[super dealloc];
 }
 	
@@ -290,8 +332,8 @@ static EAGLView *view;
     float ys[1] = {0.0f};
     
 	ids[0] = [theEvent eventNumber];
-	xs[0] = x;
-	ys[0] = y;
+	xs[0] = x / frameZoomFactor_;
+	ys[0] = y / frameZoomFactor_;
 
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleTouchesBegin(1, ids, xs, ys);
 }
@@ -314,8 +356,8 @@ static EAGLView *view;
     float ys[1] = {0.0f};
     
 	ids[0] = [theEvent eventNumber];
-	xs[0] = x;
-	ys[0] = y;
+	xs[0] = x / frameZoomFactor_;
+	ys[0] = y / frameZoomFactor_;
 
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleTouchesMove(1, ids, xs, ys);
 }
@@ -333,8 +375,8 @@ static EAGLView *view;
     float ys[1] = {0.0f};
     
 	ids[0] = [theEvent eventNumber];
-	xs[0] = x;
-	ys[0] = y;
+	xs[0] = x / frameZoomFactor_;
+	ys[0] = y / frameZoomFactor_;
 
 	cocos2d::CCDirector::sharedDirector()->getOpenGLView()->handleTouchesEnd(1, ids, xs, ys);
 }

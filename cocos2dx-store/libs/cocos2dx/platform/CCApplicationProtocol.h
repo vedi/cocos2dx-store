@@ -12,6 +12,7 @@ enum TargetPlatform
     kTargetIphone,
     kTargetIpad,
     kTargetBlackBerry,
+    kTargetNaCl,
 };
 
 /**
@@ -46,7 +47,7 @@ public:
 
     /**
     @brief    Callback by CCDirector for limit FPS.
-    @interval       The time, which expressed in second in second, between current frame and next. 
+    @interval       The time, expressed in seconds, between current frame and next. 
     */
     virtual void setAnimationInterval(double interval) = 0;
 

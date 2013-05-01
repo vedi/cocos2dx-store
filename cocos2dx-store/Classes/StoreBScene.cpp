@@ -151,7 +151,7 @@ void StoreBScene::setCurrencyBalanceLabel() {
     
 	int balance = 0;
 	try{
-		balance = cocos2dx_StoreInventory::getCurrencyBalance("currency_muffin");
+		balance = cocos2dx_StoreInventory::getItemBalance("currency_muffin");
 	} catch (cocos2dx_VirtualItemNotFoundException& e) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
             __android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "getCurrencyBalance Cought cocos2dx_VirtualItemNotFoundException from NATIVE!"); 
@@ -185,9 +185,9 @@ void StoreBScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visi
 	}
 	else {
 		// TODO: exception handling ..
-	    string nameS = cocos2dx_StoreInfo::getPackName(itemId.c_str());
-		string infoS = cocos2dx_StoreInfo::getPackDescription(itemId.c_str());
-		price = cocos2dx_StoreInfo::getPackPrice(itemId.c_str());
+	    string nameS = cocos2dx_StoreInfo::getItemName(itemId.c_str());
+		string infoS = cocos2dx_StoreInfo::getItemDescription(itemId.c_str());
+		price = cocos2dx_StoreInfo::getItemPrice(itemId.c_str());
 
 		snprintf(name, sizeof(name), nameS.c_str());
 		snprintf(info, sizeof(info), infoS.c_str());
@@ -243,7 +243,7 @@ string StoreBScene::productIdFromTag(int tag) {
 	}
 	else {
 		try {
-            return cocos2dx_StoreInfo::getPackProductId(itemId.c_str());
+            return cocos2dx_StoreInfo::getItemProductId(itemId.c_str());
         } catch (cocos2dx_VirtualItemNotFoundException& e) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 			__android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "Cought cocos2dx_VirtualItemNotFoundException from NATIVE!");

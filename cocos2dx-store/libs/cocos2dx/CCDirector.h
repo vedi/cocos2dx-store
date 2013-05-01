@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2010-2011 cocos2d-x.org
+Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2011      Zynga Inc.
 
@@ -35,6 +35,8 @@ THE SOFTWARE.
 #include "CCGL.h"
 #include "kazmath/mat4.h"
 #include "label_nodes/CCLabelTTF.h"
+#include "ccTypeInfo.h"
+
 
 NS_CC_BEGIN
 
@@ -56,7 +58,7 @@ typedef enum {
     /// it calls "updateProjection" on the projection delegate.
     kCCDirectorProjectionCustom,
     
-    /// Detault projection is 3D projection
+    /// Default projection is 3D projection
     kCCDirectorProjectionDefault = kCCDirectorProjection3D,
 } ccDirectorProjection;
 
@@ -81,7 +83,7 @@ and when to execute the Scenes.
   - setting the OpenGL pixel format (default on is RGB565)
   - setting the OpenGL buffer depth (default one is 0-bit)
   - setting the projection (default one is 3D)
-  - setting the orientation (default one is Protrait)
+  - setting the orientation (default one is Portrait)
  
  Since the CCDirector is a singleton, the standard way to use it is by calling:
   _ CCDirector::sharedDirector()->methodName();
@@ -92,12 +94,16 @@ and when to execute the Scenes.
   - GL_COLOR_ARRAY is enabled
   - GL_TEXTURE_COORD_ARRAY is enabled
 */
-class CC_DLL CCDirector : public CCObject
+class CC_DLL CCDirector : public CCObject, public TypeInfo
 {
 public:
     CCDirector(void);
     virtual ~CCDirector(void);
     virtual bool init(void);
+    virtual long getClassTypeInfo() {
+		static const long id = cocos2d::getHashCodeByString(typeid(cocos2d::CCDirector).name());
+		return id;
+    }
 
     // attribute
 
@@ -135,6 +141,9 @@ public:
      */
     inline ccDirectorProjection getProjection(void) { return m_eProjection; }
     void setProjection(ccDirectorProjection kProjection);
+    
+    /** Sets the glViewport*/
+    void setViewport();
 
     /** How many frames were called since the director started */
     
@@ -154,7 +163,11 @@ public:
     CCNode* getNotificationNode();
     void setNotificationNode(CCNode *node);
     
-    bool enableRetinaDisplay(bool bEnabelRetina);
+    /** CCDirector delegate. It shall implemente the CCDirectorDelegate protocol
+     @since v0.99.5
+     */
+    CCDirectorDelegate* getDelegate() const;
+    void setDelegate(CCDirectorDelegate* pDelegate);
 
     // window size
 
@@ -176,11 +189,8 @@ public:
      */
     CCPoint getVisibleOrigin();
 
-    /** changes the projection size */
-    void reshapeProjection(const CCSize& newWindowSize);
-
     /** converts a UIKit coordinate to an OpenGL coordinate
-     Useful to convert (multi) touches coordinates to the current layout (portrait or landscape)
+     Useful to convert (multi) touch coordinates to the current layout (portrait or landscape)
      */
     CCPoint convertToGL(const CCPoint& obPoint);
 
@@ -316,6 +326,9 @@ public:
      */
     CC_PROPERTY(CCAccelerometer*, m_pAccelerometer, Accelerometer);
 
+    /* delta time since last tick to main loop */
+	CC_PROPERTY_READONLY(float, m_fDeltaTime, DeltaTime);
+	
     /** returns a shared instance of the director */
     static CCDirector* sharedDirector(void);
 
@@ -324,14 +337,13 @@ protected:
     void purgeDirector();
     bool m_bPurgeDirecotorInNextLoop; // this flag will be set to true in end()
     
-    void updateContentScaleFactor(void);
-
     void setNextScene(void);
     
     void showStats();
     void createStatsLabel();
     void calculateMPF();
-
+    void getFPSImageData(unsigned char** datapointer, unsigned int* length);
+    
     /** calculates delta time since last time it was called */    
     void calculateDeltaTime();
 protected:
@@ -376,9 +388,6 @@ protected:
     /* last time the main loop was updated */
     struct cc_timeval *m_pLastUpdate;
 
-    /* delta time since last tick to main loop */
-    float m_fDeltaTime;
-
     /* whether or not the next delta time will be zero */
     bool m_bNextDeltaTimeZero;
     
@@ -387,9 +396,6 @@ protected:
 
     /* window size in points */
     CCSize    m_obWinSizeInPoints;
-
-    /* window size in pixels */
-    CCSize m_obWinSizeInPixels;
     
     /* content scale factor */
     float    m_fContentScaleFactor;
@@ -402,9 +408,6 @@ protected:
 
     /* Projection protocol delegate */
     CCDirectorDelegate *m_pProjectionDelegate;
-
-    /* contentScaleFactor could be simulated */
-    bool m_bIsContentScaleSupported;
     
     // CCEGLViewProtocol will recreate stats labels to fit visible rect
     friend class CCEGLViewProtocol;

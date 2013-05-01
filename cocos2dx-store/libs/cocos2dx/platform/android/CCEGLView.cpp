@@ -27,8 +27,7 @@ THE SOFTWARE.
 #include "ccMacros.h"
 #include "touch_dispatcher/CCTouchDispatcher.h"
 #include "jni/IMEJni.h"
-#include "jni/EditBoxJni.h"
-#include "jni/MessageJni.h"
+#include "jni/Java_org_cocos2dx_lib_Cocos2dxHelper.h"
 #include "CCGL.h"
 
 #include <stdlib.h>
@@ -37,10 +36,13 @@ THE SOFTWARE.
 
 
 #if CC_TEXTURE_ATLAS_USE_VAO
-  #include <EGL/egl.h>
-  PFNGLGENVERTEXARRAYSOESPROC glGenVertexArraysOESEXT = 0;
-  PFNGLBINDVERTEXARRAYOESPROC glBindVertexArrayOESEXT = 0;
-  PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArraysOESEXT = 0;
+
+// <EGL/egl.h> exists since android 2.3
+#include <EGL/egl.h>
+PFNGLGENVERTEXARRAYSOESPROC glGenVertexArraysOESEXT = 0;
+PFNGLBINDVERTEXARRAYOESPROC glBindVertexArrayOESEXT = 0;
+PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArraysOESEXT = 0;
+
 #endif
 
 void initExtensions() {
