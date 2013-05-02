@@ -17,6 +17,7 @@
 #include "cocos2dx_StoreInventory.h"
 #import "StoreInventory.h"
 #import "VirtualItemNotFoundException.h"
+#import "InsufficientFundsException.h"
 
 
 /**
@@ -25,63 +26,150 @@
  * You can see the documentation of every function in StoreInventory.
  */
 
-
-int cocos2dx_StoreInventory::getCurrencyBalance(string currencyItemId) throw (cocos2dx_VirtualItemNotFoundException&){
+void cocos2dx_StoreInventory::buy(string itemId) throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_InsufficientFundsException&) {
     @try {
-        NSString * str = [[NSString alloc] initWithBytes:currencyItemId.c_str() length:strlen(currencyItemId.c_str()) encoding:NSUTF8StringEncoding];
-        return [StoreInventory getCurrencyBalance:str];
+        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
+        [StoreInventory buyItemWithItemId:str];
     }
-    @catch (VirtualItemNotFoundException *exception) {
+    @catch (VirtualItemNotFoundException *ex1) {
+        throw cocos2dx_VirtualItemNotFoundException();
+    }
+    @catch (InsufficientFundsException *ex2) {
+        throw cocos2dx_InsufficientFundsException();
+    }
+}
+
+int cocos2dx_StoreInventory::getItemBalance(string itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+    @try {
+        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
+        return [StoreInventory getItemBalance:str];
+    }
+    @catch (VirtualItemNotFoundException *ex1) {
         throw cocos2dx_VirtualItemNotFoundException();
     }
 }
 
-int cocos2dx_StoreInventory::addCurrencyAmount(string currencyItemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&){
+void cocos2dx_StoreInventory::giveItem(string itemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
-        NSString * str = [[NSString alloc] initWithBytes:currencyItemId.c_str() length:strlen(currencyItemId.c_str()) encoding:NSUTF8StringEncoding];
-        return [StoreInventory addAmount:amount toCurrency:str];
+        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
+        [StoreInventory giveAmount:amount ofItem:str];
     }
-    @catch (VirtualItemNotFoundException *exception) {
+    @catch (VirtualItemNotFoundException *ex1) {
         throw cocos2dx_VirtualItemNotFoundException();
     }
 }
 
-int cocos2dx_StoreInventory::removeCurrencyAmount(string currencyItemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&){
+void cocos2dx_StoreInventory::takeVirtualItem(string itemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
-        NSString * str = [[NSString alloc] initWithBytes:currencyItemId.c_str() length:strlen(currencyItemId.c_str()) encoding:NSUTF8StringEncoding];
-        return [StoreInventory removeAmount:amount fromCurrency:str];
+        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
+        [StoreInventory takeAmount:amount ofItem:str];
     }
-    @catch (VirtualItemNotFoundException *exception) {
+    @catch (VirtualItemNotFoundException *ex1) {
         throw cocos2dx_VirtualItemNotFoundException();
     }
 }
 
-int cocos2dx_StoreInventory::getGoodBalance(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&){
-    @try {
-        NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
-        return [StoreInventory getGoodBalance:str];
-    }
-    @catch (VirtualItemNotFoundException *exception) {
-        throw cocos2dx_VirtualItemNotFoundException();
-    }
-}
-
-int cocos2dx_StoreInventory::addGoodAmount(string goodItemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&){
-    @try {
-        NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
-        return [StoreInventory addAmount:amount toGood:str];
-    }
-    @catch (VirtualItemNotFoundException *exception) {
-        throw cocos2dx_VirtualItemNotFoundException();
-    }
-}
-
-int cocos2dx_StoreInventory::removeGoodAmount(string goodItemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&){
+void cocos2dx_StoreInventory::equipGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
         NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
-        return [StoreInventory removeAmount:amount fromGood:str];
+        [StoreInventory equipVirtualGoodWithItemId:str];
+    }
+    @catch (VirtualItemNotFoundException *ex1) {
+        throw cocos2dx_VirtualItemNotFoundException();
+    }
+}
+
+void cocos2dx_StoreInventory::unEquipGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+    @try {
+        NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
+        [StoreInventory unEquipVirtualGoodWithItemId:str];
+    }
+    @catch (VirtualItemNotFoundException *ex1) {
+        throw cocos2dx_VirtualItemNotFoundException();
+    }
+}
+
+bool cocos2dx_StoreInventory::isGoodEquipped(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+    @try {
+        NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
+        return [StoreInventory isVirtualGoodWithItemIdEquipped:str];
+    }
+    @catch (VirtualItemNotFoundException *ex1) {
+        throw cocos2dx_VirtualItemNotFoundException();
+    }
+}
+
+int cocos2dx_StoreInventory::getGoodUpgradeLevel(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+    @try {
+        NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
+        return [StoreInventory goodUpgradeLevel:str];
+    }
+    @catch (VirtualItemNotFoundException *ex1) {
+        throw cocos2dx_VirtualItemNotFoundException();
+    }
+}
+
+string cocos2dx_StoreInventory::getGoodCurrentUpgrade(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+    @try {
+        NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
+        NSString* vguItemId = [StoreInventory goodCurrentUpgrade:str];
+        return [vguItemId UTF8String];
     }
     @catch (VirtualItemNotFoundException *exception) {
         throw cocos2dx_VirtualItemNotFoundException();
     }
 }
+
+void cocos2dx_StoreInventory::upgradeVirtualGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_InsufficientFundsException&) {
+    @try {
+        NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
+        [StoreInventory upgradeVirtualGood:str];
+    }
+    @catch (VirtualItemNotFoundException *ex1) {
+        throw cocos2dx_VirtualItemNotFoundException();
+    }
+    @catch (InsufficientFundsException *ex2) {
+        throw cocos2dx_InsufficientFundsException();
+    }
+}
+
+void cocos2dx_StoreInventory::removeUpgrades(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+    @try {
+        NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
+        [StoreInventory removeUpgrades:str];
+    }
+    @catch (VirtualItemNotFoundException *ex1) {
+        throw cocos2dx_VirtualItemNotFoundException();
+    }
+}
+
+bool cocos2dx_StoreInventory::nonConsumableItemExists(string nonConsItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+    @try {
+        NSString * str = [[NSString alloc] initWithBytes:nonConsItemId.c_str() length:strlen(nonConsItemId.c_str()) encoding:NSUTF8StringEncoding];
+        return [StoreInventory nonConsumableItemExists:str];
+    }
+    @catch (VirtualItemNotFoundException *ex1) {
+        throw cocos2dx_VirtualItemNotFoundException();
+    }
+}
+
+void cocos2dx_StoreInventory::addNonConsumableItem(string nonConsItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+    @try {
+        NSString * str = [[NSString alloc] initWithBytes:nonConsItemId.c_str() length:strlen(nonConsItemId.c_str()) encoding:NSUTF8StringEncoding];
+        [StoreInventory addNonConsumableItem:str];
+    }
+    @catch (VirtualItemNotFoundException *ex1) {
+        throw cocos2dx_VirtualItemNotFoundException();
+    }
+}
+
+void cocos2dx_StoreInventory::removeNonConsumableItem(string nonConsItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+    @try {
+        NSString * str = [[NSString alloc] initWithBytes:nonConsItemId.c_str() length:strlen(nonConsItemId.c_str()) encoding:NSUTF8StringEncoding];
+        [StoreInventory removeNonConsumableItem:str];
+    }
+    @catch (VirtualItemNotFoundException *ex1) {
+        throw cocos2dx_VirtualItemNotFoundException();
+    }
+}
+

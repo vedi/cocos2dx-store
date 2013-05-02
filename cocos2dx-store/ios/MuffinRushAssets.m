@@ -1,154 +1,151 @@
-/*
- * Copyright (C) 2012 Soomla Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 #import "MuffinRushAssets.h"
 #import "VirtualCategory.h"
 #import "VirtualCurrency.h"
 #import "VirtualGood.h"
 #import "VirtualCurrencyPack.h"
-#import "StaticPriceModel.h"
+#import "NonConsumableItem.h"
+#import "SingleUseVG.h"
+#import "PurchaseWithMarket.h"
+#import "PurchaseWithVirtualItem.h"
 
-NSString* const MUFFIN_CURRENCY_ITEM_ID      = @"currency_muffin";
-NSString* const TENMUFF_PACK_PRODUCT_ID      = @"";
-NSString* const FIFTYMUFF_PACK_PRODUCT_ID    = @"android.test.purchased";
-NSString* const FORTYMUFF_PACK_PRODUCT_ID    = @"com.soomla.SoomlaiOSStoreExampleDevice.test_product_one";
-NSString* const THOUSANDMUFF_PACK_PRODUCT_ID = @"com.soomla.SoomlaiOSStoreExampleDevice.second_test";
 
+NSString* const MUFFINS_CURRENCY_ITEM_ID = @"currency_muffin";
+
+NSString* const FRUIT_CAKE_GOOD_ITEM_ID = @"fruit_cake";
+NSString* const PAVLOVA_GOOD_ITEM_ID = @"pavlova";
+NSString* const CHOCO_CAKE_GOOD_ITEM_ID = @"chocolate_cake";
+NSString* const CREAM_CUP_GOOD_ITEM_ID = @"cream_cup";
+
+NSString* const _10_MUFFINS_PACK_ITEM_ID = @"muffins_10";
+NSString* const _50_MUFFINS_PACK_ITEM_ID = @"muffins_50";
+NSString* const _400_MUFFINS_PACK_ITEM_ID = @"muffins_400";
+NSString* const _1000_MUFFINS_PACK_ITEM_ID = @"muffins_1000";
+
+NSString* const _10_MUFFINS_PACK_PRODUCT_ID = @"muffins_10";
+NSString* const _50_MUFFINS_PACK_PRODUCT_ID = @"muffins_50";
+NSString* const _400_MUFFINS_PACK_PRODUCT_ID = @"muffins_400";
+NSString* const _1000_MUFFINS_PACK_PRODUCT_ID = @"com.soomla.SoomlaiOSExample.second_test";
+
+NSString* const NO_ADDS_NONCONS_PRODUCT_ID = @"no_ads";
+
+
+
+/**
+ * This class represents a single game's metadata.
+ * Use this protocol to create your assets class that will be transferred to StoreInfo
+ * upon initialization.
+ */
 @implementation MuffinRushAssets
 
 VirtualCategory* GENERAL_CATEGORY;
-VirtualCurrency* MUFFIN_CURRENCY;
-VirtualGood*     MUFFINCAKE_GOOD;
-VirtualGood*     PAVLOVA_GOOD;
-VirtualGood*     CHOCLATECAKE_GOOD;
-VirtualGood*     CREAMCUP_GOOD;
-VirtualCurrencyPack* TENMUFF_PACK;
-VirtualCurrencyPack* FIFTYMUFF_PACK;
-VirtualCurrencyPack* FORTYMUFF_PACK;
-VirtualCurrencyPack* THOUSANDMUFF_PACK;
+
+VirtualCurrency* MUFFINS_CURRENCY;
+
+SingleUseVG* FRUIT_CAKE_GOOD;
+SingleUseVG* PAVLOVA_GOOD;
+SingleUseVG* CHOCO_CAKE_GOOD;
+SingleUseVG* CREAM_CUP_GOOD;
+
+VirtualCurrencyPack* _10_MUFFINS_PACK;
+VirtualCurrencyPack* _50_MUFFINS_PACK;
+VirtualCurrencyPack* _400_MUFFINS_PACK;
+VirtualCurrencyPack* _1000_MUFFINS_PACK;
+
+NonConsumableItem* NO_ADDS_NON_CONS;
+
 + (void)initialize{
-    
-    /** Virtual Categories **/
-    // The muffin rush theme doesn't support categories, so we just put everything under a general category.
-    
-    GENERAL_CATEGORY = [[VirtualCategory alloc] initWithName:@"General"
-                                                       andId:0
-                                           andEquippingModel:kNone];
     
     /** Virtual Currencies **/
     
-    MUFFIN_CURRENCY = [[VirtualCurrency alloc] initWithName:@"Muffins"
-                                             andDescription:@""
-                                                  andItemId:MUFFIN_CURRENCY_ITEM_ID];
+    MUFFINS_CURRENCY = [[VirtualCurrency alloc] initWithName:@"Muffins" andDescription:@"" andItemId:MUFFINS_CURRENCY_ITEM_ID];
     
-    
-    /** Virtual Goods **/
-    
-    NSDictionary* MUFFINCAKE_PRICE = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                      [NSNumber numberWithInt:225], MUFFIN_CURRENCY_ITEM_ID,
-                                      nil];
-    MUFFINCAKE_GOOD = [[VirtualGood alloc] initWithName:@"Fruit Cake"
-                                         andDescription:@"Customers buy a double portion on each purchase of this cake"
-                                              andItemId:@"fruit_cake"
-                                          andPriceModel:[[StaticPriceModel alloc] initWithCurrencyValue:MUFFINCAKE_PRICE]
-                                            andCategory:GENERAL_CATEGORY];
-    
-    NSDictionary* PAVLOVA_PRICE = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                      [NSNumber numberWithInt:175], MUFFIN_CURRENCY_ITEM_ID,
-                                      nil];
-    PAVLOVA_GOOD = [[VirtualGood alloc] initWithName:@"Pavlova"
-                                         andDescription:@"Gives customers a sugar rush and they call their friends"
-                                              andItemId:@"pavlova"
-                                          andPriceModel:[[StaticPriceModel alloc] initWithCurrencyValue:PAVLOVA_PRICE]
-                                            andCategory:GENERAL_CATEGORY];
-    
-    NSDictionary* CHOCLATECAKE_PRICE = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                   [NSNumber numberWithInt:250], MUFFIN_CURRENCY_ITEM_ID,
-                                   nil];
-    CHOCLATECAKE_GOOD = [[VirtualGood alloc] initWithName:@"Chocolate Cake"
-                                      andDescription:@"A classic cake to maximize customer satisfaction"
-                                           andItemId:@"chocolate_cake"
-                                       andPriceModel:[[StaticPriceModel alloc] initWithCurrencyValue:CHOCLATECAKE_PRICE]
-                                         andCategory:GENERAL_CATEGORY];
-    
-
-    NSDictionary* CREAMCUP_PRICE = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                        [NSNumber numberWithInt:50], MUFFIN_CURRENCY_ITEM_ID,
-                                        nil];
-    CREAMCUP_GOOD = [[VirtualGood alloc] initWithName:@"Cream Cup"
-                                           andDescription:@"Increase bakery reputation with this original pastry"
-                                                andItemId:@"cream_cup"
-                                            andPriceModel:[[StaticPriceModel alloc] initWithCurrencyValue:CREAMCUP_PRICE]
-                                              andCategory:GENERAL_CATEGORY];
     
     
     /** Virtual Currency Pack **/
     
-    TENMUFF_PACK = [[VirtualCurrencyPack alloc] initWithName:@"10 Muffins"
-                                              andDescription:@" (refund test)"
-                                                   andItemId:@"muffins_10"
-                                                    andPrice:0.99
-                                                andProductId:TENMUFF_PACK_PRODUCT_ID
-                                           andCurrencyAmount:10
-                                                 andCurrency:MUFFIN_CURRENCY];
-    FIFTYMUFF_PACK = [[VirtualCurrencyPack alloc] initWithName:@"50 Muffins"
-                                                andDescription:@" (canceled test)"
-                                                     andItemId:@"muffins_50"
-                                                      andPrice:1.99
-                                                  andProductId:FIFTYMUFF_PACK_PRODUCT_ID
-                                             andCurrencyAmount:50 andCurrency:MUFFIN_CURRENCY];
-    FORTYMUFF_PACK = [[VirtualCurrencyPack alloc] initWithName:@"400 Muffins"
-                                                andDescription:@"ONLY THIS WORKS IN THIS EXAMPLE (purchase test)"
-                                                     andItemId:@"muffins_400"
-                                                      andPrice:4.99
-                                                  andProductId:FORTYMUFF_PACK_PRODUCT_ID
-                                             andCurrencyAmount:400
-                                                   andCurrency:MUFFIN_CURRENCY];
-    THOUSANDMUFF_PACK = [[VirtualCurrencyPack alloc] initWithName:@"1000 Muffins"
-                                                   andDescription:@" (item_unavailable test)"
-                                                        andItemId:@"muffins_1000"
-                                                         andPrice:8.99
-                                                     andProductId:THOUSANDMUFF_PACK_PRODUCT_ID
-                                                andCurrencyAmount:1000
-                                                      andCurrency:MUFFIN_CURRENCY];
+    _10_MUFFINS_PACK = [[VirtualCurrencyPack alloc] initWithName:@"10 Muffins" andDescription:@"" andItemId:_10_MUFFINS_PACK_ITEM_ID andCurrencyAmount:10 andCurrency:MUFFINS_CURRENCY_ITEM_ID andPurchaseType:[[PurchaseWithMarket alloc] initWithProductId:_10_MUFFINS_PACK_PRODUCT_ID andPrice:0.99]];
+    _50_MUFFINS_PACK = [[VirtualCurrencyPack alloc] initWithName:@"50 Muffins" andDescription:@"" andItemId:_50_MUFFINS_PACK_ITEM_ID andCurrencyAmount:50 andCurrency:MUFFINS_CURRENCY_ITEM_ID andPurchaseType:[[PurchaseWithMarket alloc] initWithProductId:_50_MUFFINS_PACK_PRODUCT_ID andPrice:1.99]];
+    _400_MUFFINS_PACK = [[VirtualCurrencyPack alloc] initWithName:@"400 Muffins" andDescription:@"" andItemId:_400_MUFFINS_PACK_ITEM_ID andCurrencyAmount:400 andCurrency:MUFFINS_CURRENCY_ITEM_ID andPurchaseType:[[PurchaseWithMarket alloc] initWithProductId:_400_MUFFINS_PACK_PRODUCT_ID andPrice:4.99]];
+    _1000_MUFFINS_PACK = [[VirtualCurrencyPack alloc] initWithName:@"1000 Muffins" andDescription:@"" andItemId:_1000_MUFFINS_PACK_ITEM_ID andCurrencyAmount:1000 andCurrency:MUFFINS_CURRENCY_ITEM_ID andPurchaseType:[[PurchaseWithMarket alloc] initWithProductId:_1000_MUFFINS_PACK_PRODUCT_ID andPrice:8.99]];
     
+    
+    
+    /** Virtual Goods **/
+    
+    FRUIT_CAKE_GOOD = [[SingleUseVG alloc] initWithName:@"Fruit Cake" andDescription:@"Customers buy a double portion on each purchase of this cake" andItemId:FRUIT_CAKE_GOOD_ITEM_ID andPurchaseType:[[PurchaseWithVirtualItem alloc] initWithVirtualItem:MUFFINS_CURRENCY_ITEM_ID andAmount:220]];
+    
+    PAVLOVA_GOOD = [[SingleUseVG alloc] initWithName:@"Pavlova" andDescription:@"Gives customers a sugar rush and they call their friends" andItemId:PAVLOVA_GOOD_ITEM_ID andPurchaseType:[[PurchaseWithVirtualItem alloc] initWithVirtualItem:MUFFINS_CURRENCY_ITEM_ID andAmount:175]];
+    
+    CHOCO_CAKE_GOOD = [[SingleUseVG alloc] initWithName:@"Choco-Cake" andDescription:@"A classic cake to maximize customer satisfaction" andItemId:CHOCO_CAKE_GOOD_ITEM_ID andPurchaseType:[[PurchaseWithVirtualItem alloc] initWithVirtualItem:MUFFINS_CURRENCY_ITEM_ID andAmount:250]];
+    
+    CREAM_CUP_GOOD = [[SingleUseVG alloc] initWithName:@"Cream Cup" andDescription:@"Increase bakery reputation with this original pastry" andItemId:CREAM_CUP_GOOD_ITEM_ID andPurchaseType:[[PurchaseWithVirtualItem alloc] initWithVirtualItem:MUFFINS_CURRENCY_ITEM_ID andAmount:50]];
+    
+    
+    
+    /** Virtual Categories **/
+    
+    GENERAL_CATEGORY = [[VirtualCategory alloc] initWithName:@"General" andGoodsItemIds:@[FRUIT_CAKE_GOOD_ITEM_ID, PAVLOVA_GOOD_ITEM_ID, CHOCO_CAKE_GOOD_ITEM_ID, CREAM_CUP_GOOD_ITEM_ID]];
+    
+    
+    
+    /** Non Consumables **/
+    
+    NO_ADDS_NON_CONS = [[NonConsumableItem alloc] initWithName:@"No Ads" andDescription:@"" andItemId:@"no_ads" andPurchaseType:[[PurchaseWithMarket alloc] initWithProductId:NO_ADDS_NONCONS_PRODUCT_ID andPrice:1.99]];
 }
 
-- (int) getVersion {
+/**
+ * A version for your specific game's store assets
+ *
+ * This value will determine if the saved data in the database will be deleted or not.
+ * Bump the version every time you want to delete the old data in the DB.
+ * If you don't bump this value, you won't be able to see changes you've made to the objects in this file.
+ *
+ * NOTE: You can NOT bump this value and just delete the app from your device to see changes. You can't do this after
+ * you publish your application on the market.
+ *
+ * For example: If you previously created a VirtualGood with name "Hat" and you published your application,
+ * the name "Hat will be saved in any of your users' databases. If you want to change the name to "Green Hat"
+ * than you'll also have to bump the version (from 0 to 1). Now the new "Green Hat" name will replace the old one.
+ */
+- (int)getVersion {
     return 0;
 }
 
+/**
+ * A representation of your game's virtual currency.
+ */
 - (NSArray*)virtualCurrencies{
-    return @[MUFFIN_CURRENCY];
+    return @[MUFFINS_CURRENCY];
 }
 
+/**
+ * An array of all virtual goods served by your store (all kinds in one array). If you have UpgradeVGs, they must appear in the order of levels.
+ */
 - (NSArray*)virtualGoods{
-    return @[MUFFINCAKE_GOOD, PAVLOVA_GOOD, CHOCLATECAKE_GOOD, CREAMCUP_GOOD];
+    return @[FRUIT_CAKE_GOOD, PAVLOVA_GOOD, CHOCO_CAKE_GOOD, CREAM_CUP_GOOD];
 }
 
+/**
+ * An array of all virtual currency packs served by your store.
+ */
 - (NSArray*)virtualCurrencyPacks{
-    return @[TENMUFF_PACK, FIFTYMUFF_PACK, FORTYMUFF_PACK, THOUSANDMUFF_PACK];
+    return @[_10_MUFFINS_PACK, _50_MUFFINS_PACK, _400_MUFFINS_PACK, _1000_MUFFINS_PACK];
 }
 
+/**
+ * An array of all virtual categories served by your store.
+ */
 - (NSArray*)virtualCategories{
     return @[GENERAL_CATEGORY];
 }
 
+/**
+ * You can define non consumable items that you'd like to use for your needs.
+ * CONSUMABLE items are usually just currency packs.
+ * NON-CONSUMABLE items are usually used to let users purchase a "no-ads" token.
+ */
 - (NSArray*)nonConsumableItems{
-    return @[];
+    return @[NO_ADDS_NON_CONS];
 }
 
 @end

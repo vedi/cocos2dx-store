@@ -18,8 +18,12 @@
 #import "VirtualCurrencyPack.h"
 #import "VirtualGood.h"
 #import "StoreInfo.h"
+#import "UpgradeVG.h"
 #import "AppStoreItem.h"
 #import "VirtualItemNotFoundException.h"
+#import "PurchasableVirtualItem.h"
+#import "PurchaseWithMarket.h"
+#import "PurchaseWithVirtualItem.h"
 
 /**
  * This implementation is used to let cocos2dx functions retrieve data from StoreInfo.
@@ -28,81 +32,90 @@
  */
 
 
-string cocos2dx_StoreInfo::getPackProductId(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+string cocos2dx_StoreInfo::getGoodFirstUpgrade(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
-        NSString * str = [[NSString alloc] initWithBytes:itemId length:strlen(itemId) encoding:NSUTF8StringEncoding];
-        VirtualCurrencyPack* pack = [[StoreInfo getInstance] currencyPackWithItemId:str];
-        return [pack.appstoreItem.productId UTF8String];
+        NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
+        UpgradeVG* vgu = [[StoreInfo getInstance] firstUpgradeForGoodWithItemId:str];
+        return [vgu.itemId UTF8String];
     }
     @catch (VirtualItemNotFoundException *exception) {
         throw cocos2dx_VirtualItemNotFoundException();
     }
 }
 
-string cocos2dx_StoreInfo::getPackName(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+string cocos2dx_StoreInfo::getGoodLastUpgrade(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
-        NSString * str = [[NSString alloc] initWithBytes:itemId length:strlen(itemId) encoding:NSUTF8StringEncoding];
-        VirtualCurrencyPack* pack = [[StoreInfo getInstance] currencyPackWithItemId:str];
-        return [pack.name UTF8String];
+        NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
+        UpgradeVG* vgu = [[StoreInfo getInstance] lastUpgradeForGoodWithItemId:str];
+        return [vgu.itemId UTF8String];
     }
     @catch (VirtualItemNotFoundException *exception) {
         throw cocos2dx_VirtualItemNotFoundException();
     }
 }
 
-string cocos2dx_StoreInfo::getPackDescription(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+string cocos2dx_StoreInfo::getItemProductId(string itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
-        NSString * str = [[NSString alloc] initWithBytes:itemId length:strlen(itemId) encoding:NSUTF8StringEncoding];
-        VirtualCurrencyPack* pack = [[StoreInfo getInstance] currencyPackWithItemId:str];
-        return [pack.description UTF8String];
+        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
+        VirtualItem* item = [[StoreInfo getInstance] virtualItemWithId:str];
+        NSString* ret = @"";
+        if ([item isKindOfClass:[PurchasableVirtualItem class]]) {
+            PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)item;
+            if ([pvi.purchaseType isKindOfClass:[PurchaseWithMarket class]]) {
+                PurchaseWithMarket* pwm = (PurchaseWithMarket*)pvi.purchaseType;
+                ret = pwm.appStoreItem.productId;
+            }
+        }
+        return [ret UTF8String];
     }
     @catch (VirtualItemNotFoundException *exception) {
         throw cocos2dx_VirtualItemNotFoundException();
     }
 }
 
-double cocos2dx_StoreInfo::getPackPrice(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+string cocos2dx_StoreInfo::getItemName(string itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
-        NSString * str = [[NSString alloc] initWithBytes:itemId length:strlen(itemId) encoding:NSUTF8StringEncoding];
-        VirtualCurrencyPack* pack = [[StoreInfo getInstance] currencyPackWithItemId:str];
-        return pack.appstoreItem.price;
+        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
+        VirtualItem* item = [[StoreInfo getInstance] virtualItemWithId:str];
+        return [item.name UTF8String];
     }
     @catch (VirtualItemNotFoundException *exception) {
         throw cocos2dx_VirtualItemNotFoundException();
     }
 }
 
-string cocos2dx_StoreInfo::getGoodName(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+string cocos2dx_StoreInfo::getItemDescription(string itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
-        NSString * str = [[NSString alloc] initWithBytes:itemId length:strlen(itemId) encoding:NSUTF8StringEncoding];
-        VirtualGood* good = [[StoreInfo getInstance] goodWithItemId:str];
-        return [good.name UTF8String];
+        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
+        VirtualItem* item = [[StoreInfo getInstance] virtualItemWithId:str];
+        return [item.description UTF8String];
     }
     @catch (VirtualItemNotFoundException *exception) {
         throw cocos2dx_VirtualItemNotFoundException();
     }
 }
 
-string cocos2dx_StoreInfo::getGoodDescription(const char* itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+double cocos2dx_StoreInfo::getItemPrice(string itemId) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
-        NSString * str = [[NSString alloc] initWithBytes:itemId length:strlen(itemId) encoding:NSUTF8StringEncoding];
-        VirtualGood* good = [[StoreInfo getInstance] goodWithItemId:str];
-        return [good.description UTF8String];
+        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
+        VirtualItem* item = [[StoreInfo getInstance] virtualItemWithId:str];
+        double ret = 0;
+        if ([item isKindOfClass:[PurchasableVirtualItem class]]) {
+            PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)item;
+            if ([pvi.purchaseType isKindOfClass:[PurchaseWithMarket class]]) {
+                PurchaseWithMarket* pwm = (PurchaseWithMarket*)pvi.purchaseType;
+                ret = pwm.appStoreItem.price;
+            }
+            
+            if ([pvi.purchaseType isKindOfClass:[PurchaseWithVirtualItem class]]) {
+                PurchaseWithVirtualItem* pwvi = (PurchaseWithVirtualItem*)pvi.purchaseType;
+                ret = pwvi.amount;
+            }
+        }
+        return ret;
     }
     @catch (VirtualItemNotFoundException *exception) {
         throw cocos2dx_VirtualItemNotFoundException();
     }
-
 }
 
-int cocos2dx_StoreInfo::getGoodPriceForCurrency(const char* goodItemId, const char* currencyItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
-    @try {
-        NSString * str1 = [[NSString alloc] initWithBytes:goodItemId length:strlen(goodItemId) encoding:NSUTF8StringEncoding];
-        NSString * str2 = [[NSString alloc] initWithBytes:currencyItemId length:strlen(currencyItemId) encoding:NSUTF8StringEncoding];
-        VirtualGood* good = [[StoreInfo getInstance] goodWithItemId:str1];
-        return [(NSNumber*)[good.currencyValues objectForKey:str2] intValue];
-    }
-    @catch (VirtualItemNotFoundException *exception) {
-        throw cocos2dx_VirtualItemNotFoundException();
-    }
-}

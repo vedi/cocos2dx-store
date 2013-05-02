@@ -3,11 +3,13 @@
 Haven't you ever wanted an in-app purchase one liner that looks like this ?!
 
 ```cpp
-    cocos2dx_StoreController::buyMarketItem("[Product id here]");
+    cocos2dx_StoreController::buyMarketItem("[itemId]");
 ```
 
 cocos2dx-store
 ---
+
+**The new Virtual Economy model V3 is merged into master. The new model has many new features and it works better than the old one. Old applications may break if they use in this new model so already published games with android-store from before May 1st, 2013 needs to clone the project with tag 'v2.2' and not 'v3.0'.**
 
 The cocos2dx-store shows you how to use The SOOMLA Project's [android-store](https://github.com/soomla/android-store) and [ios-store](https://github.com/soomla/ios-store) in your **cocos2d-x** project.
 In cocos2dx-store there are 3 relevant scenes: MainScene, StoreAScene and StoreBScene:
@@ -19,10 +21,10 @@ We suggest that you go over the information on ios-store and android-store:
 - ios-store [project](https://github.com/soomla/ios-store) [wiki](https://github.com/soomla/ios-store/wiki)
 - android-store [project](https://github.com/soomla/android-store) [wiki](https://github.com/soomla/android-store/wiki)
 
->If you also want to create a storefront you can do that using our [Store Designer](http://designer.soom.la).
+>If you also want to create a **storefront** you can do that using SOOMLA's [Store Designer](http://designer.soom.la).
 
-Getting Started
----
+## Getting Started
+
 
 In order to run the iOS and Android projects you'll need to recursively clone cocos2dx-store:
 
@@ -42,8 +44,8 @@ _StoreController_ is initialized through cocos2dx_StoreController class. `initia
 
 You'll need to initialize _StoreController_ ONLY once from `AppDelegate::applicationDidFinishLaunching` ([example](https://github.com/soomla/cocos2dx-store/blob/master/cocos2dx-store/Classes/AppDelegate.cpp)).
 
-Instructions for iOS
----
+## Instructions for iOS
+
 
 If you're building your cocos2dx application for the iOS platform, open our xCode project and see how to integrate it with ios-store.
 The example ios project needs to be enough, but if you want more info then this is what's relevant to you:

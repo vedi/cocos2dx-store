@@ -21,12 +21,17 @@
 #import "NotEnoughGoodsException.h"
 #import "MuffinRushAssets.h"
 #import "cocos2dx_EventDispatcher.h"
+#import "PurchasableVirtualItem.h"
+#import "StoreInfo.h"
+#import "PurchaseWithMarket.h"
+#import "AppStoreItem.h"
 
 /**
  * This implementation is used to let cocos2dx functions perform actions on StoreController.
  *
  * You can see the documentation of every function in StoreController.
  */
+
 
 void cocos2dx_StoreController::storeOpening() {
     [[StoreController getInstance] storeOpening];
@@ -43,52 +48,33 @@ void cocos2dx_StoreController::initialize(string customSecret) {
      */
     NSString * str = [[NSString alloc] initWithBytes:customSecret.c_str() length:strlen(customSecret.c_str()) encoding:NSUTF8StringEncoding];
     [[StoreController getInstance] initializeWithStoreAssets:[[MuffinRushAssets alloc] init] andCustomSecret:str];
-
+    
     [cocos2dx_EventDispatcher initialize];
 }
 
 void cocos2dx_StoreController::buyMarketItem(string productId) throw(cocos2dx_VirtualItemNotFoundException&) {
     @try {
         NSString * str = [[NSString alloc] initWithBytes:productId.c_str() length:strlen(productId.c_str()) encoding:NSUTF8StringEncoding];
-        [[StoreController getInstance] buyAppStoreItemWithProcuctId:str];
+        PurchasableVirtualItem* pvi = [[StoreInfo getInstance] purchasableItemWithProductId:str];
+        if ([pvi.purchaseType isKindOfClass:[PurchaseWithMarket class]]) {
+            [[StoreController getInstance] buyInAppStoreWithAppStoreItem:((PurchaseWithMarket*)pvi).appStoreItem];
+        } else {
+            throw cocos2dx_VirtualItemNotFoundException();
+        }
     }
     @catch (VirtualItemNotFoundException *exception) {
         throw cocos2dx_VirtualItemNotFoundException();
     }
 }
 
-void cocos2dx_StoreController::buyVirtualGood(string itemId) throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_InsufficientFundsException&) {
+void cocos2dx_StoreController::restoreTransactions() {
     @try {
-        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
-        [[StoreController getInstance] buyVirtualGood:str];
+        [[StoreController getInstance] restoreTransactions];
     }
     @catch (VirtualItemNotFoundException *exception) {
         throw cocos2dx_VirtualItemNotFoundException();
-    }
-    @catch (InsufficientFundsException *exception) {
-        throw cocos2dx_InsufficientFundsException();
     }
 }
 
-void cocos2dx_StoreController::equipVirtualGood(string itemId) throw (cocos2dx_NotEnoughGoodsException&, cocos2dx_VirtualItemNotFoundException&) {
-    @try {
-        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
-        [[StoreController getInstance] equipVirtualGood:str];
-    }
-    @catch (VirtualItemNotFoundException *exception) {
-        throw cocos2dx_VirtualItemNotFoundException();
-    }
-    @catch (NotEnoughGoodsException *exception) {
-        throw cocos2dx_NotEnoughGoodsException();
-    }
-}
 
-void cocos2dx_StoreController::unequipVirtualGood(string itemId) throw(cocos2dx_VirtualItemNotFoundException&) {
-    @try {
-        NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
-        [[StoreController getInstance] unequipVirtualGood:str];
-    }
-    @catch (VirtualItemNotFoundException *exception) {
-        throw cocos2dx_VirtualItemNotFoundException();
-    }
-}
+
