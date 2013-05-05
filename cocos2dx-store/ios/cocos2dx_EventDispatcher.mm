@@ -15,6 +15,9 @@
 #import "AppStoreItem.h"
 #import "VirtualGood.h"
 #import "VirtualCurrency.h"
+#import "UpgradeVG.h"
+#import "EquippableVG.h"
+#import "PurchasableVirtualItem.h"
 
 @implementation cocos2dx_EventDispatcher
 
@@ -36,66 +39,84 @@
 }
 
 - (void)eventFired:(NSNotification*)notification{
-    if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASED]) {
-        AppStoreItem* apItem = (AppStoreItem*)[notification.userInfo objectForKey:@"AppStoreItem"];
-        string productId([apItem.productId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->marketPurchase(productId);
-    }
-    else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_PURCHASED]) {
-        VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
-        string itemId([good.itemId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->virtualGoodPurchased(itemId);
-    }
-    else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_EQUIPPED]) {
-        VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
-        string itemId([good.itemId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->virtualGoodEquipped(itemId);
-    }
-    else if ([notification.name isEqualToString:EVENT_VIRTUAL_GOOD_UNEQUIPPED]) {
-        VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
-        string itemId([good.itemId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->virtualGoodUnequipped(itemId);
-    }
-    else if ([notification.name isEqualToString:EVENT_BILLING_SUPPORTED]) {
+    if ([notification.name isEqualToString:EVENT_BILLING_SUPPORTED]) {
         cocos2dx_EventHandlers::getInstance()->billingSupported();
     }
     else if ([notification.name isEqualToString:EVENT_BILLING_NOT_SUPPORTED]) {
         cocos2dx_EventHandlers::getInstance()->billingNotSupported();
     }
-    else if ([notification.name isEqualToString:EVENT_MARKET_PURCHASE_STARTED]) {
-        AppStoreItem* asi = (AppStoreItem*)[notification.userInfo objectForKey:@"AppStoreItem"];
-        string productId([asi.productId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->marketPurchaseProcessStarted(productId);
-    }
-    else if ([notification.name isEqualToString:EVENT_MARKET_PURCHASE_CANCELLED]) {
-        AppStoreItem* asi = (AppStoreItem*)[notification.userInfo objectForKey:@"AppStoreItem"];
-        string productId([asi.productId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->marketPurchaseCancelled(productId);
-    }
-    else if ([notification.name isEqualToString:EVENT_GOODS_PURCHASE_STARTED]) {
-        cocos2dx_EventHandlers::getInstance()->goodsPurchaseProcessStarted();
-    }
     else if ([notification.name isEqualToString:EVENT_CLOSING_STORE]) {
         cocos2dx_EventHandlers::getInstance()->closingStore();
+    }
+    else if ([notification.name isEqualToString:EVENT_CURRENCY_BALANCE_CHANGED]) {
+		int balance = [(NSNumber*)[notification.userInfo objectForKey:DICT_ELEMENT_BALANCE] intValue];
+        int amountAdded = [(NSNumber*)[notification.userInfo objectForKey:DICT_ELEMENT_AMOUNT_ADDED] intValue];
+		VirtualCurrency* currency = (VirtualCurrency*)[notification.userInfo objectForKey:DICT_ELEMENT_CURRENCY];
+		string itemId([currency.itemId UTF8String]);
+        cocos2dx_EventHandlers::getInstance()->currencyBalanceChanged(itemId, balance, amountAdded);
+    }
+    else if ([notification.name isEqualToString:EVENT_GOOD_BALANCE_CHANGED]) {
+		int balance = [(NSNumber*)[notification.userInfo objectForKey:EVENT_CURRENCY_BALANCE_CHANGED] intValue];
+        int amountAdded = [(NSNumber*)[notification.userInfo objectForKey:DICT_ELEMENT_AMOUNT_ADDED] intValue];
+		VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:DICT_ELEMENT_GOOD];
+		string itemId([good.itemId UTF8String]);
+        cocos2dx_EventHandlers::getInstance()->goodBalanceChanged(itemId, balance, amountAdded);
+    }
+    else if ([notification.name isEqualToString:EVENT_GOOD_EQUIPPED]) {
+        EquippableVG* good = (EquippableVG*)[notification.userInfo objectForKey:DICT_ELEMENT_EquippableVG];
+        string itemId([good.itemId UTF8String]);
+        cocos2dx_EventHandlers::getInstance()->goodEquipped(itemId);
+    }
+    else if ([notification.name isEqualToString:EVENT_GOOD_UNEQUIPPED]) {
+        EquippableVG* good = (EquippableVG*)[notification.userInfo objectForKey:DICT_ELEMENT_EquippableVG];
+        string itemId([good.itemId UTF8String]);
+        cocos2dx_EventHandlers::getInstance()->goodUnequipped(itemId);
+    }
+    else if ([notification.name isEqualToString:EVENT_GOOD_UPGRADE]) {
+        VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:DICT_ELEMENT_GOOD];
+        UpgradeVG* vgu = (UpgradeVG*)[notification.userInfo objectForKey:DICT_ELEMENT_UpgradeVG];
+        string itemId([good.itemId UTF8String]);
+        string vguItemId([vgu.itemId UTF8String]);
+        cocos2dx_EventHandlers::getInstance()->goodUpgrade(itemId, vguItemId);
+    }
+    else if ([notification.name isEqualToString:EVENT_ITEM_PURCHASED]) {
+        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        string itemId([pvi.itemId UTF8String]);
+        cocos2dx_EventHandlers::getInstance()->itemPurchased(itemId);
+    }
+    else if ([notification.name isEqualToString:EVENT_ITEM_PURCHASE_STARTED]) {
+        cocos2dx_EventHandlers::getInstance()->itemPurchaseStarted();
     }
     else if ([notification.name isEqualToString:EVENT_OPENING_STORE]) {
         cocos2dx_EventHandlers::getInstance()->openingStore();
     }
+    else if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASE_CANCELLED]) {
+        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        string itemId([pvi.itemId UTF8String]);
+        cocos2dx_EventHandlers::getInstance()->marketPurchaseCancelled(itemId);
+    }
+    else if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASED]) {
+        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        string itemId([pvi.itemId UTF8String]);
+        cocos2dx_EventHandlers::getInstance()->marketPurchase(itemId);
+    }
+    else if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASE_STARTED]) {
+        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        string itemId([pvi.itemId UTF8String]);
+        cocos2dx_EventHandlers::getInstance()->marketPurchaseStarted(itemId);
+    }
+    else if ([notification.name isEqualToString:EVENT_TRANSACTION_RESTORED]) {
+        BOOL success = [(NSNumber*)[notification.userInfo objectForKey:DICT_ELEMENT_SUCCESS] boolValue];
+        cocos2dx_EventHandlers::getInstance()->restoreTransactions(success);
+    }
+    else if ([notification.name isEqualToString:EVENT_TRANSACTION_RESTORE_STARTED]) {
+        cocos2dx_EventHandlers::getInstance()->restoreTransactionsStarted();
+    }
     else if ([notification.name isEqualToString:EVENT_UNEXPECTED_ERROR_IN_STORE]) {
         cocos2dx_EventHandlers::getInstance()->unexpectedErrorInStore();
     }
-    else if ([notification.name isEqualToString:EVENT_CHANGED_CURRENCY_BALANCE]) {
-		int balance = [(NSNumber*)[notification.userInfo objectForKey:@"balance"] intValue];
-		VirtualCurrency* currency = (VirtualCurrency*)[notification.userInfo objectForKey:@"VirtualCurrency"];
-		string itemId([currency.itemId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->currencyBalanceChanged(itemId, balance);
-    }
-    else if ([notification.name isEqualToString:EVENT_CHANGED_GOOD_BALANCE]) {
-		int balance = [(NSNumber*)[notification.userInfo objectForKey:@"balance"] intValue];
-		VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:@"VirtualGood"];
-		string itemId([good.itemId UTF8String]);
-        cocos2dx_EventHandlers::getInstance()->goodBalanceChanged(itemId, balance);
-    }
+    
+
 }
 
 

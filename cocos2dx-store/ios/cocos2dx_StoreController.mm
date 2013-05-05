@@ -57,7 +57,7 @@ void cocos2dx_StoreController::buyMarketItem(string productId) throw(cocos2dx_Vi
         NSString * str = [[NSString alloc] initWithBytes:productId.c_str() length:strlen(productId.c_str()) encoding:NSUTF8StringEncoding];
         PurchasableVirtualItem* pvi = [[StoreInfo getInstance] purchasableItemWithProductId:str];
         if ([pvi.purchaseType isKindOfClass:[PurchaseWithMarket class]]) {
-            [[StoreController getInstance] buyInAppStoreWithAppStoreItem:((PurchaseWithMarket*)pvi).appStoreItem];
+            [[StoreController getInstance] buyInAppStoreWithAppStoreItem:((PurchaseWithMarket*)pvi.purchaseType).appStoreItem];
         } else {
             throw cocos2dx_VirtualItemNotFoundException();
         }

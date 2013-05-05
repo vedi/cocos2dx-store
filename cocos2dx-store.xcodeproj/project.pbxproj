@@ -87,6 +87,7 @@
 		C0B0431B163C7B250015400E /* cocos2dx_StoreInventory.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0B0431A163C7B250015400E /* cocos2dx_StoreInventory.mm */; };
 		C0B0435E163C83B30015400E /* iphone in Resources */ = {isa = PBXBuildFile; fileRef = C0B0435C163C83B30015400E /* iphone */; };
 		C0B0435F163C83B30015400E /* iphonehd in Resources */ = {isa = PBXBuildFile; fileRef = C0B0435D163C83B30015400E /* iphonehd */; };
+		C0E0A856173699530092A33A /* GoodDog.otf in Resources */ = {isa = PBXBuildFile; fileRef = C0E0A855173699530092A33A /* GoodDog.otf */; };
 		C0F30C6516EFA52A00793A06 /* cocos2dx_EventDispatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0F30C6416EFA52A00793A06 /* cocos2dx_EventDispatcher.mm */; };
 /* End PBXBuildFile section */
 
@@ -246,6 +247,7 @@
 		C0C3E20B16413CAA00E5C103 /* cocos2dx_StoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_StoreInfo.h; sourceTree = "<group>"; };
 		C0C3E20D16413CAA00E5C103 /* cocos2dx_StoreInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_StoreInventory.h; sourceTree = "<group>"; };
 		C0C3E20E16413CAA00E5C103 /* cocos2dx_VirtualItemNotFoundException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_VirtualItemNotFoundException.h; sourceTree = "<group>"; };
+		C0E0A855173699530092A33A /* GoodDog.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GoodDog.otf; path = Resources/GoodDog.otf; sourceTree = "<group>"; };
 		C0F30C6316EFA52A00793A06 /* cocos2dx_EventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_EventDispatcher.h; path = ios/cocos2dx_EventDispatcher.h; sourceTree = "<group>"; };
 		C0F30C6416EFA52A00793A06 /* cocos2dx_EventDispatcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = cocos2dx_EventDispatcher.mm; path = ios/cocos2dx_EventDispatcher.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -328,6 +330,7 @@
 		C031BA881635BDBA005F73E3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C0E0A855173699530092A33A /* GoodDog.otf */,
 				C0B0435C163C83B30015400E /* iphone */,
 				C0B0435D163C83B30015400E /* iphonehd */,
 				C0B042D6163BFD2B0015400E /* Icon-72.png */,
@@ -657,6 +660,7 @@
 				C0B0435E163C83B30015400E /* iphone in Resources */,
 				C0B0435F163C83B30015400E /* iphonehd in Resources */,
 				C04C5B921732DDB10081553A /* license in Resources */,
+				C0E0A856173699530092A33A /* GoodDog.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -798,6 +802,12 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "cocos2dx-store/Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					COCOS2D_JAVASCRIPT,
+					USE_FILE32API,
+					CC_TARGET_OS_IPHONE,
+					"COCOS2D_DEBUG=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(PROJECT_NAME)/libs/cocos2dx/kazmath/include\"",
 					"\"$(PROJECT_NAME)/libs/cocos2dx\"",
@@ -825,6 +835,11 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "cocos2dx-store/Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					USE_FILE32API,
+					TARGET_OS_IPHONE,
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"\"$(PROJECT_NAME)/libs/cocos2dx/kazmath/include\"",

@@ -24,7 +24,7 @@ NSString* const _1000_MUFFINS_PACK_ITEM_ID = @"muffins_1000";
 NSString* const _10_MUFFINS_PACK_PRODUCT_ID = @"muffins_10";
 NSString* const _50_MUFFINS_PACK_PRODUCT_ID = @"muffins_50";
 NSString* const _400_MUFFINS_PACK_PRODUCT_ID = @"muffins_400";
-NSString* const _1000_MUFFINS_PACK_PRODUCT_ID = @"com.soomla.SoomlaiOSExample.second_test";
+NSString* const _1000_MUFFINS_PACK_PRODUCT_ID = @"com.soomla.SoomlaiOSStoreExampleDevice.second_test";
 
 NSString* const NO_ADDS_NONCONS_PRODUCT_ID = @"no_ads";
 
@@ -108,7 +108,7 @@ NonConsumableItem* NO_ADDS_NON_CONS;
  * than you'll also have to bump the version (from 0 to 1). Now the new "Green Hat" name will replace the old one.
  */
 - (int)getVersion {
-    return 0;
+    return 5;
 }
 
 /**
