@@ -108,7 +108,7 @@ NonConsumableItem* NO_ADDS_NON_CONS;
  * than you'll also have to bump the version (from 0 to 1). Now the new "Green Hat" name will replace the old one.
  */
 - (int)getVersion {
-    return 5;
+    return 0;
 }
 
 /**
