@@ -178,7 +178,7 @@ JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_restore
   }
   
 JNIEXPORT void JNICALL Java_com_soomla_cocos2dx_store_EventHandlerBridge_restoreTransactionsStarted
-  (JNIEnv * env, jobject obj, jstring itemId){
+  (JNIEnv * env, jobject obj){
   	  __android_log_write(ANDROID_LOG_DEBUG, "SOOMLA JNI", "transactions restored started.");
 	  
   	  cocos2dx_EventHandlers::getInstance()->restoreTransactionsStarted();
