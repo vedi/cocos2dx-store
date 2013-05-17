@@ -102,6 +102,11 @@
 		C0B0435F163C83B30015400E /* iphonehd in Resources */ = {isa = PBXBuildFile; fileRef = C0B0435D163C83B30015400E /* iphonehd */; };
 		C0E0A856173699530092A33A /* GoodDog.otf in Resources */ = {isa = PBXBuildFile; fileRef = C0E0A855173699530092A33A /* GoodDog.otf */; };
 		C0F30C6516EFA52A00793A06 /* cocos2dx_EventDispatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0F30C6416EFA52A00793A06 /* cocos2dx_EventDispatcher.mm */; };
+		F3E84ABE1746675F005CB4FC /* VirtualItemX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E84ABB1746675F005CB4FC /* VirtualItemX.cpp */; };
+		F3E84AC417467A75005CB4FC /* JSONConstsX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E84AC217467A75005CB4FC /* JSONConstsX.cpp */; };
+		F3E84AC8174680D8005CB4FC /* VirtualCurrencyX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E84AC6174680D8005CB4FC /* VirtualCurrencyX.cpp */; };
+		F3E84ACE174687C9005CB4FC /* PurchasableVirtualItemX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E84ACC174687C9005CB4FC /* PurchasableVirtualItemX.cpp */; };
+		F3E84AD117468B93005CB4FC /* PurchaseTypeX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E84ACF17468B93005CB4FC /* PurchaseTypeX.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -286,6 +291,17 @@
 		C0E0A855173699530092A33A /* GoodDog.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GoodDog.otf; path = Resources/GoodDog.otf; sourceTree = "<group>"; };
 		C0F30C6316EFA52A00793A06 /* cocos2dx_EventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_EventDispatcher.h; path = ios/cocos2dx_EventDispatcher.h; sourceTree = "<group>"; };
 		C0F30C6416EFA52A00793A06 /* cocos2dx_EventDispatcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = cocos2dx_EventDispatcher.mm; path = ios/cocos2dx_EventDispatcher.mm; sourceTree = "<group>"; };
+		F3E84ABB1746675F005CB4FC /* VirtualItemX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualItemX.cpp; sourceTree = "<group>"; };
+		F3E84ABC1746675F005CB4FC /* VirtualItemX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualItemX.h; sourceTree = "<group>"; };
+		F3E84AC017466F1D005CB4FC /* SoomlaMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoomlaMacros.h; sourceTree = "<group>"; };
+		F3E84AC217467A75005CB4FC /* JSONConstsX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSONConstsX.cpp; sourceTree = "<group>"; };
+		F3E84AC317467A75005CB4FC /* JSONConstsX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONConstsX.h; sourceTree = "<group>"; };
+		F3E84AC6174680D8005CB4FC /* VirtualCurrencyX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualCurrencyX.cpp; sourceTree = "<group>"; };
+		F3E84AC7174680D8005CB4FC /* VirtualCurrencyX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualCurrencyX.h; sourceTree = "<group>"; };
+		F3E84ACC174687C9005CB4FC /* PurchasableVirtualItemX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PurchasableVirtualItemX.cpp; sourceTree = "<group>"; };
+		F3E84ACD174687C9005CB4FC /* PurchasableVirtualItemX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchasableVirtualItemX.h; sourceTree = "<group>"; };
+		F3E84ACF17468B93005CB4FC /* PurchaseTypeX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PurchaseTypeX.cpp; sourceTree = "<group>"; };
+		F3E84AD017468B93005CB4FC /* PurchaseTypeX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseTypeX.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -468,6 +484,7 @@
 		C031BD241635BDBD005F73E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F3E84AB91746675F005CB4FC /* store-wrapper */,
 				C0C3E20516413CAA00E5C103 /* StoreBridge */,
 				C0B042E6163BFE960015400E /* GameMenuItem.cpp */,
 				C0B042E7163BFE960015400E /* GameMenuItem.h */,
@@ -678,6 +695,57 @@
 			path = Classes/StoreBridge;
 			sourceTree = "<group>";
 		};
+		F3E84AB91746675F005CB4FC /* store-wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				F3E84AC117467A5E005CB4FC /* data */,
+				F3E84ABA1746675F005CB4FC /* domain */,
+				F3E84ABD1746675F005CB4FC /* PurchaseTypes */,
+				F3E84AC017466F1D005CB4FC /* SoomlaMacros.h */,
+			);
+			name = "store-wrapper";
+			path = "Classes/store-wrapper";
+			sourceTree = "<group>";
+		};
+		F3E84ABA1746675F005CB4FC /* domain */ = {
+			isa = PBXGroup;
+			children = (
+				F3E84AC5174680BF005CB4FC /* virtualCurrencies */,
+				F3E84ABB1746675F005CB4FC /* VirtualItemX.cpp */,
+				F3E84ABC1746675F005CB4FC /* VirtualItemX.h */,
+				F3E84ACC174687C9005CB4FC /* PurchasableVirtualItemX.cpp */,
+				F3E84ACD174687C9005CB4FC /* PurchasableVirtualItemX.h */,
+			);
+			path = domain;
+			sourceTree = "<group>";
+		};
+		F3E84ABD1746675F005CB4FC /* PurchaseTypes */ = {
+			isa = PBXGroup;
+			children = (
+				F3E84ACF17468B93005CB4FC /* PurchaseTypeX.cpp */,
+				F3E84AD017468B93005CB4FC /* PurchaseTypeX.h */,
+			);
+			path = PurchaseTypes;
+			sourceTree = "<group>";
+		};
+		F3E84AC117467A5E005CB4FC /* data */ = {
+			isa = PBXGroup;
+			children = (
+				F3E84AC217467A75005CB4FC /* JSONConstsX.cpp */,
+				F3E84AC317467A75005CB4FC /* JSONConstsX.h */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		F3E84AC5174680BF005CB4FC /* virtualCurrencies */ = {
+			isa = PBXGroup;
+			children = (
+				F3E84AC6174680D8005CB4FC /* VirtualCurrencyX.cpp */,
+				F3E84AC7174680D8005CB4FC /* VirtualCurrencyX.h */,
+			);
+			path = virtualCurrencies;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -835,6 +903,11 @@
 				372B7D2F196234984B0D6401 /* IOSNDKHelper.mm in Sources */,
 				372B7F571C3629CB26D24A26 /* NDKHelper.cpp in Sources */,
 				372B7BF4BFBE6B5F135ACF3D /* NDKCallbackData.cpp in Sources */,
+				F3E84ABE1746675F005CB4FC /* VirtualItemX.cpp in Sources */,
+				F3E84AC417467A75005CB4FC /* JSONConstsX.cpp in Sources */,
+				F3E84AC8174680D8005CB4FC /* VirtualCurrencyX.cpp in Sources */,
+				F3E84ACE174687C9005CB4FC /* PurchasableVirtualItemX.cpp in Sources */,
+				F3E84AD117468B93005CB4FC /* PurchaseTypeX.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
