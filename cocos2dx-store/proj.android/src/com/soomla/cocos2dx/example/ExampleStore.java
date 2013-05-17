@@ -30,6 +30,7 @@ import android.content.pm.ConfigurationInfo;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import com.easyndk.classes.AndroidNDKHelper;
 import com.soomla.cocos2dx.store.StoreControllerBridge;
 import org.cocos2dx.lib.Cocos2dxActivity;
 
@@ -37,6 +38,7 @@ import android.os.Bundle;
 import org.cocos2dx.lib.Cocos2dxEditText;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.cocos2dx.lib.Cocos2dxRenderer;
+import org.json.JSONObject;
 
 /**
  * This class holds the OpenGL view of cocosedx.
@@ -46,6 +48,8 @@ public class ExampleStore extends Cocos2dxActivity{
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        AndroidNDKHelper.setNDKReceiver(this);
 
         if (detectOpenGLES20()) {
             // get the packageName,it's used to set the resource path
@@ -95,13 +99,11 @@ public class ExampleStore extends Cocos2dxActivity{
                 new MuffinRushAssets(), "AAA", this);
     }
 
-    @Override
     protected void onPause() {
         super.onPause();
         mGLView.onPause();
     }
 
-    @Override
     protected void onResume() {
         super.onResume();
         mGLView.onResume();
@@ -113,6 +115,13 @@ public class ExampleStore extends Cocos2dxActivity{
                 (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         ConfigurationInfo info = am.getDeviceConfigurationInfo();
         return (info.reqGlEsVersion >= 0x20000);
+    }
+
+    public void soomla_easyNDKTest(JSONObject params) {
+        Log.v("soomla_easyNDKTest", "createAndShowNative called");
+        Log.v("soomla_easyNDKTest", "Passed params are : " + params.toString());
+        Log.v("soomla_easyNDKTest", "Send them back to native code");
+        AndroidNDKHelper.sendMessageWithParameters("soomla_easyNDKCallBackTest", params);
     }
 
     static {

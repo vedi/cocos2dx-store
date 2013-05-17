@@ -18,13 +18,17 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/EventHandler.cpp \
                    ../../Classes/MainScene.cpp \
                    ../../Classes/StoreAScene.cpp \
-                   ../../Classes/StoreBScene.cpp
+                   ../../Classes/StoreBScene.cpp \
+                   ../../Classes/EasyNDK/NDKCallbackData.cpp \
+                   ../../Classes/EasyNDK/NDKHelper.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
+LOCAL_WHOLE_STATIC_LIBRARIES += jansson_static
 
 include $(BUILD_SHARED_LIBRARY)
 
 $(call import-module,cocos2dx)
+$(call import-module,jansson)
 

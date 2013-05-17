@@ -17,6 +17,7 @@
 #include "MainScene.h"
 #include "StoreAScene.h"
 #include "StoreBridge/cocos2dx_StoreController.h"
+#include "EasyNDK/NDKHelper.h"
 
 USING_NS_CC;
 
@@ -25,6 +26,7 @@ USING_NS_CC;
  * In this file you can find example calls to the store's interfaces.
  **/
 
+#define SEL_GROUP "soomlaCallback"
 
 Soomla* Soomla::create(const char *pszFileName, CCSprite* pSpriteBox)
 {
@@ -44,6 +46,10 @@ void Soomla::onEnter()
 {
 	CCDirector* pDirector = CCDirector::sharedDirector();
     pDirector->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
+
+    NDKHelper::addSelector(SEL_GROUP, "soomla_easyNDKCallBackTest",
+            this, callfuncO_selector(Soomla::easyNDKCallBackTest));
+
     CCSprite::onEnter();
 }
 
@@ -51,6 +57,9 @@ void Soomla::onExit()
 {
 	CCDirector* pDirector = CCDirector::sharedDirector();
     pDirector->getTouchDispatcher()->removeDelegate(this);
+
+    NDKHelper::removeSelectorsInGroup(SEL_GROUP);
+
     CCSprite::onExit();
 }
 CCRect Soomla::rect()
@@ -88,12 +97,27 @@ void Soomla::ccTouchEnded(CCTouch* touch, CCEvent* event)
 		CCTransitionScene *transition = CCTransitionMoveInR::create(0.8f, s);
 	
 		CCDirector::sharedDirector()->replaceScene(transition);
+
+
 	}
 	else
 	{
 		// Snap
 		this->runAction(CCMoveTo::create(0.2f, mOriginalPos));
+
+        CCDictionary *dict = CCDictionary::create();
+
+        dict->setObject(CCString::create("stringValue"), "stringKey");
+        dict->setObject(CCFloat::create(0.25), "floatKey");
+
+        sendMessageWithParams("soomla_easyNDKTest", dict);
 	}
+
+
+}
+
+void Soomla::easyNDKCallBackTest(CCObject *obj) {
+    CCLog("easyNDKCallBackTest call");
 }
 
 CCScene* MainScene::scene()

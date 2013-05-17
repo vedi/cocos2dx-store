@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		372B701168963319EC16E9D2 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B70FC239089B2F7B75DB8 /* hashtable.c */; };
+		372B73A6EB3FEFD24F885D36 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B708346B8FD9151AA2324 /* utf.c */; };
+		372B74EC6E0661D71B4637B3 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B7CCAD624B4FA6D7C41AF /* error.c */; };
+		372B75386F26351ADF6BDA67 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B743657F1B41F8D8600CA /* load.c */; };
+		372B7587C2E100D7A3BD8B9F /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B7E3F9775BE67ACDFE57C /* dump.c */; };
+		372B766C529B4A83DCCB0758 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B7AEC10AC3E02F0765B46 /* pack_unpack.c */; };
+		372B771054723FF7527B5F24 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B72A0E6FCAD8A8901E2C9 /* value.c */; };
+		372B7B95ABE82CF802F27444 /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B71ACE409061C5A7A9370 /* strbuffer.c */; };
+		372B7BCF5506D30C6BEBEB20 /* strconv.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B76620B483871973E4D57 /* strconv.c */; };
+		372B7BF4BFBE6B5F135ACF3D /* NDKCallbackData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7EF9C9C79BD692E4FAB0 /* NDKCallbackData.cpp */; };
+		372B7D2F196234984B0D6401 /* IOSNDKHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 372B73A0106A27F1532AC0A8 /* IOSNDKHelper.mm */; };
+		372B7D64ADD491BDB5E57F8F /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B79862E2F5693ABFD7A20 /* memory.c */; };
+		372B7F571C3629CB26D24A26 /* NDKHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B754C3176B8B785208C12 /* NDKHelper.cpp */; };
 		C005144D1650216600078EBB /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C005144B1650216600078EBB /* EventHandler.cpp */; };
 		C00514501650217300078EBB /* cocos2dx_EventHandlers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C005144E1650217300078EBB /* cocos2dx_EventHandlers.cpp */; };
 		C031BA781635BDBA005F73E3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C031BA771635BDBA005F73E3 /* QuartzCore.framework */; };
@@ -102,6 +115,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		372B708346B8FD9151AA2324 /* utf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf.c; sourceTree = "<group>"; };
+		372B70A75E69FA0D77446681 /* NDKCallbackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKCallbackData.h; sourceTree = "<group>"; };
+		372B70FC239089B2F7B75DB8 /* hashtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable.c; sourceTree = "<group>"; };
+		372B715BBE4E7134AD3B86D8 /* hashtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashtable.h; sourceTree = "<group>"; };
+		372B71ACE409061C5A7A9370 /* strbuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strbuffer.c; sourceTree = "<group>"; };
+		372B722A4D93922805CB6CD5 /* strbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strbuffer.h; sourceTree = "<group>"; };
+		372B72A0E6FCAD8A8901E2C9 /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
+		372B73A0106A27F1532AC0A8 /* IOSNDKHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IOSNDKHelper.mm; sourceTree = "<group>"; };
+		372B73E8718BEFD30CA9CA7B /* jansson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson.h; sourceTree = "<group>"; };
+		372B743657F1B41F8D8600CA /* load.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load.c; sourceTree = "<group>"; };
+		372B74E928DA2FB00CA30847 /* IOSNDKHelper-C-Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IOSNDKHelper-C-Interface.h"; sourceTree = "<group>"; };
+		372B754C3176B8B785208C12 /* NDKHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NDKHelper.cpp; sourceTree = "<group>"; };
+		372B76620B483871973E4D57 /* strconv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strconv.c; sourceTree = "<group>"; };
+		372B777E887CC2CBBF46FB06 /* NDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKHelper.h; sourceTree = "<group>"; };
+		372B79862E2F5693ABFD7A20 /* memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
+		372B7AEC10AC3E02F0765B46 /* pack_unpack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pack_unpack.c; sourceTree = "<group>"; };
+		372B7BCD6D0C6D8AE5ACBD97 /* jansson_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_config.h; sourceTree = "<group>"; };
+		372B7C62B6A99509E2DA1165 /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
+		372B7C6C0758E7710DF135C2 /* jansson_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_private.h; sourceTree = "<group>"; };
+		372B7CCAD624B4FA6D7C41AF /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
+		372B7E3D78E0714E0E9B30F6 /* IOSNDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSNDKHelper.h; sourceTree = "<group>"; };
+		372B7E3F9775BE67ACDFE57C /* dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dump.c; sourceTree = "<group>"; };
+		372B7EF9C9C79BD692E4FAB0 /* NDKCallbackData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NDKCallbackData.cpp; sourceTree = "<group>"; };
 		C005144B1650216600078EBB /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventHandler.cpp; path = Classes/EventHandler.cpp; sourceTree = "<group>"; };
 		C005144C1650216600078EBB /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventHandler.h; path = Classes/EventHandler.h; sourceTree = "<group>"; };
 		C005144E1650217300078EBB /* cocos2dx_EventHandlers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_EventHandlers.cpp; sourceTree = "<group>"; };
@@ -277,6 +313,61 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		372B71F0B739DCF5F79FEDEB /* EasyNDK */ = {
+			isa = PBXGroup;
+			children = (
+				372B7714AA4DA9B941730C47 /* ios */,
+				372B7CCDB3A6D1F79615E870 /* android */,
+				372B777E887CC2CBBF46FB06 /* NDKHelper.h */,
+				372B754C3176B8B785208C12 /* NDKHelper.cpp */,
+				372B70A75E69FA0D77446681 /* NDKCallbackData.h */,
+				372B7EF9C9C79BD692E4FAB0 /* NDKCallbackData.cpp */,
+			);
+			name = EasyNDK;
+			path = Classes/EasyNDK;
+			sourceTree = "<group>";
+		};
+		372B7714AA4DA9B941730C47 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				372B7E3D78E0714E0E9B30F6 /* IOSNDKHelper.h */,
+				372B73A0106A27F1532AC0A8 /* IOSNDKHelper.mm */,
+				372B74E928DA2FB00CA30847 /* IOSNDKHelper-C-Interface.h */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		372B7CCDB3A6D1F79615E870 /* android */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		372B7E5AFD8613624D78C081 /* jansson */ = {
+			isa = PBXGroup;
+			children = (
+				372B708346B8FD9151AA2324 /* utf.c */,
+				372B7C62B6A99509E2DA1165 /* utf.h */,
+				372B7E3F9775BE67ACDFE57C /* dump.c */,
+				372B743657F1B41F8D8600CA /* load.c */,
+				372B7CCAD624B4FA6D7C41AF /* error.c */,
+				372B72A0E6FCAD8A8901E2C9 /* value.c */,
+				372B79862E2F5693ABFD7A20 /* memory.c */,
+				372B73E8718BEFD30CA9CA7B /* jansson.h */,
+				372B76620B483871973E4D57 /* strconv.c */,
+				372B70FC239089B2F7B75DB8 /* hashtable.c */,
+				372B715BBE4E7134AD3B86D8 /* hashtable.h */,
+				372B71ACE409061C5A7A9370 /* strbuffer.c */,
+				372B722A4D93922805CB6CD5 /* strbuffer.h */,
+				372B7AEC10AC3E02F0765B46 /* pack_unpack.c */,
+				372B7BCD6D0C6D8AE5ACBD97 /* jansson_config.h */,
+				372B7C6C0758E7710DF135C2 /* jansson_private.h */,
+			);
+			name = jansson;
+			path = "cocos2dx-store/libs/jansson";
+			sourceTree = "<group>";
+		};
 		C031BA681635BDBA005F73E3 = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +376,7 @@
 				C031BA871635BDBA005F73E3 /* cocos2dx-store */,
 				C031BA761635BDBA005F73E3 /* Frameworks */,
 				C031BA741635BDBA005F73E3 /* Products */,
+				372B7E5AFD8613624D78C081 /* jansson */,
 			);
 			sourceTree = "<group>";
 		};
@@ -389,6 +481,7 @@
 				C0B042EF163BFE960015400E /* StoreBScene.h */,
 				C031BD251635BDBD005F73E3 /* AppDelegate.h */,
 				C031BD261635BDBD005F73E3 /* AppDelegate.cpp */,
+				372B71F0B739DCF5F79FEDEB /* EasyNDK */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -729,6 +822,19 @@
 				C04C5B911732DDB10081553A /* StoreUtils.m in Sources */,
 				C04C5B931732DDB10081553A /* NSString-MD5Addition.m in Sources */,
 				C04C5B941732DDB10081553A /* UIDevice-IdentifierAddition.m in Sources */,
+				372B73A6EB3FEFD24F885D36 /* utf.c in Sources */,
+				372B7587C2E100D7A3BD8B9F /* dump.c in Sources */,
+				372B75386F26351ADF6BDA67 /* load.c in Sources */,
+				372B74EC6E0661D71B4637B3 /* error.c in Sources */,
+				372B771054723FF7527B5F24 /* value.c in Sources */,
+				372B7D64ADD491BDB5E57F8F /* memory.c in Sources */,
+				372B7BCF5506D30C6BEBEB20 /* strconv.c in Sources */,
+				372B701168963319EC16E9D2 /* hashtable.c in Sources */,
+				372B7B95ABE82CF802F27444 /* strbuffer.c in Sources */,
+				372B766C529B4A83DCCB0758 /* pack_unpack.c in Sources */,
+				372B7D2F196234984B0D6401 /* IOSNDKHelper.mm in Sources */,
+				372B7F571C3629CB26D24A26 /* NDKHelper.cpp in Sources */,
+				372B7BF4BFBE6B5F135ACF3D /* NDKCallbackData.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

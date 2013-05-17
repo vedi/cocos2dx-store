@@ -1,1 +1,11 @@
-local.properties 
+libs/cocos2dx/platform/android/java/bin/
+libs/cocos2dx/platform/android/java/gen/
+libs/cocos2dx/platform/android/java/local.properties
+proj.android/assets
+proj.android/bin
+proj.android/gen
+proj.android/libs/armeabi
+proj.android/obj
+proj.android/out
+proj.android/local.properties
+

@@ -39,6 +39,8 @@ private:
 
 	CCSprite* mSpriteBox;
 	CCPoint mOriginalPos;
+
+    void easyNDKCallBackTest(CCObject *obj);
 };
 
 class MainScene : public cocos2d::CCLayer
