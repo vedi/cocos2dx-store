@@ -8,17 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		372B701168963319EC16E9D2 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B70FC239089B2F7B75DB8 /* hashtable.c */; };
+		372B70D18B8B82AFC4A43152 /* VirtualCurrencyX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B715CAEC35F0EF4F67221 /* VirtualCurrencyX.cpp */; };
+		372B71EAEBDA9BBB491CB2E9 /* JSONConstsX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B754168D8A3CB75C3DF78 /* JSONConstsX.cpp */; };
 		372B73A6EB3FEFD24F885D36 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B708346B8FD9151AA2324 /* utf.c */; };
 		372B74EC6E0661D71B4637B3 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B7CCAD624B4FA6D7C41AF /* error.c */; };
 		372B75386F26351ADF6BDA67 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B743657F1B41F8D8600CA /* load.c */; };
+		372B754EFFF31711B196799E /* PurchaseTypeX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B741BD019F3E61EF3396F /* PurchaseTypeX.cpp */; };
 		372B7587C2E100D7A3BD8B9F /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B7E3F9775BE67ACDFE57C /* dump.c */; };
 		372B766C529B4A83DCCB0758 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B7AEC10AC3E02F0765B46 /* pack_unpack.c */; };
 		372B771054723FF7527B5F24 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B72A0E6FCAD8A8901E2C9 /* value.c */; };
 		372B7B95ABE82CF802F27444 /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B71ACE409061C5A7A9370 /* strbuffer.c */; };
 		372B7BCF5506D30C6BEBEB20 /* strconv.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B76620B483871973E4D57 /* strconv.c */; };
 		372B7BF4BFBE6B5F135ACF3D /* NDKCallbackData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7EF9C9C79BD692E4FAB0 /* NDKCallbackData.cpp */; };
+		372B7C1A0CD8219E0C8F19A4 /* PurchasableVirtualItemX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B75A59F8866F6B52E5F49 /* PurchasableVirtualItemX.cpp */; };
 		372B7D2F196234984B0D6401 /* IOSNDKHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 372B73A0106A27F1532AC0A8 /* IOSNDKHelper.mm */; };
 		372B7D64ADD491BDB5E57F8F /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B79862E2F5693ABFD7A20 /* memory.c */; };
+		372B7DCE7FFD6C13563FF8C6 /* VirtualItemX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7F14EEB0124EA220F8EF /* VirtualItemX.cpp */; };
 		372B7F571C3629CB26D24A26 /* NDKHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B754C3176B8B785208C12 /* NDKHelper.cpp */; };
 		C005144D1650216600078EBB /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C005144B1650216600078EBB /* EventHandler.cpp */; };
 		C00514501650217300078EBB /* cocos2dx_EventHandlers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C005144E1650217300078EBB /* cocos2dx_EventHandlers.cpp */; };
@@ -102,11 +107,6 @@
 		C0B0435F163C83B30015400E /* iphonehd in Resources */ = {isa = PBXBuildFile; fileRef = C0B0435D163C83B30015400E /* iphonehd */; };
 		C0E0A856173699530092A33A /* GoodDog.otf in Resources */ = {isa = PBXBuildFile; fileRef = C0E0A855173699530092A33A /* GoodDog.otf */; };
 		C0F30C6516EFA52A00793A06 /* cocos2dx_EventDispatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0F30C6416EFA52A00793A06 /* cocos2dx_EventDispatcher.mm */; };
-		F3E84ABE1746675F005CB4FC /* VirtualItemX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E84ABB1746675F005CB4FC /* VirtualItemX.cpp */; };
-		F3E84AC417467A75005CB4FC /* JSONConstsX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E84AC217467A75005CB4FC /* JSONConstsX.cpp */; };
-		F3E84AC8174680D8005CB4FC /* VirtualCurrencyX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E84AC6174680D8005CB4FC /* VirtualCurrencyX.cpp */; };
-		F3E84ACE174687C9005CB4FC /* PurchasableVirtualItemX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E84ACC174687C9005CB4FC /* PurchasableVirtualItemX.cpp */; };
-		F3E84AD117468B93005CB4FC /* PurchaseTypeX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E84ACF17468B93005CB4FC /* PurchaseTypeX.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,27 +122,38 @@
 /* Begin PBXFileReference section */
 		372B708346B8FD9151AA2324 /* utf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf.c; sourceTree = "<group>"; };
 		372B70A75E69FA0D77446681 /* NDKCallbackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKCallbackData.h; sourceTree = "<group>"; };
+		372B70EF442FDE52B747316F /* SoomlaMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoomlaMacros.h; sourceTree = "<group>"; };
 		372B70FC239089B2F7B75DB8 /* hashtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable.c; sourceTree = "<group>"; };
 		372B715BBE4E7134AD3B86D8 /* hashtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashtable.h; sourceTree = "<group>"; };
+		372B715CAEC35F0EF4F67221 /* VirtualCurrencyX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualCurrencyX.cpp; sourceTree = "<group>"; };
 		372B71ACE409061C5A7A9370 /* strbuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strbuffer.c; sourceTree = "<group>"; };
 		372B722A4D93922805CB6CD5 /* strbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strbuffer.h; sourceTree = "<group>"; };
 		372B72A0E6FCAD8A8901E2C9 /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
 		372B73A0106A27F1532AC0A8 /* IOSNDKHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IOSNDKHelper.mm; sourceTree = "<group>"; };
 		372B73E8718BEFD30CA9CA7B /* jansson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson.h; sourceTree = "<group>"; };
+		372B741BD019F3E61EF3396F /* PurchaseTypeX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PurchaseTypeX.cpp; sourceTree = "<group>"; };
+		372B74203BD57179342562B6 /* VirtualCurrencyX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualCurrencyX.h; sourceTree = "<group>"; };
 		372B743657F1B41F8D8600CA /* load.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load.c; sourceTree = "<group>"; };
 		372B74E928DA2FB00CA30847 /* IOSNDKHelper-C-Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IOSNDKHelper-C-Interface.h"; sourceTree = "<group>"; };
+		372B754168D8A3CB75C3DF78 /* JSONConstsX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSONConstsX.cpp; sourceTree = "<group>"; };
 		372B754C3176B8B785208C12 /* NDKHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NDKHelper.cpp; sourceTree = "<group>"; };
+		372B75A59F8866F6B52E5F49 /* PurchasableVirtualItemX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PurchasableVirtualItemX.cpp; sourceTree = "<group>"; };
 		372B76620B483871973E4D57 /* strconv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strconv.c; sourceTree = "<group>"; };
 		372B777E887CC2CBBF46FB06 /* NDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKHelper.h; sourceTree = "<group>"; };
+		372B778067B64FEE88985EC1 /* PurchaseTypeX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseTypeX.h; sourceTree = "<group>"; };
+		372B7919F0767E58717A56AF /* PurchasableVirtualItemX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchasableVirtualItemX.h; sourceTree = "<group>"; };
 		372B79862E2F5693ABFD7A20 /* memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
 		372B7AEC10AC3E02F0765B46 /* pack_unpack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pack_unpack.c; sourceTree = "<group>"; };
 		372B7BCD6D0C6D8AE5ACBD97 /* jansson_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_config.h; sourceTree = "<group>"; };
 		372B7C62B6A99509E2DA1165 /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
 		372B7C6C0758E7710DF135C2 /* jansson_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_private.h; sourceTree = "<group>"; };
 		372B7CCAD624B4FA6D7C41AF /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
+		372B7DBF4577F21D9F9871FC /* VirtualItemX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualItemX.h; sourceTree = "<group>"; };
 		372B7E3D78E0714E0E9B30F6 /* IOSNDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSNDKHelper.h; sourceTree = "<group>"; };
 		372B7E3F9775BE67ACDFE57C /* dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dump.c; sourceTree = "<group>"; };
 		372B7EF9C9C79BD692E4FAB0 /* NDKCallbackData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NDKCallbackData.cpp; sourceTree = "<group>"; };
+		372B7F14EEB0124EA220F8EF /* VirtualItemX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualItemX.cpp; sourceTree = "<group>"; };
+		372B7F81EF6F6D53D0ACDC54 /* JSONConstsX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONConstsX.h; sourceTree = "<group>"; };
 		C005144B1650216600078EBB /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventHandler.cpp; path = Classes/EventHandler.cpp; sourceTree = "<group>"; };
 		C005144C1650216600078EBB /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventHandler.h; path = Classes/EventHandler.h; sourceTree = "<group>"; };
 		C005144E1650217300078EBB /* cocos2dx_EventHandlers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_EventHandlers.cpp; sourceTree = "<group>"; };
@@ -291,17 +302,6 @@
 		C0E0A855173699530092A33A /* GoodDog.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GoodDog.otf; path = Resources/GoodDog.otf; sourceTree = "<group>"; };
 		C0F30C6316EFA52A00793A06 /* cocos2dx_EventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_EventDispatcher.h; path = ios/cocos2dx_EventDispatcher.h; sourceTree = "<group>"; };
 		C0F30C6416EFA52A00793A06 /* cocos2dx_EventDispatcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = cocos2dx_EventDispatcher.mm; path = ios/cocos2dx_EventDispatcher.mm; sourceTree = "<group>"; };
-		F3E84ABB1746675F005CB4FC /* VirtualItemX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualItemX.cpp; sourceTree = "<group>"; };
-		F3E84ABC1746675F005CB4FC /* VirtualItemX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualItemX.h; sourceTree = "<group>"; };
-		F3E84AC017466F1D005CB4FC /* SoomlaMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoomlaMacros.h; sourceTree = "<group>"; };
-		F3E84AC217467A75005CB4FC /* JSONConstsX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSONConstsX.cpp; sourceTree = "<group>"; };
-		F3E84AC317467A75005CB4FC /* JSONConstsX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONConstsX.h; sourceTree = "<group>"; };
-		F3E84AC6174680D8005CB4FC /* VirtualCurrencyX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualCurrencyX.cpp; sourceTree = "<group>"; };
-		F3E84AC7174680D8005CB4FC /* VirtualCurrencyX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualCurrencyX.h; sourceTree = "<group>"; };
-		F3E84ACC174687C9005CB4FC /* PurchasableVirtualItemX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PurchasableVirtualItemX.cpp; sourceTree = "<group>"; };
-		F3E84ACD174687C9005CB4FC /* PurchasableVirtualItemX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchasableVirtualItemX.h; sourceTree = "<group>"; };
-		F3E84ACF17468B93005CB4FC /* PurchaseTypeX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PurchaseTypeX.cpp; sourceTree = "<group>"; };
-		F3E84AD017468B93005CB4FC /* PurchaseTypeX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseTypeX.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +329,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		372B704F459B3B6ABC5BF93F /* data */ = {
+			isa = PBXGroup;
+			children = (
+				372B7F81EF6F6D53D0ACDC54 /* JSONConstsX.h */,
+				372B754168D8A3CB75C3DF78 /* JSONConstsX.cpp */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		372B715CDE2F06105DAD133A /* store-wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				372B704F459B3B6ABC5BF93F /* data */,
+				372B7E3CA14C360A5E505B6F /* domain */,
+				372B721951C786BDA6546B0D /* PurchaseTypes */,
+				372B70EF442FDE52B747316F /* SoomlaMacros.h */,
+			);
+			name = "store-wrapper";
+			path = "Classes/store-wrapper";
+			sourceTree = "<group>";
+		};
 		372B71F0B739DCF5F79FEDEB /* EasyNDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +364,15 @@
 			path = Classes/EasyNDK;
 			sourceTree = "<group>";
 		};
+		372B721951C786BDA6546B0D /* PurchaseTypes */ = {
+			isa = PBXGroup;
+			children = (
+				372B778067B64FEE88985EC1 /* PurchaseTypeX.h */,
+				372B741BD019F3E61EF3396F /* PurchaseTypeX.cpp */,
+			);
+			path = PurchaseTypes;
+			sourceTree = "<group>";
+		};
 		372B7714AA4DA9B941730C47 /* ios */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,11 +383,32 @@
 			path = ios;
 			sourceTree = "<group>";
 		};
+		372B797284D86A24F4B76D40 /* virtualCurrencies */ = {
+			isa = PBXGroup;
+			children = (
+				372B74203BD57179342562B6 /* VirtualCurrencyX.h */,
+				372B715CAEC35F0EF4F67221 /* VirtualCurrencyX.cpp */,
+			);
+			path = virtualCurrencies;
+			sourceTree = "<group>";
+		};
 		372B7CCDB3A6D1F79615E870 /* android */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = android;
+			sourceTree = "<group>";
+		};
+		372B7E3CA14C360A5E505B6F /* domain */ = {
+			isa = PBXGroup;
+			children = (
+				372B7DBF4577F21D9F9871FC /* VirtualItemX.h */,
+				372B7F14EEB0124EA220F8EF /* VirtualItemX.cpp */,
+				372B797284D86A24F4B76D40 /* virtualCurrencies */,
+				372B7919F0767E58717A56AF /* PurchasableVirtualItemX.h */,
+				372B75A59F8866F6B52E5F49 /* PurchasableVirtualItemX.cpp */,
+			);
+			path = domain;
 			sourceTree = "<group>";
 		};
 		372B7E5AFD8613624D78C081 /* jansson */ = {
@@ -484,7 +535,6 @@
 		C031BD241635BDBD005F73E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				F3E84AB91746675F005CB4FC /* store-wrapper */,
 				C0C3E20516413CAA00E5C103 /* StoreBridge */,
 				C0B042E6163BFE960015400E /* GameMenuItem.cpp */,
 				C0B042E7163BFE960015400E /* GameMenuItem.h */,
@@ -499,6 +549,7 @@
 				C031BD251635BDBD005F73E3 /* AppDelegate.h */,
 				C031BD261635BDBD005F73E3 /* AppDelegate.cpp */,
 				372B71F0B739DCF5F79FEDEB /* EasyNDK */,
+				372B715CDE2F06105DAD133A /* store-wrapper */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -695,57 +746,6 @@
 			path = Classes/StoreBridge;
 			sourceTree = "<group>";
 		};
-		F3E84AB91746675F005CB4FC /* store-wrapper */ = {
-			isa = PBXGroup;
-			children = (
-				F3E84AC117467A5E005CB4FC /* data */,
-				F3E84ABA1746675F005CB4FC /* domain */,
-				F3E84ABD1746675F005CB4FC /* PurchaseTypes */,
-				F3E84AC017466F1D005CB4FC /* SoomlaMacros.h */,
-			);
-			name = "store-wrapper";
-			path = "Classes/store-wrapper";
-			sourceTree = "<group>";
-		};
-		F3E84ABA1746675F005CB4FC /* domain */ = {
-			isa = PBXGroup;
-			children = (
-				F3E84AC5174680BF005CB4FC /* virtualCurrencies */,
-				F3E84ABB1746675F005CB4FC /* VirtualItemX.cpp */,
-				F3E84ABC1746675F005CB4FC /* VirtualItemX.h */,
-				F3E84ACC174687C9005CB4FC /* PurchasableVirtualItemX.cpp */,
-				F3E84ACD174687C9005CB4FC /* PurchasableVirtualItemX.h */,
-			);
-			path = domain;
-			sourceTree = "<group>";
-		};
-		F3E84ABD1746675F005CB4FC /* PurchaseTypes */ = {
-			isa = PBXGroup;
-			children = (
-				F3E84ACF17468B93005CB4FC /* PurchaseTypeX.cpp */,
-				F3E84AD017468B93005CB4FC /* PurchaseTypeX.h */,
-			);
-			path = PurchaseTypes;
-			sourceTree = "<group>";
-		};
-		F3E84AC117467A5E005CB4FC /* data */ = {
-			isa = PBXGroup;
-			children = (
-				F3E84AC217467A75005CB4FC /* JSONConstsX.cpp */,
-				F3E84AC317467A75005CB4FC /* JSONConstsX.h */,
-			);
-			path = data;
-			sourceTree = "<group>";
-		};
-		F3E84AC5174680BF005CB4FC /* virtualCurrencies */ = {
-			isa = PBXGroup;
-			children = (
-				F3E84AC6174680D8005CB4FC /* VirtualCurrencyX.cpp */,
-				F3E84AC7174680D8005CB4FC /* VirtualCurrencyX.h */,
-			);
-			path = virtualCurrencies;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -903,11 +903,11 @@
 				372B7D2F196234984B0D6401 /* IOSNDKHelper.mm in Sources */,
 				372B7F571C3629CB26D24A26 /* NDKHelper.cpp in Sources */,
 				372B7BF4BFBE6B5F135ACF3D /* NDKCallbackData.cpp in Sources */,
-				F3E84ABE1746675F005CB4FC /* VirtualItemX.cpp in Sources */,
-				F3E84AC417467A75005CB4FC /* JSONConstsX.cpp in Sources */,
-				F3E84AC8174680D8005CB4FC /* VirtualCurrencyX.cpp in Sources */,
-				F3E84ACE174687C9005CB4FC /* PurchasableVirtualItemX.cpp in Sources */,
-				F3E84AD117468B93005CB4FC /* PurchaseTypeX.cpp in Sources */,
+				372B71EAEBDA9BBB491CB2E9 /* JSONConstsX.cpp in Sources */,
+				372B7DCE7FFD6C13563FF8C6 /* VirtualItemX.cpp in Sources */,
+				372B70D18B8B82AFC4A43152 /* VirtualCurrencyX.cpp in Sources */,
+				372B7C1A0CD8219E0C8F19A4 /* PurchasableVirtualItemX.cpp in Sources */,
+				372B754EFFF31711B196799E /* PurchaseTypeX.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
