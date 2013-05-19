@@ -13,13 +13,9 @@
 
 namespace soomla {
     
-    class PurchasableVirtualItem;
-    
     class PurchaseType : public cocos2d::CCObject {
     public:
-        PurchasableVirtualItem* mAssociatedItem; //weak_ref
-        
-        PurchaseType(): mAssociatedItem(NULL) {}
+        PurchaseType() {}
         
         virtual bool init();
         

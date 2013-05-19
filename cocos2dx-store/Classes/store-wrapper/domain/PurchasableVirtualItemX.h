@@ -15,20 +15,19 @@
 namespace soomla {
     
     class PurchasableVirtualItem : public VirtualItem {
-        SL_SYNTHESIZE_RETAIN(PurchaseType*, mPurchaseType, PurchaseType);
-        
+        SL_SYNTHESIZE_RETAIN_WITH_DICT_DCL(PurchaseType*, mPurchaseType, PurchaseType);
     public:
         PurchasableVirtualItem(): VirtualItem(), mPurchaseType(NULL) {}
-        
+
+        static PurchasableVirtualItem* create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, PurchaseType* purchaseType);
+        static PurchasableVirtualItem* createWithDictionary(cocos2d::CCDictionary* dict);
+
         virtual bool init(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, PurchaseType* purchaseType);
         virtual bool initWithDictionary(cocos2d::CCDictionary* dict);
         
-        static PurchasableVirtualItem* create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, PurchaseType* purchaseType);
-        static PurchasableVirtualItem* createWithDictionary(cocos2d::CCDictionary* dict);
-        
         virtual ~PurchasableVirtualItem();
         
-        virtual cocos2d::CCDictionary* toDictionary() const;
+        virtual cocos2d::CCDictionary* toDictionary();
     };
 }
 

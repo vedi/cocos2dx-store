@@ -7,7 +7,6 @@
 //
 
 #include "PurchaseTypeX.h"
-#include "PurchasableVirtualItemX.h"
 
 namespace soomla {
     

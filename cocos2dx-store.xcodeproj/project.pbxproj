@@ -9,21 +9,33 @@
 /* Begin PBXBuildFile section */
 		372B701168963319EC16E9D2 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B70FC239089B2F7B75DB8 /* hashtable.c */; };
 		372B70D18B8B82AFC4A43152 /* VirtualCurrencyX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B715CAEC35F0EF4F67221 /* VirtualCurrencyX.cpp */; };
+		372B71CDCA4EC4333B7A1B1C /* MarketItemX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7C7E6CFC655AFE6B04D9 /* MarketItemX.cpp */; };
 		372B71EAEBDA9BBB491CB2E9 /* JSONConstsX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B754168D8A3CB75C3DF78 /* JSONConstsX.cpp */; };
 		372B73A6EB3FEFD24F885D36 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B708346B8FD9151AA2324 /* utf.c */; };
+		372B74713EA527B55FA02677 /* EquippableVGX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B73FBD0F8658657D82840 /* EquippableVGX.cpp */; };
 		372B74EC6E0661D71B4637B3 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B7CCAD624B4FA6D7C41AF /* error.c */; };
 		372B75386F26351ADF6BDA67 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B743657F1B41F8D8600CA /* load.c */; };
 		372B754EFFF31711B196799E /* PurchaseTypeX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B741BD019F3E61EF3396F /* PurchaseTypeX.cpp */; };
 		372B7587C2E100D7A3BD8B9F /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B7E3F9775BE67ACDFE57C /* dump.c */; };
+		372B758E80037747F20BE74F /* LifetimeVGX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7294F2920A8CD67EA24A /* LifetimeVGX.cpp */; };
+		372B75CFDB6756B57E52FCEA /* UpgradeVGX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7094599918E59CB024E8 /* UpgradeVGX.cpp */; };
 		372B766C529B4A83DCCB0758 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B7AEC10AC3E02F0765B46 /* pack_unpack.c */; };
 		372B771054723FF7527B5F24 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B72A0E6FCAD8A8901E2C9 /* value.c */; };
+		372B790681A6246C41C25EB4 /* PurchaseWithMarketX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B75B0DF36BEB18078E5AD /* PurchaseWithMarketX.cpp */; };
+		372B793ABB9AF0CCD7D47793 /* VirtualGoodX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B75E610EC4DBFDDDBA941 /* VirtualGoodX.cpp */; };
+		372B7943C77537DBC0E4A547 /* VirtualCategoryX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7979D664F944BDD0278A /* VirtualCategoryX.cpp */; };
+		372B7A599E9DE2BB39994FD4 /* NonConsumableItemX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7298C2D67C3E033126B3 /* NonConsumableItemX.cpp */; };
+		372B7AAE18EADED7ACD75A28 /* SingleUseVGX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B73C460D8D7F0CAF885D2 /* SingleUseVGX.cpp */; };
+		372B7B8E0F36B4B77FBCFEC5 /* SingleUsePackVGX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B74C179D21AF7BA132E67 /* SingleUsePackVGX.cpp */; };
 		372B7B95ABE82CF802F27444 /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B71ACE409061C5A7A9370 /* strbuffer.c */; };
 		372B7BCF5506D30C6BEBEB20 /* strconv.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B76620B483871973E4D57 /* strconv.c */; };
 		372B7BF4BFBE6B5F135ACF3D /* NDKCallbackData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7EF9C9C79BD692E4FAB0 /* NDKCallbackData.cpp */; };
 		372B7C1A0CD8219E0C8F19A4 /* PurchasableVirtualItemX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B75A59F8866F6B52E5F49 /* PurchasableVirtualItemX.cpp */; };
+		372B7C8E699661855D625E68 /* VirtualCurrencyPackX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7A13B4F635B0095906F7 /* VirtualCurrencyPackX.cpp */; };
 		372B7D2F196234984B0D6401 /* IOSNDKHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 372B73A0106A27F1532AC0A8 /* IOSNDKHelper.mm */; };
 		372B7D64ADD491BDB5E57F8F /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B79862E2F5693ABFD7A20 /* memory.c */; };
 		372B7DCE7FFD6C13563FF8C6 /* VirtualItemX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7F14EEB0124EA220F8EF /* VirtualItemX.cpp */; };
+		372B7F17B94B89DEE4B4144A /* PurchaseWithVirtualItemX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7DF53F8112347E32195C /* PurchaseWithVirtualItemX.cpp */; };
 		372B7F571C3629CB26D24A26 /* NDKHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B754C3176B8B785208C12 /* NDKHelper.cpp */; };
 		C005144D1650216600078EBB /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C005144B1650216600078EBB /* EventHandler.cpp */; };
 		C00514501650217300078EBB /* cocos2dx_EventHandlers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C005144E1650217300078EBB /* cocos2dx_EventHandlers.cpp */; };
@@ -121,34 +133,58 @@
 
 /* Begin PBXFileReference section */
 		372B708346B8FD9151AA2324 /* utf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf.c; sourceTree = "<group>"; };
+		372B7094599918E59CB024E8 /* UpgradeVGX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UpgradeVGX.cpp; sourceTree = "<group>"; };
 		372B70A75E69FA0D77446681 /* NDKCallbackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKCallbackData.h; sourceTree = "<group>"; };
+		372B70EBDD81B7047A343E31 /* VirtualGoodX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualGoodX.h; sourceTree = "<group>"; };
 		372B70EF442FDE52B747316F /* SoomlaMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoomlaMacros.h; sourceTree = "<group>"; };
 		372B70FC239089B2F7B75DB8 /* hashtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable.c; sourceTree = "<group>"; };
+		372B7117541EEF927F72C72D /* NonConsumableItemX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonConsumableItemX.h; sourceTree = "<group>"; };
 		372B715BBE4E7134AD3B86D8 /* hashtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashtable.h; sourceTree = "<group>"; };
 		372B715CAEC35F0EF4F67221 /* VirtualCurrencyX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualCurrencyX.cpp; sourceTree = "<group>"; };
+		372B717E5EC32BD4EABB6DE3 /* UpgradeVGX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpgradeVGX.h; sourceTree = "<group>"; };
 		372B71ACE409061C5A7A9370 /* strbuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strbuffer.c; sourceTree = "<group>"; };
 		372B722A4D93922805CB6CD5 /* strbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strbuffer.h; sourceTree = "<group>"; };
+		372B7294F2920A8CD67EA24A /* LifetimeVGX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LifetimeVGX.cpp; sourceTree = "<group>"; };
+		372B7298C2D67C3E033126B3 /* NonConsumableItemX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NonConsumableItemX.cpp; sourceTree = "<group>"; };
 		372B72A0E6FCAD8A8901E2C9 /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
+		372B73923BE0EE8853A2B3FC /* PurchaseWithMarketX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseWithMarketX.h; sourceTree = "<group>"; };
 		372B73A0106A27F1532AC0A8 /* IOSNDKHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IOSNDKHelper.mm; sourceTree = "<group>"; };
+		372B73C460D8D7F0CAF885D2 /* SingleUseVGX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SingleUseVGX.cpp; sourceTree = "<group>"; };
 		372B73E8718BEFD30CA9CA7B /* jansson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson.h; sourceTree = "<group>"; };
+		372B73FBD0F8658657D82840 /* EquippableVGX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EquippableVGX.cpp; sourceTree = "<group>"; };
 		372B741BD019F3E61EF3396F /* PurchaseTypeX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PurchaseTypeX.cpp; sourceTree = "<group>"; };
 		372B74203BD57179342562B6 /* VirtualCurrencyX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualCurrencyX.h; sourceTree = "<group>"; };
 		372B743657F1B41F8D8600CA /* load.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load.c; sourceTree = "<group>"; };
+		372B74C179D21AF7BA132E67 /* SingleUsePackVGX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SingleUsePackVGX.cpp; sourceTree = "<group>"; };
 		372B74E928DA2FB00CA30847 /* IOSNDKHelper-C-Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IOSNDKHelper-C-Interface.h"; sourceTree = "<group>"; };
 		372B754168D8A3CB75C3DF78 /* JSONConstsX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSONConstsX.cpp; sourceTree = "<group>"; };
 		372B754C3176B8B785208C12 /* NDKHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NDKHelper.cpp; sourceTree = "<group>"; };
 		372B75A59F8866F6B52E5F49 /* PurchasableVirtualItemX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PurchasableVirtualItemX.cpp; sourceTree = "<group>"; };
+		372B75B0DF36BEB18078E5AD /* PurchaseWithMarketX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PurchaseWithMarketX.cpp; sourceTree = "<group>"; };
+		372B75E610EC4DBFDDDBA941 /* VirtualGoodX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualGoodX.cpp; sourceTree = "<group>"; };
 		372B76620B483871973E4D57 /* strconv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strconv.c; sourceTree = "<group>"; };
 		372B777E887CC2CBBF46FB06 /* NDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKHelper.h; sourceTree = "<group>"; };
 		372B778067B64FEE88985EC1 /* PurchaseTypeX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseTypeX.h; sourceTree = "<group>"; };
+		372B79041AE26E10F0B58F29 /* VirtualCurrencyPackX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualCurrencyPackX.h; sourceTree = "<group>"; };
 		372B7919F0767E58717A56AF /* PurchasableVirtualItemX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchasableVirtualItemX.h; sourceTree = "<group>"; };
+		372B79488337215697B7405A /* SingleUsePackVGX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleUsePackVGX.h; sourceTree = "<group>"; };
+		372B79696C87597271D19FAA /* VirtualCategoryX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualCategoryX.h; sourceTree = "<group>"; };
+		372B7979D664F944BDD0278A /* VirtualCategoryX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualCategoryX.cpp; sourceTree = "<group>"; };
 		372B79862E2F5693ABFD7A20 /* memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
+		372B7A13B4F635B0095906F7 /* VirtualCurrencyPackX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualCurrencyPackX.cpp; sourceTree = "<group>"; };
 		372B7AEC10AC3E02F0765B46 /* pack_unpack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pack_unpack.c; sourceTree = "<group>"; };
+		372B7AFA886987C3C26F857E /* EquippableVGX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EquippableVGX.h; sourceTree = "<group>"; };
+		372B7B4999720D6224747BBC /* PurchaseWithVirtualItemX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseWithVirtualItemX.h; sourceTree = "<group>"; };
 		372B7BCD6D0C6D8AE5ACBD97 /* jansson_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_config.h; sourceTree = "<group>"; };
 		372B7C62B6A99509E2DA1165 /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
 		372B7C6C0758E7710DF135C2 /* jansson_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_private.h; sourceTree = "<group>"; };
+		372B7C7E6CFC655AFE6B04D9 /* MarketItemX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MarketItemX.cpp; sourceTree = "<group>"; };
 		372B7CCAD624B4FA6D7C41AF /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
+		372B7D9916E504418CFFEBA9 /* SingleUseVGX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleUseVGX.h; sourceTree = "<group>"; };
+		372B7DB56E73BA39E5F1E716 /* LifetimeVGX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifetimeVGX.h; sourceTree = "<group>"; };
 		372B7DBF4577F21D9F9871FC /* VirtualItemX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualItemX.h; sourceTree = "<group>"; };
+		372B7DF53F8112347E32195C /* PurchaseWithVirtualItemX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PurchaseWithVirtualItemX.cpp; sourceTree = "<group>"; };
+		372B7E2BF044047DE74B284C /* MarketItemX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketItemX.h; sourceTree = "<group>"; };
 		372B7E3D78E0714E0E9B30F6 /* IOSNDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSNDKHelper.h; sourceTree = "<group>"; };
 		372B7E3F9775BE67ACDFE57C /* dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dump.c; sourceTree = "<group>"; };
 		372B7EF9C9C79BD692E4FAB0 /* NDKCallbackData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NDKCallbackData.cpp; sourceTree = "<group>"; };
@@ -369,6 +405,10 @@
 			children = (
 				372B778067B64FEE88985EC1 /* PurchaseTypeX.h */,
 				372B741BD019F3E61EF3396F /* PurchaseTypeX.cpp */,
+				372B7DF53F8112347E32195C /* PurchaseWithVirtualItemX.cpp */,
+				372B7B4999720D6224747BBC /* PurchaseWithVirtualItemX.h */,
+				372B75B0DF36BEB18078E5AD /* PurchaseWithMarketX.cpp */,
+				372B73923BE0EE8853A2B3FC /* PurchaseWithMarketX.h */,
 			);
 			path = PurchaseTypes;
 			sourceTree = "<group>";
@@ -388,6 +428,8 @@
 			children = (
 				372B74203BD57179342562B6 /* VirtualCurrencyX.h */,
 				372B715CAEC35F0EF4F67221 /* VirtualCurrencyX.cpp */,
+				372B7A13B4F635B0095906F7 /* VirtualCurrencyPackX.cpp */,
+				372B79041AE26E10F0B58F29 /* VirtualCurrencyPackX.h */,
 			);
 			path = virtualCurrencies;
 			sourceTree = "<group>";
@@ -407,6 +449,13 @@
 				372B797284D86A24F4B76D40 /* virtualCurrencies */,
 				372B7919F0767E58717A56AF /* PurchasableVirtualItemX.h */,
 				372B75A59F8866F6B52E5F49 /* PurchasableVirtualItemX.cpp */,
+				372B7C7E6CFC655AFE6B04D9 /* MarketItemX.cpp */,
+				372B7E2BF044047DE74B284C /* MarketItemX.h */,
+				372B7298C2D67C3E033126B3 /* NonConsumableItemX.cpp */,
+				372B7117541EEF927F72C72D /* NonConsumableItemX.h */,
+				372B7979D664F944BDD0278A /* VirtualCategoryX.cpp */,
+				372B79696C87597271D19FAA /* VirtualCategoryX.h */,
+				372B7EDBD743B4050BB74484 /* virtualGoods */,
 			);
 			path = domain;
 			sourceTree = "<group>";
@@ -433,6 +482,25 @@
 			);
 			name = jansson;
 			path = "cocos2dx-store/libs/jansson";
+			sourceTree = "<group>";
+		};
+		372B7EDBD743B4050BB74484 /* virtualGoods */ = {
+			isa = PBXGroup;
+			children = (
+				372B75E610EC4DBFDDDBA941 /* VirtualGoodX.cpp */,
+				372B70EBDD81B7047A343E31 /* VirtualGoodX.h */,
+				372B7294F2920A8CD67EA24A /* LifetimeVGX.cpp */,
+				372B7DB56E73BA39E5F1E716 /* LifetimeVGX.h */,
+				372B74C179D21AF7BA132E67 /* SingleUsePackVGX.cpp */,
+				372B79488337215697B7405A /* SingleUsePackVGX.h */,
+				372B73C460D8D7F0CAF885D2 /* SingleUseVGX.cpp */,
+				372B7D9916E504418CFFEBA9 /* SingleUseVGX.h */,
+				372B7094599918E59CB024E8 /* UpgradeVGX.cpp */,
+				372B717E5EC32BD4EABB6DE3 /* UpgradeVGX.h */,
+				372B73FBD0F8658657D82840 /* EquippableVGX.cpp */,
+				372B7AFA886987C3C26F857E /* EquippableVGX.h */,
+			);
+			path = virtualGoods;
 			sourceTree = "<group>";
 		};
 		C031BA681635BDBA005F73E3 = {
@@ -908,6 +976,18 @@
 				372B70D18B8B82AFC4A43152 /* VirtualCurrencyX.cpp in Sources */,
 				372B7C1A0CD8219E0C8F19A4 /* PurchasableVirtualItemX.cpp in Sources */,
 				372B754EFFF31711B196799E /* PurchaseTypeX.cpp in Sources */,
+				372B7F17B94B89DEE4B4144A /* PurchaseWithVirtualItemX.cpp in Sources */,
+				372B790681A6246C41C25EB4 /* PurchaseWithMarketX.cpp in Sources */,
+				372B71CDCA4EC4333B7A1B1C /* MarketItemX.cpp in Sources */,
+				372B7A599E9DE2BB39994FD4 /* NonConsumableItemX.cpp in Sources */,
+				372B7943C77537DBC0E4A547 /* VirtualCategoryX.cpp in Sources */,
+				372B7C8E699661855D625E68 /* VirtualCurrencyPackX.cpp in Sources */,
+				372B793ABB9AF0CCD7D47793 /* VirtualGoodX.cpp in Sources */,
+				372B758E80037747F20BE74F /* LifetimeVGX.cpp in Sources */,
+				372B7B8E0F36B4B77FBCFEC5 /* SingleUsePackVGX.cpp in Sources */,
+				372B7AAE18EADED7ACD75A28 /* SingleUseVGX.cpp in Sources */,
+				372B75CFDB6756B57E52FCEA /* UpgradeVGX.cpp in Sources */,
+				372B74713EA527B55FA02677 /* EquippableVGX.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
