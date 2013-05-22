@@ -32,22 +32,22 @@ public class StoreControllerBridge {
         mEventHandler = new EventHandlerBridge(mGLView);
     }
 
-    static void initialize(String customSecret) {
+    public static void initialize(String customSecret) {
         Log.d("SOOMLA", "initialize is called from java !");
         StoreController.getInstance().initialize(mStoreAssets, mPublicKey, customSecret);
     }
 
-    static void storeOpening() {
+    public static void storeOpening() {
         Log.d("SOOMLA", "storeOpening is called from java !");
         StoreController.getInstance().storeOpening(mActivity);
     }
 
-    static void storeClosing() {
+    public static void storeClosing() {
         Log.d("SOOMLA", "storeClosing is called from java !");
         StoreController.getInstance().storeClosing();
     }
 
-    static void buyWithGooglePlay(String productId) throws VirtualItemNotFoundException {
+    public static void buyWithGooglePlay(String productId) throws VirtualItemNotFoundException {
         Log.d("SOOMLA", "buyWithGooglePlay is called from java with productId: " + productId + " !");
         PurchasableVirtualItem pvi = StoreInfo.getPurchasableItem(productId);
         if(pvi.getPurchaseType() instanceof PurchaseWithMarket) {
@@ -57,10 +57,27 @@ public class StoreControllerBridge {
         }
     }
 
-    static void restoreTransactions() {
+    public static void restoreTransactions() {
         Log.d("SOOMLA", "restoreTransactions is called from java !");
         StoreController.getInstance().restoreTransactions();
     }
 
+    public static boolean transactionsAlreadyRestored() {
+        Log.d("SOOMLA", "transactionsAlreadyRestored is called from java !");
+        return StoreController.getInstance().transactionsAlreadyRestored();
+    }
+
+    public static void setAndroidTestMode(boolean testMode) {
+        Log.d("SOOMLA", "setAndroidTestMode is called from java !");
+        StoreController.getInstance().setTestMode(testMode);
+    }
+
+    public static void setSoomSec(String soomSec) {
+        Log.d("SOOMLA", "setSoomSec is called from java !");
+        StoreConfig.SOOM_SEC = soomSec;
+    }
+
+
     private static String TAG = "StoreControllerBridge";
+
 }

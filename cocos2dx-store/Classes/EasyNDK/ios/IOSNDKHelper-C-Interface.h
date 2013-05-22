@@ -21,7 +21,7 @@ class IOSNDKHelperImpl
     public :
         IOSNDKHelperImpl();
         ~IOSNDKHelperImpl();
-        static void receiveCPPMessage(json_t *methodName, json_t* methodParams);
+        static json_t * receiveCPPMessage(json_t *methodName, json_t* methodParams);
         static void setNDKReceiver(void*receiver);
 };
 

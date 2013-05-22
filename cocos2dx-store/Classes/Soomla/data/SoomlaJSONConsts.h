@@ -6,8 +6,8 @@
 //
 //
 
-#ifndef __cocos2dx_store__JSONConstsX__
-#define __cocos2dx_store__JSONConstsX__
+#ifndef __cocos2dx_store__SoomlaJSONConsts__
+#define __cocos2dx_store__SoomlaJSONConsts__
 
 namespace soomla {
     extern char const* JSON_STORE_CURRENCIES;
@@ -56,4 +56,4 @@ namespace soomla {
     extern char const* JSON_PURCHASE_VI_AMOUNT;
 }
 
-#endif /* defined(__cocos2dx_store__JSONConstsX__) */
+#endif /* defined(__cocos2dx_store__SoomlaJSONConsts__) */

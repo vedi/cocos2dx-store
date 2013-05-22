@@ -33,7 +33,7 @@ class NDKHelper {
 
 extern "C"
 {
-    void sendMessageWithParams(string methodName, CCObject* methodParams);
+    CCObject* sendMessageWithParams(string methodName, CCObject* methodParams, bool async = true);
 }
 
 #endif /* defined(__EasyNDK_for_cocos2dx__NDKHelper__) */

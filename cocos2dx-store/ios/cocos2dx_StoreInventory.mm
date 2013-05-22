@@ -59,7 +59,7 @@ void cocos2dx_StoreInventory::giveItem(string itemId, int amount) throw (cocos2d
     }
 }
 
-void cocos2dx_StoreInventory::takeVirtualItem(string itemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&) {
+void cocos2dx_StoreInventory::takeItem(string itemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
         NSString * str = [[NSString alloc] initWithBytes:itemId.c_str() length:strlen(itemId.c_str()) encoding:NSUTF8StringEncoding];
         [StoreInventory takeAmount:amount ofItem:str];
@@ -69,7 +69,7 @@ void cocos2dx_StoreInventory::takeVirtualItem(string itemId, int amount) throw (
     }
 }
 
-void cocos2dx_StoreInventory::equipGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+void cocos2dx_StoreInventory::equipVirtualGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
         NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
         [StoreInventory equipVirtualGoodWithItemId:str];
@@ -79,7 +79,7 @@ void cocos2dx_StoreInventory::equipGood(string goodItemId) throw (cocos2dx_Virtu
     }
 }
 
-void cocos2dx_StoreInventory::unEquipGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+void cocos2dx_StoreInventory::unEquipVirtualGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
         NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
         [StoreInventory unEquipVirtualGoodWithItemId:str];
@@ -89,7 +89,7 @@ void cocos2dx_StoreInventory::unEquipGood(string goodItemId) throw (cocos2dx_Vir
     }
 }
 
-bool cocos2dx_StoreInventory::isGoodEquipped(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
+bool cocos2dx_StoreInventory::isVirtualGoodEquipped(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) {
     @try {
         NSString * str = [[NSString alloc] initWithBytes:goodItemId.c_str() length:strlen(goodItemId.c_str()) encoding:NSUTF8StringEncoding];
         return [StoreInventory isVirtualGoodWithItemIdEquipped:str];

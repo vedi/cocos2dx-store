@@ -24,20 +24,23 @@ THE SOFTWARE.
 package com.soomla.cocos2dx.example;
 
 import android.app.ActivityManager;
-import android.app.Instrumentation;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
 import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import com.easyndk.classes.AndroidNDKHelper;
+import com.soomla.cocos2dx.store.StoreAssetsBridge;
 import com.soomla.cocos2dx.store.StoreControllerBridge;
+import com.soomla.cocos2dx.store.StoreInfoBridge;
+import com.soomla.cocos2dx.store.StoreInventoryBridge;
+import com.soomla.store.exceptions.InsufficientFundsException;
+import com.soomla.store.exceptions.VirtualItemNotFoundException;
 import org.cocos2dx.lib.Cocos2dxActivity;
 
 import android.os.Bundle;
-import org.cocos2dx.lib.Cocos2dxEditText;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.cocos2dx.lib.Cocos2dxRenderer;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -45,6 +48,8 @@ import org.json.JSONObject;
  */
 public class ExampleStore extends Cocos2dxActivity{
     private Cocos2dxGLSurfaceView mGLView;
+
+    private StoreAssetsBridge storeAssetsBridge = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,10 +123,142 @@ public class ExampleStore extends Cocos2dxActivity{
     }
 
     public void soomla_easyNDKTest(JSONObject params) {
-        Log.v("soomla_easyNDKTest", "createAndShowNative called");
+        Log.v("soomla_easyNDKTest", "soomla_easyNDKTest called");
         Log.v("soomla_easyNDKTest", "Passed params are : " + params.toString());
         Log.v("soomla_easyNDKTest", "Send them back to native code");
         AndroidNDKHelper.sendMessageWithParameters("soomla_easyNDKCallBackTest", params);
+    }
+
+    public JSONObject soomla_easyNDK(JSONObject params) {
+        Log.v("soomla_easyNDK", "soomla_easyNDK called");
+        Log.v("soomla_easyNDK", "Passed params are : " + params.toString());
+
+        JSONObject retParams = new JSONObject();
+
+        try {
+            String methodName = params.getString("method");
+            if (methodName.equals("StoreAssets::init")) {
+                int version = params.getInt("version");
+                JSONObject storeAssetsJson = params.getJSONObject("storeAssets");
+                storeAssetsBridge = new StoreAssetsBridge(version, storeAssetsJson);
+            } else if (methodName.equals("CCStoreController::buyMarketItem")) {
+                String productId = params.getString("productId");
+                StoreControllerBridge.buyWithGooglePlay(productId);
+            } else if (methodName.equals("CCStoreController::storeOpening")) {
+                StoreControllerBridge.storeOpening();
+            } else if (methodName.equals("CCStoreController::storeClosing")) {
+                StoreControllerBridge.storeClosing();
+            } else if (methodName.equals("CCStoreController::restoreTransactions")) {
+                StoreControllerBridge.restoreTransactions();
+            } else if (methodName.equals("CCStoreController::transactionsAlreadyRestored")) {
+                boolean retValue = StoreControllerBridge.transactionsAlreadyRestored();
+                retParams.put("return", retValue);
+            } else if (methodName.equals("CCStoreController::setAndroidTestMode")) {
+                Boolean testMode = params.getBoolean("testMode");
+                StoreControllerBridge.setAndroidTestMode(testMode);
+            } else if (methodName.equals("CCStoreController::setSoomSec")) {
+                String soomSec = params.getString("soomSec");
+                StoreControllerBridge.setSoomSec(soomSec);
+            } else if (methodName.equals("CCStoreInventory::buyItem")) {
+                String itemId = params.getString("itemId");
+                StoreInventoryBridge.buy(itemId);
+            } else if (methodName.equals("CCStoreInventory::getItemBalance")) {
+                String itemId = params.getString("itemId");
+                int retValue = StoreInventoryBridge.getItemBalance(itemId);
+                retParams.put("return", retValue);
+            } else if (methodName.equals("CCStoreInventory::giveItem")) {
+                String itemId = params.getString("itemId");
+                Integer amount = params.getInt("amount");
+                StoreInventoryBridge.giveItem(itemId, amount);
+            } else if (methodName.equals("CCStoreInventory::takeItem")) {
+                String itemId = params.getString("itemId");
+                Integer amount = params.getInt("amount");
+                StoreInventoryBridge.takeItem(itemId, amount);
+            } else if (methodName.equals("CCStoreInventory::equipVirtualGood")) {
+                String itemId = params.getString("itemId");
+                StoreInventoryBridge.equipVirtualGood(itemId);
+            } else if (methodName.equals("CCStoreInventory::unEquipVirtualGood")) {
+                String itemId = params.getString("itemId");
+                StoreInventoryBridge.unEquipVirtualGood(itemId);
+            } else if (methodName.equals("CCStoreInventory::isVirtualGoodEquipped")) {
+                String itemId = params.getString("itemId");
+                boolean retValue = StoreInventoryBridge.isVirtualGoodEquipped(itemId);
+                retParams.put("return", retValue);
+            } else if (methodName.equals("CCStoreInventory::getGoodUpgradeLevel")) {
+                String goodItemId = params.getString("goodItemId");
+                Integer retValue = StoreInventoryBridge.getGoodUpgradeLevel(goodItemId);
+                retParams.put("return", retValue);
+            } else if (methodName.equals("CCStoreInventory::getGoodCurrentUpgrade")) {
+                String goodItemId = params.getString("goodItemId");
+                String retValue = StoreInventoryBridge.getGoodCurrentUpgrade(goodItemId);
+                retParams.put("return", retValue);
+            } else if (methodName.equals("CCStoreInventory::upgradeGood")) {
+                String itemId = params.getString("goodItemId");
+                StoreInventoryBridge.upgradeVirtualGood(itemId);
+            } else if (methodName.equals("CCStoreInventory::removeGoodUpgrades")) {
+                String itemId = params.getString("goodItemId");
+                StoreInventoryBridge.upgradeVirtualGood(itemId);
+            } else if (methodName.equals("CCStoreInventory::nonConsumableItemExists")) {
+                String nonConsItemId = params.getString("nonConsItemId");
+                boolean retValue = StoreInventoryBridge.nonConsumableItemExists(nonConsItemId);
+                retParams.put("return", retValue);
+            } else if (methodName.equals("CCStoreInventory::addNonConsumableItem")) {
+                String nonConsItemId = params.getString("nonConsItemId");
+                StoreInventoryBridge.addNonConsumableItem(nonConsItemId);
+            } else if (methodName.equals("CCStoreInventory::removeNonConsumableItem")) {
+                String nonConsItemId = params.getString("nonConsItemId");
+                StoreInventoryBridge.removeNonConsumableItem(nonConsItemId);
+            } else if (methodName.equals("StoreInfo::getItemByItemId")) {
+                String itemId = params.getString("itemId");
+                JSONObject retValue = StoreInfoBridge.getItemByItemId(itemId);
+                retParams.put("return", retValue);
+            } else if (methodName.equals("StoreInfo::getPurchasableItemWithProductId")) {
+                String productId = params.getString("productId");
+                JSONObject retValue = StoreInfoBridge.getPurchasableItemWithProductId(productId);
+                retParams.put("return", retValue);
+            } else if (methodName.equals("StoreInfo::getCategoryForVirtualGood")) {
+                String goodItemId = params.getString("goodItemId");
+                JSONObject retValue = StoreInfoBridge.getCategoryForVirtualGood(goodItemId);
+                retParams.put("return", retValue);
+            } else if (methodName.equals("StoreInfo::getFirstUpgradeForVirtualGood")) {
+                String goodItemId = params.getString("goodItemId");
+                JSONObject retValue = StoreInfoBridge.getFirstUpgradeForVirtualGood(goodItemId);
+                retParams.put("return", retValue);
+            } else if (methodName.equals("StoreInfo::getLastUpgradeForVirtualGood")) {
+                String goodItemId = params.getString("goodItemId");
+                JSONObject retValue = StoreInfoBridge.getLastUpgradeForVirtualGood(goodItemId);
+                retParams.put("return", retValue);
+            } else if (methodName.equals("StoreInfo::getUpgradesForVirtualGood")) {
+                String goodItemId = params.getString("goodItemId");
+                JSONArray retValue = StoreInfoBridge.getUpgradesForVirtualGood(goodItemId);
+                retParams.put("return", retValue);
+            } else if (methodName.equals("StoreInfo::getVirtualCurrencies")) {
+                JSONArray retValue = StoreInfoBridge.getVirtualCurrencies();
+                retParams.put("return", retValue);
+            } else if (methodName.equals("StoreInfo::getVirtualGoods")) {
+                JSONArray retValue = StoreInfoBridge.getVirtualGoods();
+                retParams.put("return", retValue);
+            } else if (methodName.equals("StoreInfo::getVirtualCurrencyPacks")) {
+                JSONArray retValue = StoreInfoBridge.getVirtualCurrencyPacks();
+                retParams.put("return", retValue);
+            } else if (methodName.equals("StoreInfo::getNonConsumableItems")) {
+                JSONArray retValue = StoreInfoBridge.getNonConsumableItems();
+                retParams.put("return", retValue);
+            } else if (methodName.equals("StoreInfo::getVirtualCategories")) {
+                JSONArray retValue = StoreInfoBridge.getVirtualCategories();
+                retParams.put("return", retValue);
+            } else {
+                throw new UnsupportedOperationException();
+            }
+        } catch (JSONException e) {
+            throw new IllegalArgumentException(e);
+        } catch (VirtualItemNotFoundException e) {
+            throw new IllegalArgumentException(e);
+        } catch (InsufficientFundsException e) {
+            throw new IllegalArgumentException(e);
+        }
+
+        return retParams;
     }
 
     static {

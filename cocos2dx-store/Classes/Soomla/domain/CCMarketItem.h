@@ -9,7 +9,7 @@
 
 #include "cocos2d.h"
 #include "SoomlaMacros.h"
-#include "JSONConstsX.h"
+#include "SoomlaJSONConsts.h"
 
 
 namespace soomla {

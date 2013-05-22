@@ -25,6 +25,7 @@
 #import "StoreInfo.h"
 #import "PurchaseWithMarket.h"
 #import "AppStoreItem.h"
+#import "StoreConfig.h"
 
 /**
  * This implementation is used to let cocos2dx functions perform actions on StoreController.
@@ -68,13 +69,23 @@ void cocos2dx_StoreController::buyMarketItem(string productId) throw(cocos2dx_Vi
 }
 
 void cocos2dx_StoreController::restoreTransactions() {
-    @try {
-        [[StoreController getInstance] restoreTransactions];
-    }
-    @catch (VirtualItemNotFoundException *exception) {
-        throw cocos2dx_VirtualItemNotFoundException();
-    }
+    [[StoreController getInstance] restoreTransactions];
 }
+
+bool cocos2dx_StoreController::transactionsAlreadyRestored() {
+    return [[StoreController getInstance] transactionsAlreadyRestored];
+}
+
+void cocos2dx_StoreController::setSoomSec(string soomSec) {
+    if (SOOM_SEC) {
+        [SOOM_SEC release];
+    }
+    SOOM_SEC = [[NSString stringWithUTF8String:soomSec.c_str()] retain];
+}
+
+
+
+
 
 
 

@@ -28,17 +28,17 @@ NSObject *getHelperInstance()
 #pragma mark -
 #pragma mark IOSNDKHelperImpl Methods
 
-void IOSNDKHelperImpl::receiveCPPMessage(json_t *methodName, json_t *methodParams)
+json_t * IOSNDKHelperImpl::receiveCPPMessage(json_t *methodName, json_t *methodParams)
 {
     NSObject *receiver = getHelperInstance();
-    if (receiver == nil)
-    {
-        return;
+    if (receiver == nil) {
+        return NULL;
     }
     
-    if (methodName == NULL)
-        return;
-    
+    if (methodName == NULL) {
+        return  NULL;
+    }
+
     const char* methodCalled = json_string_value(methodName);
     NSString *methodCalledStr = [NSString stringWithFormat:@"%@:", [NSString stringWithUTF8String:methodCalled]];
     
@@ -49,20 +49,18 @@ void IOSNDKHelperImpl::receiveCPPMessage(json_t *methodName, json_t *methodParam
         selectorToBeCalled = NSSelectorFromString(methodCalledStr);
         
         // Return from message if the selector won't respond to our receiver
-        if (![receiver respondsToSelector:selectorToBeCalled])
-        {
+        if (![receiver respondsToSelector:selectorToBeCalled]) {
             NSLog(@"Receiver won't respond to selector : %@", methodCalledStr);
-            return;
+            return NULL;
         }
     }
     @catch (NSException * e)
     {
         NSLog(@"Exception trying to find selector to be called : %@", methodCalledStr);
-        return;
+        return NULL;
     }
     
-    if (methodParams != NULL)
-    {
+    if (methodParams != NULL) {
         // Convert the parameters into NSDictionary
         char* jsonStrLocal = json_dumps(methodParams, JSON_COMPACT | JSON_ENSURE_ASCII);
         NSString *methodParamsJson = [[NSString alloc] initWithUTF8String:jsonStrLocal];
@@ -81,11 +79,36 @@ void IOSNDKHelperImpl::receiveCPPMessage(json_t *methodName, json_t *methodParam
         // If parameters are available call the respective selector with parameters
         if (error == nil)
         {
-            [receiver performSelector:selectorToBeCalled withObject:json];
+            NSDictionary* retParams = [receiver performSelector:selectorToBeCalled withObject:json];
+
+            NSError *error = nil;
+            NSData *jsonData = [NSJSONSerialization
+                    dataWithJSONObject:retParams
+                               options:NSJSONWritingPrettyPrinted
+                                 error:&error];
+
+            if (error != nil) {
+                return NULL;
+            }
+
+            NSString *jsonPrmsString = [[NSString alloc] initWithData:jsonData
+                                                             encoding:NSUTF8StringEncoding];
+
+            json_error_t jerror;
+            json_t *retParamsJson = json_loads([jsonPrmsString UTF8String], 0, &jerror);
+
+            if (!retParamsJson) {
+                fprintf(stderr, "error: on line %d: %s\n", jerror.line, jerror.text);
+                return NULL;
+            }
+
+            [jsonPrmsString release];
+
+            return retParamsJson;
         }
         else
         {
-            return;
+            return NULL;
         }
     }
     else

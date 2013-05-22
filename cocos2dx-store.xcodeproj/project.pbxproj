@@ -7,36 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		372B7006DE6C0190DBF63A2A /* CCSoomlaEasyNdkBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7CEC1781445B8C97AF6D /* CCSoomlaEasyNdkBridge.cpp */; };
 		372B701168963319EC16E9D2 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B70FC239089B2F7B75DB8 /* hashtable.c */; };
-		372B70D18B8B82AFC4A43152 /* CCVirtualCurrency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B715CAEC35F0EF4F67221 /* CCVirtualCurrency.cpp */; };
-		372B71CDCA4EC4333B7A1B1C /* CCMarketItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7C7E6CFC655AFE6B04D9 /* CCMarketItem.cpp */; };
-		372B71EAEBDA9BBB491CB2E9 /* JSONConstsX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B754168D8A3CB75C3DF78 /* JSONConstsX.cpp */; };
+		372B7118EEC8CD8D5D81CE43 /* CCVirtualItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B758F3228C9AE58E5F263 /* CCVirtualItem.cpp */; };
+		372B725151168A447C4D6AD5 /* CCEquippableVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7DF975D8878856287A72 /* CCEquippableVG.cpp */; };
+		372B726CAA3E08069A7ACDCB /* CCVirtualGood.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7A53130F55C10AABE07A /* CCVirtualGood.cpp */; };
+		372B734CECC1EDBF0F82FD82 /* CCPurchasableVirtualItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B71172A9F45536CD16DBB /* CCPurchasableVirtualItem.cpp */; };
+		372B7385C42149AD7CB606D6 /* CCNonConsumableItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7BA7B4E1B390F3A2A8BA /* CCNonConsumableItem.cpp */; };
+		372B7393EE20708946AFC330 /* CCStoreUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B78FA3025118F590111D7 /* CCStoreUtils.cpp */; };
 		372B73A6EB3FEFD24F885D36 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B708346B8FD9151AA2324 /* utf.c */; };
-		372B74713EA527B55FA02677 /* CCEquippableVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B73FBD0F8658657D82840 /* CCEquippableVG.cpp */; };
+		372B73E2C09EADAE8994CC96 /* CCLifetimeVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7A814D4F872DC2607E87 /* CCLifetimeVG.cpp */; };
+		372B742B7E4B8D26F60A1305 /* cocos2dx_StoreAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = 372B7FF2ACF15315CFDCF4DD /* cocos2dx_StoreAssets.m */; };
+		372B743E8CBD1861835683C2 /* CCStoreInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B71583013A4A4C4CECC97 /* CCStoreInfo.cpp */; };
 		372B74EC6E0661D71B4637B3 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B7CCAD624B4FA6D7C41AF /* error.c */; };
+		372B751DFD5330306281E4B2 /* CCSoomla.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B78CF6289AE74E5CECE48 /* CCSoomla.cpp */; };
 		372B75386F26351ADF6BDA67 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B743657F1B41F8D8600CA /* load.c */; };
-		372B754EFFF31711B196799E /* CCPurchaseType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B741BD019F3E61EF3396F /* CCPurchaseType.cpp */; };
 		372B7587C2E100D7A3BD8B9F /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B7E3F9775BE67ACDFE57C /* dump.c */; };
-		372B758E80037747F20BE74F /* CCLifetimeVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7294F2920A8CD67EA24A /* CCLifetimeVG.cpp */; };
-		372B75CFDB6756B57E52FCEA /* CCUpgradeVGX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7094599918E59CB024E8 /* CCUpgradeVGX.cpp */; };
 		372B766C529B4A83DCCB0758 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B7AEC10AC3E02F0765B46 /* pack_unpack.c */; };
+		372B76712DECDD8ACC937459 /* CCPurchaseWithVirtualItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7CE12AF199C4D130B531 /* CCPurchaseWithVirtualItem.cpp */; };
 		372B771054723FF7527B5F24 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B72A0E6FCAD8A8901E2C9 /* value.c */; };
-		372B790681A6246C41C25EB4 /* CCPurchaseWithMarket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B75B0DF36BEB18078E5AD /* CCPurchaseWithMarket.cpp */; };
-		372B793ABB9AF0CCD7D47793 /* CCVirtualGood.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B75E610EC4DBFDDDBA941 /* CCVirtualGood.cpp */; };
-		372B7943C77537DBC0E4A547 /* CCVirtualCategory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7979D664F944BDD0278A /* CCVirtualCategory.cpp */; };
-		372B7A599E9DE2BB39994FD4 /* CCNonConsumableItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7298C2D67C3E033126B3 /* CCNonConsumableItem.cpp */; };
-		372B7AAE18EADED7ACD75A28 /* CCSingleUseVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B73C460D8D7F0CAF885D2 /* CCSingleUseVG.cpp */; };
-		372B7B8E0F36B4B77FBCFEC5 /* CCSingleUsePackVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B74C179D21AF7BA132E67 /* CCSingleUsePackVG.cpp */; };
+		372B79114594687C9BA76559 /* CCSingleUseVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B74BAED1D59FCD117E063 /* CCSingleUseVG.cpp */; };
+		372B7913D105B3D5F25C7C5C /* SoomlaJSONConsts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7A2FDED4ED795144E1DD /* SoomlaJSONConsts.cpp */; };
+		372B7964A6FF3C5A6FD034AB /* CCStoreInventory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B706BE7C5F64B0FD88ABB /* CCStoreInventory.cpp */; };
+		372B7A43F92C58D18FE4EFF4 /* CCPurchaseWithMarket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7BBA60D4D7F86BBF3DF7 /* CCPurchaseWithMarket.cpp */; };
 		372B7B95ABE82CF802F27444 /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B71ACE409061C5A7A9370 /* strbuffer.c */; };
 		372B7BCF5506D30C6BEBEB20 /* strconv.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B76620B483871973E4D57 /* strconv.c */; };
+		372B7BE50D97755D060D5701 /* CCUpgradeVGX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B738FBCEC10A9F2D0A979 /* CCUpgradeVGX.cpp */; };
 		372B7BF4BFBE6B5F135ACF3D /* NDKCallbackData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7EF9C9C79BD692E4FAB0 /* NDKCallbackData.cpp */; };
-		372B7C1A0CD8219E0C8F19A4 /* CCPurchasableVirtualItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B75A59F8866F6B52E5F49 /* CCPurchasableVirtualItem.cpp */; };
-		372B7C8E699661855D625E68 /* CCVirtualCurrencyPack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7A13B4F635B0095906F7 /* CCVirtualCurrencyPack.cpp */; };
+		372B7C00BCC34D0FA1A034D2 /* CCStoreController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B74D084498C1074D31D0E /* CCStoreController.cpp */; };
+		372B7C3B363269BCD95529A4 /* CCPurchaseType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7FDF0F8C9EA4F1362BF2 /* CCPurchaseType.cpp */; };
+		372B7C5C38EB3878F6F95C8C /* CCMarketItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7B2E3800DC21F8DCD4F5 /* CCMarketItem.cpp */; };
 		372B7D2F196234984B0D6401 /* IOSNDKHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 372B73A0106A27F1532AC0A8 /* IOSNDKHelper.mm */; };
 		372B7D64ADD491BDB5E57F8F /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 372B79862E2F5693ABFD7A20 /* memory.c */; };
-		372B7DCE7FFD6C13563FF8C6 /* CCVirtualItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7F14EEB0124EA220F8EF /* CCVirtualItem.cpp */; };
-		372B7F17B94B89DEE4B4144A /* CCPurchaseWithVirtualItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7DF53F8112347E32195C /* CCPurchaseWithVirtualItem.cpp */; };
+		372B7D73FEFF5BBB60EE140D /* CCSingleUsePackVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7DA6C3AE1707EC902B0E /* CCSingleUsePackVG.cpp */; };
+		372B7E5CCF09EE9CBA9970E2 /* CCVirtualCurrency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7568DDDBB5B7D11F10FC /* CCVirtualCurrency.cpp */; };
+		372B7EB5154E9163F4C7FE28 /* CCVirtualCurrencyPack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7242C238D8122D35B33C /* CCVirtualCurrencyPack.cpp */; };
+		372B7ED44DAF0A11495D7071 /* CCVirtualCategory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B72BE810CD5B5B18910AF /* CCVirtualCategory.cpp */; };
 		372B7F571C3629CB26D24A26 /* NDKHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B754C3176B8B785208C12 /* NDKHelper.cpp */; };
+		372B7FA2DE85E0039F2E84BC /* CCSoomlaError.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 372B7F41E7ED8C72F23EC2CB /* CCSoomlaError.cpp */; };
 		C005144D1650216600078EBB /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C005144B1650216600078EBB /* EventHandler.cpp */; };
 		C00514501650217300078EBB /* cocos2dx_EventHandlers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C005144E1650217300078EBB /* cocos2dx_EventHandlers.cpp */; };
 		C031BA781635BDBA005F73E3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C031BA771635BDBA005F73E3 /* QuartzCore.framework */; };
@@ -132,64 +140,81 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		372B706BE7C5F64B0FD88ABB /* CCStoreInventory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreInventory.cpp; sourceTree = "<group>"; };
 		372B708346B8FD9151AA2324 /* utf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf.c; sourceTree = "<group>"; };
-		372B7094599918E59CB024E8 /* CCUpgradeVGX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCUpgradeVGX.cpp; sourceTree = "<group>"; };
 		372B70A75E69FA0D77446681 /* NDKCallbackData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKCallbackData.h; sourceTree = "<group>"; };
-		372B70EBDD81B7047A343E31 /* CCVirtualGood.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualGood.h; sourceTree = "<group>"; };
-		372B70EF442FDE52B747316F /* SoomlaMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoomlaMacros.h; sourceTree = "<group>"; };
 		372B70FC239089B2F7B75DB8 /* hashtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable.c; sourceTree = "<group>"; };
-		372B7117541EEF927F72C72D /* CCNonConsumableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNonConsumableItem.h; sourceTree = "<group>"; };
+		372B7104562C73E1C61FAAD8 /* CCVirtualCurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualCurrency.h; sourceTree = "<group>"; };
+		372B71172A9F45536CD16DBB /* CCPurchasableVirtualItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPurchasableVirtualItem.cpp; sourceTree = "<group>"; };
+		372B71583013A4A4C4CECC97 /* CCStoreInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreInfo.cpp; sourceTree = "<group>"; };
 		372B715BBE4E7134AD3B86D8 /* hashtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashtable.h; sourceTree = "<group>"; };
-		372B715CAEC35F0EF4F67221 /* CCVirtualCurrency.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualCurrency.cpp; sourceTree = "<group>"; };
-		372B717E5EC32BD4EABB6DE3 /* CCUpgradeVGX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCUpgradeVGX.h; sourceTree = "<group>"; };
+		372B719DC3ECFD6EE97411C5 /* CCVirtualCurrencyPack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualCurrencyPack.h; sourceTree = "<group>"; };
 		372B71ACE409061C5A7A9370 /* strbuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strbuffer.c; sourceTree = "<group>"; };
 		372B722A4D93922805CB6CD5 /* strbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strbuffer.h; sourceTree = "<group>"; };
-		372B7294F2920A8CD67EA24A /* CCLifetimeVG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLifetimeVG.cpp; sourceTree = "<group>"; };
-		372B7298C2D67C3E033126B3 /* CCNonConsumableItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNonConsumableItem.cpp; sourceTree = "<group>"; };
+		372B722DC4BA177C864F9855 /* CCPurchaseType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPurchaseType.h; sourceTree = "<group>"; };
+		372B7242C238D8122D35B33C /* CCVirtualCurrencyPack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualCurrencyPack.cpp; sourceTree = "<group>"; };
 		372B72A0E6FCAD8A8901E2C9 /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
-		372B73923BE0EE8853A2B3FC /* CCPurchaseWithMarket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPurchaseWithMarket.h; sourceTree = "<group>"; };
+		372B72BE810CD5B5B18910AF /* CCVirtualCategory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualCategory.cpp; sourceTree = "<group>"; };
+		372B7356CB1C64BD5D5DD0D8 /* CCPurchaseWithMarket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPurchaseWithMarket.h; sourceTree = "<group>"; };
+		372B738FBCEC10A9F2D0A979 /* CCUpgradeVGX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCUpgradeVGX.cpp; sourceTree = "<group>"; };
 		372B73A0106A27F1532AC0A8 /* IOSNDKHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IOSNDKHelper.mm; sourceTree = "<group>"; };
-		372B73C460D8D7F0CAF885D2 /* CCSingleUseVG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSingleUseVG.cpp; sourceTree = "<group>"; };
+		372B73A3CFA7F0561A58A7DE /* CCMarketItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMarketItem.h; sourceTree = "<group>"; };
 		372B73E8718BEFD30CA9CA7B /* jansson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson.h; sourceTree = "<group>"; };
-		372B73FBD0F8658657D82840 /* CCEquippableVG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEquippableVG.cpp; sourceTree = "<group>"; };
-		372B741BD019F3E61EF3396F /* CCPurchaseType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPurchaseType.cpp; sourceTree = "<group>"; };
-		372B74203BD57179342562B6 /* CCVirtualCurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualCurrency.h; sourceTree = "<group>"; };
+		372B743546A9ED687A7A79EB /* CCLifetimeVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLifetimeVG.h; sourceTree = "<group>"; };
 		372B743657F1B41F8D8600CA /* load.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load.c; sourceTree = "<group>"; };
-		372B74C179D21AF7BA132E67 /* CCSingleUsePackVG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSingleUsePackVG.cpp; sourceTree = "<group>"; };
+		372B74BAED1D59FCD117E063 /* CCSingleUseVG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSingleUseVG.cpp; sourceTree = "<group>"; };
+		372B74D084498C1074D31D0E /* CCStoreController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreController.cpp; sourceTree = "<group>"; };
 		372B74E928DA2FB00CA30847 /* IOSNDKHelper-C-Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IOSNDKHelper-C-Interface.h"; sourceTree = "<group>"; };
-		372B754168D8A3CB75C3DF78 /* JSONConstsX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSONConstsX.cpp; sourceTree = "<group>"; };
+		372B75473B86F0EE443A1A5F /* CCSingleUsePackVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSingleUsePackVG.h; sourceTree = "<group>"; };
 		372B754C3176B8B785208C12 /* NDKHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NDKHelper.cpp; sourceTree = "<group>"; };
-		372B75A59F8866F6B52E5F49 /* CCPurchasableVirtualItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPurchasableVirtualItem.cpp; sourceTree = "<group>"; };
-		372B75B0DF36BEB18078E5AD /* CCPurchaseWithMarket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPurchaseWithMarket.cpp; sourceTree = "<group>"; };
-		372B75E610EC4DBFDDDBA941 /* CCVirtualGood.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualGood.cpp; sourceTree = "<group>"; };
+		372B7568DDDBB5B7D11F10FC /* CCVirtualCurrency.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualCurrency.cpp; sourceTree = "<group>"; };
+		372B757AF9CD2D833C069CB5 /* CCEquippableVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEquippableVG.h; sourceTree = "<group>"; };
+		372B7586296123930DDF111D /* CCSoomlaEasyNdkBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSoomlaEasyNdkBridge.h; sourceTree = "<group>"; };
+		372B758F3228C9AE58E5F263 /* CCVirtualItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualItem.cpp; sourceTree = "<group>"; };
+		372B7594DEDF75E6E6E45C0B /* CCUpgradeVGX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCUpgradeVGX.h; sourceTree = "<group>"; };
 		372B76620B483871973E4D57 /* strconv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strconv.c; sourceTree = "<group>"; };
+		372B76EDD209AFBA9972705E /* CCStoreInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreInventory.h; sourceTree = "<group>"; };
+		372B7731F339D64B63C0B12C /* CCVirtualItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualItem.h; sourceTree = "<group>"; };
+		372B777ACE64601C52D35515 /* CCVirtualGood.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualGood.h; sourceTree = "<group>"; };
 		372B777E887CC2CBBF46FB06 /* NDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKHelper.h; sourceTree = "<group>"; };
-		372B778067B64FEE88985EC1 /* CCPurchaseType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPurchaseType.h; sourceTree = "<group>"; };
-		372B79041AE26E10F0B58F29 /* CCVirtualCurrencyPack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualCurrencyPack.h; sourceTree = "<group>"; };
-		372B7919F0767E58717A56AF /* CCPurchasableVirtualItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPurchasableVirtualItem.h; sourceTree = "<group>"; };
-		372B79488337215697B7405A /* CCSingleUsePackVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSingleUsePackVG.h; sourceTree = "<group>"; };
-		372B79696C87597271D19FAA /* CCVirtualCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualCategory.h; sourceTree = "<group>"; };
-		372B7979D664F944BDD0278A /* CCVirtualCategory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualCategory.cpp; sourceTree = "<group>"; };
+		372B77B4F974389DAABCE6F6 /* CCIStoreAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIStoreAssets.h; sourceTree = "<group>"; };
+		372B77FBCEC9408938FD988C /* CCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreController.h; sourceTree = "<group>"; };
+		372B78AD8A958FC23F4AC9E2 /* CCVirtualCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualCategory.h; sourceTree = "<group>"; };
+		372B78CB37B4114672E0CBA9 /* CCSoomlaError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSoomlaError.h; sourceTree = "<group>"; };
+		372B78CF6289AE74E5CECE48 /* CCSoomla.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSoomla.cpp; sourceTree = "<group>"; };
+		372B78E0658485163C94E683 /* CCPurchaseWithVirtualItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPurchaseWithVirtualItem.h; sourceTree = "<group>"; };
+		372B78FA3025118F590111D7 /* CCStoreUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreUtils.cpp; sourceTree = "<group>"; };
+		372B79477C315CDA48EA4A23 /* CCSingleUseVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSingleUseVG.h; sourceTree = "<group>"; };
 		372B79862E2F5693ABFD7A20 /* memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memory.c; sourceTree = "<group>"; };
-		372B7A13B4F635B0095906F7 /* CCVirtualCurrencyPack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualCurrencyPack.cpp; sourceTree = "<group>"; };
+		372B7A2FDED4ED795144E1DD /* SoomlaJSONConsts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoomlaJSONConsts.cpp; sourceTree = "<group>"; };
+		372B7A53130F55C10AABE07A /* CCVirtualGood.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualGood.cpp; sourceTree = "<group>"; };
+		372B7A80C58DD89EA8EBCE7A /* CCStoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreInfo.h; sourceTree = "<group>"; };
+		372B7A814D4F872DC2607E87 /* CCLifetimeVG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLifetimeVG.cpp; sourceTree = "<group>"; };
+		372B7AAA15AA45C134E61C00 /* CCNonConsumableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNonConsumableItem.h; sourceTree = "<group>"; };
+		372B7AE9566A24AB80EF230A /* SoomlaMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoomlaMacros.h; sourceTree = "<group>"; };
 		372B7AEC10AC3E02F0765B46 /* pack_unpack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pack_unpack.c; sourceTree = "<group>"; };
-		372B7AFA886987C3C26F857E /* CCEquippableVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEquippableVG.h; sourceTree = "<group>"; };
-		372B7B4999720D6224747BBC /* CCPurchaseWithVirtualItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPurchaseWithVirtualItem.h; sourceTree = "<group>"; };
+		372B7B2E3800DC21F8DCD4F5 /* CCMarketItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMarketItem.cpp; sourceTree = "<group>"; };
+		372B7B731F04C92C724B4344 /* cocos2dx_StoreAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_StoreAssets.h; sourceTree = "<group>"; };
+		372B7BA7B4E1B390F3A2A8BA /* CCNonConsumableItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNonConsumableItem.cpp; sourceTree = "<group>"; };
+		372B7BBA60D4D7F86BBF3DF7 /* CCPurchaseWithMarket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPurchaseWithMarket.cpp; sourceTree = "<group>"; };
+		372B7BBCE83FA8CA862DE167 /* CCStoreUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreUtils.h; sourceTree = "<group>"; };
 		372B7BCD6D0C6D8AE5ACBD97 /* jansson_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_config.h; sourceTree = "<group>"; };
 		372B7C62B6A99509E2DA1165 /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
 		372B7C6C0758E7710DF135C2 /* jansson_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_private.h; sourceTree = "<group>"; };
-		372B7C7E6CFC655AFE6B04D9 /* CCMarketItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMarketItem.cpp; sourceTree = "<group>"; };
 		372B7CCAD624B4FA6D7C41AF /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
-		372B7D9916E504418CFFEBA9 /* CCSingleUseVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSingleUseVG.h; sourceTree = "<group>"; };
-		372B7DB56E73BA39E5F1E716 /* CCLifetimeVG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLifetimeVG.h; sourceTree = "<group>"; };
-		372B7DBF4577F21D9F9871FC /* CCVirtualItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualItem.h; sourceTree = "<group>"; };
-		372B7DF53F8112347E32195C /* CCPurchaseWithVirtualItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPurchaseWithVirtualItem.cpp; sourceTree = "<group>"; };
-		372B7E2BF044047DE74B284C /* CCMarketItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMarketItem.h; sourceTree = "<group>"; };
+		372B7CE12AF199C4D130B531 /* CCPurchaseWithVirtualItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPurchaseWithVirtualItem.cpp; sourceTree = "<group>"; };
+		372B7CEC1781445B8C97AF6D /* CCSoomlaEasyNdkBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSoomlaEasyNdkBridge.cpp; sourceTree = "<group>"; };
+		372B7DA6C3AE1707EC902B0E /* CCSingleUsePackVG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSingleUsePackVG.cpp; sourceTree = "<group>"; };
+		372B7DF975D8878856287A72 /* CCEquippableVG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEquippableVG.cpp; sourceTree = "<group>"; };
 		372B7E3D78E0714E0E9B30F6 /* IOSNDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSNDKHelper.h; sourceTree = "<group>"; };
 		372B7E3F9775BE67ACDFE57C /* dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dump.c; sourceTree = "<group>"; };
+		372B7ECC62899D11968E8303 /* SoomlaJSONConsts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoomlaJSONConsts.h; sourceTree = "<group>"; };
 		372B7EF9C9C79BD692E4FAB0 /* NDKCallbackData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NDKCallbackData.cpp; sourceTree = "<group>"; };
-		372B7F14EEB0124EA220F8EF /* CCVirtualItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualItem.cpp; sourceTree = "<group>"; };
-		372B7F81EF6F6D53D0ACDC54 /* JSONConstsX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONConstsX.h; sourceTree = "<group>"; };
+		372B7F0E7BA9BA723A179098 /* CCSoomla.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSoomla.h; sourceTree = "<group>"; };
+		372B7F41E7ED8C72F23EC2CB /* CCSoomlaError.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSoomlaError.cpp; sourceTree = "<group>"; };
+		372B7FC611D761FC3B64BDF0 /* CCPurchasableVirtualItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPurchasableVirtualItem.h; sourceTree = "<group>"; };
+		372B7FDF0F8C9EA4F1362BF2 /* CCPurchaseType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPurchaseType.cpp; sourceTree = "<group>"; };
+		372B7FF2ACF15315CFDCF4DD /* cocos2dx_StoreAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cocos2dx_StoreAssets.m; sourceTree = "<group>"; };
 		C005144B1650216600078EBB /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventHandler.cpp; path = Classes/EventHandler.cpp; sourceTree = "<group>"; };
 		C005144C1650216600078EBB /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventHandler.h; path = Classes/EventHandler.h; sourceTree = "<group>"; };
 		C005144E1650217300078EBB /* cocos2dx_EventHandlers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_EventHandlers.cpp; sourceTree = "<group>"; };
@@ -365,25 +390,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		372B704F459B3B6ABC5BF93F /* data */ = {
+		372B718305139C3AD06C6B32 /* virtualCurrencies */ = {
 			isa = PBXGroup;
 			children = (
-				372B7F81EF6F6D53D0ACDC54 /* JSONConstsX.h */,
-				372B754168D8A3CB75C3DF78 /* JSONConstsX.cpp */,
+				372B7104562C73E1C61FAAD8 /* CCVirtualCurrency.h */,
+				372B7568DDDBB5B7D11F10FC /* CCVirtualCurrency.cpp */,
+				372B719DC3ECFD6EE97411C5 /* CCVirtualCurrencyPack.h */,
+				372B7242C238D8122D35B33C /* CCVirtualCurrencyPack.cpp */,
 			);
-			path = data;
+			path = virtualCurrencies;
 			sourceTree = "<group>";
 		};
-		372B715CDE2F06105DAD133A /* store-wrapper */ = {
+		372B71F016ECECF001C4EFCF /* domain */ = {
 			isa = PBXGroup;
 			children = (
-				372B704F459B3B6ABC5BF93F /* data */,
-				372B7E3CA14C360A5E505B6F /* domain */,
-				372B721951C786BDA6546B0D /* PurchaseTypes */,
-				372B70EF442FDE52B747316F /* SoomlaMacros.h */,
+				372B72107EC006341BDEB53E /* virtualGoods */,
+				372B73A3CFA7F0561A58A7DE /* CCMarketItem.h */,
+				372B7731F339D64B63C0B12C /* CCVirtualItem.h */,
+				372B7B2E3800DC21F8DCD4F5 /* CCMarketItem.cpp */,
+				372B758F3228C9AE58E5F263 /* CCVirtualItem.cpp */,
+				372B718305139C3AD06C6B32 /* virtualCurrencies */,
+				372B78AD8A958FC23F4AC9E2 /* CCVirtualCategory.h */,
+				372B7AAA15AA45C134E61C00 /* CCNonConsumableItem.h */,
+				372B72BE810CD5B5B18910AF /* CCVirtualCategory.cpp */,
+				372B7BA7B4E1B390F3A2A8BA /* CCNonConsumableItem.cpp */,
+				372B7FC611D761FC3B64BDF0 /* CCPurchasableVirtualItem.h */,
+				372B71172A9F45536CD16DBB /* CCPurchasableVirtualItem.cpp */,
 			);
-			name = "store-wrapper";
-			path = "Classes/store-wrapper";
+			path = domain;
 			sourceTree = "<group>";
 		};
 		372B71F0B739DCF5F79FEDEB /* EasyNDK */ = {
@@ -400,15 +434,34 @@
 			path = Classes/EasyNDK;
 			sourceTree = "<group>";
 		};
-		372B721951C786BDA6546B0D /* PurchaseTypes */ = {
+		372B72107EC006341BDEB53E /* virtualGoods */ = {
 			isa = PBXGroup;
 			children = (
-				372B778067B64FEE88985EC1 /* CCPurchaseType.h */,
-				372B741BD019F3E61EF3396F /* CCPurchaseType.cpp */,
-				372B7DF53F8112347E32195C /* CCPurchaseWithVirtualItem.cpp */,
-				372B7B4999720D6224747BBC /* CCPurchaseWithVirtualItem.h */,
-				372B75B0DF36BEB18078E5AD /* CCPurchaseWithMarket.cpp */,
-				372B73923BE0EE8853A2B3FC /* CCPurchaseWithMarket.h */,
+				372B743546A9ED687A7A79EB /* CCLifetimeVG.h */,
+				372B7594DEDF75E6E6E45C0B /* CCUpgradeVGX.h */,
+				372B79477C315CDA48EA4A23 /* CCSingleUseVG.h */,
+				372B777ACE64601C52D35515 /* CCVirtualGood.h */,
+				372B757AF9CD2D833C069CB5 /* CCEquippableVG.h */,
+				372B7A814D4F872DC2607E87 /* CCLifetimeVG.cpp */,
+				372B738FBCEC10A9F2D0A979 /* CCUpgradeVGX.cpp */,
+				372B74BAED1D59FCD117E063 /* CCSingleUseVG.cpp */,
+				372B7A53130F55C10AABE07A /* CCVirtualGood.cpp */,
+				372B7DF975D8878856287A72 /* CCEquippableVG.cpp */,
+				372B75473B86F0EE443A1A5F /* CCSingleUsePackVG.h */,
+				372B7DA6C3AE1707EC902B0E /* CCSingleUsePackVG.cpp */,
+			);
+			path = virtualGoods;
+			sourceTree = "<group>";
+		};
+		372B73D317875023831F018D /* PurchaseTypes */ = {
+			isa = PBXGroup;
+			children = (
+				372B722DC4BA177C864F9855 /* CCPurchaseType.h */,
+				372B7FDF0F8C9EA4F1362BF2 /* CCPurchaseType.cpp */,
+				372B7356CB1C64BD5D5DD0D8 /* CCPurchaseWithMarket.h */,
+				372B7BBA60D4D7F86BBF3DF7 /* CCPurchaseWithMarket.cpp */,
+				372B78E0658485163C94E683 /* CCPurchaseWithVirtualItem.h */,
+				372B7CE12AF199C4D130B531 /* CCPurchaseWithVirtualItem.cpp */,
 			);
 			path = PurchaseTypes;
 			sourceTree = "<group>";
@@ -423,15 +476,29 @@
 			path = ios;
 			sourceTree = "<group>";
 		};
-		372B797284D86A24F4B76D40 /* virtualCurrencies */ = {
+		372B779C13C0CE069BEC3870 /* Soomla */ = {
 			isa = PBXGroup;
 			children = (
-				372B74203BD57179342562B6 /* CCVirtualCurrency.h */,
-				372B715CAEC35F0EF4F67221 /* CCVirtualCurrency.cpp */,
-				372B7A13B4F635B0095906F7 /* CCVirtualCurrencyPack.cpp */,
-				372B79041AE26E10F0B58F29 /* CCVirtualCurrencyPack.h */,
+				372B7E68F221EA738E4D5720 /* data */,
+				372B71F016ECECF001C4EFCF /* domain */,
+				372B73D317875023831F018D /* PurchaseTypes */,
+				372B7AE9566A24AB80EF230A /* SoomlaMacros.h */,
+				372B77B4F974389DAABCE6F6 /* CCIStoreAssets.h */,
+				372B78CF6289AE74E5CECE48 /* CCSoomla.cpp */,
+				372B7F0E7BA9BA723A179098 /* CCSoomla.h */,
+				372B74D084498C1074D31D0E /* CCStoreController.cpp */,
+				372B77FBCEC9408938FD988C /* CCStoreController.h */,
+				372B78FA3025118F590111D7 /* CCStoreUtils.cpp */,
+				372B7BBCE83FA8CA862DE167 /* CCStoreUtils.h */,
+				372B7CEC1781445B8C97AF6D /* CCSoomlaEasyNdkBridge.cpp */,
+				372B7586296123930DDF111D /* CCSoomlaEasyNdkBridge.h */,
+				372B706BE7C5F64B0FD88ABB /* CCStoreInventory.cpp */,
+				372B76EDD209AFBA9972705E /* CCStoreInventory.h */,
+				372B7F41E7ED8C72F23EC2CB /* CCSoomlaError.cpp */,
+				372B78CB37B4114672E0CBA9 /* CCSoomlaError.h */,
 			);
-			path = virtualCurrencies;
+			name = Soomla;
+			path = Classes/Soomla;
 			sourceTree = "<group>";
 		};
 		372B7CCDB3A6D1F79615E870 /* android */ = {
@@ -439,25 +506,6 @@
 			children = (
 			);
 			path = android;
-			sourceTree = "<group>";
-		};
-		372B7E3CA14C360A5E505B6F /* domain */ = {
-			isa = PBXGroup;
-			children = (
-				372B7DBF4577F21D9F9871FC /* CCVirtualItem.h */,
-				372B7F14EEB0124EA220F8EF /* CCVirtualItem.cpp */,
-				372B797284D86A24F4B76D40 /* virtualCurrencies */,
-				372B7919F0767E58717A56AF /* CCPurchasableVirtualItem.h */,
-				372B75A59F8866F6B52E5F49 /* CCPurchasableVirtualItem.cpp */,
-				372B7C7E6CFC655AFE6B04D9 /* CCMarketItem.cpp */,
-				372B7E2BF044047DE74B284C /* CCMarketItem.h */,
-				372B7298C2D67C3E033126B3 /* CCNonConsumableItem.cpp */,
-				372B7117541EEF927F72C72D /* CCNonConsumableItem.h */,
-				372B7979D664F944BDD0278A /* CCVirtualCategory.cpp */,
-				372B79696C87597271D19FAA /* CCVirtualCategory.h */,
-				372B7EDBD743B4050BB74484 /* virtualGoods */,
-			);
-			path = domain;
 			sourceTree = "<group>";
 		};
 		372B7E5AFD8613624D78C081 /* jansson */ = {
@@ -484,23 +532,15 @@
 			path = "cocos2dx-store/libs/jansson";
 			sourceTree = "<group>";
 		};
-		372B7EDBD743B4050BB74484 /* virtualGoods */ = {
+		372B7E68F221EA738E4D5720 /* data */ = {
 			isa = PBXGroup;
 			children = (
-				372B75E610EC4DBFDDDBA941 /* CCVirtualGood.cpp */,
-				372B70EBDD81B7047A343E31 /* CCVirtualGood.h */,
-				372B7294F2920A8CD67EA24A /* CCLifetimeVG.cpp */,
-				372B7DB56E73BA39E5F1E716 /* CCLifetimeVG.h */,
-				372B74C179D21AF7BA132E67 /* CCSingleUsePackVG.cpp */,
-				372B79488337215697B7405A /* CCSingleUsePackVG.h */,
-				372B73C460D8D7F0CAF885D2 /* CCSingleUseVG.cpp */,
-				372B7D9916E504418CFFEBA9 /* CCSingleUseVG.h */,
-				372B7094599918E59CB024E8 /* CCUpgradeVGX.cpp */,
-				372B717E5EC32BD4EABB6DE3 /* CCUpgradeVGX.h */,
-				372B73FBD0F8658657D82840 /* CCEquippableVG.cpp */,
-				372B7AFA886987C3C26F857E /* CCEquippableVG.h */,
+				372B7ECC62899D11968E8303 /* SoomlaJSONConsts.h */,
+				372B7A2FDED4ED795144E1DD /* SoomlaJSONConsts.cpp */,
+				372B71583013A4A4C4CECC97 /* CCStoreInfo.cpp */,
+				372B7A80C58DD89EA8EBCE7A /* CCStoreInfo.h */,
 			);
-			path = virtualGoods;
+			path = data;
 			sourceTree = "<group>";
 		};
 		C031BA681635BDBA005F73E3 = {
@@ -617,7 +657,7 @@
 				C031BD251635BDBD005F73E3 /* AppDelegate.h */,
 				C031BD261635BDBD005F73E3 /* AppDelegate.cpp */,
 				372B71F0B739DCF5F79FEDEB /* EasyNDK */,
-				372B715CDE2F06105DAD133A /* store-wrapper */,
+				372B779C13C0CE069BEC3870 /* Soomla */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -809,6 +849,8 @@
 				C0C3E20E16413CAA00E5C103 /* cocos2dx_VirtualItemNotFoundException.h */,
 				C005144E1650217300078EBB /* cocos2dx_EventHandlers.cpp */,
 				C005144F1650217300078EBB /* cocos2dx_EventHandlers.h */,
+				372B7FF2ACF15315CFDCF4DD /* cocos2dx_StoreAssets.m */,
+				372B7B731F04C92C724B4344 /* cocos2dx_StoreAssets.h */,
 			);
 			name = StoreBridge;
 			path = Classes/StoreBridge;
@@ -971,23 +1013,31 @@
 				372B7D2F196234984B0D6401 /* IOSNDKHelper.mm in Sources */,
 				372B7F571C3629CB26D24A26 /* NDKHelper.cpp in Sources */,
 				372B7BF4BFBE6B5F135ACF3D /* NDKCallbackData.cpp in Sources */,
-				372B71EAEBDA9BBB491CB2E9 /* JSONConstsX.cpp in Sources */,
-				372B7DCE7FFD6C13563FF8C6 /* CCVirtualItem.cpp in Sources */,
-				372B70D18B8B82AFC4A43152 /* CCVirtualCurrency.cpp in Sources */,
-				372B7C1A0CD8219E0C8F19A4 /* CCPurchasableVirtualItem.cpp in Sources */,
-				372B754EFFF31711B196799E /* CCPurchaseType.cpp in Sources */,
-				372B7F17B94B89DEE4B4144A /* CCPurchaseWithVirtualItem.cpp in Sources */,
-				372B790681A6246C41C25EB4 /* CCPurchaseWithMarket.cpp in Sources */,
-				372B71CDCA4EC4333B7A1B1C /* CCMarketItem.cpp in Sources */,
-				372B7A599E9DE2BB39994FD4 /* CCNonConsumableItem.cpp in Sources */,
-				372B7943C77537DBC0E4A547 /* CCVirtualCategory.cpp in Sources */,
-				372B7C8E699661855D625E68 /* CCVirtualCurrencyPack.cpp in Sources */,
-				372B793ABB9AF0CCD7D47793 /* CCVirtualGood.cpp in Sources */,
-				372B758E80037747F20BE74F /* CCLifetimeVG.cpp in Sources */,
-				372B7B8E0F36B4B77FBCFEC5 /* CCSingleUsePackVG.cpp in Sources */,
-				372B7AAE18EADED7ACD75A28 /* CCSingleUseVG.cpp in Sources */,
-				372B75CFDB6756B57E52FCEA /* CCUpgradeVGX.cpp in Sources */,
-				372B74713EA527B55FA02677 /* CCEquippableVG.cpp in Sources */,
+				372B7913D105B3D5F25C7C5C /* SoomlaJSONConsts.cpp in Sources */,
+				372B73E2C09EADAE8994CC96 /* CCLifetimeVG.cpp in Sources */,
+				372B7BE50D97755D060D5701 /* CCUpgradeVGX.cpp in Sources */,
+				372B79114594687C9BA76559 /* CCSingleUseVG.cpp in Sources */,
+				372B726CAA3E08069A7ACDCB /* CCVirtualGood.cpp in Sources */,
+				372B725151168A447C4D6AD5 /* CCEquippableVG.cpp in Sources */,
+				372B7D73FEFF5BBB60EE140D /* CCSingleUsePackVG.cpp in Sources */,
+				372B7C5C38EB3878F6F95C8C /* CCMarketItem.cpp in Sources */,
+				372B7118EEC8CD8D5D81CE43 /* CCVirtualItem.cpp in Sources */,
+				372B7E5CCF09EE9CBA9970E2 /* CCVirtualCurrency.cpp in Sources */,
+				372B7EB5154E9163F4C7FE28 /* CCVirtualCurrencyPack.cpp in Sources */,
+				372B7ED44DAF0A11495D7071 /* CCVirtualCategory.cpp in Sources */,
+				372B7385C42149AD7CB606D6 /* CCNonConsumableItem.cpp in Sources */,
+				372B734CECC1EDBF0F82FD82 /* CCPurchasableVirtualItem.cpp in Sources */,
+				372B7C3B363269BCD95529A4 /* CCPurchaseType.cpp in Sources */,
+				372B7A43F92C58D18FE4EFF4 /* CCPurchaseWithMarket.cpp in Sources */,
+				372B76712DECDD8ACC937459 /* CCPurchaseWithVirtualItem.cpp in Sources */,
+				372B751DFD5330306281E4B2 /* CCSoomla.cpp in Sources */,
+				372B7C00BCC34D0FA1A034D2 /* CCStoreController.cpp in Sources */,
+				372B7393EE20708946AFC330 /* CCStoreUtils.cpp in Sources */,
+				372B7006DE6C0190DBF63A2A /* CCSoomlaEasyNdkBridge.cpp in Sources */,
+				372B7964A6FF3C5A6FD034AB /* CCStoreInventory.cpp in Sources */,
+				372B7FA2DE85E0039F2E84BC /* CCSoomlaError.cpp in Sources */,
+				372B743E8CBD1861835683C2 /* CCStoreInfo.cpp in Sources */,
+				372B742B7E4B8D26F60A1305 /* cocos2dx_StoreAssets.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

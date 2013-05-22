@@ -6,7 +6,7 @@
 //
 //
 
-#include "JSONConstsX.h"
+#include "SoomlaJSONConsts.h"
 
 namespace soomla {
     char const* JSON_STORE_CURRENCIES         = "currencies";

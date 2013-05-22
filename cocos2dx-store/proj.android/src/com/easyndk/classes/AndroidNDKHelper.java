@@ -70,7 +70,7 @@ public class AndroidNDKHelper
 		}
 	}
 	
-	public static void receiveCppMessage(String json)
+	public static String receiveCppMessage(String json, boolean async)
 	{
 		if (json != null)
 		{
@@ -94,16 +94,24 @@ public class AndroidNDKHelper
 					try
 					{
 						Method m = AndroidNDKHelper.callHandler.getClass().getMethod(methodName, new Class[] { JSONObject.class });
-						
-						NDKMessage message = new NDKMessage();
-						message.methodToCall = m;
-						message.methodParams = methodParams;
-						
-						Message msg = new Message();
-				    	msg.what = __MSG_FROM_CPP__;
-				    	msg.obj = message;
-				    	
-				    	AndroidNDKHelper.NDKHelperHandler.sendMessage(msg);
+
+                        if (async) {
+                            NDKMessage message = new NDKMessage();
+                            message.methodToCall = m;
+                            message.methodParams = methodParams;
+
+                            Message msg = new Message();
+                            msg.what = __MSG_FROM_CPP__;
+                            msg.obj = message;
+
+                            AndroidNDKHelper.NDKHelperHandler.sendMessage(msg);
+
+                            return null;
+                        } else {
+                            JSONObject retParamsJson =
+                                    (JSONObject) m.invoke(AndroidNDKHelper.callHandler, methodParams);
+                            return retParamsJson.toString();
+                        }
 					}
 					catch (NoSuchMethodException e)
 					{
@@ -113,13 +121,18 @@ public class AndroidNDKHelper
 					{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-				}
+					} catch (InvocationTargetException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
 			}
-			catch (JSONException e)
-			{
+			catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
+
+        return null;
 	}
 }

@@ -30,10 +30,10 @@ public:
     static void buy(string itemId) throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_InsufficientFundsException&);
     static int getItemBalance(string itemId) throw (cocos2dx_VirtualItemNotFoundException&);
     static void giveItem(string itemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&);
-    static void takeVirtualItem(string itemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&);
-    static void equipGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&);
-    static void unEquipGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&);
-    static bool isGoodEquipped(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&);
+    static void takeItem(string itemId, int amount) throw (cocos2dx_VirtualItemNotFoundException&);
+    static void equipVirtualGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&);
+    static void unEquipVirtualGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&);
+    static bool isVirtualGoodEquipped(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&);
     static int getGoodUpgradeLevel(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&) ;
     static string getGoodCurrentUpgrade(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&);
     static void upgradeVirtualGood(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&, cocos2dx_InsufficientFundsException&);

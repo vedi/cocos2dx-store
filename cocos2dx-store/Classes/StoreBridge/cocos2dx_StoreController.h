@@ -33,7 +33,8 @@ public:
     static void initialize(string customSecret);
 	static void buyMarketItem(string productId) throw(cocos2dx_VirtualItemNotFoundException&);
 	static void restoreTransactions();
-	
+	static bool transactionsAlreadyRestored();
+    static void setSoomSec(string soomSec);
 };
 
 #endif /* defined(__cocos2dx_store__cocos2dx_StoreController__) */

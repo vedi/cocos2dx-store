@@ -25,7 +25,6 @@ using namespace std;
 
 class cocos2dx_StoreInfo {
 public:
-    
     // static string getVirtualItem(string itemId) throw (cocos2dx_VirtualItemNotFoundException&);
     // static string getPurchasableItem(string productId) throw (cocos2dx_VirtualItemNotFoundException&);
     static string getGoodFirstUpgrade(string goodItemId) throw (cocos2dx_VirtualItemNotFoundException&);
@@ -35,6 +34,17 @@ public:
     static string getItemDescription(string itemId) throw (cocos2dx_VirtualItemNotFoundException&);
 	static double getItemPrice(string itemId) throw (cocos2dx_VirtualItemNotFoundException&);
 
+    static NSDictionary *getItemByItemId(NSString *itemId);
+    static NSDictionary *getPurchasableItemWithProductId(NSString *productId);
+    static NSDictionary *getCategoryForVirtualGood(NSString *goodItemId);
+    static NSDictionary *getFirstUpgradeForVirtualGood(NSString *goodItemId);
+    static NSDictionary *getLastUpgradeForVirtualGood(NSString *goodItemId);
+    static NSArray *getUpgradesForVirtualGood(NSString *goodItemId);
+    static NSArray *getVirtualCurrencies();
+    static NSArray *getVirtualGoods();
+    static NSArray *getVirtualCurrencyPacks();
+    static NSArray *getNonConsumableItems();
+    static NSArray *getVirtualCategories();
 };
 
 

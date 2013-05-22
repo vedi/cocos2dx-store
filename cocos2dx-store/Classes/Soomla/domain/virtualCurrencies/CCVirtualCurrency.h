@@ -13,12 +13,12 @@
 
 namespace soomla {
     
-    class VirtualCurrency : public CCVirtualItem {
+    class CCVirtualCurrency : public CCVirtualItem {
     public:
-        VirtualCurrency(): CCVirtualItem() {}
+        CCVirtualCurrency(): CCVirtualItem() {}
         
-        static VirtualCurrency* create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
-        static VirtualCurrency* createWithDictionary(cocos2d::CCDictionary* dict);
+        static CCVirtualCurrency* create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
+        static CCVirtualCurrency* createWithDictionary(cocos2d::CCDictionary* dict);
     };
 }
 
