@@ -19,6 +19,7 @@ public class StoreControllerBridge {
     private static IStoreAssets mStoreAssets   = null;
     private static String mPublicKey           = "";
     private static EventHandlerBridge mEventHandler = null;
+    private static StoreAssetsBridge stormStoreAssets;
 
     public static void initialize(Cocos2dxGLSurfaceView mGLView,
                                   IStoreAssets storeAssets,
@@ -72,6 +73,10 @@ public class StoreControllerBridge {
         StoreController.getInstance().setTestMode(testMode);
     }
 
+    public static void setStoreAssetsBridge(StoreAssetsBridge storeAssetsBridge) {
+        StoreControllerBridge.stormStoreAssets = storeAssetsBridge;
+    }
+
     public static void setSoomSec(String soomSec) {
         Log.d("SOOMLA", "setSoomSec is called from java !");
         StoreConfig.SOOM_SEC = soomSec;
@@ -80,4 +85,7 @@ public class StoreControllerBridge {
 
     private static String TAG = "StoreControllerBridge";
 
+    public static void setPublicKey(String publicKey) {
+        StoreControllerBridge.mPublicKey = publicKey;
+    }
 }
