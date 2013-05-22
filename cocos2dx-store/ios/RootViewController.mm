@@ -107,6 +107,13 @@
         NSDictionary *storeAssetsDict = (NSDictionary *) [parameters objectForKey:@"storeAssets"];
         storeAssets = [[cocos2dx_StoreAssets alloc] initWithStoreAssetsDict:storeAssetsDict andVersion:version.intValue];
     }
+    else if ([methodName isEqualToString:@"StoreController::init"]) {
+        NSString *customSecret = (NSString *) [parameters objectForKey:@"customSecret"];
+
+        [[StoreController getInstance] initializeWithStoreAssets:storeAssets
+                                                 andCustomSecret:customSecret];
+        // TODO: Implement event dispatcher: storeEventDispatcher = [[UnityStoreEventDispatcher alloc] init];
+    }
     else if ([methodName isEqualToString:@"CCStoreController::buyMarketItem"]) {
         NSString *productId = (NSString *) [parameters objectForKey:@"productId"];
         cocos2dx_StoreController::buyMarketItem([productId UTF8String]);

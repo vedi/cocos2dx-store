@@ -49,8 +49,6 @@ import org.json.JSONObject;
 public class ExampleStore extends Cocos2dxActivity{
     private Cocos2dxGLSurfaceView mGLView;
 
-    private StoreAssetsBridge storeAssetsBridge = null;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -140,7 +138,12 @@ public class ExampleStore extends Cocos2dxActivity{
             if (methodName.equals("StoreAssets::init")) {
                 int version = params.getInt("version");
                 JSONObject storeAssetsJson = params.getJSONObject("storeAssets");
-                storeAssetsBridge = new StoreAssetsBridge(version, storeAssetsJson);
+                StoreControllerBridge.setStoreAssetsBridge(new StoreAssetsBridge(version, storeAssetsJson));
+            } else if (methodName.equals("CCStoreController::init")) {
+                String customSecret = params.getString("customSecret");
+                String androidPublicKey = params.getString("androidPublicKey");
+                StoreControllerBridge.setPublicKey(androidPublicKey);
+                StoreControllerBridge.initialize(customSecret);
             } else if (methodName.equals("CCStoreController::buyMarketItem")) {
                 String productId = params.getString("productId");
                 StoreControllerBridge.buyWithGooglePlay(productId);

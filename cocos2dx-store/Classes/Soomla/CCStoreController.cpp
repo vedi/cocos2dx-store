@@ -66,36 +66,21 @@ namespace soomla {
 
         CCStoreInfo::createShared(storeAssets);
 
-        // TODO: Implement in native code
         {
             CCDictionary *params = CCDictionary::create();
             params->setObject(CCString::create("CCStoreController::init"), "method");
-            params->setObject(storeAssets, "storeAssets");
+            params->setObject(CCString::create(CCSoomla::sharedSoomla()->getCustomSecret()), "customSecret");
+            params->setObject(CCString::create(CCSoomla::sharedSoomla()->getAndroidPublicKey()), "androidPublicKey");
             CCSoomlaEasyNdkBridge::callNative(params);
         }
 
-/*
-#if UNITY_ANDROID
-			AndroidJNI.PushLocalFrame(100);
-			using(AndroidJavaObject jniStoreAssetsInstance = new AndroidJavaObject("com.soomla.unity.StoreAssets")) {
-				using(AndroidJavaClass jniStoreControllerClass = new AndroidJavaClass("com.soomla.store.StoreController")) {
-					jniStoreController = jniStoreControllerClass.CallStatic<AndroidJavaObject>("getInstance");
-					jniStoreController.Call("initialize", jniStoreAssetsInstance, Soomla.GetInstance().androidPublicKey, Soomla.GetInstance().customSecret);
-				}
-			}
-			//init EventHandler
-			using(AndroidJavaClass jniEventHandler = new AndroidJavaClass("com.soomla.unity.EventHandler")) {
-				jniEventHandler.CallStatic("initialize");
-			}
-			AndroidJNI.PopLocalFrame(IntPtr.Zero);
+        {
+            CCDictionary *params = CCDictionary::create();
+            params->setObject(CCString::create("CCStoreController::setAndroidTestMode"), "method");
+            params->setObject(CCBool::create(CCSoomla::sharedSoomla()->getAndroidTestMode()), "testMode");
+            CCSoomlaEasyNdkBridge::callNative(params);
+        }
 
-			// setting test mode on Android
-			SetAndroidTestMode(Soomla.GetInstance().androidTestMode);
-#elif UNITY_IOS
-			storeController_Init(Soomla.GetInstance().customSecret);
-#endif
-
- */
         return true;
     }
 
@@ -127,7 +112,7 @@ namespace soomla {
     bool CCStoreController::transactionsAlreadyRestored() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreController::transactionsAlreadyRestored"), "method");
-        CCDictionary *retParams = CCSoomlaEasyNdkBridge::callNative(params);
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params);
         CCBool *retValue = (CCBool *) retParams->objectForKey("return");
         return retValue->getValue();
     }
