@@ -14,15 +14,15 @@
 
 namespace soomla {
     class CCMarketItem : public cocos2d::CCObject {
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mProductId, ProductId, JSON_MARKETITEM_PRODUCT_ID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCInteger *, mConsumable, Consumable, JSON_MARKETITEM_CONSUMABLE);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCDouble *, mPrice, Price, JSON_MARKETITEM_PRICE);
+    public:
         enum Consumable {
             NONCONSUMABLE,
             CONSUMABLE,
             SUBSCRIPTION,
         };
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mProductId, ProductId, JSON_MARKETITEM_PRODUCT_ID);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCInteger *, mConsumable, Consumable, JSON_MARKETITEM_CONSUMABLE);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCDouble *, mPrice, Price, JSON_MARKETITEM_PRICE);
-    public:
         CCMarketItem(): mProductId(NULL), mConsumable(NULL), mPrice(NULL) {};
 
         static CCMarketItem *create(cocos2d::CCString *productId, cocos2d::CCInteger *consumable, cocos2d::CCDouble * price);

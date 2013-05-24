@@ -15,8 +15,9 @@ namespace soomla {
         CC_SYNTHESIZE_RETAIN(CCMarketItem *, mMarketItem, MarketItem);
     public:
         CCPurchaseWithMarket(): mMarketItem(NULL) {};
-        static CCPurchaseWithMarket *create(CCMarketItem *marketItem);
-        bool init(CCMarketItem *marketItem);
+        static CCPurchaseWithMarket *create(cocos2d::CCString *productId, cocos2d::CCDouble *price);
+        static CCPurchaseWithMarket *createWithMarketItem(CCMarketItem *marketItem);
+        bool initWithMarketItem(CCMarketItem *marketItem);
     };
 };
 

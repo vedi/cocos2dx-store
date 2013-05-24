@@ -71,7 +71,8 @@ namespace soomla {
         if (purchaseTypeStr->compare(JSON_PURCHASE_TYPE_MARKET) == 0) {
             CCDictionary *marketItemDict = dynamic_cast<CCDictionary *>(purchasableDict->objectForKey(JSON_PURCHASE_MARKET_ITEM));
             CC_ASSERT(marketItemDict);
-            setPurchaseType(CCPurchaseWithMarket::create(CCMarketItem::createWithDictionary(marketItemDict)));
+            setPurchaseType(CCPurchaseWithMarket::createWithMarketItem(
+                    CCMarketItem::createWithDictionary(marketItemDict)));
         } else if (purchaseTypeStr->compare(JSON_PURCHASE_TYPE_VI) == 0) {
             CCString *itemId = dynamic_cast<CCString *>(purchasableDict->objectForKey(JSON_PURCHASE_VI_ITEMID));
             CC_ASSERT(itemId);

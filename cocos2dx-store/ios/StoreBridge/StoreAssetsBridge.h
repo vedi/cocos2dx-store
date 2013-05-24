@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 #import "IStoreAsssets.h"
 
-@interface cocos2dx_StoreAssets : NSObject <IStoreAsssets>{
+@interface StoreAssetsBridge : NSObject <IStoreAsssets>{
     int version;
     NSMutableArray* virtualCurrenciesArray;
     NSMutableArray* virtualGoodsArray;

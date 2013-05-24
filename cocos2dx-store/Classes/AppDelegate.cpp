@@ -16,10 +16,13 @@
 
 #include "AppDelegate.h"
 #include "MainScene.h"
-#include "StoreBridge/cocos2dx_StoreController.h"
-#include "StoreBridge/cocos2dx_EventHandlers.h"
+#include "CCEventHandler.h"
+#include "CCStoreController.h"
+#include "CCSoomla.h"
+#import "MuffinRushAssets.h"
 
 USING_NS_CC;
+using namespace soomla;
 
 AppDelegate::AppDelegate() {
 	handler = new EventHandler();
@@ -27,8 +30,8 @@ AppDelegate::AppDelegate() {
 
 AppDelegate::~AppDelegate() 
 {
-	cocos2dx_EventHandlers::getInstance()->removeHandler(handler);
-	delete handler;
+    CCSoomla::sharedSoomla()->setEventHandler(handler);
+    delete handler;
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -36,9 +39,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
     /**
      * The initialization of StoreController. This is the first and ONLY time it's initialized.
      **/
-    cocos2dx_StoreController::initialize("ExampleCustomSecret");
-	cocos2dx_EventHandlers::getInstance()->addHandler(handler);
-    
+    CCSoomla::sharedSoomla()->setSoomSec("ExampleSoomSecret");
+    CCSoomla::sharedSoomla()->setCustomSecret("ExampleCustomSecret");
+    CCSoomla::sharedSoomla()->setEventHandler(handler);
+    CCStoreController::createShared(MuffinRushAssets::create());
+
     // initialize director
     CCDirector *pDirector = CCDirector::sharedDirector();
 	

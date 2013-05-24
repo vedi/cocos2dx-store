@@ -13,7 +13,7 @@
 
 vector<NDKCallbackData> NDKHelper::selectorList;
 
-void NDKHelper::addSelector(char const *groupName, char const *name, CCNode *target, SEL_CallFuncO selector) {
+void NDKHelper::addSelector(char const *groupName, char const *name, CCObject *target, SEL_CallFuncO selector) {
     NDKHelper::selectorList.push_back(NDKCallbackData(groupName, name, target, selector));
 }
 
@@ -75,15 +75,9 @@ CCObject *NDKHelper::getCCObjectFromJson(json_t *obj) {
         return array;
     }
     else if (json_is_boolean(obj)) {
-        stringstream str;
-        if (json_is_true(obj))
-            str << true;
-        else if (json_is_false(obj))
-            str << false;
-
-        CCString *ccString = new CCString(str.str());
+        CCBool *ccBool = new CCBool(json_boolean(obj));
         //CCString::create(str.str());
-        return ccString;
+        return ccBool;
     }
     else if (json_is_integer(obj)) {
         json_int_t intVal = json_integer_value(obj);
@@ -146,6 +140,12 @@ json_t* NDKHelper::getJsonFromCCObject(CCObject* obj) {
 
         return jsonString;
     }
+    else if (dynamic_cast<CCInteger *>(obj)) {
+        CCInteger *mainInteger = (CCInteger *) obj;
+        json_t *jsonInt = json_integer(mainInteger->getValue());
+
+        return jsonInt;
+    }
     else if (dynamic_cast<CCDouble *>(obj)) {
         CCDouble *mainDouble = (CCDouble *) obj;
         json_t *jsonReal = json_real(mainDouble->getValue());
@@ -157,6 +157,12 @@ json_t* NDKHelper::getJsonFromCCObject(CCObject* obj) {
         json_t *jsonString = json_real(mainFloat->getValue());
 
         return jsonString;
+    }
+    else if (dynamic_cast<CCBool *>(obj)) {
+        CCBool *mainBool = (CCBool *) obj;
+        json_t *jsonBoolean = json_boolean(mainBool->getValue());
+
+        return jsonBoolean;
     }
     else {
         CC_ASSERT(false);
@@ -186,12 +192,10 @@ void NDKHelper::handleMessage(json_t *methodName, json_t* methodParams)
         {
             CCObject *dataToPass = NDKHelper::getCCObjectFromJson(methodParams);
             SEL_CallFuncO sel = NDKHelper::selectorList[i].getSelector();
-            CCNode *target = NDKHelper::selectorList[i].getTarget();
-            
-            CCFiniteTimeAction* action = CCSequence::create(CCCallFuncO::create(target, sel, dataToPass), NULL);
-            
-            target->runAction(action);
-            
+            CCObject *target = NDKHelper::selectorList[i].getTarget();
+
+            (target->*sel)(dataToPass);
+
             if (dataToPass != NULL) {
                 dataToPass->autorelease();
                 dataToPass->retain();

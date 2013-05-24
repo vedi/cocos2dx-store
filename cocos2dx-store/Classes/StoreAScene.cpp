@@ -18,16 +18,15 @@
 #include "GameMenuItem.h"
 #include "MainScene.h"
 #include "StoreBScene.h"
-#include "StoreBridge/cocos2dx_StoreController.h"
-#include "StoreBridge/cocos2dx_StoreInventory.h"
-#include "StoreBridge/cocos2dx_StoreInfo.h"
-#include "StoreBridge/Includes.h"
-
-#include <sstream> 
-#include <pthread.h>
+#include "CCPurchaseWithMarket.h"
+#include "CCStoreController.h"
+#include "CCPurchasableVirtualItem.h"
+#include "CCStoreInventory.h"
+#include "CCStoreUtils.h"
+#include "CCStoreInfo.h"
 
 USING_NS_CC;
-
+using namespace soomla;
 
 /**
  * This is the first scene (the window where the VirtualGoods are shown).
@@ -40,283 +39,269 @@ CCLabelTTF* StoreAScene::pLabelBalance;
 
 CCScene* StoreAScene::scene()
 {
-	// 'scene' is an autorelease object
-	CCScene *scene = CCScene::create();
+    // 'scene' is an autorelease object
+    CCScene *scene = CCScene::create();
 
-	// 'layer' is an autorelease object
-	StoreAScene *layer = StoreAScene::create();
+    // 'layer' is an autorelease object
+    StoreAScene *layer = StoreAScene::create();
 
-	// add layer as a child to scene
-	scene->addChild(layer);
+    // add layer as a child to scene
+    scene->addChild(layer);
 
-	// return the scene
-	return scene;
+    // return the scene
+    return scene;
 }
 
 // on "init" you need to initialize your instance
 bool StoreAScene::init()
 {
-	cocos2dx_StoreController::storeOpening();
-		
-	//////////////////////////////
-	// 1. super init first
-	if ( !CCLayerColor::initWithColor(ccc4(255,255,255,255)))
-	{
-		return false;
-	}
+    CCStoreController::sharedStoreController()->storeOpening();
 
-	CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
-	CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+    //////////////////////////////
+    // 1. super init first
+    if ( !CCLayerColor::initWithColor(ccc4(255,255,255,255)))
+    {
+        return false;
+    }
 
-	CCLabelTTF* pLabelTitleTest = CCLabelTTF::create("Soomla Test Store", "GoodDog.otf", 34);
-	pLabelTitleTest->setColor(ccc3(255,0,0));
-	pLabelTitleTest->setPosition(ccp(pLabelTitleTest->boundingBox().size.width/2 + origin.x + 20, visibleSize.height - 30 + origin.y));
-	this->addChild(pLabelTitleTest, 1);
+    CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
+    CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
-	CCLabelTTF* pLabelTitle = CCLabelTTF::create("Virtual Goods", "GoodDog.otf", 54);
-	pLabelTitle->setColor(ccc3(0,0,0));
-	pLabelTitle->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height - 100 + origin.y));
-	this->addChild(pLabelTitle, 1);
+    CCLabelTTF* pLabelTitleTest = CCLabelTTF::create("Soomla Test Store", "GoodDog.otf", 34);
+    pLabelTitleTest->setColor(ccc3(255,0,0));
+    pLabelTitleTest->setPosition(ccp(pLabelTitleTest->boundingBox().size.width/2 + origin.x + 20, visibleSize.height - 30 + origin.y));
+    this->addChild(pLabelTitleTest, 1);
 
-
-	CCSprite* pSpriteMuffin = CCSprite::create("muffin.png");
-	pSpriteMuffin->setScale(0.5f);
-	pSpriteMuffin->setPosition(ccp(origin.x + visibleSize.width - 90, visibleSize.height + origin.y - 50));
-	this->addChild(pSpriteMuffin, 0);
-	
-	pLabelBalance = CCLabelTTF::create("0", "GoodDog.otf", 34);
-	pLabelBalance->setColor(ccc3(0,255,255));
-	pLabelBalance->setPosition(ccp(origin.x + visibleSize.width - 40, visibleSize.height + origin.y - 50));
-	this->addChild(pLabelBalance, 1);
-	setCurrencyBalanceLabel();
-
-	GameMenuItem* getMoreItem = GameMenuItem::itemWithLabel(
-		CCSprite::create("get_more.png"),
-		this,
-		menu_selector(StoreAScene::menuGetMoreCallback));
-
-	getMoreItem->setPosition(ccp(origin.x + visibleSize.width/2 + (getMoreItem->boundingBox().size.width /2) + 10, 110));
+    CCLabelTTF* pLabelTitle = CCLabelTTF::create("Virtual Goods", "GoodDog.otf", 54);
+    pLabelTitle->setColor(ccc3(0,0,0));
+    pLabelTitle->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height - 100 + origin.y));
+    this->addChild(pLabelTitle, 1);
 
 
-	GameMenuItem* backItem = GameMenuItem::itemWithLabel(
-		CCSprite::create("back.png"),
-		this,
-		menu_selector(StoreAScene::menuBackCallback));
+    CCSprite* pSpriteMuffin = CCSprite::create("muffin.png");
+    pSpriteMuffin->setScale(0.5f);
+    pSpriteMuffin->setPosition(ccp(origin.x + visibleSize.width - 90, visibleSize.height + origin.y - 50));
+    this->addChild(pSpriteMuffin, 0);
 
-	backItem->setPosition(ccp(origin.x + visibleSize.width/2 - (backItem->boundingBox().size.width /2) - 10 , 110));
+    pLabelBalance = CCLabelTTF::create("0", "GoodDog.otf", 34);
+    pLabelBalance->setColor(ccc3(0,255,255));
+    pLabelBalance->setPosition(ccp(origin.x + visibleSize.width - 40, visibleSize.height + origin.y - 50));
+    this->addChild(pLabelBalance, 1);
+    setCurrencyBalanceLabel();
 
-	// In Game Menu
-	CCMenu* menu = CCMenu::create(getMoreItem, backItem, NULL);
+    GameMenuItem* getMoreItem = GameMenuItem::itemWithLabel(
+            CCSprite::create("get_more.png"),
+            this,
+            menu_selector(StoreAScene::menuGetMoreCallback));
 
-	createListViewItem(origin, menu, visibleSize, 0, "fruit_cake.png");
-	createListViewItem(origin, menu, visibleSize, 1, "pavlova.png");
-	createListViewItem(origin, menu, visibleSize, 2, "cream_cup.png");
-	createListViewItem(origin, menu, visibleSize, 3, "chocolate_cake.png");
-	
-	menu->setPosition(CCPointZero);
-	this->addChild(menu);
+    getMoreItem->setPosition(ccp(origin.x + visibleSize.width/2 + (getMoreItem->boundingBox().size.width /2) + 10, 110));
 
-	this->setKeypadEnabled(true);
 
-	return true;
+    GameMenuItem* backItem = GameMenuItem::itemWithLabel(
+            CCSprite::create("back.png"),
+            this,
+            menu_selector(StoreAScene::menuBackCallback));
+
+    backItem->setPosition(ccp(origin.x + visibleSize.width/2 - (backItem->boundingBox().size.width /2) - 10 , 110));
+
+    // In Game Menu
+    CCMenu* menu = CCMenu::create(getMoreItem, backItem, NULL);
+
+    createListViewItem(origin, menu, visibleSize, 0, "fruit_cake.png");
+    createListViewItem(origin, menu, visibleSize, 1, "pavlova.png");
+    createListViewItem(origin, menu, visibleSize, 2, "cream_cup.png");
+    createListViewItem(origin, menu, visibleSize, 3, "chocolate_cake.png");
+
+    menu->setPosition(CCPointZero);
+    this->addChild(menu);
+
+    this->setKeypadEnabled(true);
+
+    return true;
 }
 
 void StoreAScene::menuBackCallback(CCObject* pSender)
 {
-	cocos2dx_StoreController::storeClosing();
-		
-	CCScene *s = MainScene::scene();
-	CCDirector::sharedDirector()->setDepthTest(true);
-	CCTransitionScene *transition = CCTransitionMoveInL::create(0.8f, s);
-	
-	CCDirector::sharedDirector()->replaceScene(transition);
+    CCStoreController::sharedStoreController()->storeClosing();
+
+    CCScene *s = MainScene::scene();
+    CCDirector::sharedDirector()->setDepthTest(true);
+    CCTransitionScene *transition = CCTransitionMoveInL::create(0.8f, s);
+
+    CCDirector::sharedDirector()->replaceScene(transition);
 }
 
 void StoreAScene::menuGetMoreCallback(CCObject* pSender)
-{		
-	CCScene *s = StoreBScene::scene();
-	CCDirector::sharedDirector()->setDepthTest(true);
-	CCTransitionScene *transition = CCTransitionMoveInR::create(0.8f, s);
-	
-	CCDirector::sharedDirector()->replaceScene(transition);
+{
+    CCScene *s = StoreBScene::scene();
+    CCDirector::sharedDirector()->setDepthTest(true);
+    CCTransitionScene *transition = CCTransitionMoveInR::create(0.8f, s);
+
+    CCDirector::sharedDirector()->replaceScene(transition);
 }
 
 
 void StoreAScene::menuChooseCallback(CCObject* pSender)
 {
-	if (pSender)
-	{
-		GameMenuItem* item = (GameMenuItem*)pSender;
+    if (pSender)
+    {
+        GameMenuItem* item = (GameMenuItem*)pSender;
 
-		int tag = item->getTag();
-		string itemId = itemIdFromTag(tag);
-		try{
-			cocos2dx_StoreInventory::buy(itemId.c_str());
-		}
-		catch (cocos2dx_VirtualItemNotFoundException& e) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-			__android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "Cought cocos2dx_VirtualItemNotFoundException from NATIVE!"); 
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-            iOSHelper::LogMessage("Cought cocos2dx_VirtualItemNotFoundException!");
-#endif
-
-		} catch (cocos2dx_InsufficientFundsException& e) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-			__android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "Cought cocos2dx_InsufficientFundsException from NATIVE!"); 
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-            iOSHelper::LogMessage("Cought cocos2dx_InsufficientFundsException!");
-#endif
-		}
-	}
+        int tag = item->getTag();
+        string itemId = itemIdFromTag(tag);
+        CCSoomlaError *soomlaError = NULL;
+        CCStoreController::sharedStoreController()->buyMarketItem(itemId.c_str(), &soomlaError);
+        if (soomlaError) {
+            CCStoreUtils::logException("StoreAScene::menuChooseCallback", soomlaError);
+        }
+    }
 }
 
 void StoreAScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visibleSize, int tag, const char* img) {
-	GameMenuItem *pChooseItem = GameMenuItem::itemWithLabel(
-		CCSprite::create("button.png"),
-					this,
-					menu_selector(StoreAScene::menuChooseCallback));
+    GameMenuItem *pChooseItem = GameMenuItem::itemWithLabel(
+            CCSprite::create("button.png"),
+            this,
+            menu_selector(StoreAScene::menuChooseCallback));
 
-	string itemId = itemIdFromTag(tag);
-	
-	// TODO: exception handling ..
+    string itemId = itemIdFromTag(tag);
 
-    string nameS = cocos2dx_StoreInfo::getItemName(itemId);
-	string infoS = cocos2dx_StoreInfo::getItemDescription(itemId);
-	int price = cocos2dx_StoreInfo::getItemPrice(itemId);
+    CCSoomlaError *soomlaError = NULL;
+    CCVirtualItem *virtualItem = CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId.c_str(), &soomlaError);
+    if (soomlaError) {
+        CCStoreUtils::logException("StoreAScene::createListViewItem", soomlaError);
+        return;
+    }
+    CC_ASSERT(virtualItem);
+    string nameS = virtualItem->getName()->getCString();
+    string infoS = virtualItem->getDescription()->getCString();
+    CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(virtualItem);
+    CC_ASSERT(purchasableVirtualItem);
+    CCPurchaseWithMarket *purchaseWithMarket = dynamic_cast<CCPurchaseWithMarket *>(purchasableVirtualItem->getPurchaseType());
+    CC_ASSERT(purchaseWithMarket);
+    double price = purchaseWithMarket->getMarketItem()->getPrice()->getValue();
 
-	int balance = 0;
-	const char * name = nameS.c_str();
-	const char * info = infoS.c_str();
-	
-	float yOffset = - 200;
+    int balance = 0;
+    const char * name = nameS.c_str();
+    const char * info = infoS.c_str();
 
-	pChooseItem->setPosition(ccp(origin.x + visibleSize.width/2, yOffset + origin.y + visibleSize.height - 100 - (tag * pChooseItem->boundingBox().size.height)));
-	pChooseItem->setTag(tag);
+    float yOffset = - 200;
 
-
-	CCSprite* pSpritePic = CCSprite::create(img);
-	pSpritePic->setPosition(ccp(pSpritePic->boundingBox().size.width/2 + 20, pChooseItem->boundingBox().size.height/2));
-	pChooseItem->addChild(pSpritePic, 0);
-
-
-	CCLabelTTF* pLabelName = CCLabelTTF::create(name, "GoodDog.otf", 44);
-	pLabelName->setColor(ccc3(0,0,0));
-	pLabelName->setPosition(ccp(pSpritePic->getPositionX() + (pSpritePic->boundingBox().size.width / 2) + (pLabelName->boundingBox().size.width / 2) + 20 , pChooseItem->boundingBox().size.height/2));
-	pChooseItem->addChild(pLabelName);
+    pChooseItem->setPosition(ccp(origin.x + visibleSize.width/2, yOffset + origin.y + visibleSize.height - 100 - (tag * pChooseItem->boundingBox().size.height)));
+    pChooseItem->setTag(tag);
 
 
-	CCLabelTTF* pLabelInfo = CCLabelTTF::create(info, "GoodDog.otf", 20);
-	pLabelInfo->setColor(ccc3(50,50,50));
-	pLabelInfo->setPosition(ccp(pSpritePic->getPositionX() + (pSpritePic->boundingBox().size.width / 2) + (pLabelInfo->boundingBox().size.width / 2) + 20 , -50 + (pChooseItem->boundingBox().size.height/2)));
-	pChooseItem->addChild(pLabelInfo);
+    CCSprite* pSpritePic = CCSprite::create(img);
+    pSpritePic->setPosition(ccp(pSpritePic->boundingBox().size.width/2 + 20, pChooseItem->boundingBox().size.height/2));
+    pChooseItem->addChild(pSpritePic, 0);
 
 
-	CCLabelTTF* pLabelClickToBuy = CCLabelTTF::create("Click to Buy", "GoodDog.otf", 24);
-	pLabelClickToBuy->setColor(ccc3(0,255,255));
-	pLabelClickToBuy->setPosition(ccp(pChooseItem->boundingBox().size.width - (pLabelClickToBuy->boundingBox().size.width / 2) - 20 , 60 + pChooseItem->boundingBox().size.height/2));
-	pChooseItem->addChild(pLabelClickToBuy);
+    CCLabelTTF* pLabelName = CCLabelTTF::create(name, "GoodDog.otf", 44);
+    pLabelName->setColor(ccc3(0,0,0));
+    pLabelName->setPosition(ccp(pSpritePic->getPositionX() + (pSpritePic->boundingBox().size.width / 2) + (pLabelName->boundingBox().size.width / 2) + 20 , pChooseItem->boundingBox().size.height/2));
+    pChooseItem->addChild(pLabelName);
 
-	char buffer[512];
 
-	snprintf(buffer, sizeof(buffer), "price: %d blanace: %d",  price, balance);
+    CCLabelTTF* pLabelInfo = CCLabelTTF::create(info, "GoodDog.otf", 20);
+    pLabelInfo->setColor(ccc3(50,50,50));
+    pLabelInfo->setPosition(ccp(pSpritePic->getPositionX() + (pSpritePic->boundingBox().size.width / 2) + (pLabelInfo->boundingBox().size.width / 2) + 20 , -50 + (pChooseItem->boundingBox().size.height/2)));
+    pChooseItem->addChild(pLabelInfo);
 
-	goodsPriceBalanceLabels[tag] = CCLabelTTF::create(buffer, "GoodDog.otf", 24);
-	goodsPriceBalanceLabels[tag]->setColor(ccc3(0,255,255));
-	goodsPriceBalanceLabels[tag]->setPosition(ccp(pChooseItem->boundingBox().size.width - (goodsPriceBalanceLabels[tag]->boundingBox().size.width / 2) - 20 , 60));
-	pChooseItem->addChild(goodsPriceBalanceLabels[tag]);
 
-	menu->addChild(pChooseItem, 1);
-	
-	setPriceBalanceLabel(itemId.c_str());
+    CCLabelTTF* pLabelClickToBuy = CCLabelTTF::create("Click to Buy", "GoodDog.otf", 24);
+    pLabelClickToBuy->setColor(ccc3(0,255,255));
+    pLabelClickToBuy->setPosition(ccp(pChooseItem->boundingBox().size.width - (pLabelClickToBuy->boundingBox().size.width / 2) - 20 , 60 + pChooseItem->boundingBox().size.height/2));
+    pChooseItem->addChild(pLabelClickToBuy);
+
+    char buffer[512];
+
+    snprintf(buffer, sizeof(buffer), "price: %d blanace: %d",  price, balance);
+
+    goodsPriceBalanceLabels[tag] = CCLabelTTF::create(buffer, "GoodDog.otf", 24);
+    goodsPriceBalanceLabels[tag]->setColor(ccc3(0,255,255));
+    goodsPriceBalanceLabels[tag]->setPosition(ccp(pChooseItem->boundingBox().size.width - (goodsPriceBalanceLabels[tag]->boundingBox().size.width / 2) - 20 , 60));
+    pChooseItem->addChild(goodsPriceBalanceLabels[tag]);
+
+    menu->addChild(pChooseItem, 1);
+
+    setPriceBalanceLabel(itemId.c_str());
 }
 
 void StoreAScene::setCurrencyBalanceLabel() {
     if (!pLabelBalance) {
         return;
     }
-    
-	int balance = 0;
-	try{
-		balance = cocos2dx_StoreInventory::getItemBalance("currency_muffin");
-	} catch (cocos2dx_VirtualItemNotFoundException& e) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        __android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "getCurrencyBalance Cought cocos2dx_VirtualItemNotFoundException from NATIVE!"); 
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-        iOSHelper::LogMessage("getCurrencyBalance Cought cocos2dx_VirtualItemNotFoundException!");
-#endif
-		
-	}
-		
-	ostringstream convert;
-	convert << balance;
-			
-	pLabelBalance->setString(convert.str().c_str());
+
+    CCSoomlaError *soomlaError = NULL;
+    int balance = CCStoreInventory::sharedStoreInventory()->getItemBalance("currency_muffin", &soomlaError);
+    if (soomlaError) {
+        CCStoreUtils::logException("StoreAScene::setCurrencyBalanceLabel", soomlaError);
+        balance = 0;
+    }
+
+    ostringstream convert;
+    convert << balance;
+    pLabelBalance->setString(convert.str().c_str());
 }
 
 void StoreAScene::setPriceBalanceLabel(const char* itemId) {
-	try{
-		int tag = tagFromItemId(itemId);
-		int balance = cocos2dx_StoreInventory::getItemBalance(itemId);
-			
-		ostringstream convert;
-		convert << balance;
-			
-		const char* priceBalanceCA = goodsPriceBalanceLabels[tag]->getString();
-		string priceBalance(priceBalanceCA);
-		size_t found = priceBalance.find_last_of(":");
-		priceBalance = priceBalance.substr(0, found+2);
-		priceBalance += convert.str();
-		
-		goodsPriceBalanceLabels[tag]->setString(priceBalance.c_str());
-	}
-	catch (cocos2dx_VirtualItemNotFoundException& e) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		__android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "setPriceBalance/getGoodBalance Cought cocos2dx_VirtualItemNotFoundException from NATIVE!");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-        iOSHelper::LogMessage("setPriceBalance/getGoodBalance Cought cocos2dx_VirtualItemNotFoundException!");
-#endif
+    int tag = tagFromItemId(itemId);
+    CCSoomlaError *soomlaError = NULL;
+    int balance = CCStoreInventory::sharedStoreInventory()->getItemBalance(itemId, &soomlaError);
+    if (soomlaError) {
+        CCStoreUtils::logException("StoreAScene::setPriceBalanceLabel", soomlaError);
+        balance = 0;
+    }
 
-	}
+    ostringstream convert;
+    convert << balance;
+
+    const char* priceBalanceCA = goodsPriceBalanceLabels[tag]->getString();
+    string priceBalance(priceBalanceCA);
+    size_t found = priceBalance.find_last_of(":");
+    priceBalance = priceBalance.substr(0, found+2);
+    priceBalance += convert.str();
+
+    goodsPriceBalanceLabels[tag]->setString(priceBalance.c_str());
 }
 
 int StoreAScene::tagFromItemId(const char* itemId) {
-	string itemIdStr(itemId);
-	if (itemIdStr == "fruit_cake") return 0;
-	if (itemIdStr == "pavlova") return 1;
-	if (itemIdStr == "cream_cup") return 2;
-	if (itemIdStr == "chocolate_cake") return 3;
-	
-	return 0;
+    string itemIdStr(itemId);
+    if (itemIdStr == "fruit_cake") return 0;
+    if (itemIdStr == "pavlova") return 1;
+    if (itemIdStr == "cream_cup") return 2;
+    if (itemIdStr == "chocolate_cake") return 3;
+
+    return 0;
 }
 
 string StoreAScene::itemIdFromTag(int tag) {
-	string ret;
-	switch (tag)
-	{
-	case 0: 
-		ret = "fruit_cake";
-		return ret;
-	    break;
-	case 1: 
-		ret = "pavlova";
-		return ret;
-	    break;
-	case 2: 
-		ret = "cream_cup";
-		return ret;
-	    break;
-	case 3: 
-		ret = "chocolate_cake";
-		return ret;
-	    break;
-	default: 
-		ret = "ERROR";
-		return ret;
-		break;
-	}
-	
-	ret = "ERROR";
-	return ret;
+    string ret;
+    switch (tag)
+    {
+        case 0:
+            ret = "fruit_cake";
+            return ret;
+            break;
+        case 1:
+            ret = "pavlova";
+            return ret;
+            break;
+        case 2:
+            ret = "cream_cup";
+            return ret;
+            break;
+        case 3:
+            ret = "chocolate_cake";
+            return ret;
+            break;
+        default:
+            ret = "ERROR";
+            return ret;
+            break;
+    }
+
+    ret = "ERROR";
+    return ret;
 }
 
 

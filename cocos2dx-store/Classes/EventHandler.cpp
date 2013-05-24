@@ -17,68 +17,77 @@
 #include "EventHandler.h"
 #include "StoreAScene.h"
 #include "StoreBScene.h"
-#include "StoreBridge/Includes.h"
+#include "CCStoreUtils.h"
 
-void EventHandler::billingSupported() {
-	
+void EventHandler::onBillingNotSupported() {
+
 }
-void EventHandler::billingNotSupported() {
-	
+
+void EventHandler::onBillingSupported() {
+
 }
-void EventHandler::closingStore() {
-	
+
+void EventHandler::onOpeningStore() {
+
 }
-void EventHandler::currencyBalanceChanged(string &itemId, int balance, int amountAdded) {
-	StoreBScene::setCurrencyBalanceLabel();
+
+void EventHandler::onClosingStore() {
+
+}
+
+void EventHandler::onCurrencyBalanceChanged(soomla::CCVirtualCurrency *virtualCurrency, int balance, int amountAdded) {
+    StoreBScene::setCurrencyBalanceLabel();
     StoreAScene::setCurrencyBalanceLabel();
 }
-void EventHandler::goodBalanceChanged(string &itemId, int balance, int amountAdded) {
-	StoreAScene::setPriceBalanceLabel(itemId.c_str());
-}
-void EventHandler::goodEquipped(string& itemId) {
-	
-}
-void EventHandler::goodUnequipped(string& itemId) {
-	
-}
-void EventHandler::goodUpgrade(string& itemId, string& upgradeItemId) {
-	
-}
-void EventHandler::itemPurchased(string& itemId) {
-	
-}
-void EventHandler::itemPurchaseStarted() {
-	
-}
-void EventHandler::openingStore() {
-	
-}
-void EventHandler::marketPurchaseCancelled(string& itemId) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    __android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "Market purchase cancelled by user!");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    iOSHelper::LogMessage("Market purchase cancelled by user!");
-#endif
-}
-void EventHandler::marketPurchase(string& itemId) {
-	
-}
-void EventHandler::marketPurchaseStarted(string& itemId) {
-	
-}
-void EventHandler::marketRefund(string& itemId) {
-	
-}
-void EventHandler::restoreTransactions(bool success) {
-	
-}
-void EventHandler::restoreTransactionsStarted() {
-	
-}
-void EventHandler::unexpectedErrorInStore() {
-	
+
+void EventHandler::onGoodBalanceChanged(soomla::CCVirtualGood *virtualGood, int balance, int amountAdded) {
+    StoreAScene::setPriceBalanceLabel(virtualGood->getItemId()->getCString());
 }
 
+void EventHandler::onGoodEquipped(soomla::CCEquippableVG *equippableVG) {
 
+}
 
+void EventHandler::onGoodUnEquipped(soomla::CCEquippableVG *equippableVG) {
 
+}
+
+void EventHandler::onGoodUpgrade(soomla::CCVirtualGood *virtualGood, soomla::CCUpgradeVG *upgradeVG) {
+
+}
+
+void EventHandler::onItemPurchased(soomla::CCPurchasableVirtualItem *purchasableVirtualItem) {
+
+}
+
+void EventHandler::onItemPurchaseStarted(soomla::CCPurchasableVirtualItem *purchasableVirtualItem) {
+
+}
+
+void EventHandler::onMarketPurchaseCancelled(soomla::CCPurchasableVirtualItem *purchasableVirtualItem) {
+    soomla::CCStoreUtils::logDebug("EventHandler::onMarketPurchaseCancelled", "Market purchase cancelled by user!");
+}
+
+void EventHandler::onMarketPurchase(soomla::CCPurchasableVirtualItem *purchasableVirtualItem) {
+
+}
+
+void EventHandler::onMarketPurchaseStarted(soomla::CCPurchasableVirtualItem *purchasableVirtualItem) {
+
+}
+
+void EventHandler::onMarketRefund(soomla::CCPurchasableVirtualItem *purchasableVirtualItem) {
+
+}
+
+void EventHandler::onRestoreTransactions(bool success) {
+
+}
+
+void EventHandler::onRestoreTransactionsStarted() {
+
+}
+
+void EventHandler::onUnexpectedErrorInStore() {
+
+}

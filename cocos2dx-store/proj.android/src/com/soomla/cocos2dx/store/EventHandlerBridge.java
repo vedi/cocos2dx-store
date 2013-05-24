@@ -1,15 +1,19 @@
 package com.soomla.cocos2dx.store;
 
+import com.easyndk.classes.AndroidNDKHelper;
 import com.soomla.store.BusProvider;
 import com.soomla.store.events.*;
 import com.squareup.otto.Subscribe;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * This bridge is used to populate events from the store to cocos2dx (through JNI).
  */
 public class EventHandlerBridge {
 
+    public static final String SOOMLA_EASY_NDK_CALL_BACK = "soomla_easyNDKCallBack";
     private Cocos2dxGLSurfaceView mGLThread;
 
     public EventHandlerBridge(Cocos2dxGLSurfaceView glThread) {
@@ -19,105 +23,33 @@ public class EventHandlerBridge {
     }
 
     @Subscribe
-    public void onBillingSupported(BillingSupportedEvent billingSupportedEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                billingSupported();
-            }
-        });
-    }
-
-    @Subscribe
     public void onBillingNotSupported(BillingNotSupportedEvent billingNotSupportedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                billingNotSupported();
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onBillingNotSupported");
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
             }
         });
     }
 
     @Subscribe
-    public void onClosingStore(ClosingStoreEvent closingStoreEvent) {
+    public void onBillingSupported(BillingSupportedEvent billingSupportedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                closingStore();
-            }
-        });
-    }
-
-    @Subscribe
-    public void onCurrencyBalanceChanged(final CurrencyBalanceChangedEvent currencyBalanceChangedEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                currencyBalanceChanged(currencyBalanceChangedEvent.getCurrency().getItemId(),
-                        currencyBalanceChangedEvent.getBalance(),
-                        currencyBalanceChangedEvent.getAmountAdded());
-            }
-        });
-    }
-
-    @Subscribe
-    public void onGoodBalanceChanged(final GoodBalanceChangedEvent goodBalanceChangedEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                goodBalanceChanged(goodBalanceChangedEvent.getGood().getItemId(),
-                        goodBalanceChangedEvent.getBalance(),
-                        goodBalanceChangedEvent.getAmountAdded());
-            }
-        });
-    }
-
-    @Subscribe
-    public void onGoodEquipped(final GoodEquippedEvent goodEquippedEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                goodEquipped(goodEquippedEvent.getGood().getItemId());
-            }
-        });
-    }
-
-    @Subscribe
-    public void onGoodUnequipped(final GoodUnEquippedEvent goodUnEquippedEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                goodUnequipped(goodUnEquippedEvent.getGood().getItemId());
-            }
-        });
-    }
-
-    @Subscribe
-    public void onGoodUpgrade(final GoodUpgradeEvent goodUpgradeEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                goodUpgrade(goodUpgradeEvent.getGood().getItemId(), goodUpgradeEvent.getCurrentUpgrade().getItemId());
-            }
-        });
-    }
-
-    @Subscribe
-    public void onItemPurchased(final ItemPurchasedEvent itemPurchasedEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                itemPurchased(itemPurchasedEvent.getPurchasableVirtualItem().getItemId());
-            }
-        });
-    }
-
-    @Subscribe
-    public void onItemPurchaseStarted(final ItemPurchaseStartedEvent itemPurchaseStartedEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                itemPurchaseStarted(itemPurchaseStartedEvent.getPurchasableVirtualItem().getItemId());
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onBillingSupported");
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
             }
         });
     }
@@ -127,7 +59,153 @@ public class EventHandlerBridge {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                openingStore();
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onOpeningStore");
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    @Subscribe
+    public void onClosingStore(ClosingStoreEvent closingStoreEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onClosingStore");
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    @Subscribe
+    public void onCurrencyBalanceChanged(final CurrencyBalanceChangedEvent currencyBalanceChangedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onCurrencyBalanceChanged");
+                    parameters.put("itemId", currencyBalanceChangedEvent.getCurrency().getItemId());
+                    parameters.put("balance", currencyBalanceChangedEvent.getBalance());
+                    parameters.put("amountAdded", currencyBalanceChangedEvent.getAmountAdded());
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    @Subscribe
+    public void onGoodBalanceChanged(final GoodBalanceChangedEvent goodBalanceChangedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onGoodBalanceChanged");
+                    parameters.put("itemId", goodBalanceChangedEvent.getGood().getItemId());
+                    parameters.put("balance", goodBalanceChangedEvent.getBalance());
+                    parameters.put("amountAdded", goodBalanceChangedEvent.getAmountAdded());
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    @Subscribe
+    public void onGoodEquipped(final GoodEquippedEvent goodEquippedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onGoodEquipped");
+                    parameters.put("itemId", goodEquippedEvent.getGood().getItemId());
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    @Subscribe
+    public void onGoodUnequipped(final GoodUnEquippedEvent goodUnEquippedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onGoodUnEquipped");
+                    parameters.put("itemId", goodUnEquippedEvent.getGood().getItemId());
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    @Subscribe
+    public void onGoodUpgrade(final GoodUpgradeEvent goodUpgradeEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onGoodUpgrade");
+                    parameters.put("itemId", goodUpgradeEvent.getGood().getItemId());
+                    parameters.put("vguItemId", goodUpgradeEvent.getCurrentUpgrade().getItemId());
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    @Subscribe
+    public void onItemPurchased(final ItemPurchasedEvent itemPurchasedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onItemPurchased");
+                    parameters.put("itemId", itemPurchasedEvent.getPurchasableVirtualItem().getItemId());
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    @Subscribe
+    public void onItemPurchaseStarted(final ItemPurchaseStartedEvent itemPurchaseStartedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onItemPurchaseStarted");
+                    parameters.put("itemId", itemPurchaseStartedEvent.getPurchasableVirtualItem().getItemId());
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
             }
         });
     }
@@ -137,7 +215,14 @@ public class EventHandlerBridge {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                playPurchaseCancelled(playPurchaseCancelledEvent.getPurchasableVirtualItem().getItemId());
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onMarketPurchaseCancelled");
+                    parameters.put("itemId", playPurchaseCancelledEvent.getPurchasableVirtualItem().getItemId());
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
             }
         });
     }
@@ -147,7 +232,14 @@ public class EventHandlerBridge {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                playPurchase(playPurchaseEvent.getPurchasableVirtualItem().getItemId());
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onMarketPurchase");
+                    parameters.put("itemId", playPurchaseEvent.getPurchasableVirtualItem().getItemId());
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
             }
         });
     }
@@ -157,7 +249,14 @@ public class EventHandlerBridge {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                playPurchaseStarted(playPurchaseStartedEvent.getPurchasableVirtualItem().getItemId());
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onMarketPurchaseStarted");
+                    parameters.put("itemId", playPurchaseStartedEvent.getPurchasableVirtualItem().getItemId());
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
             }
         });
     }
@@ -167,7 +266,14 @@ public class EventHandlerBridge {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                playRefund(playRefundEvent.getPurchasableVirtualItem().getItemId());
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onMarketRefund");
+                    parameters.put("itemId", playRefundEvent.getPurchasableVirtualItem().getItemId());
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
             }
         });
     }
@@ -177,7 +283,14 @@ public class EventHandlerBridge {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                restoreTransactions(restoreTransactionsEvent.isSuccess());
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onMarketPurchaseStarted");
+                    parameters.put("success", restoreTransactionsEvent.isSuccess());
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
             }
         });
     }
@@ -187,7 +300,13 @@ public class EventHandlerBridge {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                restoreTransactionsStarted();
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onItemPurchased");
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
             }
         });
     }
@@ -197,33 +316,14 @@ public class EventHandlerBridge {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
-                unexpectedErrorInStore();
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onUnexpectedErrorInStore");
+                    AndroidNDKHelper.sendMessageWithParameters(SOOMLA_EASY_NDK_CALL_BACK, parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
             }
         });
     }
-
-
-
-
-
-    native void billingSupported();
-    native void billingNotSupported();
-    native void closingStore();
-    native void currencyBalanceChanged(String itemId, int balance, int amountAdded);
-    native void goodBalanceChanged(String itemId, int balance, int amountAdded);
-    native void goodEquipped(String itemId);
-    native void goodUnequipped(String itemId);
-    native void goodUpgrade(String itemId, String upgradeItemId);
-    native void itemPurchased(String itemId);
-    native void itemPurchaseStarted(String itemId);
-    native void openingStore();
-    native void playPurchaseCancelled(String itemId);
-    native void playPurchase(String itemId);
-    native void playPurchaseStarted(String itemId);
-    native void playRefund(String itemId);
-    native void restoreTransactions(boolean success);
-    native void restoreTransactionsStarted();
-    native void unexpectedErrorInStore();
-
-
 }

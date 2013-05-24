@@ -19,13 +19,13 @@ private :
     SEL_CallFuncO sel;
     string name;
     string groupName;
-    CCNode *target;
+    CCObject *target;
 public :
-    NDKCallbackData(char const *groupName, char const *name, CCNode *target, SEL_CallFuncO sel);
+    NDKCallbackData(char const *groupName, char const *name, CCObject *target, SEL_CallFuncO sel);
     string getName();
     string getGroup();
     SEL_CallFuncO getSelector();
-    CCNode* getTarget();
+    CCObject * getTarget();
 };
 
 #endif /* defined(__EasyNDK_for_cocos2dx__NDKCallbackNode__) */

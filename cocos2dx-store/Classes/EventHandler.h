@@ -18,30 +18,48 @@
 #define __EventHandler__
 
 #include <string>
-#include "StoreBridge/cocos2dx_EventHandlers.h"
+#include "CCEventHandler.h"
 
 using namespace std;
 
-class EventHandler : public IEventHandler {
+class EventHandler : public soomla::CCEventHandler {
 public:
-    void billingSupported();
-    void billingNotSupported();
-	void closingStore();
-	void currencyBalanceChanged(string &itemId, int balance, int amountAdded);
-	void goodBalanceChanged(string &itemId, int balance, int amountAdded);
-    void goodEquipped(string& itemId);
-    void goodUnequipped(string& itemId);
-    void goodUpgrade(string& itemId, string& upgradeItemId);
-	void itemPurchased(string& itemId);
-	void itemPurchaseStarted();
-    void openingStore();
-	void marketPurchaseCancelled(string& itemId);
-    void marketPurchase(string& itemId);
-    void marketPurchaseStarted(string& itemId);
-    void marketRefund(string& itemId);
-    void restoreTransactions(bool success);
-	void restoreTransactionsStarted();
-    void unexpectedErrorInStore();
+
+    virtual void onBillingNotSupported();
+
+    virtual void onBillingSupported();
+
+    virtual void onOpeningStore();
+
+    virtual void onClosingStore();
+
+    virtual void onCurrencyBalanceChanged(soomla::CCVirtualCurrency *virtualCurrency, int balance, int amountAdded);
+
+    virtual void onGoodBalanceChanged(soomla::CCVirtualGood *virtualGood, int balance, int amountAdded);
+
+    virtual void onGoodEquipped(soomla::CCEquippableVG *equippableVG);
+
+    virtual void onGoodUnEquipped(soomla::CCEquippableVG *equippableVG);
+
+    virtual void onGoodUpgrade(soomla::CCVirtualGood *virtualGood, soomla::CCUpgradeVG *upgradeVG);
+
+    virtual void onItemPurchased(soomla::CCPurchasableVirtualItem *purchasableVirtualItem);
+
+    virtual void onItemPurchaseStarted(soomla::CCPurchasableVirtualItem *purchasableVirtualItem);
+
+    virtual void onMarketPurchaseCancelled(soomla::CCPurchasableVirtualItem *purchasableVirtualItem);
+
+    virtual void onMarketPurchase(soomla::CCPurchasableVirtualItem *purchasableVirtualItem);
+
+    virtual void onMarketPurchaseStarted(soomla::CCPurchasableVirtualItem *purchasableVirtualItem);
+
+    virtual void onMarketRefund(soomla::CCPurchasableVirtualItem *purchasableVirtualItem);
+
+    virtual void onRestoreTransactions(bool success);
+
+    virtual void onRestoreTransactionsStarted();
+
+    virtual void onUnexpectedErrorInStore();
 };
 
 #endif

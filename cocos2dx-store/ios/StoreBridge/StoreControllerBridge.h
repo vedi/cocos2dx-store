@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 
-#ifndef __cocos2dx_store__VirtualItemNotFoundException__
-#define __cocos2dx_store__VirtualItemNotFoundException__
+#ifndef __StoreControllerBridge__
+#define __StoreControllerBridge__
 
-#include <iostream>
-#include <exception>
+#include <string>
 
 using namespace std;
 
-class cocos2dx_VirtualItemNotFoundException : public exception {
-    
+class StoreControllerBridge {
+
 public:
-    
-    virtual const char* what() const throw() {
-        return "The requested virtual item was not found !";
-    }
+    static void storeOpening();
+    static void storeClosing();
+	static void buyMarketItem(NSString *productId);
+	static void restoreTransactions();
+	static bool transactionsAlreadyRestored();
+    static void setSoomSec(string soomSec);
 };
 
-#endif
+#endif /* defined(__StoreControllerBridge__) */

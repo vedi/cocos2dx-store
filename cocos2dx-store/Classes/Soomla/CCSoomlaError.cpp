@@ -4,11 +4,29 @@
 
 
 #include "CCSoomlaError.h"
-#include "CCStoreUtils.h"
+
+USING_NS_CC;
 
 namespace soomla {
+    #define JSON_ERROR_CODE "errorCode"
+
     #define TAG "CCSoomlaError"
-    
+
+    CCSoomlaError *CCSoomlaError::createWithObject(cocos2d::CCObject *obj) {
+        CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
+        if (dict != NULL && dict->objectForKey(JSON_ERROR_CODE) != NULL) {
+            CCInteger *errorCode = dynamic_cast<CCInteger *>(dict->objectForKey(JSON_ERROR_CODE));
+            CC_ASSERT(errorCode);
+
+            CCSoomlaError *ret = new CCSoomlaError();
+            ret->autorelease();
+            ret->init(errorCode->getValue());
+            return ret;
+        } else {
+            return NULL;
+        }
+    }
+
     CCSoomlaError *CCSoomlaError::createVirtualItemNotFoundException() {
         CCSoomlaError *ret = new CCSoomlaError();
         ret->autorelease();
@@ -34,18 +52,19 @@ namespace soomla {
         mCode = code;
 
         if (code == SOOMLA_EXCEPTION_ITEM_NOT_FOUND) {
-            CCStoreUtils::logDebug(TAG, "SOOMLA/UNITY Got VirtualItemNotFoundException exception");
+            CCLog("%s %s", TAG, "SOOMLA/COCOS2DX Got VirtualItemNotFoundException exception");
             mInfo = "VirtualItemNotFoundException()";
         }
-
-        if (code == SOOMLA_EXCEPTION_INSUFFICIENT_FUNDS) {
-            CCStoreUtils::logDebug(TAG, "SOOMLA/UNITY Got InsufficientFundsException exception");
+        else if (code == SOOMLA_EXCEPTION_INSUFFICIENT_FUNDS) {
+            CCLog("%s %s", TAG, "SOOMLA/COCOS2DX Got InsufficientFundsException exception");
             mInfo = "InsufficientFundsException()";
         }
-
-        if (code == SOOMLA_EXCEPTION_NOT_ENOUGH_GOODS) {
-            CCStoreUtils::logDebug(TAG, "SOOMLA/UNITY Got NotEnoughGoodsException exception");
+        else if (code == SOOMLA_EXCEPTION_NOT_ENOUGH_GOODS) {
+            CCLog("%s %s", TAG, "SOOMLA/COCOS2DX Got NotEnoughGoodsException exception");
             mInfo = "NotEnoughGoodsException()";
+        } else {
+            CC_ASSERT(false);
+            return false;
         }
 
         return true;

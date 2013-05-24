@@ -16,7 +16,7 @@
 
 #include "MainScene.h"
 #include "StoreAScene.h"
-#include "StoreBridge/cocos2dx_StoreController.h"
+#include "Soomla/CCStoreController.h"
 #include "EasyNDK/NDKHelper.h"
 
 USING_NS_CC;

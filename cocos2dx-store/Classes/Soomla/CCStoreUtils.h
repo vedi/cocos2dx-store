@@ -5,6 +5,8 @@
 #ifndef __CCStoreUtils_H_
 #define __CCStoreUtils_H_
 
+#include "CCSoomlaError.h"
+
 namespace soomla {
     #define SOOMLA_DEBUG true
 
@@ -12,6 +14,8 @@ namespace soomla {
     public:
         static void logDebug(const char *tag, const char *message);
         static void logError(const char *tag, const char *message);
+
+        static void logException(const char *tag, CCSoomlaError *error);
     };
 };
 

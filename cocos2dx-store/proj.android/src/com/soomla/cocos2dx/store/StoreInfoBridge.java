@@ -26,65 +26,6 @@ import java.util.List;
  */
 public class StoreInfoBridge {
 
-//    static String getVirtualItem(String itemId) throws VirtualItemNotFoundException{
-//        VirtualItem item = StoreInfo.getVirtualItem(itemId);
-//        return item.getItemId();
-//    }
-//
-//    static String getPurchasableItem(String productId) throws VirtualItemNotFoundException{
-//        PurchasableVirtualItem pvi = StoreInfo.getPurchasableItem(productId);
-//        return pvi.getItemId();
-//    }
-
-    public static String getGoodFirstUpgrade(String goodItemId) throws VirtualItemNotFoundException {
-        UpgradeVG vgu = StoreInfo.getGoodFirstUpgrade(goodItemId);
-        return vgu.getItemId();
-    }
-
-    public static String getGoodLastUpgrade(String goodItemId) throws VirtualItemNotFoundException {
-        UpgradeVG vgu = StoreInfo.getGoodLastUpgrade(goodItemId);
-        return vgu.getItemId();
-    }
-
-    public static String getItemProductId(String itemId) throws VirtualItemNotFoundException {
-        VirtualItem item = StoreInfo.getVirtualItem(itemId);
-        if (item instanceof PurchasableVirtualItem) {
-            PurchasableVirtualItem pvi = (PurchasableVirtualItem) item;
-            if (pvi.getPurchaseType() instanceof PurchaseWithMarket) {
-                PurchaseWithMarket pwm = (PurchaseWithMarket)pvi.getPurchaseType();
-                return pwm.getGoogleMarketItem().getProductId();
-            }
-        }
-        return "";
-    }
-
-    public static String getItemName(String itemId) throws VirtualItemNotFoundException {
-        VirtualItem item = StoreInfo.getVirtualItem(itemId);
-        return item.getName();
-    }
-
-    public static String getItemDescription(String itemId) throws VirtualItemNotFoundException {
-        VirtualItem item = StoreInfo.getVirtualItem(itemId);
-        return item.getDescription();
-    }
-
-    public static double getItemPrice(String itemId) throws VirtualItemNotFoundException {
-        VirtualItem item = StoreInfo.getVirtualItem(itemId);
-        if (item instanceof PurchasableVirtualItem) {
-            PurchasableVirtualItem pvi = (PurchasableVirtualItem) item;
-            if (pvi.getPurchaseType() instanceof PurchaseWithMarket) {
-                PurchaseWithMarket pwm = (PurchaseWithMarket)pvi.getPurchaseType();
-                return pwm.getGoogleMarketItem().getPrice();
-            }
-
-            if (pvi.getPurchaseType() instanceof PurchaseWithVirtualItem) {
-                PurchaseWithVirtualItem pwvi = (PurchaseWithVirtualItem)pvi.getPurchaseType();
-                return pwvi.getAmount();
-            }
-        }
-        return -1;
-    }
-
     public static JSONObject getItemByItemId(String itemId) throws VirtualItemNotFoundException {
         VirtualItem virtualItem = StoreInfo.getVirtualItem(itemId);
 
@@ -93,7 +34,6 @@ public class StoreInfoBridge {
             jsonObject.put("item", virtualItem.toJSONObject());
             jsonObject.put("className", virtualItem.getClass().getSimpleName());
         } catch (JSONException e) {
-            //   TODO: Implement error handling
             throw new IllegalStateException(e);
         }
 

@@ -1,0 +1,278 @@
+//
+// Created by Fedor Shubin on 5/24/13.
+//
+
+#import "SoomlaEasyNDKGlue.h"
+#import "StoreControllerBridge.h"
+#import "StoreAssetsBridge.h"
+#import "StoreController.h"
+#import "StoreInventoryBridge.h"
+#import "StoreInfoBridge.h"
+#import "VirtualItemNotFoundException.h"
+#import "InsufficientFundsException.h"
+#import "EventHandling.h"
+#import "VirtualCurrency.h"
+#import "VirtualGood.h"
+#import "EquippableVG.h"
+#import "UpgradeVG.h"
+#import "IOSNDKHelper.h"
+
+static StoreAssetsBridge *storeAssets = nil;
+
+@implementation SoomlaEasyNDKGlue {
+}
+
++ (NSObject *)dispatchNDKCall:(NSDictionary *)parameters {
+    NSString *methodName = [parameters objectForKey:@"method"];
+
+    NSMutableDictionary *retParameters = [NSMutableDictionary dictionary];
+
+    @try {
+        if ([methodName isEqualToString:@"CCStoreAssets::init"]) {
+            NSNumber *version = (NSNumber *) [parameters objectForKey:@"version"];
+            NSDictionary *storeAssetsDict = (NSDictionary *) [parameters objectForKey:@"storeAssets"];
+            storeAssets = [[StoreAssetsBridge alloc] initWithStoreAssetsDict:storeAssetsDict andVersion:version.intValue];
+        }
+        else if ([methodName isEqualToString:@"CCStoreController::init"]) {
+            NSString *customSecret = (NSString *) [parameters objectForKey:@"customSecret"];
+
+            [[StoreController getInstance] initializeWithStoreAssets:storeAssets
+                                                     andCustomSecret:customSecret];
+            // TODO: Implement event dispatcher: storeEventDispatcher = [[UnityStoreEventDispatcher alloc] init];
+        }
+        else if ([methodName isEqualToString:@"CCStoreController::buyMarketItem"]) {
+            NSString *productId = (NSString *) [parameters objectForKey:@"productId"];
+            StoreControllerBridge::buyMarketItem(productId);
+        }
+        else if ([methodName isEqualToString:@"CCStoreController::storeOpening"]) {
+            StoreControllerBridge::storeOpening();
+        }
+        else if ([methodName isEqualToString:@"CCStoreController::storeClosing"]) {
+            StoreControllerBridge::storeClosing();
+        }
+        else if ([methodName isEqualToString:@"CCStoreController::restoreTransactions"]) {
+            StoreControllerBridge::restoreTransactions();
+        }
+        else if ([methodName isEqualToString:@"CCStoreController::transactionsAlreadyRestored"]) {
+            bool res = StoreControllerBridge::transactionsAlreadyRestored();
+            [retParameters setObject:[NSNumber numberWithBool:res] forKey:@"return"];
+        }
+        else if ([methodName isEqualToString:@"CCStoreController::setSoomSec"]) {
+            NSString *soomSec = (NSString *) [parameters objectForKey:@"soomSec"];
+            StoreControllerBridge::setSoomSec([soomSec UTF8String]);
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::buyItem"]) {
+            NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
+            StoreInventoryBridge::buy([itemId UTF8String]);
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::getItemBalance"]) {
+            NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
+            int res = StoreInventoryBridge::getItemBalance([itemId UTF8String]);
+            [retParameters setObject:[NSNumber numberWithInt:res] forKey:@"return"];
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::giveItem"]) {
+            NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
+            NSNumber *amount = (NSNumber *) [parameters objectForKey:@"amount"];
+            StoreInventoryBridge::giveItem([itemId UTF8String], [amount intValue]);
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::takeItem"]) {
+            NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
+            NSNumber *amount = (NSNumber *) [parameters objectForKey:@"amount"];
+            StoreInventoryBridge::takeItem([itemId UTF8String], [amount intValue]);
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::equipVirtualGood"]) {
+            NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
+            StoreInventoryBridge::equipVirtualGood([itemId UTF8String]);
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::unEquipVirtualGood"]) {
+            NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
+            StoreInventoryBridge::unEquipVirtualGood([itemId UTF8String]);
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::isVirtualGoodEquipped"]) {
+            NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
+            bool res = StoreInventoryBridge::isVirtualGoodEquipped([itemId UTF8String]);
+            [retParameters setObject:[NSNumber numberWithBool:res] forKey:@"return"];
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::getGoodUpgradeLevel"]) {
+            NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
+            int res = StoreInventoryBridge::getGoodUpgradeLevel([goodItemId UTF8String]);
+            [retParameters setObject:[NSNumber numberWithInt:res] forKey:@"return"];
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::getGoodCurrentUpgrade"]) {
+            NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
+            string res = StoreInventoryBridge::getGoodCurrentUpgrade([goodItemId UTF8String]);
+            [retParameters setObject:[NSString stringWithCString:res.c_str() encoding:NSUTF8StringEncoding] forKey:@"return"];
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::upgradeGood"]) {
+            NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
+            StoreInventoryBridge::upgradeVirtualGood([goodItemId UTF8String]);
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::removeGoodUpgrades"]) {
+            NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
+            StoreInventoryBridge::removeUpgrades([goodItemId UTF8String]);
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::nonConsumableItemExists"]) {
+            NSString *nonConsItemId = (NSString *) [parameters objectForKey:@"nonConsItemId"];
+            bool res = StoreInventoryBridge::nonConsumableItemExists([nonConsItemId UTF8String]);
+            [retParameters setObject:[NSNumber numberWithBool:res] forKey:@"return"];
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::addNonConsumableItem"]) {
+            NSString *nonConsItemId = (NSString *) [parameters objectForKey:@"nonConsItemId"];
+            StoreInventoryBridge::addNonConsumableItem([nonConsItemId UTF8String]);
+        }
+        else if ([methodName isEqualToString:@"CCStoreInventory::removeNonConsumableItem"]) {
+            NSString *nonConsItemId = (NSString *) [parameters objectForKey:@"nonConsItemId"];
+            StoreInventoryBridge::removeNonConsumableItem([nonConsItemId UTF8String]);
+        }
+        else if ([methodName isEqualToString:@"StoreInfo::getItemByItemId"]) {
+            NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
+            NSDictionary *retObj = StoreInfoBridge::getItemByItemId(itemId);
+            [retParameters setObject: retObj forKey: @"return"];
+        }
+        else if ([methodName isEqualToString:@"StoreInfo::getPurchasableItemWithProductId"]) {
+            NSString *productId = (NSString *) [parameters objectForKey:@"productId"];
+            NSDictionary *retObj = StoreInfoBridge::getPurchasableItemWithProductId(productId);
+            [retParameters setObject: retObj forKey: @"return"];
+        }
+        else if ([methodName isEqualToString:@"StoreInfo::getCategoryForVirtualGood"]) {
+            NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
+            NSDictionary *retObj = StoreInfoBridge::getCategoryForVirtualGood(goodItemId);
+            [retParameters setObject: retObj forKey: @"return"];
+        }
+        else if ([methodName isEqualToString:@"StoreInfo::getFirstUpgradeForVirtualGood"]) {
+            NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
+            NSDictionary *retObj = StoreInfoBridge::getFirstUpgradeForVirtualGood(goodItemId);
+            [retParameters setObject: retObj forKey: @"return"];
+        }
+        else if ([methodName isEqualToString:@"StoreInfo::getLastUpgradeForVirtualGood"]) {
+            NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
+            NSDictionary *retObj = StoreInfoBridge::getLastUpgradeForVirtualGood(goodItemId);
+            [retParameters setObject: retObj forKey: @"return"];
+        }
+        else if ([methodName isEqualToString:@"StoreInfo::getUpgradesForVirtualGood"]) {
+            NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
+            NSArray *retObj = StoreInfoBridge::getUpgradesForVirtualGood(goodItemId);
+            [retParameters setObject: retObj forKey: @"return"];
+        }
+        else if ([methodName isEqualToString:@"StoreInfo::getVirtualCurrencies"]) {
+            NSArray *retObj = StoreInfoBridge::getVirtualCurrencies();
+            [retParameters setObject: retObj forKey: @"return"];
+        }
+        else if ([methodName isEqualToString:@"StoreInfo::getVirtualGoods"]) {
+            NSArray *retObj = StoreInfoBridge::getVirtualGoods();
+            [retParameters setObject: retObj forKey: @"return"];
+        }
+        else if ([methodName isEqualToString:@"StoreInfo::getVirtualCurrencyPacks"]) {
+            NSArray *retObj = StoreInfoBridge::getVirtualCurrencyPacks();
+            [retParameters setObject: retObj forKey: @"return"];
+        }
+        else if ([methodName isEqualToString:@"StoreInfo::getNonConsumableItems"]) {
+            NSArray *retObj = StoreInfoBridge::getNonConsumableItems();
+            [retParameters setObject: retObj forKey: @"return"];
+        }
+        else if ([methodName isEqualToString:@"StoreInfo::getVirtualCategories"]) {
+            NSArray *retObj = StoreInfoBridge::getVirtualCategories();
+            [retParameters setObject: retObj forKey: @"return"];
+        }
+        else {
+
+        }
+    }
+    @catch (VirtualItemNotFoundException* e) {
+        [retParameters setObject: [NSNumber numberWithInt: -1] forKey: @"errorCode"];
+    }
+    @catch (InsufficientFundsException* e) {
+        [retParameters setObject: [NSNumber numberWithInt: -2] forKey: @"errorCode"];
+    }
+    return retParameters;
+}
+
++ (void)dispatchNDKCallback:(NSNotification*)notification {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if ([notification.name isEqualToString:EVENT_BILLING_NOT_SUPPORTED]) {
+        [parameters setObject:@"CCEventHandler::onBillingNotSupported" forKey:@"method"];
+    }
+    else if ([notification.name isEqualToString:EVENT_BILLING_SUPPORTED]) {
+        [parameters setObject:@"CCEventHandler::onBillingSupported" forKey:@"method"];
+    }
+    else if ([notification.name isEqualToString:EVENT_OPENING_STORE]) {
+        [parameters setObject:@"CCEventHandler::onOpeningStore" forKey:@"method"];
+    }
+    else if ([notification.name isEqualToString:EVENT_CLOSING_STORE]) {
+        [parameters setObject:@"CCEventHandler::onClosingStore" forKey:@"method"];
+    }
+    else if ([notification.name isEqualToString:EVENT_CURRENCY_BALANCE_CHANGED]) {
+        [parameters setObject:@"CCEventHandler::onCurrencyBalanceChanged" forKey:@"method"];
+        [parameters setObject:[(VirtualCurrency*)[notification.userInfo objectForKey:DICT_ELEMENT_CURRENCY] itemId] forKey:@"itemId"];
+        [parameters setObject:(NSNumber*)[notification.userInfo objectForKey:DICT_ELEMENT_BALANCE] forKey:@"balance"];
+        [parameters setObject:(NSNumber*)[notification.userInfo objectForKey:DICT_ELEMENT_AMOUNT_ADDED] forKey:@"amountAdded"];
+    }
+    else if ([notification.name isEqualToString:EVENT_GOOD_BALANCE_CHANGED]) {
+        [parameters setObject:@"CCEventHandler::onGoodBalanceChanged" forKey:@"method"];
+        [parameters setObject:[(VirtualGood*)[notification.userInfo objectForKey:DICT_ELEMENT_GOOD] itemId] forKey:@"itemId"];
+        [parameters setObject:(NSNumber*)[notification.userInfo objectForKey:DICT_ELEMENT_BALANCE] forKey:@"balance"];
+        [parameters setObject:(NSNumber*)[notification.userInfo objectForKey:DICT_ELEMENT_AMOUNT_ADDED] forKey:@"amountAdded"];
+    }
+    else if ([notification.name isEqualToString:EVENT_GOOD_EQUIPPED]) {
+        EquippableVG* good = (EquippableVG*)[notification.userInfo objectForKey:DICT_ELEMENT_EquippableVG];
+        [parameters setObject:@"CCEventHandler::onGoodEquipped" forKey:@"method"];
+        [parameters setObject:[good itemId] forKey:@"itemId"];
+    }
+    else if ([notification.name isEqualToString:EVENT_GOOD_UNEQUIPPED]) {
+        EquippableVG* good = (EquippableVG*)[notification.userInfo objectForKey:DICT_ELEMENT_EquippableVG];
+        [parameters setObject:@"CCEventHandler::onGoodUnEquipped" forKey:@"method"];
+        [parameters setObject:[good itemId] forKey:@"itemId"];
+    }
+    else if ([notification.name isEqualToString:EVENT_GOOD_UPGRADE]) {
+        VirtualGood* good = (VirtualGood*)[notification.userInfo objectForKey:DICT_ELEMENT_GOOD];
+        UpgradeVG* vgu = (UpgradeVG*)[notification.userInfo objectForKey:DICT_ELEMENT_UpgradeVG];
+        [parameters setObject:@"CCEventHandler::onGoodUpgrade" forKey:@"method"];
+        [parameters setObject:[good itemId] forKey:@"itemId"];
+        [parameters setObject:[vgu itemId] forKey:@"vguItemId"];
+    }
+    else if ([notification.name isEqualToString:EVENT_ITEM_PURCHASED]) {
+        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        [parameters setObject:@"CCEventHandler::onItemPurchased" forKey:@"method"];
+        [parameters setObject:[pvi itemId] forKey:@"itemId"];
+    }
+    else if ([notification.name isEqualToString:EVENT_ITEM_PURCHASE_STARTED]) {
+        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        [parameters setObject:@"CCEventHandler::onItemPurchaseStarted" forKey:@"method"];
+        [parameters setObject:[pvi itemId] forKey:@"itemId"];
+    }
+    else if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASE_CANCELLED]) {
+        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        [parameters setObject:@"CCEventHandler::onMarketPurchaseCancelled" forKey:@"method"];
+        [parameters setObject:[pvi itemId] forKey:@"itemId"];
+    }
+    else if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASED]) {
+        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        [parameters setObject:@"CCEventHandler::onMarketPurchase" forKey:@"method"];
+        [parameters setObject:[pvi itemId] forKey:@"itemId"];
+    }
+    else if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASE_STARTED]) {
+        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        [parameters setObject:@"CCEventHandler::onMarketPurchaseStarted" forKey:@"method"];
+        [parameters setObject:[pvi itemId] forKey:@"itemId"];
+    }
+//    TODO: Clarify: EVENT_APPSTORE_REFUND
+//    else if ([notification.name isEqualToString:EVENT_APPSTORE_REFUND]) {
+//        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+//        [parameters setObject:@"CCEventHandler::onMarketRefund" forKey:@"method"];
+//        [parameters setObject:[pvi itemId] forKey:@"itemId"];
+//    }
+    else if ([notification.name isEqualToString:EVENT_TRANSACTION_RESTORED]) {
+        BOOL success = [(NSNumber*)[notification.userInfo objectForKey:DICT_ELEMENT_SUCCESS] boolValue];
+        [parameters setObject:@"CCEventHandler::onRestoreTransactions" forKey:@"method"];
+        [parameters setObject: [NSNumber numberWithBool: success] forKey:@"success"];
+    }
+    else if ([notification.name isEqualToString:EVENT_TRANSACTION_RESTORE_STARTED]) {
+        [parameters setObject:@"CCEventHandler::onItemPurchased" forKey:@"method"];
+    }
+    else if ([notification.name isEqualToString:EVENT_UNEXPECTED_ERROR_IN_STORE]) {
+        [parameters setObject:@"CCEventHandler::onUnexpectedErrorInStore" forKey:@"method"];
+    }
+    [IOSNDKHelper sendMessage:@"soomla_easyNDKCallBack" withParameters:parameters];
+}
+
+@end

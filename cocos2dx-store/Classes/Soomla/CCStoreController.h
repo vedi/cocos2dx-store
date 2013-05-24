@@ -7,17 +7,20 @@
 
 #include "cocos2d.h"
 #include "CCIStoreAssets.h"
+#include "CCSoomlaError.h"
 
 namespace soomla {
     class CCStoreController: public cocos2d::CCObject {
     public:
         static CCStoreController* sharedStoreController();
 
+        static void createShared(CCIStoreAssets *storeAssets);
+
         CCStoreController(void);
         virtual ~CCStoreController(void);
         virtual bool init(CCIStoreAssets *storeAssets);
 
-        void buyMarketItem(char const *productId);
+        void buyMarketItem(char const *productId, CCSoomlaError **soomlaError);
         void storeOpening();
         void storeClosing();
         void restoreTransactions();

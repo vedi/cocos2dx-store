@@ -8,7 +8,7 @@
 
 #include "NDKCallbackData.h"
 
-NDKCallbackData::NDKCallbackData(char const *groupName, char const *name, CCNode *target, SEL_CallFuncO sel) {
+NDKCallbackData::NDKCallbackData(char const *groupName, char const *name, CCObject *target, SEL_CallFuncO sel) {
     this->groupName = groupName;
     this->name = name;
     this->target = target;
@@ -23,7 +23,7 @@ string NDKCallbackData::getGroup() {
     return this->groupName;
 }
 
-CCNode *NDKCallbackData::getTarget() {
+CCObject *NDKCallbackData::getTarget() {
     return this->target;
 }
 

@@ -6,14 +6,19 @@
 #include "CCPurchaseWithMarket.h"
 
 namespace soomla {
-    CCPurchaseWithMarket *CCPurchaseWithMarket::create(CCMarketItem *marketItem) {
+    CCPurchaseWithMarket *CCPurchaseWithMarket::create(cocos2d::CCString *productId, cocos2d::CCDouble *price) {
+        return createWithMarketItem(CCMarketItem::create(
+                productId, cocos2d::CCInteger::create(CCMarketItem::CONSUMABLE), price));
+    }
+
+    CCPurchaseWithMarket *CCPurchaseWithMarket::createWithMarketItem(CCMarketItem *marketItem) {
         CCPurchaseWithMarket *ret = new CCPurchaseWithMarket();
         ret->autorelease();
-        ret->init(marketItem);
+        ret->initWithMarketItem(marketItem);
         return ret;
     }
 
-    bool CCPurchaseWithMarket::init(CCMarketItem *marketItem) {
+    bool CCPurchaseWithMarket::initWithMarketItem(CCMarketItem *marketItem) {
         bool res = CCPurchaseType::init();
         if (res) {
             setMarketItem(marketItem);

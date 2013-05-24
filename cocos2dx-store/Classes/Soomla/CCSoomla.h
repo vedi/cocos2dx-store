@@ -6,6 +6,7 @@
 #define __CCSoomla_H_
 
 #include "cocos2d.h"
+#include "CCEventHandler.h"
 
 namespace soomla {
 
@@ -19,6 +20,7 @@ namespace soomla {
         CC_SYNTHESIZE(string, mAndroidPublicKey, AndroidPublicKey);
         CC_SYNTHESIZE(bool, mAndroidTestMode, AndroidTestMode);
         CC_SYNTHESIZE(string, mSoomSec, SoomSec);
+        CC_SYNTHESIZE(CCEventHandler *, mEventHandler, EventHandler); // Week
     public:
         static CCSoomla* sharedSoomla();
 
@@ -26,12 +28,13 @@ namespace soomla {
             mCustomSecret(SOOMLA_ONLY_ONCE_DEFAULT),
             mAndroidPublicKey(SOOMLA_AND_PUB_KEY_DEFAULT),
             mAndroidTestMode(false),
-            mSoomSec(SOOMLA_ONLY_ONCE_DEFAULT)
+            mSoomSec(SOOMLA_ONLY_ONCE_DEFAULT),
+            mEventHandler(NULL)
         {};
         virtual ~CCSoomla(void);
         virtual bool init(void);
 
-        // TODO: Add methods
+        void easyNDKCallBack(cocos2d::CCDictionary *parameters);
     };
 };
 

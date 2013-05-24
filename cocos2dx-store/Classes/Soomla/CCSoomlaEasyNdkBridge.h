@@ -6,11 +6,12 @@
 #define __CCSoomlaEasyNdkBridge_H_
 
 #include "cocos2d.h"
+#include "CCSoomlaError.h"
 
 namespace soomla {
     class CCSoomlaEasyNdkBridge {
     public:
-        static cocos2d::CCObject *callNative(cocos2d::CCDictionary *params);
+        static cocos2d::CCObject *callNative(cocos2d::CCDictionary *params, CCSoomlaError **pError);
     };
 };
 

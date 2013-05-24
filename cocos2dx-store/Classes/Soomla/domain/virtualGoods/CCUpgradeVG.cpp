@@ -3,7 +3,7 @@
 //
 
 
-#include "CCUpgradeVGX.h"
+#include "CCUpgradeVG.h"
 
 USING_NS_CC;
 

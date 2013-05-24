@@ -16,6 +16,8 @@ namespace soomla {
     class CCSoomlaError: public cocos2d::CCObject {
         CC_SYNTHESIZE_READONLY(int, mCode, Code);
     public:
+        static CCSoomlaError *createWithObject(CCObject *obj);
+
         static CCSoomlaError *createVirtualItemNotFoundException();
         static CCSoomlaError *createInsufficientFundsException();
         static CCSoomlaError *createNotEnoughGoodsException();

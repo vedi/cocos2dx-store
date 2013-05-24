@@ -67,7 +67,6 @@ json_t * IOSNDKHelperImpl::receiveCPPMessage(json_t *methodName, json_t *methodP
         free(jsonStrLocal);
         
         NSData *jsonData = [methodParamsJson dataUsingEncoding:NSUTF8StringEncoding];
-        [methodParamsJson release];
 
         //parse out the json data
         NSError* error = nil;
@@ -75,11 +74,12 @@ json_t * IOSNDKHelperImpl::receiveCPPMessage(json_t *methodName, json_t *methodP
                               JSONObjectWithData:jsonData
                               options:kNilOptions
                               error:&error];
-        
+
+        [methodParamsJson release];
         // If parameters are available call the respective selector with parameters
         if (error == nil)
         {
-            NSDictionary* retParams = [receiver performSelector:selectorToBeCalled withObject:json];
+            NSObject* retParams = [receiver performSelector:selectorToBeCalled withObject:json];
 
             NSError *error = nil;
             NSData *jsonData = [NSJSONSerialization

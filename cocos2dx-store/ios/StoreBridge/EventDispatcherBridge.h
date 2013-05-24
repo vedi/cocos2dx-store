@@ -1,5 +1,5 @@
 //
-//  cocos2dx_EventDispatcher.h
+//  EventDispatcherBridge.h
 //  Trying
 //
 //  Created by Refael Dakar on 12/03/13.
@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface cocos2dx_EventDispatcher : NSObject
+@interface EventDispatcherBridge : NSObject
 
 + (void)initialize;
 
