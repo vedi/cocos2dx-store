@@ -48,8 +48,8 @@ public class StoreAssetsBridge implements IStoreAssets {
             }
             this.currencyPacks = currencyPacks.toArray(new VirtualCurrencyPack[currencyPacks.size()]);
 
-
             JSONObject goodsDict = jsonObject.getJSONObject(JSONConsts.STORE_GOODS);
+
             JSONArray suGoods = goodsDict.getJSONArray(JSONConsts.STORE_GOODS_SU);
             JSONArray ltGoods = goodsDict.getJSONArray(JSONConsts.STORE_GOODS_LT);
             JSONArray eqGoods = goodsDict.getJSONArray(JSONConsts.STORE_GOODS_EQ);

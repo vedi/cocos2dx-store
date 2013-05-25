@@ -8,6 +8,7 @@
 #include "Soomla/domain/virtualCurrencies/CCVirtualCurrency.h"
 #include "Soomla/domain/virtualCurrencies/CCVirtualCurrencyPack.h"
 #include "Soomla/domain/virtualGoods/CCVirtualGood.h"
+#include "Soomla/domain/virtualGoods/CCSingleUseVG.h"
 #include "Soomla/PurchaseTypes/CCPurchaseWithMarket.h"
 #include "Soomla/PurchaseTypes/CCPurchaseWithVirtualItem.h"
 #include "Soomla/domain/CCVirtualCategory.h"
@@ -86,7 +87,7 @@ bool MuffinRushAssets::init() {
 
     /** Virtual Goods **/
 
-    CCVirtualGood *muffincakeGood = CCVirtualGood::create(
+    CCVirtualGood *muffincakeGood = CCSingleUseVG::create(
             CCString::create("Fruit Cake"),                                       // name
             CCString::create("Customers buy a double portion on each purchase of this cake"), // description
             CCString::create("fruit_cake"),                                       // item id
@@ -95,7 +96,7 @@ bool MuffinRushAssets::init() {
             ) // the way this virtual good is purchased
     );
 
-    CCVirtualGood *pavlovaGood = CCVirtualGood::create(
+    CCVirtualGood *pavlovaGood = CCSingleUseVG::create(
             CCString::create("Pavlova"),                                       // name
             CCString::create("Gives customers a sugar rush and they call their friends"), // description
             CCString::create("pavlova"),                                       // item id
@@ -104,7 +105,7 @@ bool MuffinRushAssets::init() {
             ) // the way this virtual good is purchased
     );
 
-    CCVirtualGood *choclatecakeGood = CCVirtualGood::create(
+    CCVirtualGood *choclatecakeGood = CCSingleUseVG::create(
             CCString::create("Chocolate Cake"),                                       // name
             CCString::create("A classic cake to maximize customer satisfaction"), // description
             CCString::create("chocolate_cake"),                                       // item id
@@ -113,7 +114,7 @@ bool MuffinRushAssets::init() {
             ) // the way this virtual good is purchased
     );
 
-    CCVirtualGood *creamcupGood = CCVirtualGood::create(
+    CCVirtualGood *creamcupGood = CCSingleUseVG::create(
             CCString::create("Cream Cup"),                                       // name
             CCString::create("Increase bakery reputation with this original pastry"), // description
             CCString::create("cream_cup"),                                       // item id

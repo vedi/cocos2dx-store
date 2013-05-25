@@ -163,45 +163,51 @@ void StoreAScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visi
             menu_selector(StoreAScene::menuChooseCallback));
 
     string itemId = itemIdFromTag(tag);
+    std::string name;
+    std::string info;
+    int price;
 
     CCSoomlaError *soomlaError = NULL;
     CCVirtualItem *virtualItem = CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId.c_str(), &soomlaError);
-    if (soomlaError) {
-        CCStoreUtils::logException("StoreAScene::createListViewItem", soomlaError);
-        return;
-    }
-    CC_ASSERT(virtualItem);
-    string nameS = virtualItem->getName()->getCString();
-    string infoS = virtualItem->getDescription()->getCString();
-    CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(virtualItem);
-    CC_ASSERT(purchasableVirtualItem);
-    CCPurchaseWithVirtualItem *purchaseWithVirtualItem = dynamic_cast<CCPurchaseWithVirtualItem *>(purchasableVirtualItem->getPurchaseType());
-    CC_ASSERT(purchaseWithVirtualItem);
-    int price = purchaseWithVirtualItem->getAmount()->getValue();
-    pChooseItem->setUserObject(purchasableVirtualItem);
+    if (!soomlaError) {
+        CC_ASSERT(virtualItem);
+        string nameS = virtualItem->getName()->getCString();
+        string infoS = virtualItem->getDescription()->getCString();
+        CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(virtualItem);
+        CC_ASSERT(purchasableVirtualItem);
 
-    int balance = 0;
-    const char * name = nameS.c_str();
-    const char * info = infoS.c_str();
+        CCPurchaseWithVirtualItem *purchaseWithVirtualItem = dynamic_cast<CCPurchaseWithVirtualItem *>(purchasableVirtualItem->getPurchaseType());
+        CC_ASSERT(purchaseWithVirtualItem);
+        price = purchaseWithVirtualItem->getAmount()->getValue();
+        pChooseItem->setUserObject(purchasableVirtualItem);
+
+        name = nameS.c_str();
+        info = infoS.c_str();
+    } else {
+        price = soomlaError->getCode();
+        name = soomlaError->getInfo();
+        info = soomlaError->getInfo();
+
+        CCStoreUtils::logException("StoreAScene::createListViewItem", soomlaError);
+    }
 
     float yOffset = - 200;
 
     pChooseItem->setPosition(ccp(origin.x + visibleSize.width/2, yOffset + origin.y + visibleSize.height - 100 - (tag * pChooseItem->boundingBox().size.height)));
     pChooseItem->setTag(tag);
 
-
     CCSprite* pSpritePic = CCSprite::create(img);
     pSpritePic->setPosition(ccp(pSpritePic->boundingBox().size.width/2 + 20, pChooseItem->boundingBox().size.height/2));
     pChooseItem->addChild(pSpritePic, 0);
 
 
-    CCLabelTTF* pLabelName = CCLabelTTF::create(name, "GoodDog.otf", 44);
+    CCLabelTTF* pLabelName = CCLabelTTF::create(name.c_str(), "GoodDog.otf", 44);
     pLabelName->setColor(ccc3(0,0,0));
     pLabelName->setPosition(ccp(pSpritePic->getPositionX() + (pSpritePic->boundingBox().size.width / 2) + (pLabelName->boundingBox().size.width / 2) + 20 , pChooseItem->boundingBox().size.height/2));
     pChooseItem->addChild(pLabelName);
 
 
-    CCLabelTTF* pLabelInfo = CCLabelTTF::create(info, "GoodDog.otf", 20);
+    CCLabelTTF* pLabelInfo = CCLabelTTF::create(info.c_str(), "GoodDog.otf", 20);
     pLabelInfo->setColor(ccc3(50,50,50));
     pLabelInfo->setPosition(ccp(pSpritePic->getPositionX() + (pSpritePic->boundingBox().size.width / 2) + (pLabelInfo->boundingBox().size.width / 2) + 20 , -50 + (pChooseItem->boundingBox().size.height/2)));
     pChooseItem->addChild(pLabelInfo);
@@ -214,7 +220,7 @@ void StoreAScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visi
 
     char buffer[512];
 
-    snprintf(buffer, sizeof(buffer), "price: %d blanace: %d",  price, balance);
+    snprintf(buffer, sizeof(buffer), "price: %d",  price);
 
     goodsPriceBalanceLabels[tag] = CCLabelTTF::create(buffer, "GoodDog.otf", 24);
     goodsPriceBalanceLabels[tag]->setColor(ccc3(0,255,255));

@@ -3,6 +3,7 @@ package com.easyndk.classes;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -110,6 +111,7 @@ public class AndroidNDKHelper
                         } else {
                             JSONObject retParamsJson =
                                     (JSONObject) m.invoke(AndroidNDKHelper.callHandler, methodParams);
+                            Log.v("retParamsJson", "retParamsJson: " + retParamsJson.toString());
                             return retParamsJson.toString();
                         }
 					}
@@ -123,13 +125,15 @@ public class AndroidNDKHelper
                     } catch (IllegalAccessException e) {
                         throw new IllegalStateException(e);
                     }
+                } else {
+                    throw new IllegalArgumentException("Wrong JSON structure");
                 }
 			}
 			catch (JSONException e) {
                 throw new IllegalStateException(e);
 			}
-		}
-
-        return null;
+		} else {
+            return null;
+        }
 	}
 }
