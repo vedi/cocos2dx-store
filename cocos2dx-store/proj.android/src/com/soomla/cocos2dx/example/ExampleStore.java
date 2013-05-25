@@ -46,6 +46,7 @@ public class ExampleStore extends Cocos2dxActivity{
         super.onCreate(savedInstanceState);
 
         AndroidNDKHelper.setNDKReceiver(this);
+        StoreControllerBridge.setActivity(this);
 
         if (detectOpenGLES20()) {
             // get the packageName,it's used to set the resource path

@@ -19,7 +19,6 @@ public class StoreControllerBridge {
     private static IStoreAssets mStoreAssets   = null;
     private static String mPublicKey           = "";
     private static EventHandlerBridge mEventHandler = null;
-    private static StoreAssetsBridge stormStoreAssets;
 
     public static void initialize(Cocos2dxGLSurfaceView mGLView,
                                   IStoreAssets storeAssets,
@@ -31,6 +30,10 @@ public class StoreControllerBridge {
 
 
         mEventHandler = new EventHandlerBridge(mGLView);
+    }
+
+    public static void setActivity(Activity activity) {
+        mActivity = activity;
     }
 
     public static void initialize(String customSecret) {
@@ -74,7 +77,7 @@ public class StoreControllerBridge {
     }
 
     public static void setStoreAssetsBridge(StoreAssetsBridge storeAssetsBridge) {
-        StoreControllerBridge.stormStoreAssets = storeAssetsBridge;
+        StoreControllerBridge.mStoreAssets = storeAssetsBridge;
     }
 
     public static void setSoomSec(String soomSec) {

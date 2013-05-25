@@ -113,23 +113,20 @@ public class AndroidNDKHelper
                             return retParamsJson.toString();
                         }
 					}
-					catch (NoSuchMethodException e)
-					{
-						e.printStackTrace();
+					catch (NoSuchMethodException e) {
+                        throw new IllegalStateException(e);
 					}
-					catch (IllegalArgumentException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					catch (IllegalArgumentException e) {
+                        throw new IllegalStateException(e);
 					} catch (InvocationTargetException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        throw new IllegalStateException(e);
                     } catch (IllegalAccessException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        throw new IllegalStateException(e);
                     }
                 }
 			}
 			catch (JSONException e) {
-				e.printStackTrace();
+                throw new IllegalStateException(e);
 			}
 		}
 
