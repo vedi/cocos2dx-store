@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 #include "../SoomlaMacros.h"
-#include "SoomlaJSONConsts.h"
+#include "../data/SoomlaJSONConsts.h"
 
 namespace soomla {
     

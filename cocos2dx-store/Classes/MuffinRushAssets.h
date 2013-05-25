@@ -7,8 +7,8 @@
 #ifndef __MuffinRushAssets_H_
 #define __MuffinRushAssets_H_
 
-#include "CCIStoreAssets.h"
-#import "cocos2d.h"
+#include "Soomla/CCIStoreAssets.h"
+#include "cocos2d.h"
 
 class MuffinRushAssets: public soomla::CCIStoreAssets {
     cocos2d::CCArray *mCurrencies;

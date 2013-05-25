@@ -7,7 +7,7 @@
 #ifndef __VirtualGoodX_H_
 #define __VirtualGoodX_H_
 
-#include "CCPurchasableVirtualItem.h"
+#include "../CCPurchasableVirtualItem.h"
 
 namespace soomla {
     class CCVirtualGood : public CCPurchasableVirtualItem {

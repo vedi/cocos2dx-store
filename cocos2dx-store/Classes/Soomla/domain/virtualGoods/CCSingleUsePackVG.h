@@ -6,7 +6,6 @@
 #define __SingleUsePackVGX_H_
 
 #include "CCVirtualGood.h"
-#include "SoomlaMacros.h"
 
 namespace soomla {
     class CCSingleUsePackVG : public CCVirtualGood {

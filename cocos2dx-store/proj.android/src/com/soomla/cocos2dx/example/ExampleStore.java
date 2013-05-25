@@ -86,13 +86,6 @@ public class ExampleStore extends Cocos2dxActivity{
             Log.d("activity", "don't support gles2.0");
             finish();
         }
-
-        /**
-         * initialize the StoreControllerBridge
-         * You'll need to provide an implementation of IStoreAssets and your public key from Google Play.
-         */
-        StoreControllerBridge.initialize(mGLView,
-                new MuffinRushAssets(), "AAA", this);
     }
 
     protected void onPause() {

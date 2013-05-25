@@ -4,14 +4,14 @@
 
 
 #include "MuffinRushAssets.h"
-#include "CCVirtualCurrency.h"
-#include "CCVirtualCurrencyPack.h"
-#include "CCPurchaseWithMarket.h"
-#include "CCVirtualGood.h"
-#include "CCSingleUseVG.h"
-#include "CCPurchaseWithVirtualItem.h"
-#include "CCVirtualCategory.h"
-#include "CCNonConsumableItem.h"
+
+#include "Soomla/domain/virtualCurrencies/CCVirtualCurrency.h"
+#include "Soomla/domain/virtualCurrencies/CCVirtualCurrencyPack.h"
+#include "Soomla/domain/virtualGoods/CCVirtualGood.h"
+#include "Soomla/PurchaseTypes/CCPurchaseWithMarket.h"
+#include "Soomla/PurchaseTypes/CCPurchaseWithVirtualItem.h"
+#include "Soomla/domain/CCVirtualCategory.h"
+#include "Soomla/domain/CCNonConsumableItem.h"
 
 USING_NS_CC;
 using namespace soomla;

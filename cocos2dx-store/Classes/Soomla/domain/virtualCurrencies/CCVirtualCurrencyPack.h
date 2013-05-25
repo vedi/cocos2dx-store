@@ -7,8 +7,8 @@
 #ifndef __VirtualCurrencyPackX_H_
 #define __VirtualCurrencyPackX_H_
 
-#include "SoomlaMacros.h"
-#include "CCPurchasableVirtualItem.h"
+#include "../../SoomlaMacros.h"
+#include "../CCPurchasableVirtualItem.h"
 
 namespace soomla {
     class CCVirtualCurrencyPack : public CCPurchasableVirtualItem {

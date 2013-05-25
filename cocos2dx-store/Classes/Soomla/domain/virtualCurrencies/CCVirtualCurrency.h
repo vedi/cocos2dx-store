@@ -9,7 +9,7 @@
 #ifndef __cocos2dx_store__VirtualCurrencyX__
 #define __cocos2dx_store__VirtualCurrencyX__
 
-#include "CCVirtualItem.h"
+#include "../CCVirtualItem.h"
 
 namespace soomla {
     

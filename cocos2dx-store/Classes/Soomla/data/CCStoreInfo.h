@@ -7,11 +7,11 @@
 #define __CCStoreInfo_H_
 
 #include "cocos2d.h"
-#include "CCSoomlaError.h"
-#include "CCIStoreAssets.h"
-#include "CCVirtualItem.h"
-#include "CCUpgradeVG.h"
-#include "CCVirtualCategory.h"
+#include "../CCSoomlaError.h"
+#include "../CCIStoreAssets.h"
+#include "../domain/CCVirtualItem.h"
+#include "../domain/virtualGoods/CCUpgradeVG.h"
+#include "../domain/CCVirtualCategory.h"
 
 namespace soomla {
     class CCStoreInfo: cocos2d::CCObject {

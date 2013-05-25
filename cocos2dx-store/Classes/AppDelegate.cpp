@@ -16,10 +16,9 @@
 
 #include "AppDelegate.h"
 #include "MainScene.h"
-#include "CCEventHandler.h"
-#include "CCStoreController.h"
-#include "CCSoomla.h"
-#import "MuffinRushAssets.h"
+#include "Soomla/CCStoreController.h"
+#include "Soomla/CCSoomla.h"
+#include "MuffinRushAssets.h"
 
 USING_NS_CC;
 using namespace soomla;

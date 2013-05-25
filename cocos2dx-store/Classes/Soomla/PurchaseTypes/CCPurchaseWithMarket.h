@@ -8,7 +8,7 @@
 #define __PurchaseWithMarketX_H_
 
 #include "CCPurchaseType.h"
-#include "CCMarketItem.h"
+#include "../domain/CCMarketItem.h"
 
 namespace soomla {
     class CCPurchaseWithMarket : public CCPurchaseType {

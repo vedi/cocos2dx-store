@@ -17,7 +17,7 @@
 #include "EventHandler.h"
 #include "StoreAScene.h"
 #include "StoreBScene.h"
-#include "CCStoreUtils.h"
+#include "Soomla/CCStoreUtils.h"
 
 void EventHandler::onBillingNotSupported() {
 

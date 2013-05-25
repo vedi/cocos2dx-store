@@ -18,10 +18,10 @@
 #define __CCEventHandler__
 
 #include <string>
-#include "CCVirtualCurrency.h"
-#include "CCVirtualGood.h"
-#include "CCEquippableVG.h"
-#include "CCUpgradeVG.h"
+#include "./domain/virtualCurrencies/CCVirtualCurrency.h"
+#include "./domain/virtualGoods/CCVirtualGood.h"
+#include "./domain/virtualGoods/CCEquippableVG.h"
+#include "./domain/virtualGoods/CCUpgradeVG.h"
 
 using namespace std;
 namespace soomla {

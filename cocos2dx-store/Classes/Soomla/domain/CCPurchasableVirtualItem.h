@@ -10,7 +10,7 @@
 #define __cocos2dx_store__PurchasableVirtualItem__
 
 #include "CCVirtualItem.h"
-#include "CCPurchaseType.h"
+#include "../PurchaseTypes/CCPurchaseType.h"
 
 namespace soomla {
     

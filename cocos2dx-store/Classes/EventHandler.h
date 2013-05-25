@@ -18,7 +18,7 @@
 #define __EventHandler__
 
 #include <string>
-#include "CCEventHandler.h"
+#include "Soomla/CCEventHandler.h"
 
 using namespace std;
 

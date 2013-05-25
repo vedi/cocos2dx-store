@@ -280,14 +280,14 @@ extern "C"
             free(jsonStrLocal);
             
             jstring stringArg1 = t.env->NewStringUTF(jsonStr.c_str());
-            jstring retString = (jstring) t.env->CallStaticVoidMethod(t.classID, t.methodID, stringArg1, (jboolean)async);
+            jstring retString = (jstring) t.env->CallStaticObjectMethod(t.classID, t.methodID, stringArg1, (jboolean)async);
 
             t.env->DeleteLocalRef(stringArg1);
 			t.env->DeleteLocalRef(t.classID);
 
-		    const char *nativeString = env->GetStringUTFChars(retString, 0);
+		    const char *nativeString = t.env->GetStringUTFChars(retString, 0);
 		    string retParamsStr(nativeString);
-		    env->ReleaseStringUTFChars(retString, nativeString);
+		    t.env->ReleaseStringUTFChars(retString, nativeString);
 
 
             const char *jsonCharArray = retParamsStr.c_str();

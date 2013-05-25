@@ -8,9 +8,8 @@
 #define __MarketItemX_H_
 
 #include "cocos2d.h"
-#include "SoomlaMacros.h"
-#include "SoomlaJSONConsts.h"
-
+#include "../SoomlaMacros.h"
+#include "../data/SoomlaJSONConsts.h"
 
 namespace soomla {
     class CCMarketItem : public cocos2d::CCObject {

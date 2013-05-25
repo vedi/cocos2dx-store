@@ -7,7 +7,6 @@
 
 
 #include "CCLifetimeVG.h"
-#include "SoomlaMacros.h"
 
 namespace soomla {
     class CCEquippableVG : public CCLifetimeVG {

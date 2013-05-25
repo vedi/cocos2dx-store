@@ -7,9 +7,9 @@
 //
 
 #include "CCPurchasableVirtualItem.h"
-#include "CCPurchaseWithVirtualItem.h"
-#include "CCPurchaseWithMarket.h"
-#include "CCMarketItem.h"
+
+#include "../PurchaseTypes/CCPurchaseWithVirtualItem.h"
+#include "../PurchaseTypes/CCPurchaseWithMarket.h"
 
 namespace soomla {
     

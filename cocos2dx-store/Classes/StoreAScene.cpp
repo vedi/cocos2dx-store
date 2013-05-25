@@ -18,13 +18,13 @@
 #include "GameMenuItem.h"
 #include "MainScene.h"
 #include "StoreBScene.h"
-#include "CCPurchaseWithMarket.h"
-#include "CCStoreController.h"
-#include "CCPurchasableVirtualItem.h"
-#include "CCStoreInventory.h"
-#include "CCStoreUtils.h"
-#include "CCStoreInfo.h"
-#include "CCPurchaseWithVirtualItem.h"
+#include "Soomla/PurchaseTypes/CCPurchaseWithMarket.h"
+#include "Soomla/CCStoreController.h"
+#include "Soomla/domain/CCPurchasableVirtualItem.h"
+#include "Soomla/CCStoreInventory.h"
+#include "Soomla/CCStoreUtils.h"
+#include "Soomla/data/CCStoreInfo.h"
+#include "Soomla/PurchaseTypes/CCPurchaseWithVirtualItem.h"
 
 USING_NS_CC;
 using namespace soomla;

@@ -4,16 +4,15 @@
 
 
 #include "CCStoreInfo.h"
-#include "CCSingleUseVG.h"
-#include "CCEquippableVG.h"
-#include "CCSingleUsePackVG.h"
-#include "CCUpgradeVG.h"
-#include "CCSoomlaEasyNdkBridge.h"
-#include "CCStoreUtils.h"
-#include "CCVirtualCurrency.h"
-#include "CCVirtualCurrencyPack.h"
-#include "CCNonConsumableItem.h"
-#include "CCMarketItem.h"
+#include "../domain/virtualGoods/CCSingleUseVG.h"
+#include "../domain/virtualGoods/CCEquippableVG.h"
+#include "../domain/virtualGoods/CCSingleUsePackVG.h"
+#include "../CCSoomlaEasyNdkBridge.h"
+#include "../CCStoreUtils.h"
+#include "../domain/virtualCurrencies/CCVirtualCurrency.h"
+#include "../domain/virtualCurrencies/CCVirtualCurrencyPack.h"
+#include "../domain/CCNonConsumableItem.h"
+#include "../domain/CCMarketItem.h"
 
 namespace soomla {
 

@@ -18,12 +18,11 @@
 #include "GameMenuItem.h"
 #include "StoreAScene.h"
 
-#include <sstream>
-#include "CCStoreController.h"
-#include "CCStoreUtils.h"
-#include "CCStoreInventory.h"
-#include "CCStoreInfo.h"
-#include "CCPurchaseWithMarket.h"
+#include "Soomla/CCStoreController.h"
+#include "Soomla/CCStoreUtils.h"
+#include "Soomla/CCStoreInventory.h"
+#include "Soomla/data/CCStoreInfo.h"
+#include "Soomla/PurchaseTypes/CCPurchaseWithMarket.h"
 
 /**
  * This is the second scene (the window where the VirtualCurrencyPacks are shown).

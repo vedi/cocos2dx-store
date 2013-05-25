@@ -8,7 +8,7 @@
 #define __UpgradeVGX_H_
 
 #include "CCVirtualGood.h"
-#include "SoomlaMacros.h"
+#include "../../SoomlaMacros.h"
 
 namespace soomla {
     class CCUpgradeVG : public CCVirtualGood {

@@ -4,9 +4,8 @@
 
 
 #include "CCSoomla.h"
-#include "NDKHelper.h"
-#include "CCStoreInfo.h"
-#include "CCSoomlaError.h"
+#include "../EasyNDK/NDKHelper.h"
+#include "data/CCStoreInfo.h"
 #include "CCStoreUtils.h"
 
 namespace soomla {
