@@ -24,6 +24,7 @@
 #include "CCStoreInventory.h"
 #include "CCStoreUtils.h"
 #include "CCStoreInfo.h"
+#include "CCPurchaseWithVirtualItem.h"
 
 USING_NS_CC;
 using namespace soomla;
@@ -140,17 +141,15 @@ void StoreAScene::menuGetMoreCallback(CCObject* pSender)
     CCDirector::sharedDirector()->replaceScene(transition);
 }
 
-
 void StoreAScene::menuChooseCallback(CCObject* pSender)
 {
-    if (pSender)
-    {
+    if (pSender) {
         GameMenuItem* item = (GameMenuItem*)pSender;
 
-        int tag = item->getTag();
-        string itemId = itemIdFromTag(tag);
         CCSoomlaError *soomlaError = NULL;
-        CCStoreController::sharedStoreController()->buyMarketItem(itemId.c_str(), &soomlaError);
+        CCPurchasableVirtualItem *purchasableVirtualItem = (CCPurchasableVirtualItem *)item->getUserObject();
+        CCStoreInventory::sharedStoreInventory()->buyItem(
+                purchasableVirtualItem->getItemId()->getCString(), &soomlaError);
         if (soomlaError) {
             CCStoreUtils::logException("StoreAScene::menuChooseCallback", soomlaError);
         }
@@ -176,9 +175,10 @@ void StoreAScene::createListViewItem(CCPoint& origin, CCMenu* menu, CCSize& visi
     string infoS = virtualItem->getDescription()->getCString();
     CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(virtualItem);
     CC_ASSERT(purchasableVirtualItem);
-    CCPurchaseWithMarket *purchaseWithMarket = dynamic_cast<CCPurchaseWithMarket *>(purchasableVirtualItem->getPurchaseType());
-    CC_ASSERT(purchaseWithMarket);
-    double price = purchaseWithMarket->getMarketItem()->getPrice()->getValue();
+    CCPurchaseWithVirtualItem *purchaseWithVirtualItem = dynamic_cast<CCPurchaseWithVirtualItem *>(purchasableVirtualItem->getPurchaseType());
+    CC_ASSERT(purchaseWithVirtualItem);
+    int price = purchaseWithVirtualItem->getAmount()->getValue();
+    pChooseItem->setUserObject(purchasableVirtualItem);
 
     int balance = 0;
     const char * name = nameS.c_str();
@@ -276,32 +276,23 @@ int StoreAScene::tagFromItemId(const char* itemId) {
 
 string StoreAScene::itemIdFromTag(int tag) {
     string ret;
-    switch (tag)
-    {
+    switch (tag) {
         case 0:
             ret = "fruit_cake";
             return ret;
-            break;
         case 1:
             ret = "pavlova";
             return ret;
-            break;
         case 2:
             ret = "cream_cup";
             return ret;
-            break;
         case 3:
             ret = "chocolate_cake";
             return ret;
-            break;
         default:
             ret = "ERROR";
             return ret;
-            break;
     }
-
-    ret = "ERROR";
-    return ret;
 }
 
 

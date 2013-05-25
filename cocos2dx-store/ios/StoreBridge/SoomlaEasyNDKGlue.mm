@@ -124,58 +124,58 @@ static StoreAssetsBridge *storeAssets = nil;
             NSString *nonConsItemId = (NSString *) [parameters objectForKey:@"nonConsItemId"];
             StoreInventoryBridge::removeNonConsumableItem([nonConsItemId UTF8String]);
         }
-        else if ([methodName isEqualToString:@"StoreInfo::getItemByItemId"]) {
+        else if ([methodName isEqualToString:@"CCStoreInfo::getItemByItemId"]) {
             NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
             NSDictionary *retObj = StoreInfoBridge::getItemByItemId(itemId);
             [retParameters setObject: retObj forKey: @"return"];
         }
-        else if ([methodName isEqualToString:@"StoreInfo::getPurchasableItemWithProductId"]) {
+        else if ([methodName isEqualToString:@"CCStoreInfo::getPurchasableItemWithProductId"]) {
             NSString *productId = (NSString *) [parameters objectForKey:@"productId"];
             NSDictionary *retObj = StoreInfoBridge::getPurchasableItemWithProductId(productId);
             [retParameters setObject: retObj forKey: @"return"];
         }
-        else if ([methodName isEqualToString:@"StoreInfo::getCategoryForVirtualGood"]) {
+        else if ([methodName isEqualToString:@"CCStoreInfo::getCategoryForVirtualGood"]) {
             NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
             NSDictionary *retObj = StoreInfoBridge::getCategoryForVirtualGood(goodItemId);
             [retParameters setObject: retObj forKey: @"return"];
         }
-        else if ([methodName isEqualToString:@"StoreInfo::getFirstUpgradeForVirtualGood"]) {
+        else if ([methodName isEqualToString:@"CCStoreInfo::getFirstUpgradeForVirtualGood"]) {
             NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
             NSDictionary *retObj = StoreInfoBridge::getFirstUpgradeForVirtualGood(goodItemId);
             [retParameters setObject: retObj forKey: @"return"];
         }
-        else if ([methodName isEqualToString:@"StoreInfo::getLastUpgradeForVirtualGood"]) {
+        else if ([methodName isEqualToString:@"CCStoreInfo::getLastUpgradeForVirtualGood"]) {
             NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
             NSDictionary *retObj = StoreInfoBridge::getLastUpgradeForVirtualGood(goodItemId);
             [retParameters setObject: retObj forKey: @"return"];
         }
-        else if ([methodName isEqualToString:@"StoreInfo::getUpgradesForVirtualGood"]) {
+        else if ([methodName isEqualToString:@"CCStoreInfo::getUpgradesForVirtualGood"]) {
             NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
             NSArray *retObj = StoreInfoBridge::getUpgradesForVirtualGood(goodItemId);
             [retParameters setObject: retObj forKey: @"return"];
         }
-        else if ([methodName isEqualToString:@"StoreInfo::getVirtualCurrencies"]) {
+        else if ([methodName isEqualToString:@"CCStoreInfo::getVirtualCurrencies"]) {
             NSArray *retObj = StoreInfoBridge::getVirtualCurrencies();
             [retParameters setObject: retObj forKey: @"return"];
         }
-        else if ([methodName isEqualToString:@"StoreInfo::getVirtualGoods"]) {
+        else if ([methodName isEqualToString:@"CCStoreInfo::getVirtualGoods"]) {
             NSArray *retObj = StoreInfoBridge::getVirtualGoods();
             [retParameters setObject: retObj forKey: @"return"];
         }
-        else if ([methodName isEqualToString:@"StoreInfo::getVirtualCurrencyPacks"]) {
+        else if ([methodName isEqualToString:@"CCStoreInfo::getVirtualCurrencyPacks"]) {
             NSArray *retObj = StoreInfoBridge::getVirtualCurrencyPacks();
             [retParameters setObject: retObj forKey: @"return"];
         }
-        else if ([methodName isEqualToString:@"StoreInfo::getNonConsumableItems"]) {
+        else if ([methodName isEqualToString:@"CCStoreInfo::getNonConsumableItems"]) {
             NSArray *retObj = StoreInfoBridge::getNonConsumableItems();
             [retParameters setObject: retObj forKey: @"return"];
         }
-        else if ([methodName isEqualToString:@"StoreInfo::getVirtualCategories"]) {
+        else if ([methodName isEqualToString:@"CCStoreInfo::getVirtualCategories"]) {
             NSArray *retObj = StoreInfoBridge::getVirtualCategories();
             [retParameters setObject: retObj forKey: @"return"];
         }
         else {
-
+            NSLog(@"Unsupported method %@", methodName);
         }
     }
     @catch (VirtualItemNotFoundException* e) {

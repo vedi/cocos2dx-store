@@ -13,10 +13,16 @@
 #include "CCVirtualCurrency.h"
 #include "CCVirtualCurrencyPack.h"
 #include "CCNonConsumableItem.h"
+#include "CCMarketItem.h"
 
 namespace soomla {
 
     #define TAG "SOOMLA StoreInfo"
+
+    #define SAFE_CREATE(__T__, __ret__, __retParams__) \
+        CCObject *_tempVi = createWithRetParams(__retParams__);\
+        __T__ __ret__ = dynamic_cast<__T__>(_tempVi); \
+        CC_ASSERT(__ret__);
 
     USING_NS_CC;
 
@@ -43,7 +49,7 @@ namespace soomla {
             CCArray *currencies = storeAssets->getCurrencies();
             CCObject *obj;
             CCARRAY_FOREACH(currencies, obj) {
-                    currenciesJSON->addObject(((CCVirtualCategory *)obj)->toDictionary());
+                    currenciesJSON->addObject(((CCVirtualCurrency *)obj)->toDictionary());
                 }
         }
 
@@ -53,7 +59,7 @@ namespace soomla {
             CCArray *packs = storeAssets->getCurrencyPacks();
             CCObject *obj;
             CCARRAY_FOREACH(packs, obj) {
-                    packsJSON->addObject(((CCVirtualCategory *)obj)->toDictionary());
+                    packsJSON->addObject(((CCVirtualCurrencyPack *)obj)->toDictionary());
                 }
         }
 
@@ -133,8 +139,9 @@ namespace soomla {
         params->setObject(CCString::create("CCStoreInfo::getItemByItemId"), "method");
         params->setObject(CCString::create(itemId), "itemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
-        if (!soomlaError) {
-            return CCVirtualItem::createWithDictionary(retParams);
+        if (!*soomlaError) {
+            SAFE_CREATE(CCVirtualItem *, ret, retParams);
+            return ret;
         } else {
             return NULL;
         }
@@ -146,7 +153,8 @@ namespace soomla {
         params->setObject(CCString::create(productId), "productId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
         if (!soomlaError) {
-            return CCPurchasableVirtualItem::createWithDictionary(retParams);
+            SAFE_CREATE(CCPurchasableVirtualItem *, ret, retParams);
+            return ret;
         } else {
             return NULL;
         }
@@ -158,7 +166,8 @@ namespace soomla {
         params->setObject(CCString::create(goodItemId), "goodItemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
         if (!soomlaError) {
-            return CCVirtualCategory::createWithDictionary(retParams);
+            SAFE_CREATE(CCVirtualCategory *, ret, retParams);
+            return ret;
         } else {
             return NULL;
         }
@@ -169,7 +178,8 @@ namespace soomla {
         params->setObject(CCString::create("CCStoreInfo::getFirstUpgradeForVirtualGood"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, NULL);
-        return CCUpgradeVG::createWithDictionary(retParams);
+        SAFE_CREATE(CCUpgradeVG *, ret, retParams);
+        return ret;
     }
 
     CCUpgradeVG *CCStoreInfo::getLastUpgradeForVirtualGood(char const *goodItemId) {
@@ -177,7 +187,8 @@ namespace soomla {
         params->setObject(CCString::create("CCStoreInfo::getLastUpgradeForVirtualGood"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, NULL);
-        return CCUpgradeVG::createWithDictionary(retParams);
+        SAFE_CREATE(CCUpgradeVG *, ret, retParams);
+        return ret;
     }
 
     CCArray *CCStoreInfo::getUpgradesForVirtualGood(char const *goodItemId) {
@@ -192,7 +203,8 @@ namespace soomla {
         CCARRAY_FOREACH(retParams, obj) {
                 dict = dynamic_cast<CCDictionary *>(obj);
                 CC_ASSERT(dict);
-                retModels->addObject(CCUpgradeVG::createWithDictionary(dict));
+                SAFE_CREATE(CCUpgradeVG *, item, dict);
+                retModels->addObject(item);
             }
         return retModels;
     }
@@ -208,7 +220,8 @@ namespace soomla {
         CCARRAY_FOREACH(retParams, obj) {
                 dict = dynamic_cast<CCDictionary *>(obj);
                 CC_ASSERT(dict);
-                retModels->addObject(CCVirtualCurrency::createWithDictionary(dict));
+                SAFE_CREATE(CCVirtualCurrency *, item, dict);
+                retModels->addObject(item);
             }
         return retModels;
     }
@@ -224,7 +237,8 @@ namespace soomla {
         CCARRAY_FOREACH(retParams, obj) {
                 dict = dynamic_cast<CCDictionary *>(obj);
                 CC_ASSERT(dict);
-                retModels->addObject(CCVirtualGood::createWithDictionary(dict));
+                SAFE_CREATE(CCVirtualGood *, item, dict);
+                retModels->addObject(item);
             }
         return retModels;
     }
@@ -240,7 +254,8 @@ namespace soomla {
         CCARRAY_FOREACH(retParams, obj) {
                 dict = dynamic_cast<CCDictionary *>(obj);
                 CC_ASSERT(dict);
-                retModels->addObject(CCVirtualCurrencyPack::createWithDictionary(dict));
+                SAFE_CREATE(CCVirtualCurrencyPack *, item, dict);
+                retModels->addObject(item);
             }
         return retModels;
     }
@@ -256,7 +271,8 @@ namespace soomla {
         CCARRAY_FOREACH(retParams, obj) {
                 dict = dynamic_cast<CCDictionary *>(obj);
                 CC_ASSERT(dict);
-                retModels->addObject(CCNonConsumableItem::createWithDictionary(dict));
+                SAFE_CREATE(CCNonConsumableItem *, item, dict);
+                retModels->addObject(item);
             }
         return retModels;
     }
@@ -272,10 +288,63 @@ namespace soomla {
         CCARRAY_FOREACH(retParams, obj) {
                 dict = dynamic_cast<CCDictionary *>(obj);
                 CC_ASSERT(dict);
-                retModels->addObject(CCVirtualCategory::createWithDictionary(dict));
+                SAFE_CREATE(CCVirtualCategory *, item, dict);
+                retModels->addObject(item);
             }
         return retModels;
     }
+
+    CCObject *CCStoreInfo::createWithRetParams(CCDictionary *retParams) {
+        CCDictionary *retValue = dynamic_cast<CCDictionary *>(retParams->objectForKey("return"));
+        CC_ASSERT(retValue);
+        CCString *className = dynamic_cast<CCString *>(retValue->objectForKey("className"));
+        CCDictionary *item = dynamic_cast<CCDictionary *>(retValue->objectForKey("item"));
+        CC_ASSERT(item);
+        if (className->compare("VirtualItem") == 0) {
+            return CCVirtualItem::createWithDictionary(item);
+        }
+        else if (className->compare("MarketItem") == 0) {
+            return CCMarketItem::createWithDictionary(item);
+        }
+        else if (className->compare("NonConsumableItem") == 0) {
+            return CCNonConsumableItem::createWithDictionary(item);
+        }
+        else if (className->compare("PurchasableVirtualItem") == 0) {
+            return CCPurchasableVirtualItem::createWithDictionary(item);
+        }
+        else if (className->compare("VirtualCategory") == 0) {
+            return CCVirtualCategory::createWithDictionary(item);
+        }
+        else if (className->compare("VirtualCurrency") == 0) {
+            return CCVirtualCurrency::createWithDictionary(item);
+        }
+        else if (className->compare("VirtualCurrencyPack") == 0) {
+            return CCVirtualCurrencyPack::createWithDictionary(item);
+        }
+        else if (className->compare("EquippableVG") == 0) {
+            return CCEquippableVG::createWithDictionary(item);
+        }
+        else if (className->compare("LifetimeVG") == 0) {
+            return CCLifetimeVG::createWithDictionary(item);
+        }
+        else if (className->compare("SingleUsePackVG") == 0) {
+            return CCSingleUsePackVG::createWithDictionary(item);
+        }
+        else if (className->compare("SingleUseVG") == 0) {
+            return CCSingleUseVG::createWithDictionary(item);
+        }
+        else if (className->compare("UpgradeVG") == 0) {
+            return CCUpgradeVG::createWithDictionary(item);
+        }
+        else if (className->compare("VirtualGood") == 0) {
+            return CCVirtualGood::createWithDictionary(item);
+        } else {
+            CC_ASSERT(false);
+            return NULL;
+        }
+    }
+
+    #undef SAFE_CREATE
 
 }
 

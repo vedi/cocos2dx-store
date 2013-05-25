@@ -86,7 +86,7 @@ bool MuffinRushAssets::init() {
 
     /** Virtual Goods **/
 
-    CCVirtualGood *muffincakeGood = CCSingleUseVG::create(
+    CCVirtualGood *muffincakeGood = CCVirtualGood::create(
             CCString::create("Fruit Cake"),                                       // name
             CCString::create("Customers buy a double portion on each purchase of this cake"), // description
             CCString::create("fruit_cake"),                                       // item id
@@ -95,7 +95,7 @@ bool MuffinRushAssets::init() {
             ) // the way this virtual good is purchased
     );
 
-    CCVirtualGood *pavlovaGood = CCSingleUseVG::create(
+    CCVirtualGood *pavlovaGood = CCVirtualGood::create(
             CCString::create("Pavlova"),                                       // name
             CCString::create("Gives customers a sugar rush and they call their friends"), // description
             CCString::create("pavlova"),                                       // item id
@@ -104,7 +104,7 @@ bool MuffinRushAssets::init() {
             ) // the way this virtual good is purchased
     );
 
-    CCVirtualGood *choclatecakeGood = CCSingleUseVG::create(
+    CCVirtualGood *choclatecakeGood = CCVirtualGood::create(
             CCString::create("Chocolate Cake"),                                       // name
             CCString::create("A classic cake to maximize customer satisfaction"), // description
             CCString::create("chocolate_cake"),                                       // item id
@@ -113,7 +113,7 @@ bool MuffinRushAssets::init() {
             ) // the way this virtual good is purchased
     );
 
-    CCVirtualGood *creamcupGood = CCSingleUseVG::create(
+    CCVirtualGood *creamcupGood = CCVirtualGood::create(
             CCString::create("Cream Cup"),                                       // name
             CCString::create("Increase bakery reputation with this original pastry"), // description
             CCString::create("cream_cup"),                                       // item id

@@ -64,10 +64,10 @@ namespace soomla {
     }
 
     void CCPurchasableVirtualItem::fillPurchaseTypeFromDict(CCDictionary *dict) {
-        CCString* purchaseTypeStr = dynamic_cast<CCString *>(dict->objectForKey(JSON_PURCHASE_TYPE));
-        CCAssert(purchaseTypeStr == NULL, "invalid object type in dictionary");
         CCDictionary *purchasableDict = dynamic_cast<CCDictionary *>(dict->objectForKey(JSON_PURCHASABLE_ITEM));
         CC_ASSERT(purchasableDict);
+        CCString* purchaseTypeStr = dynamic_cast<CCString *>(purchasableDict->objectForKey(JSON_PURCHASE_TYPE));
+        CCAssert(purchaseTypeStr != NULL, "invalid object type in dictionary");
         if (purchaseTypeStr->compare(JSON_PURCHASE_TYPE_MARKET) == 0) {
             CCDictionary *marketItemDict = dynamic_cast<CCDictionary *>(purchasableDict->objectForKey(JSON_PURCHASE_MARKET_ITEM));
             CC_ASSERT(marketItemDict);
@@ -100,6 +100,8 @@ namespace soomla {
             purchasableObj->setObject(CCString::create(JSON_PURCHASE_TYPE_VI), JSON_PURCHASE_TYPE);
             purchasableObj->setObject(purchaseWithVirtualItem->getItemId(), JSON_PURCHASE_VI_ITEMID);
             purchasableObj->setObject(purchaseWithVirtualItem->getAmount(), JSON_PURCHASE_VI_AMOUNT);
+        } else {
+            CC_ASSERT(false);
         }
 
         dict->setObject(purchasableObj, JSON_PURCHASABLE_ITEM);

@@ -31,7 +31,8 @@ namespace soomla {
         cocos2d::CCArray *getVirtualCurrencyPacks();
         cocos2d::CCArray *getNonConsumableItems();
         cocos2d::CCArray *getVirtualCategories();
-
+    private:
+        CCObject *createWithRetParams(cocos2d::CCDictionary *retParams);
     };
 };
 
