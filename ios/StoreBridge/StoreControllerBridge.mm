@@ -19,7 +19,6 @@
 #import "VirtualItemNotFoundException.h"
 #import "InsufficientFundsException.h"
 #import "NotEnoughGoodsException.h"
-#import "MuffinRushAssets.h"
 #import "EventDispatcherBridge.h"
 #import "PurchasableVirtualItem.h"
 #import "StoreInfo.h"
