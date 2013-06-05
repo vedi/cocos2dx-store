@@ -7,7 +7,12 @@
 
 USING_NS_CC;
 
+#define EQUIPPING_MODEL_LOCAL "local"
+#define EQUIPPING_MODEL_CATEGORY "category"
+#define EQUIPPING_MODEL_GLOBAL "global"
+
 namespace soomla {
+
     CCEquippableVG *CCEquippableVG::create(CCInteger *equippingModel, CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
         CCEquippableVG *ret = new CCEquippableVG();
         ret->autorelease();
@@ -51,8 +56,47 @@ namespace soomla {
         return dict;
     }
 
+    void CCEquippableVG::fillEquippingModelFromDict(CCDictionary *dict) {
+        CCString*equippingModelStr = dynamic_cast<CCString *>(dict->objectForKey(JSON_EQUIPPABLE_EQUIPPING));
+        CCAssert(equippingModelStr != NULL, "invalid object type in dictionary");
+        if (equippingModelStr->compare(EQUIPPING_MODEL_LOCAL) == 0) {
+            setEquippingModel(CCInteger::create(kLocal));
+        }
+        else if (equippingModelStr->compare(EQUIPPING_MODEL_CATEGORY) == 0) {
+            setEquippingModel(CCInteger::create(kCategory));
+        }
+        else if (equippingModelStr->compare(EQUIPPING_MODEL_GLOBAL) == 0) {
+            setEquippingModel(CCInteger::create(kGlobal));
+        } else {
+            CC_ASSERT(false);
+        }
+    }
+
+    void CCEquippableVG::putEquippingModelToDict(CCDictionary *dict) {
+        EquippingModel equippingModel = (EquippingModel) getEquippingModel()->getValue();
+        CCString *strEquippingModel;
+        switch (equippingModel) {
+            case kLocal: {
+                strEquippingModel = CCString::create(EQUIPPING_MODEL_LOCAL);
+                break;
+            }
+            case kCategory: {
+                strEquippingModel = CCString::create(EQUIPPING_MODEL_CATEGORY);
+                break;
+            }
+            case kGlobal: {
+                strEquippingModel = CCString::create(EQUIPPING_MODEL_GLOBAL);
+                break;
+            }
+            default: {
+                CC_ASSERT(false);
+                strEquippingModel = CCString::create("ERROR");
+            }
+        }
+        dict->setObject(strEquippingModel, JSON_EQUIPPABLE_EQUIPPING);
+    }
+
     CCEquippableVG::~CCEquippableVG() {
         CC_SAFE_RELEASE(mEquippingModel);
     }
 }
-

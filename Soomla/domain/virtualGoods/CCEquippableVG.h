@@ -10,12 +10,14 @@
 
 namespace soomla {
     class CCEquippableVG : public CCLifetimeVG {
+    public:
         typedef enum {
             kLocal = 0,
             kCategory = 1,
             kGlobal = 2
         } EquippingModel;
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCInteger *, mEquippingModel, EquippingModel, JSON_EQUIPPABLE_EQUIPPING);
+
+        SL_SYNTHESIZE_RETAIN_WITH_DICT_DCL(cocos2d::CCInteger *, mEquippingModel, EquippingModel);
     public:
         CCEquippableVG(): CCLifetimeVG(), mEquippingModel(NULL) {};
         static CCEquippableVG *create(cocos2d::CCInteger *equippingModel, cocos2d::CCString* name, cocos2d::CCString* description,
