@@ -22,7 +22,7 @@
 #include "CCIStoreAssets.h"
 #include "CCIStoreAssets.h"
 #include "CCSoomla.h"
-#include "CCSoomlaEasyNdkBridge.h"
+#include "CCSoomlaNdkBridge.h"
 #include "CCSoomlaError.h"
 #include "CCStoreController.h"
 #include "CCStoreInventory.h"

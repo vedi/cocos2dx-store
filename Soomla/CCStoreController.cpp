@@ -5,7 +5,7 @@
 #include "CCStoreController.h"
 #include "CCSoomla.h"
 #include "CCStoreUtils.h"
-#include "CCSoomlaEasyNdkBridge.h"
+#include "CCSoomlaNdkBridge.h"
 #include "data/CCStoreInfo.h"
 #include "CCSoomlaError.h"
 
@@ -70,7 +70,7 @@ namespace soomla {
             CCDictionary *params = CCDictionary::create();
             params->setObject(CCString::create("CCStoreController::setSoomSec"), "method");
             params->setObject(CCString::create(soomla->getSoomSec()), "soomSec");
-            CCSoomlaEasyNdkBridge::callNative(params, NULL);
+            CCSoomlaNdkBridge::callNative(params, NULL);
         }
 
         CCStoreInfo::createShared(storeAssets);
@@ -80,14 +80,14 @@ namespace soomla {
             params->setObject(CCString::create("CCStoreController::init"), "method");
             params->setObject(CCString::create(CCSoomla::sharedSoomla()->getCustomSecret()), "customSecret");
             params->setObject(CCString::create(CCSoomla::sharedSoomla()->getAndroidPublicKey()), "androidPublicKey");
-            CCSoomlaEasyNdkBridge::callNative(params, NULL);
+            CCSoomlaNdkBridge::callNative(params, NULL);
         }
 
         {
             CCDictionary *params = CCDictionary::create();
             params->setObject(CCString::create("CCStoreController::setAndroidTestMode"), "method");
             params->setObject(CCBool::create(CCSoomla::sharedSoomla()->getAndroidTestMode()), "testMode");
-            CCSoomlaEasyNdkBridge::callNative(params, NULL);
+            CCSoomlaNdkBridge::callNative(params, NULL);
         }
 
         return true;
@@ -97,31 +97,31 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreController::buyMarketItem"), "method");
         params->setObject(CCString::create(productId), "productId");
-        CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 
     void CCStoreController::storeOpening() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreController::storeOpening"), "method");
-        CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCSoomlaNdkBridge::callNative(params, NULL);
     }
 
     void CCStoreController::storeClosing() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreController::storeClosing"), "method");
-        CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCSoomlaNdkBridge::callNative(params, NULL);
     }
 
     void CCStoreController::restoreTransactions() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreController::restoreTransactions"), "method");
-        CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCSoomlaNdkBridge::callNative(params, NULL);
     }
 
     bool CCStoreController::transactionsAlreadyRestored() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreController::transactionsAlreadyRestored"), "method");
-        CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, NULL);
         CCBool *retValue = (CCBool *) retParams->objectForKey("return");
         return retValue->getValue();
     }
@@ -130,6 +130,6 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreController::setAndroidTestMode"), "method");
         params->setObject(CCBool::create(testMode), "testMode");
-        CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCSoomlaNdkBridge::callNative(params, NULL);
     }
 }

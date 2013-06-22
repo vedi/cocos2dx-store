@@ -5,7 +5,7 @@
 
 #include "CCStoreInventory.h"
 #include "CCStoreUtils.h"
-#include "CCSoomlaEasyNdkBridge.h"
+#include "CCSoomlaNdkBridge.h"
 
 
 namespace soomla {
@@ -38,7 +38,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::buyItem"), "method");
         params->setObject(CCString::create(itemId), "itemId");
-        CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 
     int CCStoreInventory::getItemBalance(char const *itemId, CCSoomlaError **soomlaError) {
@@ -47,7 +47,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::getItemBalance"), "method");
         params->setObject(CCString::create(itemId), "itemId");
-        CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
 
         if (!*soomlaError) {
             CCInteger *retValue = (CCInteger *) retParams->objectForKey("return");
@@ -65,7 +65,7 @@ namespace soomla {
         params->setObject(CCString::create("CCStoreInventory::giveItem"), "method");
         params->setObject(CCString::create(itemId), "itemId");
         params->setObject(CCInteger::create(amount), "amount");
-        CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 
     void CCStoreInventory::takeItem(char const *itemId, int amount, CCSoomlaError **soomlaError) {
@@ -76,7 +76,7 @@ namespace soomla {
         params->setObject(CCString::create("CCStoreInventory::takeItem"), "method");
         params->setObject(CCString::create(itemId), "itemId");
         params->setObject(CCInteger::create(amount), "amount");
-        CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 
     void CCStoreInventory::equipVirtualGood(char const *itemId, CCSoomlaError **soomlaError) {
@@ -86,7 +86,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::equipVirtualGood"), "method");
         params->setObject(CCString::create(itemId), "itemId");
-        CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCSoomlaNdkBridge::callNative(params, soomlaError);
    }
 
     void CCStoreInventory::unEquipVirtualGood(char const *itemId, CCSoomlaError **soomlaError) {
@@ -96,7 +96,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::unEquipVirtualGood"), "method");
         params->setObject(CCString::create(itemId), "itemId");
-        CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 
     bool CCStoreInventory::isVirtualGoodEquipped(char const *itemId, CCSoomlaError **soomlaError) {
@@ -106,7 +106,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::isVirtualGoodEquipped"), "method");
         params->setObject(CCString::create(itemId), "itemId");
-        CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
         if (!*soomlaError) {
             CCBool *retValue = (CCBool *) retParams->objectForKey("return");
             return retValue->getValue();
@@ -121,7 +121,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::getGoodUpgradeLevel"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
-        CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
         if (!*soomlaError) {
             CCInteger *retValue = (CCInteger *) retParams->objectForKey("return");
             return retValue->getValue();
@@ -136,7 +136,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::getGoodCurrentUpgrade"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
-        CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
         if (!*soomlaError) {
             CCString *retValue = (CCString *) retParams->objectForKey("return");
             return retValue->getCString();
@@ -152,7 +152,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::upgradeGood"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
-        CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 
     void CCStoreInventory::removeGoodUpgrades(char const *goodItemId, CCSoomlaError **soomlaError) {
@@ -162,7 +162,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::removeGoodUpgrades"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
-        CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 
     bool CCStoreInventory::nonConsumableItemExists(char const *nonConsItemId, CCSoomlaError **soomlaError) {
@@ -172,7 +172,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::nonConsumableItemExists"), "method");
         params->setObject(CCString::create(nonConsItemId), "nonConsItemId");
-        CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
         if (!*soomlaError) {
             CCBool *retValue = (CCBool *) retParams->objectForKey("return");
             return retValue->getValue();
@@ -188,7 +188,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::addNonConsumableItem"), "method");
         params->setObject(CCString::create(nonConsItemId), "nonConsItemId");
-        CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCSoomlaNdkBridge::callNative(params, soomlaError);
    }
 
     void CCStoreInventory::removeNonConsumableItem(char const *nonConsItemId, CCSoomlaError **soomlaError) {
@@ -198,7 +198,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::removeNonConsumableItem"), "method");
         params->setObject(CCString::create(nonConsItemId), "nonConsItemId");
-        CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 
 }

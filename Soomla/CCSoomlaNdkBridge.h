@@ -2,18 +2,18 @@
 // Created by Fedor Shubin on 5/20/13.
 //
 
-#ifndef __CCSoomlaEasyNdkBridge_H_
-#define __CCSoomlaEasyNdkBridge_H_
+#ifndef __CCSoomlaNdkBridge_H_
+#define __CCSoomlaNdkBridge_H_
 
 #include "cocos2d.h"
 #include "CCSoomlaError.h"
 
 namespace soomla {
-    class CCSoomlaEasyNdkBridge {
+    class CCSoomlaNdkBridge {
     public:
         static cocos2d::CCObject *callNative(cocos2d::CCDictionary *params, CCSoomlaError **pError);
     };
 };
 
 
-#endif //__CCSoomlaEasyNdkBridge_H_
+#endif //__CCSoomlaNdkBridge_H_

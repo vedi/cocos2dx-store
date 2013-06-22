@@ -7,7 +7,7 @@
 #include "../domain/virtualGoods/CCSingleUseVG.h"
 #include "../domain/virtualGoods/CCEquippableVG.h"
 #include "../domain/virtualGoods/CCSingleUsePackVG.h"
-#include "../CCSoomlaEasyNdkBridge.h"
+#include "../CCSoomlaNdkBridge.h"
 #include "../CCStoreUtils.h"
 #include "../domain/virtualCurrencies/CCVirtualCurrency.h"
 #include "../domain/virtualCurrencies/CCVirtualCurrencyPack.h"
@@ -124,7 +124,7 @@ namespace soomla {
         params->setObject(CCString::create("CCStoreAssets::init"), "method");
         params->setObject(CCInteger::create(storeAssets->getVersion()), "version");
         params->setObject(storeAssetsObj, "storeAssets");
-        CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCSoomlaNdkBridge::callNative(params, NULL);
 
 
         return true;
@@ -137,7 +137,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getItemByItemId"), "method");
         params->setObject(CCString::create(itemId), "itemId");
-        CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
         if (!*soomlaError) {
             SAFE_CREATE(CCVirtualItem *, ret, retParams);
             return ret;
@@ -150,7 +150,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getPurchasableItemWithProductId"), "method");
         params->setObject(CCString::create(productId), "productId");
-        CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
         if (!soomlaError) {
             SAFE_CREATE(CCPurchasableVirtualItem *, ret, retParams);
             return ret;
@@ -163,7 +163,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getCategoryForVirtualGood"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
-        CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, soomlaError);
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
         if (!soomlaError) {
             SAFE_CREATE(CCVirtualCategory *, ret, retParams);
             return ret;
@@ -176,7 +176,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getFirstUpgradeForVirtualGood"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
-        CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, NULL);
         SAFE_CREATE(CCUpgradeVG *, ret, retParams);
         return ret;
     }
@@ -185,7 +185,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getLastUpgradeForVirtualGood"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
-        CCDictionary *retParams = (CCDictionary *) CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, NULL);
         SAFE_CREATE(CCUpgradeVG *, ret, retParams);
         return ret;
     }
@@ -194,7 +194,7 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getUpgradesForVirtualGood"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
-        CCArray *retParams = (CCArray *) CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
         CCArray *retModels = CCArray::create();
 
         CCObject *obj;
@@ -211,7 +211,7 @@ namespace soomla {
     CCArray *CCStoreInfo::getVirtualCurrencies() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getVirtualCurrencies"), "method");
-        CCArray *retParams = (CCArray *) CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
         CCArray *retModels = CCArray::create();
 
         CCObject *obj;
@@ -228,7 +228,7 @@ namespace soomla {
     CCArray *CCStoreInfo::getVirtualGoods() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getVirtualGoods"), "method");
-        CCArray *retParams = (CCArray *) CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
         CCArray *retModels = CCArray::create();
 
         CCObject *obj;
@@ -245,7 +245,7 @@ namespace soomla {
     CCArray *CCStoreInfo::getVirtualCurrencyPacks() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getVirtualCurrencyPacks"), "method");
-        CCArray *retParams = (CCArray *) CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
         CCArray *retModels = CCArray::create();
 
         CCObject *obj;
@@ -262,7 +262,7 @@ namespace soomla {
     CCArray *CCStoreInfo::getNonConsumableItems() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getNonConsumableItems"), "method");
-        CCArray *retParams = (CCArray *) CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
         CCArray *retModels = CCArray::create();
 
         CCObject *obj;
@@ -279,7 +279,7 @@ namespace soomla {
     CCArray *CCStoreInfo::getVirtualCategories() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getVirtualCategories"), "method");
-        CCArray *retParams = (CCArray *) CCSoomlaEasyNdkBridge::callNative(params, NULL);
+        CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
         CCArray *retModels = CCArray::create();
 
         CCObject *obj;
