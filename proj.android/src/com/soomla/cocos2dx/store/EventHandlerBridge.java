@@ -1,6 +1,6 @@
 package com.soomla.cocos2dx.store;
 
-import com.easyndk.classes.AndroidNDKHelper;
+import com.easyndk.AndroidNDKHelper;
 import com.soomla.store.BusProvider;
 import com.soomla.store.events.*;
 import com.squareup.otto.Subscribe;
