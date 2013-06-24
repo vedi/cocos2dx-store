@@ -1,17 +1,45 @@
 package com.soomla.cocos2dx.store;
 
+import android.util.Log;
 import com.soomla.store.exceptions.InsufficientFundsException;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * @author vedi
  *         date 5/24/13
  *         time 8:36 PM
  */
-public class SoomlaEasyNDKGlue {
+public class SoomlaNDKGlue {
+
+    private static native void cppNativeCallHandler(String json);
+
+    public static void sendMessageWithParameters(JSONObject paramList) {
+        cppNativeCallHandler(paramList.toString());
+    }
+
+    public static String receiveCppMessage(String json) {
+        if (json != null) {
+            try {
+                JSONObject params = new JSONObject(json);
+                JSONObject retParamsJson = dispatchNDKCall(params);
+                if (retParamsJson == null) {
+                    retParamsJson = new JSONObject();
+                }
+                Log.v("SoomlaNDKGlue", "retParamsJson: " + retParamsJson.toString());
+                return retParamsJson.toString();
+            } catch (JSONException e) {
+                Log.e("SoomlaNDKGlue", "receiveCppMessage raised exception", e);
+            }
+        }
+        return null;
+    }
+
 
     public static JSONObject dispatchNDKCall(JSONObject params) {
         JSONObject retParams = new JSONObject();

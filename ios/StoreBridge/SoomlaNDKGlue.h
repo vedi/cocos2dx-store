@@ -4,10 +4,10 @@
 
 
 #import <Foundation/Foundation.h>
+#include <string>
 
 
-@interface SoomlaEasyNDKGlue : NSObject
-
+@interface SoomlaNDKGlue : NSObject
 + (NSObject *)dispatchNDKCall:(NSDictionary *)parameters;
 + (void)dispatchNDKCallback:(NSNotification*)notification;
 @end

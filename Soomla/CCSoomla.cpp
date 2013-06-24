@@ -4,15 +4,12 @@
 
 
 #include "CCSoomla.h"
-#include "EasyNDK/NDKHelper.h"
 #include "data/CCStoreInfo.h"
 #include "CCStoreUtils.h"
 
 namespace soomla {
 
     USING_NS_CC;
-
-    #define SEL_GROUP "soomlaCallback"
 
     static CCSoomla *s_SharedSoomla = NULL;
 
@@ -29,8 +26,6 @@ namespace soomla {
     }
 
     bool CCSoomla::init() {
-        NDKHelper::addSelector(SEL_GROUP, "soomla_easyNDKCallBack",
-                this, callfuncO_selector(CCSoomla::easyNDKCallBack));
         return true;
     }
 

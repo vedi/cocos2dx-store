@@ -7,7 +7,8 @@ LOCAL_MODULE := cocos2dx_store_static
 LOCAL_MODULE_FILENAME := libcocos2dxstore
 
 LOCAL_SRC_FILES := ../../Soomla/CCSoomla.cpp \
-	../../Soomla/CCSoomlaEasyNdkBridge.cpp \
+	../../Soomla/CCSoomlaJsonHelper.cpp \
+	../../Soomla/CCSoomlaNdkBridge.cpp \
 	../../Soomla/CCSoomlaError.cpp \
 	../../Soomla/CCStoreController.cpp \
 	../../Soomla/CCStoreInventory.cpp \
@@ -35,7 +36,8 @@ LOCAL_SRC_FILES := ../../Soomla/CCSoomla.cpp \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Soomla
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../..
 
-LOCAL_WHOLE_STATIC_LIBRARIES += easyndk_static
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_static
+LOCAL_WHOLE_STATIC_LIBRARIES += jansson_static
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../..
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla
@@ -47,5 +49,5 @@ LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/PurchaseTypes
 
 include $(BUILD_STATIC_LIBRARY)
 
-$(call import-module,extensions/EasyNDK/proj.android/jni)
+$(call import-module,external/jansson)
 

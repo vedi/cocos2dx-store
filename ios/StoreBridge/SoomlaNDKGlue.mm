@@ -2,7 +2,7 @@
 // Created by Fedor Shubin on 5/24/13.
 //
 
-#import "SoomlaEasyNDKGlue.h"
+#import "SoomlaNDKGlue.h"
 #import "StoreControllerBridge.h"
 #import "StoreAssetsBridge.h"
 #import "StoreController.h"
@@ -16,10 +16,11 @@
 #import "EquippableVG.h"
 #import "UpgradeVG.h"
 #import "IOSNDKHelper.h"
+#import "CCSoomlaNdkBridgeIos.h"
 
 static StoreAssetsBridge *storeAssets = nil;
 
-@implementation SoomlaEasyNDKGlue {
+@implementation SoomlaNDKGlue {
 }
 
 + (NSObject *)dispatchNDKCall:(NSDictionary *)parameters {
@@ -272,7 +273,37 @@ static StoreAssetsBridge *storeAssets = nil;
     else if ([notification.name isEqualToString:EVENT_UNEXPECTED_ERROR_IN_STORE]) {
         [parameters setObject:@"CCEventHandler::onUnexpectedErrorInStore" forKey:@"method"];
     }
-    [IOSNDKHelper sendMessage:@"soomla_easyNDKCallBack" withParameters:parameters];
+
+    json_t *jsonPrms = NULL;
+
+    if (parameters != nil) {
+        NSError *error = nil;
+        NSData *jsonData = [NSJSONSerialization
+                dataWithJSONObject:parameters
+                           options:NSJSONWritingPrettyPrinted
+                             error:&error];
+
+        if (error != nil)
+            return;
+
+        NSString *jsonPrmsString = [[NSString alloc] initWithData:jsonData
+                                                         encoding:NSUTF8StringEncoding];
+
+        json_error_t jerror;
+        jsonPrms = json_loads([jsonPrmsString UTF8String], 0, &jerror);
+
+        if (!jsonPrms) {
+            fprintf(stderr, "error: at line #%d: %s\n", jerror.line, jerror.text);
+            return;
+        }
+
+        [jsonPrmsString release];
+    }
+
+    soomla::CCSoomlaNdkBridgeIos::ndkCallback(jsonPrms);
+    if (jsonPrms) {
+        json_decref(jsonPrms);
+    }
 }
 
 @end

@@ -19,7 +19,7 @@
 #import "EquippableVG.h"
 #import "PurchasableVirtualItem.h"
 #import "IOSNDKHelper.h"
-#import "SoomlaEasyNDKGlue.h"
+#import "SoomlaNDKGlue.h"
 
 @implementation EventDispatcherBridge
 
@@ -41,7 +41,7 @@
 }
 
 - (void)eventFired:(NSNotification*)notification{
-    [SoomlaEasyNDKGlue dispatchNDKCallback:notification];
+    [SoomlaNDKGlue dispatchNDKCallback:notification];
 }
 
 
