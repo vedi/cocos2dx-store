@@ -19,8 +19,9 @@ public class StoreControllerBridge {
     private static IStoreAssets mStoreAssets   = null;
     private static String mPublicKey           = "";
     private static EventHandlerBridge mEventHandler = null;
+    private static Cocos2dxGLSurfaceView mGLView = null;
 
-    public static void initialize(Cocos2dxGLSurfaceView mGLView,
+    public static void initialize(Cocos2dxGLSurfaceView glView,
                                   IStoreAssets storeAssets,
                                   String publicKey,
                                   Activity activity) {
@@ -28,8 +29,14 @@ public class StoreControllerBridge {
         mPublicKey   = publicKey;
         mActivity    = activity;
 
+        mGLView = glView;
 
-        mEventHandler = new EventHandlerBridge(mGLView);
+
+        mEventHandler = new EventHandlerBridge(glView);
+    }
+
+    public static void setGLView(Cocos2dxGLSurfaceView glView) {
+        mGLView = glView;
     }
 
     public static void setActivity(Activity activity) {
@@ -39,6 +46,7 @@ public class StoreControllerBridge {
     public static void initialize(String customSecret) {
         Log.d("SOOMLA", "initialize is called from java !");
         StoreController.getInstance().initialize(mStoreAssets, mPublicKey, customSecret);
+        mEventHandler = new EventHandlerBridge(mGLView);
     }
 
     public static void storeOpening() {

@@ -53,8 +53,6 @@ public class SoomlaNDKGlue {
                     StoreControllerBridge.setStoreAssetsBridge(new StoreAssetsBridge(version, storeAssetsJson));
                 } else if (methodName.equals("CCStoreController::init")) {
                     String customSecret = params.getString("customSecret");
-                    String androidPublicKey = params.getString("androidPublicKey");
-                    StoreControllerBridge.setPublicKey(androidPublicKey);
                     StoreControllerBridge.initialize(customSecret);
                 } else if (methodName.equals("CCStoreController::buyMarketItem")) {
                     String productId = params.getString("productId");
