@@ -3,6 +3,7 @@ package com.soomla.cocos2dx.store;
 import android.util.Log;
 import com.soomla.store.StoreInventory;
 import com.soomla.store.exceptions.InsufficientFundsException;
+import com.soomla.store.exceptions.NotEnoughGoodsException;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 
 /**
@@ -32,7 +33,7 @@ public class StoreInventoryBridge {
         StoreInventory.takeVirtualItem(itemId, amount);
     }
 
-    public static void equipVirtualGood(String goodItemId) throws VirtualItemNotFoundException {
+    public static void equipVirtualGood(String goodItemId) throws VirtualItemNotFoundException, NotEnoughGoodsException {
         Log.d("SOOMLA", "equipVirtualGood is called from java !");
         StoreInventory.equipVirtualGood(goodItemId);
     }

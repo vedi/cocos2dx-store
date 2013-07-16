@@ -2,6 +2,7 @@ package com.soomla.cocos2dx.store;
 
 import android.util.Log;
 import com.soomla.store.exceptions.InsufficientFundsException;
+import com.soomla.store.exceptions.NotEnoughGoodsException;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -168,6 +169,8 @@ public class SoomlaNDKGlue {
                 retParams.put("errorCode", -1);
             } catch (InsufficientFundsException e) {
                 retParams.put("errorCode", -2);
+            } catch (NotEnoughGoodsException  e) {
+                retParams.put("errorCode", -3);
             }
         } catch (JSONException e) {
             throw new IllegalArgumentException(e);
