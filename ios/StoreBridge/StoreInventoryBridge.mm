@@ -15,9 +15,11 @@
  */
 
 #include "StoreInventoryBridge.h"
+
 #import "StoreInventory.h"
 #import "VirtualItemNotFoundException.h"
 #import "InsufficientFundsException.h"
+#import "NotEnoughGoodsException.h"
 
 
 /**
@@ -76,6 +78,9 @@ void StoreInventoryBridge::equipVirtualGood(string goodItemId) {
     }
     @catch (VirtualItemNotFoundException *ex1) {
         @throw ex1;
+    }
+    @catch (NotEnoughGoodsException *ex2) {
+        @throw ex2;
     }
 }
 
