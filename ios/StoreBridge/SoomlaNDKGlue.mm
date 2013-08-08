@@ -15,7 +15,6 @@
 #import "VirtualGood.h"
 #import "EquippableVG.h"
 #import "UpgradeVG.h"
-#import "IOSNDKHelper.h"
 #import "CCSoomlaNdkBridgeIos.h"
 
 static StoreAssetsBridge *storeAssets = nil;

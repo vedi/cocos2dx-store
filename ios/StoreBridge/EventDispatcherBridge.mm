@@ -18,7 +18,6 @@
 #import "UpgradeVG.h"
 #import "EquippableVG.h"
 #import "PurchasableVirtualItem.h"
-#import "IOSNDKHelper.h"
 #import "SoomlaNDKGlue.h"
 
 @implementation EventDispatcherBridge
