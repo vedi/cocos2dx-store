@@ -9,6 +9,7 @@
 #import "StoreInventoryBridge.h"
 #import "StoreInfoBridge.h"
 #import "VirtualItemNotFoundException.h"
+#import "EventDispatcherBridge.h"
 #import "InsufficientFundsException.h"
 #import "EventHandling.h"
 #import "VirtualCurrency.h"
@@ -18,6 +19,8 @@
 #import "CCSoomlaNdkBridgeIos.h"
 
 static StoreAssetsBridge *storeAssets = nil;
+
+static EventDispatcherBridge *eventDispatcherBridge = [EventDispatcherBridge sharedInstance];
 
 @implementation SoomlaNDKGlue {
 }
@@ -271,6 +274,10 @@ static StoreAssetsBridge *storeAssets = nil;
     }
     else if ([notification.name isEqualToString:EVENT_UNEXPECTED_ERROR_IN_STORE]) {
         [parameters setObject:@"CCEventHandler::onUnexpectedErrorInStore" forKey:@"method"];
+    }
+    else {
+        NSLog(@"Unknow notification %@", notification.name);
+        return;
     }
 
     json_t *jsonPrms = NULL;
