@@ -1,7 +1,3 @@
-//
-// Created by Fedor Shubin on 5/20/13.
-//
-
 #ifndef __CCSoomla_H_
 #define __CCSoomla_H_
 
@@ -21,7 +17,6 @@ namespace soomla {
         CC_SYNTHESIZE(string, mAndroidPublicKey, AndroidPublicKey);
         CC_SYNTHESIZE(bool, mAndroidTestMode, AndroidTestMode);
         CC_SYNTHESIZE(string, mSoomSec, SoomSec);
-        // CC_SYNTHESIZE(vector<CCEventHandler *>, mEventHandlers, EventHandlers); // Week
 
 	private:
 		set<CCEventHandler *> mEventHandlers;

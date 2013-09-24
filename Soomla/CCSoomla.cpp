@@ -1,8 +1,3 @@
-//
-// Created by Fedor Shubin on 5/20/13.
-//
-
-
 #include "CCSoomla.h"
 #include "data/CCStoreInfo.h"
 #include "CCStoreUtils.h"
@@ -69,8 +64,8 @@ namespace soomla {
             CCInteger *balance = (CCInteger *)(parameters->objectForKey("balance"));
             CCInteger *amountAdded = (CCInteger *)(parameters->objectForKey("amountAdded"));
             CCSoomlaError *soomlaError = NULL;
-            CCVirtualCurrency *virtualCurrency = dynamic_cast<CCVirtualCurrency *>(
-																				   CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            CCVirtualCurrency *virtualCurrency =
+				dynamic_cast<CCVirtualCurrency *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
             if (soomlaError) {
                 CCStoreUtils::logException("CCEventHandler::onCurrencyBalanceChanged", soomlaError);
                 return;
@@ -86,8 +81,8 @@ namespace soomla {
             CCInteger *balance = (CCInteger *)(parameters->objectForKey("balance"));
             CCInteger *amountAdded = (CCInteger *)(parameters->objectForKey("amountAdded"));
             CCSoomlaError *soomlaError = NULL;
-            CCVirtualGood *virtualGood = dynamic_cast<CCVirtualGood *>(
-																	   CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            CCVirtualGood *virtualGood =
+				dynamic_cast<CCVirtualGood *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
             if (soomlaError) {
                 CCStoreUtils::logException("CCEventHandler::onGoodBalanceChanged", soomlaError);
                 return;
@@ -101,8 +96,8 @@ namespace soomla {
         else if (methodName->compare("CCEventHandler::onGoodEquipped") == 0) {
             CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
             CCSoomlaError *soomlaError = NULL;
-            CCEquippableVG *equippableVG = dynamic_cast<CCEquippableVG *>(
-																		  CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            CCEquippableVG *equippableVG =
+				dynamic_cast<CCEquippableVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
             if (soomlaError) {
                 CCStoreUtils::logException("CCEventHandler::onGoodEquipped", soomlaError);
                 return;
@@ -116,8 +111,8 @@ namespace soomla {
         else if (methodName->compare("CCEventHandler::onGoodUnEquipped") == 0) {
             CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
             CCSoomlaError *soomlaError = NULL;
-            CCEquippableVG *equippableVG = dynamic_cast<CCEquippableVG *>(
-																		  CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            CCEquippableVG *equippableVG =
+				dynamic_cast<CCEquippableVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
             if (soomlaError) {
                 CCStoreUtils::logException("CCEventHandler::onGoodUnEquipped", soomlaError);
                 return;
@@ -135,8 +130,8 @@ namespace soomla {
             CCSoomlaError *soomlaError;
 
             soomlaError = NULL;
-            CCVirtualGood *virtualGood = dynamic_cast<CCVirtualGood *>(
-																	   CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            CCVirtualGood *virtualGood =
+				dynamic_cast<CCVirtualGood *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
             if (soomlaError) {
                 CCStoreUtils::logException("CCEventHandler::onGoodUpgrade", soomlaError);
                 return;
@@ -144,8 +139,8 @@ namespace soomla {
             CC_ASSERT(virtualGood);
 
             soomlaError = NULL;
-            CCUpgradeVG *upgradeVG = dynamic_cast<CCUpgradeVG *>(
-																 CCStoreInfo::sharedStoreInfo()->getItemByItemId(vguItemId->getCString(), &soomlaError));
+            CCUpgradeVG *upgradeVG =
+				dynamic_cast<CCUpgradeVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(vguItemId->getCString(), &soomlaError));
             if (soomlaError) {
                 CCStoreUtils::logException("CCEventHandler::onGoodUpgrade", soomlaError);
                 return;
@@ -159,8 +154,8 @@ namespace soomla {
         else if (methodName->compare("CCEventHandler::onItemPurchased") == 0) {
             CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
             CCSoomlaError *soomlaError = NULL;
-            CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(
-																										CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            CCPurchasableVirtualItem *purchasableVirtualItem =
+				dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
             if (soomlaError) {
                 CCStoreUtils::logException("CCEventHandler::onItemPurchased", soomlaError);
                 return;
@@ -189,8 +184,8 @@ namespace soomla {
         else if (methodName->compare("CCEventHandler::onMarketPurchaseCancelled") == 0) {
             CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
             CCSoomlaError *soomlaError = NULL;
-            CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(
-																										CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            CCPurchasableVirtualItem *purchasableVirtualItem =
+				dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
             if (soomlaError) {
                 CCStoreUtils::logException("CCEventHandler::onMarketPurchaseCancelled", soomlaError);
                 return;
@@ -204,8 +199,8 @@ namespace soomla {
         else if (methodName->compare("CCEventHandler::onMarketPurchase") == 0) {
             CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
             CCSoomlaError *soomlaError = NULL;
-            CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(
-																										CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            CCPurchasableVirtualItem *purchasableVirtualItem =
+				dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
             if (soomlaError) {
                 CCStoreUtils::logException("CCEventHandler::onMarketPurchase", soomlaError);
                 return;
@@ -219,8 +214,8 @@ namespace soomla {
         else if (methodName->compare("CCEventHandler::onMarketPurchaseStarted") == 0) {
             CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
             CCSoomlaError *soomlaError = NULL;
-            CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(
-																										CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            CCPurchasableVirtualItem *purchasableVirtualItem =
+				dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
             if (soomlaError) {
                 CCStoreUtils::logException("CCEventHandler::onMarketPurchaseStarted", soomlaError);
                 return;
@@ -234,8 +229,8 @@ namespace soomla {
         else if (methodName->compare("CCEventHandler::onMarketRefund") == 0) {
             CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
             CCSoomlaError *soomlaError = NULL;
-            CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(
-																										CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            CCPurchasableVirtualItem *purchasableVirtualItem =
+				dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
             if (soomlaError) {
                 CCStoreUtils::logException("CCEventHandler::onMarketRefund", soomlaError);
                 return;
@@ -263,6 +258,11 @@ namespace soomla {
 			set<CCEventHandler *>::iterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
 				(*i)->onUnexpectedErrorInStore();
+			}
+		} else if (methodName->compare("CCEventHandler::onStoreControllerInitialized") == 0) {
+			set<CCEventHandler *>::iterator i;
+			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
+				(*i)->onStoreControllerInitialized();
 			}
 		} else {
             CC_ASSERT(false);

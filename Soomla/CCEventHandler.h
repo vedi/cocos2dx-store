@@ -45,6 +45,7 @@ namespace soomla {
         virtual void onRestoreTransactions(bool success) = 0;
         virtual void onRestoreTransactionsStarted() = 0;
         virtual void onUnexpectedErrorInStore() = 0;
+		virtual void onStoreControllerInitialized() = 0;
     };
 };
 
