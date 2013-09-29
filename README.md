@@ -33,7 +33,7 @@ We've created a cocos2d-x extension and an example project:
 
 #### cocos2dx-store-example v1.0
 
-[Cocos2d-x - cocos2dx-store-example v1.0](about:blank) <!--- TODO: make a link for this too -->
+[Cocos2d-x - cocos2dx-store-example v1.0](about:blank)
 
 ## Getting Started
 
@@ -71,17 +71,18 @@ If you're building your cocos2dx application for the Android platform, open our 
    - _Public Key_ - is the public key given to you from Google. (iOS doesn't have a public key).
    - _Soom Sec_ - is a special secret SOOMLA uses to increase your data protection.
    **Choose both secrets wisely. You can't change them after you launch your game!**
-   ```cpp
-	   bool AppDelegate::applicationDidFinishLaunching() {
-		   /* ... */
-		   CCSoomla::sharedSoomla()->setSoomSec("ExampleSoomSecret");
-		   CCSoomla::sharedSoomla()->setPublicKey("ExampleCustomSecret");
-		   CCSoomla::sharedSoomla()->setCustomSecret("ExampleCustomSecret");
-		   /* ... */
-	   }
-   ```
+   
+```cpp
+bool AppDelegate::applicationDidFinishLaunching() {
+	/* ... */
+	CCSoomla::sharedSoomla()->setSoomSec("ExampleSoomSecret");
+	CCSoomla::sharedSoomla()->setPublicKey("ExampleCustomSecret");
+	CCSoomla::sharedSoomla()->setCustomSecret("ExampleCustomSecret");
+	/* ... */
+}
+```
 
-2. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](about:blank)). <!--- TODO: make link --> Initialize _CCStoreController_ with the class you just created:
+2. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](about:blank)). Initialize _CCStoreController_ with the class you just created:
 ```cpp
 	CCStoreController::createShared(YourStoreAssetsImplementation::create());
 ```
@@ -100,7 +101,7 @@ CCStoreController::sharedStoreController()->storeClosing();
 ```
 
 > Don't forget to make these calls. _StoreController_ has to know that you opened/closed your in-app purchase store. Just to make it clear: the in-app purchase store is where you sell virtual goods (and not Google Play or App Store).
-4. You'll need an event handler in order to be notified about in-app purchasing related events. refer to the [Event Handling](about:blank) section for more information. <!--- TODO: make link -->
+4. You'll need an event handler in order to be notified about in-app purchasing related events. refer to the [Event Handling](about:blank) section for more information.
 
 And that's it! You now have storage and in-app purchasing capabilities.
 
