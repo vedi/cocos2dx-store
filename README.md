@@ -29,11 +29,11 @@ We've created a cocos2d-x extension and an example project:
 
 #### cocos2dx-store v1.0
 
-[Cocos2d-x - cocos2dx-store v1.0](http://bit.ly/XVWLZY)
+[cocos2dx-store v1.0](https://github.com/ronmrdechai/cocos2dx-store)
 
 #### cocos2dx-store-example v1.0
 
-[Cocos2d-x - cocos2dx-store-example v1.0](about:blank)
+[cocos2dx-store-example v1.0](https://github.com/ronmrdechai/cocos2dx-store-example)
 
 ## Getting Started
 
@@ -67,9 +67,9 @@ To be added.
 If you're building your cocos2dx application for the Android platform, open our Android Studio project from cocos2dx-store/proj.android and take a look at how to integrate it into .
 
 #### In your Android Studio project:
-1. Create an Android.mk similar to [the one](about:blank) under the proj.android/jni folder. Take a look at Application.mk and see how we added '-fexceptions' to 'APP_CPPFLAGS'.
+1. Create an Android.mk similar to [the one](https://github.com/ronmrdechai/cocos2dx-store/blob/master/proj.android/jni/Android.mk) under the proj.android/jni folder. Take a look at Application.mk and see how we added '-fexceptions' to 'APP_CPPFLAGS'.
 2. From cocos2dx-store/android.proj, copy the `com` directory into your project's `src` directory. (you can remove the `example` subdirectory)
-3. In the above [Getting Started](https://github.com/soomla/cocos2dx-store#getting-started), we mentioned you need to recursively clone cocos2dx-store. By doing that you also cloned [android-store](https://www.github.com/soomla/android-store) into the 'cocos2dx-store/submodules' directory. Make sure you add the folder 'SoomlaAndroidStore/src' from android-store into your classpath as a source folder.
+3. In the [getting started](https://github.com/ronmrdechai/cocos2dx-store#getting-started) section, we mentioned you need to recursively clone cocos2dx-store. By doing that you also cloned [android-store](https://www.github.com/soomla/android-store) into the 'cocos2dx-store/submodules' directory. Make sure you add the folder 'SoomlaAndroidStore/src' from android-store into your classpath as a source folder.
 
 
 #### In your Cocos2d-x project:
@@ -89,7 +89,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 }
 ```
 
-2. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](about:blank)). Initialize _CCStoreController_ with the class you just created:
+2. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](https://github.com/ronmrdechai/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)). Initialize _CCStoreController_ with the class you just created:
 ```cpp
 	CCStoreController::createShared(YourStoreAssetsImplementation::create());
 ```
@@ -108,7 +108,7 @@ CCStoreController::sharedStoreController()->storeClosing();
 ```
 
 > Don't forget to make these calls. _StoreController_ has to know that you opened/closed your in-app purchase store. Just to make it clear: the in-app purchase store is where you sell virtual goods (and not Google Play or App Store).
-4. You'll need an event handler in order to be notified about in-app purchasing related events. refer to the [Event Handling](about:blank) section for more information.
+4. You'll need an event handler in order to be notified about in-app purchasing related events. Refer to the [event handling](https://github.com/ronmrdechai/cocos2dx-store#event-handling) section for more information.
 
 And that's it! You now have storage and in-app purchasing capabilities.
 
@@ -149,7 +149,7 @@ Now you can use _StoreInventory_ to buy your new currency pack:
 CCStoreInventory::sharedStoreInventory()->buyItem(TEN_COIN_PACK_ITEM_ID);
 ```
 
-And that's it! cocos2dx-store knows how to contact Google Play or the App Store for you and will redirect your users to the purchasing system to complete the transaction. Don't forget to subscribe to store events in order to get the notified of successful or failed purchases (see [Event Handling](about:blank)).
+And that's it! cocos2dx-store knows how to contact Google Play or the App Store for you and will redirect your users to the purchasing system to complete the transaction. Don't forget to subscribe to store events in order to get the notified of successful or failed purchases (see [Event Handling](https://github.com/ronmrdechai/cocos2dx-store#event-handling)).
 
 **Test purchases on Android** will not work (even in the debug library) if you won't switch Android's test mode on. In order to do that, call `CCSoomla::setAndroidTestMode(true)` in your AppDelegate class before initializing _CCStoreController_.
 
