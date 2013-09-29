@@ -9,11 +9,11 @@
 namespace soomla {
     void CCStoreUtils::logDebug(const char *tag, const char *message) {
         if (SOOMLA_DEBUG) {
-            cocos2d::CCLog("%s %s", tag, message);
+            CCLOG("%s %s", tag, message);
         }
     }
     void CCStoreUtils::logError(const char *tag, const char *message) {
-        cocos2d::CCLog("%s %s", tag, message);
+        CCLOGERROR("%s %s", tag, message);
     }
 
     void CCStoreUtils::logException(char const *tag, CCSoomlaError *error) {
