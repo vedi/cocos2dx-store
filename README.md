@@ -44,8 +44,15 @@ We've created a cocos2d-x extension and an example project:
 $ cd cocos2d-x/
 $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
 ```
-3. Create a directory for your project in the `projects` directory located at the root of your Cocos2d-x framework.
-4. cocos2dx-store contains project bundles for Android Studio (IntelliJ IDEA) and XCode. These bundles contain bridges that Cocos2d-x uses to communicate with our Java or Objective-C code. Open one of the bundles, and continue to the corresponding section.
+
+3. Clone the _jansson_ library into the `external` directory located at the root of your Cocos2d-x framework.
+```
+$ cd cocos2d-x/
+$ git clone https://github.com/vedi/jansson.git external/jansson
+```
+
+4. Create a directory for your project in the `projects` directory located at the root of your Cocos2d-x framework.
+5. cocos2dx-store contains project bundles for Android Studio (IntelliJ IDEA) and XCode. These bundles contain bridges that Cocos2d-x uses to communicate with our Java or Objective-C code. Open one of the bundles, and continue to the corresponding section.
 
 > The **Android** project is an Android Studio project. Just open cocos2dx-store/proj.android from Android Studio to use it.
 
