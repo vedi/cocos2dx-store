@@ -125,9 +125,7 @@ CCVirtualCurrency *COIN_CURRENCY = CCVirtualCurrency::create(
 	CCString::create(""),
 	CCString::create(COIN_CURRENCY_ITEM_ID)
 );
-```
 
-```ccp
 CCVirtualCurrencyPack *TEN_COIN_PACK = CCVirtualCurrencyPack::create(
 	CCString::create("10 Coins"),
 	CCString::create("A pack of 10 coins"),
