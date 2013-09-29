@@ -71,15 +71,15 @@ If you're building your cocos2dx application for the Android platform, open our 
    - _Public Key_ - is the public key given to you from Google. (iOS doesn't have a public key).
    - _Soom Sec_ - is a special secret SOOMLA uses to increase your data protection.
    **Choose both secrets wisely. You can't change them after you launch your game!**
-```cpp
-   bool AppDelegate::applicationDidFinishLaunching() {
-	   /* ... */
-	   CCSoomla::sharedSoomla()->setSoomSec("ExampleSoomSecret");
-	   CCSoomla::sharedSoomla()->setPublicKey("ExampleCustomSecret");
-	   CCSoomla::sharedSoomla()->setCustomSecret("ExampleCustomSecret");
-	   /* ... */
-   }
-```
+   ```cpp
+	   bool AppDelegate::applicationDidFinishLaunching() {
+		   /* ... */
+		   CCSoomla::sharedSoomla()->setSoomSec("ExampleSoomSecret");
+		   CCSoomla::sharedSoomla()->setPublicKey("ExampleCustomSecret");
+		   CCSoomla::sharedSoomla()->setCustomSecret("ExampleCustomSecret");
+		   /* ... */
+	   }
+   ```
 
 2. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](about:blank)). <!--- TODO: make link --> Initialize _CCStoreController_ with the class you just created:
 ```cpp
