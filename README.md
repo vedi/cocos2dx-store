@@ -71,7 +71,7 @@ If you're building your cocos2dx application for the Android platform, open our 
    - _Public Key_ - is the public key given to you from Google. (iOS doesn't have a public key).
    - _Soom Sec_ - is a special secret SOOMLA uses to increase your data protection.
    **Choose both secrets wisely. You can't change them after you launch your game!**
-   ```cpp
+```cpp
    bool AppDelegate::applicationDidFinishLaunching() {
 	   /* ... */
 	   CCSoomla::sharedSoomla()->setSoomSec("ExampleSoomSecret");
@@ -79,25 +79,27 @@ If you're building your cocos2dx application for the Android platform, open our 
 	   CCSoomla::sharedSoomla()->setCustomSecret("ExampleCustomSecret");
 	   /* ... */
    }
-   ```
+```
+
 2. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](about:blank)). <!--- TODO: make link --> Initialize _CCStoreController_ with the class you just created:
 ```cpp
-CCStoreController::createShared(YourStoreAssetsImplementation::create());
+	CCStoreController::createShared(YourStoreAssetsImplementation::create());
 ```
+
 > Initialize _StoreController_ ONLY ONCE when your application loads.
 3. Now, that you have _CCStoreController_ loaded, just decide when you want to show/hide your store's UI to the user and let _CCStoreController_ know about it:
 
 	When you show the store call:
 
-		```cpp
-		CCStoreController::sharedStoreController()->storeOpening();
-		```
+```cpp
+CCStoreController::sharedStoreController()->storeOpening();
+```
 
 	When you hide the store call:
 
-		```cpp
-		CCStoreController::sharedStoreController()->storeClosing();
-		```
+```cpp
+CCStoreController::sharedStoreController()->storeClosing();
+```
 
 > Don't forget to make these calls. _StoreController_ has to know that you opened/closed your in-app purchase store. Just to make it clear: the in-app purchase store is where you sell virtual goods (and not Google Play or App Store).
 4. You'll need an event handler in order to be notified about in-app purchasing related events. refer to the [Event Handling](about:blank) section for more information. <!--- TODO: make link -->
