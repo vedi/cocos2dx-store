@@ -1,6 +1,6 @@
 *This project is a part of [The SOOMLA Project](http://project.soom.la) which is a series of open source initiatives with a joint goal to help mobile game developers get better stores and more in-app purchases.*
 
-Haven't you ever wanted an in-app purchase one liner that looks like this ?!
+Haven't you always wanted an in-app purchase one liner that looks like this?!
 
 ```cpp
     soomla::StoreController::buyMarketItem("[itemId]");
