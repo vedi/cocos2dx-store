@@ -10,8 +10,8 @@ Haven't you ever wanted an in-app purchase one liner that looks like this ?!
 
 **The new Virtual Economy model V3 is merged into master. The new model has many new features and it works better than the old one. Old applications may break if they use in this new model so if you have already published games with android-store from before May 1st, 2013 clone this project with the 'v2.2' tag and not the 'v3.0' tag.**
 
-Want to learn more about modelV3? Try these:  
-* [Economy Model Objects - android-store](https://github.com/soomla/android-store/wiki/Economy-Model-Objects)  
+Want to learn more about modelV3? Try these:
+* [Economy Model Objects - android-store](https://github.com/soomla/android-store/wiki/Economy-Model-Objects)
 * [Handling Store Operations - android-store](https://github.com/soomla/android-store/wiki/Handling-Store-Operations)
 (The same model objects from android-store exist in cocos2dx-store)
 
@@ -89,14 +89,12 @@ If you're building your cocos2dx application for the Android platform, open our 
 > Initialize _StoreController_ ONLY ONCE when your application loads.
 3. Now, that you have _CCStoreController_ loaded, just decide when you want to show/hide your store's UI to the user and let _CCStoreController_ know about it:
 
-	When you show the store call:
-
+When you show the store call:
 ```cpp
 CCStoreController::sharedStoreController()->storeOpening();
 ```
 
-	When you hide the store call:
-
+When you hide the store call:
 ```cpp
 CCStoreController::sharedStoreController()->storeClosing();
 ```
@@ -147,11 +145,11 @@ CCStoreInventory::sharedStoreInventory()->buyItem(TEN_COIN_PACK_ITEM_ID);
 
 And that's it! cocos2dx-store knows how to contact Google Play or the App Store for you and will redirect your users to the purchasing system to complete the transaction. Don't forget to subscribe to store events in order to get the notified of successful or failed purchases (see [Event Handling](about:blank)).
 
-**Test purchases on Android** will not work (even in the debug library) if you won't switch Android's test mode on. In order to do that, call `CCSoomla::setAndroidTestMode(true)` in your AppDelegate class before initializing StoreController.
+**Test purchases on Android** will not work (even in the debug library) if you won't switch Android's test mode on. In order to do that, call `CCSoomla::setAndroidTestMode(true)` in your AppDelegate class before initializing _CCStoreController_.
 
 ## Storage & Meta-Data
 
-When you initialize _CCStoreController_, it automatically initializes two other classes: _CCStoreInventory_ and _CCStoreInfo_:  
+When you initialize _CCStoreController_, it automatically initializes two other classes: _CCStoreInventory_ and _CCStoreInfo_:
 * _CCStoreInventory_ is a convenience class to let you perform operations on VirtualCurrencies and VirtualGoods. Use it to fetch/change the balances of VirtualItems in your game (using their ItemIds!)  
 * _CCStoreInfo_ is where all meta data information about your specific game can be retrieved. It is initialized with your implementation of _CCIStoreAssets_ and you can use it to retrieve information about your specific game.
 
