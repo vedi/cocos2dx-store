@@ -283,7 +283,7 @@ public class EventHandlerBridge {
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
-                    parameters.put("method", "CCEventHandler::onMarketPurchaseStarted");
+                    parameters.put("method", "CCEventHandler::onRestoreTransactions");
                     parameters.put("success", restoreTransactionsEvent.isSuccess());
                     SoomlaNDKGlue.sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
@@ -300,7 +300,7 @@ public class EventHandlerBridge {
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
-                    parameters.put("method", "CCEventHandler::onItemPurchased");
+                    parameters.put("method", "CCEventHandler::onRestoreTransactionsStarted");
                     SoomlaNDKGlue.sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
@@ -317,6 +317,22 @@ public class EventHandlerBridge {
                 try {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCEventHandler::onUnexpectedErrorInStore");
+                    SoomlaNDKGlue.sendMessageWithParameters(parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    @Subscribe
+    public void onStoreControllerInitialized(StoreControllerInitializedEvent storeControllerInitializedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onStoreControllerInitialized");
                     SoomlaNDKGlue.sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);

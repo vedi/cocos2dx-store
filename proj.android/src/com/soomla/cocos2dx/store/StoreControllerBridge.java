@@ -21,6 +21,8 @@ public class StoreControllerBridge {
     private static EventHandlerBridge mEventHandler = null;
     private static Cocos2dxGLSurfaceView mGLView = null;
 
+    /* Possible legacy code, TODO: remove */
+    @Deprecated
     public static void initialize(Cocos2dxGLSurfaceView glView,
                                   IStoreAssets storeAssets,
                                   String publicKey,
@@ -45,8 +47,8 @@ public class StoreControllerBridge {
 
     public static void initialize(String customSecret) {
         Log.d("SOOMLA", "initialize is called from java !");
-        StoreController.getInstance().initialize(mStoreAssets, mPublicKey, customSecret);
         mEventHandler = new EventHandlerBridge(mGLView);
+        StoreController.getInstance().initialize(mStoreAssets, mPublicKey, customSecret);
     }
 
     public static void storeOpening() {
