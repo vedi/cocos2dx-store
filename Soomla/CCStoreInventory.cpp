@@ -9,7 +9,7 @@
 
 
 namespace soomla {
-#define TAG "SOOMLA StoreController"
+#define TAG "SOOMLA StoreInventory"
 
     USING_NS_CC;
 

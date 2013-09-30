@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="IdProvider" IDEtalkID="81EBE529AF8F59D99BD26E6859345A3B" />
-  <component name="ProjectResources">
-    <default-html-doctype>$APPLICATION_HOME_DIR$/lib/rubymine.jar!/resources/html5-schema/html5.rnc</default-html-doctype>
-  </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_3" assert-keyword="false" jdk-15="false" project-jdk-name="Android 2.3.3 Platform" project-jdk-type="Android SDK" />
-</project>
-
