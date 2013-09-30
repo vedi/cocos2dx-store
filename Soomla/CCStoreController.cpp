@@ -59,10 +59,17 @@ namespace soomla {
             return false;
         }
 
-        if (soomla->getAndroidPublicKey().compare(SOOMLA_AND_PUB_KEY_DEFAULT)) {
+        if (soomla->getAndroidPublicKey().compare(SOOMLA_AND_PUB_KEY_DEFAULT) == 0) {
 
             CCStoreUtils::logError(TAG, "SOOMLA/COCOS2DX You have to change android publicKey !!! Stopping here !!");
             return false;
+        }
+
+        {
+            CCDictionary *params = CCDictionary::create();
+            params->setObject(CCString::create("CCStoreController::setAndroidPublicKey"), "method");
+            params->setObject(CCString::create(soomla->getAndroidPublicKey()), "androidPublicKey");
+            CCSoomlaNdkBridge::callNative(params, NULL);
         }
 #endif
 

@@ -72,6 +72,9 @@ public class SoomlaNDKGlue {
                 } else if (methodName.equals("CCStoreController::setSoomSec")) {
                     String soomSec = params.getString("soomSec");
                     StoreControllerBridge.setSoomSec(soomSec);
+                } else if (methodName.equals("CCStoreController::setAndroidPublicKey")) {
+                    String androidPublicKey = params.getString("androidPublicKey");
+                    StoreControllerBridge.setAndroidPublicKey(androidPublicKey);
                 } else if (methodName.equals("CCStoreInventory::buyItem")) {
                     String itemId = params.getString("itemId");
                     StoreInventoryBridge.buy(itemId);

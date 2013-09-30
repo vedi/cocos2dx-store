@@ -95,10 +95,10 @@ public class StoreControllerBridge {
         StoreConfig.SOOM_SEC = soomSec;
     }
 
+    public static void setAndroidPublicKey(String publicKey) {
+        Log.d("SOOMLA", "setAndroidPublicKey is called from java !");
+        mPublicKey = publicKey;
+    }
 
     private static String TAG = "StoreControllerBridge";
-
-    public static void setPublicKey(String publicKey) {
-        StoreControllerBridge.mPublicKey = publicKey;
-    }
 }
