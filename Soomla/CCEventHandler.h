@@ -25,6 +25,13 @@
 
 using namespace std;
 namespace soomla {
+	/** \class CCEventHandler
+		\brief An abstract class that defines the event handler.
+		
+		Create your own implementation of this class and pass it to
+		CCSoomla::addEventHandler() to work with the events. Functions are
+		called when their corresponding events are fired in the SOOMLA SDK.
+	 */
     class CCEventHandler {
     public:
         virtual void onBillingNotSupported() = 0;

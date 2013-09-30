@@ -13,7 +13,19 @@
 #define SOOMLA_EXCEPTION_NOT_ENOUGH_GOODS -3
 
 namespace soomla {
+	/** \class CCSoomlaError
+		\brief An interface to error handling, analogous exception handling in the Java SDK.
+
+		Pass this as a pointer to this class to functions requiring it and
+		examine the result. If its value is not null then something went wrong.
+	 */
     class CCSoomlaError: public cocos2d::CCObject {
+		/**
+		   The error code.
+		   Can be one of SOOMLA_EXCEPTION_ITEM_NOT_FOUND, 
+		   SOOMLA_EXCEPTION_NOT_ENOUGH_GOODS, or 
+		   SOOMLA_EXCEPTION_INSUFFICIENT_FUNDS.
+		 */
         CC_SYNTHESIZE_READONLY(int, mCode, Code);
     public:
         static CCSoomlaError *createWithObject(CCObject *obj);
@@ -24,6 +36,9 @@ namespace soomla {
 
         const char *getInfo() {return mInfo.c_str();};
     private:
+		/**
+		   Extra information about what went wrong
+		 */
         std::string mInfo;
 
         CCSoomlaError():

@@ -13,11 +13,30 @@
 #include "CCVirtualGood.h"
 
 namespace soomla {
+	/** \class CCSingleUseVG
+		\brief A consumable virtual good.
+
+		A consumable virtual good. You own as many of these as you want.
+	*/
     class CCSingleUseVG : public CCVirtualGood {
     public:
+		/**
+		   Create a CCSingleUseVG.
+		   \param name The virtual good's name.
+		   \param description The virtual good's description.
+		   \param itemId The virtual good's itemId.
+		   \param purchaseType The purchase type for this virtual good.
+		   \return The virtual good.
+		*/
         static CCSingleUseVG *create(cocos2d::CCString* name, cocos2d::CCString* description,
                 cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-        static CCSingleUseVG *createWithDictionary(cocos2d::CCDictionary *dict);
+
+		/**
+		   Create a CCSingleUseVG.
+		   \param dict A dictionary containing keys to each of the parameters required by the create function.
+		   \return The virtual good.
+		*/
+		static CCSingleUseVG *createWithDictionary(cocos2d::CCDictionary *dict);
     };
 };
 

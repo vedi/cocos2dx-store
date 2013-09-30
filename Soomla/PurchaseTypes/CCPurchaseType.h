@@ -12,7 +12,12 @@
 #include "cocos2d.h"
 
 namespace soomla {
-    
+	/** \class CCPurchaseType
+		\brief A way to purchase a PurchasableVirtualItem.
+
+		A PurchaseType is a way to purchase a PurchasableVirtualItem. This abstract class describes basic features
+		of the actual implementations of PurchaseType.
+	 */
     class CCPurchaseType : public cocos2d::CCObject {
     public:
         CCPurchaseType() {}
