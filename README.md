@@ -37,7 +37,7 @@ We've created a cocos2d-x extension and an example project:
 
 ## Getting Started
 
-1. As with all Cocos2d-x projects, you need to clone the to Cocos2d-x framework from [here](https://github.com/cocos2d/cocos2d-x) or from the [Cocos2d-x website](http://www.cocos2d-x.org/download). If you decided to clone the git repository, make sure you're using the **2.1.4** tag.
+1. As with all Cocos2d-x projects, you need to clone the Cocos2d-x framework from [here](https://github.com/cocos2d/cocos2d-x) or download it from the [Cocos2d-x website](http://www.cocos2d-x.org/download). If you decided to clone the git repository, make sure you're using the **2.1.4** tag.
 2. Recursively clone this repository into the `extensions` directory located at the root of your Cocos2d-x framework.
 
 ```
@@ -64,13 +64,13 @@ To be added.
 
 #### Instructions for Android
 
-If you're building your cocos2dx application for the Android platform, open our Android Studio project from cocos2dx-store/proj.android and take a look at how to integrate it into .
+If you're building your cocos2dx application for the Android platform, open our Android Studio project from cocos2dx-store/proj.android and take a look at how to integrate it into your application.
 
 #### In your Android Studio project:
 1. Create an Android.mk similar to [the one](https://github.com/ronmrdechai/cocos2dx-store/blob/master/proj.android/jni/Android.mk) under the proj.android/jni folder. Take a look at Application.mk and see how we added '-fexceptions' to 'APP_CPPFLAGS'.
-2. From cocos2dx-store/android.proj, copy the `com` directory into your project's `src` directory. (you can remove the `example` subdirectory)
-3. In the [Getting Started](https://github.com/ronmrdechai/cocos2dx-store#getting-started) section, we mentioned you need to recursively clone cocos2dx-store. By doing that you also cloned [android-store](https://www.github.com/soomla/android-store) into the 'cocos2dx-store/submodules' directory. Make sure you add the folder 'SoomlaAndroidStore/src' from android-store into your classpath as a source folder.
-
+2. From cocos2dx-store/android.proj, add the project's src directory to your project's class-path as an external source.
+3. In the [Getting Started](https://github.com/ronmrdechai/cocos2dx-store#getting-started) section, we mentioned you need to recursively clone cocos2dx-store. By doing that you also cloned [android-store](https://www.github.com/soomla/android-store) into the `cocos2dx-store/submodules` directory. Make sure you add the `SoomlaAndroidStore/src` directory from android-store into your class-path as an external source.
+4. Add `SoomlaAndroidStore/libs/square-otto-1.3.2.jar` to your project as a library.
 
 #### In your Cocos2d-x project:
 1. In your AppDelegate class, set the values for "Soom Sec", "Custom Secret", and "Public Key":
@@ -83,7 +83,7 @@ If you're building your cocos2dx application for the Android platform, open our 
 bool AppDelegate::applicationDidFinishLaunching() {
 	/* ... */
 	CCSoomla::sharedSoomla()->setSoomSec("ExampleSoomSecret");
-	CCSoomla::sharedSoomla()->setPublicKey("ExampleCustomSecret");
+	CCSoomla::sharedSoomla()->setPublicKey("ExamplePublicKey");
 	CCSoomla::sharedSoomla()->setCustomSecret("ExampleCustomSecret");
 	/* ... */
 }
@@ -91,7 +91,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 2. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](https://github.com/ronmrdechai/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)). Initialize _CCStoreController_ with the class you just created:
 ```cpp
-	CCStoreController::createShared(YourStoreAssetsImplementation::create());
+CCStoreController::createShared(YourStoreAssetsImplementation::create());
 ```
 
 > Initialize _StoreController_ ONLY ONCE when your application loads.
