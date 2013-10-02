@@ -3,12 +3,14 @@
 Haven't you always wanted an in-app purchase one liner that looks like this?!
 
 ```cpp
-    soomla::StoreController::buyMarketItem("[itemId]");
+    soomla::StoreInventory::sharedStoreInventory("[itemId]");
 ```
 
 # cocos2dx-store
 
-**The new Virtual Economy model V3 is merged into master. The new model has many new features and it works better than the old one. Old applications may break if they use in this new model so if you have already published games with android-store from before May 1st, 2013 clone this project with the 'v2.2' tag and not the 'v3.0' tag.**
+**October 2, 2013**: cocos2dx-store has been updated since its last version. Everything has been rewritten from scratch and is much more Cocos2d-x friendly. cocos2dx-store allows your Cocos2d-x game to use SOOMLA's in app purchasing services and storage. cocos2dx-store has also been updated to use the third version of our economy model: modelV3.
+
+> cocos2dx-store currently supports all Cocos2d-x 2.x versions. Versions 1.x and 3.x (alpha) are not supported.
 
 Want to learn more about modelV3? Try these:
 * [Economy Model Objects - android-store](https://github.com/soomla/android-store/wiki/Economy-Model-Objects)
@@ -65,7 +67,7 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
 5. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](https://github.com/ronmrdechai/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)). Initialize _CCStoreController_ with the class you just created:
 
     ```cpp
-	CCStoreController::createShared(YourStoreAssetsImplementation::create());
+	soomla::CCStoreController::createShared(YourStoreAssetsImplementation::create());
     ```
 
     > Initialize _StoreController_ ONLY ONCE when your application loads.
@@ -74,12 +76,12 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
 
     When you show the store call:  
     ```cpp
-    CCStoreController::sharedStoreController()->storeOpening();
+    soomla::CCStoreController::sharedStoreController()->storeOpening();
     ```
 
     When you hide the store call:  
     ```cpp
-    CCStoreController::sharedStoreController()->storeClosing();
+    soomla::CCStoreController::sharedStoreController()->storeClosing();
     ```
 
     > Don't forget to make these calls. _StoreController_ has to know that you opened/closed your in-app purchase store. Just to make it clear: the in-app purchase store is where you sell virtual goods (and not Google Play or App Store).
@@ -112,8 +114,8 @@ If you're building your application for the Android platform, here are some inst
 
 When we implemented modelV3, we were thinking about ways that people buy things inside apps. We figured out many ways you can let your users purchase items in your game and we designed the new modelV3 to support 2 of them: _PurchaseWithMarket_ and _PurchaseWithVirtualItem_.
 
-**PurchaseWithMarket** is a _PurchaseType_ that allows users to purchase a _VirtualItem_ with Google Play or the App Store.
-**PurchaseWithVirtualItem** is a _PurchaseType_ that lets your users purchase a _VirtualItem_ with another _VirtualItem_. For example: Buying a sword with 100 gems.
+**CCPurchaseWithMarket** is a _CCPurchaseType_ that allows users to purchase a _CCVirtualItem_ with Google Play or the App Store.
+**CCPurchaseWithVirtualItem** is a _CCPurchaseType_ that lets your users purchase a _CCVirtualItem_ with another _CCVirtualItem_. For example: Buying a sword with 100 gems.
 
 In order to define the way your various virtual items are purchased, you'll need to create your implementation of _CCIStoreAssets_ (the same one from step 5 in the [Getting Started](https://github.com/ronmrdechai/cocos2dx-store#getting-started) section above).
 
@@ -144,7 +146,7 @@ Lets say you have a _VirtualCurrencyPack_ you want to call `TEN_COINS_PACK` and 
 Now you can use _StoreInventory_ to buy your new currency pack:
 
     ```cpp
-    CCStoreInventory::sharedStoreInventory()->buyItem(TEN_COIN_PACK_ITEM_ID);
+    soomla::CCStoreInventory::sharedStoreInventory()->buyItem(TEN_COIN_PACK_ITEM_ID);
     ```
 
 And that's it! cocos2dx-store knows how to contact Google Play or the App Store for you and will redirect your users to the purchasing system to complete the transaction. Don't forget to subscribe to store events in order to get notified of successful or failed purchases (see [Event Handling](https://github.com/ronmrdechai/cocos2dx-store#event-handling)).
@@ -164,25 +166,25 @@ The on-device storage is encrypted and kept in a SQLite database. SOOMLA has a [
 * Get all the VirtualCurrencies:
 
     ```cpp
-    CCArray *vcArray = CCStoreInfo::sharedStoreInfo()->getVirtualCurrencies();
+    CCArray *vcArray = soomla::CCStoreInfo::sharedStoreInfo()->getVirtualCurrencies();
     ```
 
 * Give the user 10 pieces of a virtual currency with itemId "currency_coin":
 
     ```cpp
-    CCStoreInventory::sharedStoreInventory()->giveItem("currency_coin", 10);
+    soomla::CCStoreInventory::sharedStoreInventory()->giveItem("currency_coin", 10);
     ```
 
 * Take 10 virtual goods with itemId "green_hat":
 
     ```cpp
-    CCStoreInventory::sharedStoreInventory()->takeItem("green_hat", 10);
+    soomla::CCStoreInventory::sharedStoreInventory()->takeItem("green_hat", 10);
     ```
 
 * Get the current balance of green hats (virtual goods with itemId "green_hat"):
 
     ```cpp
-    int greenHatsBalance = CCStoreInventory::sharedStoreInventory()->getItemBalance("green_hat");
+    int greenHatsBalance = soomla::CCStoreInventory::sharedStoreInventory()->getItemBalance("green_hat");
     ```
 
 ## Event Handling
@@ -194,14 +196,14 @@ SOOMLA lets you subscribe to store events, get notified and implement your own a
 The _CCSoomla_ class is where all events go through. To handle various events, create your own event handler, a class that implements _CCEventHandler_, and add it to the _CCSoomla_ class:
 
     ```cpp
-    CCSoomla::sharedSoomla()->addEventHandler(yourEventHandler);
+    soomla::CCSoomla::sharedSoomla()->addEventHandler(yourEventHandler);
     ```
 
 ## Debugging
 
 Cocos2d-x debug messages will only be printed out if you set `SOOMLA_DEBUG` to `true` in CCStoreUtils.
 
-
+If you want to see debug messages from _android-store_, set the `logDebug` variable in `com.soomla.store.StoreConfig` to `true`.
 
 ## Contribution
 
