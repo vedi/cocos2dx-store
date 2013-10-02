@@ -123,32 +123,32 @@ Here is an example:
 
 Lets say you have a _VirtualCurrencyPack_ you want to call `TEN_COINS_PACK` and a _VirtualCurrency_ you want to call `COIN_CURRENCY` (`TEN_COINS_PACK` will hold 10 pieces of the currency `COIN_CURRENCY`):
 
-    ```cpp
-	    #define COIN_CURRENCY_ITEM_ID "coin_currency"
-	    #define TEN_COIN_PACK_ITEM_ID       "ten_coin_pack"
-	    #define TEN_COIN_PACK_PRODUCT_ID    "10_coins_pack"  // this is the product id from the developer console
-	    
-	    CCVirtualCurrency *COIN_CURRENCY = CCVirtualCurrency::create(
-	    	CCString::create("COIN_CURRECY"),
-	    	CCString::create(""),
-	    	CCString::create(COIN_CURRENCY_ITEM_ID)
-	    );
+```cpp
+	#define COIN_CURRENCY_ITEM_ID "coin_currency"
+	#define TEN_COIN_PACK_ITEM_ID       "ten_coin_pack"
+	#define TEN_COIN_PACK_PRODUCT_ID    "10_coins_pack"  // this is the product id from the developer console
 	
-	    CCVirtualCurrencyPack *TEN_COIN_PACK = CCVirtualCurrencyPack::create(
-	    	CCString::create("10 Coins"),
-	    	CCString::create("A pack of 10 coins"),
-	    	CCString::create(TEN_COIN_PACK_ITEM_ID),
-	    	CCInteger::create(10),
-	    	CCString::create(COIN_CURRENCY_ITEM_ID),
-	    	CCPurchaseWithMarket::create(CCString::create(TEN_COIN_PACK_PRODUCT_ID), CCDouble::create(0.99))
-	    );
-    ```
+	CCVirtualCurrency *COIN_CURRENCY = CCVirtualCurrency::create(
+		CCString::create("COIN_CURRECY"),
+		CCString::create(""),
+		CCString::create(COIN_CURRENCY_ITEM_ID)
+	);
+		
+	CCVirtualCurrencyPack *TEN_COIN_PACK = CCVirtualCurrencyPack::create(
+		CCString::create("10 Coins"),
+		CCString::create("A pack of 10 coins"),
+		CCString::create(TEN_COIN_PACK_ITEM_ID),
+		CCInteger::create(10),
+		CCString::create(COIN_CURRENCY_ITEM_ID),
+		CCPurchaseWithMarket::create(CCString::create(TEN_COIN_PACK_PRODUCT_ID), CCDouble::create(0.99))
+	);
+```
 
 Now you can use _StoreInventory_ to buy your new currency pack:
 
-    ```cpp
-        soomla::CCStoreInventory::sharedStoreInventory()->buyItem(TEN_COIN_PACK_ITEM_ID);
-    ```
+```cpp
+    soomla::CCStoreInventory::sharedStoreInventory()->buyItem(TEN_COIN_PACK_ITEM_ID);
+```
 
 And that's it! cocos2dx-store knows how to contact Google Play or the App Store for you and will redirect your users to the purchasing system to complete the transaction. Don't forget to subscribe to store events in order to get notified of successful or failed purchases (see [Event Handling](https://github.com/ronmrdechai/cocos2dx-store#event-handling)).
 
