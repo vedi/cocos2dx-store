@@ -114,8 +114,8 @@ If you're building your application for the Android platform, here are some inst
 
 When we implemented modelV3, we were thinking about ways that people buy things inside apps. We figured out many ways you can let your users purchase items in your game and we designed the new modelV3 to support 2 of them: _PurchaseWithMarket_ and _PurchaseWithVirtualItem_.
 
-**CCPurchaseWithMarket** is a _CCPurchaseType_ that allows users to purchase a _CCVirtualItem_ with Google Play or the App Store.
-**CCPurchaseWithVirtualItem** is a _CCPurchaseType_ that lets your users purchase a _CCVirtualItem_ with another _CCVirtualItem_. For example: Buying a sword with 100 gems.
+- **CCPurchaseWithMarket** is a _CCPurchaseType_ that allows users to purchase a _CCVirtualItem_ with Google Play or the App Store.
+- **CCPurchaseWithVirtualItem** is a _CCPurchaseType_ that lets your users purchase a _CCVirtualItem_ with another _CCVirtualItem_. For example: Buying a sword with 100 gems.
 
 In order to define the way your various virtual items are purchased, you'll need to create your implementation of _CCIStoreAssets_ (the same one from step 5 in the [Getting Started](https://github.com/ronmrdechai/cocos2dx-store#getting-started) section above).
 
