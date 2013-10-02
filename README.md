@@ -3,7 +3,7 @@
 Haven't you always wanted an in-app purchase one liner that looks like this?!
 
 ```cpp
-    soomla::StoreInventory::sharedStoreInventory("[itemId]");
+    soomla::CCStoreInventory::sharedStoreInventory("[itemId]");
 ```
 
 # cocos2dx-store
