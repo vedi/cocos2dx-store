@@ -13,7 +13,7 @@ namespace soomla {
     #define TAG "SOOMLA StoreController"
 
     USING_NS_CC;
-
+	
     static CCStoreController *s_SharedStoreController = NULL;
 
     CCStoreController *CCStoreController::sharedStoreController() {

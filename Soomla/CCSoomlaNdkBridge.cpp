@@ -47,7 +47,7 @@ namespace soomla {
 
         json_decref(root);
     }
-    #endif
+#endif
 
     cocos2d::CCObject *CCSoomlaNdkBridge::callNative(cocos2d::CCDictionary *params, CCSoomlaError **pError) {
         cocos2d::CCDictionary *methodParams = params;
