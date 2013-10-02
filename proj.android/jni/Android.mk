@@ -32,7 +32,6 @@ LOCAL_SRC_FILES := ../../Soomla/CCSoomla.cpp \
 	../../Soomla/domain/virtualGoods/CCUpgradeVG.cpp \
 	../../Soomla/domain/virtualGoods/CCVirtualGood.cpp
 
-
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Soomla
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../..
 
@@ -46,6 +45,13 @@ LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain/virtualCurrencies
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain/virtualGoods
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/PurchaseTypes
+
+# Build Storefront if directory exists
+ifneq (($wildcard ../../Soomla/Storefront),)
+	LOCAL_SRC_FILES += ../../Soomla/Storefront/CCStorefrontController.cpp \
+			../../Soomla/Storefront/CCStorefrontNdkBridge.cpp
+	LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/Storefront
+endif
 
 include $(BUILD_STATIC_LIBRARY)
 
