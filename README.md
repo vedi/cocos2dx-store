@@ -91,18 +91,17 @@ Soon ...
 If you're building your application for the Android platform, here are some instructions on how to integrate cocos2dx-store into your Android roject:
 
 1. Import the cocos2dx-store library into your project's Android.mk by adding the following lines in their appropriate places.
-    ,,,
-    LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_store_static
-    ,,,
 
-    ,,,
-    $(call import-module, extensions/cocos2dx-store/proj.android/jni)
-    ,,,
+    ```
+    LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_store_static             # add this line along with your other LOCAL_WHOLE_STATIC_LIBRARIES
+    
+    $(call import-module, extensions/cocos2dx-store/proj.android/jni) # add this line at the of the file, along with the other import-module calls
+    ```
 
 2. Add the following to your classpath:
 
 - **extensions/cocos2dx-store/android.proj/src**
-- **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there b/c your cloned cocos2dx-store with the `--recursive` flag).
+- **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there because your cloned cocos2dx-store with the `--recursive` flag).
 - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/libs/square-otto-1.3.2.jar**
 
 
