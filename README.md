@@ -81,6 +81,7 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
 
 And that's it! You now have storage and in-app purchasing capabilities.
 
+
 #### Instructions for iOS
 
 Soon ...
@@ -104,7 +105,9 @@ If you're building your application for the Android platform, here are some inst
 - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there because your cloned cocos2dx-store with the `--recursive` flag).
 - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/libs/square-otto-1.3.2.jar**
 
-That's it, now all you have to is run the build_native script and you can begin using cocos2dx-store in your game.
+
+That's it! Now all you have to do is run the build_native script and you can begin using cocos2dx-store in your game.
+
 
 ## What's next? In App Purchasing.
 
@@ -148,6 +151,7 @@ And that's it! cocos2dx-store knows how to contact Google Play or the App Store 
 
 In order to test purchases on Android, call `soomla::CCSoomla::setAndroidTestMode(true)` in your AppDelegate class before initializing _CCStoreController_.
 
+
 ## Storage & Meta-Data
 
 _CCStoreInventory_ and _CCStoreInfo_ are important storage and metadata classes you should use when you want to perform all store operations:
@@ -182,6 +186,7 @@ The on-device storage is encrypted and kept in a SQLite database. SOOMLA has a [
     int greenHatsBalance = soomla::CCStoreInventory::sharedStoreInventory()->getItemBalance("green_hat");
     ```
 
+
 ## Event Handling
 
 SOOMLA lets you subscribe to store events, get notified and implement your own application specific behaviour to them.
@@ -192,11 +197,13 @@ The _CCSoomla_ class is where all events go through. To handle various events, c
 
     soomla::CCSoomla::sharedSoomla()->addEventHandler(yourEventHandler);
 
+
 ## Debugging
 
 Cocos2d-x debug messages will only be printed out if you set `SOOMLA_DEBUG` to `true` in CCStoreUtils.
 
 If you want to see debug messages from _android-store_, set the `logDebug` variable in `com.soomla.store.StoreConfig` to `true`.
+
 
 ## Contribution
 
@@ -204,11 +211,13 @@ We want you!
 
 Fork -> Clone -> Implement -> Test -> Pull-Request. We have great RESPECT for contributors.
 
+
 ## SOOMLA, Elsewhere ...
 
 + [Website](http://soom.la/)
 + [On Facebook](https://www.facebook.com/pages/The-SOOMLA-Project/389643294427376)
 + [On AngelList](https://angel.co/the-soomla-project)
+
 
 ## License
 
