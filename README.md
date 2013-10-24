@@ -39,16 +39,7 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
     $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
     ```
 
-3. cocos2dx-store usese _jansson_ for JSON parsing in various occasions. Clone the _jansson_ library into the `external` directory located at the root of your Cocos2d-x framework.
-
-    ```
-    $ cd cocos2d-x/
-    $ git clone https://github.com/vedi/jansson.git external/jansson
-    ```
-
-    > cocos2dx-store assumes that your game's directory is inside the `projects` directory located at the root of your Cocos2d-x framework.
-
-4. Open your game's AppDelegate class and set the values for "Soom Sec", "Custom Secret", and "Public Key":
+3. Open your game's AppDelegate class and set the values for "Soom Sec", "Custom Secret", and "Public Key":
     - _Custom Secret_ - is an encryption secret you provide that will be used to secure your data.
     - _Public Key_ - is the public key given to you from Google. (iOS doesn't have a public key).
     - _Soom Sec_ - is a special secret SOOMLA uses to increase your data protection.
@@ -64,7 +55,7 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
     }
     ```
 
-5. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](https://github.com/ronmrdechai/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)). Initialize _CCStoreController_ with the class you just created:
+4. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](https://github.com/ronmrdechai/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)). Initialize _CCStoreController_ with the class you just created:
 
     ```cpp
 	soomla::CCStoreController::createShared(YourStoreAssetsImplementation::create());
@@ -72,7 +63,7 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
 
     > Initialize _StoreController_ ONLY ONCE when your application loads.
 
-6. Now, that you have _CCStoreController_ loaded, just decide when you want to show/hide your store's UI to the user and let _CCStoreController_ know about it:
+5. Now, that you have _CCStoreController_ loaded, just decide when you want to show/hide your store's UI to the user and let _CCStoreController_ know about it:
 
     When you show the store call:  
     ```cpp
@@ -86,7 +77,7 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
 
     > Don't forget to make these calls. _StoreController_ has to know that you opened/closed your in-app purchase store. Just to make it clear: the in-app purchase store is where you sell virtual goods (and not Google Play or App Store).
 
-7. You'll need an event handler in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/ronmrdechai/cocos2dx-store#event-handling) section for more information.
+6. You'll need an event handler in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/ronmrdechai/cocos2dx-store#event-handling) section for more information.
 
 And that's it! You now have storage and in-app purchasing capabilities.
 
@@ -99,11 +90,16 @@ Soon ...
 
 If you're building your application for the Android platform, here are some instructions on how to integrate cocos2dx-store into your Android roject:
 
-1. Create an Android.mk similar to [this](https://github.com/ronmrdechai/cocos2dx-store/blob/master/proj.android/jni/Android.mk) in your project under proj.android/jni folder. 
+1. Import the cocos2dx-store library into your project's Android.mk by adding the following lines in their appropriate places.
+    ,,,
+    LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_store_static
+    ,,,
 
-2. Take a look at [Application.mk](https://github.com/ronmrdechai/cocos2dx-store/blob/master/proj.android/jni/Application.mk) and see how we added '-fexceptions' to 'APP_CPPFLAGS'. Do the same in your Application.mk.
+    ,,,
+    $(call import-module, extensions/cocos2dx-store/proj.android/jni)
+    ,,,
 
-3. Add the following to your classpath:
+2. Add the following to your classpath:
 
 - **extensions/cocos2dx-store/android.proj/src**
 - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there b/c your cloned cocos2dx-store with the `--recursive` flag).
