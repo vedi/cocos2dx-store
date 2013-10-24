@@ -104,6 +104,7 @@ If you're building your application for the Android platform, here are some inst
 - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there because your cloned cocos2dx-store with the `--recursive` flag).
 - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/libs/square-otto-1.3.2.jar**
 
+That's it, now all you have to is run the build_native script and you can begin using cocos2dx-store in your game.
 
 ## What's next? In App Purchasing.
 
