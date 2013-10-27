@@ -105,7 +105,7 @@ If you're building your application for the Android platform, here are some inst
 
 2. Add the following to your classpath:
 
-- **extensions/cocos2dx-store/android.proj/src**
+- **extensions/cocos2dx-store/android/src**
 - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there because your cloned cocos2dx-store with the `--recursive` flag).
 - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/libs/square-otto-1.3.2.jar**
 
