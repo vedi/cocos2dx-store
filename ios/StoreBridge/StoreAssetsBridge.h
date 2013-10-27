@@ -4,9 +4,9 @@
 
 
 #import <Foundation/Foundation.h>
-#import "IStoreAsssets.h"
+#import "IStoreAssets.h"
 
-@interface StoreAssetsBridge : NSObject <IStoreAsssets>{
+@interface StoreAssetsBridge : NSObject <IStoreAssets>{
     int version;
     NSMutableArray* virtualCurrenciesArray;
     NSMutableArray* virtualGoodsArray;
