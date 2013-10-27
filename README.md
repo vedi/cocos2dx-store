@@ -87,8 +87,13 @@ And that's it! You now have storage and in-app purchasing capabilities.
 
 #### Instructions for iOS
 
-Soon ...
+In your XCode project, you'll need to add some folders in order to be able to build with cocos2dx-store:
 
+1. **ios** folder this repo's root.
+2. **Soomla** folder this repo's root.
+3. **SoomlaiOSStore** folder from submodules/ios-store
+
+That's it! Now all you have to do is build your XCode project and run your game with cocos2dx-store.
 
 #### Instructions for Android
 
