@@ -2,9 +2,9 @@
 
 Haven't you always wanted an in-app purchase one liner that looks like this?!
 
-    ```cpp
-    soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
-    ```
+```cpp
+soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
+```
 
 # cocos2dx-store
 
