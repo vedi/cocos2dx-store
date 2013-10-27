@@ -45,13 +45,6 @@ LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain/virtualCurrencies
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain/virtualGoods
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/PurchaseTypes
 
-# Build Storefront if directory exists
-ifneq ($(wildcard ../../Soomla/Storefront),)
-	LOCAL_SRC_FILES += ../../Soomla/Storefront/CCStorefrontController.cpp
-	LOCAL_SRC_FILES += ../../Soomla/Storefront/CCStorefrontNdkBridge.cpp
-	LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/Storefront
-endif
-
 include $(BUILD_STATIC_LIBRARY)
 
 $(call import-module,external/jansson)
