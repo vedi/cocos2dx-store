@@ -1,23 +1,25 @@
 *This project is a part of [The SOOMLA Project](http://project.soom.la) which is a series of open source initiatives with a joint goal to help mobile game developers get better stores and more in-app purchases.*
 
-Haven't you ever wanted an in-app purchase one liner that looks like this ?!
+Haven't you always wanted an in-app purchase one liner that looks like this?!
 
 ```cpp
-    cocos2dx_StoreController::buyMarketItem("[itemId]");
+soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 ```
 
-cocos2dx-store
----
+# cocos2dx-store
 
-**The new Virtual Economy model V3 is merged into master. The new model has many new features and it works better than the old one. Old applications may break if they use in this new model so already published games with android-store from before May 1st, 2013 needs to clone the project with tag 'v2.2' and not 'v3.0'.**
+**October 2, 2013**: cocos2dx-store has been updated since its last version. Everything has been rewritten from scratch and is much more Cocos2d-x friendly. cocos2dx-store allows your Cocos2d-x game to use SOOMLA's in app purchasing services and storage. cocos2dx-store has also been updated to use the third version of our economy model: modelV3.
 
-The cocos2dx-store shows you how to use The SOOMLA Project's [android-store](https://github.com/soomla/android-store) and [ios-store](https://github.com/soomla/ios-store) in your **cocos2d-x** project.
-In cocos2dx-store there are 3 relevant scenes: MainScene, StoreAScene and StoreBScene:
-    MainScene - the welcome scene from where you open the store.
-    StoreAScene - the store's first window that contains a list of VirtualGoods.
-    StoreBScene - the store's second window that contains a list of VirtualCurrencyPacks.
+> cocos2dx-store currently supports all Cocos2d-x 2.x versions. Support for version 3.x (alpha) is experimental.
 
-We suggest that you go over the information on ios-store and android-store:
+Want to learn more about modelV3? Try these:
+* [Economy Model Objects - android-store](https://github.com/soomla/android-store/wiki/Economy-Model-Objects)
+* [Handling Store Operations - android-store](https://github.com/soomla/android-store/wiki/Handling-Store-Operations)
+(The same model objects from android-store exist in cocos2dx-store)
+
+The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project uses [android-store](https://github.com/soomla/android-store) and [ios-store](https://github.com/soomla/ios-store) in order to provide game developers with in-app billing for their **cocos2d-x** projects.
+
+**Before you start**, we suggest that you go over the information in ios-store and android-store so you get acquainted with the SOOMLA framework:
 - ios-store [project](https://github.com/soomla/ios-store) [wiki](https://github.com/soomla/ios-store/wiki)
 - android-store [project](https://github.com/soomla/android-store) [wiki](https://github.com/soomla/android-store/wiki)
 
@@ -25,168 +27,203 @@ We suggest that you go over the information on ios-store and android-store:
 
 ## Getting Started
 
+1. As with all Cocos2d-x projects, you need to clone the Cocos2d-x framework from [here](https://github.com/cocos2d/cocos2d-x) or download it from the [Cocos2d-x website](http://www.cocos2d-x.org/download).  
 
-In order to run the iOS and Android projects you'll need to recursively clone cocos2dx-store:
+    > Make sure the version you clone is supported by cocos2dx-store (the tag is the version).
 
-```
-git clone --recursive git@github.com:soomla/cocos2dx-store.git
-```
+2. Recursively clone cocos2dx-store into the `extensions` directory located at the root of your Cocos2d-x framework.
+    ```
+    $ cd cocos2d-x/
+    $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
+    ```
 
-> The **Android** project is an IntelliJ project. Just open the folder cocos2dx-store/cocos2dx-store/proj.android from IntelliJ to use it.
+3. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your framework.
+    ```
+    $ git clone git@github.com:vedi/jansson.git
+    ```
 
-#### Application secret
+4. Open your game's AppDelegate class and set the values for "Soom Sec", "Custom Secret", and "Public Key":
+    - _Custom Secret_ - is an encryption secret you provide that will be used to secure your data.
+    - _Public Key_ - is the public key given to you from Google. (iOS doesn't have a public key).
+    - _Soom Sec_ - is a special secret SOOMLA uses to increase your data protection.
+    **Choose both secrets wisely. You can't change them after you launch your game!**
+   
+    ```cpp
+    bool AppDelegate::applicationDidFinishLaunching() {
+    	/* ... */
+    	soomla::CCSoomla::sharedSoomla()->setSoomSec("ExampleSoomSecret");
+    	soomla::CCSoomla::sharedSoomla()->setPublicKey("ExamplePublicKey");
+    	soomla::CCSoomla::sharedSoomla()->setCustomSecret("ExampleCustomSecret");
+    	/* ... */
+    }
+    ```
 
-The first thing you should do is go to StoreConfig.java (Android) and StoreConfig.m (iOS) and change the value for the variable `SOOM_SEC`. Do this now! **This value is set once and cannot be changed after you publish you game.**
+5. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](https://github.com/ronmrdechai/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)). Initialize _CCStoreController_ with the class you just created:
 
-#### StoreController initialization
+    ```cpp
+	soomla::CCStoreController::createShared(YourStoreAssetsImplementation::create());
+    ```
 
-_StoreController_ is initialized through cocos2dx_StoreController class. `initialize` is called with another secret. This secret is also unchangeable and its purpose is to provide more security to your game's data. **This value is set once and cannot be changed after you publish you game.**
+    > Initialize _StoreController_ ONLY ONCE when your application loads.
 
-You'll need to initialize _StoreController_ ONLY once from `AppDelegate::applicationDidFinishLaunching` ([example](https://github.com/soomla/cocos2dx-store/blob/master/cocos2dx-store/Classes/AppDelegate.cpp)).
+6. Now, that you have _CCStoreController_ loaded, just decide when you want to show/hide your store's UI to the user and let _CCStoreController_ know about it:
 
-## Instructions for iOS
+    When you show the store call:  
+    ```cpp
+    soomla::CCStoreController::sharedStoreController()->storeOpening();
+    ```
+
+    When you hide the store call:  
+    ```cpp
+    soomla::CCStoreController::sharedStoreController()->storeClosing();
+    ```
+
+    > Don't forget to make these calls. _StoreController_ has to know that you opened/closed your in-app purchase store. Just to make it clear: the in-app purchase store is where you sell virtual goods (and not Google Play or App Store).
+
+7. You'll need an event handler in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/ronmrdechai/cocos2dx-store#event-handling) section for more information.
+
+And that's it! You now have storage and in-app purchasing capabilities.
 
 
-If you're building your cocos2dx application for the iOS platform, open our xCode project and see how to integrate it with ios-store.
-The example ios project needs to be enough, but if you want more info then this is what's relevant to you:
+#### Instructions for iOS
 
-1. You'll have to create your implementation of `IStoreAssets` that will represent the assets in your specific game. We created an _IStoreAssets_ implementation for an imaginary game called Muffin Rush and we called it [MuffinRushAssets](https://github.com/soomla/cocos2dx-store/blob/master/cocos2dx-store/ios/MuffinRushAssets.m).
-2. We've created our cocos2dx UI in cocos2dx-store/Classes. You don't need these files. Just look into [AppDelegate.cpp](https://github.com/soomla/cocos2dx-store/blob/master/cocos2dx-store/Classes/AppDelegate.cpp) and see where we initialize cocos2dx_StoreController and do the same in your game.
-3. You'll need ONLY the HEADER files from cocos2dx-store/Classes/StoreBridge to be included in your game's iOS project. (EXCEPT for JniHelpers.h !)
-4. From cocos2dx-store/ios, copy the following files into your iOS project: cocos2dx_StoreController.mm, cocos2dx_StoreInfo.mm, cocos2dx_StoreInventory.mm, iOSHelper.mm, iOSHelper.h.
-5. In the above [Getting Started](https://github.com/soomla/cocos2dx-store#getting-started), we mentioned you need to recursively clone cocos2dx-store. By doing that you also cloned [ios-store](https://www.github.com/soomla/ios-store) into the 'submodules' folder. Make sure you add the folder 'SoomlaiOSStore' from ios-store into your project.
-6. Make sure you go over [ios-store Getting Started](https://github.com/soomla/ios-store#getting-started-using-source-code) for more instructions. For example: make sure you add '-fno-objc-arc' to the source JSONKit.m in Build Phases.
+Soon ...
 
-Instructions for Android
----
 
-If you're building your cocos2dx application for the Android platform, open our IntelliJ project from cocos2dx-store/proj.android and see how to integrate it with android-store.
-The example Android project needs to be enough, but if you want more info then this is what's relevant to you:
+#### Instructions for Android
 
-1. You'll have to create your implementation of `IStoreAssets` that will represent the assets in your specific game. We created an _IStoreAssets_ implementation for an imaginary game called Muffin Rush and we called it [MuffinRushAssets](https://github.com/soomla/cocos2dx-store/blob/master/cocos2dx-store/proj.android/src/com/soomla/cocos2dx/example/MuffinRushAssets.java).
-2. We've created our cocos2dx UI in cocos2dx-store/Classes. You don't need these files. Just look into [AppDelegate.cpp](https://github.com/soomla/cocos2dx-store/blob/master/cocos2dx-store/Classes/AppDelegate.cpp) and see where we initialize cocos2dx_StoreController and do the same in your game.
-3. You'll need an Android.mk similar to [the one](https://github.com/soomla/cocos2dx-store/blob/master/cocos2dx-store/proj.android/jni/Android.mk) under the proj.android/jni folder.
-4. Look into Application.mk and see how we added '-fexceptions' to 'APP_CPPFLAGS'.
-5. From cocos2dx-store/android.proj, copy the folder 'com' into your project's 'src' folder. (you can remove the subfolder 'example')
-6. In the above [Getting Started](https://github.com/soomla/cocos2dx-store#getting-started), we mentioned you need to recursively clone cocos2dx-store. By doing that you also cloned [android-store](https://www.github.com/soomla/android-store) into the 'submodules' folder. Make sure you add the folder 'SoomlaAndroidStore/src' from android-store into your classpath as a source folder.
-7. Make sure you go over [ios-store Getting Started](https://github.com/soomla/android-store#getting-started) for more instructions.
+If you're building your application for the Android platform, here are some instructions on how to integrate cocos2dx-store into your Android roject:
 
-What's next? In App Purchasing.
----
+1. Import the cocos2dx-store library into your project's Android.mk by adding the following lines in their appropriate places.
 
-android-store and ios-store provides you with VirtualCurrencyPacks. VirtualCurrencyPack is a representation of a "bag" of currency units that you want to let your users purchase in Google Play or App-Store. You define VirtualCurrencyPacks in your game specific assets file which is your implementation of `IStoreAssets` (examples: [android](https://github.com/soomla/android-store/blob/master/SoomlaAndroidExample/src/com/soomla/example/MuffinRushAssets.java) [ios](https://github.com/soomla/ios-store/blob/master/SoomlaiOSStoreExample/SoomlaiOSStoreExample/MuffinRushAssets.m)).
-After you do that you can use cocos2dx-store to call cocos2dx_StoreController to make actual purchases and android-store or ios-store will take care of the rest.
+    ```
+    LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_store_static             # add this line along with your other LOCAL_WHOLE_STATIC_LIBRARIES
+    
+    $(call import-module, extensions/cocos2dx-store/proj.android/jni) # add this line at the of the file, along with the other import-module calls
+    ```
 
-Example:
+2. Add the following to your classpath:
 
-Lets say you have a VirtualCurrencyPack you call TEN_COINS_PACK, a VirtualCurrency you call COIN_CURRENCY and a VirtualCategory you call CURRENCYPACKS_CATEGORY:
+- **extensions/cocos2dx-store/android/src**
+- **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there because your cloned cocos2dx-store with the `--recursive` flag).
+- **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/libs/square-otto-1.3.2.jar**
 
-```Java
-VirtualCurrencyPack TEN_COINS_PACK = new VirtualCurrencyPack(
-        "10 Coins",                // name
-        "A pack of 10 coins",      // description
-        "10_coins",                // item id
-        TEN_COINS_PACK_PRODUCT_ID, // product id in Google Market
-        1.99,                      // actual price in $$
-        10,                        // number of currency units in the pack
-        COIN_CURRENCY);            // the associated currency
-```
 
-```objective-c
-VirtualCurrencyPack* TEN_COINS_PACK = [[VirtualCurrencyPack alloc] initWithName:@"10 Coins"
-                                              andDescription:@"A pack of 10 coins"
-                                                   andItemId:@"10_coins"
-                                                    andPrice:0.99
-                                                andProductId:TEN_COINS_PACK_PRODUCT_ID
-                                           andCurrencyAmount:10
-                                                 andCurrency:COIN_CURRENCY];
-```
+That's it! Now all you have to do is run the __build_native.sh__ script and you can begin using cocos2dx-store in your game.
 
-Now you can use cocos2dx_StoreController to call the in-app purchasing mechanism:
 
->This is a full example that shows you how to do everything from the click event handler to the actual purchase and event handling. You can find the full example [here](https://github.com/soomla/cocos2dx-store/blob/master/cocos2dx-store/Classes/StoreBScene.cpp).
+## What's next? In App Purchasing.
 
-```cpp
-void StoreScene::menuChooseCallback(CCObject* pSender)
-{
-    if (pSender)
-    {
-		GameMenuItem* item = (GameMenuItem*)pSender;
+When we implemented modelV3, we were thinking about ways that people buy things inside apps. We figured out many ways you can let your users purchase items in your game and we designed the new modelV3 to support 2 of them: _PurchaseWithMarket_ and _PurchaseWithVirtualItem_.
 
-		int tag = item->getTag();
-		char productId[512];
-		snprintf(productId, sizeof(productId), productIdFromTag(tag).c_str());
-		try{
-			if (tag == 0) {
+- **CCPurchaseWithMarket** is a _CCPurchaseType_ that allows users to purchase a _CCVirtualItem_ with Google Play or the App Store.
+- **CCPurchaseWithVirtualItem** is a _CCPurchaseType_ that lets your users purchase a _CCVirtualItem_ with another _CCVirtualItem_. For example: Buying a sword with 100 gems.
 
-			} else {
-				cocos2dx_StoreController::buyMarketItem(productId);
-			}
-		}
-		catch (cocos2dx_VirtualItemNotFoundException& e) {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-			__android_log_write(ANDROID_LOG_ERROR, "SOOMLA JNI", "Caught cocos2dx_VirtualItemNotFoundException from NATIVE!");
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-            iOSHelper::LogMessage("Caught cocos2dx_VirtualItemNotFoundException!");
-#endif
-		}
-	}
-}
-```
+In order to define the way your various virtual items are purchased, you'll need to create your implementation of _CCIStoreAssets_ (the same one from step 5 in the [Getting Started](https://github.com/ronmrdechai/cocos2dx-store#getting-started) section above).
 
-And that's it! android-store and ios-store knows how to contact Google Play and the App Store for you and redirect the user to the purchasing mechanism. 
-**IMPORTANT:** Don't forget to handle in cocos2dx_EventHandler.cpp in order to get the events of successful or failed purchases.
+Here is an example:
 
-Storage & Meta-Data
----
-
-When you initialize cocos2dx_StoreController, ios-store and android-store automatically initializes two other classes: _StorageManager_ and _StoreInfo_ which makes 2 cocos2dx classes relevant:
-* cocos2dx_StoreInventory is used to access all storage related instances in your game. Use it to access tha balances of virtual currencies and virtual goods (usually, using their itemIds).
-* cocos2dx_StoreInfo is the mother of all meta data information about your specific game. ios-store and android-store initializes _StoreInfo_ with your implementation of `IStoreAssets` so you can use cocos2dx_StoreInfo to retrieve information about your specific game.
-
-The on-device storage is encrypted and kept in a SQLite database. SOOMLA is preparing a cloud-based storage service that will allow this SQLite to be synced to a cloud-based repository that you'll define. Stay tuned... this is just one of the goodies we prepare for you.
-
-Example Usages
-
-Add 10 coins to the virtual currency with itemId "currency_coin":
+Lets say you have a _VirtualCurrencyPack_ you want to call `TEN_COINS_PACK` and a _VirtualCurrency_ you want to call `COIN_CURRENCY` (`TEN_COINS_PACK` will hold 10 pieces of the currency `COIN_CURRENCY`):
 
 ```cpp
-string itemId("currency_coin");
-cocos2dx_StoreInventory::addCurrencyAmount(itemId, 10);
+#define COIN_CURRENCY_ITEM_ID "coin_currency"
+#define TEN_COIN_PACK_ITEM_ID       "ten_coin_pack"
+#define TEN_COIN_PACK_PRODUCT_ID    "10_coins_pack"  // this is the product id from the developer console
+	
+CCVirtualCurrency *COIN_CURRENCY = CCVirtualCurrency::create(
+	CCString::create("COIN_CURRECY"),
+	CCString::create(""),
+	CCString::create(COIN_CURRENCY_ITEM_ID)
+);
+		
+CCVirtualCurrencyPack *TEN_COIN_PACK = CCVirtualCurrencyPack::create(
+	CCString::create("10 Coins"),
+	CCString::create("A pack of 10 coins"),
+	CCString::create(TEN_COIN_PACK_ITEM_ID),
+	CCInteger::create(10),
+	CCString::create(COIN_CURRENCY_ITEM_ID),
+	CCPurchaseWithMarket::create(CCString::create(TEN_COIN_PACK_PRODUCT_ID), CCDouble::create(0.99))
+);
 ```
 
-Remove 10 virtual goods with itemId "green_hat":
+Now you can use _StoreInventory_ to buy your new currency pack:
 
-```cpp
-string itemId("green_hat");
-cocos2dx_StoreInventory::removeGoodAmount(itemId, 10);
-```
+    soomla::CCStoreInventory::sharedStoreInventory()->buyItem(TEN_COIN_PACK_ITEM_ID);
 
-Get the current balance of green hats (virtual goods with itemId "green_hat"):
+And that's it! cocos2dx-store knows how to contact Google Play or the App Store for you and will redirect your users to the purchasing system to complete the transaction. Don't forget to subscribe to store events in order to get notified of successful or failed purchases (see [Event Handling](https://github.com/ronmrdechai/cocos2dx-store#event-handling)).
 
-```cpp
-string itemId("green_hat");
-int balance = cocos2dx_StoreInventory::getCurrencyBalance(itemId);
-```
+In order to test purchases on Android, call `soomla::CCSoomla::setAndroidTestMode(true)` in your AppDelegate class before initializing _CCStoreController_.
 
->Make sure you handle the appropriate exceptions when using any cocos2dx_* class. Look in the header files in ../Classes/StoreBridge to see what exceptions are thrown.
 
-Contribution
----
+## Storage & Meta-Data
+
+_CCStoreInventory_ and _CCStoreInfo_ are important storage and metadata classes you should use when you want to perform all store operations:
+* _CCStoreInventory_ is a convenience class to let you perform operations on VirtualCurrencies and VirtualGoods. Use it to fetch/change the balances of VirtualItems in your game (using their ItemIds!)  
+* _CCStoreInfo_ is where all meta data information about your specific game can be retrieved. It is initialized with your implementation of _CCIStoreAssets_ and you can use it to retrieve information about your specific game.
+
+The on-device storage is encrypted and kept in a SQLite database. SOOMLA has a [cloud-based](http://dashboard.soom.la) storage service (The SOOMLA Highway) that allows this SQLite to be synced to a cloud-based repository that you define.
+
+**Example Usages**
+
+* Get all the VirtualCurrencies:
+
+    ```cpp
+    CCArray *vcArray = soomla::CCStoreInfo::sharedStoreInfo()->getVirtualCurrencies();
+    ```
+
+* Give the user 10 pieces of a virtual currency with itemId "currency_coin":
+
+    ```cpp
+    soomla::CCStoreInventory::sharedStoreInventory()->giveItem("currency_coin", 10);
+    ```
+
+* Take 10 virtual goods with itemId "green_hat":
+
+    ```cpp
+    soomla::CCStoreInventory::sharedStoreInventory()->takeItem("green_hat", 10);
+    ```
+
+* Get the current balance of green hats (virtual goods with itemId "green_hat"):
+
+    ```cpp
+    int greenHatsBalance = soomla::CCStoreInventory::sharedStoreInventory()->getItemBalance("green_hat");
+    ```
+
+
+## Event Handling
+
+SOOMLA lets you subscribe to store events, get notified and implement your own application specific behaviour to them.
+
+> Your behaviour is an addition to the default behaviour implemented by SOOMLA. You don't replace SOOMLA's behaviour.
+
+The _CCSoomla_ class is where all events go through. To handle various events, create your own event handler, a class that implements _CCEventHandler_, and add it to the _CCSoomla_ class:
+
+    soomla::CCSoomla::sharedSoomla()->addEventHandler(yourEventHandler);
+
+
+## Debugging
+
+Cocos2d-x debug messages will only be printed out if you set `SOOMLA_DEBUG` to `true` in CCStoreUtils.
+
+If you want to see debug messages from _android-store_, set the `logDebug` variable in `com.soomla.store.StoreConfig` to `true`.
+
+
+## Contribution
 
 We want you!
 
 Fork -> Clone -> Implement -> Test -> Pull-Request. We have great RESPECT for contributors.
 
-SOOMLA, Elsewhere ...
----
 
-+ [SOOMLA Website](http://soom.la/)
-+ [On Facebook](https://www.facebook.com/pages/The-SOOMLA-Project/389643294427376).
+## SOOMLA, Elsewhere ...
+
++ [Website](http://soom.la/)
++ [On Facebook](https://www.facebook.com/pages/The-SOOMLA-Project/389643294427376)
 + [On AngelList](https://angel.co/the-soomla-project)
 
-License
----
+
+## License
+
 MIT License. Copyright (c) 2012 SOOMLA. http://project.soom.la
 + http://www.opensource.org/licenses/MIT
 
