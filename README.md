@@ -31,9 +31,8 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
 
     > Make sure the version you clone is supported by cocos2dx-store (the tag is the version).
 
-2. Recursively clone cocos2dx-store into the `extensions` directory located at the root of your Cocos2d-x framework.
+2. Go into your cocos2d-x project and recursively clone cocos2dx-store into the `extensions` directory located at the root of your Cocos2d-x framework.
     ```
-    $ cd cocos2d-x/
     $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
     ```
 
