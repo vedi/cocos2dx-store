@@ -38,7 +38,7 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
     ```
 
 3. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your framework.
-    ```
+    ```
     $ git clone git@github.com:vedi/jansson.git
     ```
 
@@ -92,6 +92,8 @@ In your XCode project, you'll need to add some folders in order to be able to bu
 1. **ios** folder this repo's root.
 2. **Soomla** folder this repo's root.
 3. **SoomlaiOSStore** folder from submodules/ios-store
+
+* Make sure you have these 3 Frameworks linked to your XCode project: Security, libsqlite3.0.dylib, StoreKit.
 
 That's it! Now all you have to do is build your XCode project and run your game with cocos2dx-store.
 
