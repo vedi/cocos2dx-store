@@ -33,13 +33,17 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
     > Make sure the version you clone is supported by cocos2dx-store (the tag is the version).
 
 2. Recursively clone cocos2dx-store into the `extensions` directory located at the root of your Cocos2d-x framework.
-
     ```
     $ cd cocos2d-x/
     $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
     ```
 
-3. Open your game's AppDelegate class and set the values for "Soom Sec", "Custom Secret", and "Public Key":
+3. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your framework.
+    ```
+    $ git clone git@github.com:vedi/jansson.git
+    ```
+
+4. Open your game's AppDelegate class and set the values for "Soom Sec", "Custom Secret", and "Public Key":
     - _Custom Secret_ - is an encryption secret you provide that will be used to secure your data.
     - _Public Key_ - is the public key given to you from Google. (iOS doesn't have a public key).
     - _Soom Sec_ - is a special secret SOOMLA uses to increase your data protection.
@@ -55,7 +59,7 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
     }
     ```
 
-4. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](https://github.com/ronmrdechai/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)). Initialize _CCStoreController_ with the class you just created:
+5. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](https://github.com/ronmrdechai/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)). Initialize _CCStoreController_ with the class you just created:
 
     ```cpp
 	soomla::CCStoreController::createShared(YourStoreAssetsImplementation::create());
@@ -63,7 +67,7 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
 
     > Initialize _StoreController_ ONLY ONCE when your application loads.
 
-5. Now, that you have _CCStoreController_ loaded, just decide when you want to show/hide your store's UI to the user and let _CCStoreController_ know about it:
+6. Now, that you have _CCStoreController_ loaded, just decide when you want to show/hide your store's UI to the user and let _CCStoreController_ know about it:
 
     When you show the store call:  
     ```cpp
@@ -77,7 +81,7 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
 
     > Don't forget to make these calls. _StoreController_ has to know that you opened/closed your in-app purchase store. Just to make it clear: the in-app purchase store is where you sell virtual goods (and not Google Play or App Store).
 
-6. You'll need an event handler in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/ronmrdechai/cocos2dx-store#event-handling) section for more information.
+7. You'll need an event handler in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/ronmrdechai/cocos2dx-store#event-handling) section for more information.
 
 And that's it! You now have storage and in-app purchasing capabilities.
 
