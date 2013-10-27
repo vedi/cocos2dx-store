@@ -1,13 +1,5 @@
 LOCAL_PATH := $(call my-dir)
 
-# jansson: A prebuilt fork of the jansson library
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := jansson_static
-LOCAL_SRC_FILES := ../../lib/libjansson.a
-
-include $(PREBUILT_STATIC_LIBRARY)
-
 # cocos2dx-store
 include $(CLEAR_VARS)
 
@@ -61,3 +53,5 @@ ifneq ($(wildcard ../../Soomla/Storefront),)
 endif
 
 include $(BUILD_STATIC_LIBRARY)
+
+$(call import-module,external/jansson)
