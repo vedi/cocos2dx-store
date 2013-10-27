@@ -29,7 +29,7 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
 
 There's an example project that shows how to use cocos2dx-store at http://github.com/soomla/cocos2dx-store-example .
 
-This project is under developement but it already has some important aspects of the framework you can learn and implement in your application.
+The example project is still under developement but it already has some important aspects of the framework you can learn and implement in your application.
 
 ## Getting Started
 
