@@ -10,6 +10,7 @@
 #import "StoreInfoBridge.h"
 #import "VirtualItemNotFoundException.h"
 #import "EventDispatcherBridge.h"
+#import "NotEnoughGoodsException.h"
 #import "InsufficientFundsException.h"
 #import "EventHandling.h"
 #import "VirtualCurrency.h"
@@ -186,6 +187,9 @@ static EventDispatcherBridge *eventDispatcherBridge = [EventDispatcherBridge sha
     }
     @catch (InsufficientFundsException* e) {
         [retParameters setObject: [NSNumber numberWithInt: -2] forKey: @"errorCode"];
+    }
+    @catch (NotEnoughGoodsException* e) {
+        [retParameters setObject: [NSNumber numberWithInt: -3] forKey: @"errorCode"];
     }
     return retParameters;
 }
