@@ -25,6 +25,12 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
 
 >If you also want to create a **storefront** you can do that using SOOMLA's [In-App Purchase Store Designer](http://soom.la).
 
+## Example Project
+
+There's an example project that shows how to use cocos2dx-store at http://github.com/soomla/cocos2dx-store-example .
+
+This project is under developement but it already has some important aspects of the framework you can learn and implement in your application.
+
 ## Getting Started
 
 1. As with all Cocos2d-x projects, you need to clone the Cocos2d-x framework from [here](https://github.com/cocos2d/cocos2d-x) or download it from the [Cocos2d-x website](http://www.cocos2d-x.org/download).  
