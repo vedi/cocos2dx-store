@@ -2,15 +2,15 @@
 
 Haven't you always wanted an in-app purchase one liner that looks like this?!
 
-```cpp
-    soomla::CCStoreInventory::sharedStoreInventory("[itemId]");
-```
+    ```cpp
+    soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
+    ```
 
 # cocos2dx-store
 
 **October 2, 2013**: cocos2dx-store has been updated since its last version. Everything has been rewritten from scratch and is much more Cocos2d-x friendly. cocos2dx-store allows your Cocos2d-x game to use SOOMLA's in app purchasing services and storage. cocos2dx-store has also been updated to use the third version of our economy model: modelV3.
 
-> cocos2dx-store currently supports all Cocos2d-x 2.x versions. Versions 1.x and 3.x (alpha) are not supported.
+> cocos2dx-store currently supports all Cocos2d-x 2.x versions. Support for version 3.x (alpha) is experimental.
 
 Want to learn more about modelV3? Try these:
 * [Economy Model Objects - android-store](https://github.com/soomla/android-store/wiki/Economy-Model-Objects)
