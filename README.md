@@ -8,6 +8,7 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 # cocos2dx-store
 
+**October 28, 2013**: iOS server side verification is added. Instructions here
 **October 27, 2013**: cocos2dx-store has been updated since its last version. Everything has been rewritten from scratch and is much more Cocos2d-x friendly. cocos2dx-store allows your Cocos2d-x game to use SOOMLA's in app purchasing services and storage. cocos2dx-store has also been updated to use the third version of our economy model: modelV3.
 
 > cocos2dx-store currently supports all Cocos2d-x 2.x versions. Support for version 3.x (alpha) is experimental.
@@ -212,6 +213,14 @@ The _CCSoomla_ class is where all events go through. To handle various events, c
 
     soomla::CCSoomla::sharedSoomla()->addEventHandler(yourEventHandler);
 
+## iOS Server Side Verification
+
+As you probably know, fraud on IAP is pretty common. Hackers can crack their smartphones to think that a purchase is made when payment wasn't actually transferred to you. We want to help you with it so we created our verification server and we let you instantly use it through the framework.
+All you need to do is let cocos2dx-store know you want to verify purchases. You can do that by adding the following line in AppDelegate.cpp:
+
+```cpp
+soomla::CCSoomla::sharedSoomla()->setAndroidTestMode(true);
+```
 
 ## Debugging
 
