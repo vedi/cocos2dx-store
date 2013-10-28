@@ -220,7 +220,7 @@ As you probably know, fraud on IAP is pretty common. Hackers can crack their sma
 All you need to do is let cocos2dx-store know you want to verify purchases. You can do that by adding the following line in AppDelegate.cpp:
 
 ```cpp
-soomla::CCSoomla::sharedSoomla()->setAndroidTestMode(true);
+soomla::CCSoomla::sharedSoomla()->setSSV(true);
 ```
 
 ## Debugging
