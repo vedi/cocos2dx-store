@@ -65,6 +65,10 @@ static EventDispatcherBridge *eventDispatcherBridge = [EventDispatcherBridge sha
             NSString *soomSec = (NSString *) [parameters objectForKey:@"soomSec"];
             StoreControllerBridge::setSoomSec([soomSec UTF8String]);
         }
+        else if ([methodName isEqualToString:@"CCStoreController::setSSV"]) {
+            bool ssv = [(NSNumber*)[parameters objectForKey:@"ssv"] boolValue];
+            StoreControllerBridge::setSSV(ssv);
+        }
         else if ([methodName isEqualToString:@"CCStoreInventory::buyItem"]) {
             NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
             StoreInventoryBridge::buy([itemId UTF8String]);

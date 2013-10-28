@@ -24,6 +24,9 @@ namespace soomla {
         CC_SYNTHESIZE(string, mAndroidPublicKey, AndroidPublicKey);
         CC_SYNTHESIZE(bool, mAndroidTestMode, AndroidTestMode);
         CC_SYNTHESIZE(string, mSoomSec, SoomSec);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        CC_SYNTHESIZE(bool, mSSV, SSV);
+#endif
 
 	private:
 		set<CCEventHandler *> mEventHandlers;
@@ -39,6 +42,9 @@ namespace soomla {
             mAndroidPublicKey(SOOMLA_AND_PUB_KEY_DEFAULT),
             mAndroidTestMode(false),
             mSoomSec(SOOMLA_ONLY_ONCE_DEFAULT)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+            ,mSSV(false)
+#endif
         {};
         virtual ~CCSoomla(void);
         virtual bool init(void);

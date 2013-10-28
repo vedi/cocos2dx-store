@@ -25,6 +25,7 @@
 #import "PurchaseWithMarket.h"
 #import "AppStoreItem.h"
 #import "StoreConfig.h"
+#import "StoreUtils.h"
 
 /**
  * This implementation is used to let cocos2dx functions perform actions on StoreController.
@@ -68,6 +69,13 @@ void StoreControllerBridge::setSoomSec(string soomSec) {
         [SOOM_SEC release];
     }
     SOOM_SEC = [[NSString stringWithUTF8String:soomSec.c_str()] retain];
+}
+
+void StoreControllerBridge::setSSV(bool ssv) {
+    LogDebug(@"SOOMLA StoreControllerBridge", ([NSString stringWithFormat:@"Setting iOS SSV to: %@", ssv?@"true":@"false"]));
+    VERIFY_PURCHASES = ssv;
+    
+    VERIFY_URL = @"https://verify-dev.soom.la:3002/verify_ios";
 }
 
 

@@ -80,6 +80,15 @@ namespace soomla {
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        {
+            CCDictionary *params = CCDictionary::create();
+            params->setObject(CCString::create("CCStoreController::setSSV"), "method");
+            params->setObject(CCBool::create(soomla->getSSV()), "ssv");
+            CCSoomlaNdkBridge::callNative(params, NULL);
+        }
+#endif
+        
         CCStoreInfo::createShared(storeAssets);
 
         {

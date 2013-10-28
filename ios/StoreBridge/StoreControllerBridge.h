@@ -30,6 +30,7 @@ public:
 	static void restoreTransactions();
 	static bool transactionsAlreadyRestored();
     static void setSoomSec(string soomSec);
+    static void setSSV(bool ssv);
 };
 
 #endif /* defined(__StoreControllerBridge__) */
