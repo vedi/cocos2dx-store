@@ -229,7 +229,7 @@ Cocos2d-x debug messages will only be printed out if you set `SOOMLA_DEBUG` to `
 
 If you want to see debug messages from _android-store_, set the `logDebug` variable in `com.soomla.store.StoreConfig` to `true`.
 
-To see debug messages on iOS, make sure you have 'DEBUG=1' in your Build Settings's 'Preprocessor Macros' (for Debug only).
+To see debug messages on iOS, make sure you have `DEBUG=1` in your Build Settings's `Preprocessor Macros` (for Debug only).
 
 ## Contribution
 
