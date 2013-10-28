@@ -74,8 +74,6 @@ void StoreControllerBridge::setSoomSec(string soomSec) {
 void StoreControllerBridge::setSSV(bool ssv) {
     LogDebug(@"SOOMLA StoreControllerBridge", ([NSString stringWithFormat:@"Setting iOS SSV to: %@", ssv?@"true":@"false"]));
     VERIFY_PURCHASES = ssv;
-    
-    VERIFY_URL = @"https://verify-dev.soom.la:3002/verify_ios";
 }
 
 
