@@ -8,7 +8,8 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 # cocos2dx-store
 
-**October 28, 2013**: iOS server side verification is added. Instructions here
+**October 28, 2013**: iOS server side verification is added. This feature is not activated by default. [learn more](https://github.com/soomla/cocos2dx-store#ios-server-side-verification)
+
 **October 27, 2013**: cocos2dx-store has been updated since its last version. Everything has been rewritten from scratch and is much more Cocos2d-x friendly. cocos2dx-store allows your Cocos2d-x game to use SOOMLA's in app purchasing services and storage. cocos2dx-store has also been updated to use the third version of our economy model: modelV3.
 
 > cocos2dx-store currently supports all Cocos2d-x 2.x versions. Support for version 3.x (alpha) is experimental.
