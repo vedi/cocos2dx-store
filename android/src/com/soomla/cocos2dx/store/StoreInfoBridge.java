@@ -60,11 +60,31 @@ public class StoreInfoBridge {
     }
 
     public static JSONObject getFirstUpgradeForVirtualGood(String goodItemId) {
-        return StoreInfo.getGoodFirstUpgrade(goodItemId).toJSONObject();
+        UpgradeVG upgradeVG = StoreInfo.getGoodFirstUpgrade(goodItemId);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("item", upgradeVG.toJSONObject());
+            jsonObject.put("className", upgradeVG.getClass().getSimpleName());
+        } catch (JSONException e) {
+            //   TODO: Implement error handling
+            throw new IllegalStateException(e);
+        }
+
+        return jsonObject;
     }
 
     public static JSONObject getLastUpgradeForVirtualGood(String goodItemId) {
-        return StoreInfo.getGoodFirstUpgrade(goodItemId).toJSONObject();
+        UpgradeVG upgradeVG = StoreInfo.getGoodLastUpgrade(goodItemId);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("item", upgradeVG.toJSONObject());
+            jsonObject.put("className", upgradeVG.getClass().getSimpleName());
+        } catch (JSONException e) {
+            //   TODO: Implement error handling
+            throw new IllegalStateException(e);
+        }
+
+        return jsonObject;
     }
 
     public static JSONArray getUpgradesForVirtualGood(String goodItemId) {

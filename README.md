@@ -109,7 +109,6 @@ That's it! Now all you have to do is build your XCode project and run your game 
 If you're building your application for the Android platform, here are some instructions on how to integrate cocos2dx-store into your Android roject:
 
 1. Import the cocos2dx-store library into your project's Android.mk by adding the following lines in their appropriate places.
-
     ```
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_store_static        # add this line along with your other LOCAL_WHOLE_STATIC_LIBRARIES
     
@@ -117,11 +116,19 @@ If you're building your application for the Android platform, here are some inst
     ```
 
 2. Add the following to your classpath:
+    - **extensions/cocos2dx-store/android/src**
+    - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there because your cloned cocos2dx-store with the `--recursive` flag).
+    - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/libs/square-otto-1.3.2.jar**
 
-- **extensions/cocos2dx-store/android/src**
-- **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there because your cloned cocos2dx-store with the `--recursive` flag).
-- **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/libs/square-otto-1.3.2.jar**
-
+3. In your main Cocos2dxActivity (The one your Cocos2d-x application runs in), call the following in the onCreateView method:
+    ```java
+    Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
+    StoreControllerBridge.setGLView(glSurfaceView);
+    
+    StoreControllerBridge.setActivity(this);
+    
+    SoomlaApp.setExternalContext(getApplicationContext());
+    ```
 
 That's it! Now all you have to do is run the __build_native.sh__ script and you can begin using cocos2dx-store in your game.
 
