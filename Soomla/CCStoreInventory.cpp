@@ -107,12 +107,13 @@ namespace soomla {
         params->setObject(CCString::create("CCStoreInventory::isVirtualGoodEquipped"), "method");
         params->setObject(CCString::create(itemId), "itemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
-        if (!*soomlaError) {
-            CCBool *retValue = (CCBool *) retParams->objectForKey("return");
-            return retValue->getValue();
-        } else {
-            return false;
-        }
+
+		CCBool *retValue = (CCBool *) retParams->objectForKey("return");
+		if (retValue) {
+			return retValue->getValue();
+		} else {
+			return false;
+		}
     }
 
     int CCStoreInventory::getGoodUpgradeLevel(char const *goodItemId, CCSoomlaError **soomlaError) {
@@ -122,12 +123,13 @@ namespace soomla {
         params->setObject(CCString::create("CCStoreInventory::getGoodUpgradeLevel"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
-        if (!*soomlaError) {
-            CCInteger *retValue = (CCInteger *) retParams->objectForKey("return");
-            return retValue->getValue();
-        } else {
-            return -1;
-        }
+
+		CCInteger *retValue = (CCInteger *) retParams->objectForKey("return");
+		if (retValue) {
+			return retValue->getValue();
+		} else {
+			return 0;
+		}
     }
 
     std::string CCStoreInventory::getGoodCurrentUpgrade(char const *goodItemId, CCSoomlaError **soomlaError) {
@@ -137,12 +139,13 @@ namespace soomla {
         params->setObject(CCString::create("CCStoreInventory::getGoodCurrentUpgrade"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
-        if (!*soomlaError) {
-            CCString *retValue = (CCString *) retParams->objectForKey("return");
-            return retValue->getCString();
-        } else {
-            return "";
-        }
+
+		CCString *retValue = (CCString *) retParams->objectForKey("return");
+		if (retValue) {
+			return retValue->getCString();
+		} else {
+			return "";
+		}
     }
 
     void CCStoreInventory::upgradeGood(char const *goodItemId, CCSoomlaError **soomlaError) {
@@ -173,12 +176,13 @@ namespace soomla {
         params->setObject(CCString::create("CCStoreInventory::nonConsumableItemExists"), "method");
         params->setObject(CCString::create(nonConsItemId), "nonConsItemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
-        if (!*soomlaError) {
-            CCBool *retValue = (CCBool *) retParams->objectForKey("return");
-            return retValue->getValue();
-        } else {
-            return false;
-        }
+
+		CCBool *retValue = (CCBool *) retParams->objectForKey("return");
+		if (retValue) {
+			return retValue->getValue();
+		} else {
+			return false;
+		}
     }
 
     void CCStoreInventory::addNonConsumableItem(char const *nonConsItemId, CCSoomlaError **soomlaError) {
