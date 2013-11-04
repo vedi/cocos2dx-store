@@ -25,38 +25,42 @@ namespace soomla {
     }
 
 	void CCSoomla::addEventHandler(CCEventHandler *eventHandler) {
-		mEventHandlers.insert(eventHandler);
+		mEventHandlers.addObject(eventHandler);
 	}
 
 	void CCSoomla::removeEventHandler(CCEventHandler *eventHandler) {
-		mEventHandlers.erase(eventHandler);
+		mEventHandlers.removeObject(eventHandler);
 	}
 
     void CCSoomla::easyNDKCallBack(CCDictionary *parameters) {
         CCString *methodName = dynamic_cast<CCString *>(parameters->objectForKey("method"));
         CC_ASSERT(methodName);
 		if (methodName->compare("CCEventHandler::onBillingNotSupported") == 0) {
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onBillingNotSupported();
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onBillingNotSupported();
 			}
         }
         else if (methodName->compare("CCEventHandler::onBillingSupported") == 0) {
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onBillingSupported();
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onBillingSupported();
 			}
         }
         else if (methodName->compare("CCEventHandler::onOpeningStore") == 0) {
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onOpeningStore();
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onOpeningStore();
 			}
         }
         else if (methodName->compare("CCEventHandler::onClosingStore") == 0) {
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onClosingStore();
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onClosingStore();
 			}
         }
         else if (methodName->compare("CCEventHandler::onCurrencyBalanceChanged") == 0) {
@@ -71,9 +75,10 @@ namespace soomla {
                 return;
             }
             CC_ASSERT(virtualCurrency);
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onCurrencyBalanceChanged(virtualCurrency, balance->getValue(), amountAdded->getValue());
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onCurrencyBalanceChanged(virtualCurrency, balance->getValue(), amountAdded->getValue());
 			}
         }
         else if (methodName->compare("CCEventHandler::onGoodBalanceChanged") == 0) {
@@ -88,9 +93,10 @@ namespace soomla {
                 return;
             }
             CC_ASSERT(virtualGood);
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onGoodBalanceChanged(virtualGood, balance->getValue(), amountAdded->getValue());
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onGoodBalanceChanged(virtualGood, balance->getValue(), amountAdded->getValue());
 			}
         }
         else if (methodName->compare("CCEventHandler::onGoodEquipped") == 0) {
@@ -103,9 +109,10 @@ namespace soomla {
                 return;
             }
             CC_ASSERT(equippableVG);
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onGoodEquipped(equippableVG);
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onGoodEquipped(equippableVG);
 			}
         }
         else if (methodName->compare("CCEventHandler::onGoodUnEquipped") == 0) {
@@ -118,9 +125,10 @@ namespace soomla {
                 return;
             }
             CC_ASSERT(equippableVG);
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onGoodUnEquipped(equippableVG);
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onGoodUnEquipped(equippableVG);
 			}
         }
         else if (methodName->compare("CCEventHandler::onGoodUpgrade") == 0) {
@@ -146,9 +154,10 @@ namespace soomla {
                 return;
             }
             CC_ASSERT(upgradeVG);
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onGoodUpgrade(virtualGood, upgradeVG);
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onGoodUpgrade(virtualGood, upgradeVG);
 			}
         }
         else if (methodName->compare("CCEventHandler::onItemPurchased") == 0) {
@@ -161,9 +170,10 @@ namespace soomla {
                 return;
             }
             CC_ASSERT(purchasableVirtualItem);
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onItemPurchased(purchasableVirtualItem);
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onItemPurchased(purchasableVirtualItem);
 			}
         }
         else if (methodName->compare("CCEventHandler::onItemPurchaseStarted") == 0) {
@@ -176,9 +186,10 @@ namespace soomla {
                 return;
             }
             CC_ASSERT(purchasableVirtualItem);
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onItemPurchaseStarted(purchasableVirtualItem);
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onItemPurchaseStarted(purchasableVirtualItem);
 			}
         }
         else if (methodName->compare("CCEventHandler::onMarketPurchaseCancelled") == 0) {
@@ -191,9 +202,10 @@ namespace soomla {
                 return;
             }
             CC_ASSERT(purchasableVirtualItem);
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onMarketPurchaseCancelled(purchasableVirtualItem);
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onMarketPurchaseCancelled(purchasableVirtualItem);
 			}
         }
         else if (methodName->compare("CCEventHandler::onMarketPurchase") == 0) {
@@ -206,9 +218,10 @@ namespace soomla {
                 return;
             }
             CC_ASSERT(purchasableVirtualItem);
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onMarketPurchase(purchasableVirtualItem);
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onMarketPurchase(purchasableVirtualItem);
 			}
         }
         else if (methodName->compare("CCEventHandler::onMarketPurchaseStarted") == 0) {
@@ -221,9 +234,10 @@ namespace soomla {
                 return;
             }
             CC_ASSERT(purchasableVirtualItem);
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onMarketPurchaseStarted(purchasableVirtualItem);
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onMarketPurchaseStarted(purchasableVirtualItem);
 			}
         }
         else if (methodName->compare("CCEventHandler::onMarketRefund") == 0) {
@@ -236,33 +250,38 @@ namespace soomla {
                 return;
             }
             CC_ASSERT(purchasableVirtualItem);
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onMarketRefund(purchasableVirtualItem);
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onMarketRefund(purchasableVirtualItem);
 			}
         }
         else if (methodName->compare("CCEventHandler::onRestoreTransactions") == 0) {
             CCBool *success = (CCBool *)(parameters->objectForKey("success"));
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onRestoreTransactions(success->getValue());
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onRestoreTransactions(success->getValue());
 			}
         }
         else if (methodName->compare("CCEventHandler::onRestoreTransactionsStarted") == 0) {
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onRestoreTransactionsStarted();
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onRestoreTransactionsStarted();
 			}
         }
         else if (methodName->compare("CCEventHandler::onUnexpectedErrorInStore") == 0) {
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onUnexpectedErrorInStore();
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onUnexpectedErrorInStore();
 			}
 		} else if (methodName->compare("CCEventHandler::onStoreControllerInitialized") == 0) {
-			set<CCEventHandler *>::iterator i;
+			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				(*i)->onStoreControllerInitialized();
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onStoreControllerInitialized();
 			}
 		} else {
             CC_ASSERT(false);

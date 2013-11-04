@@ -29,7 +29,7 @@ namespace soomla {
 #endif
 
 	private:
-		set<CCEventHandler *> mEventHandlers;
+		cocos2d::CCSet mEventHandlers;
 
     public:
 		/**

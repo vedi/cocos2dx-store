@@ -32,7 +32,7 @@ namespace soomla {
 		CCSoomla::addEventHandler() to work with the events. Functions are
 		called when their corresponding events are fired in the SOOMLA SDK.
 	 */
-    class CCEventHandler {
+    class CCEventHandler : public cocos2d::CCObject {
     public:
         virtual void onBillingNotSupported() = 0;
         virtual void onBillingSupported() = 0;
