@@ -248,7 +248,7 @@ if (err != NULL) {
 }
 ```
 
-You can choose to handle each exception on its own, handle all three at once, or not handle the exceptions at all. The CCSoomlaError parameter is entirely optional, you can pass NULL instead if you do not wish to handle errors, but remember error handling is *your* responsibility. cocos2dx-store doesn't do any external error handling (i.e. error handling that uses CCSoomlaError) for you.
+You can choose to handle each exception on its own, handle all three at once, or not handle the exceptions at all. The CCSoomlaError parameter is entirely optional, you can pass NULL instead if you do not wish to handle errors, but remember, error handling is *your* responsibility. cocos2dx-store doesn't do any external error handling (i.e. error handling that uses CCSoomlaError) for you.
 
 ## iOS Server Side Verification
 
