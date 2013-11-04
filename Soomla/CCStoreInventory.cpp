@@ -49,12 +49,12 @@ namespace soomla {
         params->setObject(CCString::create(itemId), "itemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
 
-        if (!*soomlaError) {
-            CCInteger *retValue = (CCInteger *) retParams->objectForKey("return");
-            return retValue->getValue();
-        } else {
-            return -1;
-        }
+		CCInteger *retValue = (CCInteger *) retParams->objectForKey("return");
+		if (retValue) {
+			return retValue->getValue();
+		} else {
+			return 0;
+		}
     }
 
     void CCStoreInventory::giveItem(char const *itemId, int amount, CCSoomlaError **soomlaError) {
