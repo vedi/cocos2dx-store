@@ -15,13 +15,13 @@
 #include "../domain/CCMarketItem.h"
 
 namespace soomla {
+	
+#define TAG "SOOMLA StoreInfo"
 
-    #define TAG "SOOMLA StoreInfo"
-
-    #define SAFE_CREATE(__T__, __ret__, __retParams__) \
-        CCObject *_tempVi = createWithRetParams(__retParams__);\
-        __T__ __ret__ = dynamic_cast<__T__>(_tempVi); \
-        CC_ASSERT(__ret__);
+#define SAFE_CREATE(__T__, __ret__, __retParams__)			\
+	CCObject *_tempVi = createWithRetParams(__retParams__);	\
+	__T__ __ret__ = dynamic_cast<__T__>(_tempVi);			\
+	CC_ASSERT(__ret__);
 
     USING_NS_CC;
 
@@ -41,28 +41,28 @@ namespace soomla {
     }
 
     bool CCStoreInfo::init(CCIStoreAssets *storeAssets) {
-//			StoreUtils.LogDebug(TAG, "Adding currency");
-//			StoreUtils.LogDebug(TAG, "Adding categories");
+		//			StoreUtils.LogDebug(TAG, "Adding currency");
+		//			StoreUtils.LogDebug(TAG, "Adding categories");
         CCArray *currenciesJSON = CCArray::create();
         {
             CCArray *currencies = storeAssets->getCurrencies();
             CCObject *obj;
             CCARRAY_FOREACH(currencies, obj) {
-                    currenciesJSON->addObject(((CCVirtualCurrency *)obj)->toDictionary());
-                }
+				currenciesJSON->addObject(((CCVirtualCurrency *)obj)->toDictionary());
+			}
         }
 
-//			StoreUtils.LogDebug(TAG, "Adding packs");
+		//			StoreUtils.LogDebug(TAG, "Adding packs");
         CCArray *packsJSON = CCArray::create();
         {
             CCArray *packs = storeAssets->getCurrencyPacks();
             CCObject *obj;
             CCARRAY_FOREACH(packs, obj) {
-                    packsJSON->addObject(((CCVirtualCurrencyPack *)obj)->toDictionary());
-                }
+				packsJSON->addObject(((CCVirtualCurrencyPack *)obj)->toDictionary());
+			}
         }
 
-//			StoreUtils.LogDebug(TAG, "Adding goods");
+		//			StoreUtils.LogDebug(TAG, "Adding goods");
         CCArray *suGoods = CCArray::create();
         CCArray *ltGoods = CCArray::create();
         CCArray *eqGoods = CCArray::create();
@@ -71,18 +71,18 @@ namespace soomla {
 
         CCObject *obj;
         CCARRAY_FOREACH(storeAssets->getGoods(), obj) {
-                if (dynamic_cast<CCSingleUseVG *>(obj)) {
-                    suGoods->addObject(((CCSingleUseVG *)obj)->toDictionary());
-                } else if (dynamic_cast<CCEquippableVG *>(obj)) {
-                    eqGoods->addObject(((CCEquippableVG *)obj)->toDictionary());
-                } else if (dynamic_cast<CCLifetimeVG *>(obj)) {
-                    ltGoods->addObject(((CCLifetimeVG *)obj)->toDictionary());
-                } else if (dynamic_cast<CCSingleUsePackVG *>(obj)) {
-                    paGoods->addObject(((CCSingleUsePackVG *)obj)->toDictionary());
-                } else if (dynamic_cast<CCUpgradeVG *>(obj)) {
-                    upGoods->addObject(((CCUpgradeVG *)obj)->toDictionary());
-                }
-            }
+			if (dynamic_cast<CCSingleUseVG *>(obj)) {
+				suGoods->addObject(((CCSingleUseVG *)obj)->toDictionary());
+			} else if (dynamic_cast<CCEquippableVG *>(obj)) {
+				eqGoods->addObject(((CCEquippableVG *)obj)->toDictionary());
+			} else if (dynamic_cast<CCLifetimeVG *>(obj)) {
+				ltGoods->addObject(((CCLifetimeVG *)obj)->toDictionary());
+			} else if (dynamic_cast<CCSingleUsePackVG *>(obj)) {
+				paGoods->addObject(((CCSingleUsePackVG *)obj)->toDictionary());
+			} else if (dynamic_cast<CCUpgradeVG *>(obj)) {
+				upGoods->addObject(((CCUpgradeVG *)obj)->toDictionary());
+			}
+		}
 
         CCDictionary *goodsJSON = CCDictionary::create();
         goodsJSON->setObject(suGoods, JSON_STORE_GOODS_SU);
@@ -91,28 +91,28 @@ namespace soomla {
         goodsJSON->setObject(upGoods, JSON_STORE_GOODS_UP);
         goodsJSON->setObject(paGoods, JSON_STORE_GOODS_PA);
 
-//			StoreUtils.LogDebug(TAG, "Adding categories");
+		//			StoreUtils.LogDebug(TAG, "Adding categories");
         CCArray *categoriesJSON = CCArray::create();
         {
             CCArray *categories = storeAssets->getCategories();
             CCObject *obj;
             CCARRAY_FOREACH(categories, obj) {
-                    categoriesJSON->addObject(((CCVirtualCategory *)obj)->toDictionary());
-                }
+				categoriesJSON->addObject(((CCVirtualCategory *)obj)->toDictionary());
+			}
         }
 
 
-//			StoreUtils.LogDebug(TAG, "Adding nonConsumables");
+		//			StoreUtils.LogDebug(TAG, "Adding nonConsumables");
         CCArray *nonConsumablesJSON = CCArray::create();
         {
             CCArray *nonConsumables = storeAssets->getNonConsumableItems();
             CCObject *obj;
             CCARRAY_FOREACH(nonConsumables, obj) {
-                    nonConsumablesJSON->addObject(((CCNonConsumableItem *)obj)->toDictionary());
-                }
+				nonConsumablesJSON->addObject(((CCNonConsumableItem *)obj)->toDictionary());
+			}
         }
 
-//			StoreUtils.LogDebug(TAG, "Preparing StoreAssets  JSONObject");
+		//			StoreUtils.LogDebug(TAG, "Preparing StoreAssets  JSONObject");
         CCDictionary *storeAssetsObj = CCDictionary::create();
         storeAssetsObj->setObject(categoriesJSON, JSON_STORE_CATEGORIES);
         storeAssetsObj->setObject(currenciesJSON, JSON_STORE_CURRENCIES);
@@ -132,7 +132,7 @@ namespace soomla {
 
     CCVirtualItem *CCStoreInfo::getItemByItemId(char const *itemId, CCSoomlaError **soomlaError) {
         CCStoreUtils::logDebug(TAG,
-                CCString::createWithFormat("Trying to fetch an item with itemId: %s", itemId)->getCString());
+							   CCString::createWithFormat("Trying to fetch an item with itemId: %s", itemId)->getCString());
 
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getItemByItemId"), "method");
@@ -200,11 +200,11 @@ namespace soomla {
         CCObject *obj;
         CCDictionary *dict;
         CCARRAY_FOREACH(retParams, obj) {
-                dict = dynamic_cast<CCDictionary *>(obj);
-                CC_ASSERT(dict);
-                SAFE_CREATE(CCUpgradeVG *, item, dict);
-                retModels->addObject(item);
-            }
+			dict = dynamic_cast<CCDictionary *>(obj);
+			CC_ASSERT(dict);
+			SAFE_CREATE(CCUpgradeVG *, item, dict);
+			retModels->addObject(item);
+		}
         return retModels;
     }
 
@@ -217,11 +217,11 @@ namespace soomla {
         CCObject *obj;
         CCDictionary *dict;
         CCARRAY_FOREACH(retParams, obj) {
-                dict = dynamic_cast<CCDictionary *>(obj);
-                CC_ASSERT(dict);
-                SAFE_CREATE(CCVirtualCurrency *, item, dict);
-                retModels->addObject(item);
-            }
+			dict = dynamic_cast<CCDictionary *>(obj);
+			CC_ASSERT(dict);
+			SAFE_CREATE(CCVirtualCurrency *, item, dict);
+			retModels->addObject(item);
+		}
         return retModels;
     }
 
@@ -234,11 +234,11 @@ namespace soomla {
         CCObject *obj;
         CCDictionary *dict;
         CCARRAY_FOREACH(retParams, obj) {
-                dict = dynamic_cast<CCDictionary *>(obj);
-                CC_ASSERT(dict);
-                SAFE_CREATE(CCVirtualGood *, item, dict);
-                retModels->addObject(item);
-            }
+			dict = dynamic_cast<CCDictionary *>(obj);
+			CC_ASSERT(dict);
+			SAFE_CREATE(CCVirtualGood *, item, dict);
+			retModels->addObject(item);
+		}
         return retModels;
     }
 
@@ -251,11 +251,11 @@ namespace soomla {
         CCObject *obj;
         CCDictionary *dict;
         CCARRAY_FOREACH(retParams, obj) {
-                dict = dynamic_cast<CCDictionary *>(obj);
-                CC_ASSERT(dict);
-                SAFE_CREATE(CCVirtualCurrencyPack *, item, dict);
-                retModels->addObject(item);
-            }
+			dict = dynamic_cast<CCDictionary *>(obj);
+			CC_ASSERT(dict);
+			SAFE_CREATE(CCVirtualCurrencyPack *, item, dict);
+			retModels->addObject(item);
+		}
         return retModels;
     }
 
@@ -268,11 +268,11 @@ namespace soomla {
         CCObject *obj;
         CCDictionary *dict;
         CCARRAY_FOREACH(retParams, obj) {
-                dict = dynamic_cast<CCDictionary *>(obj);
-                CC_ASSERT(dict);
-                SAFE_CREATE(CCNonConsumableItem *, item, dict);
-                retModels->addObject(item);
-            }
+			dict = dynamic_cast<CCDictionary *>(obj);
+			CC_ASSERT(dict);
+			SAFE_CREATE(CCNonConsumableItem *, item, dict);
+			retModels->addObject(item);
+		}
         return retModels;
     }
 
@@ -285,11 +285,11 @@ namespace soomla {
         CCObject *obj;
         CCDictionary *dict;
         CCARRAY_FOREACH(retParams, obj) {
-                dict = dynamic_cast<CCDictionary *>(obj);
-                CC_ASSERT(dict);
-                SAFE_CREATE(CCVirtualCategory *, item, dict);
-                retModels->addObject(item);
-            }
+			dict = dynamic_cast<CCDictionary *>(obj);
+			CC_ASSERT(dict);
+			SAFE_CREATE(CCVirtualCategory *, item, dict);
+			retModels->addObject(item);
+		}
         return retModels;
     }
 
@@ -343,7 +343,7 @@ namespace soomla {
         }
     }
 
-    #undef SAFE_CREATE
+#undef SAFE_CREATE
 
 }
 
