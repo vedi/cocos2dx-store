@@ -59,7 +59,7 @@ The example project is still under developement but it already has some importan
     bool AppDelegate::applicationDidFinishLaunching() {
     	/* ... */
     	soomla::CCSoomla::sharedSoomla()->setSoomSec("ExampleSoomSecret");
-    	soomla::CCSoomla::sharedSoomla()->setPublicKey("ExamplePublicKey");
+    	soomla::CCSoomla::sharedSoomla()->setAndroidPublicKey("ExamplePublicKey");
     	soomla::CCSoomla::sharedSoomla()->setCustomSecret("ExampleCustomSecret");
     	/* ... */
     }
@@ -111,9 +111,9 @@ If you're building your application for the Android platform, here are some inst
 1. Import the cocos2dx-store library into your project's Android.mk by adding the following lines in their appropriate places.
 
     ```
-    LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_store_static             # add this line along with your other LOCAL_WHOLE_STATIC_LIBRARIES
+    LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_store_static        # add this line along with your other LOCAL_WHOLE_STATIC_LIBRARIES
     
-    $(call import-module, extensions/cocos2dx-store/proj.android/jni) # add this line at the of the file, along with the other import-module calls
+    $(call import-module, extensions/cocos2dx-store/android/jni) # add this line at the of the file, along with the other import-module calls
     ```
 
 2. Add the following to your classpath:
