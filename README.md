@@ -130,6 +130,8 @@ If you're building your application for the Android platform, here are some inst
     SoomlaApp.setExternalContext(getApplicationContext());
     ```
 
+> These settings are required inorder to initialize the event handling bridge, and allow _StoreController_ to initiate market purchases.
+
 That's it! Now all you have to do is run the __build_native.sh__ script and you can begin using cocos2dx-store in your game.
 
 
