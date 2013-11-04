@@ -223,6 +223,33 @@ The _CCSoomla_ class is where all events go through. To handle various events, c
 
     soomla::CCSoomla::sharedSoomla()->addEventHandler(yourEventHandler);
 
+## Error Handling
+
+Since Cocos2d-x doesn't support exceptions, we use a different method to catch and work with exceptions on the native side. All functions that raise an exception on the native side have an additional *CCSoomlaError*** parameter to them. In order to know if an exception was raised, send a reference to *CCSoomlaError** to the function, and inspect it after running.
+
+For example, if I want to purchase an item with the ItemID `huge_sword`, and check if all went well after the purchase, I would call _CCStoreController::buyItem()_, like this:
+
+```c++
+soomla::CCSoomlaError *err;
+soomla::CCStoreInventory::sharedStoreInventory()->buyItem("huge_sword", &err);
+if (err != NULL) {
+    int code = err->getCode();
+    switch code {
+        case SOOMLA_EXCEPTION_ITEM_NOT_FOUND:
+            // itemNotFoundException was raised
+            break;
+        case SOOMLA_EXCEPTION_INSUFFICIENT_FUNDS:
+            // insufficienFundsException was raised
+            break;
+        case SOOMLA_EXCEPTION_NOT_ENOUGH_GOODS:
+            // notEnoughGoodsException was raised
+            break;
+    }
+}
+```
+
+You can choose to handle each exception on its own, handle all three at once, or not handle the exceptions at all. The CCSoomlaError parameter is entirely optional, you can pass NULL instead if you do not wish to handle errors, but remember error handling is *your* responsibility. cocos2dx-store doesn't do any external error handling (i.e. error handling that uses CCSoomlaError) for you.
+
 ## iOS Server Side Verification
 
 As you probably know, fraud on IAP is pretty common. Hackers can crack their smartphones to think that a purchase is made when payment wasn't actually transferred to you. We want to help you with it so we created our verification server and we let you instantly use it through the framework.
