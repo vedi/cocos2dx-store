@@ -99,12 +99,14 @@ namespace soomla {
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         {
             CCDictionary *params = CCDictionary::create();
             params->setObject(CCString::create("CCStoreController::setAndroidTestMode"), "method");
             params->setObject(CCBool::create(CCSoomla::sharedSoomla()->getAndroidTestMode()), "testMode");
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
+#endif
 
         return true;
     }
