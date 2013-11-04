@@ -95,7 +95,9 @@ namespace soomla {
             CCDictionary *params = CCDictionary::create();
             params->setObject(CCString::create("CCStoreController::init"), "method");
             params->setObject(CCString::create(CCSoomla::sharedSoomla()->getCustomSecret()), "customSecret");
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
             params->setObject(CCString::create(CCSoomla::sharedSoomla()->getAndroidPublicKey()), "androidPublicKey");
+#endif
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
 
