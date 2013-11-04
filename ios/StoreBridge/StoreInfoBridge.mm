@@ -77,7 +77,12 @@ NSDictionary *StoreInfoBridge::getCategoryForVirtualGood(NSString *goodItemId) {
 
 NSDictionary *StoreInfoBridge::getFirstUpgradeForVirtualGood(NSString *goodItemId) {
     @try {
-        return [[[StoreInfo getInstance] firstUpgradeForGoodWithItemId: goodItemId] toDictionary];
+        UpgradeVG *upgradeVG = [[StoreInfo getInstance] firstUpgradeForGoodWithItemId: goodItemId];
+        NSString *className = NSStringFromClass([upgradeVG class]);
+        NSDictionary* nameWithClass = [NSDictionary dictionaryWithObjectsAndKeys:
+                [upgradeVG toDictionary], @"item",
+                className, @"className", nil];
+        return nameWithClass;
     }
     @catch (VirtualItemNotFoundException* e) {
         NSLog(@"Couldn't find a VirtualCategory for VirtualGood with itemId: %@.", goodItemId);
@@ -87,7 +92,12 @@ NSDictionary *StoreInfoBridge::getFirstUpgradeForVirtualGood(NSString *goodItemI
 
 NSDictionary *StoreInfoBridge::getLastUpgradeForVirtualGood(NSString *goodItemId) {
     @try {
-        return [[[StoreInfo getInstance] lastUpgradeForGoodWithItemId: goodItemId] toDictionary];
+        UpgradeVG *upgradeVG = [[StoreInfo getInstance] lastUpgradeForGoodWithItemId: goodItemId];
+        NSString *className = NSStringFromClass([upgradeVG class]);
+        NSDictionary* nameWithClass = [NSDictionary dictionaryWithObjectsAndKeys:
+                [upgradeVG toDictionary], @"item",
+                className, @"className", nil];
+        return nameWithClass;
     }
     @catch (VirtualItemNotFoundException* e) {
         NSLog(@"Couldn't find a VirtualCategory for VirtualGood with itemId: %@.", goodItemId);
