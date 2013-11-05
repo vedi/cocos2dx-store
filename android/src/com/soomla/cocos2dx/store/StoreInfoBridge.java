@@ -88,56 +88,104 @@ public class StoreInfoBridge {
     }
 
     public static JSONArray getUpgradesForVirtualGood(String goodItemId) {
-        List<JSONObject> jsonObjects = new ArrayList<JSONObject>();
+        List<JSONObject> ret = new ArrayList<JSONObject>();
         List<UpgradeVG> upgradeVGs = StoreInfo.getGoodUpgrades(goodItemId);
         for (UpgradeVG upgradeVG : upgradeVGs) {
-            jsonObjects.add(upgradeVG.toJSONObject());
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("item", upgradeVG.toJSONObject());
+                jsonObject.put("className", upgradeVG.getClass().getSimpleName());
+                ret.add(jsonObject);
+            } catch (JSONException e) {
+                //   TODO: Implement error handling
+                throw new IllegalStateException(e);
+            }
         }
-        return new JSONArray(jsonObjects);
+        return new JSONArray(ret);
     }
 
     public static JSONArray getVirtualCurrencies() {
-        List<JSONObject> jsonObjects = new ArrayList<JSONObject>();
+        List<JSONObject> ret = new ArrayList<JSONObject>();
         List<VirtualCurrency> virtualCurrencies = StoreInfo.getCurrencies();
         for (VirtualCurrency virtualCurrency : virtualCurrencies) {
-            jsonObjects.add(virtualCurrency.toJSONObject());
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("item", virtualCurrency.toJSONObject());
+                jsonObject.put("className", virtualCurrency.getClass().getSimpleName());
+                ret.add(jsonObject);
+            } catch (JSONException e) {
+                //   TODO: Implement error handling
+                throw new IllegalStateException(e);
+            }
         }
-        return new JSONArray(jsonObjects);
+        return new JSONArray(ret);
     }
 
     public static JSONArray getVirtualGoods() {
-        List<JSONObject> jsonObjects = new ArrayList<JSONObject>();
+        List<JSONObject> ret = new ArrayList<JSONObject>();
         List<VirtualGood> virtualGoods = StoreInfo.getGoods();
         for (VirtualGood virtualGood : virtualGoods) {
-            jsonObjects.add(virtualGood.toJSONObject());
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("item", virtualGood.toJSONObject());
+                jsonObject.put("className", virtualGood.getClass().getSimpleName());
+                ret.add(jsonObject);
+            } catch (JSONException e) {
+                //   TODO: Implement error handling
+                throw new IllegalStateException(e);
+            }
         }
-        return new JSONArray(jsonObjects);
+        return new JSONArray(ret);
     }
 
     public static JSONArray getVirtualCurrencyPacks() {
-        List<JSONObject> jsonObjects = new ArrayList<JSONObject>();
+        List<JSONObject> ret = new ArrayList<JSONObject>();
         List<VirtualCurrencyPack> virtualCurrencyPacks = StoreInfo.getCurrencyPacks();
         for (VirtualCurrencyPack virtualCurrencyPack : virtualCurrencyPacks) {
-            jsonObjects.add(virtualCurrencyPack.toJSONObject());
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("item", virtualCurrencyPack.toJSONObject());
+                jsonObject.put("className", virtualCurrencyPack.getClass().getSimpleName());
+                ret.add(jsonObject);
+            } catch (JSONException e) {
+                //   TODO: Implement error handling
+                throw new IllegalStateException(e);
+            }
         }
-        return new JSONArray(jsonObjects);
+        return new JSONArray(ret);
     }
 
     public static JSONArray getNonConsumableItems() {
-        List<JSONObject> jsonObjects = new ArrayList<JSONObject>();
+        List<JSONObject> ret = new ArrayList<JSONObject>();
         List<NonConsumableItem> nonConsumableItems = StoreInfo.getNonConsumableItems();
         for (NonConsumableItem nonConsumableItem : nonConsumableItems) {
-            jsonObjects.add(nonConsumableItem.toJSONObject());
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("item", nonConsumableItem.toJSONObject());
+                jsonObject.put("className", nonConsumableItem.getClass().getSimpleName());
+                ret.add(jsonObject);
+            } catch (JSONException e) {
+                //   TODO: Implement error handling
+                throw new IllegalStateException(e);
+            }
         }
-        return new JSONArray(jsonObjects);
+        return new JSONArray(ret);
     }
 
     public static JSONArray getVirtualCategories() {
-        List<JSONObject> jsonObjects = new ArrayList<JSONObject>();
+        List<JSONObject> ret = new ArrayList<JSONObject>();
         List<VirtualCategory> virtualCategories = StoreInfo.getCategories();
         for (VirtualCategory virtualCategory : virtualCategories) {
-            jsonObjects.add(virtualCategory.toJSONObject());
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("item", virtualCategory.toJSONObject());
+                jsonObject.put("className", virtualCategory.getClass().getSimpleName());
+                ret.add(jsonObject);
+            } catch (JSONException e) {
+                //   TODO: Implement error handling
+                throw new IllegalStateException(e);
+            }
         }
-        return new JSONArray(jsonObjects);
+        return new JSONArray(ret);
     }
 }

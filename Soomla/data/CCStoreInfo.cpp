@@ -14,6 +14,8 @@
 #include "../domain/CCNonConsumableItem.h"
 #include "../domain/CCMarketItem.h"
 
+#include "CCSoomlaJsonHelper.h"
+
 namespace soomla {
 	
 #define TAG "SOOMLA StoreInfo"
@@ -41,8 +43,6 @@ namespace soomla {
     }
 
     bool CCStoreInfo::init(CCIStoreAssets *storeAssets) {
-		//			StoreUtils.LogDebug(TAG, "Adding currency");
-		//			StoreUtils.LogDebug(TAG, "Adding categories");
         CCArray *currenciesJSON = CCArray::create();
         {
             CCArray *currencies = storeAssets->getCurrencies();
@@ -52,7 +52,6 @@ namespace soomla {
 			}
         }
 
-		//			StoreUtils.LogDebug(TAG, "Adding packs");
         CCArray *packsJSON = CCArray::create();
         {
             CCArray *packs = storeAssets->getCurrencyPacks();
@@ -62,7 +61,6 @@ namespace soomla {
 			}
         }
 
-		//			StoreUtils.LogDebug(TAG, "Adding goods");
         CCArray *suGoods = CCArray::create();
         CCArray *ltGoods = CCArray::create();
         CCArray *eqGoods = CCArray::create();
@@ -91,7 +89,6 @@ namespace soomla {
         goodsJSON->setObject(upGoods, JSON_STORE_GOODS_UP);
         goodsJSON->setObject(paGoods, JSON_STORE_GOODS_PA);
 
-		//			StoreUtils.LogDebug(TAG, "Adding categories");
         CCArray *categoriesJSON = CCArray::create();
         {
             CCArray *categories = storeAssets->getCategories();
@@ -102,7 +99,6 @@ namespace soomla {
         }
 
 
-		//			StoreUtils.LogDebug(TAG, "Adding nonConsumables");
         CCArray *nonConsumablesJSON = CCArray::create();
         {
             CCArray *nonConsumables = storeAssets->getNonConsumableItems();
@@ -112,7 +108,6 @@ namespace soomla {
 			}
         }
 
-		//			StoreUtils.LogDebug(TAG, "Preparing StoreAssets  JSONObject");
         CCDictionary *storeAssetsObj = CCDictionary::create();
         storeAssetsObj->setObject(categoriesJSON, JSON_STORE_CATEGORIES);
         storeAssetsObj->setObject(currenciesJSON, JSON_STORE_CURRENCIES);
@@ -194,111 +189,143 @@ namespace soomla {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getUpgradesForVirtualGood"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
-        CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
-        CCArray *retModels = CCArray::create();
+		CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, NULL);
+		CCArray *retArray = (CCArray *)retParams->objectForKey("return");
 
+        CCArray *ret = CCArray::create();
         CCObject *obj;
-        CCDictionary *dict;
-        CCARRAY_FOREACH(retParams, obj) {
-			dict = dynamic_cast<CCDictionary *>(obj);
+        CCARRAY_FOREACH(retArray, obj) {
+			CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
 			CC_ASSERT(dict);
-			SAFE_CREATE(CCUpgradeVG *, item, dict);
-			retModels->addObject(item);
+			
+			CCDictionary *container = CCDictionary::create();
+			container->setObject(dict, "return");
+			SAFE_CREATE(CCUpgradeVG *, item, container);
+			ret->addObject(item);
 		}
-        return retModels;
+        return ret;
+		
+		// CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
+        // CCArray *retModels = CCArray::create();
+
+        // CCObject *obj;
+        // CCDictionary *dict;
+        // CCARRAY_FOREACH(retParams, obj) {
+		// 	dict = dynamic_cast<CCDictionary *>(obj);
+		// 	CC_ASSERT(dict);
+		// 	SAFE_CREATE(CCUpgradeVG *, item, dict);
+		// 	retModels->addObject(item);
+		// }
+        // return retModels;
     }
 
     CCArray *CCStoreInfo::getVirtualCurrencies() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getVirtualCurrencies"), "method");
-        CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
-        CCArray *retModels = CCArray::create();
+		CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, NULL);
+		CCArray *retArray = (CCArray *)retParams->objectForKey("return");
 
+        CCArray *ret = CCArray::create();
         CCObject *obj;
-        CCDictionary *dict;
-        CCARRAY_FOREACH(retParams, obj) {
-			dict = dynamic_cast<CCDictionary *>(obj);
+        CCARRAY_FOREACH(retArray, obj) {
+			CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
 			CC_ASSERT(dict);
-			SAFE_CREATE(CCVirtualCurrency *, item, dict);
-			retModels->addObject(item);
+			
+			CCDictionary *container = CCDictionary::create();
+			container->setObject(dict, "return");
+			SAFE_CREATE(CCVirtualCurrency *, item, container);
+			ret->addObject(item);
 		}
-        return retModels;
+        return ret;
     }
 
     CCArray *CCStoreInfo::getVirtualGoods() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getVirtualGoods"), "method");
-        CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
-        CCArray *retModels = CCArray::create();
+		CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, NULL);
+		CCArray *retArray = (CCArray *)retParams->objectForKey("return");
 
+        CCArray *ret = CCArray::create();
         CCObject *obj;
-        CCDictionary *dict;
-        CCARRAY_FOREACH(retParams, obj) {
-			dict = dynamic_cast<CCDictionary *>(obj);
+        CCARRAY_FOREACH(retArray, obj) {
+			CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
 			CC_ASSERT(dict);
-			SAFE_CREATE(CCVirtualGood *, item, dict);
-			retModels->addObject(item);
+			
+			CCDictionary *container = CCDictionary::create();
+			container->setObject(dict, "return");
+			SAFE_CREATE(CCVirtualGood *, item, container);
+			ret->addObject(item);
 		}
-        return retModels;
+        return ret;
     }
 
     CCArray *CCStoreInfo::getVirtualCurrencyPacks() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getVirtualCurrencyPacks"), "method");
-        CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
-        CCArray *retModels = CCArray::create();
-
+        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, NULL);
+		CCArray *retArray = (CCArray *)retParams->objectForKey("return");
+		
+        CCArray *ret = CCArray::create();
         CCObject *obj;
-        CCDictionary *dict;
-        CCARRAY_FOREACH(retParams, obj) {
-			dict = dynamic_cast<CCDictionary *>(obj);
+        CCARRAY_FOREACH(retArray, obj) {
+			CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
 			CC_ASSERT(dict);
-			SAFE_CREATE(CCVirtualCurrencyPack *, item, dict);
-			retModels->addObject(item);
+
+			CCDictionary *container = CCDictionary::create();
+			container->setObject(dict, "return");
+			SAFE_CREATE(CCVirtualCurrencyPack *, item, container);
+			ret->addObject(item);
 		}
-        return retModels;
+        return ret;
     }
 
     CCArray *CCStoreInfo::getNonConsumableItems() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getNonConsumableItems"), "method");
-        CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
-        CCArray *retModels = CCArray::create();
-
-        CCObject *obj;
-        CCDictionary *dict;
-        CCARRAY_FOREACH(retParams, obj) {
-			dict = dynamic_cast<CCDictionary *>(obj);
+		CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, NULL);
+		CCArray *retArray = (CCArray *)retParams->objectForKey("return");
+		
+		CCArray *ret = CCArray::create();
+		CCObject *obj;
+		CCARRAY_FOREACH(retArray, obj) {
+			CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
 			CC_ASSERT(dict);
-			SAFE_CREATE(CCNonConsumableItem *, item, dict);
-			retModels->addObject(item);
+
+			CCDictionary *container = CCDictionary::create();
+			container->setObject(dict, "return");
+			SAFE_CREATE(CCNonConsumableItem *, item, container);
+			ret->addObject(item);
 		}
-        return retModels;
+		return ret;
     }
 
     CCArray *CCStoreInfo::getVirtualCategories() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInfo::getVirtualCategories"), "method");
-        CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
-        CCArray *retModels = CCArray::create();
-
-        CCObject *obj;
-        CCDictionary *dict;
-        CCARRAY_FOREACH(retParams, obj) {
-			dict = dynamic_cast<CCDictionary *>(obj);
+		CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, NULL);
+		CCArray *retArray = (CCArray *)retParams->objectForKey("return");
+		
+		CCArray *ret = CCArray::create();
+		CCObject *obj;
+		CCARRAY_FOREACH(retArray, obj) {
+			CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
 			CC_ASSERT(dict);
-			SAFE_CREATE(CCVirtualCategory *, item, dict);
-			retModels->addObject(item);
+
+			CCDictionary *container = CCDictionary::create();
+			container->setObject(dict, "return");
+			SAFE_CREATE(CCVirtualCategory *, item, container);
+			ret->addObject(item);
 		}
-        return retModels;
+		return ret;
     }
 
     CCObject *CCStoreInfo::createWithRetParams(CCDictionary *retParams) {
         CCDictionary *retValue = dynamic_cast<CCDictionary *>(retParams->objectForKey("return"));
         CC_ASSERT(retValue);
         CCString *className = dynamic_cast<CCString *>(retValue->objectForKey("className"));
-        CCDictionary *item = dynamic_cast<CCDictionary *>(retValue->objectForKey("item"));
+		CCDictionary *item = dynamic_cast<CCDictionary *>(retValue->objectForKey("item"));
         CC_ASSERT(item);
+		
         if (className->compare("VirtualItem") == 0) {
             return CCVirtualItem::createWithDictionary(item);
         }
