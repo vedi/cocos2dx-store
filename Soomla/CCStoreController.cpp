@@ -145,11 +145,4 @@ namespace soomla {
         CCBool *retValue = (CCBool *) retParams->objectForKey("return");
         return retValue->getValue();
     }
-
-    void setAndroidTestMode(bool testMode) {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCStoreController::setAndroidTestMode"), "method");
-        params->setObject(CCBool::create(testMode), "testMode");
-        CCSoomlaNdkBridge::callNative(params, NULL);
-    }
 }
