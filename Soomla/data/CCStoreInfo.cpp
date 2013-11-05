@@ -14,10 +14,8 @@
 #include "../domain/CCNonConsumableItem.h"
 #include "../domain/CCMarketItem.h"
 
-#include "CCSoomlaJsonHelper.h"
-
 namespace soomla {
-	
+
 #define TAG "SOOMLA StoreInfo"
 
 #define SAFE_CREATE(__T__, __ret__, __retParams__)			\
