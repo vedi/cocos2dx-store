@@ -59,7 +59,7 @@ namespace soomla {
 
     void CCStoreInventory::giveItem(char const *itemId, int amount, CCSoomlaError **soomlaError) {
         CCStoreUtils::logDebug(TAG, CCString::createWithFormat(
-                "SOOMLA/COCOS2DX Calling giveItem with itedId: %s and amount %d", itemId, amount)->getCString());
+                "SOOMLA/COCOS2DX Calling giveItem with itemId: %s and amount %d", itemId, amount)->getCString());
 
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::giveItem"), "method");
@@ -70,7 +70,7 @@ namespace soomla {
 
     void CCStoreInventory::takeItem(char const *itemId, int amount, CCSoomlaError **soomlaError) {
         CCStoreUtils::logDebug(TAG, CCString::createWithFormat(
-                "SOOMLA/COCOS2DX Calling takeItem with itedId: %s and amount %d", itemId, amount)->getCString());
+                "SOOMLA/COCOS2DX Calling takeItem with itemId: %s and amount %d", itemId, amount)->getCString());
 
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::takeItem"), "method");
