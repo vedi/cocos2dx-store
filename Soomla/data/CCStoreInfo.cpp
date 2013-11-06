@@ -202,19 +202,6 @@ namespace soomla {
 			ret->addObject(item);
 		}
         return ret;
-		
-		// CCArray *retParams = (CCArray *) CCSoomlaNdkBridge::callNative(params, NULL);
-        // CCArray *retModels = CCArray::create();
-
-        // CCObject *obj;
-        // CCDictionary *dict;
-        // CCARRAY_FOREACH(retParams, obj) {
-		// 	dict = dynamic_cast<CCDictionary *>(obj);
-		// 	CC_ASSERT(dict);
-		// 	SAFE_CREATE(CCUpgradeVG *, item, dict);
-		// 	retModels->addObject(item);
-		// }
-        // return retModels;
     }
 
     CCArray *CCStoreInfo::getVirtualCurrencies() {
