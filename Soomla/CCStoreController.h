@@ -27,11 +27,11 @@ namespace soomla {
 		   Initialize StoreController on native side and allow using its
 		   functions.
 		 */
-        static void createShared(CCIStoreAssets *storeAssets);
+        static void createShared(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
 
         CCStoreController(void);
         virtual ~CCStoreController(void);
-        virtual bool init(CCIStoreAssets *storeAssets);
+        virtual bool init(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
 
 		/**
 		   Buy an item from the App Store or Google Play.

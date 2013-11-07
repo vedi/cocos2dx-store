@@ -20,9 +20,9 @@ namespace soomla {
         return s_SharedStoreController;
     }
 
-    void CCStoreController::createShared(CCIStoreAssets *storeAssets) {
+    void CCStoreController::createShared(CCIStoreAssets *storeAssets, CCDictionary *storeParams) {
         CCStoreController *ret = new CCStoreController();
-        if (ret->init(storeAssets)) {
+        if (ret->init(storeAssets, storeParams)) {
             s_SharedStoreController = ret;
         } else {
             delete ret;
@@ -37,29 +37,38 @@ namespace soomla {
 
     }
 
-    bool CCStoreController::init(CCIStoreAssets *storeAssets) {
-        CCSoomla *soomla = CCSoomla::sharedSoomla();
-        if (soomla->getCustomSecret().empty() || soomla->getSoomSec().empty()) {
+    bool CCStoreController::init(CCIStoreAssets *storeAssets, CCDictionary *storeParams) {
+        CCString *customSecret = dynamic_cast<CCString *>(storeParams->objectForKey("customSecret"));
+        CCString *soomSec = dynamic_cast<CCString *>(storeParams->objectForKey("soomSec"));
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)        
+        CCString *androidPublicKey = dynamic_cast<CCString *>(storeParams->objectForKey("androidPublicKey"));
+        CCBool androidTestMode = dynamic_cast<CCBool *>(storeParams->objectForKey("androidTestMode"));
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)       
+        CCBool SSV = dynamic_cast<CCBool *>(storeParams->objectForKey("SSV"));
+#endif
+        
+        CCString *masterKey = dynamic_cast<CCString *>(storeParams->objectForKey("masterKey"));
+        CCDouble *genTime = dynamic_cast<CCDouble *>(storeParams->objectForKey("genTime"));
+        
+        if (customSecret->length() == 0 || soomSec->length() == 0) {
             CCStoreUtils::logError(TAG, "SOOMLA/COCOS2DX MISSING customSecret or soomSec !!! Stopping here !!");
             return false;
         }
 
-        if (soomla->getCustomSecret().compare(SOOMLA_ONLY_ONCE_DEFAULT) == 0||
-                soomla->getSoomSec().compare(SOOMLA_ONLY_ONCE_DEFAULT) == 0) {
+        if (customSecret->compare(SOOMLA_ONLY_ONCE_DEFAULT) == 0
+            || soomSec->compare(SOOMLA_ONLY_ONCE_DEFAULT) == 0) {
 
             CCStoreUtils::logError(TAG, "SOOMLA/COCOS2DX You have to change customSecret and soomSec !!! Stopping here !!");
             return false;
         }
 
-        //init SOOM_SEC
-
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        if (soomla->getAndroidPublicKey().empty()) {
+        if (androidPublicKey->length() == 0) {
             CCStoreUtils::logError(TAG, "SOOMLA/COCOS2DX MISSING publickKey !!! Stopping here !!");
             return false;
         }
 
-        if (soomla->getAndroidPublicKey().compare(SOOMLA_AND_PUB_KEY_DEFAULT) == 0) {
+        if (androidPublicKey->compare(SOOMLA_AND_PUB_KEY_DEFAULT) == 0) {
 
             CCStoreUtils::logError(TAG, "SOOMLA/COCOS2DX You have to change android publicKey !!! Stopping here !!");
             return false;
@@ -68,7 +77,7 @@ namespace soomla {
         {
             CCDictionary *params = CCDictionary::create();
             params->setObject(CCString::create("CCStoreController::setAndroidPublicKey"), "method");
-            params->setObject(CCString::create(soomla->getAndroidPublicKey()), "androidPublicKey");
+            params->setObject(androidPublicKey, "androidPublicKey");
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
 #endif
@@ -76,7 +85,7 @@ namespace soomla {
         {
             CCDictionary *params = CCDictionary::create();
             params->setObject(CCString::create("CCStoreController::setSoomSec"), "method");
-            params->setObject(CCString::create(soomla->getSoomSec()), "soomSec");
+            params->setObject(soomSec, "soomSec");
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
 
@@ -84,7 +93,7 @@ namespace soomla {
         {
             CCDictionary *params = CCDictionary::create();
             params->setObject(CCString::create("CCStoreController::setSSV"), "method");
-            params->setObject(CCBool::create(soomla->getSSV()), "ssv");
+            params->setObject(&SSV, "ssv");
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
 #endif
@@ -94,9 +103,9 @@ namespace soomla {
         {
             CCDictionary *params = CCDictionary::create();
             params->setObject(CCString::create("CCStoreController::init"), "method");
-            params->setObject(CCString::create(CCSoomla::sharedSoomla()->getCustomSecret()), "customSecret");
+            params->setObject(customSecret, "customSecret");
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-            params->setObject(CCString::create(CCSoomla::sharedSoomla()->getAndroidPublicKey()), "androidPublicKey");
+            params->setObject(androidPublicKey, "androidPublicKey");
 #endif
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
@@ -105,11 +114,10 @@ namespace soomla {
         {
             CCDictionary *params = CCDictionary::create();
             params->setObject(CCString::create("CCStoreController::setAndroidTestMode"), "method");
-            params->setObject(CCBool::create(CCSoomla::sharedSoomla()->getAndroidTestMode()), "testMode");
+            params->setObject(&androidTestMode, "testMode");
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
 #endif
-
         return true;
     }
 
