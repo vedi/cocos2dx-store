@@ -63,7 +63,7 @@ namespace soomla {
                                            "(Ljava/lang/String;)Ljava/lang/String;")) {
 
             char* jsonStrLocal = json_dumps(toBeSentJson, JSON_COMPACT | JSON_ENSURE_ASCII);
-            string jsonStr(jsonStrLocal);
+            std::string jsonStr(jsonStrLocal);
             free(jsonStrLocal);
 
             jstring stringArg1 = t.env->NewStringUTF(jsonStr.c_str());
@@ -73,7 +73,7 @@ namespace soomla {
 			t.env->DeleteLocalRef(t.classID);
 
 		    const char *nativeString = t.env->GetStringUTFChars(retString, 0);
-		    string retParamsStr(nativeString);
+		    std::string retParamsStr(nativeString);
 		    t.env->ReleaseStringUTFChars(retString, nativeString);
 
 
