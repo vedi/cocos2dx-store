@@ -5,12 +5,14 @@
 #include "CCEventHandler.h"
 #include <vector>
 
+#define DEPRECATED(func) func __attribute__ ((deprecated))
+#define CC_SYNTH_DEPRECATED(type, name, func) DEPRECATED(type get##func(void)); \
+    DEPRECATED(void set##func(type name))
+
 namespace soomla {
 
     #define SOOMLA_AND_PUB_KEY_DEFAULT "YOUR GOOGLE PLAY PUBLIC KEY"
     #define SOOMLA_ONLY_ONCE_DEFAULT "SET ONLY ONCE"
-
-    using namespace std;
 
 	/** \class CCSoomla
 		\brief Calls event handler functions when events are fired, also contains settings for StoreController.
@@ -21,7 +23,8 @@ namespace soomla {
 	 */
     class CCSoomla: public cocos2d::CCObject {
 	private:
-		cocos2d::CCSet mEventHandlers;
+        cocos2d::CCSet mEventHandlers;
+
     public:
 		/**
 		   This class is singleton, access it with this function.
@@ -48,8 +51,17 @@ namespace soomla {
 		   \param eventHandler A pointer to the event handler you'd like to remove.
 		*/
 		void removeEventHandler(CCEventHandler *eventHandler);
-		
+
+        // Mark all old functions as deprecated
+        CC_SYNTH_DEPRECATED(std::string, mCustomSecret, CustomSecret);
+        CC_SYNTH_DEPRECATED(std::string, mAndroidPublicKey, AndroidPublicKey);
+        CC_SYNTH_DEPRECATED(bool, mAndroidTestMode, AndroidTestMode);
+        CC_SYNTH_DEPRECATED(std::string, mSoomSec, SoomSec);
+        CC_SYNTH_DEPRECATED(bool, mSSV, SSV);
     };
 };
+
+#undef DEPRECATED
+#undef CC_SYNTH_DEPRECATED
 
 #endif //__CCSoomla_H_
