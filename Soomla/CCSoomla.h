@@ -5,7 +5,7 @@
 #include "CCEventHandler.h"
 #include <vector>
 
-#define DEPRECATED(func) func __attribute__ ((deprecated))
+#define DEPRECATED(func) func __attribute__ ((deprecated("CCSoomla attributes have been removed, see README. Linking will fail.")))
 #define CC_SYNTH_DEPRECATED(type, name, func) DEPRECATED(type get##func(void)); \
     DEPRECATED(void set##func(type name))
 
@@ -52,7 +52,11 @@ namespace soomla {
 		*/
 		void removeEventHandler(CCEventHandler *eventHandler);
 
-        // Mark all old functions as deprecated
+        /**
+           CCSoomla attributes have been removed. Attributes were accessed by 
+           CCStoreController on initialization, and are now passed to it through
+           a CCDictionary. See CCStoreController::createShared() for more information.
+         */
         CC_SYNTH_DEPRECATED(std::string, mCustomSecret, CustomSecret);
         CC_SYNTH_DEPRECATED(std::string, mAndroidPublicKey, AndroidPublicKey);
         CC_SYNTH_DEPRECATED(bool, mAndroidTestMode, AndroidTestMode);
