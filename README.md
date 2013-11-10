@@ -8,6 +8,8 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 # cocos2dx-store
 
+**November 10, 2013**: Setting parameters for CCStoreController has changed. Parameters are now passed through a CCDictionary. [see below](https://github.com/soomla/cocos2dx-store#getting-started)
+
 **October 28, 2013**: iOS server side verification is added. This feature is not activated by default. [learn more](https://github.com/soomla/cocos2dx-store#ios-server-side-verification)
 
 **October 27, 2013**: cocos2dx-store has been updated since its last version. Everything has been rewritten from scratch and is much more Cocos2d-x friendly. cocos2dx-store allows your Cocos2d-x game to use SOOMLA's in app purchasing services and storage. cocos2dx-store has also been updated to use the third version of our economy model: modelV3.
@@ -49,27 +51,26 @@ The example project is still under developement but it already has some importan
     $ git clone git@github.com:vedi/jansson.git
     ```
 
-4. Open your game's AppDelegate class and set the values for "Soom Sec", "Custom Secret", and "Public Key":
+4. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([Refer to cocos2dx-store-example for an example.](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)).
+
+5. Initialize _CCStoreController_ with your assets class, and a _CCDictionary_ containing various parameters for it:
+
+    ```cpp
+    CCDictionary *storeParams = CCDictionary::create();
+    storeParams->
+        setObject(CCString::create("ExampleSoomSecret"), "soomSec");
+    storeParams->
+        setObject(CCString::create("ExamplePublicKey"), "androidPublicKey");
+    storeParams->
+        setObject(CCString::create("ExampleCustomSecret"), "customSecret");
+        
+    soomla::CCStoreController::createShared(YourStoreAssetsImplementation::create(), storeParams);
+    ```
     - _Custom Secret_ - is an encryption secret you provide that will be used to secure your data.
     - _Public Key_ - is the public key given to you from Google. (iOS doesn't have a public key).
     - _Soom Sec_ - is a special secret SOOMLA uses to increase your data protection.
+
     **Choose both secrets wisely. You can't change them after you launch your game!**
-   
-    ```cpp
-    bool AppDelegate::applicationDidFinishLaunching() {
-    	/* ... */
-    	soomla::CCSoomla::sharedSoomla()->setSoomSec("ExampleSoomSecret");
-    	soomla::CCSoomla::sharedSoomla()->setAndroidPublicKey("ExamplePublicKey");
-    	soomla::CCSoomla::sharedSoomla()->setCustomSecret("ExampleCustomSecret");
-    	/* ... */
-    }
-    ```
-
-5. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([example](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)). Initialize _CCStoreController_ with the class you just created:
-
-    ```cpp
-	soomla::CCStoreController::createShared(YourStoreAssetsImplementation::create());
-    ```
 
     > Initialize _StoreController_ ONLY ONCE when your application loads.
 
@@ -175,7 +176,12 @@ Now you can use _StoreInventory_ to buy your new currency pack:
 
 And that's it! cocos2dx-store knows how to contact Google Play or the App Store for you and will redirect your users to the purchasing system to complete the transaction. Don't forget to subscribe to store events in order to get notified of successful or failed purchases (see [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling)).
 
-In order to test purchases on Android, call `soomla::CCSoomla::setAndroidTestMode(true)` in your AppDelegate class before initializing _CCStoreController_.
+In order to test purchases on Android, add an extra field to storeParams before initializing _CCStoreController_:
+
+```cpp
+storeParams->setObject(CCBool::create(true), "androidTestMode");
+CCStoreController::createShared(assets, storeParams);
+```
 
 
 ## Storage & Meta-Data
@@ -253,10 +259,11 @@ You can choose to handle each exception on its own, handle all three at once, or
 ## iOS Server Side Verification
 
 As you probably know, fraud on IAP is pretty common. Hackers can crack their smartphones to think that a purchase is made when payment wasn't actually transferred to you. We want to help you with it so we created our verification server and we let you instantly use it through the framework.
-All you need to do is let cocos2dx-store know you want to verify purchases. You can do that by adding the following line in AppDelegate.cpp:
+All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to CCStoreController:
 
 ```cpp
-soomla::CCSoomla::sharedSoomla()->setSSV(true);
+storeParams->setObject(CCBool::create(true), "SSV);
+CCStoreController::createShared(assets, storeParams);
 ```
 
 ## Debugging
