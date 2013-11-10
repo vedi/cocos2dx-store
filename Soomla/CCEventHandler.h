@@ -17,17 +17,15 @@
 #ifndef __CCEventHandler__
 #define __CCEventHandler__
 
-#include <string>
 #include "./domain/virtualCurrencies/CCVirtualCurrency.h"
 #include "./domain/virtualGoods/CCVirtualGood.h"
 #include "./domain/virtualGoods/CCEquippableVG.h"
 #include "./domain/virtualGoods/CCUpgradeVG.h"
 
-using namespace std;
 namespace soomla {
 	/** \class CCEventHandler
 		\brief An abstract class that defines the event handler.
-		
+
 		Create your own implementation of this class and pass it to
 		CCSoomla::addEventHandler() to work with the events. Functions are
 		called when their corresponding events are fired in the SOOMLA SDK.
@@ -52,7 +50,7 @@ namespace soomla {
         virtual void onRestoreTransactions(bool success) = 0;
         virtual void onRestoreTransactionsStarted() = 0;
         virtual void onUnexpectedErrorInStore() = 0;
-		virtual void onStoreControllerInitialized() = 0;
+	virtual void onStoreControllerInitialized() = 0;
     };
 };
 
