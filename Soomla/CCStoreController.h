@@ -26,6 +26,14 @@ namespace soomla {
 		/**
 		   Initialize StoreController on native side and allow using its
 		   functions.
+           \param storeAssets An instance of your store's assets class.
+           \param storeParams A CCDictionary containing parameters for CCStoreController (These were previously found in CCSoomla).
+             This dictionary can contain the following:
+             "soomSec": CCString - The value of the primary encryption key.
+             "customSecret": CCString - The value of the secondary encryption key.
+             "androidPublicKey": CCString - Your Android public key.
+             "androidTestMode": CCBool - Whether or not to enable test purchases on Android.
+             "SSV": CCBool - Whether or not to enable server side verification of purchases.
 		 */
         static void createShared(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
 
@@ -63,4 +71,4 @@ namespace soomla {
     };
 };
 
-#endif //__CCStoreController_H_
+#endif // !__CCStoreController_H_
