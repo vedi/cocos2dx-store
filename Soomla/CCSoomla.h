@@ -3,7 +3,6 @@
 
 #include "cocos2d.h"
 #include "CCEventHandler.h"
-#include <vector>
 
 #define DEPRECATED(func) func __attribute__ ((deprecated("CCSoomla attributes have been removed, see README. Linking will fail.")))
 #define CC_SYNTH_DEPRECATED(type, name, func) DEPRECATED(type get##func(void)); \
