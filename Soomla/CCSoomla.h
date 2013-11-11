@@ -40,13 +40,13 @@ namespace soomla {
         void easyNDKCallBack(cocos2d::CCDictionary *parameters);
 
 		/**
-		   Add an event handler.
+		   Add an event handler. This retains the event handler.
 		   \param eventHandler A pointer to the event handler you'd like to add.
 		 */
 		void addEventHandler(CCEventHandler *eventHandler);
 
 		/**
-		   Remove an event handler.
+		   Remove an event handler. This releases the event handler.
 		   \param eventHandler A pointer to the event handler you'd like to remove.
 		*/
 		void removeEventHandler(CCEventHandler *eventHandler);

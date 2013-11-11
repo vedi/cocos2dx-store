@@ -26,10 +26,12 @@ namespace soomla {
 
 	void CCSoomla::addEventHandler(CCEventHandler *eventHandler) {
 		mEventHandlers.addObject(eventHandler);
+        eventHandler->retain();
 	}
 
 	void CCSoomla::removeEventHandler(CCEventHandler *eventHandler) {
 		mEventHandlers.removeObject(eventHandler);
+        eventHandler->release();
 	}
 
     void CCSoomla::easyNDKCallBack(CCDictionary *parameters) {
