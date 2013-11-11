@@ -2,11 +2,9 @@
 // Created by Fedor Shubin on 5/21/13.
 //
 
-
 #include "CCStoreInventory.h"
 #include "CCStoreUtils.h"
 #include "CCSoomlaNdkBridge.h"
-
 
 namespace soomla {
 #define TAG "SOOMLA StoreInventory"
@@ -49,7 +47,7 @@ namespace soomla {
         params->setObject(CCString::create(itemId), "itemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
 
-        if( retParams == NULL) {
+        if (retParams == NULL) {
         	return 0;
         }
 
@@ -112,7 +110,7 @@ namespace soomla {
         params->setObject(CCString::create(itemId), "itemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
 
-        if( retParams == NULL) {
+        if (retParams == NULL) {
         	return false;
         }
 
@@ -132,7 +130,7 @@ namespace soomla {
         params->setObject(CCString::create(goodItemId), "goodItemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
 
-        if( retParams == NULL) {
+        if (retParams == NULL) {
         	return 0;
         }
 
@@ -152,7 +150,7 @@ namespace soomla {
         params->setObject(CCString::create(goodItemId), "goodItemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
 
-        if( retParams == NULL) {
+        if (retParams == NULL) {
         	return "";
         }
 
@@ -193,7 +191,7 @@ namespace soomla {
         params->setObject(CCString::create(nonConsItemId), "nonConsItemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
 
-        if( retParams == NULL) {
+        if (retParams == NULL) {
         	return false;
         }
 
@@ -224,5 +222,4 @@ namespace soomla {
         params->setObject(CCString::create(nonConsItemId), "nonConsItemId");
         CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
-
 }
