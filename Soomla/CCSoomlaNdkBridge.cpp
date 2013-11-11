@@ -53,7 +53,7 @@ namespace soomla {
         cocos2d::CCDictionary *methodParams = params;
 
         json_t *toBeSentJson = CCSoomlaJsonHelper::getJsonFromCCObject(methodParams);
-        json_t *retJsonParams;
+        json_t *retJsonParams = NULL;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         JniMethodInfo t;
 
