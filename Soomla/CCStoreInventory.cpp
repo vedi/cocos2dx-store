@@ -49,6 +49,10 @@ namespace soomla {
         params->setObject(CCString::create(itemId), "itemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
 
+        if( retParams == NULL) {
+        	return 0;
+        }
+
 		CCInteger *retValue = (CCInteger *) retParams->objectForKey("return");
 		if (retValue) {
 			return retValue->getValue();
@@ -108,6 +112,10 @@ namespace soomla {
         params->setObject(CCString::create(itemId), "itemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
 
+        if( retParams == NULL) {
+        	return false;
+        }
+
 		CCBool *retValue = (CCBool *) retParams->objectForKey("return");
 		if (retValue) {
 			return retValue->getValue();
@@ -124,6 +132,10 @@ namespace soomla {
         params->setObject(CCString::create(goodItemId), "goodItemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
 
+        if( retParams == NULL) {
+        	return 0;
+        }
+
 		CCInteger *retValue = (CCInteger *) retParams->objectForKey("return");
 		if (retValue) {
 			return retValue->getValue();
@@ -139,6 +151,10 @@ namespace soomla {
         params->setObject(CCString::create("CCStoreInventory::getGoodCurrentUpgrade"), "method");
         params->setObject(CCString::create(goodItemId), "goodItemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
+
+        if( retParams == NULL) {
+        	return "";
+        }
 
 		CCString *retValue = (CCString *) retParams->objectForKey("return");
 		if (retValue) {
@@ -176,6 +192,10 @@ namespace soomla {
         params->setObject(CCString::create("CCStoreInventory::nonConsumableItemExists"), "method");
         params->setObject(CCString::create(nonConsItemId), "nonConsItemId");
         CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, soomlaError);
+
+        if( retParams == NULL) {
+        	return false;
+        }
 
 		CCBool *retValue = (CCBool *) retParams->objectForKey("return");
 		if (retValue) {
