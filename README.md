@@ -8,6 +8,8 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 # cocos2dx-store
 
+**November 11, 2013**: CCSoomla handles garbage collection of EventHandlers, no need to retain/release/delete them anymore.
+
 **November 10, 2013**: Setting parameters for CCStoreController has changed. Parameters are now passed through a CCDictionary. [see below](https://github.com/soomla/cocos2dx-store#getting-started)
 
 **October 28, 2013**: iOS server side verification is added. This feature is not activated by default. [learn more](https://github.com/soomla/cocos2dx-store#ios-server-side-verification)
