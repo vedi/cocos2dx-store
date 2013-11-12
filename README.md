@@ -115,7 +115,7 @@ If you're building your application for the Android platform, here are some inst
     ```
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_store_static        # add this line along with your other LOCAL_WHOLE_STATIC_LIBRARIES
     
-    $(call import-module, extensions/cocos2dx-store/android/jni) # add this line at the of the file, along with the other import-module calls
+    $(call import-module, extensions/cocos2dx-store/android/jni) # add this line at the end of the file, along with the other import-module calls
     ```
 
 2. Add the following to your classpath:
