@@ -47,7 +47,7 @@ public class StoreControllerBridge {
 
     public static void initialize(String customSecret) {
         StoreUtils.LogDebug("SOOMLA", "initialize is called from java!");
-        initializeEventHandler();
+        mEventHandler = new EventHandlerBridge(mGLView);
         StoreController.getInstance().initialize(mStoreAssets, mPublicKey, customSecret);
     }
 
