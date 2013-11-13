@@ -1,15 +1,12 @@
 package com.soomla.cocos2dx.store;
 
-import android.util.Log;
+import com.soomla.store.StoreUtils;
 import com.soomla.store.exceptions.InsufficientFundsException;
 import com.soomla.store.exceptions.NotEnoughGoodsException;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * @author vedi
@@ -32,10 +29,10 @@ public class SoomlaNDKGlue {
                 if (retParamsJson == null) {
                     retParamsJson = new JSONObject();
                 }
-                Log.v("SoomlaNDKGlue", "retParamsJson: " + retParamsJson.toString());
+                StoreUtils.LogDebug("SoomlaNDKGlue", "retParamsJson: " + retParamsJson.toString());
                 return retParamsJson.toString();
             } catch (JSONException e) {
-                Log.e("SoomlaNDKGlue", "receiveCppMessage raised exception", e);
+                StoreUtils.LogError("SoomlaNDKGlue", "receiveCppMessage raised exception" + e);
             }
         }
         return null;
