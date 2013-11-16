@@ -28,7 +28,7 @@ namespace soomla {
 		 */
         CC_SYNTHESIZE_READONLY(int, mCode, Code);
     public:
-        static CCSoomlaError *createWithObject(CCObject *obj);
+        static CCSoomlaError *createWithObject(cocos2d::CCObject *obj);
 
         static CCSoomlaError *createVirtualItemNotFoundException();
         static CCSoomlaError *createInsufficientFundsException();
