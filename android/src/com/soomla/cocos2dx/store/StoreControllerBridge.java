@@ -47,8 +47,12 @@ public class StoreControllerBridge {
 
     public static void initialize(String customSecret) {
         StoreUtils.LogDebug("SOOMLA", "initialize is called from java!");
-        mEventHandler = new EventHandlerBridge(mGLView);
+        initializeEventHandler();
         StoreController.getInstance().initialize(mStoreAssets, mPublicKey, customSecret);
+    }
+
+    public static void initializeEventHandler() {
+        mEventHandler = new EventHandlerBridge(mGLView);
     }
 
     public static void storeOpening() {
@@ -88,6 +92,10 @@ public class StoreControllerBridge {
 
     public static void setStoreAssetsBridge(StoreAssetsBridge storeAssetsBridge) {
         StoreControllerBridge.mStoreAssets = storeAssetsBridge;
+    }
+
+    public static IStoreAssets getStoreAssetsBridge() {
+        return StoreControllerBridge.mStoreAssets;
     }
 
     public static void setSoomSec(String soomSec) {
