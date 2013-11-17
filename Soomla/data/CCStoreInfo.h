@@ -104,7 +104,7 @@ namespace soomla {
 		*/
 		cocos2d::CCArray *getVirtualCategories();
     private:
-        CCObject *createWithRetParams(cocos2d::CCDictionary *retParams);
+        cocos2d::CCObject *createWithRetParams(cocos2d::CCDictionary *retParams);
     };
 };
 
