@@ -22,15 +22,11 @@
 
 @implementation EventDispatcherBridge
 
-static EventDispatcherBridge * instance = nil;
-
-+ (void)initialize {
++ (EventDispatcherBridge *)sharedInstance {
+    static EventDispatcherBridge * instance = nil;
     if (!instance) {
         instance = [[EventDispatcherBridge alloc] init];
     }
-}
-
-+ (EventDispatcherBridge *)sharedInstance {
     return instance;
 }
 

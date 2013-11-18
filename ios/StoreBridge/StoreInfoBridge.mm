@@ -111,7 +111,8 @@ NSArray *StoreInfoBridge::getUpgradesForVirtualGood(NSString *goodItemId) {
 
     if (upgrades) {
         for(UpgradeVG* upgradeVG in upgrades) {
-            [retArray addObject:[upgradeVG toDictionary]];
+	    NSString *className = NSStringFromClass([upgradeVG class]);
+	    [retArray addObject:@{@"item" : [upgradeVG toDictionary], @"className" : className}];
         }
     }
 
@@ -124,7 +125,8 @@ NSArray *StoreInfoBridge::getVirtualCurrencies() {
 
     if (virtualCurrencies) {
         for(VirtualCurrency*virtualCurrency in virtualCurrencies) {
-            [retArray addObject:[virtualCurrency toDictionary]];
+	    NSString *className = NSStringFromClass([virtualCurrency class]);
+	    [retArray addObject:@{@"item" : [virtualCurrency toDictionary], @"className" : className}];
         }
     }
 
@@ -137,7 +139,8 @@ NSArray *StoreInfoBridge::getVirtualGoods() {
 
     if (virtualGoods) {
         for(VirtualGood *virtualGood in virtualGoods) {
-            [retArray addObject:[virtualGood toDictionary]];
+	    NSString *className = NSStringFromClass([virtualGood class]);
+	    [retArray addObject:@{@"item" : [virtualGood toDictionary], @"className" : className}];
         }
     }
 
@@ -150,7 +153,8 @@ NSArray *StoreInfoBridge::getVirtualCurrencyPacks() {
 
     if (virtualCurrencyPacks) {
         for(VirtualCurrencyPack *virtualCurrencyPack in virtualCurrencyPacks) {
-            [retArray addObject:[virtualCurrencyPack toDictionary]];
+	    NSString *className = NSStringFromClass([virtualCurrencyPack class]);
+	    [retArray addObject:@{@"item" : [virtualCurrencyPack toDictionary], @"className" : className}];
         }
     }
 
@@ -163,7 +167,8 @@ NSArray *StoreInfoBridge::getNonConsumableItems() {
 
     if (nonConsumableItems) {
         for(NonConsumableItem *nonConsumableItem in nonConsumableItems) {
-            [retArray addObject:[nonConsumableItem toDictionary]];
+	    NSString *className = NSStringFromClass([nonConsumableItem class]);
+	    [retArray addObject:@{@"item" : [nonConsumableItem toDictionary], @"className" : className}];
         }
     }
 
@@ -176,7 +181,8 @@ NSArray *StoreInfoBridge::getVirtualCategories() {
 
     if (virtualCategories) {
         for(VirtualCategory *virtualCategory in virtualCategories) {
-            [retArray addObject:[virtualCategory toDictionary]];
+	    NSString *className = NSStringFromClass([virtualCategory class]);
+	    [retArray addObject:@{@"item" : [virtualCategory toDictionary], @"className" : className}];
         }
     }
 

@@ -18,13 +18,15 @@
 #import "EquippableVG.h"
 #import "UpgradeVG.h"
 #import "CCSoomlaNdkBridgeIos.h"
-
-static StoreAssetsBridge *storeAssets = nil;
+#import "StoreUtils.h"
+#include "jansson.h"
 
 static EventDispatcherBridge *eventDispatcherBridge = [EventDispatcherBridge sharedInstance];
 
 @implementation SoomlaNDKGlue {
 }
+
+static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
 
 + (NSObject *)dispatchNDKCall:(NSDictionary *)parameters {
     NSString *methodName = [parameters objectForKey:@"method"];
@@ -35,14 +37,13 @@ static EventDispatcherBridge *eventDispatcherBridge = [EventDispatcherBridge sha
         if ([methodName isEqualToString:@"CCStoreAssets::init"]) {
             NSNumber *version = (NSNumber *) [parameters objectForKey:@"version"];
             NSDictionary *storeAssetsDict = (NSDictionary *) [parameters objectForKey:@"storeAssets"];
-            storeAssets = [[StoreAssetsBridge alloc] initWithStoreAssetsDict:storeAssetsDict andVersion:version.intValue];
+	    [[StoreAssetsBridge sharedInstance] initializeWithStoreAssetsDict:storeAssetsDict andVersion:version.intValue];
         }
         else if ([methodName isEqualToString:@"CCStoreController::init"]) {
             NSString *customSecret = (NSString *) [parameters objectForKey:@"customSecret"];
 
-            [[StoreController getInstance] initializeWithStoreAssets:storeAssets
+	    [[StoreController getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]
                                                      andCustomSecret:customSecret];
-            // TODO: Implement event dispatcher: storeEventDispatcher = [[UnityStoreEventDispatcher alloc] init];
         }
         else if ([methodName isEqualToString:@"CCStoreController::buyMarketItem"]) {
             NSString *productId = (NSString *) [parameters objectForKey:@"productId"];
@@ -183,7 +184,7 @@ static EventDispatcherBridge *eventDispatcherBridge = [EventDispatcherBridge sha
             [retParameters setObject: retObj forKey: @"return"];
         }
         else {
-            NSLog(@"Unsupported method %@", methodName);
+	    LogError(TAG, ([NSString stringWithFormat:@"Unsupported method %@", methodName]));
         }
     }
     @catch (VirtualItemNotFoundException* e) {
@@ -266,12 +267,6 @@ static EventDispatcherBridge *eventDispatcherBridge = [EventDispatcherBridge sha
         [parameters setObject:@"CCEventHandler::onMarketPurchaseStarted" forKey:@"method"];
         [parameters setObject:[pvi itemId] forKey:@"itemId"];
     }
-//    TODO: Clarify: EVENT_APPSTORE_REFUND
-//    else if ([notification.name isEqualToString:EVENT_APPSTORE_REFUND]) {
-//        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
-//        [parameters setObject:@"CCEventHandler::onMarketRefund" forKey:@"method"];
-//        [parameters setObject:[pvi itemId] forKey:@"itemId"];
-//    }
     else if ([notification.name isEqualToString:EVENT_TRANSACTION_RESTORED]) {
         BOOL success = [(NSNumber*)[notification.userInfo objectForKey:DICT_ELEMENT_SUCCESS] boolValue];
         [parameters setObject:@"CCEventHandler::onRestoreTransactions" forKey:@"method"];
@@ -283,8 +278,11 @@ static EventDispatcherBridge *eventDispatcherBridge = [EventDispatcherBridge sha
     else if ([notification.name isEqualToString:EVENT_UNEXPECTED_ERROR_IN_STORE]) {
         [parameters setObject:@"CCEventHandler::onUnexpectedErrorInStore" forKey:@"method"];
     }
+    else if ([notification.name isEqualToString:EVENT_STORECONTROLLER_INIT]) {
+	[parameters setObject:@"CCEventHandler::onStoreControllerInitialized" forKey:@"method"];
+    }
     else {
-        NSLog(@"Unknow notification %@", notification.name);
+	LogError(TAG, ([NSString stringWithFormat:@"Unknow notification %@", notification.name]));
         return;
     }
 

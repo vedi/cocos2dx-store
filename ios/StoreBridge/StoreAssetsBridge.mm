@@ -21,13 +21,17 @@
 
 static NSString* TAG = @"SOOMLA StoreAssets";
 
-- (id)initWithStoreAssetsDict:(NSDictionary*)storeAssetsDict andVersion:(int)oVersion{
-    self = [super init];
-    if(self){
-        version = oVersion;
-        [self createFromDict:storeAssetsDict];
++ (StoreAssetsBridge *)sharedInstance {
+    static StoreAssetsBridge * instance = nil;
+    if (!instance) {
+	instance = [[StoreAssetsBridge alloc] init];
     }
-    return self;
+    return instance;
+}
+
+- (void)initializeWithStoreAssetsDict:(NSDictionary*)storeAssetsDict andVersion:(int)oVersion{
+    version = oVersion;
+    [self createFromDict:storeAssetsDict];
 }
 
 - (BOOL)createFromDict:(NSDictionary*)storeAssetsDict {

@@ -12,7 +12,6 @@
 #import <Foundation/Foundation.h>
 
 @interface EventDispatcherBridge : NSObject
-+ (void)initialize;
 + (EventDispatcherBridge *)sharedInstance;
 @end
 

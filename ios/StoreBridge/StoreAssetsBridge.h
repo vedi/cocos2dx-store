@@ -15,6 +15,7 @@
     NSMutableArray* nonConsumablesArray;
 }
 
-- (id)initWithStoreAssetsDict:(NSDictionary*)storeAssetsDict andVersion:(int)oVersion;
++ (StoreAssetsBridge *)sharedInstance;
+- (void)initializeWithStoreAssetsDict:(NSDictionary*)storeAssetsDict andVersion:(int)oVersion;
 
 @end
