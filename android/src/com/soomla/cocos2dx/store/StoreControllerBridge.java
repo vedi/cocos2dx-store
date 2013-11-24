@@ -41,6 +41,10 @@ public class StoreControllerBridge {
         mGLView = glView;
     }
 
+    public static Cocos2dxGLSurfaceView getGLView() {
+        return mGLView;
+    }
+
     public static void setActivity(Activity activity) {
         mActivity = activity;
     }
