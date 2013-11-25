@@ -8,6 +8,8 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 # cocos2dx-store
 
+**November 25, 2013**: Debug logging is now off by default.
+
 **November 11, 2013**: CCSoomla handles garbage collection of EventHandlers, no need to retain/release/delete them anymore.
 
 **November 10, 2013**: Setting parameters for CCStoreController has changed. Parameters are now passed through a CCDictionary. [see below](https://github.com/soomla/cocos2dx-store#getting-started)
@@ -270,7 +272,7 @@ CCStoreController::createShared(assets, storeParams);
 
 ## Debugging
 
-Cocos2d-x debug messages will only be printed out if you set `SOOMLA_DEBUG` to `true` in CCStoreUtils.
+You can enable debug logging in cocos2dx-store by setting `SOOMLA_DEBUG` in `CCStoreUtils.h` to `true`. Debug logging can also be enabled at build time by adding `-DSOOMLA_DEBUG=1` to `APP_CPPFLAGS` in your `Application.mk`.
 
 If you want to see debug messages from _android-store_, set the `logDebug` variable in `com.soomla.store.StoreConfig` to `true`.
 
