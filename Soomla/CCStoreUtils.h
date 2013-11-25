@@ -7,9 +7,11 @@
 
 #include "CCSoomlaError.h"
 
-namespace soomla {
-    #define SOOMLA_DEBUG true
+#ifndef SOOMLA_DEBUG
+# define SOOMLA_DEBUG false
+#endif
 
+namespace soomla {
 	/** \class CCStoreUtils
 		\brief This class handles printing of error and debug messages.
 
