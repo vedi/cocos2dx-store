@@ -33,6 +33,8 @@ public class SoomlaNDKGlue {
                 return retParamsJson.toString();
             } catch (JSONException e) {
                 StoreUtils.LogError("SoomlaNDKGlue", "receiveCppMessage raised exception" + e);
+            } catch (UnsupportedOperationException e) {
+                StoreUtils.LogError("SoomlaNDKGlue", "Unsupported operation (" + e + ")");
             }
         }
         return null;
@@ -63,9 +65,6 @@ public class SoomlaNDKGlue {
                 } else if (methodName.equals("CCStoreController::transactionsAlreadyRestored")) {
                     boolean retValue = StoreControllerBridge.transactionsAlreadyRestored();
                     retParams.put("return", retValue);
-                } else if (methodName.equals("CCStoreController::setAndroidTestMode")) {
-                    Boolean testMode = params.getBoolean("testMode");
-                    StoreControllerBridge.setAndroidTestMode(testMode);
                 } else if (methodName.equals("CCStoreController::setSoomSec")) {
                     String soomSec = params.getString("soomSec");
                     StoreControllerBridge.setSoomSec(soomSec);
@@ -161,7 +160,7 @@ public class SoomlaNDKGlue {
                     JSONArray retValue = StoreInfoBridge.getVirtualCategories();
                     retParams.put("return", retValue);
                 } else {
-                    throw new UnsupportedOperationException();
+                    throw new UnsupportedOperationException(methodName);
                 }
             } catch (VirtualItemNotFoundException e) {
                 retParams.put("errorCode", -1);

@@ -1,7 +1,5 @@
 package com.soomla.cocos2dx.store;
 
-import android.app.Activity;
-
 import com.soomla.store.*;
 import com.soomla.store.data.StoreInfo;
 import com.soomla.store.domain.PurchasableVirtualItem;
@@ -15,27 +13,10 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
  * You can see the documentation of every function in {@link StoreController}
  */
 public class StoreControllerBridge {
-    private static Activity mActivity          = null;
     private static IStoreAssets mStoreAssets   = null;
     private static String mPublicKey           = "";
     private static EventHandlerBridge mEventHandler = null;
     private static Cocos2dxGLSurfaceView mGLView = null;
-
-    /* Possible legacy code, TODO: remove */
-    @Deprecated
-    public static void initialize(Cocos2dxGLSurfaceView glView,
-                                  IStoreAssets storeAssets,
-                                  String publicKey,
-                                  Activity activity) {
-        mStoreAssets = storeAssets;
-        mPublicKey   = publicKey;
-        mActivity    = activity;
-
-        mGLView = glView;
-
-
-        mEventHandler = new EventHandlerBridge(glView);
-    }
 
     public static void setGLView(Cocos2dxGLSurfaceView glView) {
         mGLView = glView;
@@ -43,10 +24,6 @@ public class StoreControllerBridge {
 
     public static Cocos2dxGLSurfaceView getGLView() {
         return mGLView;
-    }
-
-    public static void setActivity(Activity activity) {
-        mActivity = activity;
     }
 
     public static void initialize(String customSecret) {
@@ -61,7 +38,7 @@ public class StoreControllerBridge {
 
     public static void storeOpening() {
         StoreUtils.LogDebug("SOOMLA", "storeOpening is called from java!");
-        StoreController.getInstance().storeOpening(mActivity);
+        StoreController.getInstance().storeOpening();
     }
 
     public static void storeClosing() {
@@ -87,11 +64,6 @@ public class StoreControllerBridge {
     public static boolean transactionsAlreadyRestored() {
         StoreUtils.LogDebug("SOOMLA", "transactionsAlreadyRestored is called from java!");
         return StoreController.getInstance().transactionsAlreadyRestored();
-    }
-
-    public static void setAndroidTestMode(boolean testMode) {
-        StoreUtils.LogDebug("SOOMLA", "setAndroidTestMode is called from java!");
-        StoreController.getInstance().setTestMode(testMode);
     }
 
     public static void setStoreAssetsBridge(StoreAssetsBridge storeAssetsBridge) {
