@@ -13,7 +13,7 @@ namespace soomla {
     #define TAG "SOOMLA StoreController"
 
     USING_NS_CC;
-	
+
     static CCStoreController *s_SharedStoreController = NULL;
 
     CCStoreController *CCStoreController::sharedStoreController() {
@@ -42,7 +42,6 @@ namespace soomla {
         CCString *soomSec = dynamic_cast<CCString *>(storeParams->objectForKey("soomSec"));
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         CCString *androidPublicKey = dynamic_cast<CCString *>(storeParams->objectForKey("androidPublicKey"));
-        CCBool *androidTestMode = dynamic_cast<CCBool *>(storeParams->objectForKey("androidTestMode"));
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         CCBool *SSV = dynamic_cast<CCBool *>(storeParams->objectForKey("SSV"));
 #endif
@@ -51,19 +50,17 @@ namespace soomla {
         if (soomSec      == NULL) soomSec      = CCString::create("");
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         if (androidPublicKey == NULL) androidPublicKey = CCString::create("");
-        if (androidTestMode  == NULL) androidTestMode  = CCBool::create(false);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         if (SSV == NULL) SSV = CCBool::create(false);
 #endif
 
-        // Redundancy checking
+        // Redundancy checking. Most JS libraries don't do this. I hate it when they don't do this. Do this.
         CCDictElement* el = NULL;
         CCDICT_FOREACH(storeParams, el) {
             std::string key = el->getStrKey();
             if (!(
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
                   key.compare("androidPublicKey") == 0 ||
-                  key.compare("androidTestMode")  == 0 ||
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
                   key.compare("SSV") == 0 ||
 #endif
@@ -75,7 +72,7 @@ namespace soomla {
             }
         }
 
-        
+
         if (customSecret->length() == 0 || soomSec->length() == 0) {
             CCStoreUtils::logError(TAG, "SOOMLA/COCOS2DX MISSING customSecret or soomSec !!! Stopping here !!");
             return false;
@@ -122,7 +119,7 @@ namespace soomla {
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
 #endif
-        
+
         CCStoreInfo::createShared(storeAssets);
 
         {
@@ -135,14 +132,6 @@ namespace soomla {
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        {
-            CCDictionary *params = CCDictionary::create();
-            params->setObject(CCString::create("CCStoreController::setAndroidTestMode"), "method");
-            params->setObject(androidTestMode, "testMode");
-            CCSoomlaNdkBridge::callNative(params, NULL);
-        }
-#endif
         return true;
     }
 
