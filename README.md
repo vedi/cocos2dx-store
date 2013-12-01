@@ -20,16 +20,11 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 > cocos2dx-store currently supports all Cocos2d-x 2.x versions. Support for version 3.x (alpha) is experimental.
 
-Want to learn more about modelV3? Try these:
-* [Economy Model Objects - android-store](https://github.com/soomla/android-store/wiki/Economy-Model-Objects)
-* [Handling Store Operations - android-store](https://github.com/soomla/android-store/wiki/Handling-Store-Operations)
-(The same model objects from android-store exist in cocos2dx-store)
+Want to learn more about modelV3? Try these links:
+* [Economy Model Objects](https://github.com/soomla/cocos2dx-store/wiki/Economy-Model-Objects)
+* [Handling Store Operations](https://github.com/soomla/cocos2dx-store/wiki/Handling-Store-Operations)
 
-The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project uses [android-store](https://github.com/soomla/android-store) and [ios-store](https://github.com/soomla/ios-store) in order to provide game developers with in-app billing for their **cocos2d-x** projects.
-
-**Before you start**, we suggest that you go over the information in ios-store and android-store so you get acquainted with the SOOMLA framework:
-- ios-store [project](https://github.com/soomla/ios-store) [wiki](https://github.com/soomla/ios-store/wiki)
-- android-store [project](https://github.com/soomla/android-store) [wiki](https://github.com/soomla/android-store/wiki)
+The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project uses *[android-store](https://github.com/soomla/android-store)* and *[ios-store](https://github.com/soomla/ios-store)* in order to provide game developers with in-app billing for their **cocos2d-x** projects.
 
 >If you also want to create a **storefront** you can do that using SOOMLA's [In-App Purchase Store Designer](http://soom.la).
 
