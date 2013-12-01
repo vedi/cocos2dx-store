@@ -133,8 +133,6 @@ If you're building your application for the Android platform, here are some inst
     Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
     StoreControllerBridge.setGLView(glSurfaceView);
     
-    StoreControllerBridge.setActivity(this);
-    
     SoomlaApp.setExternalContext(getApplicationContext());
     ```
 
