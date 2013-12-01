@@ -1,7 +1,24 @@
 package com.soomla.cocos2dx.store;
 
 import com.soomla.store.BusProvider;
-import com.soomla.store.events.*;
+import com.soomla.store.events.BillingNotSupportedEvent;
+import com.soomla.store.events.BillingSupportedEvent;
+import com.soomla.store.events.ClosingStoreEvent;
+import com.soomla.store.events.CurrencyBalanceChangedEvent;
+import com.soomla.store.events.GoodBalanceChangedEvent;
+import com.soomla.store.events.GoodEquippedEvent;
+import com.soomla.store.events.GoodUnEquippedEvent;
+import com.soomla.store.events.GoodUpgradeEvent;
+import com.soomla.store.events.ItemPurchaseStartedEvent;
+import com.soomla.store.events.ItemPurchasedEvent;
+import com.soomla.store.events.OpeningStoreEvent;
+import com.soomla.store.events.PlayPurchaseCancelledEvent;
+import com.soomla.store.events.PlayPurchaseEvent;
+import com.soomla.store.events.PlayPurchaseStartedEvent;
+import com.soomla.store.events.RestoreTransactionsEvent;
+import com.soomla.store.events.RestoreTransactionsStartedEvent;
+import com.soomla.store.events.StoreControllerInitializedEvent;
+import com.soomla.store.events.UnexpectedStoreErrorEvent;
 import com.squareup.otto.Subscribe;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.json.JSONException;
@@ -251,23 +268,6 @@ public class EventHandlerBridge {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCEventHandler::onMarketPurchaseStarted");
                     parameters.put("itemId", playPurchaseStartedEvent.getPurchasableVirtualItem().getItemId());
-                    SoomlaNDKGlue.sendMessageWithParameters(parameters);
-                } catch (JSONException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-        });
-    }
-
-    @Subscribe
-    public void onPlayRefund(final PlayRefundEvent playRefundEvent) {
-        mGLThread.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    JSONObject parameters = new JSONObject();
-                    parameters.put("method", "CCEventHandler::onMarketRefund");
-                    parameters.put("itemId", playRefundEvent.getPurchasableVirtualItem().getItemId());
                     SoomlaNDKGlue.sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
