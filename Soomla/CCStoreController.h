@@ -32,7 +32,6 @@ namespace soomla {
              "soomSec": CCString - The value of the primary encryption key.
              "customSecret": CCString - The value of the secondary encryption key.
              "androidPublicKey": CCString - Your Android public key.
-             "androidTestMode": CCBool - Whether or not to enable test purchases on Android.
              "SSV": CCBool - Whether or not to enable server side verification of purchases.
 		 */
         static void createShared(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
