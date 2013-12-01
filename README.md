@@ -20,16 +20,11 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 > cocos2dx-store currently supports all Cocos2d-x 2.x versions. Support for version 3.x (alpha) is experimental.
 
-Want to learn more about modelV3? Try these:
-* [Economy Model Objects - android-store](https://github.com/soomla/android-store/wiki/Economy-Model-Objects)
-* [Handling Store Operations - android-store](https://github.com/soomla/android-store/wiki/Handling-Store-Operations)
-(The same model objects from android-store exist in cocos2dx-store)
+Want to learn more about modelV3? Try these links:
+* [Economy Model Objects](https://github.com/soomla/cocos2dx-store/wiki/Economy-Model-Objects)
+* [Handling Store Operations](https://github.com/soomla/cocos2dx-store/wiki/Handling-Store-Operations)
 
-The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project uses [android-store](https://github.com/soomla/android-store) and [ios-store](https://github.com/soomla/ios-store) in order to provide game developers with in-app billing for their **cocos2d-x** projects.
-
-**Before you start**, we suggest that you go over the information in ios-store and android-store so you get acquainted with the SOOMLA framework:
-- ios-store [project](https://github.com/soomla/ios-store) [wiki](https://github.com/soomla/ios-store/wiki)
-- android-store [project](https://github.com/soomla/android-store) [wiki](https://github.com/soomla/android-store/wiki)
+The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project uses *[android-store](https://github.com/soomla/android-store)* and *[ios-store](https://github.com/soomla/ios-store)* in order to provide game developers with in-app billing for their **cocos2d-x** projects.
 
 >If you also want to create a **storefront** you can do that using SOOMLA's [In-App Purchase Store Designer](http://soom.la).
 
@@ -45,19 +40,19 @@ The example project is still under developement but it already has some importan
 
     > Make sure the version you clone is supported by cocos2dx-store (the tag is the version).
 
-2. Go into your cocos2d-x project and recursively clone cocos2dx-store into the `extensions` directory located at the root of your Cocos2d-x framework.
+1. Go into your cocos2d-x project and recursively clone cocos2dx-store into the `extensions` directory located at the root of your Cocos2d-x framework.
     ```
     $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
     ```
 
-3. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your framework.
+1. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your framework.
     ```
     $ git clone git@github.com:vedi/jansson.git
     ```
 
-4. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([Refer to cocos2dx-store-example for an example.](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)).
+1. Create your own implementation of _CCIStoreAssets_ that will represent the assets in your specific game ([Refer to cocos2dx-store-example for an example.](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)).
 
-5. Initialize _CCStoreController_ with your assets class, and a _CCDictionary_ containing various parameters for it:
+1. Initialize _CCStoreController_ with your assets class, and a _CCDictionary_ containing various parameters for it:
 
     ```cpp
     CCDictionary *storeParams = CCDictionary::create();
@@ -78,7 +73,7 @@ The example project is still under developement but it already has some importan
 
     > Initialize _StoreController_ ONLY ONCE when your application loads.
 
-6. Now, that you have _CCStoreController_ loaded, just decide when you want to show/hide your store's UI to the user and let _CCStoreController_ know about it:
+1. Now, that you have _CCStoreController_ loaded, just decide when you want to show/hide your store's UI to the user and let _CCStoreController_ know about it:
 
     When you show the store call:  
     ```cpp
@@ -120,12 +115,30 @@ If you're building your application for the Android platform, here are some inst
     $(call import-module, extensions/cocos2dx-store/android/jni) # add this line at the end of the file, along with the other import-module calls
     ```
 
-2. Add the following to your classpath:
+1. Add the following to your classpath:
     - **extensions/cocos2dx-store/android/src**
     - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there because your cloned cocos2dx-store with the `--recursive` flag).
     - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/libs/square-otto-1.3.2.jar**
 
-3. In your main Cocos2dxActivity (The one your Cocos2d-x application runs in), call the following in the onCreateView method:
+1. Update your manifest to include the following permissions, service, and reciever:
+    ```xml
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.android.vending.BILLING"/>
+
+    <application ...>
+            <service android:name="com.soomla.billing.BillingService" />
+
+        <receiver android:name="com.soomla.billing.BillingReceiver">
+            <intent-filter>
+                <action android:name="com.android.vending.billing.IN_APP_NOTIFY" />
+                <action android:name="com.android.vending.billing.RESPONSE_CODE" />
+                <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+    </application>
+    ```
+
+1. In your main Cocos2dxActivity (The one your Cocos2d-x application runs in), call the following in the onCreateView method:
     ```java
     Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
     StoreControllerBridge.setGLView(glSurfaceView);
