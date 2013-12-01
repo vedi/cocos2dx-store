@@ -8,11 +8,7 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 # cocos2dx-store
 
-**November 25, 2013**: Debug logging is now off by default.
-
-**November 11, 2013**: CCSoomla handles garbage collection of EventHandlers, no need to retain/release/delete them anymore.
-
-**November 10, 2013**: Setting parameters for CCStoreController has changed. Parameters are now passed through a CCDictionary. [see below](https://github.com/soomla/cocos2dx-store#getting-started)
+**December 1, 2013**: Android in-app billing has been updated to use Google's in-app billing version 3.
 
 **October 28, 2013**: iOS server side verification is added. This feature is not activated by default. [learn more](https://github.com/soomla/cocos2dx-store#ios-server-side-verification)
 
@@ -20,18 +16,13 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 > cocos2dx-store currently supports all Cocos2d-x 2.x versions. Support for version 3.x (alpha) is experimental.
 
-Want to learn more about modelV3? Try these:
-* [Economy Model Objects - android-store](https://github.com/soomla/android-store/wiki/Economy-Model-Objects)
-* [Handling Store Operations - android-store](https://github.com/soomla/android-store/wiki/Handling-Store-Operations)
-(The same model objects from android-store exist in cocos2dx-store)
+The current virtual economny model is called **modelV3**. Want to learn more about it? Try these links:
+* [Economy Model Objects](https://github.com/soomla/cocos2dx-store/wiki/Economy-Model-Objects)
+* [Handling Store Operations](https://github.com/soomla/cocos2dx-store/wiki/Handling-Store-Operations)
 
 The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project uses [android-store](https://github.com/soomla/android-store) and [ios-store](https://github.com/soomla/ios-store) in order to provide game developers with in-app billing for their **cocos2d-x** projects.
 
-**Before you start**, we suggest that you go over the information in ios-store and android-store so you get acquainted with the SOOMLA framework:
-- ios-store [project](https://github.com/soomla/ios-store) [wiki](https://github.com/soomla/ios-store/wiki)
-- android-store [project](https://github.com/soomla/android-store) [wiki](https://github.com/soomla/android-store/wiki)
-
->If you also want to create a **storefront** you can do that using SOOMLA's [In-App Purchase Store Designer](http://soom.la).
+>If you also want to create a **Storefront** you can do that using SOOMLA's [In-App Purchase Store Designer](http://dashboard.soom.la).
 
 ## Example Project
 
