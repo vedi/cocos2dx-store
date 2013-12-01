@@ -133,7 +133,7 @@ If you're building your application for the Android platform, here are some inst
 
     <application ...>
         <activity android:name="com.soomla.store.StoreController$IabActivity"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
     </application>
     ```
 
