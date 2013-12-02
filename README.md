@@ -8,7 +8,7 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 # cocos2dx-store
 
-**December 1, 2013**: Android in-app billing has been updated to use Google's in-app billing version 3. Google does not support refunds with version 3, thus we have removed the `onMarketRefund` event.
+**December 1, 2013**: Android in-app billing has been updated to use Google's in-app billing version 3. Google does not support refunds with version 3, as a result, we have removed the `onMarketRefund` event.
 
 **October 28, 2013**: iOS server side verification is added. This feature is not activated by default. [learn more](https://github.com/soomla/cocos2dx-store#ios-server-side-verification)
 
