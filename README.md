@@ -8,7 +8,7 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 # cocos2dx-store
 
-**December 1, 2013**: Android in-app billing has been updated to use Google's in-app billing version 3.
+**December 1, 2013**: Android in-app billing has been updated to use Google's in-app billing version 3. Google does not support refunds with version 3, as a result, we have removed the `onMarketRefund` event.
 
 **October 28, 2013**: iOS server side verification is added. This feature is not activated by default. [learn more](https://github.com/soomla/cocos2dx-store#ios-server-side-verification)
 
@@ -36,19 +36,24 @@ The example project is still under developement but it already has some importan
 
     > Make sure the version you clone is supported by cocos2dx-store (the tag is the version).
 
-2. Go into your cocos2d-x project and recursively clone cocos2dx-store into the `extensions` directory located at the root of your Cocos2d-x framework.
+1. Go into your cocos2d-x project and recursively clone cocos2dx-store into the `extensions` directory located at the root of your Cocos2d-x framework.
     ```
     $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
     ```
 
-3. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your framework.
+1. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your framework.
     ```
     $ git clone git@github.com:vedi/jansson.git
     ```
 
-4. Create your own implementation of `CCIStoreAssets` that will represent the assets in your specific game ([Refer to cocos2dx-store-example for an example.](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)).
+1. Make sure to include the `Soomla.h` header whenever you use any of the *cocos2dx-store* functions:
+    ```cpp
+    #include "Soomla.h"
+    ```
 
-5. Initialize `CCStoreController` with your assets class, and a `CCDictionary` containing various parameters for it:
+1. Create your own implementation of `CCIStoreAssets` that will represent the assets in your specific game ([Refer to cocos2dx-store-example for an example.](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)).
+
+1. Initialize `CCStoreController` with your assets class, and a `CCDictionary` containing various parameters for it:
 
     ```cpp
     CCDictionary *storeParams = CCDictionary::create();
@@ -69,7 +74,7 @@ The example project is still under developement but it already has some importan
 
     > Initialize `StoreController` ONLY ONCE when your application loads.
 
-6. Now, that you have `CCStoreController` loaded, just decide when you want to show/hide your store's UI to the user and let `CCStoreController` know about it:
+1. Now, that you have `CCStoreController` loaded, just decide when you want to show/hide your store's UI to the user and let `CCStoreController` know about it:
 
     When you show the store call:  
     ```cpp
@@ -83,7 +88,7 @@ The example project is still under developement but it already has some importan
 
     > Don't forget to make these calls. `StoreController` has to know that you opened/closed your in-app purchase store. Just to make it clear: the in-app purchase store is where you sell virtual goods (and not Google Play or App Store).
 
-7. You'll need an event handler in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling) section for more information.
+1. You'll need an event handler in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling) section for more information.
 
 And that's it! You now have storage and in-app purchasing capabilities.
 
