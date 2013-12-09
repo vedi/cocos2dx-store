@@ -242,6 +242,22 @@ namespace soomla {
 				h->onMarketPurchaseStarted(purchasableVirtualItem);
 			}
         }
+        else if (methodName->compare("CCEventHandler::onMarketRefund") == 0) {
+            CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
+            CCSoomlaError *soomlaError = NULL;
+            CCPurchasableVirtualItem *purchasableVirtualItem =
+				dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            if (soomlaError) {
+                CCStoreUtils::logException("CCEventHandler::onMarketRefund", soomlaError);
+                return;
+            }
+            CC_ASSERT(purchasableVirtualItem);
+			CCSetIterator i;
+			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onMarketRefund(purchasableVirtualItem);
+			}
+        }
         else if (methodName->compare("CCEventHandler::onRestoreTransactions") == 0) {
             CCBool *success = (CCBool *)(parameters->objectForKey("success"));
 			CCSetIterator i;

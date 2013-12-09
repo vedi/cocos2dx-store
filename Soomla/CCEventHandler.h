@@ -46,6 +46,7 @@ namespace soomla {
         virtual void onMarketPurchaseCancelled(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
         virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
         virtual void onMarketPurchaseStarted(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
+        virtual void onMarketRefund(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
         virtual void onRestoreTransactions(bool success) = 0;
         virtual void onRestoreTransactionsStarted() = 0;
         virtual void onUnexpectedErrorInStore() = 0;
