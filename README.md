@@ -123,13 +123,14 @@ If you're building your application for the Android platform, here are some inst
     - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there because your cloned cocos2dx-store with the `--recursive` flag).
     - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/libs/square-otto-1.3.2.jar**
 
-1. Update your manifest to include the following permissions and activity:
+1. Update your manifest to include these permissions, SoomlaApp and IabActivity:
 
     ```xml
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="com.android.vending.BILLING"/>
 
-    <application ...>
+    <application ...
+    	       android:name="com.soomla.store.SoomlaApp">
         <activity android:name="com.soomla.store.StoreController$IabActivity"
                   android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
     </application>
