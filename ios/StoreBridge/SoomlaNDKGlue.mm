@@ -273,7 +273,7 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
         [parameters setObject: [NSNumber numberWithBool: success] forKey:@"success"];
     }
     else if ([notification.name isEqualToString:EVENT_TRANSACTION_RESTORE_STARTED]) {
-        [parameters setObject:@"CCEventHandler::onItemPurchased" forKey:@"method"];
+        [parameters setObject:@"CCEventHandler::onRestoreTransactionsStarted" forKey:@"method"];
     }
     else if ([notification.name isEqualToString:EVENT_UNEXPECTED_ERROR_IN_STORE]) {
         [parameters setObject:@"CCEventHandler::onUnexpectedErrorInStore" forKey:@"method"];
