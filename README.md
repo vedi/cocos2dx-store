@@ -8,8 +8,6 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 # cocos2dx-store
 
-**December ??, 2013**: Refunds have been added back in in **cocos2dx-store** for Android. They are now checked whenever `CCStoreController` is initialized.
-
 **December 1, 2013**: Android in-app billing has been updated to use Google's in-app billing version 3.
 
 **October 28, 2013**: iOS server side verification is added. This feature is not activated by default. [learn more](https://github.com/soomla/cocos2dx-store#ios-server-side-verification)
