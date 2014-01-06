@@ -187,13 +187,6 @@ Now you can use `CCStoreInventory` to buy your new currency pack:
 
 And that's it! cocos2dx-store knows how to contact Google Play or the App Store for you and will redirect your users to the purchasing system to complete the transaction. Don't forget to subscribe to store events in order to get notified of successful or failed purchases (see [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling)).
 
-In order to test purchases on Android, add an extra field to storeParams before initializing _CCStoreController_:
-
-```cpp
-storeParams->setObject(CCBool::create(true), "androidTestMode");
-CCStoreController::createShared(assets, storeParams);
-```
-
 
 ## Storage & Meta-Data
 
