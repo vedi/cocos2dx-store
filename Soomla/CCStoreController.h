@@ -48,25 +48,22 @@ namespace soomla {
         void buyMarketItem(char const *productId, CCSoomlaError **soomlaError);
 
 		/**
-		   Tell StoreController you are opening the store.
-		 */
-        void storeOpening();
-
-		/**
-		   Tell StoreController you are closing the store.
-		*/
-		void storeClosing();
-
-		/**
 		   Restore this user's previous transactions.
 		 */
         void restoreTransactions();
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		/**
 		   Find out if the user restored his transactions.
 		   \return Whether or not the user restored his transactions.
 		*/		
         bool transactionsAlreadyRestored();
+#endif
+		
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		void startIabServiceInBg();
+		void stopIabServiceInBg();
+#endif
     };
 };
 

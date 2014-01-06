@@ -56,10 +56,10 @@ public class SoomlaNDKGlue {
                 } else if (methodName.equals("CCStoreController::buyMarketItem")) {
                     String productId = params.getString("productId");
                     StoreControllerBridge.buyWithGooglePlay(productId);
-                } else if (methodName.equals("CCStoreController::storeOpening")) {
-                    StoreControllerBridge.storeOpening();
-                } else if (methodName.equals("CCStoreController::storeClosing")) {
-                    StoreControllerBridge.storeClosing();
+                } else if (methodName.equals("CCStoreController::startIabServiceInBg")) {
+                    StoreControllerBridge.startIabServiceInBg();
+                } else if (methodName.equals("CCStoreController::stopIabServiceInBg")) {
+                    StoreControllerBridge.stopIabServiceInBg();
                 } else if (methodName.equals("CCStoreController::restoreTransactions")) {
                     StoreControllerBridge.restoreTransactions();
                 } else if (methodName.equals("CCStoreController::transactionsAlreadyRestored")) {

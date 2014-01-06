@@ -51,15 +51,15 @@ public class EventHandlerBridge {
             }
         });
     }
-
+	
     @Subscribe
-    public void onOpeningStore(OpeningStoreEvent openingStoreEvent) {
+    public void onIabServiceStarted(IabServiceStartedEvent iabServiceStartedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
-                    parameters.put("method", "CCEventHandler::onOpeningStore");
+                    parameters.put("method", "CCEventHandler::onIabServiceStarted");
                     SoomlaNDKGlue.sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
@@ -67,15 +67,15 @@ public class EventHandlerBridge {
             }
         });
     }
-
+	
     @Subscribe
-    public void onClosingStore(ClosingStoreEvent closingStoreEvent) {
+    public void onIabServiceStopped(IabServiceStoppedEvent iabServiceStoppedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
-                    parameters.put("method", "CCEventHandler::onClosingStore");
+                    parameters.put("method", "CCEventHandler::onIabServiceStopped");
                     SoomlaNDKGlue.sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);

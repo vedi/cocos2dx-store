@@ -49,12 +49,6 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
             NSString *productId = (NSString *) [parameters objectForKey:@"productId"];
             StoreControllerBridge::buyMarketItem(productId);
         }
-        else if ([methodName isEqualToString:@"CCStoreController::storeOpening"]) {
-            StoreControllerBridge::storeOpening();
-        }
-        else if ([methodName isEqualToString:@"CCStoreController::storeClosing"]) {
-            StoreControllerBridge::storeClosing();
-        }
         else if ([methodName isEqualToString:@"CCStoreController::restoreTransactions"]) {
             StoreControllerBridge::restoreTransactions();
         }
@@ -206,12 +200,6 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
     }
     else if ([notification.name isEqualToString:EVENT_BILLING_SUPPORTED]) {
         [parameters setObject:@"CCEventHandler::onBillingSupported" forKey:@"method"];
-    }
-    else if ([notification.name isEqualToString:EVENT_OPENING_STORE]) {
-        [parameters setObject:@"CCEventHandler::onOpeningStore" forKey:@"method"];
-    }
-    else if ([notification.name isEqualToString:EVENT_CLOSING_STORE]) {
-        [parameters setObject:@"CCEventHandler::onClosingStore" forKey:@"method"];
     }
     else if ([notification.name isEqualToString:EVENT_CURRENCY_BALANCE_CHANGED]) {
         [parameters setObject:@"CCEventHandler::onCurrencyBalanceChanged" forKey:@"method"];

@@ -142,24 +142,13 @@ namespace soomla {
         CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 
-    void CCStoreController::storeOpening() {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCStoreController::storeOpening"), "method");
-        CCSoomlaNdkBridge::callNative(params, NULL);
-    }
-
-    void CCStoreController::storeClosing() {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCStoreController::storeClosing"), "method");
-        CCSoomlaNdkBridge::callNative(params, NULL);
-    }
-
     void CCStoreController::restoreTransactions() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreController::restoreTransactions"), "method");
         CCSoomlaNdkBridge::callNative(params, NULL);
     }
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     bool CCStoreController::transactionsAlreadyRestored() {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreController::transactionsAlreadyRestored"), "method");
@@ -167,4 +156,19 @@ namespace soomla {
         CCBool *retValue = (CCBool *) retParams->objectForKey("return");
         return retValue->getValue();
     }
+#endif
+	
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    void CCStoreController::startIabServiceInBg() {
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreController::startIabServiceInBg"), "method");
+        CCSoomlaNdkBridge::callNative(params, NULL);
+    }
+
+    void CCStoreController::stopIabServiceInBg() {
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreController::stopIabServiceInBg"), "method");
+        CCSoomlaNdkBridge::callNative(params, NULL);
+    }
+#endif
 }

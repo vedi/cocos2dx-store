@@ -33,15 +33,6 @@
  * You can see the documentation of every function in StoreController.
  */
 
-
-void StoreControllerBridge::storeOpening() {
-    [[StoreController getInstance] storeOpening];
-}
-
-void StoreControllerBridge::storeClosing() {
-    [[StoreController getInstance] storeClosing];
-}
-
 void StoreControllerBridge::buyMarketItem(NSString *productId)  {
     @try {
         PurchasableVirtualItem* pvi = [[StoreInfo getInstance] purchasableItemWithProductId:productId];

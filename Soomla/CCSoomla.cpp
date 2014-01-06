@@ -51,20 +51,6 @@ namespace soomla {
 				h->onBillingSupported();
 			}
         }
-        else if (methodName->compare("CCEventHandler::onOpeningStore") == 0) {
-			CCSetIterator i;
-			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
-				h->onOpeningStore();
-			}
-        }
-        else if (methodName->compare("CCEventHandler::onClosingStore") == 0) {
-			CCSetIterator i;
-			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
-				h->onClosingStore();
-			}
-        }
         else if (methodName->compare("CCEventHandler::onCurrencyBalanceChanged") == 0) {
             CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
             CCInteger *balance = (CCInteger *)(parameters->objectForKey("balance"));
@@ -242,22 +228,6 @@ namespace soomla {
 				h->onMarketPurchaseStarted(purchasableVirtualItem);
 			}
         }
-        else if (methodName->compare("CCEventHandler::onMarketRefund") == 0) {
-            CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
-            CCSoomlaError *soomlaError = NULL;
-            CCPurchasableVirtualItem *purchasableVirtualItem =
-				dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
-            if (soomlaError) {
-                CCStoreUtils::logException("CCEventHandler::onMarketRefund", soomlaError);
-                return;
-            }
-            CC_ASSERT(purchasableVirtualItem);
-			CCSetIterator i;
-			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
-				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
-				h->onMarketRefund(purchasableVirtualItem);
-			}
-        }
         else if (methodName->compare("CCEventHandler::onRestoreTransactions") == 0) {
             CCBool *success = (CCBool *)(parameters->objectForKey("success"));
 			CCSetIterator i;
@@ -285,7 +255,40 @@ namespace soomla {
 				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
 				h->onStoreControllerInitialized();
 			}
-		} else {
+		} 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+        else if (methodName->compare("CCEventHandler::onMarketRefund") == 0) {
+            CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
+            CCSoomlaError *soomlaError = NULL;
+            CCPurchasableVirtualItem *purchasableVirtualItem =
+            dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            if (soomlaError) {
+                CCStoreUtils::logException("CCEventHandler::onMarketRefund", soomlaError);
+                return;
+            }
+            CC_ASSERT(purchasableVirtualItem);
+			CCSetIterator i;
+			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onMarketRefund(purchasableVirtualItem);
+			}
+        }
+        else if (methodName->compare("CCEventHandler::onIabServiceStarted") == 0) {
+			CCSetIterator i;
+			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onIabServiceStarted();
+			}
+        }
+        else if (methodName->compare("CCEventHandler::onIabServiceStopped") == 0) {
+			CCSetIterator i;
+			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onIabServiceStopped();
+			}
+        }
+#endif	
+		else {
             CC_ASSERT(false);
         }
     }

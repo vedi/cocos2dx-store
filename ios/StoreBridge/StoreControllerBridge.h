@@ -24,8 +24,6 @@ using namespace std;
 class StoreControllerBridge {
 
 public:
-    static void storeOpening();
-    static void storeClosing();
 	static void buyMarketItem(NSString *productId);
 	static void restoreTransactions();
 	static bool transactionsAlreadyRestored();

@@ -34,8 +34,6 @@ namespace soomla {
     public:
         virtual void onBillingNotSupported() = 0;
         virtual void onBillingSupported() = 0;
-        virtual void onOpeningStore() = 0;
-        virtual void onClosingStore() = 0;
         virtual void onCurrencyBalanceChanged(CCVirtualCurrency *virtualCurrency, int balance, int amountAdded)  = 0;
         virtual void onGoodBalanceChanged(CCVirtualGood *virtualGood, int balance, int amountAdded) = 0;
         virtual void onGoodEquipped(CCEquippableVG *equippableVG) = 0;
@@ -46,11 +44,16 @@ namespace soomla {
         virtual void onMarketPurchaseCancelled(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
         virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
         virtual void onMarketPurchaseStarted(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
-        virtual void onMarketRefund(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
         virtual void onRestoreTransactions(bool success) = 0;
         virtual void onRestoreTransactionsStarted() = 0;
         virtual void onUnexpectedErrorInStore() = 0;
 		virtual void onStoreControllerInitialized() = 0;
+		
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+        virtual void onMarketRefund(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
+		virtual void onIabServiceStarted() = 0;
+		virtual void onIabServiceStopped() = 0;
+#endif
     };
 };
 

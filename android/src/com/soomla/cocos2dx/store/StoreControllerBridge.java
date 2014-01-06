@@ -36,14 +36,14 @@ public class StoreControllerBridge {
         mEventHandler = new EventHandlerBridge(mGLView);
     }
 
-    public static void storeOpening() {
-        StoreUtils.LogDebug("SOOMLA", "storeOpening is called from java!");
-        StoreController.getInstance().storeOpening();
+    public static void startIabServiceInBg() {
+        StoreUtils.LogDebug("SOOMLA", "startIabServiceInBg is called from java!");
+        StoreController.getInstance().startIabServiceInBg();
     }
 
-    public static void storeClosing() {
-        StoreUtils.LogDebug("SOOMLA", "storeClosing is called from java!");
-        StoreController.getInstance().storeClosing();
+    public static void stopIabServiceInBg() {
+        StoreUtils.LogDebug("SOOMLA", "stopIabServiceInBg is called from java!");
+        StoreController.getInstance().stopIabServiceInBg();
     }
 
     public static void buyWithGooglePlay(String productId) throws VirtualItemNotFoundException {
@@ -62,8 +62,7 @@ public class StoreControllerBridge {
     }
 
     public static boolean transactionsAlreadyRestored() {
-        StoreUtils.LogDebug("SOOMLA", "transactionsAlreadyRestored is called from java!");
-        return StoreController.getInstance().transactionsAlreadyRestored();
+        throw new UnsupportedOperationException("transactionsAlreadyRestored has no use in Android");
     }
 
     public static void setStoreAssetsBridge(StoreAssetsBridge storeAssetsBridge) {
