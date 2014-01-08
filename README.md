@@ -76,20 +76,6 @@ The example project is still under developement but it already has some importan
 
     > Initialize `StoreController` ONLY ONCE when your application loads.
 
-1. Now, that you have `CCStoreController` loaded, just decide when you want to show/hide your store's UI to the user and let `CCStoreController` know about it:
-
-    When you show the store call:  
-    ```cpp
-    soomla::CCStoreController::sharedStoreController()->storeOpening();
-    ```
-
-    When you hide the store call:  
-    ```cpp
-    soomla::CCStoreController::sharedStoreController()->storeClosing();
-    ```
-
-    > Don't forget to make these calls. `StoreController` has to know that you opened/closed your in-app purchase store. Just to make it clear: the in-app purchase store is where you sell virtual goods (and not Google Play or App Store).
-
 1. You'll need an event handler in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling) section for more information.
 
 And that's it! You now have storage and in-app purchasing capabilities.
@@ -147,6 +133,24 @@ If you're building your application for the Android platform, here are some inst
 > These settings are required inorder to initialize the event handling bridge, and allow `StoreController` to initiate market purchases.
 
 That's it! Now all you have to do is run the **build_native.sh** script and you can begin using cocos2dx-store in your game.
+
+##### (optional) Starting IAB Service in background
+
+On Android, If you have your own storefront implemented inside your game, it's recommended that you open the IAB Service in the background when the store opens and close it when the store is closed.
+
+```cpp
+// Start Iab Service
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)¬
+	CCStoreController::sharedStoreController()->startIabServiceInBg();
+#endif
+
+// Stop Iab Service
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)¬
+	CCStoreController::sharedStoreController()->stopIabServiceInBg();
+#endif
+```
+
+Don't forget to close the Iab Service when your store is closed. You don't have to do this at all, this is just an optimization.
 
 
 ## What's next? In App Purchasing.
