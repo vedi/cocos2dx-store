@@ -134,9 +134,9 @@ If you're building your application for the Android platform, here are some inst
 
 That's it! Now all you have to do is run the **build_native.sh** script and you can begin using cocos2dx-store in your game.
 
-##### (optional) Starting IAB Service in background
+#### (optional on Android) Starting IAB Service in background
 
-On Android, If you have your own storefront implemented inside your game, it's recommended that you open the IAB Service in the background when the store opens and close it when the store is closed.
+If you have your own storefront implemented inside your game, it's recommended that you open the IAB Service in the background when the store opens and close it when the store is closed.
 
 ```cpp
 // Start Iab Service
