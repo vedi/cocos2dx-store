@@ -138,12 +138,12 @@ If you have your own storefront implemented inside your game, it's recommended t
 
 ```cpp
 // Start Iab Service
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)¬
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	CCStoreController::sharedStoreController()->startIabServiceInBg();
 #endif
 
 // Stop Iab Service
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)¬
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	CCStoreController::sharedStoreController()->stopIabServiceInBg();
 #endif
 ```
