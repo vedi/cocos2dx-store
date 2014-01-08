@@ -8,8 +8,6 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 # cocos2dx-store
 
-**December ??, 2013**: Refunds have been added back in in **cocos2dx-store** for Android. They are now checked whenever `CCStoreController` is initialized.
-
 **December 1, 2013**: Android in-app billing has been updated to use Google's in-app billing version 3.
 
 **October 28, 2013**: iOS server side verification is added. This feature is not activated by default. [learn more](https://github.com/soomla/cocos2dx-store#ios-server-side-verification)
@@ -192,13 +190,6 @@ Now you can use `CCStoreInventory` to buy your new currency pack:
     soomla::CCStoreInventory::sharedStoreInventory()->buyItem(TEN_COIN_PACK_ITEM_ID);
 
 And that's it! cocos2dx-store knows how to contact Google Play or the App Store for you and will redirect your users to the purchasing system to complete the transaction. Don't forget to subscribe to store events in order to get notified of successful or failed purchases (see [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling)).
-
-In order to test purchases on Android, add an extra field to storeParams before initializing _CCStoreController_:
-
-```cpp
-storeParams->setObject(CCBool::create(true), "androidTestMode");
-CCStoreController::createShared(assets, storeParams);
-```
 
 
 ## Storage & Meta-Data
