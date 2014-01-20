@@ -62,6 +62,10 @@ namespace soomla {
         else if (code == SOOMLA_EXCEPTION_NOT_ENOUGH_GOODS) {
             CCLog("%s %s", TAG, "SOOMLA/COCOS2DX Got NotEnoughGoodsException exception");
             mInfo = "NotEnoughGoodsException()";
+        }
+        else if (code == SOOMLA_EXCEPTION_OTHER) {
+            CCLog("%s %s", TAG, "SOOMLA/COCOS2DX Got Unknown exception");
+            mInfo = "unknown";
         } else {
             CC_ASSERT(false);
             return false;
