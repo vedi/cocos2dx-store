@@ -3,14 +3,14 @@
  */
 
 Soomla = new function () {
-  var declareClass = function (ClassName, fields) {
+  var declareClass = function (ClassName, fields, parentClass) {
     var Clazz = function () {
-      return _.defaults({
+      return _.extend(parentClass ? parentClass() : {}, fields ? fields : {}, {
         modelName: ClassName
-      }, fields);
+      });
     };
     Clazz.create = function (values) {
-      return _.defaults(_.pick(values, _.keys(fields)),  Clazz());
+      return _.defaults(values ? _.omit(values, "modelName") : {}, Clazz());
     };
 
     return Clazz;
@@ -54,20 +54,20 @@ Soomla = new function () {
    */
   var PurchasableVirtualItem = Soomla.PurchasableVirtualItem = declareClass("PurchasableVirtualItem", {
     purchaseType: null
-  });
+  }, VirtualItem);
 
   /**
    * NonConsumableItem
    */
   var NonConsumableItem = Soomla.NonConsumableItem = declareClass("NonConsumableItem", {
 
-  });
+  }, PurchasableVirtualItem);
 
   /**
    * VirtualCurrency
    */
   var VirtualCurrency = Soomla.VirtualCurrency = declareClass("VirtualCurrency", {
-  });
+  }, VirtualItem);
 
   /**
    * VirtualCurrencyPack
@@ -75,26 +75,26 @@ Soomla = new function () {
   var VirtualCurrencyPack = Soomla.VirtualCurrencyPack = declareClass("v", {
     currencyAmount: 0,
     currencyItemId: null
-  });
+  }, PurchasableVirtualItem);
 
   /**
    * VirtualGood
    */
   var VirtualGood = Soomla.VirtualGood = declareClass("VirtualGood", {
-  });
+  }, PurchasableVirtualItem);
 
   /**
    * LifetimeVG
    */
   var LifetimeVG = Soomla.LifetimeVG = declareClass("LifetimeVG", {
-  });
+  }, VirtualGood);
 
   /**
    * EquippableVG
    */
   var EquippableVG = Soomla.EquippableVG = declareClass("EquippableVG", {
     equippingModel: null
-  });
+  }, LifetimeVG);
   EquippableVG.EquippingModel = {
     LOCAL: 0,
     CATEGORY: 1,
@@ -105,7 +105,7 @@ Soomla = new function () {
    * SingleUseVG
    */
   var SingleUseVG = Soomla.SingleUseVG = declareClass("SingleUseVG", {
-  });
+  }, VirtualGood);
   var SingleUseVG = function () {
     return _.extend({
       modelName: "SingleUseVG"
@@ -118,7 +118,7 @@ Soomla = new function () {
   var SingleUsePackVG = Soomla.SingleUsePackVG = declareClass("SingleUsePackVG", {
     goodItemId: null,
     goodAmount: null
-  });
+  }, VirtualGood);
 
   /**
    * UpgradeVG
@@ -127,7 +127,7 @@ Soomla = new function () {
     goodItemId: null,
     prevItemId: null,
     nextItemId: null
-  });
+  }, VirtualGood);
 
   return Soomla
 };
