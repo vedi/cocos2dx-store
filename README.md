@@ -43,7 +43,7 @@ The example project is still under developement but it already has some importan
 
 1. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your framework.
     ```
-    $ git clone git@github.com:vedi/jansson.git
+    $ git clone git@github.com:vedi/jansson.git external/jansson
     ```
 
 1. Make sure to include the `Soomla.h` header whenever you use any of the *cocos2dx-store* functions:
