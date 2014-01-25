@@ -53,6 +53,8 @@ namespace soomla {
         virtual void onMarketRefund(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
 		virtual void onIabServiceStarted() = 0;
 		virtual void onIabServiceStopped() = 0;
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        virtual void onAppStorePurchaseVerification(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;		
 #endif
     };
 };

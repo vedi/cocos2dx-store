@@ -287,6 +287,23 @@ namespace soomla {
 				h->onIabServiceStopped();
 			}
         }
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        else if (methodName->compare("CCEventHandler::onAppStorePurchaseVerification") == 0) {
+            CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
+            CCSoomlaError *soomlaError = NULL;
+            CCPurchasableVirtualItem *purchasableVirtualItem =
+            dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            if (soomlaError) {
+                CCStoreUtils::logException("CCEventHandler::onAppStorePurchaseVerification", soomlaError);
+                return;
+            }
+            CC_ASSERT(purchasableVirtualItem);
+			CCSetIterator i;
+			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
+				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+				h->onAppStorePurchaseVerification(purchasableVirtualItem);
+			}
+        }
 #endif	
 		else {
             CC_ASSERT(false);
