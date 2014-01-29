@@ -1,10 +1,10 @@
 /**
  * Created by vedi on 1/21/14.
  */
-
+var PrevSoomla = Soomla;
 Soomla = new function () {
 
-  var Soomla = {};
+  var Soomla = PrevSoomla || {};
 
   var declareClass = Soomla.declareClass = function (ClassName, fields, parentClass) {
     var Clazz = function () {
@@ -33,7 +33,7 @@ Soomla = new function () {
    */
   var VirtualCategory = Soomla.VirtualCategory = declareClass("VirtualCategory", {
     name: "",
-    goodItemIds: null
+    good_itemIds: null
   });
 
   /**
@@ -79,8 +79,8 @@ Soomla = new function () {
    * VirtualCurrencyPack
    */
   var VirtualCurrencyPack = Soomla.VirtualCurrencyPack = declareClass("v", {
-    currencyAmount: 0,
-    currencyItemId: null
+    currency_amount: 0,
+    currency_itemId: null
   }, PurchasableVirtualItem);
 
   /**
@@ -122,17 +122,17 @@ Soomla = new function () {
    * SingleUsePackVG
    */
   var SingleUsePackVG = Soomla.SingleUsePackVG = declareClass("SingleUsePackVG", {
-    goodItemId: null,
-    goodAmount: null
+    good_itemId: null,
+    good_amount: null
   }, VirtualGood);
 
   /**
    * UpgradeVG
    */
   var UpgradeVG = Soomla.UpgradeVG = declareClass("UpgradeVG", {
-    goodItemId: null,
-    prevItemId: null,
-    nextItemId: null
+    good_itemId: null,
+    prev_itemId: null,
+    next_itemId: null
   }, VirtualGood);
 
   /**
@@ -179,12 +179,13 @@ Soomla = new function () {
   function extractCollection(retParams) {
     var retArray = retParams.return;
 
+    var result = [];
     for (var i = 0; i < retArray.length; i++) {
-      retArray.push(extractModel({
-        return: retParams[i]
+      result.push(extractModel({
+        return: retArray[i]
       }));
     }
-    return retArray;
+    return result;
   }
 
   /**
@@ -338,6 +339,7 @@ Soomla = new function () {
       this.eventHandlers.splice(idx, 1);
     },
     easyNDKCallBack: function(parameters) {
+      logDebug("easyNDKCallBack: " + dumpError(parameters));
       var methodName = parameters.method || "";
       if (methodName == "CCEventHandler::onBillingNotSupported") {
         _.forEach(this.eventHandlers, function(eventHandler) {
@@ -650,15 +652,23 @@ Soomla = new function () {
     }
   });
 
-  StoreInventory.getInstance = function () {
-    if (!Soomla.storeInventory) {
-      Soomla.storeInventory = StoreInventory.create();
-    }
-    return Soomla.storeInventory;
-  };
+  Soomla.storeInventory = StoreInventory.create();
+
+  function SoomlaException(code, message) {
+    this.name = "SoomlaException";
+    this.code = code || 0;
+    this.message = (message || "");
+  }
+  SoomlaException.prototype = Error.prototype;
 
   var callNative = function (params) {
-    return {};
+    var jsonString = Soomla.CCSoomlaNdkBridge.callNative(JSON.stringify(params));
+    var result = JSON.parse(jsonString);
+
+    if (!result.success) {
+      throw new SoomlaException(result.code, result.info);
+    }
+    return result.result;
   };
 
   var logDebug = Soomla.logDebug = function (output) {
@@ -667,6 +677,10 @@ Soomla = new function () {
 
   var logError = Soomla.logError = function (output) {
     return cc.log(output);
+  };
+
+  var dumpError = Soomla.dumpError = function (e) {
+    return e + " : " + JSON.stringify(e);
   };
 
   return Soomla
