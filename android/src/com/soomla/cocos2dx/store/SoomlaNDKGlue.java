@@ -35,11 +35,14 @@ public class SoomlaNDKGlue {
                 StoreUtils.LogError("SoomlaNDKGlue", "receiveCppMessage raised exception" + e);
             } catch (UnsupportedOperationException e) {
                 StoreUtils.LogError("SoomlaNDKGlue", "Unsupported operation (" + e + ")");
+            } catch (Exception e) {
+                StoreUtils.LogError("SoomlaNDKGlue", "Unknown exception (" + e + ")");
             }
+            return "{\"errorCode\": -4}";
+        } else {
+            return "{}";
         }
-        return null;
     }
-
 
     public static JSONObject dispatchNDKCall(JSONObject params) {
         JSONObject retParams = new JSONObject();

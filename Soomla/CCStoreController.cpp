@@ -26,6 +26,7 @@ namespace soomla {
             s_SharedStoreController = ret;
         } else {
             delete ret;
+            exit(1);
         }
     }
 
@@ -129,7 +130,12 @@ namespace soomla {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
             params->setObject(androidPublicKey, "androidPublicKey");
 #endif
-            CCSoomlaNdkBridge::callNative(params, NULL);
+            CCSoomlaError *soomlaError = NULL;
+            CCSoomlaNdkBridge::callNative(params, &soomlaError);
+
+            if (soomlaError) {
+                return false;
+            }
         }
 
         return true;
