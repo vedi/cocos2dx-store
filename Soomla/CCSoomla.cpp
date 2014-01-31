@@ -228,6 +228,22 @@ namespace soomla {
 				h->onMarketPurchaseStarted(purchasableVirtualItem);
 			}
         }
+        else if (methodName->compare("CCEventHandler::onMarketPurchaseVerification") == 0) {
+            CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
+            CCSoomlaError *soomlaError = NULL;
+            CCPurchasableVirtualItem *purchasableVirtualItem =
+                    dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+            if (soomlaError) {
+                CCStoreUtils::logException("CCEventHandler::onPurchaseVerification", soomlaError);
+                return;
+            }
+            CC_ASSERT(purchasableVirtualItem);
+            CCSetIterator i;
+            for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
+                CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+                h->onMarketPurchaseVerification(purchasableVirtualItem);
+            }
+        }
         else if (methodName->compare("CCEventHandler::onRestoreTransactions") == 0) {
             CCBool *success = (CCBool *)(parameters->objectForKey("success"));
 			CCSetIterator i;
@@ -287,7 +303,7 @@ namespace soomla {
 				h->onIabServiceStopped();
 			}
         }
-#endif	
+#endif
 		else {
             CC_ASSERT(false);
         }
