@@ -255,6 +255,11 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
         [parameters setObject:@"CCEventHandler::onMarketPurchaseStarted" forKey:@"method"];
         [parameters setObject:[pvi itemId] forKey:@"itemId"];
     }
+    else if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASE_VERIF]) {
+        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        [parameters setObject:@"CCEventHandler::onMarketPurchaseVerification" forKey:@"method"];
+        [parameters setObject:[pvi itemId] forKey:@"itemId"];
+    }
     else if ([notification.name isEqualToString:EVENT_TRANSACTION_RESTORED]) {
         BOOL success = [(NSNumber*)[notification.userInfo objectForKey:DICT_ELEMENT_SUCCESS] boolValue];
         [parameters setObject:@"CCEventHandler::onRestoreTransactions" forKey:@"method"];
