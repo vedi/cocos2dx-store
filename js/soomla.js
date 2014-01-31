@@ -316,6 +316,7 @@ Soomla = new function () {
     onMarketPurchaseCancelled: function(purchasableVirtualItem) {},
     onMarketPurchase: function(purchasableVirtualItem) {},
     onMarketPurchaseStarted: function(purchasableVirtualItem) {},
+    onMarketPurchaseVerification: function(purchasableVirtualItem) {},
     onRestoreTransactions: function(success) {},
     onRestoreTransactionsStarted: function() {},
     onUnexpectedErrorInStore: function() {},
@@ -411,6 +412,12 @@ Soomla = new function () {
           var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
           _.forEach(this.eventHandlers, function(eventHandler) {
             eventHandler.onMarketPurchaseStarted(purchasableVirtualItem);
+          });
+        }
+        else if (methodName == "CCEventHandler::onMarketPurchaseVerification") {
+          var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+          _.forEach(this.eventHandlers, function(eventHandler) {
+            eventHandler.onMarketPurchaseVerification(purchasableVirtualItem);
           });
         }
         else if (methodName == "CCEventHandler::onRestoreTransactions") {
