@@ -33,7 +33,7 @@ Soomla = new function () {
    */
   var VirtualCategory = Soomla.VirtualCategory = declareClass("VirtualCategory", {
     name: "",
-    good_itemIds: null
+    goods_itemIds: null
   });
 
   /**
@@ -45,9 +45,9 @@ Soomla = new function () {
     price: null
   });
   MarketItem.Consumable = {
-    NONCONSUMABLE: "NONCONSUMABLE",
-    CONSUMABLE: "CONSUMABLE",
-    SUBSCRIPTION: "SUBSCRIPTION"
+    NONCONSUMABLE: 0,
+    CONSUMABLE: 1,
+    SUBSCRIPTION: 2
   };
 
   var PURCHASE_TYPE = {
@@ -99,12 +99,12 @@ Soomla = new function () {
    * EquippableVG
    */
   var EquippableVG = Soomla.EquippableVG = declareClass("EquippableVG", {
-    equippingModel: null
+    equipping: null
   }, LifetimeVG);
   EquippableVG.EquippingModel = {
-    LOCAL: 0,
-    CATEGORY: 1,
-    GLOBAL: 2
+    LOCAL: "local",
+    CATEGORY: "category",
+    GLOBAL: "global"
   };
 
   /**
