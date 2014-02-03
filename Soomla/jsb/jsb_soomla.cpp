@@ -125,39 +125,6 @@ void js_register(JSContext* cx, JSObject* global){
     }
 }
 
-JSBool JSB_cocos2dx_retain(JSContext* cx, uint32_t argc, jsval *vp){
-    JSObject* thisObj = JS_THIS_OBJECT(cx, vp);
-
-    if (thisObj) {
-        js_proxy_t* proxy = jsb_get_js_proxy(thisObj);
-
-        if (proxy) {
-            ((CCObject* )proxy->ptr)->retain();
-            CCLog("Retain succeed!");
-            return JS_TRUE;
-        }
-    }
-
-    JS_ReportError(cx, "Invaild native object");
-    return JS_FALSE;
-}
-
-JSBool JSB_cocos2dx_release(JSContext* cx, uint32_t argc, jsval *vp){
-    JSObject* thisObj = JS_THIS_OBJECT(cx, vp);
-
-    if (thisObj) {
-        js_proxy_t* proxy = jsb_get_js_proxy(thisObj);
-
-        if (proxy) {
-            ((CCObject* )proxy->ptr)->release();
-            CCLog("Release succeed!");
-            return JS_TRUE;
-        }
-    }
-    JS_ReportError(cx, "Invaild native object");
-    return JS_FALSE;
-}
-
 // Binding JSB namespace so in JavaScript code JSB namespce can be recognized
 void register_jsb_soomla(JSContext *cx, JSObject *obj){
     jsval nsval;
@@ -175,6 +142,4 @@ void register_jsb_soomla(JSContext *cx, JSObject *obj){
     obj = ns;
     js_register(cx, obj);
 
-    JS_DefineFunction(cx, jsb_prototype, "retain", JSB_cocos2dx_retain, 0, JSPROP_READONLY | JSPROP_PERMANENT);
-    JS_DefineFunction(cx, jsb_prototype, "release", JSB_cocos2dx_release, 0, JSPROP_READONLY | JSPROP_PERMANENT);
 }

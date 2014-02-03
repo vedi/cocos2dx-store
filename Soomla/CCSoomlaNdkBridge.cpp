@@ -12,6 +12,8 @@ USING_NS_CC;
     #include <jni.h>
     #include <string>
     #include "CCSoomla.h"
+    #include "CCStoreController.h"
+    #include "jsb/JSBinding.h"
 
     #define CLASS_NAME "com/soomla/cocos2dx/store/SoomlaNDKGlue"
 #endif
@@ -43,7 +45,12 @@ namespace soomla {
                 }
 
             cocos2d::CCObject *dataToPass = CCSoomlaJsonHelper::getCCObjectFromJson(root);
-            soomla::CCSoomla::sharedSoomla()->easyNDKCallBack((cocos2d::CCDictionary *)dataToPass);
+
+            if (soomla::CCStoreController::sharedStoreController()) {
+                soomla::CCSoomla::sharedSoomla()->easyNDKCallBack((cocos2d::CCDictionary *)dataToPass);
+            } else {
+                Soomla::JSBinding::callCallback((CCDictionary *) dataToPass);
+            }
 
             json_decref(root);
         }
