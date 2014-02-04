@@ -6,6 +6,8 @@ Soomla = new function () {
 
   var Soomla = PrevSoomla || {};
 
+  Soomla.SOOMLA_DEBUG = false;
+
   var declareClass = Soomla.declareClass = function (ClassName, fields, parentClass) {
     var Clazz = function () {
       return _.extend(parentClass ? parentClass() : {}, fields ? fields : {}, {
@@ -284,7 +286,7 @@ Soomla = new function () {
     }
   };
 
-  var IStoreAssets = Soomla.IStoreAssets = Soomla.EventHandler = declareClass("IStoreAssets", {
+  var IStoreAssets = Soomla.IStoreAssets = declareClass("IStoreAssets", {
     categories: [],
     currencies: [],
     currencyPacks: [],
@@ -676,6 +678,12 @@ Soomla = new function () {
     this.message = (message || "");
   }
   SoomlaException.prototype = Error.prototype;
+  SoomlaException.CODE = {
+    ITEM_NOT_FOUND: -1,
+    INSUFFICIENT_FUNDS: -2,
+    NOT_ENOUGH_GOODS: -3,
+    OTHER: -4
+  };
 
   var callNative = function (params) {
     var jsonString = Soomla.CCSoomlaNdkBridge.callNative(JSON.stringify(params));
@@ -688,7 +696,9 @@ Soomla = new function () {
   };
 
   var logDebug = Soomla.logDebug = function (output) {
-    return cc.log("DEBUG: " + output);
+    if (Soomla.SOOMLA_DEBUG) {
+      return cc.log("DEBUG: " + output);
+    }
   };
 
   var logError = Soomla.logError = function (output) {

@@ -10,7 +10,7 @@
 #include "jansson_private.h"
 
 void Soomla::JSBinding::callNative(const char *params, std::string &result) {
-    CCLog("callNative: in >> %s", params);
+//    CCLog("callNative: in >> %s", params);
 
     json_error_t error;
     json_t *root;
