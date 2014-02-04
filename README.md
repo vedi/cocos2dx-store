@@ -489,7 +489,7 @@ CCStoreController::createShared(assets, storeParams);
 As you probably know, fraud on IAP is pretty common. Hackers can crack their smartphones to think that a purchase is made when payment wasn't actually transferred to you. We want to help you with it so we created our verification server and we let you instantly use it through the framework.
 All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to `Soomla.StoreController`:
 
-```cpp
+```JS
 storeParams.SSV = true;
 Soomla.StoreController.createShared(assets, storeParams);
 ```
