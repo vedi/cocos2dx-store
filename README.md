@@ -15,7 +15,7 @@ Soomla.storeInventory.buyItem("[itemId]");
 
 # cocos2dx-store
 
-**February 4, 2014**: We added supporting of js-bindings.
+**February 4, 2014**: Added support for js-bindings.
 
 **December 1, 2013**: Android in-app billing has been updated to use Google's in-app billing version 3.
 
@@ -35,11 +35,11 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
 
 ## Example Project
 
-There are example projects that shows how to use cocos2dx-store:
+There are example projects that show how to use cocos2dx-store:
 
 C++: http://github.com/soomla/cocos2dx-store-example,
 
-JS: http://github.com/vedi/cocos2dx-js-store-example.
+JS: http://github.com/soomla/cocos2dx-js-store-example.
 
 The example projects are still under development but they already have some important aspects of the framework you can learn and implement in your application.
 
@@ -115,19 +115,19 @@ And that's it! You now have storage and in-app purchasing capabilities.
   require("soomla.js");
     ```
 
-1. Create your own implementation of `Soomla.IStoreAssets` that will represent the assets in your specific game ([Refer to cocos2dx-js-store-example for an example.](https://github.com/vedi/cocos2dx-js-store-example/blob/master/Resources/src/MuffinRushAssets.js)).
+1. Create your own implementation of `Soomla.IStoreAssets` that will represent the assets in your specific game ([Refer to cocos2dx-js-store-example for an example.](https://github.com/soomla/cocos2dx-js-store-example/blob/master/Resources/src/MuffinRushAssets.js)).
 
 1. Initialize `Soomla.StoreController` with your assets class, and an object containing various parameters for it:
 
     ```js
-  var assets = new MuffinRushAssets();
-  var storeParams = {
-    soomSec: "ExampleSoomSecret",
-    androidPublicKey: "ExamplePublicKey",
-    customSecret: "ExampleCustomSecret"
-  };
+    var assets = new MuffinRushAssets();
+    var storeParams = {
+      soomSec: "ExampleSoomSecret",
+      androidPublicKey: "ExamplePublicKey",
+      customSecret: "ExampleCustomSecret"
+    };
 
-  Soomla.StoreController.createShared(assets, storeParams);
+    Soomla.StoreController.createShared(assets, storeParams);
     ```
     - *Custom Secret* - is an encryption secret you provide that will be used to secure your data.
     - *Public Key* - is the public key given to you from Google. (iOS doesn't have a public key).
@@ -277,35 +277,35 @@ And that's it! cocos2dx-store knows how to contact Google Play or the App Store 
 
 ##### JS
 
-When we implemented modelV3, we were thinking about ways that people buy things inside apps. We figured out many ways you can let your users purchase items in your game and we designed the new modelV3 to support 2 of them: `Soomla.PurchaseWithMarket` and `Soomla.PurchaseWithVirtualItem`.
+When we implemented modelV3, we were thinking about ways that people buy things inside apps. We figured out many ways you can let your users purchase items in your game and we designed the new modelV3 to support 2 of them: `Soomla.Models.PurchaseWithMarket` and `Soomla.Models.PurchaseWithVirtualItem`.
 
-- **Soomla.PurchaseWithMarket** is a `Soomla.PurchaseType` that allows users to purchase a `Soomla.VirtualItem` with Google Play or the App Store.
-- **Soomla.PurchaseWithVirtualItem** is a `Soomla.PurchaseType` that lets your users purchase a `Soomla.VirtualItem` with another `Soomla.VirtualItem`. For example: Buying a sword with 100 gems.
+- **Soomla.Models.PurchaseWithMarket** is a `Soomla.Models.PurchaseType` that allows users to purchase a `Soomla.Models.VirtualItem` with Google Play or the App Store.
+- **Soomla.Models.PurchaseWithVirtualItem** is a `Soomla.Models.PurchaseType` that lets your users purchase a `Soomla.Models.VirtualItem` with another `Soomla.Models.VirtualItem`. For example: Buying a sword with 100 gems.
 
 In order to define the way your various virtual items are purchased, you'll need to create your implementation of `Soomla.IStoreAssets` (the same one from step 5 in the [Getting Started](https://github.com/soomla/cocos2dx-store#getting-started) section above).
 
 Here is an example:
 
-Lets say you have a `Soomla.VirtualCurrencyPack` you want to call `TEN_COINS_PACK` and a `Soomla.VirtualCurrency` you want to call `COIN_CURRENCY` (`TEN_COINS_PACK` will hold 10 pieces of the currency `COIN_CURRENCY`):
+Lets say you have a `Soomla.Models.VirtualCurrencyPack` you want to call `TEN_COINS_PACK` and a `Soomla.Models.VirtualCurrency` you want to call `COIN_CURRENCY` (`TEN_COINS_PACK` will hold 10 pieces of the currency `COIN_CURRENCY`):
 
 ```js
   const COIN_CURRENCY_ITEM_ID = "coin_currency";
   const TEN_COIN_PACK_ITEM_ID = "ten_coin_pack";
   const TEN_COIN_PACK_PRODUCT_ID = "10_coins_pack";  // this is the product id from the developer console
 	
-  var COIN_CURRENCY = Soomla.VirtualCurrency.create({
+  var COIN_CURRENCY = Soomla.Models.VirtualCurrency.create({
     name: "COIN_CURRECY",
     description: "",
     itemId: COIN_CURRENCY_ITEM_ID
   });
 
-  var TEN_COIN_PACK = Soomla.VirtualCurrencyPack.create({
+  var TEN_COIN_PACK = Soomla.Models.VirtualCurrencyPack.create({
     name: "10 Coins",
     description: "A pack of 10 coins",
     itemId: "TEN_COIN_PACK_ITEM_ID",
     currency_amount: 10,
     currency_itemId: COIN_CURRENCY_ITEM_ID,
-    purchasableItem: Soomla.PurchaseWithMarket.createWithMarketItem(TEN_COIN_PACK_PRODUCT_ID, 0.99)
+    purchasableItem: Soomla.Models.PurchaseWithMarket.createWithMarketItem(TEN_COIN_PACK_PRODUCT_ID, 0.99)
   });
 
 ```
@@ -356,7 +356,7 @@ The on-device storage is encrypted and kept in a SQLite database. SOOMLA has a [
 ##### JS
 
 `Soomla.StoreInventory` and `Soomla.StoreInfo` are important storage and metadata classes you should use when you want to perform all store operations:
-* `Soomla.StoreInventory` is a convenience class to let you perform operations on `Soomla.VirtualCurrencies` and `Soomla.VirtualGood`s. Use it to fetch/change the balances of `Soomla.VirtualItem`s in your game (using their ItemIds!)  
+* `Soomla.StoreInventory` is a convenience class to let you perform operations on `Soomla.VirtualCurrencies` and `Soomla.Models.VirtualGood`s. Use it to fetch/change the balances of `Soomla.Models.VirtualItem`s in your game (using their ItemIds!)
 * `Soomla.StoreInfo` is where all meta data information about your specific game can be retrieved. It is initialized with your implementation of `Soomla.IStoreAssets` and you can use it to retrieve information about your specific game.
 
 The on-device storage is encrypted and kept in a SQLite database. SOOMLA has a [cloud-based](http://dashboard.soom.la) storage service (The SOOMLA Highway) that allows this SQLite to be synced to a cloud-based repository that you define.
@@ -406,9 +406,9 @@ SOOMLA lets you subscribe to store events, get notified and implement your own a
 
 > Your behaviour is an addition to the default behaviour implemented by SOOMLA. You don't replace SOOMLA's behaviour.
 
-The `Soomla.Soomla` class is where all events go through. To handle various events, create your own event handler, a class that implements `Soomla.EventHandler`, and add it to the `Soomla.Soomla` class:
+The `Soomla` class is where all events go through. To handle various events, create your own event handler, a class that implements `Soomla.EventHandler`, and add it to the `Soomla` class:
 
-    Soomla.soomla.addEventHandler(yourEventHandler);
+    Soomla.addEventHandler(yourEventHandler);
 
 
 ## Error Handling
@@ -474,25 +474,21 @@ You can choose to handle each exception on its own, handle all three at once, or
 
 ## iOS Server Side Verification
 
-##### C++
-
 As you probably know, fraud on IAP is pretty common. Hackers can crack their smartphones to think that a purchase is made when payment wasn't actually transferred to you. We want to help you with it so we created our verification server and we let you instantly use it through the framework.
-All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to `CCStoreController`:
+All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to `CCStoreController` for C++ or to `Soomla.StoreController` for JS:
 
+C++
 ```cpp
 storeParams->setObject(CCBool::create(true), "SSV);
 CCStoreController::createShared(assets, storeParams);
 ```
 
-##### JS
-
-As you probably know, fraud on IAP is pretty common. Hackers can crack their smartphones to think that a purchase is made when payment wasn't actually transferred to you. We want to help you with it so we created our verification server and we let you instantly use it through the framework.
-All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to `Soomla.StoreController`:
-
+JS
 ```JS
 storeParams.SSV = true;
 Soomla.StoreController.createShared(assets, storeParams);
 ```
+
 
 ## Debugging
 
@@ -506,7 +502,7 @@ To see debug messages on iOS, make sure you have also `DEBUG=1` in your Build Se
 
 ##### JS
 
-Additionally to debug logging of C++ part you can enable debug logging in cocos2dx-store by setting `SOOMLA_DEBUG` in `Soomla` to `true`.
+Additionally to debug logging of C++ part you can enable debug logging in cocos2dx-store by setting `DEBUG` in `Soomla` to `true`.
 
 ## Contribution
 

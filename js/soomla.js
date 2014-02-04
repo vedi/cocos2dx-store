@@ -1,12 +1,13 @@
 /**
  * Created by vedi on 1/21/14.
  */
+
 var PrevSoomla = Soomla;
 Soomla = new function () {
 
-  var Soomla = PrevSoomla || {};
+  var Soomla = _.extend(PrevSoomla, {Models: {}}); // merge with binding instance
 
-  Soomla.SOOMLA_DEBUG = false;
+  Soomla.DEBUG = false;
 
   var declareClass = Soomla.declareClass = function (ClassName, fields, parentClass) {
     var Clazz = function () {
@@ -24,7 +25,7 @@ Soomla = new function () {
   /**
    * VirtualItem
    */
-  var VirtualItem = Soomla.VirtualItem = declareClass("VirtualItem", {
+  var VirtualItem = Soomla.Models.VirtualItem = declareClass("VirtualItem", {
     name: "",
     description: "",
     itemId: null
@@ -33,7 +34,7 @@ Soomla = new function () {
   /**
    * VirtualCategory
    */
-  var VirtualCategory = Soomla.VirtualCategory = declareClass("VirtualCategory", {
+  var VirtualCategory = Soomla.Models.VirtualCategory = declareClass("VirtualCategory", {
     name: "",
     goods_itemIds: null
   });
@@ -41,7 +42,7 @@ Soomla = new function () {
   /**
    * MarketItem
    */
-  var MarketItem = Soomla.MarketItem = declareClass("MarketItem", {
+  var MarketItem = Soomla.Models.MarketItem = declareClass("MarketItem", {
     productId: null,
     consumable: null,
     price: null
@@ -60,27 +61,27 @@ Soomla = new function () {
   /**
    * PurchasableVirtualItem
    */
-  var PurchasableVirtualItem = Soomla.PurchasableVirtualItem = declareClass("PurchasableVirtualItem", {
+  var PurchasableVirtualItem = Soomla.Models.PurchasableVirtualItem = declareClass("PurchasableVirtualItem", {
     purchasableItem: null
   }, VirtualItem);
 
   /**
    * NonConsumableItem
    */
-  var NonConsumableItem = Soomla.NonConsumableItem = declareClass("NonConsumableItem", {
+  var NonConsumableItem = Soomla.Models.NonConsumableItem = declareClass("NonConsumableItem", {
 
   }, PurchasableVirtualItem);
 
   /**
    * VirtualCurrency
    */
-  var VirtualCurrency = Soomla.VirtualCurrency = declareClass("VirtualCurrency", {
+  var VirtualCurrency = Soomla.Models.VirtualCurrency = declareClass("VirtualCurrency", {
   }, VirtualItem);
 
   /**
    * VirtualCurrencyPack
    */
-  var VirtualCurrencyPack = Soomla.VirtualCurrencyPack = declareClass("v", {
+  var VirtualCurrencyPack = Soomla.Models.VirtualCurrencyPack = declareClass("v", {
     currency_amount: 0,
     currency_itemId: null
   }, PurchasableVirtualItem);
@@ -88,19 +89,19 @@ Soomla = new function () {
   /**
    * VirtualGood
    */
-  var VirtualGood = Soomla.VirtualGood = declareClass("VirtualGood", {
+  var VirtualGood = Soomla.Models.VirtualGood = declareClass("VirtualGood", {
   }, PurchasableVirtualItem);
 
   /**
    * LifetimeVG
    */
-  var LifetimeVG = Soomla.LifetimeVG = declareClass("LifetimeVG", {
+  var LifetimeVG = Soomla.Models.LifetimeVG = declareClass("LifetimeVG", {
   }, VirtualGood);
 
   /**
    * EquippableVG
    */
-  var EquippableVG = Soomla.EquippableVG = declareClass("EquippableVG", {
+  var EquippableVG = Soomla.Models.EquippableVG = declareClass("EquippableVG", {
     equipping: null
   }, LifetimeVG);
   EquippableVG.EquippingModel = {
@@ -112,7 +113,7 @@ Soomla = new function () {
   /**
    * SingleUseVG
    */
-  var SingleUseVG = Soomla.SingleUseVG = declareClass("SingleUseVG", {
+  var SingleUseVG = Soomla.Models.SingleUseVG = declareClass("SingleUseVG", {
   }, VirtualGood);
   var SingleUseVG = function () {
     return _.extend({
@@ -123,7 +124,7 @@ Soomla = new function () {
   /**
    * SingleUsePackVG
    */
-  var SingleUsePackVG = Soomla.SingleUsePackVG = declareClass("SingleUsePackVG", {
+  var SingleUsePackVG = Soomla.Models.SingleUsePackVG = declareClass("SingleUsePackVG", {
     good_itemId: null,
     good_amount: null
   }, VirtualGood);
@@ -131,7 +132,7 @@ Soomla = new function () {
   /**
    * UpgradeVG
    */
-  var UpgradeVG = Soomla.UpgradeVG = declareClass("UpgradeVG", {
+  var UpgradeVG = Soomla.Models.UpgradeVG = declareClass("UpgradeVG", {
     good_itemId: null,
     prev_itemId: null,
     next_itemId: null
@@ -140,14 +141,14 @@ Soomla = new function () {
   /**
    * PurchaseType
    */
-  var PurchaseType = Soomla.PurchaseType = declareClass("PurchaseType", {
+  var PurchaseType = Soomla.Models.PurchaseType = declareClass("PurchaseType", {
     purchaseType: null
   });
 
   /**
    * PurchaseWithMarket
    */
-  var PurchaseWithMarket = Soomla.PurchaseWithMarket = declareClass("PurchaseWithMarket", {
+  var PurchaseWithMarket = Soomla.Models.PurchaseWithMarket = declareClass("PurchaseWithMarket", {
     purchaseType: PURCHASE_TYPE.MARKET,
     marketItem: null
   }, PurchaseType);
@@ -164,7 +165,7 @@ Soomla = new function () {
   /**
    * PurchaseWithVirtualItem
    */
-  var PurchaseWithVirtualItem = Soomla.PurchaseWithVirtualItem = declareClass("PurchaseWithVirtualItem", {
+  var PurchaseWithVirtualItem = Soomla.Models.PurchaseWithVirtualItem = declareClass("PurchaseWithVirtualItem", {
     purchaseType: PURCHASE_TYPE.VI,
     pvi_itemId: null,
     pvi_amount: null
@@ -330,145 +331,143 @@ Soomla = new function () {
   });
 
   /**
-   * Soomla
+   * Root definitions
    */
-  Soomla.Soomla = declareClass("Soomla", {
-    eventHandlers: [],
-    addEventHandler: function(eventHandler) {
+  Soomla.eventHandlers = [];
+  Soomla.addEventHandler =
+    function (eventHandler) {
       this.eventHandlers.push(eventHandler);
-    },
-    removeEventHandler: function(eventHandler) {
+    };
+  Soomla.removeEventHandler =
+    function (eventHandler) {
       var idx = this.eventHandlers.indexOf(eventHandler);
       this.eventHandlers.splice(idx, 1);
-    },
-    easyNDKCallBack: function(parameters) {
-      parameters = JSON.parse(parameters);
-      try {
-        var methodName = parameters.method || "";
-        if (methodName == "CCEventHandler::onBillingNotSupported") {
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onBillingNotSupported();
-          });
-        }
-        else if (methodName == "CCEventHandler::onBillingSupported") {
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onBillingSupported();
-          });
-        }
-        else if (methodName == "CCEventHandler::onCurrencyBalanceChanged") {
-          var virtualCurrency = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onCurrencyBalanceChanged(virtualCurrency, parameters.balance, parameters.amountAdded);
-          });
-        }
-        else if (methodName == "CCEventHandler::onGoodBalanceChanged") {
-          var virtualGood = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onGoodBalanceChanged(virtualGood, parameters.balance, parameters.amountAdded);
-          });
-        }
-        else if (methodName == "CCEventHandler::onGoodEquipped") {
-          var equippableVG = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onGoodEquipped(equippableVG);
-          });
-        }
-        else if (methodName == "CCEventHandler::onGoodUnEquipped") {
-          var equippableVG = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onGoodUnEquipped(equippableVG);
-          });
-        }
-        else if (methodName == "CCEventHandler::onGoodUpgrade") {
-          var virtualGood = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          var upgradeVG = Soomla.storeInfo.getItemByItemId(parameters.vguItemId);
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onGoodUpgrade(virtualGood, upgradeVG);
-          });
-        }
-        else if (methodName == "CCEventHandler::onItemPurchased") {
-          var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onItemPurchased(purchasableVirtualItem);
-          });
-        }
-        else if (methodName == "CCEventHandler::onItemPurchaseStarted") {
-          var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onItemPurchaseStarted(purchasableVirtualItem);
-          });
-        }
-        else if (methodName == "CCEventHandler::onMarketPurchaseCancelled") {
-          var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onMarketPurchaseCancelled(purchasableVirtualItem);
-          });
-        }
-        else if (methodName == "CCEventHandler::onMarketPurchase") {
-          var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onMarketPurchase(purchasableVirtualItem);
-          });
-        }
-        else if (methodName == "CCEventHandler::onMarketPurchaseStarted") {
-          var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onMarketPurchaseStarted(purchasableVirtualItem);
-          });
-        }
-        else if (methodName == "CCEventHandler::onMarketPurchaseVerification") {
-          var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onMarketPurchaseVerification(purchasableVirtualItem);
-          });
-        }
-        else if (methodName == "CCEventHandler::onRestoreTransactions") {
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onRestoreTransactions(parameters.success);
-          });
-        }
-        else if (methodName == "CCEventHandler::onRestoreTransactions") {
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onRestoreTransactionsStarted();
-          });
-        }
-        else if (methodName == "CCEventHandler::onUnexpectedErrorInStore") {
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onUnexpectedErrorInStore();
-          });
-        }
-        else if (methodName == "CCEventHandler::onStoreControllerInitialized") {
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onStoreControllerInitialized();
-          });
-        }
-        //  Android specific
-        else if (methodName == "CCEventHandler::onMarketRefund") {
-          var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onMarketRefund(purchasableVirtualItem);
-          });
-        }
-        else if (methodName == "CCEventHandler::onIabServiceStarted") {
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onIabServiceStarted();
-          });
-        }
-        else if (methodName == "CCEventHandler::onIabServiceStopped") {
-          _.forEach(this.eventHandlers, function(eventHandler) {
-            eventHandler.onIabServiceStopped();
-          });
-        }
-      } catch(e) {
-        logError("easyNDKCallBack: " + e.message);
+    };
+  Soomla.easyNDKCallBack = function (parameters) {
+    parameters = JSON.parse(parameters);
+    try {
+      var methodName = parameters.method || "";
+      if (methodName == "CCEventHandler::onBillingNotSupported") {
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onBillingNotSupported();
+        });
       }
+      else if (methodName == "CCEventHandler::onBillingSupported") {
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onBillingSupported();
+        });
+      }
+      else if (methodName == "CCEventHandler::onCurrencyBalanceChanged") {
+        var virtualCurrency = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onCurrencyBalanceChanged(virtualCurrency, parameters.balance, parameters.amountAdded);
+        });
+      }
+      else if (methodName == "CCEventHandler::onGoodBalanceChanged") {
+        var virtualGood = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onGoodBalanceChanged(virtualGood, parameters.balance, parameters.amountAdded);
+        });
+      }
+      else if (methodName == "CCEventHandler::onGoodEquipped") {
+        var equippableVG = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onGoodEquipped(equippableVG);
+        });
+      }
+      else if (methodName == "CCEventHandler::onGoodUnEquipped") {
+        var equippableVG = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onGoodUnEquipped(equippableVG);
+        });
+      }
+      else if (methodName == "CCEventHandler::onGoodUpgrade") {
+        var virtualGood = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        var upgradeVG = Soomla.storeInfo.getItemByItemId(parameters.vguItemId);
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onGoodUpgrade(virtualGood, upgradeVG);
+        });
+      }
+      else if (methodName == "CCEventHandler::onItemPurchased") {
+        var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onItemPurchased(purchasableVirtualItem);
+        });
+      }
+      else if (methodName == "CCEventHandler::onItemPurchaseStarted") {
+        var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onItemPurchaseStarted(purchasableVirtualItem);
+        });
+      }
+      else if (methodName == "CCEventHandler::onMarketPurchaseCancelled") {
+        var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onMarketPurchaseCancelled(purchasableVirtualItem);
+        });
+      }
+      else if (methodName == "CCEventHandler::onMarketPurchase") {
+        var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onMarketPurchase(purchasableVirtualItem);
+        });
+      }
+      else if (methodName == "CCEventHandler::onMarketPurchaseStarted") {
+        var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onMarketPurchaseStarted(purchasableVirtualItem);
+        });
+      }
+      else if (methodName == "CCEventHandler::onMarketPurchaseVerification") {
+        var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onMarketPurchaseVerification(purchasableVirtualItem);
+        });
+      }
+      else if (methodName == "CCEventHandler::onRestoreTransactions") {
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onRestoreTransactions(parameters.success);
+        });
+      }
+      else if (methodName == "CCEventHandler::onRestoreTransactions") {
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onRestoreTransactionsStarted();
+        });
+      }
+      else if (methodName == "CCEventHandler::onUnexpectedErrorInStore") {
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onUnexpectedErrorInStore();
+        });
+      }
+      else if (methodName == "CCEventHandler::onStoreControllerInitialized") {
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onStoreControllerInitialized();
+        });
+      }
+      //  Android specific
+      else if (methodName == "CCEventHandler::onMarketRefund") {
+        var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onMarketRefund(purchasableVirtualItem);
+        });
+      }
+      else if (methodName == "CCEventHandler::onIabServiceStarted") {
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onIabServiceStarted();
+        });
+      }
+      else if (methodName == "CCEventHandler::onIabServiceStopped") {
+        _.forEach(this.eventHandlers, function (eventHandler) {
+          eventHandler.onIabServiceStopped();
+        });
+      }
+    } catch (e) {
+      logError("easyNDKCallBack: " + e.message);
     }
-  });
-  Soomla.soomla = Soomla.Soomla.create();
-
+  };
   // put it into global context
   easyNDKCallBack = function(params) {
-    Soomla.soomla.easyNDKCallBack.call(Soomla.soomla, params);
+    Soomla.easyNDKCallBack.call(Soomla, params);
   };
 
   /**
@@ -696,7 +695,7 @@ Soomla = new function () {
   };
 
   var logDebug = Soomla.logDebug = function (output) {
-    if (Soomla.SOOMLA_DEBUG) {
+    if (Soomla.DEBUG) {
       return cc.log("DEBUG: " + output);
     }
   };
