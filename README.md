@@ -406,9 +406,12 @@ SOOMLA lets you subscribe to store events, get notified and implement your own a
 
 > Your behaviour is an addition to the default behaviour implemented by SOOMLA. You don't replace SOOMLA's behaviour.
 
-The `Soomla` class is where all events go through. To handle various events, create your own event handler, a class that implements `Soomla.EventHandler`, and add it to the `Soomla` class:
+The `Soomla` class is where all events go through. To handle various events, create your own event handler. You can inherit it from `Soomla.EventHandler` or create from scratch. After that add it to the `Soomla` class:
 
     Soomla.addEventHandler(yourEventHandler);
+or
+
+    Soomla.on(yourEventHandler);
 
 
 ## Error Handling
