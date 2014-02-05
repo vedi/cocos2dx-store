@@ -170,6 +170,11 @@ If you're building your application for the Android platform, here are some inst
     - **extensions/cocos2dx-store/android/src**
     - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there because your cloned cocos2dx-store with the `--recursive` flag).
     - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/libs/square-otto-1.3.2.jar**
+    
+    You can do that in your IDE or use our script `./setup-android.sh` if you prefer to build with `ant`. Please, put `target` as a param to the script, for example:
+    ```
+    ./setup-android.sh android-17
+    ```
 
 1. Update your manifest to include these permissions, SoomlaApp and IabActivity:
 
@@ -188,8 +193,6 @@ If you're building your application for the Android platform, here are some inst
     ```java
     Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
     StoreControllerBridge.setGLView(glSurfaceView);
-    
-    SoomlaApp.setExternalContext(getApplicationContext());
     ```
 > These settings are required inorder to initialize the event handling bridge, and allow `StoreController` to initiate market purchases.
 
