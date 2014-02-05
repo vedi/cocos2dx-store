@@ -29,13 +29,17 @@ LOCAL_SRC_FILES := ../../Soomla/CCSoomla.cpp \
 	../../Soomla/domain/virtualGoods/CCSingleUsePackVG.cpp \
 	../../Soomla/domain/virtualGoods/CCSingleUseVG.cpp \
 	../../Soomla/domain/virtualGoods/CCUpgradeVG.cpp \
-	../../Soomla/domain/virtualGoods/CCVirtualGood.cpp
+	../../Soomla/domain/virtualGoods/CCVirtualGood.cpp \
+	../../Soomla/jsb/jsb_soomla.cpp \
+	../../Soomla/jsb/JSBinding.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Soomla
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../lib
 
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += jansson_static
+LOCAL_WHOLE_STATIC_LIBRARIES += spidermonkey_static
+LOCAL_WHOLE_STATIC_LIBRARIES += scriptingcore-spidermonkey
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../..
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla
@@ -43,8 +47,12 @@ LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/data
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain/virtualCurrencies
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain/virtualGoods
+LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/jsb
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/PurchaseTypes
 
 include $(BUILD_STATIC_LIBRARY)
 
 $(call import-module,external/jansson)
+$(call import-module,scripting/javascript/spidermonkey-android)
+$(call import-module,scripting/javascript/bindings)
+

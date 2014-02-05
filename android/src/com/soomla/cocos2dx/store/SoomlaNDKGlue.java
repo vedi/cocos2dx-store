@@ -1,5 +1,6 @@
 package com.soomla.cocos2dx.store;
 
+import android.util.Log;
 import com.soomla.store.StoreUtils;
 import com.soomla.store.exceptions.InsufficientFundsException;
 import com.soomla.store.exceptions.NotEnoughGoodsException;
@@ -14,6 +15,8 @@ import org.json.JSONObject;
  *         time 8:36 PM
  */
 public class SoomlaNDKGlue {
+
+    private static final String TAG = "SoomlaNDKGlue";
 
     private static native void cppNativeCallHandler(String json);
 
@@ -32,10 +35,13 @@ public class SoomlaNDKGlue {
                 StoreUtils.LogDebug("SoomlaNDKGlue", "retParamsJson: " + retParamsJson.toString());
                 return retParamsJson.toString();
             } catch (JSONException e) {
+                Log.e(TAG, "receiveCppMessage raised exception", e);
                 StoreUtils.LogError("SoomlaNDKGlue", "receiveCppMessage raised exception" + e);
             } catch (UnsupportedOperationException e) {
+                Log.e(TAG, "", e);
                 StoreUtils.LogError("SoomlaNDKGlue", "Unsupported operation (" + e + ")");
             } catch (Exception e) {
+                Log.e(TAG, "", e);
                 StoreUtils.LogError("SoomlaNDKGlue", "Unknown exception (" + e + ")");
             }
             return "{\"errorCode\": -4}";
@@ -162,6 +168,7 @@ public class SoomlaNDKGlue {
                 } else if (methodName.equals("CCStoreInfo::getVirtualCategories")) {
                     JSONArray retValue = StoreInfoBridge.getVirtualCategories();
                     retParams.put("return", retValue);
+                } else if (methodName.equals("CCStoreController::setSSV")) {
                 } else {
                     throw new UnsupportedOperationException(methodName);
                 }

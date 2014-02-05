@@ -63,6 +63,9 @@ CCObject *CCSoomlaJsonHelper::getCCObjectFromJson(json_t *obj) {
         CCString *ccString = CCString::create(str.str());
         return ccString;
     }
+    else if (json_is_null(obj)) {
+        return CCString::create("");
+    }
     else {
         CC_ASSERT(false);
         return NULL;
