@@ -193,6 +193,8 @@ If you're building your application for the Android platform, here are some inst
     ```java
     Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
     StoreControllerBridge.setGLView(glSurfaceView);
+
+    SoomlaApp.setExternalContext(getApplicationContext());
     ```
 > These settings are required inorder to initialize the event handling bridge, and allow `StoreController` to initiate market purchases.
 
