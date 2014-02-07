@@ -2,6 +2,8 @@
 // Created by Fedor Shubin on 1/22/14.
 //
 
+#ifdef COCOS2D_JAVASCRIPT
+
 #include "jsb_soomla.h"
 #include "cocos2d.h"
 #include "cocos2d_specifics.hpp"
@@ -143,3 +145,5 @@ void register_jsb_soomla(JSContext *cx, JSObject *obj){
     js_register(cx, obj);
 
 }
+
+#endif // COCOS2D_JAVASCRIPT

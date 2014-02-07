@@ -2,15 +2,18 @@
 // Created by Fedor Shubin on 1/22/14.
 //
 
+#ifdef COCOS2D_JAVASCRIPT
+
 #include "JSBinding.h"
 #include "CCSoomlaError.h"
 #include "jansson.h"
-#import "CCSoomlaJsonHelper.h"
+#include "CCSoomlaJsonHelper.h"
 #include "CCSoomlaNdkBridge.h"
-#include "jansson_private.h"
 
 void Soomla::JSBinding::callNative(const char *params, std::string &result) {
-//    CCLog("callNative: in >> %s", params);
+    result.assign(params);
+
+    CCLog("callNative: in >> %s", params);
 
     json_error_t error;
     json_t *root;
@@ -42,6 +45,7 @@ void Soomla::JSBinding::callNative(const char *params, std::string &result) {
 
     root = CCSoomlaJsonHelper::getJsonFromCCObject(resultParams);
     char *dump = json_dumps(root, JSON_COMPACT | JSON_ENSURE_ASCII);
+    CCLog("callNative: out >> %s", dump);
     result = dump;
     free(dump);
 }
@@ -49,6 +53,8 @@ void Soomla::JSBinding::callNative(const char *params, std::string &result) {
 void Soomla::JSBinding::callCallback(CCDictionary *params) {
     json_t *root = CCSoomlaJsonHelper::getJsonFromCCObject(params);
     char *dump = json_dumps(root, JSON_COMPACT | JSON_ENSURE_ASCII);
+    CCLog("callCallback: in >> %s", dump);
+
     std::string jsonParams = dump;
     free(dump);
 
@@ -61,3 +67,5 @@ void Soomla::JSBinding::callCallback(CCDictionary *params) {
     ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(ScriptingCore::getInstance()->getGlobalObject()),
             "easyNDKCallBack", 1, v, &retval);
 }
+
+#endif // COCOS2D_JAVASCRIPT
