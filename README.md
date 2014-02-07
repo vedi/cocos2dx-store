@@ -109,6 +109,14 @@ And that's it! You now have storage and in-app purchasing capabilities.
     $ git clone git@github.com:vedi/jansson.git external/jansson
     ```
 
+1. Register js-bindings in your AppDelegate.cpp:
+    ```cpp
+    #include "jsb_soomla.h"
+    ...
+    sc->addRegisterCallback(register_jsb_soomla);
+    ```
+
+
 1. Make sure to include the `soomla.js` and `undersore.js` to start point of your application:
     ```js
   require("underscore.js");
@@ -174,6 +182,12 @@ If you're building your application for the Android platform, here are some inst
     You can do that in your IDE or use our script `./setup-android.sh` if you prefer to build with `ant`. Please, put `target` as a param to the script, for example:
     ```
     ./setup-android.sh android-17
+    ```
+
+    And after completing the script add dependencies to `project.properties` file of your project, adding the lines:    
+    ```
+    android.library.reference.2=../../../extensions/cocos2dx-store/android/
+    android.library.reference.3=../../../extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/
     ```
 
 1. Update your manifest to include these permissions, SoomlaApp and IabActivity:

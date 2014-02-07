@@ -13,7 +13,7 @@
 #include "ScriptingCore.h"
 #include "JSBinding.h"
 
-void register_jsb_soomla(JSContext *cx, JSObject *obj);
+void register_jsb_soomla(JSContext *cx, JSObject *global);
 
 #endif // COCOS2D_JAVASCRIPT
 
