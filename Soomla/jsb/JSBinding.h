@@ -6,6 +6,8 @@
 #ifndef __JSBinding_H_
 #define __JSBinding_H_
 
+#ifdef COCOS2D_JAVASCRIPT
+
 #include "cocos2d.h"
 #include "ScriptingCore.h"
 
@@ -15,8 +17,10 @@ namespace Soomla {
     {
     public:
         static void callNative(const char *params, std::string &result);
-        static void callCallback(CCDictionary *params);
+        static void callCallback(cocos2d::CCDictionary *params);
     };
 }
+
+#endif //COCOS2D_JAVASCRIPT
 
 #endif //__JSBinding_H_
