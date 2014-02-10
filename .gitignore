@@ -1,5 +1,6 @@
-proj.android/bin/
-proj.android/gen/
+.idea
+android/bin/
+android/gen/
 local.properties
 *.iml
 TAGS

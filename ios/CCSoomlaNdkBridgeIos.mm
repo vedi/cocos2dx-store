@@ -8,6 +8,8 @@
 #include "CCSoomlaJsonHelper.h"
 #include "CCSoomla.h"
 #import "SoomlaNDKGlue.h"
+#include "JSBinding.h"
+#include "CCStoreController.h"
 
 namespace soomla {
     json_t *CCSoomlaNdkBridgeIos::receiveCppMessage(json_t *jsonParams) {
@@ -64,6 +66,10 @@ namespace soomla {
 
     void CCSoomlaNdkBridgeIos::ndkCallback(json_t *jsonParams) {
         cocos2d::CCObject *dataToPass = CCSoomlaJsonHelper::getCCObjectFromJson(jsonParams);
-        CCSoomla::sharedSoomla()->easyNDKCallBack((cocos2d::CCDictionary *)dataToPass);
+        if (CCStoreController::sharedStoreController()) {
+            CCSoomla::sharedSoomla()->easyNDKCallBack((cocos2d::CCDictionary *)dataToPass);
+        } else {
+            Soomla::JSBinding::callCallback((CCDictionary *) dataToPass);
+        }
     }
 }
