@@ -13,7 +13,9 @@ USING_NS_CC;
     #include <string>
     #include "CCSoomla.h"
     #include "CCStoreController.h"
+#ifdef COCOS2D_JAVASCRIPT
     #include "jsb/JSBinding.h"
+#endif
 
     #define CLASS_NAME "com/soomla/cocos2dx/store/SoomlaNDKGlue"
 #endif
@@ -46,11 +48,11 @@ namespace soomla {
 
             cocos2d::CCObject *dataToPass = CCSoomlaJsonHelper::getCCObjectFromJson(root);
 
-            if (soomla::CCStoreController::sharedStoreController()) {
-                soomla::CCSoomla::sharedSoomla()->easyNDKCallBack((cocos2d::CCDictionary *)dataToPass);
-            } else {
-                Soomla::JSBinding::callCallback((CCDictionary *) dataToPass);
-            }
+#ifdef COCOS2D_JAVASCRIPT
+            Soomla::JSBinding::callCallback((cocos2d::CCDictionary *) dataToPass);
+#else
+            CCSoomla::sharedSoomla()->easyNDKCallBack((cocos2d::CCDictionary *)dataToPass);
+#endif
 
             json_decref(root);
         }
@@ -100,6 +102,10 @@ namespace soomla {
 
             json_decref(toBeSentJson);
             CCObject *retParams = CCSoomlaJsonHelper::getCCObjectFromJson(retJsonParams);
+
+            if (retJsonParams) {
+                json_decref(retJsonParams);
+            }
 
             CCSoomlaError *error = CCSoomlaError::createWithObject(retParams);
             if (error != NULL) {

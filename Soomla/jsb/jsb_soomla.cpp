@@ -2,6 +2,8 @@
 // Created by Fedor Shubin on 1/22/14.
 //
 
+#ifdef COCOS2D_JAVASCRIPT
+
 #include "jsb_soomla.h"
 #include "cocos2d.h"
 #include "cocos2d_specifics.hpp"
@@ -109,37 +111,25 @@ void js_register(JSContext* cx, JSObject* global){
             st_funcs);
     JSBool found;
     JS_SetPropertyAttributes(cx, global, "JSB", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
-
-    TypeTest<Soomla::JSBinding> t;
-    js_type_class_t* p;
-    uint32_t typeId = t.s_id();
-    HASH_FIND_INT(_js_global_type_ht, &typeId, p);
-
-    if (!p) {
-        p = (js_type_class_t* )malloc(sizeof(_js_global_type_ht));
-        p->type = typeId;
-        p->jsclass = jsb_class;
-        p->proto = jsb_prototype;
-        p->parentProto = NULL;
-        HASH_ADD_INT(_js_global_type_ht, type, p);
-    }
 }
 
 // Binding JSB namespace so in JavaScript code JSB namespce can be recognized
-void register_jsb_soomla(JSContext *cx, JSObject *obj){
+void register_jsb_soomla(JSContext *cx, JSObject *global){
     jsval nsval;
     JSObject* ns;
-    JS_GetProperty(cx, obj, "JS", &nsval);
+    JS_GetProperty(cx, global, "JS", &nsval);
 
     if (nsval == JSVAL_VOID) {
         ns = JS_NewObject(cx, NULL, NULL, NULL);
         nsval = OBJECT_TO_JSVAL(ns);
-        JS_SetProperty(cx, obj, "Soomla", &nsval);
+        JS_SetProperty(cx, global, "Soomla", &nsval);
     }
     else{
         JS_ValueToObject(cx, nsval, &ns);
     }
-    obj = ns;
-    js_register(cx, obj);
+    global = ns;
+    js_register(cx, global);
 
 }
+
+#endif // COCOS2D_JAVASCRIPT
