@@ -10,6 +10,8 @@
 #include "CCSoomlaJsonHelper.h"
 #include "CCSoomlaNdkBridge.h"
 
+using namespace cocos2d;
+
 void Soomla::JSBinding::callNative(const char *params, std::string &result) {
     result.assign(params);
 

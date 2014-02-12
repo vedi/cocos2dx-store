@@ -9,6 +9,9 @@
 #include "data/CCStoreInfo.h"
 #include "CCSoomlaError.h"
 
+using namespace cocos2d;
+typedef DictElement CCDictElement;
+
 namespace soomla {
     #define TAG "SOOMLA StoreController"
 

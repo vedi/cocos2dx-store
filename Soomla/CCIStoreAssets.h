@@ -4,7 +4,7 @@
 
 
 
-#include "cocoa/CCArray.h"
+#include "CCArray.h"
 
 #ifndef __CCIStoreAssets_H_
 #define __CCIStoreAssets_H_
