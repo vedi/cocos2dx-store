@@ -36,6 +36,8 @@ namespace soomla {
 		 */
         static CCPurchaseWithMarket *createWithMarketItem(CCMarketItem *marketItem);
         bool initWithMarketItem(CCMarketItem *marketItem);
+
+        ~CCPurchaseWithMarket();
     };
 };
 
