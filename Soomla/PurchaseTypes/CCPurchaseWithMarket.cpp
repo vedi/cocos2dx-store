@@ -27,4 +27,8 @@ namespace soomla {
             return false;
         }
     }
+
+    CCPurchaseWithMarket::~CCPurchaseWithMarket() {
+        CC_SAFE_RELEASE(mMarketItem);
+    }
 }
