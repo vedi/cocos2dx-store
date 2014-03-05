@@ -3,10 +3,10 @@ LOCAL_PATH := $(call my-dir)
 # cocos2dx-store
 include $(CLEAR_VARS)
 
-COCOS2D_JAVASCRIPT = $(filter %-DCOCOS2D_JAVASCRIPT=1,$(APP_CPPFLAGS))
+COCOS2D_JAVASCRIPT = $(filter %-DCOCOS2D_JAVASCRIPT,$(APP_CPPFLAGS))
 
-$(call __ndk_warning,COCOS2D_JAVASCRIPT: "$(COCOS2D_JAVASCRIPT)")
-$(call __ndk_warning,APP_CPPFLAGS: "$(APP_CPPFLAGS)")
+#$(call __ndk_warning,COCOS2D_JAVASCRIPT: "$(COCOS2D_JAVASCRIPT)")
+#$(call __ndk_warning,APP_CPPFLAGS: "$(APP_CPPFLAGS)")
 
 LOCAL_MODULE := cocos2dx_store_static
 LOCAL_MODULE_FILENAME := libcocos2dxstore
@@ -39,12 +39,14 @@ LOCAL_SRC_FILES := ../../Soomla/CCSoomla.cpp \
 
 ifneq '$(COCOS2D_JAVASCRIPT)' ''
 LOCAL_SRC_FILES +=  \
-        ../../Soomla/jsb/jsb_soomla.cpp \
+        ../../Soomla/jsb/jsb_soomla-3-0.cpp \
         ../../Soomla/jsb/JSBinding.cpp
 endif
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Soomla
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../lib
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../lib \
+				$(LOCAL_PATH)/../../../../cocos2d-x/cocos/scripting/javascript/bindings \
+				$(LOCAL_PATH)/../../../../cocos2d-x/cocos/audio/include
 
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += jansson_static
@@ -66,9 +68,9 @@ LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/PurchaseTypes
 
 include $(BUILD_STATIC_LIBRARY)
 
-$(call import-module,external/jansson)
+$(call import-module,../jansson)
 
 ifneq '$(COCOS2D_JAVASCRIPT)' ''
-$(call import-module,scripting/javascript/spidermonkey-android)
+$(call import-module,spidermonkey/prebuilt/android)
 $(call import-module,scripting/javascript/bindings)
 endif

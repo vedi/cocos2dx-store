@@ -8,7 +8,7 @@
 USING_NS_CC;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    #include "../cocos2dx/platform/android/jni/JniHelper.h"
+    #include "platform/android/jni/JniHelper.h"
     #include <jni.h>
     #include <string>
     #include "CCSoomla.h"
