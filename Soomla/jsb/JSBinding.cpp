@@ -26,7 +26,7 @@ void Soomla::JSBinding::callNative(const char *params, std::string &result) {
         return;
     }
 
-    cocos2d::CCObject *dataToPass = CCSoomlaJsonHelper::getCCObjectFromJson(root);
+    cocos2d::Ref *dataToPass = CCSoomlaJsonHelper::getCCObjectFromJson(root);
     CCDictionary *dictToPass = dynamic_cast<CCDictionary *>(dataToPass);
     CC_ASSERT(dictToPass);
 

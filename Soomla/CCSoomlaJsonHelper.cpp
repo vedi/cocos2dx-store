@@ -7,7 +7,7 @@
 USING_NS_CC;
 using namespace std;
 
-CCObject *CCSoomlaJsonHelper::getCCObjectFromJson(json_t *obj) {
+Ref *CCSoomlaJsonHelper::getCCObjectFromJson(json_t *obj) {
     if (obj == NULL) {
         return NULL;
     }

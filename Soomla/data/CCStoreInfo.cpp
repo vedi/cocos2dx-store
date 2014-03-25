@@ -19,7 +19,7 @@ namespace soomla {
 #define TAG "SOOMLA StoreInfo"
 
 #define SAFE_CREATE(__T__, __ret__, __retParams__)			\
-	CCObject *_tempVi = createWithRetParams(__retParams__);	\
+	Ref *_tempVi = createWithRetParams(__retParams__);	\
 	__T__ __ret__ = dynamic_cast<__T__>(_tempVi);			\
 	CC_ASSERT(__ret__);
 
@@ -44,7 +44,7 @@ namespace soomla {
         CCArray *currenciesJSON = CCArray::create();
         {
             CCArray *currencies = storeAssets->getCurrencies();
-            CCObject *obj;
+            Ref *obj;
             CCARRAY_FOREACH(currencies, obj) {
 				currenciesJSON->addObject(((CCVirtualCurrency *)obj)->toDictionary());
 			}
@@ -53,7 +53,7 @@ namespace soomla {
         CCArray *packsJSON = CCArray::create();
         {
             CCArray *packs = storeAssets->getCurrencyPacks();
-            CCObject *obj;
+            Ref *obj;
             CCARRAY_FOREACH(packs, obj) {
 				packsJSON->addObject(((CCVirtualCurrencyPack *)obj)->toDictionary());
 			}
@@ -65,7 +65,7 @@ namespace soomla {
         CCArray *upGoods = CCArray::create();
         CCArray *paGoods = CCArray::create();
 
-        CCObject *obj;
+        Ref *obj;
         CCARRAY_FOREACH(storeAssets->getGoods(), obj) {
 			if (dynamic_cast<CCSingleUseVG *>(obj)) {
 				suGoods->addObject(((CCSingleUseVG *)obj)->toDictionary());
@@ -90,7 +90,7 @@ namespace soomla {
         CCArray *categoriesJSON = CCArray::create();
         {
             CCArray *categories = storeAssets->getCategories();
-            CCObject *obj;
+            Ref *obj;
             CCARRAY_FOREACH(categories, obj) {
 				categoriesJSON->addObject(((CCVirtualCategory *)obj)->toDictionary());
 			}
@@ -100,7 +100,7 @@ namespace soomla {
         CCArray *nonConsumablesJSON = CCArray::create();
         {
             CCArray *nonConsumables = storeAssets->getNonConsumableItems();
-            CCObject *obj;
+            Ref *obj;
             CCARRAY_FOREACH(nonConsumables, obj) {
 				nonConsumablesJSON->addObject(((CCNonConsumableItem *)obj)->toDictionary());
 			}
@@ -191,7 +191,7 @@ namespace soomla {
 		CCArray *retArray = (CCArray *)retParams->objectForKey("return");
 
         CCArray *ret = CCArray::create();
-        CCObject *obj;
+        Ref *obj;
         CCARRAY_FOREACH(retArray, obj) {
 			CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
 			CC_ASSERT(dict);
@@ -211,7 +211,7 @@ namespace soomla {
 		CCArray *retArray = (CCArray *)retParams->objectForKey("return");
 
         CCArray *ret = CCArray::create();
-        CCObject *obj;
+        Ref *obj;
         CCARRAY_FOREACH(retArray, obj) {
 			CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
 			CC_ASSERT(dict);
@@ -231,7 +231,7 @@ namespace soomla {
 		CCArray *retArray = (CCArray *)retParams->objectForKey("return");
 
         CCArray *ret = CCArray::create();
-        CCObject *obj;
+        Ref *obj;
         CCARRAY_FOREACH(retArray, obj) {
 			CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
 			CC_ASSERT(dict);
@@ -251,7 +251,7 @@ namespace soomla {
 		CCArray *retArray = (CCArray *)retParams->objectForKey("return");
 		
         CCArray *ret = CCArray::create();
-        CCObject *obj;
+        Ref *obj;
         CCARRAY_FOREACH(retArray, obj) {
 			CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
 			CC_ASSERT(dict);
@@ -271,7 +271,7 @@ namespace soomla {
 		CCArray *retArray = (CCArray *)retParams->objectForKey("return");
 		
 		CCArray *ret = CCArray::create();
-		CCObject *obj;
+		Ref *obj;
 		CCARRAY_FOREACH(retArray, obj) {
 			CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
 			CC_ASSERT(dict);
@@ -291,7 +291,7 @@ namespace soomla {
 		CCArray *retArray = (CCArray *)retParams->objectForKey("return");
 		
 		CCArray *ret = CCArray::create();
-		CCObject *obj;
+		Ref *obj;
 		CCARRAY_FOREACH(retArray, obj) {
 			CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
 			CC_ASSERT(dict);
@@ -304,7 +304,7 @@ namespace soomla {
 		return ret;
     }
 
-    CCObject *CCStoreInfo::createWithRetParams(CCDictionary *retParams) {
+    Ref *CCStoreInfo::createWithRetParams(CCDictionary *retParams) {
         CCDictionary *retValue = dynamic_cast<CCDictionary *>(retParams->objectForKey("return"));
         CC_ASSERT(retValue);
         CCString *className = dynamic_cast<CCString *>(retValue->objectForKey("className"));

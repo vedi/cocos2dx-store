@@ -46,7 +46,7 @@ namespace soomla {
                     return;
                 }
 
-            cocos2d::CCObject *dataToPass = CCSoomlaJsonHelper::getCCObjectFromJson(root);
+            cocos2d::Ref *dataToPass = CCSoomlaJsonHelper::getCCObjectFromJson(root);
 
 #ifdef COCOS2D_JAVASCRIPT
             Soomla::JSBinding::callCallback((cocos2d::CCDictionary *) dataToPass);
@@ -58,7 +58,7 @@ namespace soomla {
         }
 #endif
 
-        cocos2d::CCObject *CCSoomlaNdkBridge::callNative(cocos2d::CCDictionary *params, CCSoomlaError **pError) {
+        cocos2d::Ref *CCSoomlaNdkBridge::callNative(cocos2d::CCDictionary *params, CCSoomlaError **pError) {
             cocos2d::CCDictionary *methodParams = params;
 
             json_t *toBeSentJson = CCSoomlaJsonHelper::getJsonFromCCObject(methodParams);
@@ -101,7 +101,7 @@ namespace soomla {
 #endif
 
             json_decref(toBeSentJson);
-            CCObject *retParams = CCSoomlaJsonHelper::getCCObjectFromJson(retJsonParams);
+            Ref *retParams = CCSoomlaJsonHelper::getCCObjectFromJson(retJsonParams);
 
             if (retJsonParams) {
                 json_decref(retJsonParams);

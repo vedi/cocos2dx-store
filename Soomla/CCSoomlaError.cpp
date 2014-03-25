@@ -12,7 +12,7 @@ namespace soomla {
 
     #define TAG "CCSoomlaError"
 
-    CCSoomlaError *CCSoomlaError::createWithObject(cocos2d::CCObject *obj) {
+    CCSoomlaError *CCSoomlaError::createWithObject(cocos2d::Ref *obj) {
         CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);
         if (dict != NULL && dict->objectForKey(JSON_ERROR_CODE) != NULL) {
             CCInteger *errorCode = dynamic_cast<CCInteger *>(dict->objectForKey(JSON_ERROR_CODE));
