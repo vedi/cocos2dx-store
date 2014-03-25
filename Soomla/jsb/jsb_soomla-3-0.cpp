@@ -8,6 +8,12 @@
 #include "cocos2d.h"
 #include "cocos2d_specifics.hpp"
 
+#ifndef JSBool
+#define JSBool bool
+#define JS_TRUE (bool)1
+#define JS_FALSE (bool)0
+#endif
+
 // Binding specific object by defining JSClass
 JSClass*        jsb_class;
 JSObject*       jsb_prototype;
@@ -113,10 +119,13 @@ void js_register(JSContext* cx, JSObject* global){
             funcs,
             NULL,
             st_funcs);
-    JSBool found;
-    JS_SetPropertyAttributes(cx, global, "JSB", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+//    JSBool found;
+//FIXME: Removed in Firefox v27	
+//    JS_SetPropertyAttributes(cx, global, "JSB", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 
 /*
+	// other bindings use something like the following:
+	
 	// add the proto and JSClass to the type->js info hash table
 	TypeTest<cocos2d::Touch> t;
 	js_type_class_t *p;
@@ -136,7 +145,7 @@ void js_register(JSContext* cx, JSObject* global){
 void register_jsb_soomla(JSContext *cx, JSObject *global){
 	JS::RootedValue nsval(cx);
     JSObject* ns;
-    JS_GetProperty(cx, global, "JS", &nsval);
+    JS_GetProperty(cx, global, "Soomla", &nsval);
 
     if (nsval == JSVAL_VOID) {
         ns = JS_NewObject(cx, NULL, NULL, NULL);
@@ -144,7 +153,7 @@ void register_jsb_soomla(JSContext *cx, JSObject *global){
         JS_SetProperty(cx, global, "Soomla", nsval);
     }
     else{
-        JS_ValueToObject(cx, nsval, &ns);
+		ns = JSVAL_TO_OBJECT(nsval);
     }
     global = ns;
     js_register(cx, global);
