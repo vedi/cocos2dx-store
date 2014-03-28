@@ -8,6 +8,12 @@
 #include "cocos2d.h"
 #include "cocos2d_specifics.hpp"
 
+#ifndef JSBool
+#define JSBool bool
+#define JS_TRUE (bool)1
+#define JS_FALSE (bool)0
+#endif
+
 // Binding specific object by defining JSClass
 JSClass*        jsb_class;
 JSObject*       jsb_prototype;
@@ -41,15 +47,17 @@ JSBool js_constructor(JSContext* cx, uint32_t argc, jsval* vp){
     cocos2d::CCLog("JS Constructor...");
     if (argc == 0) {
         Soomla::JSBinding* cobj = new Soomla::JSBinding();
-        cocos2d::CCObject* ccobj = dynamic_cast<cocos2d::CCObject*>(cobj);
+        cocos2d::Ref* ccobj = dynamic_cast<cocos2d::Ref*>(cobj);
         if (ccobj) {
             ccobj->autorelease();
         }
         TypeTest<Soomla::JSBinding> t;
-        js_type_class_t* typeClass;
-        uint32_t typeId = t.s_id();
-        HASH_FIND_INT(_js_global_type_ht, &typeId, typeClass);
-        assert(typeClass);
+        js_type_class_t* typeClass = nullptr;
+		std::string typeName = t.s_name();
+		auto typeMapIter = _js_global_type_map.find(typeName);
+		CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
+		typeClass = typeMapIter->second;
+		CCASSERT(typeClass, "The value is null.");
         JSObject* obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
         JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
 
@@ -64,6 +72,7 @@ JSBool js_constructor(JSContext* cx, uint32_t argc, jsval* vp){
     return JS_FALSE;
 }
 
+
 void js_finalize(JSFreeOp* fop, JSObject* obj){
     CCLOGINFO("JSBindings: finallizing JS object %p JSB", obj);
 }
@@ -73,7 +82,7 @@ void js_register(JSContext* cx, JSObject* global){
     jsb_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_class->name = "CCSoomlaNdkBridge";
     jsb_class->addProperty = JS_PropertyStub;
-    jsb_class->delProperty = JS_PropertyStub;
+    jsb_class->delProperty = JS_DeletePropertyStub;
     jsb_class->getProperty = JS_PropertyStub;
     jsb_class->setProperty = JS_StrictPropertyStub;
     jsb_class->enumerate = JS_EnumerateStub;
@@ -81,6 +90,7 @@ void js_register(JSContext* cx, JSObject* global){
     jsb_class->convert = JS_ConvertStub;
     jsb_class->finalize = js_finalize;
     jsb_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
 
     static JSPropertySpec properties[] = {
             {0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
@@ -109,23 +119,41 @@ void js_register(JSContext* cx, JSObject* global){
             funcs,
             NULL,
             st_funcs);
-    JSBool found;
-    JS_SetPropertyAttributes(cx, global, "JSB", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+//    JSBool found;
+//FIXME: Removed in Firefox v27	
+//    JS_SetPropertyAttributes(cx, global, "JSB", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+
+/*
+	// other bindings use something like the following:
+	
+	// add the proto and JSClass to the type->js info hash table
+	TypeTest<cocos2d::Touch> t;
+	js_type_class_t *p;
+	std::string typeName = t.s_name();
+	if (_js_global_type_map.find(typeName) == _js_global_type_map.end())
+	{
+		p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
+		p->jsclass = jsb_cocos2d_Touch_class;
+		p->proto = jsb_cocos2d_Touch_prototype;
+		p->parentProto = NULL;
+		_js_global_type_map.insert(std::make_pair(typeName, p));
+	}
+*/
 }
 
 // Binding JSB namespace so in JavaScript code JSB namespce can be recognized
 void register_jsb_soomla(JSContext *cx, JSObject *global){
-    jsval nsval;
+	JS::RootedValue nsval(cx);
     JSObject* ns;
-    JS_GetProperty(cx, global, "JS", &nsval);
+    JS_GetProperty(cx, global, "Soomla", &nsval);
 
     if (nsval == JSVAL_VOID) {
         ns = JS_NewObject(cx, NULL, NULL, NULL);
         nsval = OBJECT_TO_JSVAL(ns);
-        JS_SetProperty(cx, global, "Soomla", &nsval);
+        JS_SetProperty(cx, global, "Soomla", nsval);
     }
     else{
-        JS_ValueToObject(cx, nsval, &ns);
+		ns = JSVAL_TO_OBJECT(nsval);
     }
     global = ns;
     js_register(cx, global);
