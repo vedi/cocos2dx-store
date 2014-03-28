@@ -44,7 +44,7 @@ JSBool js_callNative(JSContext* cx, uint32_t argc, jsval* vp){
 }
 
 JSBool js_constructor(JSContext* cx, uint32_t argc, jsval* vp){
-    cocos2d::CCLog("JS Constructor...");
+    cocos2d::log("JS Constructor...");
     if (argc == 0) {
         Soomla::JSBinding* cobj = new Soomla::JSBinding();
         cocos2d::Ref* ccobj = dynamic_cast<cocos2d::Ref*>(cobj);

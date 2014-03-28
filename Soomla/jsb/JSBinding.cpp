@@ -15,47 +15,47 @@ using namespace cocos2d;
 void Soomla::JSBinding::callNative(const char *params, std::string &result) {
     result.assign(params);
 
-    //CCLog("callNative: in >> %s", params);
+    //cocos2d::log("callNative: in >> %s", params);
 
     json_error_t error;
     json_t *root;
     root = json_loads(params, 0, &error);
 
     if (!root) {
-        CCLog("error: at line #%d: %s", error.line, error.text);
+        cocos2d::log("error: at line #%d: %s", error.line, error.text);
         return;
     }
 
     cocos2d::Ref *dataToPass = CCSoomlaJsonHelper::getCCObjectFromJson(root);
-    CCDictionary *dictToPass = dynamic_cast<CCDictionary *>(dataToPass);
+    __Dictionary *dictToPass = dynamic_cast<__Dictionary *>(dataToPass);
     CC_ASSERT(dictToPass);
 
     soomla::CCSoomlaError *soomlaError = NULL;
-    CCDictionary *retParams = (CCDictionary *) soomla::CCSoomlaNdkBridge::callNative(dictToPass, &soomlaError);
+    __Dictionary *retParams = (__Dictionary *) soomla::CCSoomlaNdkBridge::callNative(dictToPass, &soomlaError);
 
-    CCDictionary *resultParams = CCDictionary::create();
+    __Dictionary *resultParams = __Dictionary::create();
     if (soomlaError != NULL) {
-        retParams = CCDictionary::create();
-        retParams->setObject(CCInteger::create(soomlaError->getCode()), "code");
-        retParams->setObject(CCString::create(soomlaError->getInfo()), "info");
+        retParams = __Dictionary::create();
+        retParams->setObject(__Integer::create(soomlaError->getCode()), "code");
+        retParams->setObject(__String::create(soomlaError->getInfo()), "info");
 
-        resultParams->setObject(CCBool::create(false), "success");
+        resultParams->setObject(__Bool::create(false), "success");
     } else {
-        resultParams->setObject(CCBool::create(true), "success");
+        resultParams->setObject(__Bool::create(true), "success");
     }
     resultParams->setObject(retParams, "result");
 
     root = CCSoomlaJsonHelper::getJsonFromCCObject(resultParams);
     char *dump = json_dumps(root, JSON_COMPACT | JSON_ENSURE_ASCII);
-    //CCLog("callNative: out >> %s", dump);
+    //cocos2d::log("callNative: out >> %s", dump);
     result = dump;
     free(dump);
 }
 
-void Soomla::JSBinding::callCallback(CCDictionary *params) {
+void Soomla::JSBinding::callCallback(__Dictionary *params) {
     json_t *root = CCSoomlaJsonHelper::getJsonFromCCObject(params);
     char *dump = json_dumps(root, JSON_COMPACT | JSON_ENSURE_ASCII);
-    //CCLog("callCallback: in >> %s", dump);
+    //cocos2d::log("callCallback: in >> %s", dump);
 
     std::string jsonParams = dump;
     free(dump);

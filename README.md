@@ -68,16 +68,16 @@ The example projects are still under development but they already have some impo
 
 1. Create your own implementation of `CCIStoreAssets` that will represent the assets in your specific game ([Refer to cocos2dx-store-example for an example.](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)).
 
-1. Initialize `CCStoreController` with your assets class, and a `CCDictionary` containing various parameters for it:
+1. Initialize `CCStoreController` with your assets class, and a `Dictionary` containing various parameters for it:
 
     ```cpp
-    CCDictionary *storeParams = CCDictionary::create();
+    Dictionary *storeParams = Dictionary::create();
     storeParams->
-        setObject(CCString::create("ExampleSoomSecret"), "soomSec");
+        setObject(String::create("ExampleSoomSecret"), "soomSec");
     storeParams->
-        setObject(CCString::create("ExamplePublicKey"), "androidPublicKey");
+        setObject(String::create("ExamplePublicKey"), "androidPublicKey");
     storeParams->
-        setObject(CCString::create("ExampleCustomSecret"), "customSecret");
+        setObject(String::create("ExampleCustomSecret"), "customSecret");
         
     soomla::CCStoreController::createShared(YourStoreAssetsImplementation::create(), storeParams);
     ```
@@ -273,18 +273,18 @@ Lets say you have a `CCVirtualCurrencyPack` you want to call `TEN_COINS_PACK` an
 #define TEN_COIN_PACK_PRODUCT_ID    "10_coins_pack"  // this is the product id from the developer console
 	
 CCVirtualCurrency *COIN_CURRENCY = CCVirtualCurrency::create(
-	CCString::create("COIN_CURRECY"),
-	CCString::create(""),
-	CCString::create(COIN_CURRENCY_ITEM_ID)
+	String::create("COIN_CURRECY"),
+	String::create(""),
+	String::create(COIN_CURRENCY_ITEM_ID)
 );
 		
 CCVirtualCurrencyPack *TEN_COIN_PACK = CCVirtualCurrencyPack::create(
-	CCString::create("10 Coins"),
-	CCString::create("A pack of 10 coins"),
-	CCString::create(TEN_COIN_PACK_ITEM_ID),
-	CCInteger::create(10),
-	CCString::create(COIN_CURRENCY_ITEM_ID),
-	CCPurchaseWithMarket::create(CCString::create(TEN_COIN_PACK_PRODUCT_ID), CCDouble::create(0.99))
+	String::create("10 Coins"),
+	String::create("A pack of 10 coins"),
+	String::create(TEN_COIN_PACK_ITEM_ID),
+	Integer::create(10),
+	String::create(COIN_CURRENCY_ITEM_ID),
+	CCPurchaseWithMarket::create(String::create(TEN_COIN_PACK_PRODUCT_ID), Double::create(0.99))
 );
 ```
 
@@ -501,7 +501,7 @@ All you need to do is let cocos2dx-store know you want to verify purchases. You 
 
 C++
 ```cpp
-storeParams->setObject(CCBool::create(true), "SSV);
+storeParams->setObject(Bool::create(true), "SSV");
 CCStoreController::createShared(assets, storeParams);
 ```
 

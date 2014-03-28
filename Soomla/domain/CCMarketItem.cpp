@@ -9,21 +9,21 @@ USING_NS_CC;
 
 namespace soomla {
 
-    CCMarketItem *CCMarketItem::create(CCString *productId, CCInteger *consumable, CCDouble *price) {
+    CCMarketItem *CCMarketItem::create(__String *productId, __Integer *consumable, __Double *price) {
         CCMarketItem *ret = new CCMarketItem();
         ret->autorelease();
         ret->init(productId, consumable, price);
         return ret;
     }
 
-    CCMarketItem *CCMarketItem::createWithDictionary(CCDictionary *dict) {
+    CCMarketItem *CCMarketItem::createWithDictionary(__Dictionary *dict) {
         CCMarketItem *ret = new CCMarketItem();
         ret->autorelease();
         ret->initWithDictionary(dict);
         return ret;
     }
 
-    bool CCMarketItem::init(CCString *productId, CCInteger *consumable, CCDouble *price) {
+    bool CCMarketItem::init(__String *productId, __Integer *consumable, __Double *price) {
         setProductId(productId);
         setConsumable(consumable);
         setPrice(price);
@@ -31,7 +31,7 @@ namespace soomla {
         return true;
     }
 
-    bool CCMarketItem::initWithDictionary(CCDictionary *dict) {
+    bool CCMarketItem::initWithDictionary(__Dictionary *dict) {
         fillProductIdFromDict(dict);
         fillConsumableFromDict(dict);
         fillPriceFromDict(dict);
@@ -45,8 +45,8 @@ namespace soomla {
         CC_SAFE_RELEASE(mPrice);
     }
 
-    CCDictionary *CCMarketItem::toDictionary() {
-        CCDictionary *dict = CCDictionary::create();
+    __Dictionary *CCMarketItem::toDictionary() {
+        __Dictionary *dict = __Dictionary::create();
 
         putProductIdToDict(dict);
         putConsumableToDict(dict);
