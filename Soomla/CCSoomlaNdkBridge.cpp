@@ -8,7 +8,7 @@
 USING_NS_CC;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    #include "../cocos2dx/platform/android/jni/JniHelper.h"
+    #include "platform/android/jni/JniHelper.h"
     #include <jni.h>
     #include <string>
     #include "CCSoomla.h"
@@ -46,20 +46,20 @@ namespace soomla {
                     return;
                 }
 
-            cocos2d::CCObject *dataToPass = CCSoomlaJsonHelper::getCCObjectFromJson(root);
+            cocos2d::Ref *dataToPass = CCSoomlaJsonHelper::getCCObjectFromJson(root);
 
 #ifdef COCOS2D_JAVASCRIPT
-            Soomla::JSBinding::callCallback((cocos2d::CCDictionary *) dataToPass);
+            Soomla::JSBinding::callCallback((cocos2d::__Dictionary *) dataToPass);
 #else
-            CCSoomla::sharedSoomla()->easyNDKCallBack((cocos2d::CCDictionary *)dataToPass);
+            CCSoomla::sharedSoomla()->easyNDKCallBack((cocos2d::__Dictionary *)dataToPass);
 #endif
 
             json_decref(root);
         }
 #endif
 
-        cocos2d::CCObject *CCSoomlaNdkBridge::callNative(cocos2d::CCDictionary *params, CCSoomlaError **pError) {
-            cocos2d::CCDictionary *methodParams = params;
+        cocos2d::Ref *CCSoomlaNdkBridge::callNative(cocos2d::__Dictionary *params, CCSoomlaError **pError) {
+            cocos2d::__Dictionary *methodParams = params;
 
             json_t *toBeSentJson = CCSoomlaJsonHelper::getJsonFromCCObject(methodParams);
             json_t *retJsonParams = NULL;
@@ -93,7 +93,7 @@ namespace soomla {
 
                 if (!retJsonParams) {
                     fprintf(stderr, "error: at line #%d: %s\n", error.line, error.text);
-                    return CCDictionary::create();
+                    return __Dictionary::create();
                 }
             }
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -101,7 +101,7 @@ namespace soomla {
 #endif
 
             json_decref(toBeSentJson);
-            CCObject *retParams = CCSoomlaJsonHelper::getCCObjectFromJson(retJsonParams);
+            Ref *retParams = CCSoomlaJsonHelper::getCCObjectFromJson(retJsonParams);
 
             if (retJsonParams) {
                 json_decref(retJsonParams);

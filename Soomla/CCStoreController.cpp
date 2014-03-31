@@ -9,6 +9,9 @@
 #include "data/CCStoreInfo.h"
 #include "CCSoomlaError.h"
 
+using namespace cocos2d;
+typedef DictElement CCDictElement;
+
 namespace soomla {
     #define TAG "SOOMLA StoreController"
 
@@ -20,7 +23,7 @@ namespace soomla {
         return s_SharedStoreController;
     }
 
-    void CCStoreController::createShared(CCIStoreAssets *storeAssets, CCDictionary *storeParams) {
+    void CCStoreController::createShared(CCIStoreAssets *storeAssets, __Dictionary *storeParams) {
         CCStoreController *ret = new CCStoreController();
         if (ret->init(storeAssets, storeParams)) {
             s_SharedStoreController = ret;
@@ -38,21 +41,21 @@ namespace soomla {
 
     }
 
-    bool CCStoreController::init(CCIStoreAssets *storeAssets, CCDictionary *storeParams) {
-        CCString *customSecret = dynamic_cast<CCString *>(storeParams->objectForKey("customSecret"));
-        CCString *soomSec = dynamic_cast<CCString *>(storeParams->objectForKey("soomSec"));
+    bool CCStoreController::init(CCIStoreAssets *storeAssets, __Dictionary *storeParams) {
+        __String *customSecret = dynamic_cast<__String *>(storeParams->objectForKey("customSecret"));
+        __String *soomSec = dynamic_cast<__String *>(storeParams->objectForKey("soomSec"));
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        CCString *androidPublicKey = dynamic_cast<CCString *>(storeParams->objectForKey("androidPublicKey"));
+        __String *androidPublicKey = dynamic_cast<__String *>(storeParams->objectForKey("androidPublicKey"));
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-        CCBool *SSV = dynamic_cast<CCBool *>(storeParams->objectForKey("SSV"));
+        __Bool *SSV = dynamic_cast<__Bool *>(storeParams->objectForKey("SSV"));
 #endif
 
-        if (customSecret == NULL) customSecret = CCString::create("");
-        if (soomSec      == NULL) soomSec      = CCString::create("");
+        if (customSecret == NULL) customSecret = __String::create("");
+        if (soomSec      == NULL) soomSec      = __String::create("");
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        if (androidPublicKey == NULL) androidPublicKey = CCString::create("");
+        if (androidPublicKey == NULL) androidPublicKey = __String::create("");
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-        if (SSV == NULL) SSV = CCBool::create(false);
+        if (SSV == NULL) SSV = __Bool::create(false);
 #endif
 
         // Redundancy checking. Most JS libraries don't do this. I hate it when they don't do this. Do this.
@@ -67,8 +70,8 @@ namespace soomla {
 #endif
                   key.compare("customSecret") == 0 ||
                   key.compare("soomSec")      == 0 )) {
-                CCString *message =
-                    CCString::createWithFormat("WARNING!! Possible typo in member of storeParams: %s", key.c_str());
+                __String *message =
+                    __String::createWithFormat("WARNING!! Possible typo in member of storeParams: %s", key.c_str());
                 CCStoreUtils::logError(TAG, message->getCString());
             }
         }
@@ -98,24 +101,24 @@ namespace soomla {
         }
 
         {
-            CCDictionary *params = CCDictionary::create();
-            params->setObject(CCString::create("CCStoreController::setAndroidPublicKey"), "method");
+            __Dictionary *params = __Dictionary::create();
+            params->setObject(__String::create("CCStoreController::setAndroidPublicKey"), "method");
             params->setObject(androidPublicKey, "androidPublicKey");
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
 #endif
 
         {
-            CCDictionary *params = CCDictionary::create();
-            params->setObject(CCString::create("CCStoreController::setSoomSec"), "method");
+            __Dictionary *params = __Dictionary::create();
+            params->setObject(__String::create("CCStoreController::setSoomSec"), "method");
             params->setObject(soomSec, "soomSec");
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         {
-            CCDictionary *params = CCDictionary::create();
-            params->setObject(CCString::create("CCStoreController::setSSV"), "method");
+            __Dictionary *params = __Dictionary::create();
+            params->setObject(__String::create("CCStoreController::setSSV"), "method");
             params->setObject(SSV, "ssv");
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
@@ -124,8 +127,8 @@ namespace soomla {
         CCStoreInfo::createShared(storeAssets);
 
         {
-            CCDictionary *params = CCDictionary::create();
-            params->setObject(CCString::create("CCStoreController::init"), "method");
+            __Dictionary *params = __Dictionary::create();
+            params->setObject(__String::create("CCStoreController::init"), "method");
             params->setObject(customSecret, "customSecret");
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
             params->setObject(androidPublicKey, "androidPublicKey");
@@ -142,38 +145,38 @@ namespace soomla {
     }
 
     void CCStoreController::buyMarketItem(const char *productId, CCSoomlaError **soomlaError) {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCStoreController::buyMarketItem"), "method");
-        params->setObject(CCString::create(productId), "productId");
+        __Dictionary *params = __Dictionary::create();
+        params->setObject(__String::create("CCStoreController::buyMarketItem"), "method");
+        params->setObject(__String::create(productId), "productId");
         CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 
     void CCStoreController::restoreTransactions() {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCStoreController::restoreTransactions"), "method");
+        __Dictionary *params = __Dictionary::create();
+        params->setObject(__String::create("CCStoreController::restoreTransactions"), "method");
         CCSoomlaNdkBridge::callNative(params, NULL);
     }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     bool CCStoreController::transactionsAlreadyRestored() {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCStoreController::transactionsAlreadyRestored"), "method");
-        CCDictionary *retParams = (CCDictionary *) CCSoomlaNdkBridge::callNative(params, NULL);
-        CCBool *retValue = (CCBool *) retParams->objectForKey("return");
+        __Dictionary *params = __Dictionary::create();
+        params->setObject(__String::create("CCStoreController::transactionsAlreadyRestored"), "method");
+        __Dictionary *retParams = (__Dictionary *) CCSoomlaNdkBridge::callNative(params, NULL);
+        __Bool *retValue = (__Bool *) retParams->objectForKey("return");
         return retValue->getValue();
     }
 #endif
 	
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     void CCStoreController::startIabServiceInBg() {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCStoreController::startIabServiceInBg"), "method");
+        __Dictionary *params = __Dictionary::create();
+        params->setObject(__String::create("CCStoreController::startIabServiceInBg"), "method");
         CCSoomlaNdkBridge::callNative(params, NULL);
     }
 
     void CCStoreController::stopIabServiceInBg() {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCStoreController::stopIabServiceInBg"), "method");
+        __Dictionary *params = __Dictionary::create();
+        params->setObject(__String::create("CCStoreController::stopIabServiceInBg"), "method");
         CCSoomlaNdkBridge::callNative(params, NULL);
     }
 #endif

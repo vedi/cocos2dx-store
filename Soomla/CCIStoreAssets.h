@@ -4,7 +4,7 @@
 
 
 
-#include "cocos2d.h"
+#include "CCArray.h"
 
 #ifndef __CCIStoreAssets_H_
 #define __CCIStoreAssets_H_
@@ -21,34 +21,34 @@ namespace soomla {
         virtual int getVersion() = 0;
 
 		/**
-		   This function should return a Array containing all of your game's
+		   This function should return an Array containing all of your game's
 		   currencies.
 		 */
-        virtual cocos2d::Array *getCurrencies() = 0;
+        virtual cocos2d::__Array *getCurrencies() = 0;
 
 		/**
-		   This function should return a Array containing all of your game's
+		   This function should return an Array containing all of your game's
 		   goods.
 		*/
-        virtual cocos2d::Array *getGoods() = 0;
+        virtual cocos2d::__Array *getGoods() = 0;
 
 		/**
-		   This function should return a Array containing all of your game's
+		   This function should return an Array containing all of your game's
 		   currency packs.
 		*/
-        virtual cocos2d::Array *getCurrencyPacks() = 0;
+        virtual cocos2d::__Array *getCurrencyPacks() = 0;
 
 		/**
-		   This function should return a Array containing all of your game's
+		   This function should return an Array containing all of your game's
 		   virtual categories.
 		*/
-        virtual cocos2d::Array *getCategories() = 0;
+        virtual cocos2d::__Array *getCategories() = 0;
 
 		/**
-		   This function should return a Array containing all of your game's
+		   This function should return an Array containing all of your game's
 		   non consumable items.
 		*/
-        virtual cocos2d::Array *getNonConsumableItems() = 0;
+        virtual cocos2d::__Array *getNonConsumableItems() = 0;
     };
 };
 
