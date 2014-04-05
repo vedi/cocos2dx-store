@@ -29,6 +29,8 @@ public:
 	static bool transactionsAlreadyRestored();
     static void setSoomSec(string soomSec);
     static void setSSV(bool ssv);
+    static void refreshMarketItemsDetails();
+    static void refreshInventory();
 };
 
 #endif /* defined(__StoreControllerBridge__) */

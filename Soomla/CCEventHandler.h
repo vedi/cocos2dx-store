@@ -42,14 +42,15 @@ namespace soomla {
         virtual void onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
         virtual void onItemPurchaseStarted(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
         virtual void onMarketPurchaseCancelled(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
-        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
+        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *receiptUrl) = 0;
         virtual void onMarketPurchaseStarted(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
         virtual void onMarketPurchaseVerification(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
-        virtual void onRestoreTransactions(bool success) = 0;
+        virtual void onRestoreTransactionsFinished(bool success) = 0;
         virtual void onRestoreTransactionsStarted() = 0;
         virtual void onUnexpectedErrorInStore() = 0;
 		virtual void onStoreControllerInitialized() = 0;
-		
+        virtual void onMarketItemsRefreshed() = 0;
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         virtual void onMarketRefund(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
 		virtual void onIabServiceStarted() = 0;

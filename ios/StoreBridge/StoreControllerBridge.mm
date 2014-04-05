@@ -23,7 +23,7 @@
 #import "PurchasableVirtualItem.h"
 #import "StoreInfo.h"
 #import "PurchaseWithMarket.h"
-#import "AppStoreItem.h"
+#import "MarketItem.h"
 #import "StoreConfig.h"
 #import "StoreUtils.h"
 
@@ -37,7 +37,7 @@ void StoreControllerBridge::buyMarketItem(NSString *productId)  {
     @try {
         PurchasableVirtualItem* pvi = [[StoreInfo getInstance] purchasableItemWithProductId:productId];
         if ([pvi.purchaseType isKindOfClass:[PurchaseWithMarket class]]) {
-            [[StoreController getInstance] buyInAppStoreWithAppStoreItem:((PurchaseWithMarket*)pvi.purchaseType).appStoreItem];
+            [[StoreController getInstance] buyInMarketWithMarketItem:((PurchaseWithMarket*)pvi.purchaseType).marketItem];
         } else {
             @throw [[VirtualItemNotFoundException alloc] initWithLookupField:@"productId" andLookupValue:productId];
         }
@@ -55,6 +55,14 @@ bool StoreControllerBridge::transactionsAlreadyRestored() {
     return [[StoreController getInstance] transactionsAlreadyRestored];
 }
 
+void StoreControllerBridge::refreshMarketItemsDetails() {
+    [[StoreController getInstance] refreshMarketItemsDetails];
+}
+
+void StoreControllerBridge::refreshInventory() {
+    [[StoreController getInstance] refreshInventory];
+}
+
 void StoreControllerBridge::setSoomSec(string soomSec) {
     if (SOOM_SEC) {
         [SOOM_SEC release];
@@ -66,10 +74,3 @@ void StoreControllerBridge::setSSV(bool ssv) {
     LogDebug(@"SOOMLA StoreControllerBridge", ([NSString stringWithFormat:@"Setting iOS SSV to: %@", ssv?@"true":@"false"]));
     VERIFY_PURCHASES = ssv;
 }
-
-
-
-
-
-
-

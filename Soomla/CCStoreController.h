@@ -52,12 +52,15 @@ namespace soomla {
 		 */
         void restoreTransactions();
 
+        void refreshInventory();
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 		/**
 		   Find out if the user restored his transactions.
 		   \return Whether or not the user restored his transactions.
 		*/		
         bool transactionsAlreadyRestored();
+        void refreshMarketItemsDetails(CCSoomlaError **soomlaError);
 #endif
 		
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
