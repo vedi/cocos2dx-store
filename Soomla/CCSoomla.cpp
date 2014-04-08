@@ -1,8 +1,8 @@
 #include "CCSoomla.h"
 #include "data/CCStoreInfo.h"
 #include "CCStoreUtils.h"
-#include "CCMarketItem.h"
-#include "CCPurchaseWithMarket.h"
+#include "domain/CCMarketItem.h"
+#include "PurchaseTypes/CCPurchaseWithMarket.h"
 
 namespace soomla {
 
@@ -234,8 +234,7 @@ namespace soomla {
         else if (methodName->compare("CCEventHandler::onMarketItemsRefreshed") == 0) {
             CCArray *marketItems = (CCArray *)(parameters->objectForKey("marketItems"));
 
-            CCSoomlaError **err;
-            CCObject *obj;
+            CCSoomlaError *soomlaError;
             CCDictionary *marketItem;
             for (unsigned int i = 0; i < marketItems->count(); i++) {
                 marketItem = dynamic_cast<CCDictionary *>(marketItems->objectAtIndex(i));
@@ -246,8 +245,11 @@ namespace soomla {
                 CCString *marketDescription = dynamic_cast<CCString *>(marketItem->objectForKey("market_desc"));
 
                 CCPurchasableVirtualItem *pvi = CCStoreInfo::sharedStoreInfo()->getPurchasableItemWithProductId(
-                        productId->getCString(), err);
-                CC_ASSERT(err);
+                        productId->getCString(), &soomlaError);
+                if (soomlaError) {
+                    CCStoreUtils::logException("CCEventHandler::onMarketItemsRefreshed", soomlaError);
+                    return;
+                }
                 CC_ASSERT(pvi);
 
                 CCPurchaseWithMarket *purchaseWithMarket = dynamic_cast<CCPurchaseWithMarket *>(pvi->getPurchaseType());
