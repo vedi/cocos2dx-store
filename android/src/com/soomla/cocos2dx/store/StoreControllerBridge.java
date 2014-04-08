@@ -46,11 +46,11 @@ public class StoreControllerBridge {
         StoreController.getInstance().stopIabServiceInBg();
     }
 
-    public static void buyWithGooglePlay(String productId) throws VirtualItemNotFoundException {
-        StoreUtils.LogDebug("SOOMLA", "buyWithGooglePlay is called from java with productId: " + productId + "!");
+    public static void buyWithMarket(String productId) throws VirtualItemNotFoundException {
+        StoreUtils.LogDebug("SOOMLA", "buyWithMarket is called from java with productId: " + productId + "!");
         PurchasableVirtualItem pvi = StoreInfo.getPurchasableItem(productId);
         if(pvi.getPurchaseType() instanceof PurchaseWithMarket) {
-            StoreController.getInstance().buyWithGooglePlay(((PurchaseWithMarket)pvi.getPurchaseType()).getGoogleMarketItem(), "");
+            StoreController.getInstance().buyWithMarket(((PurchaseWithMarket)pvi.getPurchaseType()).getMarketItem(), "");
         } else {
             throw new VirtualItemNotFoundException("productId", productId);
         }
@@ -58,7 +58,7 @@ public class StoreControllerBridge {
 
     public static void restoreTransactions() {
         StoreUtils.LogDebug("SOOMLA", "restoreTransactions is called from java!");
-        StoreController.getInstance().restoreTransactions();
+        StoreController.getInstance().refreshInventory(false);
     }
 
     public static boolean transactionsAlreadyRestored() {
@@ -81,6 +81,11 @@ public class StoreControllerBridge {
     public static void setAndroidPublicKey(String publicKey) {
         StoreUtils.LogDebug("SOOMLA", "setAndroidPublicKey is called from java!");
         mPublicKey = publicKey;
+    }
+
+    public static void refreshInventory() {
+        StoreUtils.LogDebug("SOOMLA", "refreshInventory is called from java!");
+        StoreController.getInstance().refreshInventory(true);
     }
 
     private static String TAG = "StoreControllerBridge";

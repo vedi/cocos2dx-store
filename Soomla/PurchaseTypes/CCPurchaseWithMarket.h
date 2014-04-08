@@ -1,9 +1,6 @@
 //
 // Created by Fedor Shubin on 5/19/13.
 //
-
-
-
 #ifndef __PurchaseWithMarketX_H_
 #define __PurchaseWithMarketX_H_
 

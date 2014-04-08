@@ -157,6 +157,12 @@ namespace soomla {
         CCSoomlaNdkBridge::callNative(params, NULL);
     }
 
+    void CCStoreController::refreshInventory() {
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreController::refreshInventory"), "method");
+        CCSoomlaNdkBridge::callNative(params, NULL);
+    }
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     bool CCStoreController::transactionsAlreadyRestored() {
         __Dictionary *params = __Dictionary::create();
@@ -164,6 +170,12 @@ namespace soomla {
         __Dictionary *retParams = (__Dictionary *) CCSoomlaNdkBridge::callNative(params, NULL);
         __Bool *retValue = (__Bool *) retParams->objectForKey("return");
         return retValue->getValue();
+    }
+
+    void CCStoreController::refreshMarketItemsDetails(CCSoomlaError **soomlaError) {
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreController::refreshMarketItemsDetails"), "method");
+        CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 #endif
 	

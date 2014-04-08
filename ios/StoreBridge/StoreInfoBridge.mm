@@ -19,7 +19,7 @@
 #import "VirtualGood.h"
 #import "StoreInfo.h"
 #import "UpgradeVG.h"
-#import "AppStoreItem.h"
+#import "MarketItem.h"
 #import "VirtualItemNotFoundException.h"
 #import "PurchasableVirtualItem.h"
 #import "PurchaseWithMarket.h"

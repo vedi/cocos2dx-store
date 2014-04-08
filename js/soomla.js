@@ -45,7 +45,10 @@ Soomla = new function () {
   var MarketItem = Soomla.Models.MarketItem = declareClass("MarketItem", {
     productId: null,
     consumable: null,
-    price: null
+    price: null,
+    marketPrice: null,
+    marketTitle: null,
+    marketDescription: null
   });
   MarketItem.Consumable = {
     NONCONSUMABLE: 0,
@@ -311,13 +314,14 @@ Soomla = new function () {
     onItemPurchased: function(purchasableVirtualItem) {},
     onItemPurchaseStarted: function(purchasableVirtualItem) {},
     onMarketPurchaseCancelled: function(purchasableVirtualItem) {},
-    onMarketPurchase: function(purchasableVirtualItem) {},
+    onMarketPurchase: function(purchasableVirtualItem, receiptUrl) {},
     onMarketPurchaseStarted: function(purchasableVirtualItem) {},
     onMarketPurchaseVerification: function(purchasableVirtualItem) {},
-    onRestoreTransactions: function(success) {},
     onRestoreTransactionsStarted: function() {},
+    onRestoreTransactionsFinished: function(success) {},
     onUnexpectedErrorInStore: function() {},
     onStoreControllerInitialized: function() {},
+    onMarketItemsRefreshed: function() {},
     // For Android only
     onMarketRefund: function(purchasableVirtualItem) {},
     onIabServiceStarted: function() {},
@@ -420,9 +424,10 @@ Soomla = new function () {
       }
       else if (methodName == "CCEventHandler::onMarketPurchase") {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
+        var receiptUrl = parameters.receiptUrl;
         _.forEach(Soomla.eventHandlers, function (eventHandler) {
           if (eventHandler.onMarketPurchase) {
-            eventHandler.onMarketPurchase(purchasableVirtualItem);
+            eventHandler.onMarketPurchase(purchasableVirtualItem, receiptUrl);
           }
         });
       }
@@ -434,6 +439,30 @@ Soomla = new function () {
           }
         });
       }
+      else if (methodName == "CCEventHandler::onMarketItemsRefreshed") {
+        var marketItems = parameters.marketItems;
+        _.forEach(marketItems, function(marketItem) {
+          var productId = marketItem.productId;
+          var marketPrice = marketItem.market_price;
+          var marketTitle = marketItem.market_title;
+          var marketDescription = marketItem.market_desc;
+
+          var pvi = Soomla.storeInfo.getPurchasableItemWithProductId(productId);
+
+          var purchaseWithMarket = pvi.purchaseType;
+          var mi = purchaseWithMarket.marketItem;
+
+          mi.marketPrice        = marketPrice;
+          mi.marketTitle        = marketTitle;
+          mi.marketDescription  = marketDescription;
+        });
+
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onMarketPurchaseCancelled) {
+            eventHandler.onMarketItemsRefreshed();
+          }
+        });
+      }
       else if (methodName == "CCEventHandler::onMarketPurchaseVerification") {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
         _.forEach(Soomla.eventHandlers, function (eventHandler) {
@@ -442,10 +471,10 @@ Soomla = new function () {
           }
         });
       }
-      else if (methodName == "CCEventHandler::onRestoreTransactions") {
+      else if (methodName == "CCEventHandler::onRestoreTransactionsFinished") {
         _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onRestoreTransactions) {
-            eventHandler.onRestoreTransactions(parameters.success);
+          if (eventHandler.onRestoreTransactionsFinished) {
+            eventHandler.onRestoreTransactionsFinished(parameters.success);
           }
         });
       }
@@ -576,12 +605,22 @@ Soomla = new function () {
         method: "CCStoreController::restoreTransactions"
       });
     },
+    refreshInventory: function() {
+      callNative({
+        method: "CCStoreController::refreshInventory"
+      });
+    },
     // TODO: For iOS only
     transactionsAlreadyRestored: function() {
       var retParams = callNative({
         method: "CCStoreController::transactionsAlreadyRestored"
       });
       return retParams.return;
+    },
+    refreshMarketItemsDetails: function() {
+      callNative({
+        method: "CCStoreController::refreshMarketItemsDetails"
+      });
     },
     // TODO: For Android only
     startIabServiceInBg: function() {
