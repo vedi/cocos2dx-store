@@ -1,9 +1,11 @@
 package com.soomla.cocos2dx.store;
 
 import com.soomla.store.BusProvider;
+import com.soomla.store.domain.MarketItem;
 import com.soomla.store.events.*;
 import com.squareup.otto.Subscribe;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -209,14 +211,14 @@ public class EventHandlerBridge {
     }
 
     @Subscribe
-    public void onPlayPurchaseCancelled(final PlayPurchaseCancelledEvent playPurchaseCancelledEvent) {
+    public void onMarketPurchaseCancelled(final MarketPurchaseCancelledEvent marketPurchaseCancelledEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCEventHandler::onMarketPurchaseCancelled");
-                    parameters.put("itemId", playPurchaseCancelledEvent.getPurchasableVirtualItem().getItemId());
+                    parameters.put("itemId", marketPurchaseCancelledEvent.getPurchasableVirtualItem().getItemId());
                     SoomlaNDKGlue.sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
@@ -226,14 +228,15 @@ public class EventHandlerBridge {
     }
 
     @Subscribe
-    public void onPlayPurchase(final PlayPurchaseEvent playPurchaseEvent) {
+    public void onMarketPurchase(final MarketPurchaseEvent marketPurchaseEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCEventHandler::onMarketPurchase");
-                    parameters.put("itemId", playPurchaseEvent.getPurchasableVirtualItem().getItemId());
+                    parameters.put("itemId", marketPurchaseEvent.getPurchasableVirtualItem().getItemId());
+                    parameters.put("receiptUrl", marketPurchaseEvent.getPurchasableVirtualItem().getItemId());
                     SoomlaNDKGlue.sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
@@ -243,14 +246,14 @@ public class EventHandlerBridge {
     }
 
     @Subscribe
-    public void onPlayPurchaseStarted(final PlayPurchaseStartedEvent playPurchaseStartedEvent) {
+    public void onMarketPurchaseStarted(final MarketPurchaseStartedEvent marketPurchaseStartedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCEventHandler::onMarketPurchaseStarted");
-                    parameters.put("itemId", playPurchaseStartedEvent.getPurchasableVirtualItem().getItemId());
+                    parameters.put("itemId", marketPurchaseStartedEvent.getPurchasableVirtualItem().getItemId());
                     SoomlaNDKGlue.sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
@@ -260,7 +263,28 @@ public class EventHandlerBridge {
     }
 
     @Subscribe
-    public void onPlayRefund(final PlayRefundEvent playRefundEvent) {
+    public void onMarketItemsRefreshed(final MarketItemsRefreshed marketItemsRefreshed) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONArray marketItemsJson = new JSONArray();
+                    for (MarketItem marketItem : marketItemsRefreshed.getMarketItems()) {
+                        marketItemsJson.put(marketItem.toJSONObject());
+                    }
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCEventHandler::onMarketItemsRefreshed");
+                    parameters.put("marketItems", marketItemsJson);
+                    SoomlaNDKGlue.sendMessageWithParameters(parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    @Subscribe
+    public void onMarketRefund(final MarketRefundEvent playRefundEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
@@ -277,13 +301,13 @@ public class EventHandlerBridge {
     }
 
     @Subscribe
-    public void onRestoreTransactions(final RestoreTransactionsEvent restoreTransactionsEvent) {
+    public void onRestoreTransactionsFinished(final RestoreTransactionsFinishedEvent restoreTransactionsEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
-                    parameters.put("method", "CCEventHandler::onRestoreTransactions");
+                    parameters.put("method", "CCEventHandler::onRestoreTransactionsFinished");
                     parameters.put("success", restoreTransactionsEvent.isSuccess());
                     SoomlaNDKGlue.sendMessageWithParameters(parameters);
                 } catch (JSONException e) {

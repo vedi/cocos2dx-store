@@ -12,7 +12,7 @@
 #import "EventHandling.h"
 #import "CCEventHandler.h"
 #import "VirtualCurrencyPack.h"
-#import "AppStoreItem.h"
+#import "MarketItem.h"
 #import "VirtualGood.h"
 #import "VirtualCurrency.h"
 #import "UpgradeVG.h"

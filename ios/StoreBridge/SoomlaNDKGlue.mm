@@ -20,6 +20,7 @@
 #import "CCSoomlaNdkBridgeIos.h"
 #import "StoreUtils.h"
 #include "jansson.h"
+#import "MarketItem.h"
 
 static EventDispatcherBridge *eventDispatcherBridge = [EventDispatcherBridge sharedInstance];
 
@@ -56,6 +57,9 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
             bool res = StoreControllerBridge::transactionsAlreadyRestored();
             [retParameters setObject:[NSNumber numberWithBool:res] forKey:@"return"];
         }
+        else if ([methodName isEqualToString:@"CCStoreController::refreshInventory"]) {
+            StoreControllerBridge::refreshInventory();
+        }
         else if ([methodName isEqualToString:@"CCStoreController::setSoomSec"]) {
             NSString *soomSec = (NSString *) [parameters objectForKey:@"soomSec"];
             StoreControllerBridge::setSoomSec([soomSec UTF8String]);
@@ -63,6 +67,9 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
         else if ([methodName isEqualToString:@"CCStoreController::setSSV"]) {
             bool ssv = [(NSNumber*)[parameters objectForKey:@"ssv"] boolValue];
             StoreControllerBridge::setSSV(ssv);
+        }
+        else if ([methodName isEqualToString:@"CCStoreController::refreshMarketItemsDetails"]) {
+            StoreControllerBridge::refreshMarketItemsDetails();
         }
         else if ([methodName isEqualToString:@"CCStoreInventory::buyItem"]) {
             NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
@@ -178,7 +185,7 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
             [retParameters setObject: retObj forKey: @"return"];
         }
         else {
-	    LogError(TAG, ([NSString stringWithFormat:@"Unsupported method %@", methodName]));
+            LogError(TAG, ([NSString stringWithFormat:@"Unsupported method %@", methodName]));
         }
     }
     @catch (VirtualItemNotFoundException* e) {
@@ -240,32 +247,43 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
         [parameters setObject:@"CCEventHandler::onItemPurchaseStarted" forKey:@"method"];
         [parameters setObject:[pvi itemId] forKey:@"itemId"];
     }
-    else if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASE_CANCELLED]) {
+    else if ([notification.name isEqualToString:EVENT_MARKET_PURCHASE_CANCELLED]) {
         PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
         [parameters setObject:@"CCEventHandler::onMarketPurchaseCancelled" forKey:@"method"];
         [parameters setObject:[pvi itemId] forKey:@"itemId"];
     }
-    else if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASED]) {
+    else if ([notification.name isEqualToString:EVENT_MARKET_PURCHASED]) {
         PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        NSURL *url = [notification.userInfo objectForKey:DICT_ELEMENT_RECEIPT];
         [parameters setObject:@"CCEventHandler::onMarketPurchase" forKey:@"method"];
         [parameters setObject:[pvi itemId] forKey:@"itemId"];
+        [parameters setObject:[url absoluteString] forKey:@"receiptUrl"];
     }
-    else if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASE_STARTED]) {
+    else if ([notification.name isEqualToString:EVENT_MARKET_PURCHASE_STARTED]) {
         PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
         [parameters setObject:@"CCEventHandler::onMarketPurchaseStarted" forKey:@"method"];
         [parameters setObject:[pvi itemId] forKey:@"itemId"];
     }
-    else if ([notification.name isEqualToString:EVENT_APPSTORE_PURCHASE_VERIF]) {
+    else if ([notification.name isEqualToString:EVENT_MARKET_ITEMS_REFRESHED]) {
+        NSArray* marketItems = (NSArray*)[notification.userInfo objectForKey:DICT_ELEMENT_MARKET_ITEMS];
+        NSMutableArray* jsonArr = [NSMutableArray array];
+        for (MarketItem* mi in marketItems) {
+            [jsonArr addObject:[mi toDictionary]];
+        }
+        [parameters setObject:@"CCEventHandler::onMarketItemsRefreshed" forKey:@"method"];
+        [parameters setObject: jsonArr forKey:@"marketItems"];
+    }
+    else if ([notification.name isEqualToString:EVENT_MARKET_PURCHASE_VERIF]) {
         PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
         [parameters setObject:@"CCEventHandler::onMarketPurchaseVerification" forKey:@"method"];
         [parameters setObject:[pvi itemId] forKey:@"itemId"];
     }
-    else if ([notification.name isEqualToString:EVENT_TRANSACTION_RESTORED]) {
+    else if ([notification.name isEqualToString:EVENT_RESTORE_TRANSACTIONS_FINISHED]) {
         BOOL success = [(NSNumber*)[notification.userInfo objectForKey:DICT_ELEMENT_SUCCESS] boolValue];
-        [parameters setObject:@"CCEventHandler::onRestoreTransactions" forKey:@"method"];
+        [parameters setObject:@"CCEventHandler::onRestoreTransactionsFinished" forKey:@"method"];
         [parameters setObject: [NSNumber numberWithBool: success] forKey:@"success"];
     }
-    else if ([notification.name isEqualToString:EVENT_TRANSACTION_RESTORE_STARTED]) {
+    else if ([notification.name isEqualToString:EVENT_RESTORE_TRANSACTIONS_STARTED]) {
         [parameters setObject:@"CCEventHandler::onRestoreTransactionsStarted" forKey:@"method"];
     }
     else if ([notification.name isEqualToString:EVENT_UNEXPECTED_ERROR_IN_STORE]) {

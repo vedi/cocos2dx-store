@@ -15,6 +15,8 @@ Soomla.storeInventory.buyItem("[itemId]");
 
 # cocos2dx-store
 
+**April 8, 2014**: Add new events from native stores.
+
 **February 4, 2014**: Added support for js-bindings.
 
 **December 1, 2013**: Android in-app billing has been updated to use Google's in-app billing version 3.
@@ -177,18 +179,8 @@ If you're building your application for the Android platform, here are some inst
 1. Add the following to your classpath:
     - **extensions/cocos2dx-store/android/src**
     - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/src**  (the android-store submodule should be there because your cloned cocos2dx-store with the `--recursive` flag).
+    - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/submodules/android-store-google-play/src**  (the android-store-google-play submodule should be there because your cloned cocos2dx-store with the `--recursive` flag).
     - **extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/libs/square-otto-1.3.2.jar**
-    
-    You can do that in your IDE or use our script `./setup-android.sh` if you prefer to build with `ant`. Please, put `target` as a param to the script, for example:
-    ```
-    ./setup-android.sh android-17
-    ```
-
-    And after completing the script add dependencies to `project.properties` file of your project, adding the lines:    
-    ```
-    android.library.reference.2=../../../extensions/cocos2dx-store/android/
-    android.library.reference.3=../../../extensions/cocos2dx-store/submodules/android-store/SoomlaAndroidStore/
-    ```
 
 1. Update your manifest to include these permissions, SoomlaApp and IabActivity:
 

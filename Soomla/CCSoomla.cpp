@@ -1,6 +1,8 @@
 #include "CCSoomla.h"
 #include "data/CCStoreInfo.h"
 #include "CCStoreUtils.h"
+#include "domain/CCMarketItem.h"
+#include "PurchaseTypes/CCPurchaseWithMarket.h"
 
 namespace soomla {
 
@@ -205,11 +207,12 @@ namespace soomla {
                 CCStoreUtils::logException("CCEventHandler::onMarketPurchase", soomlaError);
                 return;
             }
+            CCString *receiptUrl = (CCString *)(parameters->objectForKey("receiptUrl"));
             CC_ASSERT(purchasableVirtualItem);
 			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
 				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
-				h->onMarketPurchase(purchasableVirtualItem);
+                h->onMarketPurchase(purchasableVirtualItem, receiptUrl);
 			}
         }
         else if (methodName->compare("CCEventHandler::onMarketPurchaseStarted") == 0) {
@@ -228,6 +231,41 @@ namespace soomla {
 				h->onMarketPurchaseStarted(purchasableVirtualItem);
 			}
         }
+        else if (methodName->compare("CCEventHandler::onMarketItemsRefreshed") == 0) {
+            CCArray *marketItems = (CCArray *)(parameters->objectForKey("marketItems"));
+
+            CCSoomlaError *soomlaError;
+            CCDictionary *marketItem;
+            for (unsigned int i = 0; i < marketItems->count(); i++) {
+                marketItem = dynamic_cast<CCDictionary *>(marketItems->objectAtIndex(i));
+                CC_ASSERT(marketItem);
+                CCString *productId = dynamic_cast<CCString *>(marketItem->objectForKey("productId"));
+                CCDouble *marketPrice = dynamic_cast<CCDouble *>(marketItem->objectForKey("market_price"));
+                CCString *marketTitle = dynamic_cast<CCString *>(marketItem->objectForKey("market_title"));
+                CCString *marketDescription = dynamic_cast<CCString *>(marketItem->objectForKey("market_desc"));
+
+                CCPurchasableVirtualItem *pvi = CCStoreInfo::sharedStoreInfo()->getPurchasableItemWithProductId(
+                        productId->getCString(), &soomlaError);
+                if (soomlaError) {
+                    CCStoreUtils::logException("CCEventHandler::onMarketItemsRefreshed", soomlaError);
+                    return;
+                }
+                CC_ASSERT(pvi);
+
+                CCPurchaseWithMarket *purchaseWithMarket = dynamic_cast<CCPurchaseWithMarket *>(pvi->getPurchaseType());
+                CC_ASSERT(purchaseWithMarket);
+                CCMarketItem *mi = purchaseWithMarket->getMarketItem();
+                mi->setMarketPrice(marketPrice);
+                mi->setMarketTitle(marketTitle);
+                mi->setMarketDescription(marketDescription);
+            }
+
+            CCSetIterator i;
+            for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
+                CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
+                h->onMarketItemsRefreshed();
+            }
+        }
         else if (methodName->compare("CCEventHandler::onMarketPurchaseVerification") == 0) {
             CCString *itemId = (CCString *)(parameters->objectForKey("itemId"));
             CCSoomlaError *soomlaError = NULL;
@@ -244,12 +282,12 @@ namespace soomla {
                 h->onMarketPurchaseVerification(purchasableVirtualItem);
             }
         }
-        else if (methodName->compare("CCEventHandler::onRestoreTransactions") == 0) {
+        else if (methodName->compare("CCEventHandler::onRestoreTransactionsFinished") == 0) {
             CCBool *success = (CCBool *)(parameters->objectForKey("success"));
 			CCSetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
 				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
-				h->onRestoreTransactions(success->getValue());
+                h->onRestoreTransactionsFinished(success->getValue());
 			}
         }
         else if (methodName->compare("CCEventHandler::onRestoreTransactionsStarted") == 0) {
