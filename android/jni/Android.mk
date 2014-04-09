@@ -68,7 +68,7 @@ LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/PurchaseTypes
 
 include $(BUILD_STATIC_LIBRARY)
 
-$(call import-module,../jansson)
+$(call import-module,external/jansson)
 
 ifneq '$(COCOS2D_JAVASCRIPT)' ''
 $(call import-module,spidermonkey/prebuilt/android)
