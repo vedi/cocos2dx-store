@@ -15,6 +15,8 @@ Soomla.storeInventory.buyItem("[itemId]");
 
 # cocos2dx-store
 
+**April 9, 2014**: Complete upgrading to cocos2d-x v3.
+
 **April 8, 2014**: Add new events from native stores.
 
 **February 4, 2014**: Added support for js-bindings.
@@ -25,7 +27,7 @@ Soomla.storeInventory.buyItem("[itemId]");
 
 **October 27, 2013**: cocos2dx-store has been updated since its last version. Everything has been rewritten from scratch and is much more Cocos2d-x friendly. cocos2dx-store allows your Cocos2d-x game to use SOOMLA's in app purchasing services and storage. cocos2dx-store has also been updated to use the third version of our economy model: modelV3.
 
-> cocos2dx-store currently supports all Cocos2d-x 2.x versions. Support for version 3.x (alpha) is experimental.
+> cocos2dx-store currently supports all Cocos2d-x 3.x, and 2.x versions. At the moment code related to v2 is in `master` branch, v3 is in `cocos2dx-v3` branch.
 
 The current virtual economy model is called **modelV3**. Want to learn more about it? Try these links:
 * [Economy Model Objects](https://github.com/soomla/cocos2dx-store/wiki/Economy-Model-Objects)
