@@ -1,10 +1,10 @@
 package com.soomla.cocos2dx.store;
 
+import android.opengl.GLSurfaceView;
 import com.soomla.store.BusProvider;
 import com.soomla.store.domain.MarketItem;
 import com.soomla.store.events.*;
 import com.squareup.otto.Subscribe;
-import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,9 +14,9 @@ import org.json.JSONObject;
  */
 public class EventHandlerBridge {
 
-    private Cocos2dxGLSurfaceView mGLThread;
+    private GLSurfaceView mGLThread;
 
-    public EventHandlerBridge(Cocos2dxGLSurfaceView glThread) {
+    public EventHandlerBridge(GLSurfaceView glThread) {
         mGLThread = glThread;
 
         BusProvider.getInstance().register(this);

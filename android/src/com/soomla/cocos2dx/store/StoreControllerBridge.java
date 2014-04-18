@@ -1,11 +1,14 @@
 package com.soomla.cocos2dx.store;
 
-import com.soomla.store.*;
+import android.opengl.GLSurfaceView;
+import com.soomla.store.IStoreAssets;
+import com.soomla.store.StoreConfig;
+import com.soomla.store.StoreController;
+import com.soomla.store.StoreUtils;
 import com.soomla.store.data.StoreInfo;
 import com.soomla.store.domain.PurchasableVirtualItem;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 import com.soomla.store.purchaseTypes.PurchaseWithMarket;
-import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 /**
  * This bridge is used to let cocos2dx functions perform actions on StoreController (through JNI).
@@ -16,13 +19,13 @@ public class StoreControllerBridge {
     private static IStoreAssets mStoreAssets   = null;
     private static String mPublicKey           = "";
     private static EventHandlerBridge mEventHandler = null;
-    private static Cocos2dxGLSurfaceView mGLView = null;
+    private static GLSurfaceView mGLView = null;
 
-    public static void setGLView(Cocos2dxGLSurfaceView glView) {
+    public static void setGLView(GLSurfaceView glView) {
         mGLView = glView;
     }
 
-    public static Cocos2dxGLSurfaceView getGLView() {
+    public static GLSurfaceView getGLView() {
         return mGLView;
     }
 
