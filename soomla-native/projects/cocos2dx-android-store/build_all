@@ -1,0 +1,5 @@
+set -e
+
+source ./gradlew
+
+# echo OK
