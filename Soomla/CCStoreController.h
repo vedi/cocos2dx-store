@@ -17,6 +17,7 @@ namespace soomla {
 		access the native StoreController functionality.
 	 */
     class CCStoreController: public cocos2d::CCObject {
+        CC_SYNTHESIZE_RETAIN(cocos2d::CCString *, mSoomSec, SoomSec);
     public:
 		/**
 		   This class is singleton, use this function to access it.
@@ -34,11 +35,13 @@ namespace soomla {
              "androidPublicKey": CCString - Your Android public key.
              "SSV": CCBool - Whether or not to enable server side verification of purchases.
 		 */
-        static void createShared(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
+        static void initShared(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
 
         CCStoreController(void);
         virtual ~CCStoreController(void);
         virtual bool init(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
+
+        virtual void setupSoomSec();
 
 		/**
 		   Buy an item from the App Store or Google Play.
@@ -58,11 +61,11 @@ namespace soomla {
 		/**
 		   Find out if the user restored his transactions.
 		   \return Whether or not the user restored his transactions.
-		*/		
+		*/
         bool transactionsAlreadyRestored();
         void refreshMarketItemsDetails(CCSoomlaError **soomlaError);
 #endif
-		
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 		void startIabServiceInBg();
 		void stopIabServiceInBg();
