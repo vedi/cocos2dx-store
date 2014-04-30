@@ -32,7 +32,20 @@ namespace soomla {
     }
 
     bool CCMarketItem::initWithDictionary(CCDictionary *dict) {
-        fillProductIdFromDict(dict);
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+        char const* key = JSON_MARKETITEM_ANDROID_ID;
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        char const* key = JSON_MARKETITEM_IOS_ID;
+#endif
+        cocos2d::CCObject* obj = dict->objectForKey(key);
+        CCAssert(obj == NULL || dynamic_cast<CCString *>(obj), "invalid object type in dictionary");
+        setProductId((CCString *)obj);
+
+        if (mProductId == NULL) {
+            fillProductIdFromDict(dict);
+        }
+
         fillConsumableFromDict(dict);
         fillPriceFromDict(dict);
 
