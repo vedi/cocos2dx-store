@@ -28,6 +28,9 @@ namespace soomla {
     char const* JSON_CATEGORY_GOODSITEMIDS    = "goods_itemIds";
     
     char const* JSON_MARKETITEM_PRODUCT_ID    = "productId";
+    char const* JSON_MARKETITEM_ANDROID_ID    = "androidId";
+    char const* JSON_MARKETITEM_IOS_ID        = "iosId";
+
     char const* JSON_MARKETITEM_CONSUMABLE    = "consumable";
     char const* JSON_MARKETITEM_PRICE         = "price";
     
