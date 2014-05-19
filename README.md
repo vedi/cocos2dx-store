@@ -522,7 +522,14 @@ Additionally to debug logging of C++ part you can enable debug logging in cocos2
 
 We want you!
 
-Fork -> Clone -> Implement -> Test -> Pull-Request. We have great RESPECT for contributors.
+Fork -> Clone -> Implement -> Insert Comments -> Test -> Pull-Request. 
+
+We have great RESPECT for contributors.
+
+## Code Documentation
+
+
+android-store follows strict code documentation conventions. If you would like to contribute please read our [Documentation Guidelines](https://github.com/soomla/cocos2dx-store/blob/master/documentation.md) and follow them. Clear, consistent  comments will make our code easy to understand.
 
 
 ## SOOMLA, Elsewhere ...
