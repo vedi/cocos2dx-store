@@ -1,6 +1,20 @@
-//
-// Created by Fedor Shubin on 5/20/13.
-//
+/*
+ Copyright (C) 2012-2014 Soomla Inc.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+// Created by Fedor Shubin on 5/19/13.
 
 #ifndef __CCStoreUtils_H_
 #define __CCStoreUtils_H_
@@ -12,11 +26,11 @@
 #endif
 
 namespace soomla {
-	/** \class CCStoreUtils
-		\brief This class handles printing of error and debug messages.
+	/** 
+     \class CCStoreUtils
+     \brief This class handles printing of error and debug messages.
 
-		This class handles printing of error and debug messages. Debug messages
-		are only printed it SOOMLA_DEBUG is set to 'true'.
+     This class handles printing of error and debug messages.
 	 */
     class CCStoreUtils {
     public:

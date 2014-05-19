@@ -1,8 +1,20 @@
-//
+/*
+ Copyright (C) 2012-2014 Soomla Inc.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
 // Created by Fedor Shubin on 5/19/13.
-//
-
-
 
 #ifndef __MarketItemX_H_
 #define __MarketItemX_H_
@@ -12,10 +24,14 @@
 #include "../data/SoomlaJSONConsts.h"
 
 namespace soomla {
-	/** \class CCMarketItem
-		\brief An item you can purchase in the App Store or in Google Play.
+	/** 
+     \class CCMarketItem
+     \brief An item you can purchase in the App Store or in Google Play.
 
-		An item you can purchase in the App Store or in Google Play.
+     This class represents an item in the App Store, Google Play, etc...
+     Every `CCPurchasableVirtualItem` with `CCPurchaseType` of 
+     `CCPurchaseWithMarket`
+     has an instance of this class.
 	 */
     class CCMarketItem : public cocos2d::CCObject {
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mProductId, ProductId, JSON_MARKETITEM_PRODUCT_ID);
@@ -33,18 +49,19 @@ namespace soomla {
         CCMarketItem(): mProductId(NULL), mConsumable(NULL), mPrice(NULL), mMarketPrice(NULL), mMarketTitle(NULL), mMarketDescription(NULL) {};
 
 		/**
-		   Create a CCMarketItem.
-		   \param productId The item's ID in the native store.
-		   \param consumable Whether or not the item is consumable.
-		   \param price The price of the item, in USD.
-		   \return The item.
+         Creates a `CCMarketItem`.
+         \param productId The item's id in the native store.
+         \param consumable Whether or not the item is consumable.
+         \param price The price of the item, in USD.
+         \return The Market item.
 		 */
         static CCMarketItem *create(cocos2d::CCString *productId, cocos2d::CCInteger *consumable, cocos2d::CCDouble * price);
 
 		/**
-		   Create a CCMarketItem from a dictionary.
-		   \param dict A dictionary containing keys for the item's product ID, price and consumable status.
-		   \return The item.
+         Creates a `CCMarketItem` from a dictionary.
+         \param dict A dictionary containing keys for the item's product id,
+                price and consumable status.
+         \return The Market item.
 		*/
 		static CCMarketItem *createWithDictionary(cocos2d::CCDictionary* dict);
 
@@ -53,6 +70,10 @@ namespace soomla {
 
         virtual ~CCMarketItem();
 
+        /**
+         Converts this `CCMarketItem` to a `CCDictionary`.
+         \return `CCDictionary` representation of this `CCMarketItem`.
+         */
         virtual cocos2d::CCDictionary* toDictionary();
     };
 };

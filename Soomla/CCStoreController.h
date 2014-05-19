@@ -1,6 +1,20 @@
-//
-// Created by Fedor Shubin on 5/20/13.
-//
+/*
+ Copyright (C) 2012-2014 Soomla Inc.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+// Created by Fedor Shubin on 5/21/13.
 
 #ifndef __CCStoreController_H_
 #define __CCStoreController_H_
@@ -10,48 +24,56 @@
 #include "CCSoomlaError.h"
 
 namespace soomla {
-	/** \class CCStoreController
-		\brief An interface to the native StoreController class.
-
-		An interface to the native StoreController class, use this class to
-		access the native StoreController functionality.
+	/** 
+     \class CCStoreController
+     \brief An interface to the native StoreController class.
+     
+     An interface to the native StoreController class, use this class to
+     access the native StoreController functionality. This class holds the most 
+     basic assets needed to operate the Store.
 	 */
     class CCStoreController: public cocos2d::CCObject {
     public:
 		/**
-		   This class is singleton, use this function to access it.
+         This class is singleton, use this function to access it.
 		*/
         static CCStoreController* sharedStoreController();
 
 		/**
-		   Initialize StoreController on native side and allow using its
-		   functions.
-           \param storeAssets An instance of your store's assets class.
-           \param storeParams A CCDictionary containing parameters for CCStoreController (These were previously found in CCSoomla).
-             This dictionary can contain the following:
-             "soomSec": CCString - The value of the primary encryption key.
-             "customSecret": CCString - The value of the secondary encryption key.
-             "androidPublicKey": CCString - Your Android public key.
-             "SSV": CCBool - Whether or not to enable server side verification of purchases.
+         Initializes StoreController on native side and allows using its
+         functions.
+         \param storeAssets An instance of your store's assets class.
+         \param storeParams A CCDictionary containing parameters for 
+                CCStoreController (These were previously found in CCSoomla).
+                This dictionary can contain the following:
+                "soomSec": CCString - The value of the primary encryption key.
+                "customSecret": CCString - The value of the secondary encryption 
+                    key.
+                "androidPublicKey": CCString - Your Android public key.
+                "SSV": CCBool - Whether or not to enable server side 
+                    verification of purchases.
 		 */
         static void createShared(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
 
         CCStoreController(void);
+        
         virtual ~CCStoreController(void);
+        
         virtual bool init(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
 
 		/**
-		   Buy an item from the App Store or Google Play.
+         Buy an item from the App Store or Google Play.
 		   \param productId The Product ID of the item in the App Store or Google Play
 		   \param soomlaError A CCSoomlaError for error checking.
 		 */
         void buyMarketItem(char const *productId, CCSoomlaError **soomlaError);
 
 		/**
-		   Restore this user's previous transactions.
+         Restore this user's previous transactions.
 		 */
         void restoreTransactions();
 
+        
         void refreshInventory();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -60,11 +82,14 @@ namespace soomla {
 		   \return Whether or not the user restored his transactions.
 		*/		
         bool transactionsAlreadyRestored();
+        
         void refreshMarketItemsDetails(CCSoomlaError **soomlaError);
 #endif
 		
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+        
 		void startIabServiceInBg();
+        
 		void stopIabServiceInBg();
 #endif
     };
