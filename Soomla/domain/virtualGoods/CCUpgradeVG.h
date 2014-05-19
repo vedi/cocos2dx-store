@@ -51,9 +51,11 @@ namespace soomla {
      CCPurchasableVirtualItem > CCVirtualItem
      */
     class CCUpgradeVG : public CCVirtualGood {
+        
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mGoodItemId, GoodItemId, JSON_VGU_GOOD_ITEMID);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mPrevItemId, PrevItemId, JSON_VGU_PREV_ITEMID);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mNextItemId, NextItemId, JSON_VGU_NEXT_ITEMID);
+    
     public:
         
 	CCUpgradeVG(): CCVirtualGood(), mGoodItemId(NULL), mPrevItemId(NULL), mNextItemId(NULL) {};
@@ -75,7 +77,10 @@ namespace soomla {
 		static CCUpgradeVG *create(cocos2d::CCString* goodItemId, cocos2d::CCString* prevItemId, cocos2d::CCString* nextItemId,
 								   cocos2d::CCString* name, cocos2d::CCString* description,
 								   cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-
+        bool init(cocos2d::CCString* goodItemId, cocos2d::CCString* prevItemId, cocos2d::CCString* nextItemId,
+                  cocos2d::CCString* name, cocos2d::CCString* description,
+                  cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
+        
 		/** 
          Creates a `CCUpgradeVG` from a dictionary.
          \param dict A dictionary containing keys to each of the parameters
@@ -83,11 +88,6 @@ namespace soomla {
          \return The Upgrade virtual good.
 		*/
 		static CCUpgradeVG *createWithDictionary(cocos2d::CCDictionary *dict);
-      
-        bool init(cocos2d::CCString* goodItemId, cocos2d::CCString* prevItemId, cocos2d::CCString* nextItemId,
-                cocos2d::CCString* name, cocos2d::CCString* description,
-                cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-        
         bool initWithDictionary(cocos2d::CCDictionary *dict);
 
         /**
@@ -96,6 +96,9 @@ namespace soomla {
          */
         cocos2d::CCDictionary *toDictionary();
 
+        /**
+         Destructor.
+         */
         virtual ~CCUpgradeVG();
     };
 };

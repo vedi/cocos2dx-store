@@ -32,15 +32,17 @@ namespace soomla {
 	 */
     class CCPurchaseType : public cocos2d::CCObject {
     public:
-        
-        
         CCPurchaseType() {}
         
+        /**
+         Creates a purchase type.
+         */
+        static CCPurchaseType * create();
         virtual bool init();
         
-        
-        static CCPurchaseType * create();
-        
+        /**
+         Destructor.
+         */
         virtual ~CCPurchaseType();
     };
     

@@ -37,6 +37,7 @@ namespace soomla {
     class CCPurchaseWithVirtualItem : public CCPurchaseType {
         CC_SYNTHESIZE_RETAIN(cocos2d::CCString *, mItemId, ItemId);
         CC_SYNTHESIZE_RETAIN(cocos2d::CCInteger *, mAmount, Amount);
+    
     public:
         CCPurchaseWithVirtualItem(): mItemId(NULL), mAmount(NULL) {}
 
@@ -49,9 +50,11 @@ namespace soomla {
          \return The purchase with virtual item type.
 		*/
         static CCPurchaseWithVirtualItem * create(cocos2d::CCString *itemId, cocos2d::CCInteger *amount);
-
         virtual bool init(cocos2d::CCString *itemId, cocos2d::CCInteger *amount);
-
+        
+        /**
+         Destructor.
+         */
         virtual ~CCPurchaseWithVirtualItem();
     };
 

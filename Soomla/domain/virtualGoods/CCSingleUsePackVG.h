@@ -45,39 +45,37 @@ namespace soomla {
      Inheritance: CCSingleUsePackVG > CCVirtualGood > CCPurchasableVirtualItem >
      CCVirtualItem
      */
-
-	*/
     class CCSingleUsePackVG : public CCVirtualGood {
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mGoodItemId, GoodItemId, JSON_VGP_GOOD_ITEMID);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCInteger *, mGoodAmount, GoodAmount, JSON_VGP_GOOD_AMOUNT);
     public:
         CCSingleUsePackVG(): CCVirtualGood(), mGoodItemId(NULL), mGoodAmount(NULL) {};
-        static CCSingleUsePackVG *create(cocos2d::CCString* goodItemId, cocos2d::CCInteger* goodAmount,
-                cocos2d::CCString* name, cocos2d::CCString* description,
-                cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-        static CCSingleUsePackVG *createWithDictionary(cocos2d::CCDictionary *dict);
-
-		/**
+        
+        /**
          Creates a `CCSingleUsePackVG`.
-         \param goodItemId The `CCSingleUseVG` associated with this pack - Must
-                be a `CCSingleUseVG` item id!
-         \param goodAmount The number of the `CCSingleUseVG`s in the pack.
+         \param goodItemId The item id of the Single Use item associated with 
+                this Pack.
+         \param goodAmount The amount of Single Use items in the Pack.
          \param name see parent.
          \param description see parent.
          \param itemId see parent.
          \param purchaseType see parent.
-         \return The pack.
-		*/
+         \return The Sinlge Use Pack good.
+         */
+        static CCSingleUsePackVG *create(cocos2d::CCString* goodItemId, cocos2d::CCInteger* goodAmount,
+                cocos2d::CCString* name, cocos2d::CCString* description,
+                cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
         bool init(cocos2d::CCString* goodItemId, cocos2d::CCInteger* goodAmount,
 				  cocos2d::CCString* name, cocos2d::CCString* description,
 				  cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-
-		/**
+        
+        /**
          Creates a `CCSingleUsePackVG` from a dictionary.
-         \param dict A dictionary containing keys to each of the parameters 
+         \param dict A dictionary containing keys to each of the parameters
                 required by the create function.
-         \return The Single Use Pack virtual good.
-		*/
+         \return The Sinlge Use Pack good.
+         */
+        static CCSingleUsePackVG *createWithDictionary(cocos2d::CCDictionary *dict);
         bool initWithDictionary(cocos2d::CCDictionary *dict);
 
         /**
@@ -86,6 +84,9 @@ namespace soomla {
          */
         cocos2d::CCDictionary *toDictionary();
 
+        /**
+         Destructor. 
+         */
         virtual ~CCSingleUsePackVG();
     };
 };

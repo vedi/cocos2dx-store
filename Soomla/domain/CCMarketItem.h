@@ -26,12 +26,11 @@
 namespace soomla {
 	/** 
      \class CCMarketItem
-     \brief An item you can purchase in the App Store or in Google Play.
+     \brief An item you can purchase in the market (App Store, Google Play...).
 
-     This class represents an item in the App Store, Google Play, etc...
+     This class represents an item in the market (App Store, Google Play...).
      Every `CCPurchasableVirtualItem` with `CCPurchaseType` of 
-     `CCPurchaseWithMarket`
-     has an instance of this class.
+     `CCPurchaseWithMarket` has an instance of this class.
 	 */
     class CCMarketItem : public cocos2d::CCObject {
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mProductId, ProductId, JSON_MARKETITEM_PRODUCT_ID);
@@ -40,7 +39,13 @@ namespace soomla {
         CC_SYNTHESIZE_RETAIN(cocos2d::CCDouble *, mMarketPrice, MarketPrice);
         CC_SYNTHESIZE_RETAIN(cocos2d::CCString *, mMarketTitle, MarketTitle);
         CC_SYNTHESIZE_RETAIN(cocos2d::CCString *, mMarketDescription, MarketDescription);
+   
     public:
+        
+        /**
+         Every item offered in the market (App Store, Google Play...) has one 
+         of the five following purchase types.
+         */
         enum Consumable {
             NONCONSUMABLE,
             CONSUMABLE,
@@ -56,6 +61,7 @@ namespace soomla {
          \return The Market item.
 		 */
         static CCMarketItem *create(cocos2d::CCString *productId, cocos2d::CCInteger *consumable, cocos2d::CCDouble * price);
+        bool init(cocos2d::CCString *productId, cocos2d::CCInteger *consumable, cocos2d::CCDouble * price);
 
 		/**
          Creates a `CCMarketItem` from a dictionary.
@@ -64,10 +70,11 @@ namespace soomla {
          \return The Market item.
 		*/
 		static CCMarketItem *createWithDictionary(cocos2d::CCDictionary* dict);
-
-        bool init(cocos2d::CCString *productId, cocos2d::CCInteger *consumable, cocos2d::CCDouble * price);
         virtual bool initWithDictionary(cocos2d::CCDictionary* dict);
 
+        /**
+         Destructor.
+         */
         virtual ~CCMarketItem();
 
         /**

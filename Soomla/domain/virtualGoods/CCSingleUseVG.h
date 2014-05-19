@@ -30,14 +30,11 @@ namespace soomla {
      \brief A consumable virtual good.
      
      SingleUse virtual goods are the most common type of `VirtualGood`.
-     
      The `CCSingleUseVG`'s characteristics are:
      1. Can be purchased an unlimited number of times.
      2. Has a balance that is saved in the database. Its balance goes up when
         you `give` it or `buy` it. The balance goes down when you `take` it.
-     
      Real Game Examples: 'Hat', 'Sword', 'Muffin'
-     
      NOTE: In case you want this item to be available for purchase with real $$
      you'll need to define it in the Market (Google Play, App Store, etc...).
      
@@ -45,6 +42,7 @@ namespace soomla {
      VirtualItem
      */
     class CCSingleUseVG : public CCVirtualGood {
+    
     public:
 		/**
          Creates a `CCSingleUseVG`.

@@ -34,8 +34,10 @@ namespace soomla {
      Inheritance: CCVirtualGood > CCPurchasableVirtualItem > CCVirtualItem
      */
     class CCVirtualGood : public CCPurchasableVirtualItem {
+    
     public:
-		/**
+		
+        /**
 		   Creates a `CCVirtualGood`.
 		   \param name see parent.
 		   \param description see parent.

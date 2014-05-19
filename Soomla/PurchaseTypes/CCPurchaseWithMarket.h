@@ -36,23 +36,25 @@ namespace soomla {
     public:
         CCPurchaseWithMarket(): mMarketItem(NULL) {};
 
-		/** 
-			Creates a `CCPurchaseWithMarket`.
-			\param productId The product id of the item in the native store.
-			\param price The price of the item in the native store.
-			\return The purchase with market type.
+		/**
+         Creates a `CCPurchaseWithMarket`.
+         \param productId The product id of the item in the native store.
+         \param price The price of the item in the native store.
+         \return The purchase with market type.
 		 */
         static CCPurchaseWithMarket *create(cocos2d::CCString *productId, cocos2d::CCDouble *price);
 
 		/** 
-			Creates a `CCPurchaseWithMarket` from a `CCMarketItem`.
-			\param marketItem A `CCMarketItem` that represents this item.
-			\return The purchase with market type.
+         Creates a `CCPurchaseWithMarket` from a `CCMarketItem`.
+         \param marketItem A `CCMarketItem` that represents this item.
+         \return The purchase with market type.
 		 */
         static CCPurchaseWithMarket *createWithMarketItem(CCMarketItem *marketItem);
-        
         bool initWithMarketItem(CCMarketItem *marketItem);
 
+        /**
+         Destructor.
+         */
         ~CCPurchaseWithMarket();
     };
 };

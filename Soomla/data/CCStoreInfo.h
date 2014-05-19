@@ -46,8 +46,12 @@ namespace soomla {
 		*/
         static CCStoreInfo *sharedStoreInfo();
         
+        /**
+         Initializes `CCStoreInfo` on native side and allows using its
+         functions.
+         \param storeAssets An instance of your store's assets class.
+		 */
         static void createShared(CCIStoreAssets *storeAssets);
-        
         virtual bool init(CCIStoreAssets *storeAssets);
 
 		/**

@@ -39,6 +39,7 @@ namespace soomla {
 	*/
 
     class CCNonConsumableItem : public CCPurchasableVirtualItem {
+    
     public:
         CCNonConsumableItem(): CCPurchasableVirtualItem() {}
 

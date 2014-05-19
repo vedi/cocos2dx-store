@@ -23,7 +23,7 @@ USING_NS_CC;
 namespace soomla {
     #define JSON_ERROR_CODE "errorCode"
 
-    #define TAG "CCSoomlaError"
+    #define TAG "CCSoomlaError" // used for Log error messages
 
     CCSoomlaError *CCSoomlaError::createWithObject(cocos2d::CCObject *obj) {
         CCDictionary *dict = dynamic_cast<CCDictionary *>(obj);

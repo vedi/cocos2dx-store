@@ -35,23 +35,23 @@ namespace soomla {
     class CCStoreUtils {
     public:
 		/**
-		   Print a debug message.
-		   \param tag the message tag.
-		   \param message the message.
+         Prints a debug message.
+         \param tag The name of the class whose instance called this function.
+         \param message The debug message to output to log.
 		 */
         static void logDebug(const char *tag, const char *message);
 
 		/**
-		   Print an error message.
-		   \param tag the message tag.
-		   \param message the message.
+         Prints an error message.
+         \param tag The name of the class whose instance called this function.
+         \param message The error message to output to log.
 		*/
         static void logError(const char *tag, const char *message);
 
 		/**
-		   Print an exception message.
-		   \param tag the message tag.
-		   \param error A CCSoomlaError from which to extract the message.
+         Prints an exception message.
+         \param tag The name of the class whose instance called this function.
+         \param error A CCSoomlaError from which to extract the message.
 		*/
         static void logException(const char *tag, CCSoomlaError *error);
     };

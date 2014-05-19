@@ -42,13 +42,14 @@ namespace soomla {
         CCVirtualItem(): mName(NULL), mDescription(NULL), mItemId(NULL) {}
 
 		/**
-         Creates a `CCVirtualItem`.
+         Creates an instance of `CCVirtualItem`.
          \param name The item's name.
          \param description The item's description.
          \param itemId The item's itemId.
          \return The virtual item.
 		*/
         static CCVirtualItem * create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
+        virtual bool init(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
 
 		/**
          Creates a `CCVirtualItem` from a dictionary.
@@ -57,11 +58,11 @@ namespace soomla {
          \return The item.
 		*/
 		static CCVirtualItem * createWithDictionary(cocos2d::CCDictionary* dict);
-
-        virtual bool init(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
-        
         virtual bool initWithDictionary(cocos2d::CCDictionary* dict);
         
+        /**
+         Destructor
+         */
         virtual ~CCVirtualItem();
         
         /**
@@ -72,7 +73,5 @@ namespace soomla {
     };
     
 }
-
-
 
 #endif /* defined(__cocos2dx_store__VirtualItem__) */

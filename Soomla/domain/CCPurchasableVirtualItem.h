@@ -45,6 +45,7 @@ namespace soomla {
          \return The item.
 		*/
         static CCPurchasableVirtualItem * create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
+        virtual bool init(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
 
 		/**
          Creates a `CCPurchasableVirtualItem` from a dictionary.
@@ -53,12 +54,18 @@ namespace soomla {
          \return The purchasable virtual item.
 		*/
         static CCPurchasableVirtualItem * createWithDictionary(cocos2d::CCDictionary* dict);
-
-        virtual bool init(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
         virtual bool initWithDictionary(cocos2d::CCDictionary* dict);
         
+        /**
+         Converts this `CCPurchasableVirtualItem` to a `CCDictionary`.
+         \return `CCDictionary` representation of this 
+                `CCPurchasableVirtualItem`.
+         */
         virtual cocos2d::CCDictionary* toDictionary();
         
+        /**
+         Destructor 
+         */
         virtual ~CCPurchasableVirtualItem();
     };
 }

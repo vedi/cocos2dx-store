@@ -41,6 +41,7 @@ namespace soomla {
      CCVirtualItem
      */
     class CCLifetimeVG : public CCVirtualGood {
+    
     public:
         
 		/**

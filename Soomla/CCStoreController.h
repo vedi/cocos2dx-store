@@ -34,6 +34,7 @@ namespace soomla {
 	 */
     class CCStoreController: public cocos2d::CCObject {
     public:
+        
 		/**
          This class is singleton, use this function to access it.
 		*/
@@ -55,41 +56,63 @@ namespace soomla {
 		 */
         static void createShared(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
 
+        /**
+         Constructor.
+         */
         CCStoreController(void);
-        
-        virtual ~CCStoreController(void);
-        
         virtual bool init(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
+        
+        /**
+         Destructor.
+         */
+        virtual ~CCStoreController(void);
 
 		/**
-         Buy an item from the App Store or Google Play.
-		   \param productId The Product ID of the item in the App Store or Google Play
-		   \param soomlaError A CCSoomlaError for error checking.
+         Starts an in app purchase process in the market (App Store, Google 
+         Play, etc...).
+         \param productId The product ID of the item in the market (App Store, 
+                Google Play, etc..).
+         \param soomlaError A CCSoomlaError for error checking.
 		 */
         void buyMarketItem(char const *productId, CCSoomlaError **soomlaError);
 
 		/**
-         Restore this user's previous transactions.
+         Restores this user's previous transactions.
 		 */
         void restoreTransactions();
 
-        
+        /**
+         Creates a list of all metadata stored in the Market (the items that 
+         have been purchased). The metadata includes the item's name, 
+         description, price, product id, etc..
+         */
         void refreshInventory();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        
 		/**
-		   Find out if the user restored his transactions.
-		   \return Whether or not the user restored his transactions.
+         Checks if the user has already restored his transactions.
+         \return Whether or not the user restored his transactions.
 		*/		
         bool transactionsAlreadyRestored();
         
+        /**
+         Refreshes the details of all market-purchasable items that were defined 
+         in the market (App Store, Google Play, etc..).
+         */
         void refreshMarketItemsDetails(CCSoomlaError **soomlaError);
 #endif
 		
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         
+        /**
+         Starts the in-app billing service in background.
+         */
 		void startIabServiceInBg();
         
+        /**
+         Stops the in-app billing service in background.
+         */
 		void stopIabServiceInBg();
 #endif
     };

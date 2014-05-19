@@ -37,11 +37,16 @@ namespace soomla {
 		 */
         static CCStoreInventory* sharedStoreInventory();
         
+        /**
+         Constructor.
+         */
         CCStoreInventory(void);
-        
-        virtual ~CCStoreInventory(void);
-        
         virtual bool init();
+        
+        /**
+         Destructor. 
+         */
+        virtual ~CCStoreInventory(void);
 
 		/**
          Buys the item with the given `itemId`.
@@ -137,7 +142,7 @@ namespace soomla {
         int getGoodUpgradeLevel(const char *goodItemId, CCSoomlaError **soomlaError);
 
 		/**
-         Retrieves the `itemId` of the current upgrade of the virtual good with 
+         Retrieves the item id of the current upgrade of the virtual good with
          the given `goodItemId`.
          \param goodItemId Id of the virtual good whose upgrade id we want to
                 know. The `goodItemId` can be of any `CCVirtualGood`.

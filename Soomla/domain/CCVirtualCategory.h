@@ -46,6 +46,7 @@ namespace soomla {
          \return The virtual category.
 		 */
         static CCVirtualCategory *create(cocos2d::CCString *name, cocos2d::CCArray *goodItemIds);
+        bool init(cocos2d::CCString *name, cocos2d::CCArray *goodItemIds);
 
 		/**
          Creates a virtual category.
@@ -54,12 +55,17 @@ namespace soomla {
          \return The virtual category.
 		*/
 		static CCVirtualCategory *createWithDictionary(cocos2d::CCDictionary *dict);
-
-        bool init(cocos2d::CCString *name, cocos2d::CCArray *goodItemIds);
         bool initWithDictionary(cocos2d::CCDictionary *dict);
 
+        /**
+         Converts this `~CCVirtualCategory` to a `CCDictionary`.
+         \return `CCDictionary` representation of this `~CCVirtualCategory`.
+         */
         cocos2d::CCDictionary *toDictionary();
 
+        /**
+         Destructor 
+         */
         virtual ~CCVirtualCategory();
     };
 };

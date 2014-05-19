@@ -84,7 +84,8 @@ namespace soomla {
 
         SL_SYNTHESIZE_RETAIN_WITH_DICT_DCL(cocos2d::CCInteger *, mEquippingModel, EquippingModel);
     public:
-	CCEquippableVG(): CCLifetimeVG(), mEquippingModel(NULL) {};
+	
+        CCEquippableVG(): CCLifetimeVG(), mEquippingModel(NULL) {};
 
 		/**
          Creates a `CCEquippableVG`.
@@ -98,6 +99,8 @@ namespace soomla {
 		 */
         static CCEquippableVG *create(cocos2d::CCInteger *equippingModel, cocos2d::CCString* name, cocos2d::CCString* description,
 									  cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
+        bool init(cocos2d::CCInteger *equippingModel, cocos2d::CCString* name, cocos2d::CCString* description,
+                  cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
 
 		/**
          Creates a `CCEquippableVG` from a dictionary.
@@ -106,9 +109,6 @@ namespace soomla {
          \return The Equippable virtual good.
 		*/
         static CCEquippableVG *createWithDictionary(cocos2d::CCDictionary *dict);
-
-        bool init(cocos2d::CCInteger *equippingModel, cocos2d::CCString* name, cocos2d::CCString* description,
-                cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
         bool initWithDictionary(cocos2d::CCDictionary *dict);
 
         /**
@@ -117,6 +117,9 @@ namespace soomla {
          */
         cocos2d::CCDictionary *toDictionary();
 
+        /**
+         Destructor.
+         */
         virtual ~CCEquippableVG();
     };
 };
