@@ -48,7 +48,7 @@ namespace soomla {
      1. LOCAL: Say your game offers 3 weapons: a sword, a gun, and an axe
      (`LifetimeVG`s). Suppose your user has already bought all 3. These are
      euippables that do not affect one another - your user can “carry” the 
-     sword, gun, and axe at the same time if he chooses to!
+     sword, gun, and axe at the same time if he/she chooses to!
      
      2. CATEGORY: Suppose your game offers “shirts” and “hats”. Let’s say there 
      are 4 available shirts and 2 available hats, and your user has already 
@@ -58,8 +58,8 @@ namespace soomla {
      each category (shirts, hats)!
      
      3. GLOBAL: Suppose your game offers multiple characters (`CCLifetimeVGs`):
-     RobotX and RobotY. Let’s say your user has bought both. In other words he 
-     owns both characters and will own them forever (because they are 
+     RobotX and RobotY. Let’s say your user has bought both. In other words 
+     he/she owns both characters and will own them forever (because they are 
      `CCLifetimeVG`s). Your user can only play as (i.e. Equip) one character at a
      time, either RobotX or RobotY, but never both at the same time!
      

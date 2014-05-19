@@ -68,7 +68,7 @@ namespace soomla {
          Gives your user the given amount of the virtual item with the given 
          `itemId`.
          For example, when your user plays your game for the first time you GIVE 
-         him 1000 gems.
+         him/her 1000 gems.
          NOTE: This action is different than `buy` -
          You use `give` to give your user something for free.
          You use `buy` to give your user something and get something in return.
@@ -101,7 +101,7 @@ namespace soomla {
 
 		/**
          Unequips the virtual good with the given `goodItemId`. Unequipping 
-         means that the user decides to stop using the virtual good he is 
+         means that the user decides to stop using the virtual good he/she is 
          currently using. For more details and examples see `CCEquippableVG`.
          \param itemId The id of the virtual good to be unequipped. Id MUST
                 be of a `CCEquippableVG`.

@@ -91,8 +91,8 @@ namespace soomla {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         
 		/**
-         Checks if the user has already restored his transactions.
-         \return Whether or not the user restored his transactions.
+         Checks if the user has already restored his/her transactions.
+         \return Whether or not the user restored his/her transactions.
 		*/		
         bool transactionsAlreadyRestored();
         
