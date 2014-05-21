@@ -269,7 +269,14 @@ public class EventHandlerBridge {
             public void run() {
                 try {
                     JSONArray marketItemsJson = new JSONArray();
+                    JSONObject marketItemJson;
+
                     for (MarketItem marketItem : marketItemsRefreshed.getMarketItems()) {
+                        marketItemJson = new JSONObject();
+                        marketItemJson.put("productId", marketItem.getProductId());
+                        marketItemJson.put("marketPrice", marketItem.getMarketPrice());
+                        marketItemJson.put("marketTitle", marketItem.getMarketTitle());
+                        marketItemJson.put("marketDesc", marketItem.getMarketDescription());
                         marketItemsJson.put(marketItem.toJSONObject());
                     }
                     JSONObject parameters = new JSONObject();
