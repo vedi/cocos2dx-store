@@ -43,7 +43,7 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
         else if ([methodName isEqualToString:@"CCStoreController::init"]) {
             NSString *customSecret = (NSString *) [parameters objectForKey:@"customSecret"];
 
-	    [[StoreController getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]
+	        [[StoreController getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]
                                                      andCustomSecret:customSecret];
         }
         else if ([methodName isEqualToString:@"CCStoreController::buyMarketItem"]) {
@@ -267,8 +267,14 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
     else if ([notification.name isEqualToString:EVENT_MARKET_ITEMS_REFRESHED]) {
         NSArray* marketItems = (NSArray*)[notification.userInfo objectForKey:DICT_ELEMENT_MARKET_ITEMS];
         NSMutableArray* jsonArr = [NSMutableArray array];
+        NSMutableDictionary *miDict;
         for (MarketItem* mi in marketItems) {
-            [jsonArr addObject:[mi toDictionary]];
+            miDict = [NSMutableDictionary dictionary];
+            [miDict setObject:mi.productId forKey:@"productId"];
+            [miDict setObject:[mi priceWithCurrencySymbol] forKey:@"marketPrice"];
+            [miDict setObject:mi.marketTitle forKey:@"marketTitle"];
+            [miDict setObject:mi.marketDescription forKey:@"marketDesc"];
+            [jsonArr addObject:miDict];
         }
         [parameters setObject:@"CCEventHandler::onMarketItemsRefreshed" forKey:@"method"];
         [parameters setObject: jsonArr forKey:@"marketItems"];
@@ -293,7 +299,7 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
 	[parameters setObject:@"CCEventHandler::onStoreControllerInitialized" forKey:@"method"];
     }
     else {
-	LogError(TAG, ([NSString stringWithFormat:@"Unknow notification %@", notification.name]));
+	LogError(TAG, ([NSString stringWithFormat:@"Unknown notification %@", notification.name]));
         return;
     }
 
