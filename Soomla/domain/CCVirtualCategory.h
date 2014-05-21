@@ -25,8 +25,8 @@
 
 namespace soomla {
 	/** 
-     \class CCVirtualCategory
-     \brief A category for virtual items.
+     @class CCVirtualCategory
+     @brief A category for virtual items.
 
      This class is a definition of a category. A single category can be 
      associated with many virtual goods. Virtual categories help in organizing 
@@ -40,32 +40,29 @@ namespace soomla {
 
 		/**
          Creates a virtual category.
-         \param name The name of the category.
-         \param goodItemIds An array containing the item ids of all the items 
+         @param name The name of the category.
+         @param goodItemIds An array containing the item ids of all the items 
                 in this category.
-         \return The virtual category.
+         @return The virtual category.
 		 */
         static CCVirtualCategory *create(cocos2d::CCString *name, cocos2d::CCArray *goodItemIds);
         bool init(cocos2d::CCString *name, cocos2d::CCArray *goodItemIds);
 
 		/**
          Creates a virtual category.
-         \param dict A dictionary containing keys to each of the parameters
+         @param dict A dictionary containing keys to each of the parameters
                 required by the create function.
-         \return The virtual category.
+         @return The virtual category.
 		*/
 		static CCVirtualCategory *createWithDictionary(cocos2d::CCDictionary *dict);
         bool initWithDictionary(cocos2d::CCDictionary *dict);
 
         /**
          Converts this `~CCVirtualCategory` to a `CCDictionary`.
-         \return `CCDictionary` representation of this `~CCVirtualCategory`.
+         @return `CCDictionary` representation of this `~CCVirtualCategory`.
          */
         cocos2d::CCDictionary *toDictionary();
 
-        /**
-         Destructor 
-         */
         virtual ~CCVirtualCategory();
     };
 };

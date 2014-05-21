@@ -25,8 +25,8 @@
 
 namespace soomla {
 	/** 
-     \class CCMarketItem
-     \brief An item you can purchase in the market (App Store, Google Play...).
+     @class CCMarketItem
+     @brief An item you can purchase in the market (App Store, Google Play...).
 
      This class represents an item in the market (App Store, Google Play...).
      Every `CCPurchasableVirtualItem` with `CCPurchaseType` of 
@@ -55,31 +55,28 @@ namespace soomla {
 
 		/**
          Creates a `CCMarketItem`.
-         \param productId The item's id in the native store.
-         \param consumable Whether or not the item is consumable.
-         \param price The price of the item, in USD.
-         \return The Market item.
+         @param productId The item's id in the native store.
+         @param consumable Whether or not the item is consumable.
+         @param price The price of the item, in USD.
+         @return The Market item.
 		 */
         static CCMarketItem *create(cocos2d::CCString *productId, cocos2d::CCInteger *consumable, cocos2d::CCDouble * price);
         bool init(cocos2d::CCString *productId, cocos2d::CCInteger *consumable, cocos2d::CCDouble * price);
 
 		/**
          Creates a `CCMarketItem` from a dictionary.
-         \param dict A dictionary containing keys for the item's product id,
+         @param dict A dictionary containing keys for the item's product id,
                 price and consumable status.
-         \return The Market item.
+         @return The Market item.
 		*/
 		static CCMarketItem *createWithDictionary(cocos2d::CCDictionary* dict);
         virtual bool initWithDictionary(cocos2d::CCDictionary* dict);
 
-        /**
-         Destructor.
-         */
         virtual ~CCMarketItem();
 
         /**
          Converts this `CCMarketItem` to a `CCDictionary`.
-         \return `CCDictionary` representation of this `CCMarketItem`.
+         @return `CCDictionary` representation of this `CCMarketItem`.
          */
         virtual cocos2d::CCDictionary* toDictionary();
     };

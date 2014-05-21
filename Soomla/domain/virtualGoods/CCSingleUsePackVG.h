@@ -23,8 +23,8 @@
 
 namespace soomla {
 	/** 
-     \class CCSingleUsePackVG
-     \brief A pack of single use virtual goods.
+     @class CCSingleUsePackVG
+     @brief A pack of single use virtual goods.
 
      Single Use Packs are just bundles of `SingleUseVG`s.
      This kind of virtual good can be used to let your users buy more than one
@@ -53,14 +53,14 @@ namespace soomla {
         
         /**
          Creates a `CCSingleUsePackVG`.
-         \param goodItemId The item id of the Single Use item associated with 
+         @param goodItemId The item id of the Single Use item associated with 
                 this Pack.
-         \param goodAmount The amount of Single Use items in the Pack.
-         \param name see parent.
-         \param description see parent.
-         \param itemId see parent.
-         \param purchaseType see parent.
-         \return The Sinlge Use Pack good.
+         @param goodAmount The amount of Single Use items in the Pack.
+         @param name see parent.
+         @param description see parent.
+         @param itemId see parent.
+         @param purchaseType see parent.
+         @return The Sinlge Use Pack good.
          */
         static CCSingleUsePackVG *create(cocos2d::CCString* goodItemId, cocos2d::CCInteger* goodAmount,
                 cocos2d::CCString* name, cocos2d::CCString* description,
@@ -71,22 +71,19 @@ namespace soomla {
         
         /**
          Creates a `CCSingleUsePackVG` from a dictionary.
-         \param dict A dictionary containing keys to each of the parameters
+         @param dict A dictionary containing keys to each of the parameters
                 required by the create function.
-         \return The Sinlge Use Pack good.
+         @return The Sinlge Use Pack good.
          */
         static CCSingleUsePackVG *createWithDictionary(cocos2d::CCDictionary *dict);
         bool initWithDictionary(cocos2d::CCDictionary *dict);
 
         /**
          Converts this `CCSingleUsePackVG` to a `CCDictionary`.
-         \return `CCDictionary` representation of this `CCSingleUsePackVG`.
+         @return `CCDictionary` representation of this `CCSingleUsePackVG`.
          */
         cocos2d::CCDictionary *toDictionary();
 
-        /**
-         Destructor. 
-         */
         virtual ~CCSingleUsePackVG();
     };
 };

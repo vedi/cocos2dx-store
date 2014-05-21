@@ -25,8 +25,8 @@
 
 namespace soomla {
 	/** 
-     \class CCStoreController
-     \brief An interface to the native StoreController class.
+     @class CCStoreController
+     @brief An interface to the native StoreController class.
      
      An interface to the native StoreController class, use this class to
      access the native StoreController functionality. This class holds the most 
@@ -43,8 +43,8 @@ namespace soomla {
 		/**
          Initializes StoreController on native side and allows using its
          functions.
-         \param storeAssets An instance of your store's assets class.
-         \param storeParams A CCDictionary containing parameters for 
+         @param storeAssets An instance of your store's assets class.
+         @param storeParams A CCDictionary containing parameters for 
                 CCStoreController (These were previously found in CCSoomla).
                 This dictionary can contain the following:
                 "soomSec": CCString - The value of the primary encryption key.
@@ -56,23 +56,17 @@ namespace soomla {
 		 */
         static void createShared(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
 
-        /**
-         Constructor.
-         */
         CCStoreController(void);
         virtual bool init(CCIStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
-        
-        /**
-         Destructor.
-         */
+       
         virtual ~CCStoreController(void);
 
 		/**
          Starts an in app purchase process in the market (App Store, Google 
          Play, etc...).
-         \param productId The product ID of the item in the market (App Store, 
+         @param productId The product ID of the item in the market (App Store, 
                 Google Play, etc..).
-         \param soomlaError A CCSoomlaError for error checking.
+         @param soomlaError A CCSoomlaError for error checking.
 		 */
         void buyMarketItem(char const *productId, CCSoomlaError **soomlaError);
 
@@ -92,7 +86,7 @@ namespace soomla {
         
 		/**
          Checks if the user has already restored his/her transactions.
-         \return Whether or not the user restored his/her transactions.
+         @return Whether or not the user restored his/her transactions.
 		*/		
         bool transactionsAlreadyRestored();
         

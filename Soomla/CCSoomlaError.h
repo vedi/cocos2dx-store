@@ -29,8 +29,8 @@
 
 namespace soomla {
 	/** 
-     \class CCSoomlaError
-     \brief An interface for error handling, analogous exception handling in 
+     @class CCSoomlaError
+     @brief An interface for error handling, analogous exception handling in 
      the Java SDK.
      
      Pass this as a pointer to this class to functions requiring it and

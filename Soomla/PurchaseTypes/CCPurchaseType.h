@@ -23,8 +23,8 @@
 
 namespace soomla {
 	/** 
-     \class CCPurchaseType
-     \brief A way to purchase a PurchasableVirtualItem.
+     @class CCPurchaseType
+     @brief A way to purchase a PurchasableVirtualItem.
      
      A `CCPurchaseType` is a way to purchase a `CCPurchasableVirtualItem`. This
      abstract class describes basic features of the actual implementations of
@@ -39,10 +39,7 @@ namespace soomla {
          */
         static CCPurchaseType * create();
         virtual bool init();
-        
-        /**
-         Destructor.
-         */
+      
         virtual ~CCPurchaseType();
     };
     

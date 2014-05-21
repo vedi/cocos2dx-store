@@ -25,8 +25,8 @@
 namespace soomla {
     
     /**
-     \class CCUpgradeVG
-     \brief An upgrade virtual good is one virtual good in a series of virtual 
+     @class CCUpgradeVG
+     @brief An upgrade virtual good is one virtual good in a series of virtual 
      goods that define an upgrade scale of an associated `CCVirtualGood`.
      
      This type of virtual good is best explained with an example:
@@ -62,17 +62,17 @@ namespace soomla {
 
 		/**
          Creates a `CCUpgradeVG`.
-         \param goodItemId The item id of the `CCVirtualGood` associated with
+         @param goodItemId The item id of the `CCVirtualGood` associated with
                 this Upgrade. Id can be of any `CCVirtualGood` type.
-         \param prevItemId The item id of the previous `CCUpgradeVG` in the
+         @param prevItemId The item id of the previous `CCUpgradeVG` in the
                 series. Id MUST be a `CCUpgradeVG`'s itemId.
-         \param nextItemId The item id of the following `CCUpgradeVG` in the
+         @param nextItemId The item id of the following `CCUpgradeVG` in the
                 series. Id MUST be a `CCUpgradeVG`'s itemId.
-         \param name see parent.
-         \param description see parent.
-         \param itemId see parent.
-         \param purchaseType see parent.
-         \return The Upgrade virtual good.
+         @param name see parent.
+         @param description see parent.
+         @param itemId see parent.
+         @param purchaseType see parent.
+         @return The Upgrade virtual good.
 		 */
 		static CCUpgradeVG *create(cocos2d::CCString* goodItemId, cocos2d::CCString* prevItemId, cocos2d::CCString* nextItemId,
 								   cocos2d::CCString* name, cocos2d::CCString* description,
@@ -83,22 +83,19 @@ namespace soomla {
         
 		/** 
          Creates a `CCUpgradeVG` from a dictionary.
-         \param dict A dictionary containing keys to each of the parameters
+         @param dict A dictionary containing keys to each of the parameters
                 required by the `create` function.
-         \return The Upgrade virtual good.
+         @return The Upgrade virtual good.
 		*/
 		static CCUpgradeVG *createWithDictionary(cocos2d::CCDictionary *dict);
         bool initWithDictionary(cocos2d::CCDictionary *dict);
 
         /**
          Converts this `CCUpgradeVG` to a `CCDictionary`.
-         \return `CCDictionary` representation of this `CCUgradeVG`.
+         @return `CCDictionary` representation of this `CCUgradeVG`.
          */
         cocos2d::CCDictionary *toDictionary();
 
-        /**
-         Destructor.
-         */
         virtual ~CCUpgradeVG();
     };
 };

@@ -23,8 +23,8 @@
 
 namespace soomla {
 	/** 
-     \class CCLifetimeVG
-     \brief A lifetime virtual good.
+     @class CCLifetimeVG
+     @brief A lifetime virtual good.
     
      A `CCLifetimeVG` is a virtual good that is bought once and kept forever.
      
@@ -46,19 +46,19 @@ namespace soomla {
         
 		/**
          Creates a `CCLifetimeVG`.
-         \param name see parent.
-         \param description see parent.
-         \param itemId see parent.
-         \param purchaseType see parent.
-         \return The Lifetime virtual good.
+         @param name see parent.
+         @param description see parent.
+         @param itemId see parent.
+         @param purchaseType see parent.
+         @return The Lifetime virtual good.
 		*/
         static CCLifetimeVG *create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
 		
 		/**
          Creates a `CCLifetimeVG` from a dictionary.
-         \param dict A dictionary containing keys to each of the parameters 
+         @param dict A dictionary containing keys to each of the parameters 
                 required by the `create` function.
-         \return The Lifetime virtual good.
+         @return The Lifetime virtual good.
 		*/
         static CCLifetimeVG *createWithDictionary(cocos2d::CCDictionary *dict);
     };

@@ -23,8 +23,8 @@
 
 namespace soomla {
 	/** 
-     \class CCNonConsumableItem
-     \brief A non consumable virtual item.
+     @class CCNonConsumableItem
+     @brief A non consumable virtual item.
 
      A representation of a non-consumable item in the store.
      These kinds of items are bought by the user once and kept for him/her 
@@ -45,20 +45,20 @@ namespace soomla {
 
 		/**
          Creates a `CCNonConsumableItem`.
-         \param name see parent.
-         \param description see parent.
-         \param itemId see parent.
-         \param purchaseType see parent.
-         \return The non-consumable item.
+         @param name see parent.
+         @param description see parent.
+         @param itemId see parent.
+         @param purchaseType see parent.
+         @return The non-consumable item.
 		*/
 		static CCNonConsumableItem * create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId,
             CCPurchaseType *purchaseType);
 
 		/**
          Creates a `CCNonConsumableItem` from a dictionary.
-         \param dict A dictionary containing keys to each of the parameters
+         @param dict A dictionary containing keys to each of the parameters
                 required by the create function.
-         \return The non-consumable item.
+         @return The non-consumable item.
 		*/
 		static CCNonConsumableItem * createWithDictionary(cocos2d::CCDictionary* dict);
     };

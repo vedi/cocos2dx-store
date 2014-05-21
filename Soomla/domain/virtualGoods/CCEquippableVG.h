@@ -24,8 +24,8 @@
 
 namespace soomla {
 	/** 
-     \class CCEquippableVG
-     \brief An equippable virtual good.
+     @class CCEquippableVG
+     @brief An equippable virtual good.
      
      An Equippable virtual good is a special type of Lifetime virtual good that 
      can be equipped by your users. Equipping means that the user decides to 
@@ -89,13 +89,13 @@ namespace soomla {
 
 		/**
          Creates a `CCEquippableVG`.
-         \param equippingModel Can be 0 (`LOCAL`), 1 (`CATEGORY`), or
+         @param equippingModel Can be 0 (`LOCAL`), 1 (`CATEGORY`), or
                 3 (`GLOBAL`)
-         \param name see parent.
-         \param description see parent.
-         \param itemId see parent.
-         \param purchaseType see parent.
-         \return The Equippable virtual good.
+         @param name see parent.
+         @param description see parent.
+         @param itemId see parent.
+         @param purchaseType see parent.
+         @return The Equippable virtual good.
 		 */
         static CCEquippableVG *create(cocos2d::CCInteger *equippingModel, cocos2d::CCString* name, cocos2d::CCString* description,
 									  cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
@@ -104,22 +104,19 @@ namespace soomla {
 
 		/**
          Creates a `CCEquippableVG` from a dictionary.
-         \param dict A dictionary containing keys to each of the parameters
+         @param dict A dictionary containing keys to each of the parameters
                 required by the create function.
-         \return The Equippable virtual good.
+         @return The Equippable virtual good.
 		*/
         static CCEquippableVG *createWithDictionary(cocos2d::CCDictionary *dict);
         bool initWithDictionary(cocos2d::CCDictionary *dict);
 
         /**
          Converts this `CCEquippableVG` to a `CCDictionary`.
-         \return `CCDictionary` representation of this `CCEquippableVG`.
+         @return `CCDictionary` representation of this `CCEquippableVG`.
          */
         cocos2d::CCDictionary *toDictionary();
 
-        /**
-         Destructor.
-         */
         virtual ~CCEquippableVG();
     };
 };

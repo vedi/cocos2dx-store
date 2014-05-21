@@ -25,8 +25,8 @@
 
 namespace soomla {
 	/** 
-     \class CCVirtualItem
-     \brief A virtual item.
+     @class CCVirtualItem
+     @brief A virtual item.
      
      This is the parent class of all virtual items in the application.
      Almost every entity in your virtual economy will be a virtual item. There 
@@ -43,31 +43,28 @@ namespace soomla {
 
 		/**
          Creates an instance of `CCVirtualItem`.
-         \param name The item's name.
-         \param description The item's description.
-         \param itemId The item's itemId.
-         \return The virtual item.
+         @param name The item's name.
+         @param description The item's description.
+         @param itemId The item's itemId.
+         @return The virtual item.
 		*/
         static CCVirtualItem * create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
         virtual bool init(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
 
 		/**
          Creates a `CCVirtualItem` from a dictionary.
-         \param dict A dictionary containing keys to each of the parameters 
+         @param dict A dictionary containing keys to each of the parameters 
                 required by the create function.
-         \return The item.
+         @return The item.
 		*/
 		static CCVirtualItem * createWithDictionary(cocos2d::CCDictionary* dict);
         virtual bool initWithDictionary(cocos2d::CCDictionary* dict);
         
-        /**
-         Destructor
-         */
         virtual ~CCVirtualItem();
         
         /**
          Converts this `CCVirtualItem` to a `CCDictionary`.
-         \return `CCDictionary` representation of this `CCVirtualItem`.
+         @return `CCDictionary` representation of this `CCVirtualItem`.
          */
         virtual cocos2d::CCDictionary* toDictionary();
     };

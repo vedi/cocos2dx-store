@@ -23,8 +23,8 @@
 #include "CCSoomlaError.h"
 
 namespace soomla {
-	/** \class CCStoreInventory
-		\brief An interface to the native StoreInventory class.
+	/** @class CCStoreInventory
+		@brief An interface to the native StoreInventory class.
 
 		An interface to the native StoreInventory class, use this class to
 		access the native StoreInventory functionality.
@@ -36,31 +36,25 @@ namespace soomla {
          This class is singleton, use this function to access it.
 		 */
         static CCStoreInventory* sharedStoreInventory();
-        
-        /**
-         Constructor.
-         */
+      
         CCStoreInventory(void);
         virtual bool init();
-        
-        /**
-         Destructor. 
-         */
+    
         virtual ~CCStoreInventory(void);
 
 		/**
          Buys the item with the given `itemId`.
-         \param itemId The id of the item to be purchased.
-         \param soomlaError A `CCSoomlaError` for error checking.
+         @param itemId The id of the item to be purchased.
+         @param soomlaError A `CCSoomlaError` for error checking.
 		 */
         void buyItem(const char *itemId, CCSoomlaError **soomlaError);
 
 		/**
          Retrieves the balance of the virtual item with the given `itemId`.
-         \param itemId The id of the virtual item to be fetched - must be of
+         @param itemId The id of the virtual item to be fetched - must be of
          `CCVirtualCurrency`, `CCSingleUseVG`, `CCLifetimeVG`, `CCEquippableVG`.
-         \param soomlaError A `CCSoomlaError` for error checking.
-         \return The balance of the virtual item with the given `itemId`.
+         @param soomlaError A `CCSoomlaError` for error checking.
+         @return The balance of the virtual item with the given `itemId`.
 		*/
         int getItemBalance(const char *itemId, CCSoomlaError **soomlaError);
 
@@ -72,9 +66,9 @@ namespace soomla {
          NOTE: This action is different than `buy` -
          You use `give` to give your user something for free.
          You use `buy` to give your user something and get something in return.
-         \param amount The amount of the item to be given.
-         \param itemId The id of the virtual item to be given.
-         \param soomlaError A `CCSoomlaError`for error checking.
+         @param amount The amount of the item to be given.
+         @param itemId The id of the virtual item to be given.
+         @param soomlaError A `CCSoomlaError`for error checking.
          */
 		void giveItem(const char *itemId, int amount, CCSoomlaError **soomlaError);
 
@@ -83,9 +77,9 @@ namespace soomla {
          given `itemId`.
          For example, when you want to downgrade a virtual good, you take the 
          upgrade.
-         \param amount The amount of the item to be given.
-         \param itemId The id of the virtual item to be taken.
-         \param soomlaError A `CCSoomlaError` for error checking.
+         @param amount The amount of the item to be given.
+         @param itemId The id of the virtual item to be taken.
+         @param soomlaError A `CCSoomlaError` for error checking.
          */
         void takeItem(const char *itemId, int amount, CCSoomlaError **soomlaError);
 
@@ -93,9 +87,9 @@ namespace soomla {
          Equips the virtual good with the given `goodItemId`.
          Equipping means that the user decides to currently use a specific 
          virtual good. For more details and examples see `CCEquippableVG`.
-         \param itemId The id of the virtual good to be equipped. Id MUST
+         @param itemId The id of the virtual good to be equipped. Id MUST
                 be of a `CCEquippableVG`.
-         \param soomlaError A `CCSoomlaError` for error checking.
+         @param soomlaError A `CCSoomlaError` for error checking.
 		*/
         void equipVirtualGood(const char *itemId, CCSoomlaError **soomlaError);
 
@@ -103,19 +97,19 @@ namespace soomla {
          Unequips the virtual good with the given `goodItemId`. Unequipping 
          means that the user decides to stop using the virtual good he/she is 
          currently using. For more details and examples see `CCEquippableVG`.
-         \param itemId The id of the virtual good to be unequipped. Id MUST
+         @param itemId The id of the virtual good to be unequipped. Id MUST
                 be of a `CCEquippableVG`.
-         \param soomlaError A `CCSoomlaError` for error checking.
+         @param soomlaError A `CCSoomlaError` for error checking.
          */
 		void unEquipVirtualGood(const char *itemId, CCSoomlaError **soomlaError);
 
 		/**
          Checks if the virtual good with the given `goodItemId` is equipped 
          (currently being used).
-         \param itemId The id of the virtual good to check on. Id MUST be of
+         @param itemId The id of the virtual good to check on. Id MUST be of
                 an `EquippableVG`.
-         \param soomlaError A `CCSoomlaError` for error checking.
-         \return True if the virtual good with the given id is equipped, false 
+         @param soomlaError A `CCSoomlaError` for error checking.
+         @return True if the virtual good with the given id is equipped, false 
                 otherwise.
          */
         bool isVirtualGoodEquipped(const char *itemId, CCSoomlaError **soomlaError);
@@ -134,20 +128,20 @@ namespace soomla {
          4. `CCUpgradeVG` for strength 'level 3'
          In the example, this function will retrieve the upgrade level for 
          "strength" (1, 2, or 3).
-         \param goodItemId The id of the virtual good whose upgrade level we 
+         @param goodItemId The id of the virtual good whose upgrade level we 
                 want to know. The `goodItemId` can be of any `CCVirtualGood`.
-         \param soomlaError A `CCSoomlaError` for error checking.
-         \return The upgrade level.
+         @param soomlaError A `CCSoomlaError` for error checking.
+         @return The upgrade level.
          */
         int getGoodUpgradeLevel(const char *goodItemId, CCSoomlaError **soomlaError);
 
 		/**
          Retrieves the item id of the current upgrade of the virtual good with
          the given `goodItemId`.
-         \param goodItemId Id of the virtual good whose upgrade id we want to
+         @param goodItemId Id of the virtual good whose upgrade id we want to
                 know. The `goodItemId` can be of any `CCVirtualGood`.
-         \param soomlaError A `CCSoomlaError` for error checking.
-         \return The upgrade id if exists, or empty string otherwise.
+         @param soomlaError A `CCSoomlaError` for error checking.
+         @return The upgrade id if exists, or empty string otherwise.
          */
 		std::string getGoodCurrentUpgrade(const char *goodItemId, CCSoomlaError **soomlaError); //TODO: return c string?
 
@@ -163,26 +157,26 @@ namespace soomla {
          3. If the good has never been upgraded before, the function upgrades it 
          to the first available upgrade, or in other words, buy()s the first 
          upgrade in the series.
-         \param goodItemId The id of the virtual good to be upgraded. The
+         @param goodItemId The id of the virtual good to be upgraded. The
                 `upgradeItemId` can be of any `CCUpgradeVG`.
-         \param soomlaError A `CCSoomlaError` for error checking.
+         @param soomlaError A `CCSoomlaError` for error checking.
          */
         void upgradeGood(const char *goodItemId, CCSoomlaError **soomlaError);
 
 		/**
          Removes all upgrades from the virtual good with the given `goodItemId`.
-         \param goodItemId The id of the virtual good we want to remove all 
+         @param goodItemId The id of the virtual good we want to remove all 
                 upgrades from. The `upgradeItemId` can be of any `UpgradeVG`.
-         \param soomlaError A `CCSoomlaError` for error checking.
+         @param soomlaError A `CCSoomlaError` for error checking.
          */
 		void removeGoodUpgrades(const char *goodItemId, CCSoomlaError **soomlaError);
 
 		/**
          Checks if the item with the given `itemId` exists in 
          `nonConsumableStorage`.
-         \param itemId The id of the item to check if exists.
-         \param soomlaError A `CCSoomlaError` for error checking.
-         \return True if the item with the given id exists in
+         @param itemId The id of the item to check if exists.
+         @param soomlaError A `CCSoomlaError` for error checking.
+         @return True if the item with the given id exists in
                 `nonConsumableStorage`, false otherwise.
          */
         bool nonConsumableItemExists(const char *nonConsItemId, CCSoomlaError **soomlaError);
@@ -190,16 +184,16 @@ namespace soomla {
 		/**
          Adds the non-consumable item with the given itemId to 
          `nonConsumableStorage`.
-         \param itemId The id of the item to add to the storage.
-         \param soomlaError A `CCSoomlaError` for error checking.
+         @param itemId The id of the item to add to the storage.
+         @param soomlaError A `CCSoomlaError` for error checking.
          */
         void addNonConsumableItem(const char *nonConsItemId, CCSoomlaError **soomlaError);
 
 		/**
          Removes the non-consumable item with the given `itemId` from
          `nonConsumableStorage`.
-         \param itemId The id of the item to remove from the storage.
-         \param soomlaError A `CCSoomlaError` for error checking.
+         @param itemId The id of the item to remove from the storage.
+         @param soomlaError A `CCSoomlaError` for error checking.
          */
         void removeNonConsumableItem(const char *nonConsItemId, CCSoomlaError **soomlaError);
     };

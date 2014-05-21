@@ -24,8 +24,8 @@
 
 namespace soomla {
 	/** 
-     \class CCVirtualCurrencyPack
-     \brief A virtual currency pack.
+     @class CCVirtualCurrencyPack
+     @brief A virtual currency pack.
 
      Every game has its virtual currencies. Here you represent a pack of a 
      specific `CCVirtualCurrency`. Real Game Example: If virtual currency in 
@@ -33,7 +33,7 @@ namespace soomla {
      or "Super Saver Pack").
      
      NOTE: In case you want this item to be available for purchase in the native 
-     store (with real money) you'll need to define the item in App Store,
+     store (with real money) you'll need to define the item in the App Store,
      Google Play, etc..
      
      Inheritance: CCVirtualCurrencyPack > CCPurchasableVirtualItem > 
@@ -47,14 +47,14 @@ namespace soomla {
 
 		/**
          Creates a `CCVirtualCurrencyPack`.
-         \param name see parent.
-         \param description see parent.
-         \param itemId see parent.
-         \param currencyAmount The amount of currency in the pack.
-         \param currencyItemId The itemId of the currency associated with this 
+         @param name see parent.
+         @param description see parent.
+         @param itemId see parent.
+         @param currencyAmount The amount of currency in the pack.
+         @param currencyItemId The itemId of the currency associated with this 
                 pack.
-         \param purchaseType see parent.
-         \return The currency pack.
+         @param purchaseType see parent.
+         @return The currency pack.
 		*/
         static CCVirtualCurrencyPack *create(cocos2d::CCString* name, cocos2d::CCString* description,
 											 cocos2d::CCString* itemId, cocos2d::CCInteger* currencyAmount, cocos2d::CCString* currencyItemId,
@@ -65,22 +65,19 @@ namespace soomla {
 
 		/**
          Creates a `CCVirtualCurrencyPack`.
-         \param dict A dictionary containing keys to each of the parameters 
+         @param dict A dictionary containing keys to each of the parameters 
                 required by the create function.
-         \return The pack.
+         @return The pack.
 		*/
         static CCVirtualCurrencyPack *createWithDictionary(cocos2d::CCDictionary *dict);
         bool initWithDictionary(cocos2d::CCDictionary *dict);
 
         /**
          Converts this `CCVirtualCurrencyPack` to a `CCDictionary`.
-         \return `CCDictionary` representation of this `CCVirtualCurrencyPack`.
+         @return `CCDictionary` representation of this `CCVirtualCurrencyPack`.
          */
         cocos2d::CCDictionary *toDictionary();
 
-        /**
-         Destructor 
-         */
         virtual ~CCVirtualCurrencyPack();
     };
 };

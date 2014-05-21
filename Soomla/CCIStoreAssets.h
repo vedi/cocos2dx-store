@@ -22,8 +22,8 @@
 #define __CCIStoreAssets_H_
 
 namespace soomla {
-	/** \class CCIStoreAssets
-		\brief An abstract class that defines the store assets.
+	/** @class CCIStoreAssets
+		@brief An abstract class that defines the store assets.
 
 		Implement this class to define your store's assets. See the wiki for
 		information about the various VirtualGoods and how to define them.
@@ -32,7 +32,7 @@ namespace soomla {
     public:
         
         /**
-         Retrieves the current version of your `IStoreAssets`.
+         Retrieves the current version of @c IStoreAssets @c.
          
          This value determines if the saved data in the database will be deleted 
          or not. Bump the version every time you want to delete the old data in 
@@ -52,38 +52,38 @@ namespace soomla {
          
          You need to bump the version after ANY change in `IStoreAssets` for the
          local database to realize it needs to refresh its data.
-         \return The version of your specific `IStoreAssets`.
+         @return The version of your specific `IStoreAssets`.
          */
         virtual int getVersion() = 0;
 
 		/**
          Retrieves the array of your game's virtual currencies.
-         \return All the virtual currencies in your game.
+         @return All the virtual currencies in your game.
          */
         virtual cocos2d::CCArray *getCurrencies() = 0;
 
 		/**
          Retrieves the array of all virtual goods served by your store (all 
          kinds in one array).
-         \return All virtual goods in your game.
+         @return All virtual goods in your game.
          */
         virtual cocos2d::CCArray *getGoods() = 0;
 
 		/**
          Retrieves the array of all virtual currency packs served by your store.
-         \return All virtual currency packs in your game.
+         @return All virtual currency packs in your game.
          */
         virtual cocos2d::CCArray *getCurrencyPacks() = 0;
 
 		/**
          Retrieves the array of all virtual categories handled in your store.
-         \return All virtual categories in your game.
+         @return All virtual categories in your game.
          */
         virtual cocos2d::CCArray *getCategories() = 0;
 
 		/**
          Retrieves the array of all non-consumable items served by your store.
-         \return All non-consumables served in your game.
+         @return All non-consumables served in your game.
          */
         virtual cocos2d::CCArray *getNonConsumableItems() = 0;
     };

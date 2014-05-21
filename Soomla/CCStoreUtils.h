@@ -27,8 +27,8 @@
 
 namespace soomla {
 	/** 
-     \class CCStoreUtils
-     \brief This class handles printing of error and debug messages.
+     @class CCStoreUtils
+     @brief This class handles printing of error and debug messages.
 
      This class handles printing of error and debug messages.
 	 */
@@ -36,22 +36,22 @@ namespace soomla {
     public:
 		/**
          Prints a debug message.
-         \param tag The name of the class whose instance called this function.
-         \param message The debug message to output to log.
+         @param tag The name of the class whose instance called this function.
+         @param message The debug message to output to log.
 		 */
         static void logDebug(const char *tag, const char *message);
 
 		/**
          Prints an error message.
-         \param tag The name of the class whose instance called this function.
-         \param message The error message to output to log.
+         @param tag The name of the class whose instance called this function.
+         @param message The error message to output to log.
 		*/
         static void logError(const char *tag, const char *message);
 
 		/**
          Prints an exception message.
-         \param tag The name of the class whose instance called this function.
-         \param error A CCSoomlaError from which to extract the message.
+         @param tag The name of the class whose instance called this function.
+         @param error A CCSoomlaError from which to extract the message.
 		*/
         static void logException(const char *tag, CCSoomlaError *error);
     };

@@ -26,8 +26,8 @@
 
 namespace soomla {
 	/** 
-     \class CCSingleUseVG
-     \brief A consumable virtual good.
+     @class CCSingleUseVG
+     @brief A consumable virtual good.
      
      SingleUse virtual goods are the most common type of `VirtualGood`.
      The `CCSingleUseVG`'s characteristics are:
@@ -46,20 +46,20 @@ namespace soomla {
     public:
 		/**
          Creates a `CCSingleUseVG`.
-         \param name The virtual good's name.
-         \param description The virtual good's description.
-         \param itemId The virtual good's itemId.
-         \param purchaseType The purchase type for this virtual good.
-         \return The Single Use virtual good.
+         @param name The virtual good's name.
+         @param description The virtual good's description.
+         @param itemId The virtual good's itemId.
+         @param purchaseType The purchase type for this virtual good.
+         @return The Single Use virtual good.
 		*/
         static CCSingleUseVG *create(cocos2d::CCString* name, cocos2d::CCString* description,
                 cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
 
 		/**
          Create a `CCSingleUseVG` from a dictionary.
-         \param dict A dictionary containing keys to each of the parameters
+         @param dict A dictionary containing keys to each of the parameters
                 required by the `create` function.
-         \return The Single Use virtual good.
+         @return The Single Use virtual good.
 		*/
 		static CCSingleUseVG *createWithDictionary(cocos2d::CCDictionary *dict);
     };

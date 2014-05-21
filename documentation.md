@@ -40,45 +40,43 @@ SOOMLA is licensed under the Apache License. This copyright message must be incl
 
 ##General Guidelines
 
-- Documentation should mostly be written in the header file (.h), and should NOT be repeated in the implementation (.m) file. 
-- A doc comment must precede a class, method declaration, constructor, or field.
+- Documentation should be written in the header files (.h), and should NOT be repeated in the implementation (.cpp) files. 
+- A doc comment must precede a class, method declaration, constructor, or field (more details below).
 - For private methods, documentation comments are optional - if the method is non-trivial and complex, you should document it, otherwise leave it with no comments.
 - Do not write documentation for trivial getter and setter methods.
 - Do not write documentation for trivial fields.
-- A doc comment is made up of two parts: a description and `\` tags.
+- A doc comment is made up of two parts: a description and `@`tags.
 - The first line of a comment MUST begin with the begin-comment delimiter ( /**).
 - The last line of a comment MUST end with the end-comment delimiter ( */).
-- Each line in between the begin-comment delimiter and end-comment delimiter should NOT start with * .
 - Limit any doc-comment lines to 80 characters.
 
 
 ##Use of Doxygen
 
-**Common commands to use**
+**Common tags to use**
 
 For comments before class declarations:
 
-- `\class [classname]` - provide the class name.
-- `\brief [description]` - describe what the class does.
+- `@class [classname]` - provide the class name.
+- `@brief [description]` - describe what the class does.
 
 For comments before method declarations:
 
-- `\param [param] [description]` - describe what value this parameter should be.
-- `\return [description]` - describe the return value of the method.
-- `\see [reference]` - reference related method.
-- `\warning [description]` - describe warnings the user should be aware of.
-- `\exception [name] [description]` - describe in what situations the exception will be thrown.
+- `@param [param] [description]` - describe what value this parameter should be.
+- `@return [description]` - describe the return value of the method.
+- `@see [reference]` - reference related method.
+- `@warning [description]` - describe warnings the user should be aware of.
+- `@exception [name] [description]` - describe in what situations the exception will be thrown.
 - When referring to source code, wrap the code in backtick quotes: \`someCode\`. Doxygen will convert this to `someCode`.
-- Use `[Link name](@ref SomeClass)`to refer to another class.
-- Use `[The link text](http://example.net/)` to link to a URL.
+- To refer to another class simply write the name of the class with no tags. Doxygen will recognize the class and turn it into a link.
 
 For more information about Doxygen conventions see http://www.stack.nl/~dimitri/doxygen/manual/commands.html. 
 
 ##Description and Tags
 
-**Classes and Interfaces**
+**Classes**
 
-- State the purpose of this class or interface.
+- State the purpose of this class.
 - Include possible 'Real Game Examples' to make the purpose clearer.
 - Include any important notes or warnings the user should know.
 - Declare the inheritance path like so: Inheritance: Class > Superclass > …
@@ -88,10 +86,10 @@ Example:
 
 ```
 /** 
- \class CCSingleUseVG
- \brief A consumable virtual good.
+ @class CCSingleUseVG
+ @brief A consumable virtual good that can be purchased an unlimited number of times.
      
- SingleUse virtual goods are the most common type of `VirtualGood`.
+ Single Use virtual goods are the most common type of `VirtualGood`.
  The `CCSingleUseVG`'s characteristics are:
  1. Can be purchased an unlimited number of times.
  2. Has a balance that is saved in the database. Its balance goes up when
@@ -110,24 +108,24 @@ Example:
 <br>
 **Methods**
 
-- If the method is a constructor, write “Constructor” as the first line, continue the rest of the description on the next line.
 - The description must begin with a 3rd person descriptive verb.
     - CORRECT: “Checks…”, “Converts…”, “Retrieves...”, etc.. 
     - INCORRECT: “Check”, “This method does…” 
     - The description of the method cannot begin with “Returns…”
 - Include possible examples to make the purpose of the method clearer.
 - Include any important notes or warnings the user should know.
-- Overriding methods - if the overriding method’s description is exactly the same as its parent method’s description, write: “see parent”. Otherwise, write a description.
+- Overriding methods - if the overriding method’s description is exactly the same as its parent method’s description, write: “see parent”. Otherwise, write a description. 
+- If all the functions of a class are overriding methods, write "See parent for all functions." in the class description and nothing in the method descriptions. 
 
 Example:
 ```
 /**
  Retrieves the item id of the current upgrade of the virtual good with
  the given `goodItemId`.
- \param goodItemId Id of the virtual good whose upgrade id we want to
+ @param goodItemId Id of the virtual good whose upgrade id we want to
         know. The `goodItemId` can be of any `CCVirtualGood`.
- \param soomlaError A `CCSoomlaError` for error checking.
- \return The upgrade id if exists, or empty string otherwise.
+ @param soomlaError A `CCSoomlaError` for error checking.
+ @return The upgrade id if exists, or empty string otherwise.
  */
  std::string getGoodCurrentUpgrade(const char *goodItemId, CCSoomlaError **soomlaError);
 ```

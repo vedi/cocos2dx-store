@@ -24,8 +24,8 @@
 
 namespace soomla {
 	/** 
-     \class CCPurchaseWithMarket
-     \brief This type of Purchase is used to let users purchase
+     @class CCPurchaseWithMarket
+     @brief This type of Purchase is used to let users purchase
      `CCPurchasableVirtualItems` with real money.
      
      This type of Purchase is used to let users purchase 
@@ -38,23 +38,20 @@ namespace soomla {
 
 		/**
          Creates a `CCPurchaseWithMarket`.
-         \param productId The product id of the item in the native store.
-         \param price The price of the item in the native store.
-         \return The purchase with market type.
+         @param productId The product id of the item in the native store.
+         @param price The price of the item in the native store.
+         @return The purchase with market type.
 		 */
         static CCPurchaseWithMarket *create(cocos2d::CCString *productId, cocos2d::CCDouble *price);
 
 		/** 
          Creates a `CCPurchaseWithMarket` from a `CCMarketItem`.
-         \param marketItem A `CCMarketItem` that represents this item.
-         \return The purchase with market type.
+         @param marketItem A `CCMarketItem` that represents this item.
+         @return The purchase with market type.
 		 */
         static CCPurchaseWithMarket *createWithMarketItem(CCMarketItem *marketItem);
         bool initWithMarketItem(CCMarketItem *marketItem);
 
-        /**
-         Destructor.
-         */
         ~CCPurchaseWithMarket();
     };
 };

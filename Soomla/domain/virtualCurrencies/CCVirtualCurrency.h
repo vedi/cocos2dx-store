@@ -24,8 +24,8 @@
 namespace soomla {
     
 	/** 
-     \class CCVirtualCurrency
-     \brief A virtual currency.
+     @class CCVirtualCurrency
+     @brief A virtual currency.
      
      This is a representation of a game's virtual currency.
      Each game can have multiple instances of a virtual currency, all kept in
@@ -45,18 +45,18 @@ namespace soomla {
 
 		/**
          Creates a `CCVirtualCurrency`.
-         \param name The currency's name.
-         \param description The currency's description.
-         \param itemId The currency's item id.
-         \return The currency.
+         @param name The currency's name.
+         @param description The currency's description.
+         @param itemId The currency's item id.
+         @return The currency.
 		*/
         static CCVirtualCurrency* create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
 
 		/**
          Creates a `CCVirtualCurrency` from a dictionary.
-         \param dict A dictionary containing keys to each of the parameters
+         @param dict A dictionary containing keys to each of the parameters
                 required by the create function.
-         \return The currency.
+         @return The currency.
 		*/
 		static CCVirtualCurrency* createWithDictionary(cocos2d::CCDictionary* dict);
     };

@@ -23,8 +23,8 @@
 #include "CCSoomlaError.h"
 
 namespace soomla {
-	/** \class CCSoomlaNdkBridge
-		\brief The bridge between the application and the Cocos2d-x code.
+	/** @class CCSoomlaNdkBridge
+		@brief The bridge between the application and the Cocos2d-x code.
 
 		This class receives calls from the native application and sends them 
 		over to the Cocos2d-x code, and vice versa.
@@ -34,11 +34,11 @@ namespace soomla {
     public:
 		/**
          Call a native application function.
-         \param params A `CCDictionary` containing the name of the function
+         @param params A `CCDictionary` containing the name of the function
                 to call and parameters to pass to it.
-         \param pError A `CCSoomlaError` that can be used to tell if there was 
+         @param pError A `CCSoomlaError` that can be used to tell if there was
                 an error.
-         \return The return value of the called function as a cocos2d::CCObject.
+         @return The return value of the called function as a cocos2d::CCObject.
 		 */
         static cocos2d::CCObject *callNative(cocos2d::CCDictionary *params, CCSoomlaError **pError);
     };

@@ -30,8 +30,8 @@ namespace soomla {
     #define SOOMLA_ONLY_ONCE_DEFAULT "SET ONLY ONCE"
 
 	/** 
-     \class CCSoomla
-     \brief Calls event handler functions when events are fired, also contains settings for StoreController.
+     @class CCSoomla
+     @brief Calls event handler functions when events are fired, also contains settings for StoreController.
      
      This class calls event handler functions when events are fired. To tie
      to your event handler call `addEventHandler`. You also set parameters for
@@ -41,36 +41,30 @@ namespace soomla {
 
     public:
 		/**
-		   This class is singleton, access it with this function.
+         This class is singleton, access it with this function.
 		 */
         static CCSoomla* sharedSoomla();
 
-        /**
-         Destructor.
-         */
         virtual ~CCSoomla(void);
-        
-        /**
-         Initializer.
-         */
+      
         virtual bool init(void);
 
 		/**
          Calls an NDK function by name and parameters.
-         \param parameters A dictionary containing the function to call and 
+         @param parameters A dictionary containing the function to call and 
                 parameters to pass to it.
 		 */
         void easyNDKCallBack(cocos2d::CCDictionary *parameters);
 
 		/**
          Adds an event handler. This retains the event handler.
-         \param eventHandler A pointer to the event handler you'd like to add.
+         @param eventHandler A pointer to the event handler you'd like to add.
 		 */
 		void addEventHandler(CCEventHandler *eventHandler);
 
 		/**
          Removes an event handler. This releases the event handler.
-         \param eventHandler A pointer to the event handler you'd like to 
+         @param eventHandler A pointer to the event handler you'd like to 
                 remove.
 		*/
 		void removeEventHandler(CCEventHandler *eventHandler);

@@ -24,8 +24,8 @@
 
 namespace soomla {
 	/** 
-     \class CCPurchasableVirtualItem
-     \brief A purchasable virtual item.
+     @class CCPurchasableVirtualItem
+     @brief A purchasable virtual item.
 
      A representation of a `CCVirtualItem` that you can actually purchase 
      (eitherwith real money or with other virtual items).
@@ -37,35 +37,32 @@ namespace soomla {
 
 		/**
          Creates a `CCPurchasableVirtualItem`.
-         \param name see parent.
-         \param description see parent.
-         \param itemId see parent.
-         \param purchaseType Either purchase with market or purchase with
+         @param name see parent.
+         @param description see parent.
+         @param itemId see parent.
+         @param purchaseType Either purchase with market or purchase with
                 virtual good.
-         \return The item.
+         @return The item.
 		*/
         static CCPurchasableVirtualItem * create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
         virtual bool init(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
 
 		/**
          Creates a `CCPurchasableVirtualItem` from a dictionary.
-         \param dict A dictionary containing keys to each of the parameters
+         @param dict A dictionary containing keys to each of the parameters
                 required by the create function.
-         \return The purchasable virtual item.
+         @return The purchasable virtual item.
 		*/
         static CCPurchasableVirtualItem * createWithDictionary(cocos2d::CCDictionary* dict);
         virtual bool initWithDictionary(cocos2d::CCDictionary* dict);
         
         /**
          Converts this `CCPurchasableVirtualItem` to a `CCDictionary`.
-         \return `CCDictionary` representation of this 
+         @return `CCDictionary` representation of this 
                 `CCPurchasableVirtualItem`.
          */
         virtual cocos2d::CCDictionary* toDictionary();
-        
-        /**
-         Destructor 
-         */
+       
         virtual ~CCPurchasableVirtualItem();
     };
 }

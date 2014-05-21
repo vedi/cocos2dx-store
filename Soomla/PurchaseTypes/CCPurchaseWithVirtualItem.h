@@ -23,8 +23,8 @@
 
 namespace soomla {
 	/** 
-     \class CCPurchaseWithVirtualItem
-     \brief This type of Purchase is used to let users purchase 
+     @class CCPurchaseWithVirtualItem
+     @brief This type of Purchase is used to let users purchase 
      `CCPurchasableVirtualItems` with other virtual items.
      
      This type of purchase allows users to purchase a virtual item with other
@@ -43,18 +43,15 @@ namespace soomla {
 
 		/** 
          Creates a `CCPurchaseWithVirtualItem`.
-         \param itemId The itemId of the virtual item that is used to "pay" with
+         @param itemId The itemId of the virtual item that is used to "pay" with
                 in order to make the purchase.
-         \param amount The amount of the payment item that is needed in order to 
+         @param amount The amount of the payment item that is needed in order to 
                 make the purchase.
-         \return The purchase with virtual item type.
+         @return The purchase with virtual item type.
 		*/
         static CCPurchaseWithVirtualItem * create(cocos2d::CCString *itemId, cocos2d::CCInteger *amount);
         virtual bool init(cocos2d::CCString *itemId, cocos2d::CCInteger *amount);
-        
-        /**
-         Destructor.
-         */
+     
         virtual ~CCPurchaseWithVirtualItem();
     };
 
