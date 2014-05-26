@@ -29,6 +29,9 @@ namespace soomla {
     extern char const* JSON_CATEGORY_GOODSITEMIDS;
     
     extern char const* JSON_MARKETITEM_PRODUCT_ID;
+    extern char const* JSON_MARKETITEM_ANDROID_ID;
+    extern char const* JSON_MARKETITEM_IOS_ID;
+
     extern char const* JSON_MARKETITEM_CONSUMABLE;
     extern char const* JSON_MARKETITEM_PRICE;
     

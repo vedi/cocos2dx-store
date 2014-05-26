@@ -7,7 +7,6 @@
 #include "CCStoreUtils.h"
 #include "CCSoomlaNdkBridge.h"
 #include "data/CCStoreInfo.h"
-#include "CCSoomlaError.h"
 
 using namespace cocos2d;
 typedef DictElement CCDictElement;
@@ -20,21 +19,23 @@ namespace soomla {
     static CCStoreController *s_SharedStoreController = NULL;
 
     CCStoreController *CCStoreController::sharedStoreController() {
+        if (!s_SharedStoreController)
+        {
+            s_SharedStoreController = new CCStoreController();
+            s_SharedStoreController->retain();
+        }
         return s_SharedStoreController;
     }
 
-    void CCStoreController::createShared(CCIStoreAssets *storeAssets, __Dictionary *storeParams) {
-        CCStoreController *ret = new CCStoreController();
-        if (ret->init(storeAssets, storeParams)) {
-            s_SharedStoreController = ret;
-        } else {
-            delete ret;
+    void CCStoreController::initShared(CCIStoreAssets *storeAssets, __Dictionary *storeParams) {
+        CCStoreController *storeController = CCStoreController::sharedStoreController();
+        if (!storeController->init(storeAssets, storeParams)) {
             exit(1);
         }
     }
 
     CCStoreController::CCStoreController() {
-
+        this->mSoomSec = NULL;
     }
 
     CCStoreController::~CCStoreController() {
@@ -43,7 +44,7 @@ namespace soomla {
 
     bool CCStoreController::init(CCIStoreAssets *storeAssets, __Dictionary *storeParams) {
         __String *customSecret = dynamic_cast<__String *>(storeParams->objectForKey("customSecret"));
-        __String *soomSec = dynamic_cast<__String *>(storeParams->objectForKey("soomSec"));
+        __String *soomSec = mSoomSec;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         __String *androidPublicKey = dynamic_cast<__String *>(storeParams->objectForKey("androidPublicKey"));
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -144,6 +145,16 @@ namespace soomla {
         return true;
     }
 
+    void CCStoreController::setupSoomSec() {
+        CC_ASSERT(mSoomSec);
+        {
+            CCDictionary *params = CCDictionary::create();
+            params->setObject(CCString::create("CCStoreController::setSoomSec"), "method");
+            params->setObject(mSoomSec, "soomSec");
+            CCSoomlaNdkBridge::callNative(params, NULL);
+        }
+    }
+
     void CCStoreController::buyMarketItem(const char *productId, CCSoomlaError **soomlaError) {
         __Dictionary *params = __Dictionary::create();
         params->setObject(__String::create("CCStoreController::buyMarketItem"), "method");
@@ -178,7 +189,7 @@ namespace soomla {
         CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 #endif
-	
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     void CCStoreController::startIabServiceInBg() {
         __Dictionary *params = __Dictionary::create();

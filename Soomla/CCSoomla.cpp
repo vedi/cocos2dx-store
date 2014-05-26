@@ -10,7 +10,7 @@ namespace soomla {
 
     static CCSoomla *s_SharedSoomla = NULL;
 
-    CCSoomla* CCSoomla::sharedSoomla() {
+    CCSoomla *CCSoomla::sharedSoomla() {
         if (!s_SharedSoomla) {
             s_SharedSoomla = new CCSoomla();
             s_SharedSoomla->init();
@@ -240,9 +240,9 @@ namespace soomla {
                 marketItem = dynamic_cast<CCDictionary *>(marketItems->objectAtIndex(i));
                 CC_ASSERT(marketItem);
                 CCString *productId = dynamic_cast<CCString *>(marketItem->objectForKey("productId"));
-                CCDouble *marketPrice = dynamic_cast<CCDouble *>(marketItem->objectForKey("market_price"));
-                CCString *marketTitle = dynamic_cast<CCString *>(marketItem->objectForKey("market_title"));
-                CCString *marketDescription = dynamic_cast<CCString *>(marketItem->objectForKey("market_desc"));
+                CCString *marketPrice = dynamic_cast<CCString *>(marketItem->objectForKey("marketPrice"));
+                CCString *marketTitle = dynamic_cast<CCString *>(marketItem->objectForKey("marketTitle"));
+                CCString *marketDescription = dynamic_cast<CCString *>(marketItem->objectForKey("marketDesc"));
 
                 CCPurchasableVirtualItem *pvi = CCStoreInfo::sharedStoreInfo()->getPurchasableItemWithProductId(
                         productId->getCString(), &soomlaError);
@@ -309,7 +309,7 @@ namespace soomla {
 				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
 				h->onStoreControllerInitialized();
 			}
-		} 
+		}
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         else if (methodName->compare("CCEventHandler::onMarketRefund") == 0) {
             __String *itemId = (__String *)(parameters->objectForKey("itemId"));
