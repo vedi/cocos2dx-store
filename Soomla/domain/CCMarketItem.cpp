@@ -38,9 +38,9 @@ namespace soomla {
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         char const* key = JSON_MARKETITEM_IOS_ID;
 #endif
-        cocos2d::CCObject* obj = dict->objectForKey(key);
-        CCAssert(obj == NULL || dynamic_cast<CCString *>(obj), "invalid object type in dictionary");
-        setProductId((CCString *)obj);
+        cocos2d::Ref* obj = dict->objectForKey(key);
+        CCAssert(obj == NULL || dynamic_cast<__String *>(obj), "invalid object type in dictionary");
+        setProductId((__String *)obj);
 
         if (mProductId == NULL) {
             fillProductIdFromDict(dict);

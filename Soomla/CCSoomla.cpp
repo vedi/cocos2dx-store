@@ -170,7 +170,7 @@ namespace soomla {
             __String *itemId = (__String *)(parameters->objectForKey("itemId"));
             CCSoomlaError *soomlaError = NULL;
             CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(
-																										CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
+                    CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &soomlaError));
             if (soomlaError) {
                 CCStoreUtils::logException("CCEventHandler::onItemPurchased", soomlaError);
                 return;
@@ -207,7 +207,7 @@ namespace soomla {
                 CCStoreUtils::logException("CCEventHandler::onMarketPurchase", soomlaError);
                 return;
             }
-            CCString *receiptUrl = (CCString *)(parameters->objectForKey("receiptUrl"));
+            __String *receiptUrl = (__String *)(parameters->objectForKey("receiptUrl"));
             CC_ASSERT(purchasableVirtualItem);
 			__SetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
@@ -232,17 +232,17 @@ namespace soomla {
 			}
         }
         else if (methodName->compare("CCEventHandler::onMarketItemsRefreshed") == 0) {
-            CCArray *marketItems = (CCArray *)(parameters->objectForKey("marketItems"));
+            __Array *marketItems = (__Array *)(parameters->objectForKey("marketItems"));
 
             CCSoomlaError *soomlaError;
-            CCDictionary *marketItem;
+            __Dictionary *marketItem;
             for (unsigned int i = 0; i < marketItems->count(); i++) {
-                marketItem = dynamic_cast<CCDictionary *>(marketItems->objectAtIndex(i));
+                marketItem = dynamic_cast<__Dictionary *>(marketItems->objectAtIndex(i));
                 CC_ASSERT(marketItem);
-                CCString *productId = dynamic_cast<CCString *>(marketItem->objectForKey("productId"));
-                CCString *marketPrice = dynamic_cast<CCString *>(marketItem->objectForKey("marketPrice"));
-                CCString *marketTitle = dynamic_cast<CCString *>(marketItem->objectForKey("marketTitle"));
-                CCString *marketDescription = dynamic_cast<CCString *>(marketItem->objectForKey("marketDesc"));
+                __String *productId = dynamic_cast<__String *>(marketItem->objectForKey("productId"));
+                __String *marketPrice = dynamic_cast<__String *>(marketItem->objectForKey("marketPrice"));
+                __String *marketTitle = dynamic_cast<__String *>(marketItem->objectForKey("marketTitle"));
+                __String *marketDescription = dynamic_cast<__String *>(marketItem->objectForKey("marketDesc"));
 
                 CCPurchasableVirtualItem *pvi = CCStoreInfo::sharedStoreInfo()->getPurchasableItemWithProductId(
                         productId->getCString(), &soomlaError);
@@ -260,7 +260,7 @@ namespace soomla {
                 mi->setMarketDescription(marketDescription);
             }
 
-            CCSetIterator i;
+            __SetIterator i;
             for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
                 CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
                 h->onMarketItemsRefreshed();
