@@ -234,8 +234,8 @@ namespace soomla {
         else if (methodName->compare("CCEventHandler::onMarketItemsRefreshed") == 0) {
             CCArray *marketItems = (CCArray *)(parameters->objectForKey("marketItems"));
 
-            CCSoomlaError *soomlaError;
-            CCDictionary *marketItem;
+            CCSoomlaError *soomlaError = NULL;
+            CCDictionary *marketItem = NULL;
             for (unsigned int i = 0; i < marketItems->count(); i++) {
                 marketItem = dynamic_cast<CCDictionary *>(marketItems->objectAtIndex(i));
                 CC_ASSERT(marketItem);
