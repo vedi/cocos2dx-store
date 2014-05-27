@@ -277,7 +277,7 @@ public class EventHandlerBridge {
                         marketItemJson.put("marketPrice", marketItem.getMarketPrice());
                         marketItemJson.put("marketTitle", marketItem.getMarketTitle());
                         marketItemJson.put("marketDesc", marketItem.getMarketDescription());
-                        marketItemsJson.put(marketItem.toJSONObject());
+                        marketItemsJson.put(marketItemJson);
                     }
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCEventHandler::onMarketItemsRefreshed");
