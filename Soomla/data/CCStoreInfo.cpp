@@ -135,6 +135,8 @@ namespace soomla {
             SAFE_CREATE(CCVirtualItem *, ret, retParams);
             return ret;
         } else {
+            CCStoreUtils::logDebug(TAG, __String::createWithFormat(
+                    "getItemByItemId: Cannot get item: %s", itemId)->getCString());
             return NULL;
         }
     }
@@ -148,6 +150,8 @@ namespace soomla {
             SAFE_CREATE(CCPurchasableVirtualItem *, ret, retParams);
             return ret;
         } else {
+            CCStoreUtils::logDebug(TAG, __String::createWithFormat(
+                    "getPurchasableItemWithProductId: Cannot get item: %s", productId)->getCString());
             return NULL;
         }
     }
@@ -161,6 +165,8 @@ namespace soomla {
             SAFE_CREATE(CCVirtualCategory *, ret, retParams);
             return ret;
         } else {
+            CCStoreUtils::logDebug(TAG, __String::createWithFormat(
+                    "getCategoryForVirtualGood: Cannot get item: %s", goodItemId)->getCString());
             return NULL;
         }
     }
@@ -310,7 +316,7 @@ namespace soomla {
         __String *className = dynamic_cast<__String *>(retValue->objectForKey("className"));
 		__Dictionary *item = dynamic_cast<__Dictionary *>(retValue->objectForKey("item"));
         CC_ASSERT(item);
-		
+
         if (className->compare("VirtualItem") == 0) {
             return CCVirtualItem::createWithDictionary(item);
         }
