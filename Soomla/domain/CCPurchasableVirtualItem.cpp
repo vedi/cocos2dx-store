@@ -81,6 +81,7 @@ namespace soomla {
 
             setPurchaseType(CCPurchaseWithVirtualItem::create(itemId, amount));
         } else {
+            CC_ASSERT(false);
             cocos2d::log("Couldn't determine what type of class is the given purchaseType.");
         }
     }
