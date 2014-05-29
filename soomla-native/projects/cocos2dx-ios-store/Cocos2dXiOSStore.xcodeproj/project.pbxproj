@@ -24,7 +24,25 @@
 		C0B3C5F3168C6D0C00161FAA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B3C5F2168C6D0C00161FAA /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9D1373BC192E1773003B9302 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D1373B8192E1773003B9302 /* SoomlaiOSStore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C02CEC42160DC870000AA0D2;
+			remoteInfo = SoomlaiOSStore;
+		};
+		9D1373C6192E20BB003B9302 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D1373B8192E1773003B9302 /* SoomlaiOSStore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C02CEC41160DC870000AA0D2;
+			remoteInfo = SoomlaiOSStore;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		9D1373B8192E1773003B9302 /* SoomlaiOSStore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SoomlaiOSStore.xcodeproj; path = "/Users/vedi/Documents/Projects/soomla/cocos2d-x/extensions/cocos2dx-store/Soomla/../submodules/ios-store/SoomlaiOSStore.xcodeproj"; sourceTree = "<absolute>"; };
 		9D1D39B719018BB0000EC503 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		9DFD99611906D08300F67A8B /* CCSoomlaNdkBridgeIos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSoomlaNdkBridgeIos.h; sourceTree = "<group>"; };
 		9DFD99621906D08300F67A8B /* CCSoomlaNdkBridgeIos.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCSoomlaNdkBridgeIos.mm; sourceTree = "<group>"; };
@@ -56,6 +74,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D1373B9192E1773003B9302 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9D1373BD192E1773003B9302 /* libSoomlaiOSStore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		9DFD99601906D08300F67A8B /* SoomlaCocos2dx */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +114,7 @@
 		C0B3C5E4168C6D0C00161FAA = {
 			isa = PBXGroup;
 			children = (
+				9D1373B8192E1773003B9302 /* SoomlaiOSStore.xcodeproj */,
 				9DFD99601906D08300F67A8B /* SoomlaCocos2dx */,
 				9D1D39B719018BB0000EC503 /* Prefix.pch */,
 				C0B3C5F1168C6D0C00161FAA /* Frameworks */,
@@ -143,6 +170,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9D1373C7192E20BB003B9302 /* PBXTargetDependency */,
 			);
 			name = Cocos2dXiOSStore;
 			productName = SoomlaIOSStore;
@@ -168,12 +196,28 @@
 			mainGroup = C0B3C5E4168C6D0C00161FAA;
 			productRefGroup = C0B3C5F0168C6D0C00161FAA /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9D1373B9192E1773003B9302 /* Products */;
+					ProjectRef = 9D1373B8192E1773003B9302 /* SoomlaiOSStore.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C0B3C5EE168C6D0C00161FAA /* Cocos2dXiOSStore */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9D1373BD192E1773003B9302 /* libSoomlaiOSStore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSoomlaiOSStore.a;
+			remoteRef = 9D1373BC192E1773003B9302 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		C09762A81900726F000A4403 /* ShellScript */ = {
@@ -207,6 +251,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9D1373C7192E20BB003B9302 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SoomlaiOSStore;
+			targetProxy = 9D1373C6192E20BB003B9302 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C0B3C5FB168C6D0C00161FAA /* Debug */ = {
