@@ -1,5 +1,1 @@
-set -e
-
-source ./gradlew
-
-# echo OK
+ant -buildfile cocos2dx-android-store.xml -Dsoomla.filename="Cocos2dxAndroidStore" all
