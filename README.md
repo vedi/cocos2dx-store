@@ -15,6 +15,8 @@ Soomla.storeInventory.buyItem("[itemId]");
 
 # cocos2dx-store
 
+**May 30, 2014**: Support Amazon Billing Provider.
+
 **May 29, 2014**: Added prebuilt libs.
 
 **April 9, 2014**: Complete upgrading to cocos2d-x v3.
