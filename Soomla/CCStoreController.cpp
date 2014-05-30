@@ -42,6 +42,10 @@ namespace soomla {
     bool CCStoreController::init(CCIStoreAssets *storeAssets, CCDictionary *storeParams) {
         CCString *customSecret = dynamic_cast<CCString *>(storeParams->objectForKey("customSecret"));
         CCString *soomSec = mSoomSec;
+        if (soomSec == NULL) {
+            soomSec = dynamic_cast<CCString *>(storeParams->objectForKey("soomSec"));
+        }
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         CCString *androidPublicKey = dynamic_cast<CCString *>(storeParams->objectForKey("androidPublicKey"));
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
