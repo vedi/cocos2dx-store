@@ -64,7 +64,8 @@ public class SoomlaNDKGlue {
                     StoreControllerBridge.initialize(customSecret);
                 } else if (methodName.equals("CCStoreController::buyMarketItem")) {
                     String productId = params.getString("productId");
-                    StoreControllerBridge.buyWithMarket(productId);
+                    String payload = params.getString("payload");
+                    StoreControllerBridge.buyWithMarket(productId, payload);
                 } else if (methodName.equals("CCStoreController::startIabServiceInBg")) {
                     StoreControllerBridge.startIabServiceInBg();
                 } else if (methodName.equals("CCStoreController::stopIabServiceInBg")) {
@@ -75,7 +76,7 @@ public class SoomlaNDKGlue {
                     boolean retValue = StoreControllerBridge.transactionsAlreadyRestored();
                     retParams.put("return", retValue);
                 } else if (methodName.equals("CCStoreController::refreshInventory")) {
-                    StoreControllerBridge.transactionsAlreadyRestored();
+                    StoreControllerBridge.refreshInventory();;
                 } else if (methodName.equals("CCStoreController::setSoomSec")) {
                     String soomSec = params.getString("soomSec");
                     StoreControllerBridge.setSoomSec(soomSec);

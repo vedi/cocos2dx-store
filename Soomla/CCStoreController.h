@@ -48,7 +48,7 @@ namespace soomla {
 		   \param productId The Product ID of the item in the App Store or Google Play
 		   \param soomlaError A CCSoomlaError for error checking.
 		 */
-        void buyMarketItem(char const *productId, CCSoomlaError **soomlaError);
+        void buyMarketItem(const char *productId, const char *payload, CCSoomlaError **soomlaError);
 
 		/**
 		   Restore this user's previous transactions.

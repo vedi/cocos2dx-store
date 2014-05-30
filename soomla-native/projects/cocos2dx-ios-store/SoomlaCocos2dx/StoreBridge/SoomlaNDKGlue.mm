@@ -48,6 +48,7 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
         }
         else if ([methodName isEqualToString:@"CCStoreController::buyMarketItem"]) {
             NSString *productId = (NSString *) [parameters objectForKey:@"productId"];
+            // NOTE: payload is not supported on iOS !
             StoreControllerBridge::buyMarketItem(productId);
         }
         else if ([methodName isEqualToString:@"CCStoreController::restoreTransactions"]) {
@@ -254,10 +255,11 @@ static NSString* TAG = @"SOOMLA SoomlaNDKGlue";
     }
     else if ([notification.name isEqualToString:EVENT_MARKET_PURCHASED]) {
         PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
-        NSURL *url = [notification.userInfo objectForKey:DICT_ELEMENT_RECEIPT];
+        NSString* purchaseToken = [notification.userInfo objectForKey:DICT_ELEMENT_TOKEN];
         [parameters setObject:@"CCEventHandler::onMarketPurchase" forKey:@"method"];
         [parameters setObject:[pvi itemId] forKey:@"itemId"];
-        [parameters setObject:[url absoluteString] forKey:@"receiptUrl"];
+        [parameters setObject:@"[iOS Purchase no payload]" forKey:@"payload"];
+        [parameters setObject:purchaseToken forKey:@"token"];
     }
     else if ([notification.name isEqualToString:EVENT_MARKET_PURCHASE_STARTED]) {
         PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];

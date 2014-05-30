@@ -207,12 +207,13 @@ namespace soomla {
                 CCStoreUtils::logException("CCEventHandler::onMarketPurchase", soomlaError);
                 return;
             }
-            __String *receiptUrl = (__String *)(parameters->objectForKey("receiptUrl"));
             CC_ASSERT(purchasableVirtualItem);
-			__SetIterator i;
+            __String *token = (__String *)(parameters->objectForKey("token"));
+            __String *payload = (__String *)(parameters->objectForKey("payload"));
+            __SetIterator i;
 			for(i = mEventHandlers.begin(); i != mEventHandlers.end(); i++) {
 				CCEventHandler *h = dynamic_cast<CCEventHandler *>(*i);
-                h->onMarketPurchase(purchasableVirtualItem, receiptUrl);
+                h->onMarketPurchase(purchasableVirtualItem, token, payload);
 			}
         }
         else if (methodName->compare("CCEventHandler::onMarketPurchaseStarted") == 0) {
