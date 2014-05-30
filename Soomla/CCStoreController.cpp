@@ -149,17 +149,19 @@ namespace soomla {
     void CCStoreController::setupSoomSec() {
         CC_ASSERT(mSoomSec);
         {
-            CCDictionary *params = CCDictionary::create();
-            params->setObject(CCString::create("CCStoreController::setSoomSec"), "method");
+            __Dictionary *params = __Dictionary::create();
+            params->setObject(__String::create("CCStoreController::setSoomSec"), "method");
             params->setObject(mSoomSec, "soomSec");
             CCSoomlaNdkBridge::callNative(params, NULL);
         }
     }
 
-    void CCStoreController::buyMarketItem(const char *productId, CCSoomlaError **soomlaError) {
+    void CCStoreController::buyMarketItem(const char *productId, const char *payload, CCSoomlaError **soomlaError) {
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreController::buyMarketItem"), "method");
         params->setObject(CCString::create(productId), "productId");
+        // NOTE: payload is not supported on iOS !
+        params->setObject(CCString::create(payload), "payload");
         CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 
@@ -170,8 +172,8 @@ namespace soomla {
     }
 
     void CCStoreController::refreshInventory() {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCStoreController::refreshInventory"), "method");
+        __Dictionary *params = __Dictionary::create();
+        params->setObject(__String::create("CCStoreController::refreshInventory"), "method");
         CCSoomlaNdkBridge::callNative(params, NULL);
     }
 
@@ -185,8 +187,8 @@ namespace soomla {
     }
 
     void CCStoreController::refreshMarketItemsDetails(CCSoomlaError **soomlaError) {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCStoreController::refreshMarketItemsDetails"), "method");
+        __Dictionary *params = __Dictionary::create();
+        params->setObject(__String::create("CCStoreController::refreshMarketItemsDetails"), "method");
         CCSoomlaNdkBridge::callNative(params, soomlaError);
     }
 #endif

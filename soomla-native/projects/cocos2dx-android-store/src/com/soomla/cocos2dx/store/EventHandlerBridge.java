@@ -236,7 +236,8 @@ public class EventHandlerBridge {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCEventHandler::onMarketPurchase");
                     parameters.put("itemId", marketPurchaseEvent.getPurchasableVirtualItem().getItemId());
-                    parameters.put("receiptUrl", marketPurchaseEvent.getPurchasableVirtualItem().getItemId());
+                    parameters.put("payload", marketPurchaseEvent.getPayload());
+                    parameters.put("token", marketPurchaseEvent.getToken());
                     SoomlaNDKGlue.sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
@@ -263,7 +264,7 @@ public class EventHandlerBridge {
     }
 
     @Subscribe
-    public void onMarketItemsRefreshed(final MarketItemsRefreshed marketItemsRefreshed) {
+    public void onMarketItemsRefreshed(final MarketItemsRefreshFinishedEvent marketItemsRefreshed) {
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
