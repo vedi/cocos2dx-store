@@ -15,6 +15,8 @@ Soomla.storeInventory.buyItem("[itemId]");
 
 # cocos2dx-store
 
+**May 30, 2014**: Support Amazon Billing Provider.
+
 **May 29, 2014**: Added prebuilt libs.
 
 **April 8, 2014**: Added new events from native stores.
@@ -549,5 +551,5 @@ android-store follows strict code documentation conventions. If you would like t
 
 ## License
 
-MIT License. Copyright (c) 2012 SOOMLA. http://project.soom.la
-+ http://www.opensource.org/licenses/MIT
+Apache License. Copyright (c) 2012-2014 SOOMLA. http://project.soom.la
++ http://opensource.org/licenses/Apache-2.0
