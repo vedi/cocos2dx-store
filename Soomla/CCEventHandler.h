@@ -107,16 +107,15 @@ namespace soomla {
                 cancelled.
          */
         virtual void onMarketPurchaseCancelled(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
-        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *token, cocos2d::CCString *payload) = 0;
-        
+
         /**
          Handles an `onMarketPurchase` event, which is fired when a market item
          from the store (App Store, Google Play, etc..) has been purchased.
          @param purchasableVirtualItem The market item being purchased.
          @param receiptUrl Receipt URL from the store.
-         */
-        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *receiptUrl) = 0;
-        
+        */
+        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *token, cocos2d::CCString *payload) = 0;
+
         /**
          Handles an `onMarketPurchaseStarted` event, which is fired when a 
          purchase process has started, where the item is being purchased from
