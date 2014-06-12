@@ -4,8 +4,8 @@
 
 
 
-#ifndef __JsonHelper_H_
-#define __JsonHelper_H_
+#ifndef __CCSoomlaJsonHelper_H_
+#define __CCSoomlaJsonHelper_H_
 
 #include <iostream>
 #include "cocos2d.h"
@@ -32,4 +32,4 @@ class CCSoomlaJsonHelper {
 };
 
 
-#endif //__JsonHelper_H_
+#endif //__CCSoomlaJsonHelper_H_

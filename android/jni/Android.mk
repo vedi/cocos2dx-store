@@ -44,12 +44,12 @@ LOCAL_SRC_FILES +=  \
 endif
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Soomla
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Soomla/data
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../lib \
         $(LOCAL_PATH)/../../../bindings/manual
 
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += jansson_static
-
 
 ifneq '$(COCOS2D_JAVASCRIPT)' ''
 LOCAL_WHOLE_STATIC_LIBRARIES += spidermonkey_static
