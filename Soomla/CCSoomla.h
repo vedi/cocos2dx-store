@@ -40,7 +40,6 @@ namespace soomla {
     class CCSoomla: public cocos2d::Ref {
 	private:
         cocos2d::__Set mEventHandlers;
-
     public:
 		/**
          This class is singleton, access it with this function.
@@ -82,10 +81,6 @@ namespace soomla {
         CC_SYNTH_DEPRECATED(bool, mAndroidTestMode, AndroidTestMode);
         CC_SYNTH_DEPRECATED(std::string, mSoomSec, SoomSec);
         CC_SYNTH_DEPRECATED(bool, mSSV, SSV);
-        
-    private:
-        cocos2d::CCSet mEventHandlers;
-        
     };
 };
 

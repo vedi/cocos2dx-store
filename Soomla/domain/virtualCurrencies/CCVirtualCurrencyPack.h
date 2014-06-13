@@ -59,9 +59,9 @@ namespace soomla {
         static CCVirtualCurrencyPack *create(cocos2d::__String* name, cocos2d::__String* description,
 											 cocos2d::__String* itemId, cocos2d::__Integer* currencyAmount, cocos2d::__String* currencyItemId,
 											 CCPurchaseType * purchaseType);
-        bool init(cocos2d::CCString* name, cocos2d::CCString* description,
-                  cocos2d::CCString* itemId, cocos2d::CCInteger* currencyAmount, cocos2d::CCString* currencyItemId,
-                  CCPurchaseType * purchaseType);
+        bool init(cocos2d::__String* name, cocos2d::__String* description,
+                cocos2d::__String* itemId, cocos2d::__Integer* currencyAmount, cocos2d::__String* currencyItemId,
+                CCPurchaseType * purchaseType);
 
 		/**
          Creates a `CCVirtualCurrencyPack`.
@@ -70,10 +70,6 @@ namespace soomla {
          @return The pack.
 		*/
         static CCVirtualCurrencyPack *createWithDictionary(cocos2d::__Dictionary *dict);
-
-        bool init(cocos2d::__String* name, cocos2d::__String* description,
-                cocos2d::__String* itemId, cocos2d::__Integer* currencyAmount, cocos2d::__String* currencyItemId,
-                CCPurchaseType * purchaseType);
         bool initWithDictionary(cocos2d::__Dictionary *dict);
 
         /**
