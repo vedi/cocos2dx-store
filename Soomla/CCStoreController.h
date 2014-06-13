@@ -33,7 +33,7 @@ namespace soomla {
      basic assets needed to operate the Store.
 	 */
     class CCStoreController: public cocos2d::Ref {
-        CC_SYNTHESIZE_RETAIN(cocos2d::CCString *, mSoomSec, SoomSec);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__String *, mSoomSec, SoomSec);
     public:
         
 		/**
@@ -48,10 +48,10 @@ namespace soomla {
          @param storeParams A CCDictionary containing parameters for 
                 CCStoreController (These were previously found in CCSoomla).
                 This dictionary can contain the following:
-                "soomSec": CCString - The value of the primary encryption key.
-                "customSecret": CCString - The value of the secondary encryption 
+                "soomSec": __String - The value of the primary encryption key.
+                "customSecret": __String - The value of the secondary encryption
                     key.
-                "androidPublicKey": CCString - Your Android public key.
+                "androidPublicKey": __String - Your Android public key.
                 "SSV": CCBool - Whether or not to enable server side 
                     verification of purchases.
 		 */
