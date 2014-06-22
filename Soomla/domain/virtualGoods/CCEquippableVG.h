@@ -108,8 +108,8 @@ namespace soomla {
                 required by the create function.
          @return The Equippable virtual good.
 		*/
-        static CCEquippableVG *createWithDictionary(cocos2d::__Dictionary *dict);
-        bool initWithDictionary(cocos2d::__Dictionary *dict);
+        SL_CREATE_WITH_DICTIONARY(CCEquippableVG);
+
 
         /**
         Converts this `CCEquippableVG` to a `CCDictionary`.

@@ -23,15 +23,12 @@ USING_NS_CC;
 namespace soomla {
     CCSingleUsePackVG *CCSingleUsePackVG::create(__String *goodItemId, __Integer *goodAmount, __String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
         CCSingleUsePackVG *ret = new CCSingleUsePackVG();
-        ret->autorelease();
-        ret->init(goodItemId, goodAmount, name, description, itemId, purchaseType);
-        return ret;
-    }
-
-    CCSingleUsePackVG *CCSingleUsePackVG::createWithDictionary(__Dictionary *dict) {
-        CCSingleUsePackVG *ret = new CCSingleUsePackVG();
-        ret->autorelease();
-        ret->initWithDictionary(dict);
+        if (ret->init(goodItemId, goodAmount, name, description, itemId, purchaseType)) {
+            ret->autorelease();
+        }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
         return ret;
     }
 
@@ -63,7 +60,7 @@ namespace soomla {
         putGoodItemIdToDict(dict);
         putGoodAmountToDict(dict);
 
-        return dict;
+        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_PACK_VG);
     }
 
     CCSingleUsePackVG::~CCSingleUsePackVG() {

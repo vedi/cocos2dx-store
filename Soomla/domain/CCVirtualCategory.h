@@ -17,11 +17,12 @@
 // Created by Fedor Shubin on 5/19/13.
 
 #include "cocos2d.h"
-#include "../SoomlaMacros.h"
-#include "../data/SoomlaJSONConsts.h"
+#include "CCSoomlaMacros.h"
+#include "CCDomain.h"
+#include "CCStoreConsts.h"
 
-#ifndef __VirtualCategoryX_H_
-#define __VirtualCategoryX_H_
+#ifndef __CCVirtualCategory_H_
+#define __CCVirtualCategory_H_
 
 namespace soomla {
 	/** 
@@ -32,9 +33,9 @@ namespace soomla {
      associated with many virtual goods. Virtual categories help in organizing 
      your economy's virtual goods.
 	 */
-    class CCVirtualCategory : public cocos2d::Ref {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mName, Name, JSON_CATEGORY_NAME);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Array*, mGoodItemIds, GoodItemIds, JSON_CATEGORY_GOODSITEMIDS);
+    class CCVirtualCategory : public CCDomain {
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mName, Name, CCStoreConsts::JSON_CATEGORY_NAME);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Array*, mGoodItemIds, GoodItemIds, CCStoreConsts::JSON_CATEGORY_GOODSITEMIDS);
     public:
 	CCVirtualCategory(): mName(NULL), mGoodItemIds(NULL) {};
 
@@ -53,7 +54,7 @@ namespace soomla {
                 required by the create function.
          @return The virtual category.
 		*/
-		static CCVirtualCategory *createWithDictionary(cocos2d::__Dictionary *dict);
+        SL_CREATE_WITH_DICTIONARY(CCVirtualCategory);
 
         bool init(cocos2d::__String *name, cocos2d::__Array *goodItemIds);
         bool initWithDictionary(cocos2d::__Dictionary *dict);
@@ -69,4 +70,4 @@ namespace soomla {
 };
 
 
-#endif //__VirtualCategoryX_H_
+#endif //__CCVirtualCategory_H_

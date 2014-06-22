@@ -29,9 +29,9 @@ namespace soomla {
         CCLOGERROR("%s %s", tag, message);
     }
 
-    void CCStoreUtils::logException(char const *tag, CCSoomlaError *error) {
+    void CCStoreUtils::logException(char const *tag, CCError *error) {
         CC_ASSERT(error);
-        cocos2d::log("%s Soomla error: error code: %d, with information %s", tag, error->getCode(), error->getInfo());
+        cocos2d::log("%s Soomla error: %s", tag, error->getInfo());
     }
 
 };

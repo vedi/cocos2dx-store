@@ -23,15 +23,17 @@ USING_NS_CC;
 namespace soomla {
     CCNonConsumableItem *CCNonConsumableItem::create(__String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
         CCNonConsumableItem *ret = new CCNonConsumableItem();
-        ret->autorelease();
-        ret->init(name, description, itemId, purchaseType);
+        if (ret->init(name, description, itemId, purchaseType)) {
+            ret->autorelease();
+        }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
+
         return ret;
     }
 
-    CCNonConsumableItem *CCNonConsumableItem::createWithDictionary(__Dictionary *dict) {
-        CCNonConsumableItem *ret = new CCNonConsumableItem();
-        ret->autorelease();
-        ret->initWithDictionary(dict);
-        return ret;
+    cocos2d::__Dictionary *CCNonConsumableItem::toDictionary() {
+        return this->putTypeData(CCPurchasableVirtualItem::toDictionary(), CCStoreConsts::JSON_JSON_TYPE_NON_CONSUMABLE_ITEM);
     }
 };

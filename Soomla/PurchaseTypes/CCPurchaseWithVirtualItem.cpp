@@ -21,8 +21,13 @@
 namespace soomla {
     CCPurchaseWithVirtualItem *CCPurchaseWithVirtualItem::create(cocos2d::__String *itemId, cocos2d::__Integer *amount) {
         CCPurchaseWithVirtualItem *ret = new CCPurchaseWithVirtualItem();
-        ret->autorelease();
-        ret->init(itemId, amount);
+        if (ret->init(itemId, amount)) {
+            ret->autorelease();
+        }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
+
         return ret;
     }
 

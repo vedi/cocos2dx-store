@@ -21,20 +21,17 @@
 namespace soomla {
     
     CCVirtualCurrency* CCVirtualCurrency::create(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId) {
-        CCVirtualCurrency* pRet = new CCVirtualCurrency();
-        if (pRet) {
-            pRet->autorelease();
-            pRet->init(name, description, itemId);
+        CCVirtualCurrency*ret = new CCVirtualCurrency();
+        if (ret->init(name, description, itemId)) {
+            ret->autorelease();
+        } 
+        else {
+            CC_SAFE_DELETE(ret);
         }
-        return pRet;
+        return ret;
     }
 
-    CCVirtualCurrency* CCVirtualCurrency::createWithDictionary(cocos2d::__Dictionary* dict) {
-        CCVirtualCurrency* pRet = new CCVirtualCurrency();
-        if (pRet) {
-            pRet->autorelease();
-            pRet->initWithDictionary(dict);
-        }
-        return pRet;
+    cocos2d::__Dictionary *CCVirtualCurrency::toDictionary() {
+        return this->putTypeData(CCVirtualItem::toDictionary(), CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY);
     }
 }

@@ -23,15 +23,13 @@ USING_NS_CC;
 namespace soomla {
     CCUpgradeVG *CCUpgradeVG::create(__String *goodItemId, __String *prevItemId, __String *nextItemId, __String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
         CCUpgradeVG *ret = new CCUpgradeVG();
-        ret->autorelease();
-        ret->init(goodItemId, prevItemId, nextItemId, name, description, itemId, purchaseType);
-        return ret;
-    }
+        if (ret->init(goodItemId, prevItemId, nextItemId, name, description, itemId, purchaseType)) {
+            ret->autorelease();
+        }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
 
-    CCUpgradeVG *CCUpgradeVG::createWithDictionary(__Dictionary *dict) {
-        CCUpgradeVG *ret = new CCUpgradeVG();
-        ret->autorelease();
-        ret->initWithDictionary(dict);
         return ret;
     }
 
@@ -66,15 +64,15 @@ namespace soomla {
         if (mPrevItemId != NULL) {
             putPrevItemIdToDict(dict);
         } else {
-            dict->setObject(__String::create(""), JSON_VGU_PREV_ITEMID);
+            dict->setObject(__String::create(""), CCStoreConsts::JSON_VGU_PREV_ITEMID);
         }
         if (mNextItemId != NULL) {
             putNextItemIdToDict(dict);
         } else {
-            dict->setObject(__String::create(""), JSON_VGU_NEXT_ITEMID);
+            dict->setObject(__String::create(""), CCStoreConsts::JSON_VGU_NEXT_ITEMID);
         }
 
-        return dict;
+        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG);
     }
 
     CCUpgradeVG::~CCUpgradeVG() {

@@ -20,8 +20,9 @@
 #define __cocos2dx_store__VirtualItem__
 
 #include "cocos2d.h"
-#include "../SoomlaMacros.h"
-#include "../data/SoomlaJSONConsts.h"
+#include "CCDomain.h"
+#include "CCStoreConsts.h"
+#include "CCSoomlaMacros.h"
 
 namespace soomla {
 	/** 
@@ -33,10 +34,10 @@ namespace soomla {
      are many types of virtual items - each one of the various types extends
      `CCVirtualItem` and adds its own behavior on top of it.
 	*/    
-    class CCVirtualItem : public cocos2d::Ref {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mName, Name, JSON_ITEM_NAME);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mDescription, Description, JSON_ITEM_DESCRIPTION);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mItemId, ItemId, JSON_ITEM_ITEMID);
+    class CCVirtualItem : public CCDomain {
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mName, Name, CCStoreConsts::JSON_ITEM_NAME);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mDescription, Description, CCStoreConsts::JSON_ITEM_DESCRIPTION);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mItemId, ItemId, CCStoreConsts::JSON_ITEM_ITEMID);
         
     public:
         CCVirtualItem(): mName(NULL), mDescription(NULL), mItemId(NULL) {}
@@ -56,7 +57,7 @@ namespace soomla {
                 required by the create function.
          @return The item.
 		*/
-		static CCVirtualItem * createWithDictionary(cocos2d::__Dictionary* dict);
+        SL_CREATE_WITH_DICTIONARY(CCVirtualItem);
 
         virtual bool init(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId);
         virtual bool initWithDictionary(cocos2d::__Dictionary* dict);

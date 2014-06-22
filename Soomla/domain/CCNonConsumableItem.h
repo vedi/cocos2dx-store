@@ -60,7 +60,9 @@ namespace soomla {
                 required by the create function.
          @return The non-consumable item.
 		*/
-		static CCNonConsumableItem * createWithDictionary(cocos2d::__Dictionary* dict);
+        SL_CREATE_WITH_DICTIONARY(CCNonConsumableItem);
+
+        virtual cocos2d::__Dictionary *toDictionary() override;
     };
 };
 

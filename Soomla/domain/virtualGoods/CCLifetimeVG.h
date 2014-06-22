@@ -61,7 +61,9 @@ namespace soomla {
                 required by the `create` function.
          @return The Lifetime virtual good.
 		*/
-        static CCLifetimeVG *createWithDictionary(cocos2d::__Dictionary *dict);
+        SL_CREATE_WITH_DICTIONARY(CCLifetimeVG);
+
+        virtual cocos2d::__Dictionary *toDictionary() override;
     };
 };
 

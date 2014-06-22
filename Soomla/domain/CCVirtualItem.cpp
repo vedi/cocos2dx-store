@@ -23,21 +23,15 @@ namespace soomla {
     using namespace cocos2d;
 
     CCVirtualItem *CCVirtualItem::create(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId) {
-        CCVirtualItem * pRet = new CCVirtualItem();
-        if (pRet) {
-            pRet->autorelease();
-            pRet->init(name, description, itemId);
+        CCVirtualItem *ret = new CCVirtualItem();
+        if (ret->init(name, description, itemId)) {
+            ret->autorelease();
         }
-        return pRet;
-    }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
 
-    CCVirtualItem *CCVirtualItem::createWithDictionary(cocos2d::__Dictionary* dict) {
-        CCVirtualItem * pRet = new CCVirtualItem();
-        if (pRet) {
-            pRet->autorelease();
-            pRet->initWithDictionary(dict);
-        }
-        return pRet;
+        return ret;
     }
 
     bool CCVirtualItem::init(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId) {
@@ -68,6 +62,6 @@ namespace soomla {
         putDescriptionToDict(dict);
         putItemIdToDict(dict);
 
-        return dict;
+        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM);
     }
 }

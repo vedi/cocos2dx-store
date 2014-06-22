@@ -14,8 +14,8 @@
  limitations under the License.
  */
 
-#ifndef __CCEventHandler__
-#define __CCEventHandler__
+#ifndef __CCStoreEventHandler__
+#define __CCStoreEventHandler__
 
 #include "./domain/virtualCurrencies/CCVirtualCurrency.h"
 #include "./domain/virtualGoods/CCVirtualGood.h"
@@ -24,14 +24,14 @@
 
 namespace soomla {
 	/** 
-     @class CCEventHandler
+     @class CCStoreEventHandler
      @brief An abstract class that defines the event handler.
      
      Create your own implementation of this class and pass it to
      `CCSoomla::addEventHandler()` to work with the events. Functions are
      called when their corresponding events are fired in the SOOMLA SDK.
 	 */
-    class CCEventHandler : public cocos2d::Ref {
+    class CCStoreEventHandler : public cocos2d::Ref {
     public:
         
         /**
@@ -191,4 +191,4 @@ namespace soomla {
     };
 };
 
-#endif /* defined(__CCEventHandler__) */
+#endif /* defined(__CCStoreEventHandler__) */

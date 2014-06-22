@@ -20,7 +20,8 @@
 #define __UpgradeVGX_H_
 
 #include "CCVirtualGood.h"
-#include "../../SoomlaMacros.h"
+#include "CCSoomlaMacros.h"
+#include "CCStoreConsts.h"
 
 namespace soomla {
     
@@ -51,9 +52,9 @@ namespace soomla {
      CCPurchasableVirtualItem > CCVirtualItem
      */
     class CCUpgradeVG : public CCVirtualGood {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mGoodItemId, GoodItemId, JSON_VGU_GOOD_ITEMID);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mPrevItemId, PrevItemId, JSON_VGU_PREV_ITEMID);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mNextItemId, NextItemId, JSON_VGU_NEXT_ITEMID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mGoodItemId, GoodItemId, CCStoreConsts::JSON_VGU_GOOD_ITEMID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mPrevItemId, PrevItemId, CCStoreConsts::JSON_VGU_PREV_ITEMID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mNextItemId, NextItemId, CCStoreConsts::JSON_VGU_NEXT_ITEMID);
     public:
         
 	CCUpgradeVG(): CCVirtualGood(), mGoodItemId(NULL), mPrevItemId(NULL), mNextItemId(NULL) {};
@@ -82,7 +83,7 @@ namespace soomla {
         required by the `create` function.
         @return The Upgrade virtual good.
         */
-		static CCUpgradeVG *createWithDictionary(cocos2d::__Dictionary *dict);
+        SL_CREATE_WITH_DICTIONARY(CCUpgradeVG);
 
         bool init(cocos2d::__String* goodItemId, cocos2d::__String* prevItemId, cocos2d::__String* nextItemId,
                 cocos2d::__String* name, cocos2d::__String* description,

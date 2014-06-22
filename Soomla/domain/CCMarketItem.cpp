@@ -24,15 +24,13 @@ namespace soomla {
 
     CCMarketItem *CCMarketItem::create(__String *productId, __Integer *consumable, __Double *price) {
         CCMarketItem *ret = new CCMarketItem();
-        ret->autorelease();
-        ret->init(productId, consumable, price);
-        return ret;
-    }
+        if (ret->init(productId, consumable, price)) {
+            ret->autorelease();
+        }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
 
-    CCMarketItem *CCMarketItem::createWithDictionary(__Dictionary *dict) {
-        CCMarketItem *ret = new CCMarketItem();
-        ret->autorelease();
-        ret->initWithDictionary(dict);
         return ret;
     }
 
@@ -47,9 +45,9 @@ namespace soomla {
     bool CCMarketItem::initWithDictionary(__Dictionary *dict) {
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        char const* key = JSON_MARKETITEM_ANDROID_ID;
+        char const* key = CCStoreConsts::JSON_MARKETITEM_ANDROID_ID;
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-        char const* key = JSON_MARKETITEM_IOS_ID;
+        char const* key = CCStoreConsts::JSON_MARKETITEM_IOS_ID;
 #endif
         cocos2d::Ref* obj = dict->objectForKey(key);
         CCAssert(obj == NULL || dynamic_cast<__String *>(obj), "invalid object type in dictionary");
@@ -78,7 +76,7 @@ namespace soomla {
         putConsumableToDict(dict);
         putPriceToDict(dict);
 
-        return dict;
+        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_MARKET_ITEM);
     }
 };
 

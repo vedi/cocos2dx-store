@@ -23,15 +23,12 @@ USING_NS_CC;
 namespace soomla {
     CCVirtualCurrencyPack *CCVirtualCurrencyPack::create(__String *name, __String *description, __String *itemId, __Integer *currencyAmount, __String *currencyItemId, CCPurchaseType *purchaseType) {
         CCVirtualCurrencyPack *ret = new CCVirtualCurrencyPack();
-        ret->autorelease();
-        ret->init(name, description, itemId, currencyAmount, currencyItemId, purchaseType);
-        return ret;
-    }
-
-    CCVirtualCurrencyPack *CCVirtualCurrencyPack::createWithDictionary(__Dictionary *dict) {
-        CCVirtualCurrencyPack *ret = new CCVirtualCurrencyPack();
-        ret->autorelease();
-        ret->initWithDictionary(dict);
+        if (ret->init(name, description, itemId, currencyAmount, currencyItemId, purchaseType)) {
+            ret->autorelease();
+        }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
         return ret;
     }
 
@@ -64,7 +61,7 @@ namespace soomla {
         putCurrencyAmountToDict(dict);
         putCurrencyItemIdToDict(dict);
 
-        return dict;
+        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK);
     }
 
     CCVirtualCurrencyPack::~CCVirtualCurrencyPack() {

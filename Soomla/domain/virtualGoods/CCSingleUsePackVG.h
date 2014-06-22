@@ -20,6 +20,7 @@
 #define __SingleUsePackVGX_H_
 
 #include "CCVirtualGood.h"
+#include "CCStoreConsts.h"
 
 namespace soomla {
 	/** 
@@ -46,8 +47,8 @@ namespace soomla {
      CCVirtualItem
      */
     class CCSingleUsePackVG : public CCVirtualGood {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mGoodItemId, GoodItemId, JSON_VGP_GOOD_ITEMID);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mGoodAmount, GoodAmount, JSON_VGP_GOOD_AMOUNT);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mGoodItemId, GoodItemId, CCStoreConsts::JSON_VGP_GOOD_ITEMID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mGoodAmount, GoodAmount, CCStoreConsts::JSON_VGP_GOOD_AMOUNT);
     public:
         CCSingleUsePackVG(): CCVirtualGood(), mGoodItemId(NULL), mGoodAmount(NULL) {};
         static CCSingleUsePackVG *create(cocos2d::__String* goodItemId, cocos2d::__Integer* goodAmount,
@@ -60,7 +61,7 @@ namespace soomla {
         required by the create function.
         @return The Sinlge Use Pack good.
         */
-        static CCSingleUsePackVG *createWithDictionary(cocos2d::__Dictionary *dict);
+        SL_CREATE_WITH_DICTIONARY(CCSingleUsePackVG);
 
         /**
         Creates a `CCSingleUsePackVG`.

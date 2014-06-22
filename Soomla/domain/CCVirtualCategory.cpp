@@ -23,15 +23,13 @@ USING_NS_CC;
 namespace soomla {
     CCVirtualCategory *CCVirtualCategory::create(__String *name, __Array *goodItemIds) {
         CCVirtualCategory *ret = new CCVirtualCategory();
-        ret->autorelease();
-        ret->init(name, goodItemIds);
-        return ret;
-    }
+        if (ret->init(name, goodItemIds)) {
+            ret->autorelease();
+        }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
 
-    CCVirtualCategory *CCVirtualCategory::createWithDictionary(__Dictionary *dict) {
-        CCVirtualCategory *ret = new CCVirtualCategory();
-        ret->autorelease();
-        ret->initWithDictionary(dict);
         return ret;
     }
 
@@ -55,7 +53,7 @@ namespace soomla {
         putNameToDict(dict);
         putGoodItemIdsToDict(dict);
 
-        return dict;
+        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CATEGORY);
     }
 
     CCVirtualCategory::~CCVirtualCategory() {

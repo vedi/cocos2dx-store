@@ -28,15 +28,13 @@ namespace soomla {
 
     CCEquippableVG *CCEquippableVG::create(__Integer *equippingModel, __String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
         CCEquippableVG *ret = new CCEquippableVG();
-        ret->autorelease();
-        ret->init(equippingModel, name, description, itemId, purchaseType);
-        return ret;
-    }
+        if (ret->init(equippingModel, name, description, itemId, purchaseType)) {
+            ret->autorelease();
+        }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
 
-    CCEquippableVG *CCEquippableVG::createWithDictionary(__Dictionary *dict) {
-        CCEquippableVG *ret = new CCEquippableVG();
-        ret->autorelease();
-        ret->initWithDictionary(dict);
         return ret;
     }
 
@@ -50,27 +48,16 @@ namespace soomla {
         }
     }
 
-    bool CCEquippableVG::initWithDictionary(__Dictionary *dict) {
-        bool res = CCPurchasableVirtualItem::initWithDictionary(dict);
-        if (res) {
-            fillEquippingModelFromDict(dict);
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     __Dictionary *CCEquippableVG::toDictionary() {
         __Dictionary *dict = CCPurchasableVirtualItem::toDictionary();
 
         putEquippingModelToDict(dict);
 
-        return dict;
+        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_EQUIPPABLE_VG);
     }
 
     void CCEquippableVG::fillEquippingModelFromDict(__Dictionary *dict) {
-        __String*equippingModelStr = dynamic_cast<__String *>(dict->objectForKey(JSON_EQUIPPABLE_EQUIPPING));
+        __String*equippingModelStr = dynamic_cast<__String *>(dict->objectForKey(CCStoreConsts::JSON_EQUIPPABLE_EQUIPPING));
         CCAssert(equippingModelStr != NULL, "invalid object type in dictionary");
         if (equippingModelStr->compare(EQUIPPING_MODEL_LOCAL) == 0) {
             setEquippingModel(__Integer::create(kLocal));
@@ -106,7 +93,7 @@ namespace soomla {
                 strEquippingModel = __String::create("ERROR");
             }
         }
-        dict->setObject(strEquippingModel, JSON_EQUIPPABLE_EQUIPPING);
+        dict->setObject(strEquippingModel, CCStoreConsts::JSON_EQUIPPABLE_EQUIPPING);
     }
 
     CCEquippableVG::~CCEquippableVG() {

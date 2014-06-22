@@ -20,11 +20,11 @@
 #define __CCStoreInfo_H_
 
 #include "cocos2d.h"
-#include "../CCSoomlaError.h"
 #include "../CCIStoreAssets.h"
 #include "../domain/CCVirtualItem.h"
 #include "../domain/virtualGoods/CCUpgradeVG.h"
 #include "../domain/CCVirtualCategory.h"
+#include "CCError.h"
 
 namespace soomla {
 	/** 
@@ -57,10 +57,10 @@ namespace soomla {
 		/**
          Retrieves a single `CCVirtualItem` that resides in the metadata.
          @param itemId The item id of the item to be fetched.
-         @param soomlaError A `CCSoomlaError` for error checking.
+         @param error A `CCError` for error checking.
          @return The virtual item with the given `itemId`.
 		 */
-        CCVirtualItem *getItemByItemId(const char *itemId, CCSoomlaError **soomlaError);
+        CCVirtualItem *getItemByItemId(const char *itemId, CCError **error);
 
 		/**
          Retrieves a single `CCPurchasableVirtualItem` that resides in the
@@ -70,21 +70,21 @@ namespace soomla {
          and not with `itemId` (`productId` is the id of the product in the App
          Store).
          @param productId The product id of the item to be fetched.
-         @param soomlaError A `CCSoomlaError` for error checking.
+         @param error A `CCError` for error checking.
          @return The purchasable virtual item with the given `productId`.
 		*/
-		CCPurchasableVirtualItem *getPurchasableItemWithProductId(const char *productId, CCSoomlaError **soomlaError);
+		CCPurchasableVirtualItem *getPurchasableItemWithProductId(const char *productId, CCError **error);
 
 		/**
          Retrieves the `CCVirtualCategory` that the `CCVirtualGood` with the 
          given `goodItemId` belongs to.
          @param goodItemId The item id of the virtual good whose category is 
                 being retrieved.
-         @param soomlaError A `CCSoomlaError` for error checking.
+         @param error A `CCError` for error checking.
          @return The `CCVirtualCategory` for the `CCVirtualGood` with the given
          `goodItemId`.
 		*/
-		CCVirtualCategory *getCategoryForVirtualGood(const char *goodItemId, CCSoomlaError **soomlaError);
+		CCVirtualCategory *getCategoryForVirtualGood(const char *goodItemId, CCError **error);
 
 		/**
          Retrieves the first `CCUpgradeVG` for the`CCVirtualGood` with the given

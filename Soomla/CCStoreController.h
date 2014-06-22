@@ -21,7 +21,7 @@
 
 #include "cocos2d.h"
 #include "CCIStoreAssets.h"
-#include "CCSoomlaError.h"
+#include "CCError.h"
 
 namespace soomla {
 	/** 
@@ -33,7 +33,6 @@ namespace soomla {
      basic assets needed to operate the Store.
 	 */
     class CCStoreController: public cocos2d::Ref {
-        CC_SYNTHESIZE_RETAIN(cocos2d::__String *, mSoomSec, SoomSec);
     public:
         
 		/**
@@ -41,28 +40,9 @@ namespace soomla {
 		*/
         static CCStoreController* sharedStoreController();
 
-		/**
-         Initializes StoreController on native side and allows using its
-         functions.
-         @param storeAssets An instance of your store's assets class.
-         @param storeParams A CCDictionary containing parameters for 
-                CCStoreController (These were previously found in CCSoomla).
-                This dictionary can contain the following:
-                "soomSec": __String - The value of the primary encryption key.
-                "customSecret": __String - The value of the secondary encryption
-                    key.
-                "androidPublicKey": __String - Your Android public key.
-                "SSV": CCBool - Whether or not to enable server side 
-                    verification of purchases.
-		 */
-        static void initShared(CCIStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams);
+        CCStoreController();
 
-        CCStoreController(void);
-        virtual bool init(CCIStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams);
-
-        virtual ~CCStoreController(void);
-
-        virtual void setupSoomSec();
+        virtual ~CCStoreController();
 
 		/**
          Starts an in app purchase process in the market (App Store, Google 
@@ -71,7 +51,7 @@ namespace soomla {
                 Google Play, etc..).
          @param soomlaError A CCSoomlaError for error checking.
 		 */
-        void buyMarketItem(const char *productId, const char *payload, CCSoomlaError **soomlaError);
+        void buyMarketItem(const char *productId, const char *payload, CCError **error);
 
 		/**
          Restores this user's previous transactions.
@@ -97,7 +77,7 @@ namespace soomla {
          Refreshes the details of all market-purchasable items that were defined 
          in the market (App Store, Google Play, etc..).
          */
-        void refreshMarketItemsDetails(CCSoomlaError **soomlaError);
+        void refreshMarketItemsDetails(CCError **error);
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

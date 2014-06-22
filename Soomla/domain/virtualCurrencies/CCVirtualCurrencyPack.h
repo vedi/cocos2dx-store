@@ -16,11 +16,12 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __VirtualCurrencyPackX_H_
-#define __VirtualCurrencyPackX_H_
+#ifndef __CCVirtualCurrencyPack_H_
+#define __CCVirtualCurrencyPack_H_
 
-#include "../../SoomlaMacros.h"
+#include "CCSoomlaMacros.h"
 #include "../CCPurchasableVirtualItem.h"
+#include "CCStoreConsts.h"
 
 namespace soomla {
 	/** 
@@ -40,8 +41,8 @@ namespace soomla {
      CCVirtualItem
 	 */
     class CCVirtualCurrencyPack : public CCPurchasableVirtualItem {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mCurrencyAmount, CurrencyAmount, JSON_CURRENCYPACK_CURRENCYAMOUNT);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mCurrencyItemId, CurrencyItemId, JSON_CURRENCYPACK_CURRENCYITEMID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mCurrencyAmount, CurrencyAmount, CCStoreConsts::JSON_CURRENCYPACK_CURRENCYAMOUNT);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mCurrencyItemId, CurrencyItemId, CCStoreConsts::JSON_CURRENCYPACK_CURRENCYITEMID);
     public:
 	CCVirtualCurrencyPack(): CCPurchasableVirtualItem(), mCurrencyAmount(NULL), mCurrencyItemId(NULL) {};
 
@@ -69,7 +70,7 @@ namespace soomla {
                 required by the create function.
          @return The pack.
 		*/
-        static CCVirtualCurrencyPack *createWithDictionary(cocos2d::__Dictionary *dict);
+        SL_CREATE_WITH_DICTIONARY(CCVirtualCurrencyPack);
         bool initWithDictionary(cocos2d::__Dictionary *dict);
 
         /**
@@ -83,4 +84,4 @@ namespace soomla {
 };
 
 
-#endif //__VirtualCurrencyPackX_H_
+#endif //__CCVirtualCurrencyPack_H_

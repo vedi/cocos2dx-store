@@ -22,15 +22,16 @@ namespace soomla {
     USING_NS_CC;
     CCSingleUseVG *CCSingleUseVG::create(__String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
         CCSingleUseVG *ret = new CCSingleUseVG();
-        ret->autorelease();
-        ret->init(name, description, itemId, purchaseType);
+        if (ret->init(name, description, itemId, purchaseType)) {
+            ret->autorelease();
+        }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
         return ret;
     }
 
-    CCSingleUseVG *CCSingleUseVG::createWithDictionary(__Dictionary *dict) {
-        CCSingleUseVG *ret = new CCSingleUseVG();
-        ret->autorelease();
-        ret->initWithDictionary(dict);
-        return ret;
+    cocos2d::__Dictionary *CCSingleUseVG::toDictionary() {
+        return this->putTypeData(CCPurchasableVirtualItem::toDictionary(), CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_VG);
     }
 }

@@ -52,7 +52,7 @@ namespace soomla {
                 required by the create function.
          @return The purchasable virtual item.
 		*/
-        static CCPurchasableVirtualItem * createWithDictionary(cocos2d::__Dictionary* dict);
+        SL_CREATE_WITH_DICTIONARY(CCPurchasableVirtualItem);
 
         virtual bool init(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId, CCPurchaseType * purchaseType);
         virtual bool initWithDictionary(cocos2d::__Dictionary* dict);

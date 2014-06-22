@@ -16,12 +16,13 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __MarketItemX_H_
-#define __MarketItemX_H_
+#ifndef __CCMarketItem_H_
+#define __CCMarketItem_H_
 
 #include "cocos2d.h"
-#include "../SoomlaMacros.h"
-#include "../data/SoomlaJSONConsts.h"
+#include "CCSoomlaMacros.h"
+#include "CCDomain.h"
+#include "CCStoreConsts.h"
 
 namespace soomla {
 	/** 
@@ -32,10 +33,10 @@ namespace soomla {
      Every `CCPurchasableVirtualItem` with `CCPurchaseType` of 
      `CCPurchaseWithMarket` has an instance of this class.
 	 */
-    class CCMarketItem : public cocos2d::Ref {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mProductId, ProductId, JSON_MARKETITEM_PRODUCT_ID);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mConsumable, Consumable, JSON_MARKETITEM_CONSUMABLE);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Double *, mPrice, Price, JSON_MARKETITEM_PRICE);
+    class CCMarketItem : public CCDomain {
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mProductId, ProductId, CCStoreConsts::JSON_MARKETITEM_PRODUCT_ID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mConsumable, Consumable, CCStoreConsts::JSON_MARKETITEM_CONSUMABLE);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Double *, mPrice, Price, CCStoreConsts::JSON_MARKETITEM_PRICE);
         CC_SYNTHESIZE_RETAIN(cocos2d::__String *, mMarketPrice, MarketPrice);
         CC_SYNTHESIZE_RETAIN(cocos2d::__String *, mMarketTitle, MarketTitle);
         CC_SYNTHESIZE_RETAIN(cocos2d::__String *, mMarketDescription, MarketDescription);
@@ -67,7 +68,7 @@ namespace soomla {
                 price and consumable status.
          @return The Market item.
 		*/
-		static CCMarketItem *createWithDictionary(cocos2d::__Dictionary* dict);
+        SL_CREATE_WITH_DICTIONARY(CCMarketItem);
 
         bool init(cocos2d::__String *productId, cocos2d::__Integer *consumable, cocos2d::__Double * price);
         virtual bool initWithDictionary(cocos2d::__Dictionary* dict);
@@ -83,4 +84,4 @@ namespace soomla {
 };
 
 
-#endif //__MarketItemX_H_
+#endif //__CCMarketItem_H_
