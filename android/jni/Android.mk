@@ -10,18 +10,16 @@ COCOS2D_JAVASCRIPT = $(filter %-DCOCOS2D_JAVASCRIPT,$(APP_CPPFLAGS))
 
 LOCAL_MODULE := cocos2dx_store_static
 LOCAL_MODULE_FILENAME := libcocos2dxstore
-LOCAL_SRC_FILES := ../../Soomla/CCSoomla.cpp \
-	../../Soomla/CCSoomlaJsonHelper.cpp \
-	../../Soomla/CCSoomlaNdkBridge.cpp \
-	../../Soomla/CCSoomlaError.cpp \
+LOCAL_SRC_FILES := ../../Soomla/CCStoreConsts.cpp \
 	../../Soomla/CCStoreController.cpp \
+	../../Soomla/CCStoreEventDispatcher.cpp \
 	../../Soomla/CCStoreInventory.cpp \
+	../../Soomla/CCStoreService.cpp \
 	../../Soomla/CCStoreUtils.cpp \
 	../../Soomla/PurchaseTypes/CCPurchaseType.cpp \
 	../../Soomla/PurchaseTypes/CCPurchaseWithMarket.cpp \
 	../../Soomla/PurchaseTypes/CCPurchaseWithVirtualItem.cpp \
 	../../Soomla/data/CCStoreInfo.cpp \
-	../../Soomla/data/SoomlaJSONConsts.cpp \
 	../../Soomla/domain/CCMarketItem.cpp \
 	../../Soomla/domain/CCNonConsumableItem.cpp \
 	../../Soomla/domain/CCPurchasableVirtualItem.cpp \
@@ -44,12 +42,17 @@ LOCAL_SRC_FILES +=  \
 endif
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Soomla
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Soomla/data
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/data
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain/virtualCurrencies
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain/virtualGoods
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/jsb
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/PurchaseTypes
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../lib \
         $(LOCAL_PATH)/../../../bindings/manual
 
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_static
-LOCAL_WHOLE_STATIC_LIBRARIES += jansson_static
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_soomla_common_static
 
 ifneq '$(COCOS2D_JAVASCRIPT)' ''
 LOCAL_WHOLE_STATIC_LIBRARIES += spidermonkey_static
@@ -67,7 +70,7 @@ LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/PurchaseTypes
 
 include $(BUILD_STATIC_LIBRARY)
 
-$(call import-module,external/jansson)
+$(call import-module,extensions/soomla-cocos2dx-core/android/jni)
 
 ifneq '$(COCOS2D_JAVASCRIPT)' ''
 $(call import-module,external/spidermonkey/prebuilt/android)
