@@ -19,6 +19,7 @@
 #include "CCNdkBridge.h"
 #include "CCStoreUtils.h"
 #include "CCStoreInfo.h"
+#include "CCStoreEventDispatcher.h"
 
 USING_NS_CC;
 
@@ -39,8 +40,8 @@ namespace soomla {
     }
 
     void soomla::CCStoreService::initShared(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams) {
-        CCStoreService *profileService = CCStoreService::getInstance();
-        if (!profileService->init(gameAssets, storeParams)) {
+        CCStoreService *storeService = CCStoreService::getInstance();
+        if (!storeService->init(gameAssets, storeParams)) {
             exit(1);
         }
     }
@@ -51,19 +52,22 @@ namespace soomla {
 
     bool soomla::CCStoreService::init(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams) {
 
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM, CCVirtualItem::createWithDictionary);
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_MARKET_ITEM, CCMarketItem::createWithDictionary);
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_NON_CONSUMABLE_ITEM, CCNonConsumableItem::createWithDictionary);
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_PURCHASABLE_VIRTUAL_ITEM, CCPurchasableVirtualItem::createWithDictionary);
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CATEGORY, CCVirtualCategory::createWithDictionary);
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY, CCVirtualCurrency::createWithDictionary);
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK, CCVirtualCurrencyPack::createWithDictionary);
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_EQUIPPABLE_VG, CCEquippableVG::createWithDictionary);
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_LIFETIME_VG, CCLifetimeVG::createWithDictionary);
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_PACK_VG, CCSingleUsePackVG::createWithDictionary);
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_VG, CCSingleUseVG::createWithDictionary);
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG, CCUpgradeVG::createWithDictionary);
-        CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_GOOD, CCVirtualGood::createWithDictionary);
+        CCStoreEventDispatcher::getInstance();    // to get sure it's inited
+
+        CCDomainFactory *domainFactory = CCDomainFactory::getInstance();
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM, CCVirtualItem::createWithDictionary);
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_MARKET_ITEM, CCMarketItem::createWithDictionary);
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_NON_CONSUMABLE_ITEM, CCNonConsumableItem::createWithDictionary);
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_PURCHASABLE_VIRTUAL_ITEM, CCPurchasableVirtualItem::createWithDictionary);
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CATEGORY, CCVirtualCategory::createWithDictionary);
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY, CCVirtualCurrency::createWithDictionary);
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK, CCVirtualCurrencyPack::createWithDictionary);
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_EQUIPPABLE_VG, CCEquippableVG::createWithDictionary);
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_LIFETIME_VG, CCLifetimeVG::createWithDictionary);
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_PACK_VG, CCSingleUsePackVG::createWithDictionary);
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_VG, CCSingleUseVG::createWithDictionary);
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG, CCUpgradeVG::createWithDictionary);
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_GOOD, CCVirtualGood::createWithDictionary);
 
         __String *customSecret = dynamic_cast<__String *>(storeParams->objectForKey("customSecret"));
 
