@@ -16,10 +16,10 @@
 
 //  Created by Igor Yegoroff on 5/17/13.
 
-#ifndef __cocos2dx_store__VirtualCurrencyX__
-#define __cocos2dx_store__VirtualCurrencyX__
+#ifndef __CCVirtualCurrency_H__
+#define __CCVirtualCurrency_H__
 
-#include "../CCVirtualItem.h"
+#include "CCVirtualItem.h"
 
 namespace soomla {
     
@@ -64,4 +64,4 @@ namespace soomla {
     };
 }
 
-#endif /* defined(__cocos2dx_store__VirtualCurrencyX__) */
+#endif /* defined(__CCVirtualCurrency_H__) */

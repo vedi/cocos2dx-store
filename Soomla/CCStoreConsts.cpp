@@ -21,10 +21,10 @@
 namespace soomla {
 
     char const* CCStoreConsts::JSON_STORE_CURRENCIES         = "currencies";
-    char const* CCStoreConsts::JSON_STORE_CURRENCYPACKS      = "currencyPacks";
+    char const* CCStoreConsts::JSON_STORE_CURRENCY_PACKS = "currencyPacks";
     char const* CCStoreConsts::JSON_STORE_GOODS              = "goods";
     char const* CCStoreConsts::JSON_STORE_CATEGORIES         = "categories";
-    char const* CCStoreConsts::JSON_STORE_NONCONSUMABLES     = "nonConsumables";
+    char const* CCStoreConsts::JSON_STORE_NON_CONSUMABLES = "nonConsumables";
     char const* CCStoreConsts::JSON_STORE_GOODS_SU           = "singleUse";
     char const* CCStoreConsts::JSON_STORE_GOODS_PA           = "goodPacks";
     char const* CCStoreConsts::JSON_STORE_GOODS_UP           = "goodUpgrades";
@@ -33,29 +33,29 @@ namespace soomla {
 
     char const* CCStoreConsts::JSON_ITEM_NAME                = "name";
     char const* CCStoreConsts::JSON_ITEM_DESCRIPTION         = "description";
-    char const* CCStoreConsts::JSON_ITEM_ITEMID              = "itemId";
+    char const* CCStoreConsts::JSON_ITEM_ITEM_ID = "itemId";
 
     char const* CCStoreConsts::JSON_CATEGORY_NAME            = "name";
-    char const* CCStoreConsts::JSON_CATEGORY_GOODSITEMIDS    = "goods_itemIds";
+    char const* CCStoreConsts::JSON_CATEGORY_GOODS_ITEM_IDS = "goods_itemIds";
 
-    char const* CCStoreConsts::JSON_MARKETITEM_PRODUCT_ID    = "productId";
-    char const* CCStoreConsts::JSON_MARKETITEM_ANDROID_ID    = "androidId";
-    char const* CCStoreConsts::JSON_MARKETITEM_IOS_ID        = "iosId";
+    char const* CCStoreConsts::JSON_MARKET_ITEM_PRODUCT_ID = "productId";
+    char const* CCStoreConsts::JSON_MARKET_ITEM_ANDROID_ID = "androidId";
+    char const* CCStoreConsts::JSON_MARKET_ITEM_IOS_ID = "iosId";
 
-    char const* CCStoreConsts::JSON_MARKETITEM_CONSUMABLE    = "consumable";
-    char const* CCStoreConsts::JSON_MARKETITEM_PRICE         = "price";
+    char const* CCStoreConsts::JSON_MARKET_ITEM_CONSUMABLE = "consumable";
+    char const* CCStoreConsts::JSON_MARKET_ITEM_PRICE = "price";
 
     char const* CCStoreConsts::JSON_EQUIPPABLE_EQUIPPING     = "equipping";
 
-    char const* CCStoreConsts::JSON_VGP_GOOD_ITEMID          = "good_itemId";
+    char const* CCStoreConsts::JSON_VGP_GOOD_ITEM_ID = "good_itemId";
     char const* CCStoreConsts::JSON_VGP_GOOD_AMOUNT          = "good_amount";
 
-    char const* CCStoreConsts::JSON_VGU_GOOD_ITEMID          = "good_itemId";
-    char const* CCStoreConsts::JSON_VGU_PREV_ITEMID          = "prev_itemId";
-    char const* CCStoreConsts::JSON_VGU_NEXT_ITEMID          = "next_itemId";
+    char const* CCStoreConsts::JSON_VGU_GOOD_ITEM_ID = "good_itemId";
+    char const* CCStoreConsts::JSON_VGU_PREV_ITEM_ID = "prev_itemId";
+    char const* CCStoreConsts::JSON_VGU_NEXT_ITEM_ID = "next_itemId";
 
-    char const* CCStoreConsts::JSON_CURRENCYPACK_CURRENCYAMOUNT = "currency_amount";
-    char const* CCStoreConsts::JSON_CURRENCYPACK_CURRENCYITEMID = "currency_itemId";
+    char const* CCStoreConsts::JSON_CURRENCY_PACK_CURRENCY_AMOUNT = "currency_amount";
+    char const* CCStoreConsts::JSON_CURRENCY_PACK_CURRENCY_ITEM_ID = "currency_itemId";
 
     char const* CCStoreConsts::JSON_PURCHASABLE_ITEM         = "purchasableItem";
 
@@ -65,7 +65,7 @@ namespace soomla {
 
     char const* CCStoreConsts::JSON_PURCHASE_MARKET_ITEM     = "marketItem";
 
-    char const* CCStoreConsts::JSON_PURCHASE_VI_ITEMID       = "pvi_itemId";
+    char const* CCStoreConsts::JSON_PURCHASE_VI_ITEM_ID = "pvi_itemId";
     char const* CCStoreConsts::JSON_PURCHASE_VI_AMOUNT       = "pvi_amount";
 
     char const* CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM      = "virtualItem";
@@ -101,7 +101,7 @@ namespace soomla {
     char const* CCStoreConsts::EVENT_UNEXPECTED_ERROR_IN_STORE  = "CCStoreEventHandler::onUnexpectedErrorInStore";
     char const* CCStoreConsts::EVENT_STORE_CONTROLLER_INITIALIZED   = "CCStoreEventHandler::onStoreControllerInitialized";
     char const* CCStoreConsts::EVENT_MARKET_REFUND              = "CCStoreEventHandler::onMarketRefund";
-    char const* CCStoreConsts::EVENT_IAB_SEVICE_STARTED         = "CCStoreEventHandler::onIabServiceStarted";
-    char const* CCStoreConsts::EVENT_IAB_SEVICE_STOPPED         = "CCStoreEventHandler::onIabServiceStopped";
+    char const* CCStoreConsts::EVENT_IAB_SERVICE_STARTED = "CCStoreEventHandler::onIabServiceStarted";
+    char const* CCStoreConsts::EVENT_IAB_SERVICE_STOPPED = "CCStoreEventHandler::onIabServiceStopped";
 
 }

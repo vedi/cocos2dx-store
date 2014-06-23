@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __cocos2dx_store__PurchasableVirtualItem__
-#define __cocos2dx_store__PurchasableVirtualItem__
+#ifndef __CCPurchasableVirtualItem__
+#define __CCPurchasableVirtualItem__
 
 #include "CCVirtualItem.h"
 #include "../PurchaseTypes/CCPurchaseType.h"
@@ -68,4 +68,4 @@ namespace soomla {
     };
 }
 
-#endif /* defined(__cocos2dx_store__PurchasableVirtualItem__) */
+#endif // __CCPurchasableVirtualItem__

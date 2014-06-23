@@ -16,10 +16,10 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __VirtualGoodX_H_
-#define __VirtualGoodX_H_
+#ifndef __CCVirtualGood_H_
+#define __CCVirtualGood_H_
 
-#include "../CCPurchasableVirtualItem.h"
+#include "CCPurchasableVirtualItem.h"
 
 namespace soomla {
 	/** 
@@ -61,4 +61,4 @@ namespace soomla {
 };
 
 
-#endif //__VirtualGoodX_H_
+#endif //__CCVirtualGood_H_

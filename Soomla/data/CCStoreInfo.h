@@ -20,7 +20,7 @@
 #define __CCStoreInfo_H_
 
 #include "cocos2d.h"
-#include "../CCIStoreAssets.h"
+#include "CCStoreAssets.h"
 #include "../domain/CCVirtualItem.h"
 #include "../domain/virtualGoods/CCUpgradeVG.h"
 #include "../domain/CCVirtualCategory.h"
@@ -51,8 +51,8 @@ namespace soomla {
          functions.
          @param storeAssets An instance of your store's assets class.
 		 */
-        static void createShared(CCIStoreAssets *storeAssets);
-        virtual bool init(CCIStoreAssets *storeAssets);
+        static void createShared(CCStoreAssets *storeAssets);
+        virtual bool init(CCStoreAssets *storeAssets);
 
 		/**
          Retrieves a single `CCVirtualItem` that resides in the metadata.

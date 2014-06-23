@@ -41,8 +41,8 @@ namespace soomla {
      CCVirtualItem
 	 */
     class CCVirtualCurrencyPack : public CCPurchasableVirtualItem {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mCurrencyAmount, CurrencyAmount, CCStoreConsts::JSON_CURRENCYPACK_CURRENCYAMOUNT);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mCurrencyItemId, CurrencyItemId, CCStoreConsts::JSON_CURRENCYPACK_CURRENCYITEMID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mCurrencyAmount, CurrencyAmount, CCStoreConsts::JSON_CURRENCY_PACK_CURRENCY_AMOUNT);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mCurrencyItemId, CurrencyItemId, CCStoreConsts::JSON_CURRENCY_PACK_CURRENCY_ITEM_ID);
     public:
 	CCVirtualCurrencyPack(): CCPurchasableVirtualItem(), mCurrencyAmount(NULL), mCurrencyItemId(NULL) {};
 

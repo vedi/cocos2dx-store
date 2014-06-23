@@ -2,7 +2,7 @@
 #define _Cocos2dxSoomla_H
 
 #include "CCEquippableVG.h"
-#include "CCIStoreAssets.h"
+#include "CCStoreAssets.h"
 #include "CCLifetimeVG.h"
 #include "CCMarketItem.h"
 #include "CCNonConsumableItem.h"

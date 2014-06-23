@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __LifetimeVGX_H_
-#define __LifetimeVGX_H_
+#ifndef __CCLifetimeVG_H_
+#define __CCLifetimeVG_H_
 
 #include "CCVirtualGood.h"
 
@@ -67,4 +67,4 @@ namespace soomla {
     };
 };
 
-#endif //__LifetimeVGX_H_
+#endif //__CCLifetimeVG_H_

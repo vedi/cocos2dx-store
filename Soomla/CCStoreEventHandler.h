@@ -17,10 +17,11 @@
 #ifndef __CCStoreEventHandler__
 #define __CCStoreEventHandler__
 
-#include "./domain/virtualCurrencies/CCVirtualCurrency.h"
-#include "./domain/virtualGoods/CCVirtualGood.h"
-#include "./domain/virtualGoods/CCEquippableVG.h"
-#include "./domain/virtualGoods/CCUpgradeVG.h"
+
+#include "CCVirtualCurrency.h"
+#include "CCVirtualGood.h"
+#include "CCEquippableVG.h"
+#include "CCUpgradeVG.h"
 
 namespace soomla {
 	/** 
@@ -167,21 +168,21 @@ namespace soomla {
 
 /** Android only events*/
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        
+
         /**
          Handles an `onMarketRefund` event, which is fired when a market item is
          being refunded.
-         @param purchasableVirtualItem The item that is being refunded in the 
+         @param purchasableVirtualItem The item that is being refunded in the
                 market.
          */
         virtual void onMarketRefund(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
-		
+
         /**
          Handles an `onIabServiceStarted` event, which is fired when in-app
          billing service is started.
          */
         virtual void onIabServiceStarted() = 0;
-		
+
         /**
          Handles an `onIabServiceStopped` event, which is fired when in-app
          billing service is stopped.
@@ -191,4 +192,4 @@ namespace soomla {
     };
 };
 
-#endif /* defined(__CCStoreEventHandler__) */
+#endif //__CCStoreEventHandler__

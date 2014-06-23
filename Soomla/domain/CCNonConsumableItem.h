@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __NonConsumableItemX_H_
-#define __NonConsumableItemX_H_
+#ifndef __CCNonConsumableItem_H_
+#define __CCNonConsumableItem_H_
 
 #include "CCPurchasableVirtualItem.h"
 
@@ -66,4 +66,4 @@ namespace soomla {
     };
 };
 
-#endif //__NonConsumableItemX_H_
+#endif //__CCNonConsumableItem_H_

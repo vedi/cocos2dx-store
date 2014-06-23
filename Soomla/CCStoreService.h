@@ -8,7 +8,7 @@
 
 
 #include "cocos2d.h"
-#include "MuffinRushAssets.h"
+#include "CCStoreAssets.h"
 
 namespace soomla {
 
@@ -33,11 +33,11 @@ namespace soomla {
         "SSV": CCBool - Whether or not to enable server side
         verification of purchases.
         */
-        static void initShared(MuffinRushAssets *gameAssets, cocos2d::__Dictionary *storeParams);
+        static void initShared(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams);
 
         CCStoreService();
 
-        virtual bool init(MuffinRushAssets *gameAssets, cocos2d::__Dictionary *storeParams);
+        virtual bool init(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams);
 
         static void setSoomSec(char const *soomSec);
 

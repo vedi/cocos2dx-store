@@ -20,7 +20,7 @@
 #define __CCStoreController_H_
 
 #include "cocos2d.h"
-#include "CCIStoreAssets.h"
+#include "CCStoreAssets.h"
 #include "CCError.h"
 
 namespace soomla {

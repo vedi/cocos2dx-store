@@ -16,8 +16,8 @@
 
 //  Created by Igor Yegoroff on 5/16/13.
 
-#ifndef __cocos2dx_store__VirtualItem__
-#define __cocos2dx_store__VirtualItem__
+#ifndef __CCVirtualItem_H__
+#define __CCVirtualItem_H__
 
 #include "cocos2d.h"
 #include "CCDomain.h"
@@ -28,7 +28,7 @@ namespace soomla {
 	/** 
      @class CCVirtualItem
      @brief A virtual item.
-     
+
      This is the parent class of all virtual items in the application.
      Almost every entity in your virtual economy will be a virtual item. There 
      are many types of virtual items - each one of the various types extends
@@ -37,7 +37,7 @@ namespace soomla {
     class CCVirtualItem : public CCDomain {
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mName, Name, CCStoreConsts::JSON_ITEM_NAME);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mDescription, Description, CCStoreConsts::JSON_ITEM_DESCRIPTION);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mItemId, ItemId, CCStoreConsts::JSON_ITEM_ITEMID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mItemId, ItemId, CCStoreConsts::JSON_ITEM_ITEM_ID);
         
     public:
         CCVirtualItem(): mName(NULL), mDescription(NULL), mItemId(NULL) {}
@@ -73,4 +73,4 @@ namespace soomla {
     
 }
 
-#endif /* defined(__cocos2dx_store__VirtualItem__) */
+#endif /* defined(__CCVirtualItem_H__) */

@@ -64,12 +64,12 @@ namespace soomla {
         if (mPrevItemId != NULL) {
             putPrevItemIdToDict(dict);
         } else {
-            dict->setObject(__String::create(""), CCStoreConsts::JSON_VGU_PREV_ITEMID);
+            dict->setObject(__String::create(""), CCStoreConsts::JSON_VGU_PREV_ITEM_ID);
         }
         if (mNextItemId != NULL) {
             putNextItemIdToDict(dict);
         } else {
-            dict->setObject(__String::create(""), CCStoreConsts::JSON_VGU_NEXT_ITEMID);
+            dict->setObject(__String::create(""), CCStoreConsts::JSON_VGU_NEXT_ITEM_ID);
         }
 
         return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG);

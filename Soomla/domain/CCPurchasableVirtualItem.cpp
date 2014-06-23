@@ -78,7 +78,7 @@ namespace soomla {
             setPurchaseType(CCPurchaseWithMarket::createWithMarketItem(
                     CCMarketItem::createWithDictionary(marketItemDict)));
         } else if (purchaseTypeStr->compare(CCStoreConsts::JSON_PURCHASE_TYPE_VI) == 0) {
-            __String *itemId = dynamic_cast<__String *>(purchasableDict->objectForKey(CCStoreConsts::JSON_PURCHASE_VI_ITEMID));
+            __String *itemId = dynamic_cast<__String *>(purchasableDict->objectForKey(CCStoreConsts::JSON_PURCHASE_VI_ITEM_ID));
             CC_ASSERT(itemId);
             __Integer *amount = dynamic_cast<__Integer *>(purchasableDict->objectForKey(CCStoreConsts::JSON_PURCHASE_VI_AMOUNT));
             CC_ASSERT(amount);
@@ -103,7 +103,7 @@ namespace soomla {
         else if (dynamic_cast<CCPurchaseWithVirtualItem *>(mPurchaseType)) {
             CCPurchaseWithVirtualItem *purchaseWithVirtualItem = (CCPurchaseWithVirtualItem *)mPurchaseType;
             purchasableObj->setObject(__String::create(CCStoreConsts::JSON_PURCHASE_TYPE_VI), CCStoreConsts::JSON_PURCHASE_TYPE);
-            purchasableObj->setObject(purchaseWithVirtualItem->getItemId(), CCStoreConsts::JSON_PURCHASE_VI_ITEMID);
+            purchasableObj->setObject(purchaseWithVirtualItem->getItemId(), CCStoreConsts::JSON_PURCHASE_VI_ITEM_ID);
             purchasableObj->setObject(purchaseWithVirtualItem->getAmount(), CCStoreConsts::JSON_PURCHASE_VI_AMOUNT);
         } else {
             CC_ASSERT(false);

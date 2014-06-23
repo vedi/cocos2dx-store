@@ -16,7 +16,6 @@
 #include "CCUpgradeVG.h"
 #include "CCSingleUseVG.h"
 #include "CCDomainHelper.h"
-#include "MuffinRushAssets.h"
 #include "CCNdkBridge.h"
 #include "CCStoreUtils.h"
 #include "CCStoreInfo.h"
@@ -39,7 +38,7 @@ namespace soomla {
         return sInstance;
     }
 
-    void soomla::CCStoreService::initShared(MuffinRushAssets *gameAssets, cocos2d::__Dictionary *storeParams) {
+    void soomla::CCStoreService::initShared(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams) {
         CCStoreService *profileService = CCStoreService::getInstance();
         if (!profileService->init(gameAssets, storeParams)) {
             exit(1);
@@ -50,7 +49,7 @@ namespace soomla {
 
     }
 
-    bool soomla::CCStoreService::init(MuffinRushAssets *gameAssets, cocos2d::__Dictionary *storeParams) {
+    bool soomla::CCStoreService::init(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams) {
 
         CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM, CCVirtualItem::createWithDictionary);
         CCDomainFactory::getInstance()->registerCreator(CCStoreConsts::JSON_JSON_TYPE_MARKET_ITEM, CCMarketItem::createWithDictionary);

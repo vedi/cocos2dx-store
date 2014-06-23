@@ -16,20 +16,20 @@
 
 // Created by Fedor Shubin on 5/21/13.
 
+#ifndef __CCStoreAssets_H_
+#define __CCStoreAssets_H_
+
 
 #include "cocos2d.h"
 
-#ifndef __CCIStoreAssets_H_
-#define __CCIStoreAssets_H_
-
 namespace soomla {
-	/** @class CCIStoreAssets
+	/** @class CCStoreAssets
 		@brief An abstract class that defines the store assets.
 
 		Implement this class to define your store's assets. See the wiki for
 		information about the various VirtualGoods and how to define them.
 	 */
-    class CCIStoreAssets: public cocos2d::Ref {
+    class CCStoreAssets : public cocos2d::Ref {
     public:
         
         /**
@@ -48,7 +48,7 @@ namespace soomla {
          
          Explanation: The local database on every one of your users' devices 
          keeps your economy's metadata, such as the `VirtualGood`'s name "Hat". 
-         When you change anything in `CCIStoreAssets`, you must bump the version 
+         When you change anything in `CCStoreAssets`, you must bump the version
          in order for the data to change in your users' local databases.
          
          You need to bump the version after ANY change in `IStoreAssets` for the
@@ -90,4 +90,4 @@ namespace soomla {
     };
 };
 
-#endif //__CCIStoreAssets_H_
+#endif //__CCStoreAssets_H_

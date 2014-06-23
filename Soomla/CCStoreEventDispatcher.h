@@ -2,12 +2,11 @@
 // Created by Fedor Shubin on 6/19/14.
 //
 
+#ifndef __CCStoreEventDispatcher_H_
+#define __CCStoreEventDispatcher_H_
 
 #include "CCStoreEventHandler.h"
 #include "CCAbstractAggregatedEventHandler.h"
-
-#ifndef __CCStoreEventDispatcher_H_
-#define __CCStoreEventDispatcher_H_
 
 namespace soomla {
     class CCStoreEventDispatcher: public CCAbstractAggregatedEventHandler<CCStoreEventHandler>, public CCStoreEventHandler {

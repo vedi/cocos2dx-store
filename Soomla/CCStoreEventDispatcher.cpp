@@ -300,12 +300,12 @@ namespace soomla {
                     this->onMarketRefund(purchasableVirtualItem);
                });
 
-        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_IAB_SEVICE_STARTED,
+        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_IAB_SERVICE_STARTED,
                 [this](__Dictionary *parameters) {
                     this->onIabServiceStarted();
                });
 
-        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_IAB_SEVICE_STOPPED,
+        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_IAB_SERVICE_STOPPED,
                 [this](__Dictionary *parameters) {
                     this->onIabServiceStopped();
                });

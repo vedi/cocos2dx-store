@@ -48,7 +48,7 @@ namespace soomla {
         return s_SharedStoreInfo;
     }
 
-    void CCStoreInfo::createShared(CCIStoreAssets *storeAssets) {
+    void CCStoreInfo::createShared(CCStoreAssets *storeAssets) {
         CCStoreInfo *ret = new CCStoreInfo();
         if (ret->init(storeAssets)) {
             s_SharedStoreInfo = ret;
@@ -57,7 +57,7 @@ namespace soomla {
         }
     }
 
-    bool CCStoreInfo::init(CCIStoreAssets *storeAssets) {
+    bool CCStoreInfo::init(CCStoreAssets *storeAssets) {
         __Array *currenciesJSON = __Array::create();
         {
             __Array *currencies = storeAssets->getCurrencies();
@@ -126,9 +126,9 @@ namespace soomla {
         __Dictionary *storeAssetsObj = __Dictionary::create();
         storeAssetsObj->setObject(categoriesJSON, CCStoreConsts::JSON_STORE_CATEGORIES);
         storeAssetsObj->setObject(currenciesJSON, CCStoreConsts::JSON_STORE_CURRENCIES);
-        storeAssetsObj->setObject(packsJSON, CCStoreConsts::JSON_STORE_CURRENCYPACKS);
+        storeAssetsObj->setObject(packsJSON, CCStoreConsts::JSON_STORE_CURRENCY_PACKS);
         storeAssetsObj->setObject(goodsJSON, CCStoreConsts::JSON_STORE_GOODS);
-        storeAssetsObj->setObject(nonConsumablesJSON, CCStoreConsts::JSON_STORE_NONCONSUMABLES);
+        storeAssetsObj->setObject(nonConsumablesJSON, CCStoreConsts::JSON_STORE_NON_CONSUMABLES);
 
         __Dictionary *params = __Dictionary::create();
         params->setObject(__String::create("CCStoreAssets::init"), "method");

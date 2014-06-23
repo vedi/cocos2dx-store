@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __SingleUseVGX_H_
-#define __SingleUseVGX_H_
+#ifndef __CCSingleUseVG_H_
+#define __CCSingleUseVG_H_
 
 #include <iostream>
 
@@ -67,4 +67,4 @@ namespace soomla {
     };
 };
 
-#endif //__SingleUseVGX_H_
+#endif //__CCSingleUseVG_H_

@@ -14,8 +14,8 @@
  limitations under the License.
  */
 
-#ifndef __CCCCStoreConsts_H__
-#define __CCCCStoreConsts_H__
+#ifndef __CCStoreConsts_H__
+#define __CCStoreConsts_H__
 
 /**
 * This class contains all static const String names of the keys/vals in the
@@ -27,10 +27,10 @@ namespace soomla {
     class CCStoreConsts: public CCCommonConsts {
     public:
         static char const *JSON_STORE_CURRENCIES;
-        static char const *JSON_STORE_CURRENCYPACKS;
+        static char const *JSON_STORE_CURRENCY_PACKS;
         static char const *JSON_STORE_GOODS;
         static char const *JSON_STORE_CATEGORIES;
-        static char const *JSON_STORE_NONCONSUMABLES;
+        static char const *JSON_STORE_NON_CONSUMABLES;
         static char const *JSON_STORE_GOODS_SU;
         static char const *JSON_STORE_GOODS_PA;
         static char const *JSON_STORE_GOODS_UP;
@@ -39,29 +39,29 @@ namespace soomla {
 
         static char const *JSON_ITEM_NAME;
         static char const *JSON_ITEM_DESCRIPTION;
-        static char const *JSON_ITEM_ITEMID;
+        static char const *JSON_ITEM_ITEM_ID;
 
         static char const *JSON_CATEGORY_NAME;
-        static char const *JSON_CATEGORY_GOODSITEMIDS;
+        static char const *JSON_CATEGORY_GOODS_ITEM_IDS;
 
-        static char const *JSON_MARKETITEM_PRODUCT_ID;
-        static char const *JSON_MARKETITEM_ANDROID_ID;
-        static char const *JSON_MARKETITEM_IOS_ID;
+        static char const *JSON_MARKET_ITEM_PRODUCT_ID;
+        static char const *JSON_MARKET_ITEM_ANDROID_ID;
+        static char const *JSON_MARKET_ITEM_IOS_ID;
 
-        static char const *JSON_MARKETITEM_CONSUMABLE;
-        static char const *JSON_MARKETITEM_PRICE;
+        static char const *JSON_MARKET_ITEM_CONSUMABLE;
+        static char const *JSON_MARKET_ITEM_PRICE;
 
         static char const *JSON_EQUIPPABLE_EQUIPPING;
 
-        static char const *JSON_VGP_GOOD_ITEMID;
+        static char const *JSON_VGP_GOOD_ITEM_ID;
         static char const *JSON_VGP_GOOD_AMOUNT;
 
-        static char const *JSON_VGU_GOOD_ITEMID;
-        static char const *JSON_VGU_PREV_ITEMID;
-        static char const *JSON_VGU_NEXT_ITEMID;
+        static char const *JSON_VGU_GOOD_ITEM_ID;
+        static char const *JSON_VGU_PREV_ITEM_ID;
+        static char const *JSON_VGU_NEXT_ITEM_ID;
 
-        static char const *JSON_CURRENCYPACK_CURRENCYAMOUNT;
-        static char const *JSON_CURRENCYPACK_CURRENCYITEMID;
+        static char const *JSON_CURRENCY_PACK_CURRENCY_AMOUNT;
+        static char const *JSON_CURRENCY_PACK_CURRENCY_ITEM_ID;
 
         static char const *JSON_PURCHASABLE_ITEM;
 
@@ -71,7 +71,7 @@ namespace soomla {
 
         static char const *JSON_PURCHASE_MARKET_ITEM;
 
-        static char const *JSON_PURCHASE_VI_ITEMID;
+        static char const *JSON_PURCHASE_VI_ITEM_ID;
         static char const *JSON_PURCHASE_VI_AMOUNT;
 
         static char const *JSON_JSON_TYPE_VIRTUAL_ITEM;
@@ -107,9 +107,9 @@ namespace soomla {
         static char const *EVENT_UNEXPECTED_ERROR_IN_STORE;
         static char const *EVENT_STORE_CONTROLLER_INITIALIZED;
         static char const *EVENT_MARKET_REFUND;
-        static char const *EVENT_IAB_SEVICE_STARTED;
-        static char const *EVENT_IAB_SEVICE_STOPPED;
+        static char const *EVENT_IAB_SERVICE_STARTED;
+        static char const *EVENT_IAB_SERVICE_STOPPED;
     };
 }
 
-#endif /* __CCCCStoreConsts_H__ */
+#endif /* __CCStoreConsts_H__ */

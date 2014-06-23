@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __EquippableVGX_H_
-#define __EquippableVGX_H_
+#ifndef __CCEquippableVG_H_
+#define __CCEquippableVG_H_
 
 
 #include "CCLifetimeVG.h"
@@ -122,4 +122,4 @@ namespace soomla {
 };
 
 
-#endif //__EquippableVGX_H_
+#endif //__CCEquippableVG_H_

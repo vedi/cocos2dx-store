@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __UpgradeVGX_H_
-#define __UpgradeVGX_H_
+#ifndef __CCUpgradeVG_H_
+#define __CCUpgradeVG_H_
 
 #include "CCVirtualGood.h"
 #include "CCSoomlaMacros.h"
@@ -52,9 +52,9 @@ namespace soomla {
      CCPurchasableVirtualItem > CCVirtualItem
      */
     class CCUpgradeVG : public CCVirtualGood {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mGoodItemId, GoodItemId, CCStoreConsts::JSON_VGU_GOOD_ITEMID);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mPrevItemId, PrevItemId, CCStoreConsts::JSON_VGU_PREV_ITEMID);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mNextItemId, NextItemId, CCStoreConsts::JSON_VGU_NEXT_ITEMID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mGoodItemId, GoodItemId, CCStoreConsts::JSON_VGU_GOOD_ITEM_ID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mPrevItemId, PrevItemId, CCStoreConsts::JSON_VGU_PREV_ITEM_ID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mNextItemId, NextItemId, CCStoreConsts::JSON_VGU_NEXT_ITEM_ID);
     public:
         
 	CCUpgradeVG(): CCVirtualGood(), mGoodItemId(NULL), mPrevItemId(NULL), mNextItemId(NULL) {};
@@ -102,4 +102,4 @@ namespace soomla {
     };
 };
 
-#endif //__UpgradeVGX_H_
+#endif //__CCUpgradeVG_H_

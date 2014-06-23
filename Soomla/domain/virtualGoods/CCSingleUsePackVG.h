@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __SingleUsePackVGX_H_
-#define __SingleUsePackVGX_H_
+#ifndef __CCSingleUsePackVG_H_
+#define __CCSingleUsePackVG_H_
 
 #include "CCVirtualGood.h"
 #include "CCStoreConsts.h"
@@ -47,7 +47,7 @@ namespace soomla {
      CCVirtualItem
      */
     class CCSingleUsePackVG : public CCVirtualGood {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mGoodItemId, GoodItemId, CCStoreConsts::JSON_VGP_GOOD_ITEMID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mGoodItemId, GoodItemId, CCStoreConsts::JSON_VGP_GOOD_ITEM_ID);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mGoodAmount, GoodAmount, CCStoreConsts::JSON_VGP_GOOD_AMOUNT);
     public:
         CCSingleUsePackVG(): CCVirtualGood(), mGoodItemId(NULL), mGoodAmount(NULL) {};
@@ -90,4 +90,4 @@ namespace soomla {
     };
 };
 
-#endif //__SingleUsePackVGX_H_
+#endif //__CCSingleUsePackVG_H_

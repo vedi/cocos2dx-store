@@ -16,10 +16,11 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#include "CCError.h"
-
 #ifndef __CCStoreUtils_H_
 #define __CCStoreUtils_H_
+
+
+#include "CCError.h"
 
 #ifndef SOOMLA_DEBUG
 # define SOOMLA_DEBUG false

@@ -16,13 +16,14 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
+#ifndef __CCVirtualCategory_H_
+#define __CCVirtualCategory_H_
+
+
 #include "cocos2d.h"
 #include "CCSoomlaMacros.h"
 #include "CCDomain.h"
 #include "CCStoreConsts.h"
-
-#ifndef __CCVirtualCategory_H_
-#define __CCVirtualCategory_H_
 
 namespace soomla {
 	/** 
@@ -35,7 +36,7 @@ namespace soomla {
 	 */
     class CCVirtualCategory : public CCDomain {
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mName, Name, CCStoreConsts::JSON_CATEGORY_NAME);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Array*, mGoodItemIds, GoodItemIds, CCStoreConsts::JSON_CATEGORY_GOODSITEMIDS);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Array*, mGoodItemIds, GoodItemIds, CCStoreConsts::JSON_CATEGORY_GOODS_ITEM_IDS);
     public:
 	CCVirtualCategory(): mName(NULL), mGoodItemIds(NULL) {};
 

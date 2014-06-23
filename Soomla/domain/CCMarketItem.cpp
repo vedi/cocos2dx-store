@@ -45,9 +45,9 @@ namespace soomla {
     bool CCMarketItem::initWithDictionary(__Dictionary *dict) {
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        char const* key = CCStoreConsts::JSON_MARKETITEM_ANDROID_ID;
+        char const* key = CCStoreConsts::JSON_MARKET_ITEM_ANDROID_ID;
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-        char const* key = CCStoreConsts::JSON_MARKETITEM_IOS_ID;
+        char const* key = CCStoreConsts::JSON_MARKET_ITEM_IOS_ID;
 #endif
         cocos2d::Ref* obj = dict->objectForKey(key);
         CCAssert(obj == NULL || dynamic_cast<__String *>(obj), "invalid object type in dictionary");

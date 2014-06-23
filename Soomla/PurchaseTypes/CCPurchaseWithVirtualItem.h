@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __PurchaseWithVirtualItemX_H_
-#define __PurchaseWithVirtualItemX_H_
+#ifndef __CCPurchaseWithVirtualItem_H_
+#define __CCPurchaseWithVirtualItem_H_
 
 #include "CCPurchaseType.h"
 
@@ -57,4 +57,4 @@ namespace soomla {
 
 };
 
-#endif //__PurchaseWithVirtualItemX_H_
+#endif //__CCPurchaseWithVirtualItem_H_
