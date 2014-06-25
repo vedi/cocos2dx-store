@@ -131,13 +131,6 @@ namespace soomla {
         return true;
     }
 
-    void soomla::CCStoreService::setSoomSec(const char *soomSec) {
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreController::setSoomSec"), "method");
-        params->setObject(__String::create(soomSec), "soomSec");
-        CCNdkBridge::callNative(params, NULL);
-    }
-
     void soomla::CCStoreService::checkParams(cocos2d::__Dictionary *storeParams) {
         DictElement* el = NULL;
         CCDICT_FOREACH(storeParams, el) {

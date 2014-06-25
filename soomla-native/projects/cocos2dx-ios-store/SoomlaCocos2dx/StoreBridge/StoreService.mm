@@ -26,6 +26,7 @@
 #import "StoreUtils.h"
 #import "StoreInventory.h"
 #import "VirtualItemNotFoundException.h"
+#import "ParamsProvider.h"
 
 @interface StoreService ()
 @end
@@ -83,7 +84,7 @@
     self = [super init];
     if (self) {
         [EventHandling observeAllEventsWithObserver:[NdkGlue sharedInstance]
-                                                  withSelector:@selector(dispatchNdkCallback:)];
+                                       withSelector:@selector(dispatchNdkCallback:)];
     }
 
     return self;
@@ -101,7 +102,8 @@
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreService::init" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         [[StoreService sharedStoreService] init];
-        NSString *customSecret = (NSString *) [parameters objectForKey:@"customSecret"];
+        NSDictionary *commonParams = [[ParamsProvider sharedParamsProvider] getParamsForKey:@"common"];
+        NSString *customSecret = [commonParams objectForKey:@"customSecret"];
         [[StoreController getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]
                                                  andCustomSecret:customSecret];
     }];
@@ -124,14 +126,6 @@
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreController::refreshInventory" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         [[StoreController getInstance] refreshInventory];
-    }];
-
-    [ndkGlue registerCallHandlerForKey:@"CCStoreController::setSoomSec" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        NSString *soomSec = (NSString *) [parameters objectForKey:@"soomSec"];
-        if (SOOM_SEC) {
-            [SOOM_SEC release];
-        }
-        SOOM_SEC = [soomSec retain];
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreController::setSSV" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {

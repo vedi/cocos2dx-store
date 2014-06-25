@@ -39,8 +39,6 @@ namespace soomla {
 
         virtual bool init(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams);
 
-        static void setSoomSec(char const *soomSec);
-
         void checkParams(cocos2d::__Dictionary *storeParams);
     };
 }

@@ -7,6 +7,7 @@ import com.soomla.SoomlaUtils;
 import com.soomla.cocos2dx.common.DomainFactory;
 import com.soomla.cocos2dx.common.DomainHelper;
 import com.soomla.cocos2dx.common.NdkGlue;
+import com.soomla.cocos2dx.common.ParamsProvider;
 import com.soomla.store.IStoreAssets;
 import com.soomla.store.SoomlaStore;
 import com.soomla.store.StoreInventory;
@@ -199,8 +200,7 @@ public class StoreService {
         ndkGlue.registerCallHandler("CCStoreService::init", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                // TODO: Support removing customSecret from all the code
-                String customSecret = params.getString("customSecret");
+                String customSecret = ParamsProvider.getInstance().getParams("common").optString("customSecret");
                 SoomlaUtils.LogDebug("SOOMLA", "initialize is called from java!");
                 Soomla.initialize(customSecret);
                 SoomlaStore.getInstance().initialize(mStoreAssets);
@@ -261,16 +261,6 @@ public class StoreService {
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 SoomlaUtils.LogDebug("SOOMLA", "refreshInventory is called from java!");
                 SoomlaStore.getInstance().refreshInventory();
-            }
-        });
-
-        ndkGlue.registerCallHandler("CCStoreController::setSoomSec", new NdkGlue.CallHandler() {
-            @Override
-            public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                String soomSec = params.getString("soomSec");
-                SoomlaUtils.LogDebug("SOOMLA", "setSoomSec is called from java!");
-                // TODO: Support removing customSecret from all the code
-//                StoreConfig.SOOM_SEC = soomSec;
             }
         });
 
