@@ -28,7 +28,7 @@ namespace soomla {
 
 #define TAG "SOOMLA CCStoreService"
 
-    static CCStoreService *sInstance = NULL;
+    static CCStoreService *sInstance = nullptr;
 
     soomla::CCStoreService *soomla::CCStoreService::getInstance() {
         if (!sInstance)
