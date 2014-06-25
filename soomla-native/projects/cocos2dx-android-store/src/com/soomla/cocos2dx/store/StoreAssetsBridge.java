@@ -1,7 +1,7 @@
 package com.soomla.cocos2dx.store;
 
 import com.soomla.store.IStoreAssets;
-import com.soomla.store.data.JSONConsts;
+import com.soomla.store.data.StoreJSONConsts;
 import com.soomla.store.domain.NonConsumableItem;
 import com.soomla.store.domain.VirtualCategory;
 import com.soomla.store.domain.virtualCurrencies.VirtualCurrency;
@@ -33,7 +33,7 @@ public class StoreAssetsBridge implements IStoreAssets {
 
         try {
             List<VirtualCurrency> currencies = new ArrayList<VirtualCurrency>();
-            JSONArray currenciesDicts = jsonObject.getJSONArray(JSONConsts.STORE_CURRENCIES);
+            JSONArray currenciesDicts = jsonObject.getJSONArray(StoreJSONConsts.STORE_CURRENCIES);
             for (int i = 0; i < currenciesDicts.length(); i++) {
                 VirtualCurrency o = new VirtualCurrency(currenciesDicts.getJSONObject(i));
                 currencies.add(o);
@@ -41,20 +41,20 @@ public class StoreAssetsBridge implements IStoreAssets {
             this.currencies = currencies.toArray(new VirtualCurrency[currencies.size()]);
 
             List<VirtualCurrencyPack> currencyPacks = new ArrayList<VirtualCurrencyPack>();
-            JSONArray currencyPacksDicts = jsonObject.getJSONArray(JSONConsts.STORE_CURRENCYPACKS);
+            JSONArray currencyPacksDicts = jsonObject.getJSONArray(StoreJSONConsts.STORE_CURRENCYPACKS);
             for (int i = 0; i < currencyPacksDicts.length(); i++) {
                 VirtualCurrencyPack o = new VirtualCurrencyPack(currencyPacksDicts.getJSONObject(i));
                 currencyPacks.add(o);
             }
             this.currencyPacks = currencyPacks.toArray(new VirtualCurrencyPack[currencyPacks.size()]);
 
-            JSONObject goodsDict = jsonObject.getJSONObject(JSONConsts.STORE_GOODS);
+            JSONObject goodsDict = jsonObject.getJSONObject(StoreJSONConsts.STORE_GOODS);
 
-            JSONArray suGoods = goodsDict.getJSONArray(JSONConsts.STORE_GOODS_SU);
-            JSONArray ltGoods = goodsDict.getJSONArray(JSONConsts.STORE_GOODS_LT);
-            JSONArray eqGoods = goodsDict.getJSONArray(JSONConsts.STORE_GOODS_EQ);
-            JSONArray upGoods = goodsDict.getJSONArray(JSONConsts.STORE_GOODS_UP);
-            JSONArray paGoods = goodsDict.getJSONArray(JSONConsts.STORE_GOODS_PA);
+            JSONArray suGoods = goodsDict.getJSONArray(StoreJSONConsts.STORE_GOODS_SU);
+            JSONArray ltGoods = goodsDict.getJSONArray(StoreJSONConsts.STORE_GOODS_LT);
+            JSONArray eqGoods = goodsDict.getJSONArray(StoreJSONConsts.STORE_GOODS_EQ);
+            JSONArray upGoods = goodsDict.getJSONArray(StoreJSONConsts.STORE_GOODS_UP);
+            JSONArray paGoods = goodsDict.getJSONArray(StoreJSONConsts.STORE_GOODS_PA);
             List<VirtualGood> goods = new ArrayList<VirtualGood>();
             for (int i = 0; i < suGoods.length(); i++) {
                 SingleUseVG o = new SingleUseVG(suGoods.getJSONObject(i));
@@ -79,7 +79,7 @@ public class StoreAssetsBridge implements IStoreAssets {
             this.goods = goods.toArray(new VirtualGood[goods.size()]);
 
             List<VirtualCategory> categories = new ArrayList<VirtualCategory>();
-            JSONArray categoriesDicts = jsonObject.getJSONArray(JSONConsts.STORE_CATEGORIES);
+            JSONArray categoriesDicts = jsonObject.getJSONArray(StoreJSONConsts.STORE_CATEGORIES);
             for (int i = 0; i < categoriesDicts.length(); i++) {
                 VirtualCategory o = new VirtualCategory(categoriesDicts.getJSONObject(i));
                 categories.add(o);
@@ -87,7 +87,7 @@ public class StoreAssetsBridge implements IStoreAssets {
             this.categories = categories.toArray(new VirtualCategory[categories.size()]);
 
             List<NonConsumableItem> nonConsumables = new ArrayList<NonConsumableItem>();
-            JSONArray nonConsumableItemsDict = jsonObject.getJSONArray(JSONConsts.STORE_NONCONSUMABLES);
+            JSONArray nonConsumableItemsDict = jsonObject.getJSONArray(StoreJSONConsts.STORE_NONCONSUMABLES);
             for (int i = 0; i < nonConsumableItemsDict.length(); i++) {
                 NonConsumableItem o = new NonConsumableItem(nonConsumableItemsDict.getJSONObject(i));
                 nonConsumables.add(o);

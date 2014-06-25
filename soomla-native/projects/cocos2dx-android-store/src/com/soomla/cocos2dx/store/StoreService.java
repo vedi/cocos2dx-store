@@ -2,9 +2,14 @@ package com.soomla.cocos2dx.store;
 
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
+import com.soomla.Soomla;
+import com.soomla.SoomlaUtils;
 import com.soomla.cocos2dx.common.DomainFactory;
+import com.soomla.cocos2dx.common.DomainHelper;
 import com.soomla.cocos2dx.common.NdkGlue;
-import com.soomla.store.*;
+import com.soomla.store.IStoreAssets;
+import com.soomla.store.SoomlaStore;
+import com.soomla.store.StoreInventory;
 import com.soomla.store.billing.google.GooglePlayIabService;
 import com.soomla.store.data.StoreInfo;
 import com.soomla.store.domain.*;
@@ -54,6 +59,20 @@ public class StoreService {
 
     public StoreService() {
         storeEventHandlerBridge = new StoreEventHandlerBridge();
+
+        DomainHelper.getInstance().registerTypeWithClassName("virtualItem", VirtualItem.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName("marketItem", MarketItem.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName("nonConsumableItem", NonConsumableItem.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName("purchasableVirtualItem", PurchasableVirtualItem.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName("virtualCategory", VirtualCategory.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName("virtualCurrency", VirtualCurrency.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName("virtualCurrencyPack", VirtualCurrencyPack.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName("equippableVG", EquippableVG.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName("lifetimeVG", LifetimeVG.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName("singleUsePackVG", SingleUsePackVG.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName("singleUseVG", SingleUseVG.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName("upgradeVG", UpgradeVG.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName("virtualGood", VirtualGood.class.getName());
 
         final DomainFactory domainFactory = DomainFactory.getInstance();
 
@@ -170,6 +189,7 @@ public class StoreService {
         ndkGlue.registerCallHandler("CCStoreAssets::init", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                init();
                 int version = params.getInt("version");
                 JSONObject storeAssetsJson = params.getJSONObject("storeAssets");
                 mStoreAssets = new StoreAssetsBridge(version, storeAssetsJson);
@@ -179,11 +199,13 @@ public class StoreService {
         ndkGlue.registerCallHandler("CCStoreService::init", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                // TODO: Support removing customSecret from all the code
                 String customSecret = params.getString("customSecret");
-                StoreUtils.LogDebug("SOOMLA", "initialize is called from java!");
-                StoreController.getInstance().initialize(mStoreAssets, customSecret);
-                if (StoreController.getInstance().getInAppBillingService() instanceof GooglePlayIabService) {
-                    ((GooglePlayIabService) StoreController.getInstance().getInAppBillingService()).setPublicKey(mPublicKey);
+                SoomlaUtils.LogDebug("SOOMLA", "initialize is called from java!");
+                Soomla.initialize(customSecret);
+                SoomlaStore.getInstance().initialize(mStoreAssets);
+                if (SoomlaStore.getInstance().getInAppBillingService() instanceof GooglePlayIabService) {
+                    ((GooglePlayIabService) SoomlaStore.getInstance().getInAppBillingService()).setPublicKey(mPublicKey);
                 }
             }
         });
@@ -193,10 +215,10 @@ public class StoreService {
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String productId = params.getString("productId");
                 String payload = params.getString("payload");
-                StoreUtils.LogDebug("SOOMLA", "buyWithMarket is called from java with productId: " + productId + "!");
+                SoomlaUtils.LogDebug("SOOMLA", "buyWithMarket is called from java with productId: " + productId + "!");
                 PurchasableVirtualItem pvi = StoreInfo.getPurchasableItem(productId);
                 if(pvi.getPurchaseType() instanceof PurchaseWithMarket) {
-                    StoreController.getInstance().buyWithMarket(((PurchaseWithMarket)pvi.getPurchaseType()).getMarketItem(), payload);
+                    SoomlaStore.getInstance().buyWithMarket(((PurchaseWithMarket)pvi.getPurchaseType()).getMarketItem(), payload);
                 } else {
                     throw new VirtualItemNotFoundException("productId", productId);
                 }
@@ -206,24 +228,24 @@ public class StoreService {
         ndkGlue.registerCallHandler("CCStoreController::startIabServiceInBg", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                StoreUtils.LogDebug("SOOMLA", "startIabServiceInBg is called from java!");
-                StoreController.getInstance().startIabServiceInBg();
+                SoomlaUtils.LogDebug("SOOMLA", "startIabServiceInBg is called from java!");
+                SoomlaStore.getInstance().startIabServiceInBg();
             }
         });
 
         ndkGlue.registerCallHandler("CCStoreController::stopIabServiceInBg", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                StoreUtils.LogDebug("SOOMLA", "stopIabServiceInBg is called from java!");
-                StoreController.getInstance().stopIabServiceInBg();
+                SoomlaUtils.LogDebug("SOOMLA", "stopIabServiceInBg is called from java!");
+                SoomlaStore.getInstance().stopIabServiceInBg();
             }
         });
 
         ndkGlue.registerCallHandler("CCStoreController::restoreTransactions", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                StoreUtils.LogDebug("SOOMLA", "restoreTransactions is called from java!");
-                StoreController.getInstance().restoreTransactions();
+                SoomlaUtils.LogDebug("SOOMLA", "restoreTransactions is called from java!");
+                SoomlaStore.getInstance().restoreTransactions();
             }
         });
 
@@ -237,8 +259,8 @@ public class StoreService {
         ndkGlue.registerCallHandler("CCStoreController::refreshInventory", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                StoreUtils.LogDebug("SOOMLA", "refreshInventory is called from java!");
-                StoreController.getInstance().refreshInventory();
+                SoomlaUtils.LogDebug("SOOMLA", "refreshInventory is called from java!");
+                SoomlaStore.getInstance().refreshInventory();
             }
         });
 
@@ -246,8 +268,9 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String soomSec = params.getString("soomSec");
-                StoreUtils.LogDebug("SOOMLA", "setSoomSec is called from java!");
-                StoreConfig.SOOM_SEC = soomSec;
+                SoomlaUtils.LogDebug("SOOMLA", "setSoomSec is called from java!");
+                // TODO: Support removing customSecret from all the code
+//                StoreConfig.SOOM_SEC = soomSec;
             }
         });
 
@@ -262,7 +285,7 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String itemId = params.getString("itemId");
-                StoreUtils.LogDebug("SOOMLA", "buy is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "buy is called from java!");
                 StoreInventory.buy(itemId);
             }
         });
@@ -271,7 +294,7 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String itemId = params.getString("itemId");
-                StoreUtils.LogDebug("SOOMLA", "getCurrencyBalance is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "getCurrencyBalance is called from java!");
                 int retValue = StoreInventory.getVirtualItemBalance(itemId);
                 retParams.put("return", retValue);
             }
@@ -282,7 +305,7 @@ public class StoreService {
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String itemId = params.getString("itemId");
                 Integer amount = params.getInt("amount");
-                StoreUtils.LogDebug("SOOMLA", "addCurrencyAmount is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "addCurrencyAmount is called from java!");
                 StoreInventory.giveVirtualItem(itemId, amount);
             }
         });
@@ -292,7 +315,7 @@ public class StoreService {
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String itemId = params.getString("itemId");
                 Integer amount = params.getInt("amount");
-                StoreUtils.LogDebug("SOOMLA", "removeCurrencyAmount is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "removeCurrencyAmount is called from java!");
                 StoreInventory.takeVirtualItem(itemId, amount);
             }
         });
@@ -301,7 +324,7 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String itemId = params.getString("itemId");
-                StoreUtils.LogDebug("SOOMLA", "equipVirtualGood is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "equipVirtualGood is called from java!");
                 StoreInventory.equipVirtualGood(itemId);
             }
         });
@@ -310,7 +333,7 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String itemId = params.getString("itemId");
-                StoreUtils.LogDebug("SOOMLA", "unEquipVirtualGood is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "unEquipVirtualGood is called from java!");
                 StoreInventory.unEquipVirtualGood(itemId);
             }
         });
@@ -319,7 +342,7 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String itemId = params.getString("itemId");
-                StoreUtils.LogDebug("SOOMLA", "isVirtualGoodEquipped is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "isVirtualGoodEquipped is called from java!");
                 boolean retValue = StoreInventory.isVirtualGoodEquipped(itemId);
                 retParams.put("return", retValue);
             }
@@ -329,7 +352,7 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String goodItemId = params.getString("goodItemId");
-                StoreUtils.LogDebug("SOOMLA", "getGoodUpgradeLevel is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "getGoodUpgradeLevel is called from java!");
                 Integer retValue = StoreInventory.getGoodUpgradeLevel(goodItemId);
                 retParams.put("return", retValue);
             }
@@ -339,7 +362,7 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String goodItemId = params.getString("goodItemId");
-                StoreUtils.LogDebug("SOOMLA", "removeGoodAmount is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "removeGoodAmount is called from java!");
                 String retValue = StoreInventory.getGoodCurrentUpgrade(goodItemId);
                 retParams.put("return", retValue);
             }
@@ -349,7 +372,7 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String goodItemId = params.getString("goodItemId");
-                StoreUtils.LogDebug("SOOMLA", "upgradeVirtualGood is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "upgradeVirtualGood is called from java!");
                 StoreInventory.upgradeVirtualGood(goodItemId);
             }
         });
@@ -358,7 +381,7 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String goodItemId = params.getString("goodItemId");
-                StoreUtils.LogDebug("SOOMLA", "removeUpgrades is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "removeUpgrades is called from java!");
                 StoreInventory.removeUpgrades(goodItemId);
             }
         });
@@ -367,7 +390,7 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String nonConsItemId = params.getString("nonConsItemId");
-                StoreUtils.LogDebug("SOOMLA", "nonConsumableItemExists is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "nonConsumableItemExists is called from java!");
                 boolean retValue = StoreInventory.nonConsumableItemExists(nonConsItemId);
                 retParams.put("return", retValue);
             }
@@ -377,7 +400,7 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String nonConsItemId = params.getString("nonConsItemId");
-                StoreUtils.LogDebug("SOOMLA", "addNonConsumableItem is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "addNonConsumableItem is called from java!");
                 StoreInventory.addNonConsumableItem(nonConsItemId);
             }
         });
@@ -386,7 +409,7 @@ public class StoreService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String nonConsItemId = params.getString("nonConsItemId");
-                StoreUtils.LogDebug("SOOMLA", "removeNonConsumableItem is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "removeNonConsumableItem is called from java!");
                 StoreInventory.removeNonConsumableItem(nonConsItemId);
             }
         });
@@ -396,12 +419,7 @@ public class StoreService {
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String itemId = params.getString("itemId");
                 VirtualItem virtualItem = StoreInfo.getVirtualItem(itemId);
-
-                JSONObject retValue = new JSONObject();
-                retValue.put("item", virtualItem.toJSONObject());
-                retValue.put("className", virtualItem.getClass().getSimpleName());
-
-                retParams.put("return", retValue);
+                retParams.put("return", DomainHelper.getInstance().domainToJsonObject(virtualItem));
             }
         });
 
@@ -410,11 +428,7 @@ public class StoreService {
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String productId = params.getString("productId");
                 PurchasableVirtualItem purchasableVirtualItem = StoreInfo.getPurchasableItem(productId);
-
-                JSONObject retValue = new JSONObject();
-                retValue.put("item", purchasableVirtualItem.toJSONObject());
-                retValue.put("className", purchasableVirtualItem.getClass().getSimpleName());
-                retParams.put("return", retValue);
+                retParams.put("return", DomainHelper.getInstance().domainToJsonObject(purchasableVirtualItem));
             }
         });
 
@@ -432,10 +446,7 @@ public class StoreService {
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String goodItemId = params.getString("goodItemId");
                 UpgradeVG upgradeVG = StoreInfo.getGoodFirstUpgrade(goodItemId);
-                JSONObject retValue = new JSONObject();
-                retValue.put("item", upgradeVG.toJSONObject());
-                retValue.put("className", upgradeVG.getClass().getSimpleName());
-                retParams.put("return", retValue);
+                retParams.put("return", DomainHelper.getInstance().domainToJsonObject(upgradeVG));
             }
         });
 
@@ -444,10 +455,7 @@ public class StoreService {
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String goodItemId = params.getString("goodItemId");
                 UpgradeVG upgradeVG = StoreInfo.getGoodLastUpgrade(goodItemId);
-                JSONObject retValue = new JSONObject();
-                retValue.put("item", upgradeVG.toJSONObject());
-                retValue.put("className", upgradeVG.getClass().getSimpleName());
-                retParams.put("return", retValue);
+                retParams.put("return", DomainHelper.getInstance().domainToJsonObject(upgradeVG));
             }
         });
 
@@ -458,10 +466,7 @@ public class StoreService {
                 List<JSONObject> ret = new ArrayList<JSONObject>();
                 List<UpgradeVG> upgradeVGs = StoreInfo.getGoodUpgrades(goodItemId);
                 for (UpgradeVG upgradeVG : upgradeVGs) {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("item", upgradeVG.toJSONObject());
-                    jsonObject.put("className", upgradeVG.getClass().getSimpleName());
-                    ret.add(jsonObject);
+                    ret.add(DomainHelper.getInstance().domainToJsonObject(upgradeVG));
                 }
                 JSONArray retValue = new JSONArray(ret);
                 retParams.put("return", retValue);
@@ -474,10 +479,7 @@ public class StoreService {
                 List<JSONObject> ret = new ArrayList<JSONObject>();
                 List<VirtualCurrency> virtualCurrencies = StoreInfo.getCurrencies();
                 for (VirtualCurrency virtualCurrency : virtualCurrencies) {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("item", virtualCurrency.toJSONObject());
-                    jsonObject.put("className", virtualCurrency.getClass().getSimpleName());
-                    ret.add(jsonObject);
+                    ret.add(DomainHelper.getInstance().domainToJsonObject(virtualCurrency));
                 }
                 JSONArray retValue = new JSONArray(ret);
                 retParams.put("return", retValue);
@@ -490,10 +492,7 @@ public class StoreService {
                 List<JSONObject> ret = new ArrayList<JSONObject>();
                 List<VirtualGood> virtualGoods = StoreInfo.getGoods();
                 for (VirtualGood virtualGood : virtualGoods) {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("item", virtualGood.toJSONObject());
-                    jsonObject.put("className", virtualGood.getClass().getSimpleName());
-                    ret.add(jsonObject);
+                    ret.add(DomainHelper.getInstance().domainToJsonObject(virtualGood));
                 }
                 JSONArray retValue = new JSONArray(ret);
                 retParams.put("return", retValue);
@@ -506,10 +505,7 @@ public class StoreService {
                 List<JSONObject> ret = new ArrayList<JSONObject>();
                 List<VirtualCurrencyPack> virtualCurrencyPacks = StoreInfo.getCurrencyPacks();
                 for (VirtualCurrencyPack virtualCurrencyPack : virtualCurrencyPacks) {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("item", virtualCurrencyPack.toJSONObject());
-                    jsonObject.put("className", virtualCurrencyPack.getClass().getSimpleName());
-                    ret.add(jsonObject);
+                    ret.add(DomainHelper.getInstance().domainToJsonObject(virtualCurrencyPack));
                 }
                 JSONArray retValue = new JSONArray(ret);
                 retParams.put("return", retValue);
@@ -522,10 +518,7 @@ public class StoreService {
                 List<JSONObject> ret = new ArrayList<JSONObject>();
                 List<NonConsumableItem> nonConsumableItems = StoreInfo.getNonConsumableItems();
                 for (NonConsumableItem nonConsumableItem : nonConsumableItems) {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("item", nonConsumableItem.toJSONObject());
-                    jsonObject.put("className", nonConsumableItem.getClass().getSimpleName());
-                    ret.add(jsonObject);
+                    ret.add(DomainHelper.getInstance().domainToJsonObject(nonConsumableItem));
                 }
                 JSONArray retValue = new JSONArray(ret);
                 retParams.put("return", retValue);
@@ -538,10 +531,7 @@ public class StoreService {
                 List<JSONObject> ret = new ArrayList<JSONObject>();
                 List<VirtualCategory> virtualCategories = StoreInfo.getCategories();
                 for (VirtualCategory virtualCategory : virtualCategories) {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("item", virtualCategory.toJSONObject());
-                    jsonObject.put("className", virtualCategory.getClass().getSimpleName());
-                    ret.add(jsonObject);
+                    ret.add(DomainHelper.getInstance().domainToJsonObject(virtualCategory));
                 }
                 JSONArray retValue = new JSONArray(ret);
                 retParams.put("return", retValue);
