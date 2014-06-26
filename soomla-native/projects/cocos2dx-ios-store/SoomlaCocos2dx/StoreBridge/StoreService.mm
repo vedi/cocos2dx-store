@@ -5,9 +5,9 @@
 #import "StoreService.h"
 #import "NdkGlue.h"
 #import "DomainHelper.h"
-#import "EventHandling.h"
+#import "StoreEventHandling.h"
 #import "StoreAssetsBridge.h"
-#import "StoreController.h"
+#import "SoomlaStore.h"
 #import "InsufficientFundsException.h"
 #import "NotEnoughGoodsException.h"
 #import "VirtualCurrency.h"
@@ -23,10 +23,11 @@
 #import "StoreInfo.h"
 #import "PurchaseWithMarket.h"
 #import "StoreConfig.h"
-#import "StoreUtils.h"
+#import "SoomlaUtils.h"
 #import "StoreInventory.h"
 #import "VirtualItemNotFoundException.h"
 #import "ParamsProvider.h"
+#import "Soomla.h"
 
 @interface StoreService ()
 @end
@@ -83,7 +84,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        [EventHandling observeAllEventsWithObserver:[NdkGlue sharedInstance]
+        [StoreEventHandling observeAllEventsWithObserver:[NdkGlue sharedInstance]
                                        withSelector:@selector(dispatchNdkCallback:)];
     }
 
@@ -104,38 +105,38 @@
         [[StoreService sharedStoreService] init];
         NSDictionary *commonParams = [[ParamsProvider sharedParamsProvider] getParamsForKey:@"common"];
         NSString *customSecret = [commonParams objectForKey:@"customSecret"];
-        [[StoreController getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]
-                                                 andCustomSecret:customSecret];
+        [Soomla initializeWithSecret:customSecret];
+        [[SoomlaStore getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]];
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreController::buyMarketItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *productId = (NSString *) [parameters objectForKey:@"productId"];
         // NOTE: payload is not supported on iOS !
         PurchasableVirtualItem *pvi = [[StoreInfo getInstance] purchasableItemWithProductId:productId];
-        [[StoreController getInstance] buyInMarketWithMarketItem:((PurchaseWithMarket *) pvi.purchaseType).marketItem];
+        [[SoomlaStore getInstance] buyInMarketWithMarketItem:((PurchaseWithMarket *) pvi.purchaseType).marketItem];
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreController::restoreTransactions" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        [[StoreController getInstance] restoreTransactions];
+        [[SoomlaStore getInstance] restoreTransactions];
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreController::transactionsAlreadyRestored" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        bool res = [[StoreController getInstance] transactionsAlreadyRestored];
+        bool res = [[SoomlaStore getInstance] transactionsAlreadyRestored];
         [retParameters setObject:[NSNumber numberWithBool:res] forKey:@"return"];
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreController::refreshInventory" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        [[StoreController getInstance] refreshInventory];
+        [[SoomlaStore getInstance] refreshInventory];
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreController::setSSV" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         bool ssv = [(NSNumber*)[parameters objectForKey:@"ssv"] boolValue];
-        LogDebug(@"SOOMLA StoreControllerBridge", ([NSString stringWithFormat:@"Setting iOS SSV to: %@", ssv ?@"true":@"false"]));
+        LogDebug(@"SOOMLA SoomlaStoreBridge", ([NSString stringWithFormat:@"Setting iOS SSV to: %@", ssv ?@"true":@"false"]));
         VERIFY_PURCHASES = ssv;
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreController::refreshMarketItemsDetails" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        [[StoreController getInstance] refreshMarketItemsDetails];
+        [[SoomlaStore getInstance] refreshMarketItemsDetails];
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::buyItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
@@ -370,7 +371,7 @@
         [parameters setObject:[pvi itemId] forKey:@"itemId"];
     }];
 
-    [ndkGlue registerCallbackHandlerForKey:EVENT_MARKET_ITEMS_REFRESHED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
+    [ndkGlue registerCallbackHandlerForKey:EVENT_MARKET_ITEMS_REFRESH_FINISHED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
         NSArray* marketItems = (NSArray*)[notification.userInfo objectForKey:DICT_ELEMENT_MARKET_ITEMS];
         NSMutableArray* jsonArr = [NSMutableArray array];
         NSMutableDictionary *miDict;
@@ -406,7 +407,7 @@
         [parameters setObject:@"CCStoreEventHandler::onUnexpectedErrorInStore" forKey:@"method"];
     }];
 
-    [ndkGlue registerCallbackHandlerForKey:EVENT_STORECONTROLLER_INIT withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
+    [ndkGlue registerCallbackHandlerForKey:EVENT_SOOMLASTORE_INIT withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
         [parameters setObject:@"CCStoreEventHandler::onStoreControllerInitialized" forKey:@"method"];
     }];
 }

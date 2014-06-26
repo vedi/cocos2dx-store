@@ -4,7 +4,7 @@
 
 
 #import "StoreAssetsBridge.h"
-#import "StoreUtils.h"
+#import "SoomlaUtils.h"
 #import "JSONConsts.h"
 #import "VirtualCurrency.h"
 #import "VirtualCurrencyPack.h"
@@ -15,6 +15,7 @@
 #import "SingleUsePackVG.h"
 #import "VirtualCategory.h"
 #import "NonConsumableItem.h"
+#import "StoreJSONConsts.h"
 
 
 @implementation StoreAssetsBridge
