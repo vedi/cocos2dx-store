@@ -20,6 +20,7 @@
 #include "CCStoreUtils.h"
 #include "CCStoreInfo.h"
 #include "CCStoreEventDispatcher.h"
+#include "CCVirtualItemReward.h"
 
 USING_NS_CC;
 
@@ -68,6 +69,8 @@ namespace soomla {
         domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_VG, CCSingleUseVG::createWithDictionary);
         domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG, CCUpgradeVG::createWithDictionary);
         domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_GOOD, CCVirtualGood::createWithDictionary);
+
+        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_ITEM, &CCVirtualItemReward::createWithDictionary);
 
         __String *customSecret = dynamic_cast<__String *>(storeParams->objectForKey("customSecret"));
 

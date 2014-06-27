@@ -87,6 +87,7 @@ namespace soomla {
         static char const *JSON_JSON_TYPE_SINGLE_USE_VG;
         static char const *JSON_JSON_TYPE_UPGRADE_VG;
         static char const *JSON_JSON_TYPE_VIRTUAL_GOOD;
+        static char const *JSON_JSON_TYPE_ITEM;
 
         static char const *EVENT_BILLING_NOT_SUPPORTED;
         static char const *EVENT_BILLING_SUPPORTED;
