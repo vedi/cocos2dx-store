@@ -74,6 +74,9 @@ namespace soomla {
         static char const *JSON_PURCHASE_VI_ITEM_ID;
         static char const *JSON_PURCHASE_VI_AMOUNT;
 
+        static char const *JSON_AMOUNT;
+        static char const *JSON_ASSOCIATED_ITEM_ID;
+
         static char const *JSON_JSON_TYPE_VIRTUAL_ITEM;
         static char const *JSON_JSON_TYPE_MARKET_ITEM;
         static char const *JSON_JSON_TYPE_NON_CONSUMABLE_ITEM;

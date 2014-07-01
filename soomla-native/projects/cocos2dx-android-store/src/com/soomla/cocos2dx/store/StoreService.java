@@ -1,13 +1,13 @@
 package com.soomla.cocos2dx.store;
 
-import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import com.soomla.Soomla;
 import com.soomla.SoomlaUtils;
-import com.soomla.cocos2dx.common.DomainFactory;
+import com.soomla.cocos2dx.common.AbstractSoomlaService;
 import com.soomla.cocos2dx.common.DomainHelper;
 import com.soomla.cocos2dx.common.NdkGlue;
 import com.soomla.cocos2dx.common.ParamsProvider;
+import com.soomla.rewards.VirtualItemReward;
 import com.soomla.store.IStoreAssets;
 import com.soomla.store.SoomlaStore;
 import com.soomla.store.StoreInventory;
@@ -21,9 +21,7 @@ import com.soomla.store.exceptions.InsufficientFundsException;
 import com.soomla.store.exceptions.NotEnoughGoodsException;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 import com.soomla.store.purchaseTypes.PurchaseWithMarket;
-import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
@@ -35,11 +33,10 @@ import java.util.List;
  *         date 6/10/14
  *         time 11:08 AM
  */
-public class StoreService {
+public class StoreService extends AbstractSoomlaService {
 
     private static StoreService INSTANCE = null;
 
-    private static WeakReference<GLSurfaceView> glSurfaceViewRef = new WeakReference<GLSurfaceView>(null);
     private static String mPublicKey           = "";
     private static IStoreAssets mStoreAssets   = null;
     private boolean inited = false;
@@ -61,129 +58,21 @@ public class StoreService {
     public StoreService() {
         storeEventHandlerBridge = new StoreEventHandlerBridge();
 
-        DomainHelper.getInstance().registerTypeWithClassName("virtualItem", VirtualItem.class.getName());
-        DomainHelper.getInstance().registerTypeWithClassName("marketItem", MarketItem.class.getName());
-        DomainHelper.getInstance().registerTypeWithClassName("nonConsumableItem", NonConsumableItem.class.getName());
-        DomainHelper.getInstance().registerTypeWithClassName("purchasableVirtualItem", PurchasableVirtualItem.class.getName());
-        DomainHelper.getInstance().registerTypeWithClassName("virtualCategory", VirtualCategory.class.getName());
-        DomainHelper.getInstance().registerTypeWithClassName("virtualCurrency", VirtualCurrency.class.getName());
-        DomainHelper.getInstance().registerTypeWithClassName("virtualCurrencyPack", VirtualCurrencyPack.class.getName());
-        DomainHelper.getInstance().registerTypeWithClassName("equippableVG", EquippableVG.class.getName());
-        DomainHelper.getInstance().registerTypeWithClassName("lifetimeVG", LifetimeVG.class.getName());
-        DomainHelper.getInstance().registerTypeWithClassName("singleUsePackVG", SingleUsePackVG.class.getName());
-        DomainHelper.getInstance().registerTypeWithClassName("singleUseVG", SingleUseVG.class.getName());
-        DomainHelper.getInstance().registerTypeWithClassName("upgradeVG", UpgradeVG.class.getName());
-        DomainHelper.getInstance().registerTypeWithClassName("virtualGood", VirtualGood.class.getName());
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_VIRTUAL_ITEM, VirtualItem.class);
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_MARKET_ITEM, MarketItem.class);
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_NON_CONSUMABLE_ITEM, NonConsumableItem.class);
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_PURCHASABLE_VIRTUAL_ITEM, PurchasableVirtualItem.class);
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_VIRTUAL_CATEGORY, VirtualCategory.class);
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_VIRTUAL_CURRENCY, VirtualCurrency.class);
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK, VirtualCurrencyPack.class);
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_EQUIPPABLE_VG, EquippableVG.class);
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_LIFETIME_VG, LifetimeVG.class);
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_SINGLE_USE_PACK_VG, SingleUsePackVG.class);
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_SINGLE_USE_VG, SingleUseVG.class);
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_UPGRADE_VG, UpgradeVG.class);
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_VIRTUAL_GOOD, VirtualGood.class);
 
-        final DomainFactory domainFactory = DomainFactory.getInstance();
-
-        // Skip StoreConsts.JSON_JSON_TYPE_VIRTUAL_ITEM as abstract
-
-        domainFactory.registerCreator(StoreConsts.JSON_JSON_TYPE_MARKET_ITEM, new DomainFactory.Creator<MarketItem>() {
-            @Override
-            public MarketItem create(JSONObject jsonObject) {
-                try {
-                    return new MarketItem(jsonObject);
-                } catch (JSONException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-        });
-        domainFactory.registerCreator(StoreConsts.JSON_JSON_TYPE_NON_CONSUMABLE_ITEM, new DomainFactory.Creator<NonConsumableItem>() {
-            @Override
-            public NonConsumableItem create(JSONObject jsonObject) {
-                try {
-                    return new NonConsumableItem(jsonObject);
-                } catch (JSONException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-        });
-
-        // Skip StoreConsts.JSON_JSON_TYPE_PURCHASABLE_VIRTUAL_ITEM as abstract
-
-        domainFactory.registerCreator(StoreConsts.JSON_JSON_TYPE_VIRTUAL_CATEGORY, new DomainFactory.Creator<VirtualCategory>() {
-            @Override
-            public VirtualCategory create(JSONObject jsonObject) {
-                try {
-                    return new VirtualCategory(jsonObject);
-                } catch (JSONException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-        });
-        domainFactory.registerCreator(StoreConsts.JSON_JSON_TYPE_VIRTUAL_CURRENCY, new DomainFactory.Creator<VirtualCurrency>() {
-            @Override
-            public VirtualCurrency create(JSONObject jsonObject) {
-                try {
-                    return new VirtualCurrency(jsonObject);
-                } catch (JSONException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-        });
-        domainFactory.registerCreator(StoreConsts.JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK, new DomainFactory.Creator<VirtualCurrencyPack>() {
-            @Override
-            public VirtualCurrencyPack create(JSONObject jsonObject) {
-                try {
-                    return new VirtualCurrencyPack(jsonObject);
-                } catch (JSONException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-        });
-        domainFactory.registerCreator(StoreConsts.JSON_JSON_TYPE_EQUIPPABLE_VG, new DomainFactory.Creator<EquippableVG>() {
-            @Override
-            public EquippableVG create(JSONObject jsonObject) {
-                try {
-                    return new EquippableVG(jsonObject);
-                } catch (JSONException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-        });
-        domainFactory.registerCreator(StoreConsts.JSON_JSON_TYPE_LIFETIME_VG, new DomainFactory.Creator<LifetimeVG>() {
-            @Override
-            public LifetimeVG create(JSONObject jsonObject) {
-                try {
-                    return new LifetimeVG(jsonObject);
-                } catch (JSONException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-        });
-        domainFactory.registerCreator(StoreConsts.JSON_JSON_TYPE_SINGLE_USE_PACK_VG, new DomainFactory.Creator<SingleUsePackVG>() {
-            @Override
-            public SingleUsePackVG create(JSONObject jsonObject) {
-                try {
-                    return new SingleUsePackVG(jsonObject);
-                } catch (JSONException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-        });
-        domainFactory.registerCreator(StoreConsts.JSON_JSON_TYPE_SINGLE_USE_VG, new DomainFactory.Creator<SingleUseVG>() {
-            @Override
-            public SingleUseVG create(JSONObject jsonObject) {
-                try {
-                    return new SingleUseVG(jsonObject);
-                } catch (JSONException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-        });
-        domainFactory.registerCreator(StoreConsts.JSON_JSON_TYPE_UPGRADE_VG, new DomainFactory.Creator<UpgradeVG>() {
-            @Override
-            public UpgradeVG create(JSONObject jsonObject) {
-                try {
-                    return new UpgradeVG(jsonObject);
-                } catch (JSONException e) {
-                    throw new IllegalStateException(e);
-                }
-            }
-        });
-
-        // Skip StoreConsts.JSON_JSON_TYPE_VIRTUAL_GOOD as abstract
+        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_ITEM, VirtualItemReward.class);
 
         final NdkGlue ndkGlue = NdkGlue.getInstance();
 
@@ -549,11 +438,7 @@ public class StoreService {
         inited = true;
     }
 
-    public void setActivity(Activity activity) {
-        NdkGlue.getInstance().setActivity(activity);
-    }
-
-    public void setGlSurfaceView(Cocos2dxGLSurfaceView glSurfaceView) {
+    public void setGlSurfaceView(GLSurfaceView glSurfaceView) {
         if (inited) {
             storeEventHandlerBridge.setGlSurfaceView(glSurfaceView);
         } else {

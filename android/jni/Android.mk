@@ -32,7 +32,8 @@ LOCAL_SRC_FILES := ../../Soomla/CCStoreConsts.cpp \
 	../../Soomla/domain/virtualGoods/CCSingleUsePackVG.cpp \
 	../../Soomla/domain/virtualGoods/CCSingleUseVG.cpp \
 	../../Soomla/domain/virtualGoods/CCUpgradeVG.cpp \
-	../../Soomla/domain/virtualGoods/CCVirtualGood.cpp
+	../../Soomla/domain/virtualGoods/CCVirtualGood.cpp \
+	../../Soomla/rewards/CCVirtualItemReward.cpp
 
 
 ifneq '$(COCOS2D_JAVASCRIPT)' ''
@@ -48,6 +49,7 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain/virtualCurrencies
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain/virtualGoods
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/jsb
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/PurchaseTypes
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/rewards
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../lib \
         $(LOCAL_PATH)/../../../bindings/manual
 
@@ -67,6 +69,7 @@ LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain/virtualCurrencies
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/domain/virtualGoods
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/jsb
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/PurchaseTypes
+LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../Soomla/rewards
 
 include $(BUILD_STATIC_LIBRARY)
 

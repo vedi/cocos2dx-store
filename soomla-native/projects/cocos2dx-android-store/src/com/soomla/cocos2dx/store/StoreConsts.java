@@ -20,6 +20,7 @@ public class StoreConsts {
     public static final String JSON_JSON_TYPE_UPGRADE_VG = "upgradeVG";
     public static final String JSON_JSON_TYPE_VIRTUAL_GOOD = "virtualGood";
 
+    public static final String JSON_JSON_TYPE_ITEM     = "item";
 
     public static final String EVENT_AUTH_LOGIN_FAILED = "com.soomla.profile.events.auth.LoginFailedEvent";
     public static final String EVENT_AUTH_LOGIN_FINISHED = "com.soomla.profile.events.auth.LoginFinishedEvent";

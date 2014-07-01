@@ -7,11 +7,12 @@
 
 #include "CCReward.h"
 #include "CCCommonConsts.h"
+#include "CCStoreConsts.h"
 
 namespace soomla {
     class CCVirtualItemReward : public CCReward {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mAmount, Amount, CCProfileConsts::JSON_AMOUNT);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mAssociatedItemId, AssociatedItemId, CCProfileConsts::JSON_ASSOCIATED_ITEM_ID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mAmount, Amount, CCStoreConsts::JSON_AMOUNT);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mAssociatedItemId, AssociatedItemId, CCStoreConsts::JSON_ASSOCIATED_ITEM_ID);
     public:
         static CCVirtualItemReward *create(
                 cocos2d::__String *rewardId,

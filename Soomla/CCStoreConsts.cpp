@@ -68,6 +68,9 @@ namespace soomla {
     char const *CCStoreConsts::JSON_PURCHASE_VI_ITEM_ID = "pvi_itemId";
     char const *CCStoreConsts::JSON_PURCHASE_VI_AMOUNT = "pvi_amount";
 
+    char const *CCStoreConsts::JSON_AMOUNT = "amount";
+    char const *CCStoreConsts::JSON_ASSOCIATED_ITEM_ID = "associatedItemId";
+
     char const *CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM = "virtualItem";
     char const *CCStoreConsts::JSON_JSON_TYPE_MARKET_ITEM = "marketItem";
     char const *CCStoreConsts::JSON_JSON_TYPE_NON_CONSUMABLE_ITEM = "nonConsumableItem";
