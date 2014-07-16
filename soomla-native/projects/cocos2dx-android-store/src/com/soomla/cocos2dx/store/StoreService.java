@@ -173,7 +173,7 @@ public class StoreService extends AbstractSoomlaService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String itemId = params.getString("itemId");
-                SoomlaUtils.LogDebug("SOOMLA", "getCurrencyBalance is called from java!");
+                SoomlaUtils.LogDebug("SOOMLA", "getItemBalance is called from java!");
                 int retValue = StoreInventory.getVirtualItemBalance(itemId);
                 retParams.put("return", retValue);
             }

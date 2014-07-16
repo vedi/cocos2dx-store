@@ -387,6 +387,10 @@
         [parameters setObject: jsonArr forKey:@"marketItems"];
     }];
 
+    [ndkGlue registerCallbackHandlerForKey:EVENT_MARKET_ITEMS_REFRESH_STARTED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
+        [parameters setObject:@"CCStoreEventHandler::onMarketItemsRefreshStarted" forKey:@"method"];
+    }];
+
     [ndkGlue registerCallbackHandlerForKey:EVENT_MARKET_PURCHASE_VERIF withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
         PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
         [parameters setObject:@"CCStoreEventHandler::onMarketPurchaseVerification" forKey:@"method"];

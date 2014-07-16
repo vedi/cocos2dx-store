@@ -63,6 +63,8 @@ namespace soomla {
 
         virtual void onIabServiceStopped();
 #endif
+
+        virtual void onMarketItemsRefreshStarted();
     };
 }
 

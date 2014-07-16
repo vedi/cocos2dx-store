@@ -159,12 +159,18 @@ namespace soomla {
          store controller is initialized.
          */
         virtual void onStoreControllerInitialized() = 0;
-        
+
         /**
          Handles an `onMarketItemsRefreshed` event, which is fired when a market
-         item refreshed process has started.
+         item refreshed process has completed.
          */
         virtual void onMarketItemsRefreshed() = 0;
+
+        /**
+        Handles an `onMarketItemsRefreshStarted` event, which is fired when a market
+        item refreshed process has started.
+        */
+        virtual void onMarketItemsRefreshStarted() = 0;
 
 /** Android only events*/
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

@@ -263,6 +263,22 @@ public class StoreEventHandlerBridge {
     }
 
     @Subscribe
+    public void onMarketItemsRefreshStarted(final MarketItemsRefreshStartedEvent marketItemsRefreshStartedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("method", "CCStoreEventHandler::onMarketItemsRefreshStarted");
+                    NdkGlue.getInstance().sendMessageWithParameters(parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    @Subscribe
     public void onMarketItemsRefreshed(final MarketItemsRefreshFinishedEvent marketItemsRefreshed) {
         mGLThread.queueEvent(new Runnable() {
             @Override

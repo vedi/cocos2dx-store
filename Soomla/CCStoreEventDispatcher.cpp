@@ -161,20 +161,6 @@ namespace soomla {
                 [this](__Dictionary *parameters) {
                     __String *itemId = (__String *)(parameters->objectForKey("itemId"));
                     CCError *error = NULL;
-                    CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(
-                            CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
-                    if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE_CANCELED, error);
-                        return;
-                    }
-                    CC_ASSERT(purchasableVirtualItem);
-                    this->onItemPurchaseStarted(purchasableVirtualItem);
-                });
-
-        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_PURCHASE_CANCELED,
-                [this](__Dictionary *parameters) {
-                    __String *itemId = (__String *)(parameters->objectForKey("itemId"));
-                    CCError *error = NULL;
                     CCPurchasableVirtualItem *purchasableVirtualItem =
                             dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
@@ -200,6 +186,20 @@ namespace soomla {
                     __String *payload = (__String *)(parameters->objectForKey("payload"));
                     __SetIterator i;
                     this->onMarketPurchase(purchasableVirtualItem, token, payload);
+                });
+
+        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_PURCHASE_STARTED,
+                [this](__Dictionary *parameters) {
+                    __String *itemId = (__String *)(parameters->objectForKey("itemId"));
+                    CCError *error = NULL;
+                    CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(
+                            CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
+                    if (error) {
+                        CCStoreUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE_STARTED, error);
+                        return;
+                    }
+                    CC_ASSERT(purchasableVirtualItem);
+                    this->onMarketPurchaseStarted(purchasableVirtualItem);
                 });
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_PURCHASE_STARTED,
@@ -248,6 +248,11 @@ namespace soomla {
 
                     // TODO: Where are params?
                     this->onMarketItemsRefreshed();
+                });
+
+        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_ITEMS_REFRESH_STARTED,
+                [this](__Dictionary *parameters) {
+                    this->onMarketItemsRefreshStarted();
                 });
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_PURCHASE_VERIFICATION,
@@ -418,6 +423,12 @@ namespace soomla {
     void CCStoreEventDispatcher::onMarketItemsRefreshed() {
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
             eventHandler->onMarketItemsRefreshed();
+        }
+    }
+
+    void CCStoreEventDispatcher::onMarketItemsRefreshStarted() {
+        FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
+            eventHandler->onMarketItemsRefreshStarted();
         }
     }
 
