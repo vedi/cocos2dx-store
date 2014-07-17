@@ -50,6 +50,14 @@ namespace soomla {
         void buyItem(const char *itemId, CCError **error);
 
 		/**
+         Buys the item with the given `itemId`.
+         @param itemId The id of the item to be purchased.
+         @param payload Payload.
+         @param error A `CCError` for error checking.
+		 */
+        void buyItem(const char *itemId, const char *payload, CCError **error);
+
+		/**
          Retrieves the balance of the virtual item with the given `itemId`.
          @param itemId The id of the virtual item to be fetched - must be of
          `CCVirtualCurrency`, `CCSingleUseVG`, `CCLifetimeVG`, `CCEquippableVG`.
@@ -196,6 +204,8 @@ namespace soomla {
          @param error A `CCError` for error checking.
          */
         void removeNonConsumableItem(const char *nonConsItemId, CCError **error);
+
+        int getItemBalance(char const *itemId, char const *payload, CCError **error);
     };
 };
 

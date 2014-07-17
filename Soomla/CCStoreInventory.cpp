@@ -49,12 +49,19 @@ namespace soomla {
     }
 
     void CCStoreInventory::buyItem(char const *itemId, CCError **error) {
+        buyItem(itemId, nullptr, error);
+    }
+
+    void CCStoreInventory::buyItem(char const *itemId, const char *payload, CCError **error) {
         CCStoreUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling buyItem with: %s", itemId)->getCString());
 
         __Dictionary *params = __Dictionary::create();
         params->setObject(__String::create("CCStoreInventory::buyItem"), "method");
         params->setObject(__String::create(itemId), "itemId");
+        if (payload != nullptr) {
+            params->setObject(__String::create(payload), "payload");
+        }
         CCNdkBridge::callNative (params, error);
     }
 

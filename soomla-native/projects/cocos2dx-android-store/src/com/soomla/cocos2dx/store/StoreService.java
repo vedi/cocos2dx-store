@@ -164,8 +164,9 @@ public class StoreService extends AbstractSoomlaService {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String itemId = params.getString("itemId");
+                String payload = params.optString("payload");
                 SoomlaUtils.LogDebug("SOOMLA", "buy is called from java!");
-                StoreInventory.buy(itemId);
+                StoreInventory.buy(itemId, payload);
             }
         });
 

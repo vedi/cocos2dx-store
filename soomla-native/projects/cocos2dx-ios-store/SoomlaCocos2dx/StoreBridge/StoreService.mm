@@ -140,8 +140,9 @@
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::buyItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
-        [StoreInventory buyItemWithItemId:itemId];
+        NSString *itemId = [parameters objectForKey:@"itemId"];
+        NSString *payload = [parameters objectForKey:@"payload"];
+        [StoreInventory buyItemWithItemId:itemId andPayload:payload];
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::getItemBalance" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
@@ -340,8 +341,10 @@
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_ITEM_PURCHASED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
         PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        NSString* payload = [notification.userInfo objectForKey:DICT_ELEMENT_DEVELOPERPAYLOAD];
         [parameters setObject:@"CCStoreEventHandler::onItemPurchased" forKey:@"method"];
         [parameters setObject:[pvi itemId] forKey:@"itemId"];
+        [parameters setObject:payload forKey:@"payload"];
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_ITEM_PURCHASE_STARTED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
