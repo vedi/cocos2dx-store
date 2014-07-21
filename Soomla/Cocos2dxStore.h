@@ -23,4 +23,8 @@
 #include "CCVirtualGood.h"
 #include "CCVirtualItem.h"
 
+#include "CCStoreEventDispatcher.h"
+#include "CCStoreEventHandler.h"
+#include "CCStoreService.h"
+
 #endif /* !_Cocos2dxSoomla_H */
