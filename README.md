@@ -1,19 +1,14 @@
+*This branch contains the code for cocos2d-x v3.x, and was optimized and tested for v3.1. For cocos2d-x v2.x use `master` branch.* 
+
 *This project is a part of [The SOOMLA Project](http://project.soom.la) which is a series of open source initiatives with a joint goal to help mobile game developers get better stores and more in-app purchases.*
 
 Haven't you always wanted an in-app purchase one liner that looks like this?!
 
-C++
-```cpp
 soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
-```
-
-JS
-```js
-Soomla.storeInventory.buyItem("[itemId]");
-```
-
 
 # cocos2dx-store
+
+**Jul 21, 2014**: Improved implementation
 
 **May 30, 2014**: Support Amazon Billing Provider.
 
@@ -43,23 +38,24 @@ The cocos2dx-store is the Cocos2d-x flavour of The SOOMLA Project. This project 
 
 ## Example Project
 
-There are example projects that show how to use cocos2dx-store:
+There is an example project that show how to use cocos2dx-store:
 
-C++: http://github.com/soomla/cocos2dx-store-example,
+http://github.com/soomla/cocos2dx-store-example,
 
-JS: http://github.com/soomla/cocos2dx-js-store-example.
-
-The example projects are still under development but they already have some important aspects of the framework you can learn and implement in your application.
+The example project is still under development but it already has some important aspects of the framework you can learn and implement in your application.
 
 ## Getting Started
 
-##### C++
-
 1. As with all Cocos2d-x projects, you need to clone the Cocos2d-x framework from [here](https://github.com/cocos2d/cocos2d-x) or download it from the [Cocos2d-x website](http://www.cocos2d-x.org/download).  
 
     > Make sure the version you clone is supported by cocos2dx-store (the tag is the version).
 
-1. Go into your cocos2d-x project and recursively clone cocos2dx-store into the `extensions` directory located at the root of your Cocos2d-x framework.
+1. Go into your cocos2d-x project and recursively clone cocos2dx-core into the `extensions` directory located at the root of your Cocos2d-x framework.
+    ```
+    $ git clone --recursive git@github.com:soomla/cocos2dx-core.git extensions/soomla-cocos2dx-core
+    ```
+
+1. Perform the same action for cocos2dx-store.
     ```
     $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
     ```
@@ -69,93 +65,43 @@ The example projects are still under development but they already have some impo
     $ git clone git@github.com:vedi/jansson.git external/jansson
     ```
 
-1. Make sure to include the `Soomla.h` header whenever you use any of the *cocos2dx-store* functions:
+1. Make sure to include the `Cocos2dxStore.h` header whenever you use any of the *cocos2dx-store* functions:
     ```cpp
-    #include "Soomla.h"
+    #include "Cocos2dxStore.h"
     ```
 
-1. Create your own implementation of `CCIStoreAssets` that will represent the assets in your specific game ([Refer to cocos2dx-store-example for an example.](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)).
+1. Create your own implementation of `CCStoreAssets` that will represent the assets in your specific game ([Refer to cocos2dx-store-example for an example.](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)).
 
-1. Initialize `CCStoreController` with your assets class, and a `Dictionary` containing various parameters for it:
+1. Implement your `CCStoreEventHandler` in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling) section for more information.
+
+1. Initialize `CCServiceManager` with common params, setting your `customSecret` there:
 
     ```cpp
-    Dictionary *storeParams = Dictionary::create();
-    storeParams->
-        setObject(String::create("ExamplePublicKey"), "androidPublicKey");
-    storeParams->
-        setObject(String::create("ExampleCustomSecret"), "customSecret");
+    __Dictionary *commonParams = __Dictionary::create();
+    commonParams->setObject(__String::create("ExampleCustomSecret"), "customSecret");
+    soomla::CCServiceManager::getInstance()->setCommonParams(commonParams);
+    ```
 
-    String *soomSec = String::create("ExampleSoomSecret");
-    soomla::CCStoreController::sharedStoreController()->setSoomSec(soomSec);
+1. Initialize `CCStoreService` with your assets class (instance of `CCStoreAssets`), and a `__Dictionary` containing various parameters for it:
 
-    // This is the call to initialize CCStoreController
-    soomla::CCStoreController::initShared(assets, storeParams);
+    ```cpp
+    __Dictionary *storeParams = __Dictionary::create();
+    storeParams->setObject(__String::create("ExamplePublicKey"), "androidPublicKey");
+
+    soomla::CCStoreService::initShared(assets, storeParams);
     ```
     - *Custom Secret* - is an encryption secret you provide that will be used to secure your data.
-    - *Public Key* - is the public key given to you from Google. (iOS doesn't have a public key).
-    - *Soom Sec* - is a special secret SOOMLA uses to increase your data protection.
+    - *Android Public Key* - is the public key given to you from Google. (iOS doesn't have a public key).
 
-    **Choose both secrets wisely. You can't change them after you launch your game!**
+    **Choose the secret wisely. You can't change it after you launch your game!**
 
-    > Initialize `StoreController` ONLY ONCE when your application loads.
+    > Initialize `CCStoreService` ONLY ONCE when your application loads.
 
-1. You'll need an event handler in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling) section for more information.
+1. Add instance of your event handler to `CCStoreEventDispatcher` after `CCStoreService` initialization:
 
-And that's it! You now have storage and in-app purchasing capabilities.
-
-##### JS
-
-1. As with all Cocos2d-x projects, you need to clone the Cocos2d-x framework from [here](https://github.com/cocos2d/cocos2d-x) or download it from the [Cocos2d-x website](http://www.cocos2d-x.org/download).  
-
-    > Make sure the version you clone is supported by cocos2dx-store (the tag is the version).
-
-1. Go into your cocos2d-x project and recursively clone cocos2dx-store into the `extensions` directory located at the root of your Cocos2d-x framework.
-    ```
-    $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
-    ```
-
-1. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your framework.
-    ```
-    $ git clone git@github.com:vedi/jansson.git external/jansson
-    ```
-
-1. Register js-bindings in your AppDelegate.cpp:
     ```cpp
-    #include "jsb_soomla.h"
-    ...
-    sc->addRegisterCallback(register_jsb_soomla);
+    soomla::CCStoreEventDispatcher::getInstance()->addEventHandler(handler);
     ```
-
-
-1. Make sure to include the `soomla.js` and `undersore.js` to start point of your application:
-    ```js
-  require("underscore.js");
-  require("soomla.js");
-    ```
-
-1. Create your own implementation of `Soomla.IStoreAssets` that will represent the assets in your specific game ([Refer to cocos2dx-js-store-example for an example.](https://github.com/soomla/cocos2dx-js-store-example/blob/master/Resources/src/MuffinRushAssets.js)).
-
-1. Initialize `Soomla.StoreController` with your assets class, and an object containing various parameters for it:
-
-    ```js
-    var assets = new MuffinRushAssets();
-    var storeParams = {
-      soomSec: "ExampleSoomSecret",
-      androidPublicKey: "ExamplePublicKey",
-      customSecret: "ExampleCustomSecret"
-    };
-
-    Soomla.StoreController.createShared(assets, storeParams);
-    ```
-    - *Custom Secret* - is an encryption secret you provide that will be used to secure your data.
-    - *Public Key* - is the public key given to you from Google. (iOS doesn't have a public key).
-    - *Soom Sec* - is a special secret SOOMLA uses to increase your data protection.
-
-    **Choose both secrets wisely. You can't change them after you launch your game!**
-
-    > Initialize `StoreController` ONLY ONCE when your application loads.
-
-1. You'll need an event handler in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling) section for more information.
 
 And that's it! You now have storage and in-app purchasing capabilities.
 
@@ -164,18 +110,23 @@ And that's it! You now have storage and in-app purchasing capabilities.
 
 In your XCode project, perform following steps:
 
-1. Add **Soomla** folder of the repository to the project sources.
-2. Add to **Header Search Paths**:
-  - `"$(SRCROOT)/../../../extensions/cocos2dx-store/soomla-native/compilations/ios/headers/cocos2dx-ios-store"`
-  - `"$(SRCROOT)/../../../extensions/cocos2dx-store/soomla-native/compilations/ios/headers/ios-store"`
-3. Add libraries to **Link Binary With Libraries**:
-  - `extensions/cocos2dx-store/soomla-native/compilations/ios/release/libCocos2dXiOSStore.a`
-  - `extensions/cocos2dx-store/soomla-native/compilations/ios/release/libSoomlaiOSStore.a`
-4. _for JS solution only_: put `soomla.js`, `underscore.js` to Copy Bundle Resources section of your XCode project (to the same place, where other cocos2d-x js-files are put) .
+1. Add `Cocos2dXCore.xcodeproj` (**extensions/soomla-cocos2dx-core/**) as linked project to your project.
+
+1. Add `Cocos2dXStore.xcodeproj` (**extensions/cocos2dx-store/**) as linked project to your project.
+
+1. Add **targets** of these projects to **Build Phases->Target Dependencies**.
+
+1. Add *.a of these projects to **Build Phases->Link Binary With Libraries**.
+
+1. Add to Build Settings->Header Search Paths:
+ - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/Soomla`
+ - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/soomla-native/compilations/ios/headers`
+ - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/Soomla` 
+ - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/soomla-native/compilations/ios/headers`
+
+with `recursive` option.
 
 * Make sure you have these 3 Frameworks linked to your XCode project: Security, libsqlite3.0.dylib, StoreKit.
-
-
 
 That's it! Now all you have to do is build your XCode project and run your game with cocos2dx-store.
 
@@ -216,15 +167,6 @@ If you're building your application for the Android platform, here are some inst
     ```
 > These settings are required inorder to initialize the event handling bridge, and allow `StoreController` to initiate market purchases.
 
-1. _for JS solution only:_ add following lines to your `build_native.sh` file (to the section where resources are copied to 'assets'):
-
-    ```
-    SOOMLA_JS_ROOT="$APP_ROOT/../../extensions/cocos2dx-store/js/"
-
-    # copy soomla js-file into assets' root
-    cp -f "$SOOMLA_JS_ROOT"/* "$APP_ANDROID_ROOT"/assets
-    ```
-
 
 That's it! Now all you have to do is run the **build_native.sh** script and you can begin using cocos2dx-store in your game.
 
@@ -243,14 +185,6 @@ C++
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	CCStoreController::sharedStoreController()->stopIabServiceInBg();
 #endif
-```
-JS
-```js
-// Start Iab Service
-Soomla.StoreController.startIabServiceInBg();
-
-// Stop Iab Service
-Soomla.StoreController.stopIabServiceInBg();
 ```
 
 Don't forget to close the Iab Service when your store is closed. You don't have to do this at all, this is just an optimization.
