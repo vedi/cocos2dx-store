@@ -126,6 +126,13 @@ In your XCode project, perform following steps:
 
 with `recursive` option.
 
+1. Register native StoreService, adding: 
+
+    ```cpp
+    [[ServiceManager sharedServiceManager] registerService:[StoreService sharedStoreService]];
+    ```
+at the begining of the method `application: didFinishLaunchingWithOptions:` of `AppController`. 
+
 * Make sure you have these 3 Frameworks linked to your XCode project: Security, libsqlite3.0.dylib, StoreKit.
 
 That's it! Now all you have to do is build your XCode project and run your game with cocos2dx-store.
@@ -141,11 +148,38 @@ If you're building your application for the Android platform, here are some inst
     $(call import-module, extensions/cocos2dx-store/android/jni) # add this line at the end of the file, along with the other import-module calls
     ```
 
-1. Add the following jars to your classpath:
-    - **extensions/cocos2dx-store/soomla-native/compilations/android/AndroidStore.jar**
-    - **extensions/cocos2dx-store/soomla-native/compilations/android/Cocos2dxAndroidStore.jar**
+1. Add the following jars from the folder `extensions/cocos2dx-store/soomla-native/compilations/android` to your classpath:
+    - SoomlaAndroidCore.jar
+    - Cocos2dxAndroidCore.jar
+    - SoomlaAndroidStore.jar
+    - Cocos2dxAndroidStore.jar
 
-1. Update your manifest to include these permissions, SoomlaApp and IabActivity:
+1. In your main Cocos2dxActivity (The one your Cocos2d-x application runs in), call the following in the `onCreateView` method:
+     ```java 
+     public Cocos2dxGLSurfaceView onCreateView() {
+
+        // initialize services
+        final ServiceManager serviceManager = ServiceManager.getInstance();
+        serviceManager.setActivity(this);
+        serviceManager.setGlSurfaceView(glSurfaceView);
+        serviceManager.registerService(StoreService.getInstance());
+     ```
+     
+1. Override `onPause`, `onResume`: 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ServiceManager.getInstance().onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        ServiceManager.getInstance().onResume();
+        super.onResume();
+    }
+
+1. Update your manifest to include internet premission and SoomlaApp:
 
     ```xml
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -158,19 +192,45 @@ If you're building your application for the Android platform, here are some inst
     </application>
     ```
 
-1. In your main Cocos2dxActivity (The one your Cocos2d-x application runs in), call the following in the onCreateView method:
-    ```java
-    Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
-    StoreControllerBridge.setGLView(glSurfaceView);
+1. Depending on your Billing Service perform the next step
 
-    SoomlaApp.setExternalContext(getApplicationContext());
+##### Google Play
+
+1. Add `AndroidStoreGooglePlay.jar` from the folder `extensions/cocos2dx-store/soomla-native/compilations/android` to your classpath:
+
+1. Update your manifest:
+
+    ```xml
+    ...
+    <uses-permission android:name="com.android.vending.BILLING"/>
+
+    <application ...
+        <activity android:name="com.soomla.store.billing.google.GooglePlayIabService$IabActivity"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+        <meta-data android:name="billing.service" android:value="google.GooglePlayIabService" />
+    </application>
     ```
-> These settings are required inorder to initialize the event handling bridge, and allow `StoreController` to initiate market purchases.
 
+##### Amazon
+
+1. Add `in-app-purchasing-1.0.3.jar` and `AndroidStoreAmazon.jar` from the folder `extensions/cocos2dx-store/soomla-native/compilations/android` to your classpath:
+
+1. Update your manifest:
+
+    ```xml
+    ...
+    <receiver android:name = "com.amazon.inapp.purchasing.ResponseReceiver" >
+    <intent-filter>
+        <action android:name = "com.amazon.inapp.purchasing.NOTIFY"
+                android:permission = "com.amazon.inapp.purchasing.Permission.NOTIFY" />
+    </intent-filter>
+    </receiver>
+    <meta-data android:name="billing.service" android:value="amazon.AmazonIabService" />
+    ```
 
 That's it! Now all you have to do is run the **build_native.sh** script and you can begin using cocos2dx-store in your game.
 
-#### (optional on Android) Starting IAB Service in background
+#### (optional on Android and Google Play) Starting IAB Service in background
 
 If you have your own storefront implemented inside your game, it's recommended that you open the IAB Service in the background when the store opens and close it when the store is closed.
 
@@ -191,8 +251,6 @@ Don't forget to close the Iab Service when your store is closed. You don't have 
 
 
 ## What's next? In App Purchasing.
-
-##### C++
 
 When we implemented modelV3, we were thinking about ways that people buy things inside apps. We figured out many ways you can let your users purchase items in your game and we designed the new modelV3 to support 2 of them: `CCPurchaseWithMarket` and `CCPurchaseWithVirtualItem`.
 
@@ -232,51 +290,7 @@ Now you can use `CCStoreInventory` to buy your new currency pack:
 
 And that's it! cocos2dx-store knows how to contact Google Play or the App Store for you and will redirect your users to the purchasing system to complete the transaction. Don't forget to subscribe to store events in order to get notified of successful or failed purchases (see [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling)).
 
-##### JS
-
-When we implemented modelV3, we were thinking about ways that people buy things inside apps. We figured out many ways you can let your users purchase items in your game and we designed the new modelV3 to support 2 of them: `Soomla.Models.PurchaseWithMarket` and `Soomla.Models.PurchaseWithVirtualItem`.
-
-- **Soomla.Models.PurchaseWithMarket** is a `Soomla.Models.PurchaseType` that allows users to purchase a `Soomla.Models.VirtualItem` with Google Play or the App Store.
-- **Soomla.Models.PurchaseWithVirtualItem** is a `Soomla.Models.PurchaseType` that lets your users purchase a `Soomla.Models.VirtualItem` with another `Soomla.Models.VirtualItem`. For example: Buying a sword with 100 gems.
-
-In order to define the way your various virtual items are purchased, you'll need to create your implementation of `Soomla.IStoreAssets` (the same one from step 5 in the [Getting Started](https://github.com/soomla/cocos2dx-store#getting-started) section above).
-
-Here is an example:
-
-Lets say you have a `Soomla.Models.VirtualCurrencyPack` you want to call `TEN_COINS_PACK` and a `Soomla.Models.VirtualCurrency` you want to call `COIN_CURRENCY` (`TEN_COINS_PACK` will hold 10 pieces of the currency `COIN_CURRENCY`):
-
-```js
-  const COIN_CURRENCY_ITEM_ID = "coin_currency";
-  const TEN_COIN_PACK_ITEM_ID = "ten_coin_pack";
-  const TEN_COIN_PACK_PRODUCT_ID = "10_coins_pack";  // this is the product id from the developer console
-
-  var COIN_CURRENCY = Soomla.Models.VirtualCurrency.create({
-    name: "COIN_CURRECY",
-    description: "",
-    itemId: COIN_CURRENCY_ITEM_ID
-  });
-
-  var TEN_COIN_PACK = Soomla.Models.VirtualCurrencyPack.create({
-    name: "10 Coins",
-    description: "A pack of 10 coins",
-    itemId: "TEN_COIN_PACK_ITEM_ID",
-    currency_amount: 10,
-    currency_itemId: COIN_CURRENCY_ITEM_ID,
-    purchasableItem: Soomla.Models.PurchaseWithMarket.createWithMarketItem(TEN_COIN_PACK_PRODUCT_ID, 0.99)
-  });
-
-```
-
-Now you can use `Soomla.StoreInventory` to buy your new currency pack:
-
-      Soomla.storeInventory.buyItem(TEN_COIN_PACK_ITEM_ID);
-
-And that's it! cocos2dx-store knows how to contact Google Play or the App Store for you and will redirect your users to the purchasing system to complete the transaction. Don't forget to subscribe to store events in order to get notified of successful or failed purchases (see [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling)).
-
-
 ## Storage & Meta-Data
-
-##### C++
 
 `CCStoreInventory` and `CCStoreInfo` are important storage and metadata classes you should use when you want to perform all store operations:
 * `CCStoreInventory` is a convenience class to let you perform operations on `CCVirtualCurrencies` and `CCVirtualGood`s. Use it to fetch/change the balances of `CCVirtualItem`s in your game (using their ItemIds!)  
@@ -310,44 +324,7 @@ The on-device storage is encrypted and kept in a SQLite database. SOOMLA has a [
     int greenHatsBalance = soomla::CCStoreInventory::sharedStoreInventory()->getItemBalance("green_hat");
     ```
 
-##### JS
-
-`Soomla.StoreInventory` and `Soomla.StoreInfo` are important storage and metadata classes you should use when you want to perform all store operations:
-* `Soomla.StoreInventory` is a convenience class to let you perform operations on `Soomla.VirtualCurrencies` and `Soomla.Models.VirtualGood`s. Use it to fetch/change the balances of `Soomla.Models.VirtualItem`s in your game (using their ItemIds!)
-* `Soomla.StoreInfo` is where all meta data information about your specific game can be retrieved. It is initialized with your implementation of `Soomla.IStoreAssets` and you can use it to retrieve information about your specific game.
-
-The on-device storage is encrypted and kept in a SQLite database. SOOMLA has a [cloud-based](http://dashboard.soom.la) storage service (The SOOMLA Highway) that allows this SQLite to be synced to a cloud-based repository that you define.
-
-**Example Usages**
-
-* Get all the `Soomla.VirtualCurrencies`:
-
-    ```js
-    var vcArray = Soomla.storeInfo.getVirtualCurrencies();
-    ```
-
-* Give the user 10 pieces of a virtual currency with itemId "currency_coin":
-
-    ```js
-    Soomla.storeInventory.giveItem("currency_coin", 10);
-    ```
-
-* Take 10 virtual goods with itemId "green_hat":
-
-    ```js
-    Soomla.storeInventory.takeItem("green_hat", 10);
-    ```
-
-* Get the current balance of green hats (virtual goods with itemId "green_hat"):
-
-    ```js
-    var greenHatsBalance = Soomla.storeInventory.getItemBalance("green_hat");
-    ```
-
-
 ## Event Handling
-
-##### C++
 
 SOOMLA lets you subscribe to store events, get notified and implement your own application specific behaviour to them.
 
@@ -357,30 +334,15 @@ The `CCSoomla` class is where all events go through. To handle various events, c
 
     soomla::CCSoomla::sharedSoomla()->addEventHandler(yourEventHandler);
 
-##### JS
-
-SOOMLA lets you subscribe to store events, get notified and implement your own application specific behaviour to them.
-
-> Your behaviour is an addition to the default behaviour implemented by SOOMLA. You don't replace SOOMLA's behaviour.
-
-The `Soomla` class is where all events go through. To handle various events, create your own event handler. You can inherit it from `Soomla.EventHandler` or create from scratch. After that add it to the `Soomla` class:
-
-    Soomla.addEventHandler(yourEventHandler);
-or
-
-    Soomla.on(yourEventHandler);
-
 
 ## Error Handling
 
-##### C++
-
-Since Cocos2d-x doesn't support exceptions, we use a different method to catch and work with exceptions on the native side. All functions that raise an exception on the native side have an additional *CCSoomlaError*** parameter to them. In order to know if an exception was raised, send a reference to *CCSoomlaError** to the function, and inspect it after running.
+Since Cocos2d-x doesn't support exceptions, we use a different method to catch and work with exceptions on the native side. All functions that raise an exception on the native side have an additional *CCError*** parameter to them. In order to know if an exception was raised, send a reference to *CCError** to the function, and inspect it after running.
 
 For example, if I want to purchase an item with the ItemID `huge_sword`, and check if all went well after the purchase, I would call `CCStoreController::buyItem()`, like this:
 
 ```c++
-soomla::CCSoomlaError *err;
+soomla::CCError *err;
 soomla::CCStoreInventory::sharedStoreInventory()->buyItem("huge_sword", &err);
 if (err != NULL) {
     int code = err->getCode();
@@ -398,71 +360,25 @@ if (err != NULL) {
 }
 ```
 
-You can choose to handle each exception on its own, handle all three at once, or not handle the exceptions at all. The `CCSoomlaError` parameter is entirely optional, you can pass NULL instead if you do not wish to handle errors, but remember, error handling is *your* responsibility. cocos2dx-store doesn't do any external error handling (i.e. error handling that uses `CCSoomlaError`) for you.
-
-##### JS
-
-In js-bindings of cocos2d-x we retranslate exceptions from native side to `SoomlaException` exception class. In order to get specific information regarding exception you can check `code` and `message` fields of the exception.
-
-For example, if I want to purchase an item with the ItemID `huge_sword`, and check if all went well after the purchase, I would call `Soomla.storeController.buyItem()`, like this:
-
-```js
-try {
-  Soomla.storeInventory.buyItem("huge_sword");
-} catch (e) {
-  if (e instanceof SoomlaException) {
-    var code = err.code;
-    switch (code) {
-        case SoomlaException.CODE.ITEM_NOT_FOUND:
-            // itemNotFoundException was raised
-            break;
-        case SoomlaException.CODE.INSUFFICIENT_FUNDS:
-            // insufficienFundsException was raised
-            break;
-        case SoomlaException.CODE.NOT_ENOUGH_GOODS:
-            // notEnoughGoodsException was raised
-            break;
-        case SoomlaException.CODE.OTHER:
-            // other exception was raised
-            break;
-    }
-  }
-}
-```
-
-You can choose to handle each exception on its own, handle all three at once, or not handle the exceptions at all.
+You can choose to handle each exception on its own, handle all three at once, or not handle the exceptions at all. The `CCError` parameter is entirely optional, you can pass NULL instead if you do not wish to handle errors, but remember, error handling is *your* responsibility. cocos2dx-store doesn't do any external error handling (i.e. error handling that uses `CCError`) for you.
 
 ## iOS Server Side Verification
 
 As you probably know, fraud on IAP is pretty common. Hackers can crack their smartphones to think that a purchase is made when payment wasn't actually transferred to you. We want to help you with it so we created our verification server and we let you instantly use it through the framework.
 All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to `CCStoreController` for C++ or to `Soomla.StoreController` for JS:
 
-C++
 ```cpp
 storeParams->setObject(Bool::create(true), "SSV");
 CCStoreController::createShared(assets, storeParams);
 ```
 
-JS
-```JS
-storeParams.SSV = true;
-Soomla.StoreController.createShared(assets, storeParams);
-```
-
-
 ## Debugging
-
-##### C++
 
 You can enable debug logging in cocos2dx-store by setting `SOOMLA_DEBUG` in `CCStoreUtils.h` to `true`. Debug logging can also be enabled at build time by adding `-DSOOMLA_DEBUG=1` to `APP_CPPFLAGS` in your `Application.mk` on Android, or by setting `SOOMLA_DEBUG=1` in your Build Settings' `Preprocessor Macros` on iOS.
 
 If you want to see debug messages from _android-store_, set the `logDebug` variable in `com.soomla.store.StoreConfig` to `true`.
 
 To see debug messages on iOS, make sure you have also `DEBUG=1` in your Build Settings' `Preprocessor Macros` (for Debug only).
-
-##### JS
-
-Additionally to debug logging of C++ part you can enable debug logging in cocos2dx-store by setting `DEBUG` in `Soomla` to `true`.
 
 ## Contribution
 
