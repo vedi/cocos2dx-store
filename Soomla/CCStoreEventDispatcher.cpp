@@ -3,7 +3,7 @@
 //
 
 #include "CCStoreEventDispatcher.h"
-#include "CCEventDispatcher.h"
+#include "CCSoomlaEventDispatcher.h"
 #include "CCError.h"
 #include "CCStoreInfo.h"
 #include "CCStoreUtils.h"
@@ -30,7 +30,7 @@ namespace soomla {
             return false;
         }
 
-        CCEventDispatcher *eventDispatcher = CCEventDispatcher::getInstance();
+        CCSoomlaEventDispatcher *eventDispatcher = CCSoomlaEventDispatcher::getInstance();
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_BILLING_NOT_SUPPORTED,
                 [this](__Dictionary *parameters) {

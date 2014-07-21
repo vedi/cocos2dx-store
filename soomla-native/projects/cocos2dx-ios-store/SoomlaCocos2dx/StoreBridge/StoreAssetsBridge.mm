@@ -5,7 +5,6 @@
 
 #import "StoreAssetsBridge.h"
 #import "SoomlaUtils.h"
-#import "JSONConsts.h"
 #import "VirtualCurrency.h"
 #import "VirtualCurrencyPack.h"
 #import "SingleUseVG.h"
