@@ -1,3 +1,5 @@
+*This branch contains the code for cocos2d-x v2.x. For cocos2d-x v3.x use `cocos2dx-v3` branch.*
+
 *This project is a part of [The SOOMLA Project](http://project.soom.la) which is a series of open source initiatives with a joint goal to help mobile game developers get better stores and more in-app purchases.*
 
 Haven't you always wanted an in-app purchase one liner that looks like this?!
