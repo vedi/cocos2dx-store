@@ -330,10 +330,9 @@ SOOMLA lets you subscribe to store events, get notified and implement your own a
 
 > Your behaviour is an addition to the default behaviour implemented by SOOMLA. You don't replace SOOMLA's behaviour.
 
-The `CCSoomla` class is where all events go through. To handle various events, create your own event handler, a class that implements `CCEventHandler`, and add it to the `CCSoomla` class:
+The `CCStoreEventDispatcher` class is where all events go through. To handle various events, create your own event handler, a class that implements `CCEventHandler`, and add it to the `CCStoreEventDispatcher` class:
 
-    soomla::CCSoomla::sharedSoomla()->addEventHandler(yourEventHandler);
-
+    soomla::CCStoreEventDispatcher::getInstance()->addEventHandler(storeEventHandler);
 
 ## Error Handling
 
@@ -369,7 +368,7 @@ All you need to do is let cocos2dx-store know you want to verify purchases. You 
 
 ```cpp
 storeParams->setObject(Bool::create(true), "SSV");
-CCStoreController::createShared(assets, storeParams);
+soomla::CCStoreService::initShared(assets, storeParams);
 ```
 
 ## Debugging
