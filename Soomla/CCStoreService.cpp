@@ -98,7 +98,7 @@ namespace soomla {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         {
             __Dictionary *params = __Dictionary::create();
-            params->setObject(__String::create("CCStoreController::setAndroidPublicKey"), "method");
+            params->setObject(__String::create("CCSoomlaStore::setAndroidPublicKey"), "method");
             params->setObject(androidPublicKey, "androidPublicKey");
             CCNdkBridge::callNative (params, NULL);
         }
@@ -107,7 +107,7 @@ namespace soomla {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         {
             __Dictionary *params = __Dictionary::create();
-            params->setObject(__String::create("CCStoreController::setSSV"), "method");
+            params->setObject(__String::create("CCSoomlaStore::setSSV"), "method");
             params->setObject(SSV, "ssv");
             CCNdkBridge::callNative (params, NULL);
         }

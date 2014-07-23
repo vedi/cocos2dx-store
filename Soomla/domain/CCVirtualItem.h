@@ -23,6 +23,7 @@
 #include "CCDomain.h"
 #include "CCStoreConsts.h"
 #include "CCSoomlaMacros.h"
+#include "CCSoomlaEntity.h"
 
 namespace soomla {
 	/** 
@@ -34,13 +35,8 @@ namespace soomla {
      are many types of virtual items - each one of the various types extends
      `CCVirtualItem` and adds its own behavior on top of it.
 	*/    
-    class CCVirtualItem : public CCDomain {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mName, Name, CCStoreConsts::JSON_ITEM_NAME);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mDescription, Description, CCStoreConsts::JSON_ITEM_DESCRIPTION);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mItemId, ItemId, CCStoreConsts::JSON_ITEM_ITEM_ID);
-        
+    class CCVirtualItem : public CCSoomlaEntity {
     public:
-        CCVirtualItem(): mName(NULL), mDescription(NULL), mItemId(NULL) {}
 
 		/**
          Creates an instance of `CCVirtualItem`.
@@ -59,16 +55,13 @@ namespace soomla {
 		*/
         SL_CREATE_WITH_DICTIONARY(CCVirtualItem);
 
-        virtual bool init(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId);
-        virtual bool initWithDictionary(cocos2d::__Dictionary* dict);
-        
-        virtual ~CCVirtualItem();
-
         /**
         Converts this `CCVirtualItem` to a `CCDictionary`.
         @return `CCDictionary` representation of this `CCVirtualItem`.
         */
         virtual cocos2d::__Dictionary* toDictionary();
+
+        cocos2d::__String *getItemId();
     };
     
 }

@@ -37,10 +37,6 @@ namespace soomla {
         static char const *JSON_STORE_GOODS_LT;
         static char const *JSON_STORE_GOODS_EQ;
 
-        static char const *JSON_ITEM_NAME;
-        static char const *JSON_ITEM_DESCRIPTION;
-        static char const *JSON_ITEM_ITEM_ID;
-
         static char const *JSON_CATEGORY_NAME;
         static char const *JSON_CATEGORY_GOODS_ITEM_IDS;
 

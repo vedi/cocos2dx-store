@@ -16,81 +16,80 @@
 
 // Created by Fedor Shubin on 5/20/13.
 
-#include "CCStoreController.h"
+#include "CCSoomlaStore.h"
 #include "CCNdkBridge.h"
 
 using namespace cocos2d;
 
 namespace soomla {
-    #define TAG "SOOMLA StoreController"
+    #define TAG "SOOMLA SoomlaStore"
 
     USING_NS_CC;
 
-    static CCStoreController *s_SharedStoreController = NULL;
+    static CCSoomlaStore *s_SharedSoomlaStore = NULL;
 
-    CCStoreController *CCStoreController::sharedStoreController() {
-        if (!s_SharedStoreController)
+    CCSoomlaStore *CCSoomlaStore::getInstance() {
+        if (!s_SharedSoomlaStore)
         {
-            s_SharedStoreController = new CCStoreController();
-            s_SharedStoreController->retain();
+            s_SharedSoomlaStore = new CCSoomlaStore();
+            s_SharedSoomlaStore->retain();
         }
-        return s_SharedStoreController;
+        return s_SharedSoomlaStore;
     }
 
-    CCStoreController::CCStoreController() {
+    CCSoomlaStore::CCSoomlaStore() {
     }
 
-    CCStoreController::~CCStoreController() {
+    CCSoomlaStore::~CCSoomlaStore() {
 
     }
 
-    void CCStoreController::buyMarketItem(const char *productId, const char *payload, CCError **error) {
+    void CCSoomlaStore::buyMarketItem(const char *productId, const char *payload, CCError **error) {
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreController::buyMarketItem"), "method");
+        params->setObject(__String::create("CCSoomlaStore::buyMarketItem"), "method");
         params->setObject(__String::create(productId), "productId");
-        // NOTE: payload is not supported on iOS !
         params->setObject(__String::create(payload), "payload");
         CCNdkBridge::callNative (params, error);
     }
 
-    void CCStoreController::restoreTransactions() {
+    void CCSoomlaStore::restoreTransactions() {
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreController::restoreTransactions"), "method");
+        params->setObject(__String::create("CCSoomlaStore::restoreTransactions"), "method");
         CCNdkBridge::callNative (params, NULL);
     }
 
-    void CCStoreController::refreshInventory() {
+    void CCSoomlaStore::refreshInventory() {
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreController::refreshInventory"), "method");
+        params->setObject(__String::create("CCSoomlaStore::refreshInventory"), "method");
         CCNdkBridge::callNative (params, NULL);
     }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    bool CCStoreController::transactionsAlreadyRestored() {
+    bool CCSoomlaStore::transactionsAlreadyRestored() {
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreController::transactionsAlreadyRestored"), "method");
+        params->setObject(__String::create("CCSoomlaStore::transactionsAlreadyRestored"), "method");
         __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, NULL);
         __Bool *retValue = (__Bool *) retParams->objectForKey("return");
         return retValue->getValue();
     }
 
-    void CCStoreController::refreshMarketItemsDetails(CCError **error) {
+    void CCSoomlaStore::refreshMarketItemsDetails(CCError **error) {
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreController::refreshMarketItemsDetails"), "method");
+        params->setObject(__String::create("CCSoomlaStore::refreshMarketItemsDetails"), "method");
         CCNdkBridge::callNative (params, error);
     }
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    void CCStoreController::startIabServiceInBg() {
+    void CCSoomlaStore::startIabServiceInBg() {
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreController::startIabServiceInBg"), "method");
+        params->setObject(__String::create("CCSoomlaStore::startIabServiceInBg"), "method");
         CCNdkBridge::callNative (params, NULL);
     }
 
-    void CCStoreController::stopIabServiceInBg() {
+    void CCSoomlaStore::stopIabServiceInBg() {
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreController::stopIabServiceInBg"), "method");
+        params->setObject(__String::create("CCSoomlaStore::stopIabServiceInBg"), "method");
         CCNdkBridge::callNative (params, NULL);
     }
 #endif

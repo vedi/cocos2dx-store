@@ -10,8 +10,8 @@
 		9D4101C41978D7F600907FA8 /* CCStoreAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4101861978D7F600907FA8 /* CCStoreAssets.h */; };
 		9D4101C51978D7F600907FA8 /* CCStoreConsts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D4101871978D7F600907FA8 /* CCStoreConsts.cpp */; };
 		9D4101C61978D7F600907FA8 /* CCStoreConsts.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4101881978D7F600907FA8 /* CCStoreConsts.h */; };
-		9D4101C71978D7F600907FA8 /* CCStoreController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D4101891978D7F600907FA8 /* CCStoreController.cpp */; };
-		9D4101C81978D7F600907FA8 /* CCStoreController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D41018A1978D7F600907FA8 /* CCStoreController.h */; };
+		9D4101C71978D7F600907FA8 /* CCSoomlaStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D4101891978D7F600907FA8 /* CCSoomlaStore.cpp */; };
+		9D4101C81978D7F600907FA8 /* CCSoomlaStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D41018A1978D7F600907FA8 /* CCSoomlaStore.h */; };
 		9D4101C91978D7F600907FA8 /* CCStoreEventDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D41018B1978D7F600907FA8 /* CCStoreEventDispatcher.cpp */; };
 		9D4101CA1978D7F600907FA8 /* CCStoreEventDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D41018C1978D7F600907FA8 /* CCStoreEventDispatcher.h */; };
 		9D4101CB1978D7F600907FA8 /* CCStoreEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D41018D1978D7F600907FA8 /* CCStoreEventHandler.h */; };
@@ -69,8 +69,8 @@
 		9D4101861978D7F600907FA8 /* CCStoreAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreAssets.h; sourceTree = "<group>"; };
 		9D4101871978D7F600907FA8 /* CCStoreConsts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreConsts.cpp; sourceTree = "<group>"; };
 		9D4101881978D7F600907FA8 /* CCStoreConsts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreConsts.h; sourceTree = "<group>"; };
-		9D4101891978D7F600907FA8 /* CCStoreController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreController.cpp; sourceTree = "<group>"; };
-		9D41018A1978D7F600907FA8 /* CCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreController.h; sourceTree = "<group>"; };
+		9D4101891978D7F600907FA8 /* CCSoomlaStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSoomlaStore.cpp; sourceTree = "<group>"; };
+		9D41018A1978D7F600907FA8 /* CCSoomlaStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSoomlaStore.h; sourceTree = "<group>"; };
 		9D41018B1978D7F600907FA8 /* CCStoreEventDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreEventDispatcher.cpp; sourceTree = "<group>"; };
 		9D41018C1978D7F600907FA8 /* CCStoreEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreEventDispatcher.h; sourceTree = "<group>"; };
 		9D41018D1978D7F600907FA8 /* CCStoreEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreEventHandler.h; sourceTree = "<group>"; };
@@ -143,8 +143,8 @@
 				9D4101861978D7F600907FA8 /* CCStoreAssets.h */,
 				9D4101871978D7F600907FA8 /* CCStoreConsts.cpp */,
 				9D4101881978D7F600907FA8 /* CCStoreConsts.h */,
-				9D4101891978D7F600907FA8 /* CCStoreController.cpp */,
-				9D41018A1978D7F600907FA8 /* CCStoreController.h */,
+				9D4101891978D7F600907FA8 /* CCSoomlaStore.cpp */,
+				9D41018A1978D7F600907FA8 /* CCSoomlaStore.h */,
 				9D41018B1978D7F600907FA8 /* CCStoreEventDispatcher.cpp */,
 				9D41018C1978D7F600907FA8 /* CCStoreEventDispatcher.h */,
 				9D41018D1978D7F600907FA8 /* CCStoreEventHandler.h */,
@@ -294,7 +294,7 @@
 				9D4101C61978D7F600907FA8 /* CCStoreConsts.h in Headers */,
 				9D4101D41978D7F600907FA8 /* CCStoreInfo.h in Headers */,
 				9D4101E21978D7F600907FA8 /* CCVirtualCurrencyPack.h in Headers */,
-				9D4101C81978D7F600907FA8 /* CCStoreController.h in Headers */,
+				9D4101C81978D7F600907FA8 /* CCSoomlaStore.h in Headers */,
 				9D4101EA1978D7F600907FA8 /* CCSingleUseVG.h in Headers */,
 				9D4101CA1978D7F600907FA8 /* CCStoreEventDispatcher.h in Headers */,
 				9D4101E61978D7F600907FA8 /* CCLifetimeVG.h in Headers */,
@@ -383,7 +383,7 @@
 				9D4101D01978D7F600907FA8 /* CCStoreUtils.cpp in Sources */,
 				9D4101CC1978D7F600907FA8 /* CCStoreInventory.cpp in Sources */,
 				9D4101D31978D7F600907FA8 /* CCStoreInfo.cpp in Sources */,
-				9D4101C71978D7F600907FA8 /* CCStoreController.cpp in Sources */,
+				9D4101C71978D7F600907FA8 /* CCSoomlaStore.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +459,7 @@
 					"$(SRCROOT)/../../cocos/platform/ios/Simulation",
 					"$(SRCROOT)/../../external/jansson",
 					"$(SRCROOT)/soomla-native/compilations/ios/headers/**",
+					"$(SRCROOT)/../soomla-cocos2dx-core/Soomla/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/soomla-native/compilations/ios",
@@ -493,6 +494,7 @@
 					"$(SRCROOT)/../../cocos/platform/ios/Simulation",
 					"$(SRCROOT)/../../external/jansson",
 					"$(SRCROOT)/soomla-native/compilations/ios/headers/**",
+					"$(SRCROOT)/../soomla-cocos2dx-core/Soomla/**",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/soomla-native/compilations/ios",

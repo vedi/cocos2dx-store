@@ -19,10 +19,10 @@
 #include "CCVirtualItem.h"
 
 namespace soomla {
-    
+
     using namespace cocos2d;
 
-    CCVirtualItem *CCVirtualItem::create(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId) {
+    CCVirtualItem *CCVirtualItem::create(cocos2d::__String *name, cocos2d::__String *description, cocos2d::__String *itemId) {
         CCVirtualItem *ret = new CCVirtualItem();
         if (ret->init(name, description, itemId)) {
             ret->autorelease();
@@ -34,34 +34,12 @@ namespace soomla {
         return ret;
     }
 
-    bool CCVirtualItem::init(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId) {
-        setName(name);
-        setDescription(description);
-        setItemId(itemId);
-        
-        return true;
-    }
-    
-    bool CCVirtualItem::initWithDictionary(cocos2d::__Dictionary* dict) {
-        fillNameFromDict(dict);
-        fillDescriptionFromDict(dict);
-        fillItemIdFromDict(dict);
-        
-        return true;
-    }
-    
-    CCVirtualItem::~CCVirtualItem() {
-        CC_SAFE_RELEASE(mName);
-        CC_SAFE_RELEASE(mDescription);
-        CC_SAFE_RELEASE(mItemId);
-    }
-    
-    __Dictionary*CCVirtualItem::toDictionary() {
-        __Dictionary* dict = __Dictionary::create();
-        putNameToDict(dict);
-        putDescriptionToDict(dict);
-        putItemIdToDict(dict);
-
+    __Dictionary *CCVirtualItem::toDictionary() {
+        __Dictionary *dict = CCSoomlaEntity::toDictionary();
         return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM);
+    }
+
+    __String *CCVirtualItem::getItemId() {
+        return getId();
     }
 }

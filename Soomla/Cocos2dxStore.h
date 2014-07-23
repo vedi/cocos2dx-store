@@ -12,7 +12,7 @@
 #include "CCPurchaseWithVirtualItem.h"
 #include "CCSingleUsePackVG.h"
 #include "CCSingleUseVG.h"
-#include "CCStoreController.h"
+#include "CCSoomlaStore.h"
 #include "CCStoreInfo.h"
 #include "CCStoreInventory.h"
 #include "CCStoreUtils.h"

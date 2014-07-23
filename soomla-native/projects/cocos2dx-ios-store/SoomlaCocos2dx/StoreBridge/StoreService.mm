@@ -109,33 +109,33 @@
         [[SoomlaStore getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]];
     }];
 
-    [ndkGlue registerCallHandlerForKey:@"CCStoreController::buyMarketItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
+    [ndkGlue registerCallHandlerForKey:@"CCSoomlaStore::buyMarketItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *productId = (NSString *) [parameters objectForKey:@"productId"];
-        // NOTE: payload is not supported on iOS !
         PurchasableVirtualItem *pvi = [[StoreInfo getInstance] purchasableItemWithProductId:productId];
-        [[SoomlaStore getInstance] buyInMarketWithMarketItem:((PurchaseWithMarket *) pvi.purchaseType).marketItem];
+        NSString *payload = [parameters objectForKey:@"payload"];
+        [[SoomlaStore getInstance] buyInMarketWithMarketItem:((PurchaseWithMarket *) pvi.purchaseType).marketItem andPayload:payload];
     }];
 
-    [ndkGlue registerCallHandlerForKey:@"CCStoreController::restoreTransactions" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
+    [ndkGlue registerCallHandlerForKey:@"CCSoomlaStore::restoreTransactions" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         [[SoomlaStore getInstance] restoreTransactions];
     }];
 
-    [ndkGlue registerCallHandlerForKey:@"CCStoreController::transactionsAlreadyRestored" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
+    [ndkGlue registerCallHandlerForKey:@"CCSoomlaStore::transactionsAlreadyRestored" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         bool res = [[SoomlaStore getInstance] transactionsAlreadyRestored];
         [retParameters setObject:[NSNumber numberWithBool:res] forKey:@"return"];
     }];
 
-    [ndkGlue registerCallHandlerForKey:@"CCStoreController::refreshInventory" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
+    [ndkGlue registerCallHandlerForKey:@"CCSoomlaStore::refreshInventory" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         [[SoomlaStore getInstance] refreshInventory];
     }];
 
-    [ndkGlue registerCallHandlerForKey:@"CCStoreController::setSSV" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
+    [ndkGlue registerCallHandlerForKey:@"CCSoomlaStore::setSSV" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         bool ssv = [(NSNumber*)[parameters objectForKey:@"ssv"] boolValue];
         LogDebug(@"SOOMLA SoomlaStoreBridge", ([NSString stringWithFormat:@"Setting iOS SSV to: %@", ssv ?@"true":@"false"]));
         VERIFY_PURCHASES = ssv;
     }];
 
-    [ndkGlue registerCallHandlerForKey:@"CCStoreController::refreshMarketItemsDetails" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
+    [ndkGlue registerCallHandlerForKey:@"CCSoomlaStore::refreshMarketItemsDetails" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         [[SoomlaStore getInstance] refreshMarketItemsDetails];
     }];
 

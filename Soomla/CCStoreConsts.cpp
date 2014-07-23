@@ -31,10 +31,6 @@ namespace soomla {
     char const *CCStoreConsts::JSON_STORE_GOODS_LT = "lifetime";
     char const *CCStoreConsts::JSON_STORE_GOODS_EQ = "equippable";
 
-    char const *CCStoreConsts::JSON_ITEM_NAME = "name";
-    char const *CCStoreConsts::JSON_ITEM_DESCRIPTION = "description";
-    char const *CCStoreConsts::JSON_ITEM_ITEM_ID = "itemId";
-
     char const *CCStoreConsts::JSON_CATEGORY_NAME = "name";
     char const *CCStoreConsts::JSON_CATEGORY_GOODS_ITEM_IDS = "goods_itemIds";
 

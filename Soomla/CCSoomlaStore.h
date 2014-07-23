@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/21/13.
 
-#ifndef __CCStoreController_H_
-#define __CCStoreController_H_
+#ifndef __CCSoomlaStore_H_
+#define __CCSoomlaStore_H_
 
 #include "cocos2d.h"
 #include "CCStoreAssets.h"
@@ -25,24 +25,24 @@
 
 namespace soomla {
 	/** 
-     @class CCStoreController
+     @class CCSoomlaStore
      @brief An interface to the native StoreController class.
      
      An interface to the native StoreController class, use this class to
      access the native StoreController functionality. This class holds the most 
      basic assets needed to operate the Store.
 	 */
-    class CCStoreController: public cocos2d::Ref {
+    class CCSoomlaStore : public cocos2d::Ref {
     public:
         
 		/**
          This class is singleton, use this function to access it.
 		*/
-        static CCStoreController* sharedStoreController();
+        static CCSoomlaStore *getInstance();
 
-        CCStoreController();
+        CCSoomlaStore();
 
-        virtual ~CCStoreController();
+        virtual ~CCSoomlaStore();
 
 		/**
          Starts an in app purchase process in the market (App Store, Google 
@@ -95,4 +95,4 @@ namespace soomla {
     };
 };
 
-#endif // !__CCStoreController_H_
+#endif // !__CCSoomlaStore_H_

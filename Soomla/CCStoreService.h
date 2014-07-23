@@ -24,7 +24,7 @@ namespace soomla {
         functions.
         @param storeAssets An instance of your store's assets class.
         @param storeParams A CCDictionary containing parameters for
-        CCStoreController (These were previously found in CCSoomla).
+        CCSoomlaStore (These were previously found in CCSoomla).
         This dictionary can contain the following:
         "soomSec": __String - The value of the primary encryption key.
         "customSecret": __String - The value of the secondary encryption

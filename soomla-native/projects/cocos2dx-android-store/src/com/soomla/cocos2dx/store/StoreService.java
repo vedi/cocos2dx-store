@@ -99,7 +99,7 @@ public class StoreService extends AbstractSoomlaService {
             }
         });
 
-        ndkGlue.registerCallHandler("CCStoreController::buyMarketItem", new NdkGlue.CallHandler() {
+        ndkGlue.registerCallHandler("CCSoomlaStore::buyMarketItem", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 String productId = params.getString("productId");
@@ -114,7 +114,7 @@ public class StoreService extends AbstractSoomlaService {
             }
         });
 
-        ndkGlue.registerCallHandler("CCStoreController::startIabServiceInBg", new NdkGlue.CallHandler() {
+        ndkGlue.registerCallHandler("CCSoomlaStore::startIabServiceInBg", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 SoomlaUtils.LogDebug("SOOMLA", "startIabServiceInBg is called from java!");
@@ -122,7 +122,7 @@ public class StoreService extends AbstractSoomlaService {
             }
         });
 
-        ndkGlue.registerCallHandler("CCStoreController::stopIabServiceInBg", new NdkGlue.CallHandler() {
+        ndkGlue.registerCallHandler("CCSoomlaStore::stopIabServiceInBg", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 SoomlaUtils.LogDebug("SOOMLA", "stopIabServiceInBg is called from java!");
@@ -130,7 +130,7 @@ public class StoreService extends AbstractSoomlaService {
             }
         });
 
-        ndkGlue.registerCallHandler("CCStoreController::restoreTransactions", new NdkGlue.CallHandler() {
+        ndkGlue.registerCallHandler("CCSoomlaStore::restoreTransactions", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 SoomlaUtils.LogDebug("SOOMLA", "restoreTransactions is called from java!");
@@ -138,14 +138,14 @@ public class StoreService extends AbstractSoomlaService {
             }
         });
 
-        ndkGlue.registerCallHandler("CCStoreController::transactionsAlreadyRestored", new NdkGlue.CallHandler() {
+        ndkGlue.registerCallHandler("CCSoomlaStore::transactionsAlreadyRestored", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 throw new UnsupportedOperationException("transactionsAlreadyRestored has no use in Android");
             }
         });
 
-        ndkGlue.registerCallHandler("CCStoreController::refreshInventory", new NdkGlue.CallHandler() {
+        ndkGlue.registerCallHandler("CCSoomlaStore::refreshInventory", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 SoomlaUtils.LogDebug("SOOMLA", "refreshInventory is called from java!");
@@ -153,7 +153,7 @@ public class StoreService extends AbstractSoomlaService {
             }
         });
 
-        ndkGlue.registerCallHandler("CCStoreController::setAndroidPublicKey", new NdkGlue.CallHandler() {
+        ndkGlue.registerCallHandler("CCSoomlaStore::setAndroidPublicKey", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 mPublicKey = params.getString("androidPublicKey");
