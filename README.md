@@ -52,7 +52,7 @@ The example project is still under development but it already has some important
 
 1. Go into your cocos2d-x project and recursively clone cocos2dx-core into the `extensions` directory located at the root of your Cocos2d-x framework.
     ```
-    $ git clone --recursive git@github.com:soomla/cocos2dx-core.git extensions/soomla-cocos2dx-core
+    $ git clone --recursive git@github.com:soomla/soomla-cocos2dx-core.git extensions/soomla-cocos2dx-core
     ```
 
 1. Perform the same action for cocos2dx-store.
