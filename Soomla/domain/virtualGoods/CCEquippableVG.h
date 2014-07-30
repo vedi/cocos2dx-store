@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __EquippableVGX_H_
-#define __EquippableVGX_H_
+#ifndef __CCEquippableVG_H_
+#define __CCEquippableVG_H_
 
 
 #include "CCLifetimeVG.h"
@@ -82,7 +82,7 @@ namespace soomla {
             kGlobal = 2
         } EquippingModel;
 
-        SL_SYNTHESIZE_RETAIN_WITH_DICT_DCL(cocos2d::CCInteger *, mEquippingModel, EquippingModel);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT_DCL(cocos2d::__Integer *, mEquippingModel, EquippingModel);
     public:
 	
         CCEquippableVG(): CCLifetimeVG(), mEquippingModel(NULL) {};
@@ -97,10 +97,10 @@ namespace soomla {
          @param purchaseType see parent.
          @return The Equippable virtual good.
 		 */
-        static CCEquippableVG *create(cocos2d::CCInteger *equippingModel, cocos2d::CCString* name, cocos2d::CCString* description,
-									  cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-        bool init(cocos2d::CCInteger *equippingModel, cocos2d::CCString* name, cocos2d::CCString* description,
-                  cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
+        static CCEquippableVG *create(cocos2d::__Integer *equippingModel, cocos2d::__String* name, cocos2d::__String* description,
+									  cocos2d::__String* itemId, CCPurchaseType * purchaseType);
+        bool init(cocos2d::__Integer *equippingModel, cocos2d::__String* name, cocos2d::__String* description,
+                cocos2d::__String* itemId, CCPurchaseType * purchaseType);
 
 		/**
          Creates a `CCEquippableVG` from a dictionary.
@@ -108,18 +108,18 @@ namespace soomla {
                 required by the create function.
          @return The Equippable virtual good.
 		*/
-        static CCEquippableVG *createWithDictionary(cocos2d::CCDictionary *dict);
-        bool initWithDictionary(cocos2d::CCDictionary *dict);
+        SL_CREATE_WITH_DICTIONARY(CCEquippableVG);
+
 
         /**
-         Converts this `CCEquippableVG` to a `CCDictionary`.
-         @return `CCDictionary` representation of this `CCEquippableVG`.
-         */
-        cocos2d::CCDictionary *toDictionary();
+        Converts this `CCEquippableVG` to a `CCDictionary`.
+        @return `CCDictionary` representation of this `CCEquippableVG`.
+        */
+        cocos2d::__Dictionary *toDictionary();
 
         virtual ~CCEquippableVG();
     };
 };
 
 
-#endif //__EquippableVGX_H_
+#endif //__CCEquippableVG_H_

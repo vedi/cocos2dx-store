@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __cocos2dx_store__PurchasableVirtualItem__
-#define __cocos2dx_store__PurchasableVirtualItem__
+#ifndef __CCPurchasableVirtualItem__
+#define __CCPurchasableVirtualItem__
 
 #include "CCVirtualItem.h"
 #include "../PurchaseTypes/CCPurchaseType.h"
@@ -44,8 +44,7 @@ namespace soomla {
                 virtual good.
          @return The item.
 		*/
-        static CCPurchasableVirtualItem * create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-        virtual bool init(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
+        static CCPurchasableVirtualItem * create(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId, CCPurchaseType * purchaseType);
 
 		/**
          Creates a `CCPurchasableVirtualItem` from a dictionary.
@@ -53,18 +52,20 @@ namespace soomla {
                 required by the create function.
          @return The purchasable virtual item.
 		*/
-        static CCPurchasableVirtualItem * createWithDictionary(cocos2d::CCDictionary* dict);
-        virtual bool initWithDictionary(cocos2d::CCDictionary* dict);
+        SL_CREATE_WITH_DICTIONARY(CCPurchasableVirtualItem);
+
+        virtual bool init(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId, CCPurchaseType * purchaseType);
+        virtual bool initWithDictionary(cocos2d::__Dictionary* dict);
         
-        /**
-         Converts this `CCPurchasableVirtualItem` to a `CCDictionary`.
-         @return `CCDictionary` representation of this 
-                `CCPurchasableVirtualItem`.
-         */
-        virtual cocos2d::CCDictionary* toDictionary();
-       
         virtual ~CCPurchasableVirtualItem();
+
+        /**
+        Converts this `CCPurchasableVirtualItem` to a `CCDictionary`.
+        @return `CCDictionary` representation of this
+        `CCPurchasableVirtualItem`.
+        */
+        virtual cocos2d::__Dictionary* toDictionary();
     };
 }
 
-#endif /* defined(__cocos2dx_store__PurchasableVirtualItem__) */
+#endif // __CCPurchasableVirtualItem__

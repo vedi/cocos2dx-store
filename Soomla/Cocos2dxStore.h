@@ -2,8 +2,7 @@
 #define _Cocos2dxSoomla_H
 
 #include "CCEquippableVG.h"
-#include "CCEventHandler.h"
-#include "CCIStoreAssets.h"
+#include "CCStoreAssets.h"
 #include "CCLifetimeVG.h"
 #include "CCMarketItem.h"
 #include "CCNonConsumableItem.h"
@@ -13,10 +12,7 @@
 #include "CCPurchaseWithVirtualItem.h"
 #include "CCSingleUsePackVG.h"
 #include "CCSingleUseVG.h"
-#include "CCSoomlaError.h"
-#include "CCSoomla.h"
-#include "CCSoomlaNdkBridge.h"
-#include "CCStoreController.h"
+#include "CCSoomlaStore.h"
 #include "CCStoreInfo.h"
 #include "CCStoreInventory.h"
 #include "CCStoreUtils.h"
@@ -26,5 +22,9 @@
 #include "CCVirtualCurrencyPack.h"
 #include "CCVirtualGood.h"
 #include "CCVirtualItem.h"
+
+#include "CCStoreEventDispatcher.h"
+#include "CCStoreEventHandler.h"
+#include "CCStoreService.h"
 
 #endif /* !_Cocos2dxSoomla_H */

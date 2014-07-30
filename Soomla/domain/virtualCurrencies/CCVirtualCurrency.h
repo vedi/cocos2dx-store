@@ -16,10 +16,10 @@
 
 //  Created by Igor Yegoroff on 5/17/13.
 
-#ifndef __cocos2dx_store__VirtualCurrencyX__
-#define __cocos2dx_store__VirtualCurrencyX__
+#ifndef __CCVirtualCurrency_H__
+#define __CCVirtualCurrency_H__
 
-#include "../CCVirtualItem.h"
+#include "CCVirtualItem.h"
 
 namespace soomla {
     
@@ -50,7 +50,7 @@ namespace soomla {
          @param itemId The currency's item id.
          @return The currency.
 		*/
-        static CCVirtualCurrency* create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
+        static CCVirtualCurrency* create(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId);
 
 		/**
          Creates a `CCVirtualCurrency` from a dictionary.
@@ -58,8 +58,10 @@ namespace soomla {
                 required by the create function.
          @return The currency.
 		*/
-		static CCVirtualCurrency* createWithDictionary(cocos2d::CCDictionary* dict);
+        SL_CREATE_WITH_DICTIONARY(CCVirtualCurrency);
+
+        virtual cocos2d::__Dictionary *toDictionary() override;
     };
 }
 
-#endif /* defined(__cocos2dx_store__VirtualCurrencyX__) */
+#endif /* defined(__CCVirtualCurrency_H__) */

@@ -20,11 +20,11 @@
 #define __CCStoreInfo_H_
 
 #include "cocos2d.h"
-#include "../CCSoomlaError.h"
-#include "../CCIStoreAssets.h"
+#include "CCStoreAssets.h"
 #include "../domain/CCVirtualItem.h"
 #include "../domain/virtualGoods/CCUpgradeVG.h"
 #include "../domain/CCVirtualCategory.h"
+#include "CCError.h"
 
 namespace soomla {
 	/** 
@@ -38,7 +38,7 @@ namespace soomla {
      virtual categories, and
      non-consumables
 	*/
-	class CCStoreInfo: cocos2d::CCObject {
+	class CCStoreInfo: cocos2d::Ref {
     public:
         
 		/**
@@ -51,16 +51,16 @@ namespace soomla {
          functions.
          @param storeAssets An instance of your store's assets class.
 		 */
-        static void createShared(CCIStoreAssets *storeAssets);
-        virtual bool init(CCIStoreAssets *storeAssets);
+        static void createShared(CCStoreAssets *storeAssets);
+        virtual bool init(CCStoreAssets *storeAssets);
 
 		/**
          Retrieves a single `CCVirtualItem` that resides in the metadata.
          @param itemId The item id of the item to be fetched.
-         @param soomlaError A `CCSoomlaError` for error checking.
+         @param error A `CCError` for error checking.
          @return The virtual item with the given `itemId`.
 		 */
-        CCVirtualItem *getItemByItemId(const char *itemId, CCSoomlaError **soomlaError);
+        CCVirtualItem *getItemByItemId(const char *itemId, CCError **error);
 
 		/**
          Retrieves a single `CCPurchasableVirtualItem` that resides in the
@@ -70,21 +70,21 @@ namespace soomla {
          and not with `itemId` (`productId` is the id of the product in the App
          Store).
          @param productId The product id of the item to be fetched.
-         @param soomlaError A `CCSoomlaError` for error checking.
+         @param error A `CCError` for error checking.
          @return The purchasable virtual item with the given `productId`.
 		*/
-		CCPurchasableVirtualItem *getPurchasableItemWithProductId(const char *productId, CCSoomlaError **soomlaError);
+		CCPurchasableVirtualItem *getPurchasableItemWithProductId(const char *productId, CCError **error);
 
 		/**
          Retrieves the `CCVirtualCategory` that the `CCVirtualGood` with the 
          given `goodItemId` belongs to.
          @param goodItemId The item id of the virtual good whose category is 
                 being retrieved.
-         @param soomlaError A `CCSoomlaError` for error checking.
+         @param error A `CCError` for error checking.
          @return The `CCVirtualCategory` for the `CCVirtualGood` with the given
          `goodItemId`.
 		*/
-		CCVirtualCategory *getCategoryForVirtualGood(const char *goodItemId, CCSoomlaError **soomlaError);
+		CCVirtualCategory *getCategoryForVirtualGood(const char *goodItemId, CCError **error);
 
 		/**
          Retrieves the first `CCUpgradeVG` for the`CCVirtualGood` with the given
@@ -110,40 +110,39 @@ namespace soomla {
          @param goodItemId the `CCVirtualGood` we're searching the upgrades for.
          @return Array of all upgrades for the good with the given item id.
          */
-        cocos2d::CCArray *getUpgradesForVirtualGood(const char *goodItemId);
+        cocos2d::__Array *getUpgradesForVirtualGood(const char *goodItemId);
 
 		/**
          Retrieves all virtual currencies.
          @return The virtual currencies of the game.
 		*/
-		cocos2d::CCArray *getVirtualCurrencies();
+		cocos2d::__Array *getVirtualCurrencies();
 
 		/**
          Retrieves all virtual goods.
          @return The virtual goods of the game.
 		*/
-        cocos2d::CCArray *getVirtualGoods();
+        cocos2d::__Array *getVirtualGoods();
 
 		/**
          Retrieves all virtual currency packs.
          @return The virtual currency packs of the game.
 		*/
-        cocos2d::CCArray *getVirtualCurrencyPacks();
+        cocos2d::__Array *getVirtualCurrencyPacks();
 
 		/**
          Retrieves all non consumable items.
          @return The non consumable items of the game.
 		*/
-        cocos2d::CCArray *getNonConsumableItems();
+        cocos2d::__Array *getNonConsumableItems();
 
 		/**
          Retrieves all virtual categories.
          @return The virtual categories of the game.
 		*/
-		cocos2d::CCArray *getVirtualCategories();
-        
+		cocos2d::__Array *getVirtualCategories();
     private:
-        cocos2d::CCObject *createWithRetParams(cocos2d::CCDictionary *retParams);
+        cocos2d::Ref *createWithRetParams(cocos2d::__Dictionary *retParams);
     };
 };
 

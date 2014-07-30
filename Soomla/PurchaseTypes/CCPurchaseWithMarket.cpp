@@ -26,8 +26,13 @@ namespace soomla {
 
     CCPurchaseWithMarket *CCPurchaseWithMarket::createWithMarketItem(CCMarketItem *marketItem) {
         CCPurchaseWithMarket *ret = new CCPurchaseWithMarket();
-        ret->autorelease();
-        ret->initWithMarketItem(marketItem);
+        if (ret->initWithMarketItem(marketItem)) {
+            ret->autorelease();
+        }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
+
         return ret;
     }
 

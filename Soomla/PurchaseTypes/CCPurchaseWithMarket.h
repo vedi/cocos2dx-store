@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __PurchaseWithMarketX_H_
-#define __PurchaseWithMarketX_H_
+#ifndef __CCPurchaseWithMarket_H_
+#define __CCPurchaseWithMarket_H_
 
 #include "CCPurchaseType.h"
 #include "../domain/CCMarketItem.h"
@@ -57,4 +57,4 @@ namespace soomla {
 };
 
 
-#endif //__PurchaseWithMarketX_H_
+#endif //__CCPurchaseWithMarket_H_

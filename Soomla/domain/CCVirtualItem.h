@@ -16,30 +16,27 @@
 
 //  Created by Igor Yegoroff on 5/16/13.
 
-#ifndef __cocos2dx_store__VirtualItem__
-#define __cocos2dx_store__VirtualItem__
+#ifndef __CCVirtualItem_H__
+#define __CCVirtualItem_H__
 
 #include "cocos2d.h"
-#include "../SoomlaMacros.h"
-#include "../data/SoomlaJSONConsts.h"
+#include "CCDomain.h"
+#include "CCStoreConsts.h"
+#include "CCSoomlaMacros.h"
+#include "CCSoomlaEntity.h"
 
 namespace soomla {
 	/** 
      @class CCVirtualItem
      @brief A virtual item.
-     
+
      This is the parent class of all virtual items in the application.
      Almost every entity in your virtual economy will be a virtual item. There 
      are many types of virtual items - each one of the various types extends
      `CCVirtualItem` and adds its own behavior on top of it.
 	*/    
-    class CCVirtualItem : public cocos2d::CCObject {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString*, mName, Name, JSON_ITEM_NAME);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString*, mDescription, Description, JSON_ITEM_DESCRIPTION);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString*, mItemId, ItemId, JSON_ITEM_ITEMID);
-        
+    class CCVirtualItem : public CCSoomlaEntity {
     public:
-        CCVirtualItem(): mName(NULL), mDescription(NULL), mItemId(NULL) {}
 
 		/**
          Creates an instance of `CCVirtualItem`.
@@ -48,27 +45,25 @@ namespace soomla {
          @param itemId The item's itemId.
          @return The virtual item.
 		*/
-        static CCVirtualItem * create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
-        virtual bool init(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
+        static CCVirtualItem * create(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId);
 
-		/**
+        /**
          Creates a `CCVirtualItem` from a dictionary.
          @param dict A dictionary containing keys to each of the parameters 
                 required by the create function.
          @return The item.
 		*/
-		static CCVirtualItem * createWithDictionary(cocos2d::CCDictionary* dict);
-        virtual bool initWithDictionary(cocos2d::CCDictionary* dict);
-        
-        virtual ~CCVirtualItem();
-        
+        SL_CREATE_WITH_DICTIONARY(CCVirtualItem);
+
         /**
-         Converts this `CCVirtualItem` to a `CCDictionary`.
-         @return `CCDictionary` representation of this `CCVirtualItem`.
-         */
-        virtual cocos2d::CCDictionary* toDictionary();
+        Converts this `CCVirtualItem` to a `CCDictionary`.
+        @return `CCDictionary` representation of this `CCVirtualItem`.
+        */
+        virtual cocos2d::__Dictionary* toDictionary();
+
+        cocos2d::__String *getItemId();
     };
     
 }
 
-#endif /* defined(__cocos2dx_store__VirtualItem__) */
+#endif /* defined(__CCVirtualItem_H__) */

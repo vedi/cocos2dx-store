@@ -16,8 +16,8 @@
 
 // Created by Igor Yegoroff on 5/17/13.
 
-#ifndef __cocos2dx_store__PurchaseTypeX__
-#define __cocos2dx_store__PurchaseTypeX__
+#ifndef __CCPurchaseType__
+#define __CCPurchaseType__
 
 #include "cocos2d.h"
 
@@ -45,4 +45,4 @@ namespace soomla {
     
 }
 
-#endif /* defined(__cocos2dx_store__PurchaseTypeX__) */
+#endif // __CCPurchaseType__

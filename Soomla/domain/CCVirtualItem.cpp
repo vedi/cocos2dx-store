@@ -19,55 +19,27 @@
 #include "CCVirtualItem.h"
 
 namespace soomla {
-    
+
     using namespace cocos2d;
 
-    CCVirtualItem *CCVirtualItem::create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId) {
-        CCVirtualItem * pRet = new CCVirtualItem();
-        if (pRet) {
-            pRet->autorelease();
-            pRet->init(name, description, itemId);
+    CCVirtualItem *CCVirtualItem::create(cocos2d::__String *name, cocos2d::__String *description, cocos2d::__String *itemId) {
+        CCVirtualItem *ret = new CCVirtualItem();
+        if (ret->init(name, description, itemId)) {
+            ret->autorelease();
         }
-        return pRet;
-    }
-
-    CCVirtualItem *CCVirtualItem::createWithDictionary(cocos2d::CCDictionary* dict) {
-        CCVirtualItem * pRet = new CCVirtualItem();
-        if (pRet) {
-            pRet->autorelease();
-            pRet->initWithDictionary(dict);
+        else {
+            CC_SAFE_DELETE(ret);
         }
-        return pRet;
+
+        return ret;
     }
 
-    bool CCVirtualItem::init(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId) {
-        setName(name);
-        setDescription(description);
-        setItemId(itemId);
-        
-        return true;
+    __Dictionary *CCVirtualItem::toDictionary() {
+        __Dictionary *dict = CCSoomlaEntity::toDictionary();
+        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM);
     }
-    
-    bool CCVirtualItem::initWithDictionary(cocos2d::CCDictionary* dict) {
-        fillNameFromDict(dict);
-        fillDescriptionFromDict(dict);
-        fillItemIdFromDict(dict);
-        
-        return true;
-    }
-    
-    CCVirtualItem::~CCVirtualItem() {
-        CC_SAFE_RELEASE(mName);
-        CC_SAFE_RELEASE(mDescription);
-        CC_SAFE_RELEASE(mItemId);
-    }
-    
-    CCDictionary*CCVirtualItem::toDictionary() {
-        CCDictionary* dict = CCDictionary::create();
-        putNameToDict(dict);
-        putDescriptionToDict(dict);
-        putItemIdToDict(dict);
 
-        return dict;
+    __String *CCVirtualItem::getItemId() {
+        return getId();
     }
 }

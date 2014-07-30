@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __LifetimeVGX_H_
-#define __LifetimeVGX_H_
+#ifndef __CCLifetimeVG_H_
+#define __CCLifetimeVG_H_
 
 #include "CCVirtualGood.h"
 
@@ -52,7 +52,8 @@ namespace soomla {
          @param purchaseType see parent.
          @return The Lifetime virtual good.
 		*/
-        static CCLifetimeVG *create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
+        static CCLifetimeVG *create(cocos2d::__String* name, cocos2d::__String* description,
+                cocos2d::__String* itemId, CCPurchaseType * purchaseType);
 		
 		/**
          Creates a `CCLifetimeVG` from a dictionary.
@@ -60,8 +61,10 @@ namespace soomla {
                 required by the `create` function.
          @return The Lifetime virtual good.
 		*/
-        static CCLifetimeVG *createWithDictionary(cocos2d::CCDictionary *dict);
+        SL_CREATE_WITH_DICTIONARY(CCLifetimeVG);
+
+        virtual cocos2d::__Dictionary *toDictionary() override;
     };
 };
 
-#endif //__LifetimeVGX_H_
+#endif //__CCLifetimeVG_H_

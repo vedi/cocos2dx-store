@@ -16,11 +16,12 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __VirtualCurrencyPackX_H_
-#define __VirtualCurrencyPackX_H_
+#ifndef __CCVirtualCurrencyPack_H_
+#define __CCVirtualCurrencyPack_H_
 
-#include "../../SoomlaMacros.h"
+#include "CCSoomlaMacros.h"
 #include "../CCPurchasableVirtualItem.h"
+#include "CCStoreConsts.h"
 
 namespace soomla {
 	/** 
@@ -40,8 +41,8 @@ namespace soomla {
      CCVirtualItem
 	 */
     class CCVirtualCurrencyPack : public CCPurchasableVirtualItem {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCInteger *, mCurrencyAmount, CurrencyAmount, JSON_CURRENCYPACK_CURRENCYAMOUNT);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mCurrencyItemId, CurrencyItemId, JSON_CURRENCYPACK_CURRENCYITEMID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mCurrencyAmount, CurrencyAmount, CCStoreConsts::JSON_CURRENCY_PACK_CURRENCY_AMOUNT);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mCurrencyItemId, CurrencyItemId, CCStoreConsts::JSON_CURRENCY_PACK_CURRENCY_ITEM_ID);
     public:
 	CCVirtualCurrencyPack(): CCPurchasableVirtualItem(), mCurrencyAmount(NULL), mCurrencyItemId(NULL) {};
 
@@ -56,12 +57,12 @@ namespace soomla {
          @param purchaseType see parent.
          @return The currency pack.
 		*/
-        static CCVirtualCurrencyPack *create(cocos2d::CCString* name, cocos2d::CCString* description,
-											 cocos2d::CCString* itemId, cocos2d::CCInteger* currencyAmount, cocos2d::CCString* currencyItemId,
+        static CCVirtualCurrencyPack *create(cocos2d::__String* name, cocos2d::__String* description,
+											 cocos2d::__String* itemId, cocos2d::__Integer* currencyAmount, cocos2d::__String* currencyItemId,
 											 CCPurchaseType * purchaseType);
-        bool init(cocos2d::CCString* name, cocos2d::CCString* description,
-                  cocos2d::CCString* itemId, cocos2d::CCInteger* currencyAmount, cocos2d::CCString* currencyItemId,
-                  CCPurchaseType * purchaseType);
+        bool init(cocos2d::__String* name, cocos2d::__String* description,
+                cocos2d::__String* itemId, cocos2d::__Integer* currencyAmount, cocos2d::__String* currencyItemId,
+                CCPurchaseType * purchaseType);
 
 		/**
          Creates a `CCVirtualCurrencyPack`.
@@ -69,18 +70,18 @@ namespace soomla {
                 required by the create function.
          @return The pack.
 		*/
-        static CCVirtualCurrencyPack *createWithDictionary(cocos2d::CCDictionary *dict);
-        bool initWithDictionary(cocos2d::CCDictionary *dict);
+        SL_CREATE_WITH_DICTIONARY(CCVirtualCurrencyPack);
+        bool initWithDictionary(cocos2d::__Dictionary *dict);
 
         /**
-         Converts this `CCVirtualCurrencyPack` to a `CCDictionary`.
-         @return `CCDictionary` representation of this `CCVirtualCurrencyPack`.
-         */
-        cocos2d::CCDictionary *toDictionary();
+        Converts this `CCVirtualCurrencyPack` to a `CCDictionary`.
+        @return `CCDictionary` representation of this `CCVirtualCurrencyPack`.
+        */
+        cocos2d::__Dictionary *toDictionary();
 
         virtual ~CCVirtualCurrencyPack();
     };
 };
 
 
-#endif //__VirtualCurrencyPackX_H_
+#endif //__CCVirtualCurrencyPack_H_

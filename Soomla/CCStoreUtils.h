@@ -19,10 +19,11 @@
 #ifndef __CCStoreUtils_H_
 #define __CCStoreUtils_H_
 
-#include "CCSoomlaError.h"
+
+#include "CCError.h"
 
 #ifndef SOOMLA_DEBUG
-# define SOOMLA_DEBUG false
+#define SOOMLA_DEBUG false
 #endif
 
 namespace soomla {
@@ -53,7 +54,7 @@ namespace soomla {
          @param tag The name of the class whose instance called this function.
          @param error A CCSoomlaError from which to extract the message.
 		*/
-        static void logException(const char *tag, CCSoomlaError *error);
+        static void logException(const char *tag, CCError *error);
     };
 };
 

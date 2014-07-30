@@ -16,8 +16,8 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __SingleUseVGX_H_
-#define __SingleUseVGX_H_
+#ifndef __CCSingleUseVG_H_
+#define __CCSingleUseVG_H_
 
 #include <iostream>
 
@@ -52,8 +52,8 @@ namespace soomla {
          @param purchaseType The purchase type for this virtual good.
          @return The Single Use virtual good.
 		*/
-        static CCSingleUseVG *create(cocos2d::CCString* name, cocos2d::CCString* description,
-                cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
+        static CCSingleUseVG *create(cocos2d::__String* name, cocos2d::__String* description,
+                cocos2d::__String* itemId, CCPurchaseType * purchaseType);
 
 		/**
          Create a `CCSingleUseVG` from a dictionary.
@@ -61,8 +61,10 @@ namespace soomla {
                 required by the `create` function.
          @return The Single Use virtual good.
 		*/
-		static CCSingleUseVG *createWithDictionary(cocos2d::CCDictionary *dict);
+        SL_CREATE_WITH_DICTIONARY(CCSingleUseVG);
+
+        virtual cocos2d::__Dictionary *toDictionary() override;
     };
 };
 
-#endif //__SingleUseVGX_H_
+#endif //__CCSingleUseVG_H_

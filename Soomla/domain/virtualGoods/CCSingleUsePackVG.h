@@ -16,10 +16,11 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __SingleUsePackVGX_H_
-#define __SingleUsePackVGX_H_
+#ifndef __CCSingleUsePackVG_H_
+#define __CCSingleUsePackVG_H_
 
 #include "CCVirtualGood.h"
+#include "CCStoreConsts.h"
 
 namespace soomla {
 	/** 
@@ -46,46 +47,47 @@ namespace soomla {
      CCVirtualItem
      */
     class CCSingleUsePackVG : public CCVirtualGood {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mGoodItemId, GoodItemId, JSON_VGP_GOOD_ITEMID);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCInteger *, mGoodAmount, GoodAmount, JSON_VGP_GOOD_AMOUNT);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mGoodItemId, GoodItemId, CCStoreConsts::JSON_VGP_GOOD_ITEM_ID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mGoodAmount, GoodAmount, CCStoreConsts::JSON_VGP_GOOD_AMOUNT);
     public:
         CCSingleUsePackVG(): CCVirtualGood(), mGoodItemId(NULL), mGoodAmount(NULL) {};
-        
-        /**
-         Creates a `CCSingleUsePackVG`.
-         @param goodItemId The item id of the Single Use item associated with 
-                this Pack.
-         @param goodAmount The amount of Single Use items in the Pack.
-         @param name see parent.
-         @param description see parent.
-         @param itemId see parent.
-         @param purchaseType see parent.
-         @return The Sinlge Use Pack good.
-         */
-        static CCSingleUsePackVG *create(cocos2d::CCString* goodItemId, cocos2d::CCInteger* goodAmount,
-                cocos2d::CCString* name, cocos2d::CCString* description,
-                cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-        bool init(cocos2d::CCString* goodItemId, cocos2d::CCInteger* goodAmount,
-				  cocos2d::CCString* name, cocos2d::CCString* description,
-				  cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-        
-        /**
-         Creates a `CCSingleUsePackVG` from a dictionary.
-         @param dict A dictionary containing keys to each of the parameters
-                required by the create function.
-         @return The Sinlge Use Pack good.
-         */
-        static CCSingleUsePackVG *createWithDictionary(cocos2d::CCDictionary *dict);
-        bool initWithDictionary(cocos2d::CCDictionary *dict);
+        static CCSingleUsePackVG *create(cocos2d::__String* goodItemId, cocos2d::__Integer* goodAmount,
+                cocos2d::__String* name, cocos2d::__String* description,
+                cocos2d::__String* itemId, CCPurchaseType * purchaseType);
 
         /**
-         Converts this `CCSingleUsePackVG` to a `CCDictionary`.
-         @return `CCDictionary` representation of this `CCSingleUsePackVG`.
-         */
-        cocos2d::CCDictionary *toDictionary();
+        Creates a `CCSingleUsePackVG` from a dictionary.
+        @param dict A dictionary containing keys to each of the parameters
+        required by the create function.
+        @return The Sinlge Use Pack good.
+        */
+        SL_CREATE_WITH_DICTIONARY(CCSingleUsePackVG);
+
+        /**
+        Creates a `CCSingleUsePackVG`.
+        @param goodItemId The item id of the Single Use item associated with
+        this Pack.
+        @param goodAmount The amount of Single Use items in the Pack.
+        @param name see parent.
+        @param description see parent.
+        @param itemId see parent.
+        @param purchaseType see parent.
+        @return The Sinlge Use Pack good.
+        */
+        bool init(cocos2d::__String* goodItemId, cocos2d::__Integer* goodAmount,
+				  cocos2d::__String* name, cocos2d::__String* description,
+				  cocos2d::__String* itemId, CCPurchaseType * purchaseType);
+
+        bool initWithDictionary(cocos2d::__Dictionary *dict);
+
+        /**
+        Converts this `CCSingleUsePackVG` to a `CCDictionary`.
+        @return `CCDictionary` representation of this `CCSingleUsePackVG`.
+        */
+        cocos2d::__Dictionary *toDictionary();
 
         virtual ~CCSingleUsePackVG();
     };
 };
 
-#endif //__SingleUsePackVGX_H_
+#endif //__CCSingleUsePackVG_H_

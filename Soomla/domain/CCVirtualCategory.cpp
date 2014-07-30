@@ -21,41 +21,39 @@
 USING_NS_CC;
 
 namespace soomla {
-    CCVirtualCategory *CCVirtualCategory::create(CCString *name, CCArray *goodItemIds) {
+    CCVirtualCategory *CCVirtualCategory::create(__String *name, __Array *goodItemIds) {
         CCVirtualCategory *ret = new CCVirtualCategory();
-        ret->autorelease();
-        ret->init(name, goodItemIds);
+        if (ret->init(name, goodItemIds)) {
+            ret->autorelease();
+        }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
+
         return ret;
     }
 
-    CCVirtualCategory *CCVirtualCategory::createWithDictionary(CCDictionary *dict) {
-        CCVirtualCategory *ret = new CCVirtualCategory();
-        ret->autorelease();
-        ret->initWithDictionary(dict);
-        return ret;
-    }
-
-    bool CCVirtualCategory::init(CCString *name, CCArray *goodItemIds) {
+    bool CCVirtualCategory::init(__String *name, __Array *goodItemIds) {
         setName(name);
         setGoodItemIds(goodItemIds);
 
         return true;
     }
 
-    bool CCVirtualCategory::initWithDictionary(CCDictionary *dict) {
+    bool CCVirtualCategory::initWithDictionary(__Dictionary *dict) {
         fillNameFromDict(dict);
         fillGoodItemIdsFromDict(dict);
 
         return true;
     }
 
-    CCDictionary *CCVirtualCategory::toDictionary() {
-        CCDictionary *dict = CCDictionary::create();
+    __Dictionary *CCVirtualCategory::toDictionary() {
+        __Dictionary *dict = __Dictionary::create();
 
         putNameToDict(dict);
         putGoodItemIdsToDict(dict);
 
-        return dict;
+        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CATEGORY);
     }
 
     CCVirtualCategory::~CCVirtualCategory() {

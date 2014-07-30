@@ -21,21 +21,19 @@
 USING_NS_CC;
 
 namespace soomla {
-    CCUpgradeVG *CCUpgradeVG::create(CCString *goodItemId, CCString *prevItemId, CCString *nextItemId, CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
+    CCUpgradeVG *CCUpgradeVG::create(__String *goodItemId, __String *prevItemId, __String *nextItemId, __String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
         CCUpgradeVG *ret = new CCUpgradeVG();
-        ret->autorelease();
-        ret->init(goodItemId, prevItemId, nextItemId, name, description, itemId, purchaseType);
+        if (ret->init(goodItemId, prevItemId, nextItemId, name, description, itemId, purchaseType)) {
+            ret->autorelease();
+        }
+        else {
+            CC_SAFE_DELETE(ret);
+        }
+
         return ret;
     }
 
-    CCUpgradeVG *CCUpgradeVG::createWithDictionary(CCDictionary *dict) {
-        CCUpgradeVG *ret = new CCUpgradeVG();
-        ret->autorelease();
-        ret->initWithDictionary(dict);
-        return ret;
-    }
-
-    bool CCUpgradeVG::init(CCString *goodItemId, CCString *prevItemId, CCString *nextItemId, CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
+    bool CCUpgradeVG::init(__String *goodItemId, __String *prevItemId, __String *nextItemId, __String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
         bool res = CCVirtualGood::init(name, description, itemId, purchaseType);
         if (res) {
             setGoodItemId(goodItemId);
@@ -47,7 +45,7 @@ namespace soomla {
         }
     }
 
-    bool CCUpgradeVG::initWithDictionary(CCDictionary *dict) {
+    bool CCUpgradeVG::initWithDictionary(__Dictionary *dict) {
         bool res = CCVirtualGood::initWithDictionary(dict);
         if (res) {
             fillGoodItemIdFromDict(dict);
@@ -59,22 +57,22 @@ namespace soomla {
         }
     }
 
-    CCDictionary *CCUpgradeVG::toDictionary() {
-        CCDictionary *dict = CCVirtualGood::toDictionary();
+    __Dictionary *CCUpgradeVG::toDictionary() {
+        __Dictionary *dict = CCVirtualGood::toDictionary();
 
         putGoodItemIdToDict(dict);
         if (mPrevItemId != NULL) {
             putPrevItemIdToDict(dict);
         } else {
-            dict->setObject(CCString::create(""), JSON_VGU_PREV_ITEMID);
+            dict->setObject(__String::create(""), CCStoreConsts::JSON_VGU_PREV_ITEM_ID);
         }
         if (mNextItemId != NULL) {
             putNextItemIdToDict(dict);
         } else {
-            dict->setObject(CCString::create(""), JSON_VGU_NEXT_ITEMID);
+            dict->setObject(__String::create(""), CCStoreConsts::JSON_VGU_NEXT_ITEM_ID);
         }
 
-        return dict;
+        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG);
     }
 
     CCUpgradeVG::~CCUpgradeVG() {

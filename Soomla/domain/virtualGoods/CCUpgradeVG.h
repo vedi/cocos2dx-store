@@ -16,11 +16,12 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#ifndef __UpgradeVGX_H_
-#define __UpgradeVGX_H_
+#ifndef __CCUpgradeVG_H_
+#define __CCUpgradeVG_H_
 
 #include "CCVirtualGood.h"
-#include "../../SoomlaMacros.h"
+#include "CCSoomlaMacros.h"
+#include "CCStoreConsts.h"
 
 namespace soomla {
     
@@ -51,11 +52,9 @@ namespace soomla {
      CCPurchasableVirtualItem > CCVirtualItem
      */
     class CCUpgradeVG : public CCVirtualGood {
-        
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mGoodItemId, GoodItemId, JSON_VGU_GOOD_ITEMID);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mPrevItemId, PrevItemId, JSON_VGU_PREV_ITEMID);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mNextItemId, NextItemId, JSON_VGU_NEXT_ITEMID);
-    
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mGoodItemId, GoodItemId, CCStoreConsts::JSON_VGU_GOOD_ITEM_ID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mPrevItemId, PrevItemId, CCStoreConsts::JSON_VGU_PREV_ITEM_ID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mNextItemId, NextItemId, CCStoreConsts::JSON_VGU_NEXT_ITEM_ID);
     public:
         
 	CCUpgradeVG(): CCVirtualGood(), mGoodItemId(NULL), mPrevItemId(NULL), mNextItemId(NULL) {};
@@ -74,30 +73,33 @@ namespace soomla {
          @param purchaseType see parent.
          @return The Upgrade virtual good.
 		 */
-		static CCUpgradeVG *create(cocos2d::CCString* goodItemId, cocos2d::CCString* prevItemId, cocos2d::CCString* nextItemId,
-								   cocos2d::CCString* name, cocos2d::CCString* description,
-								   cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-        bool init(cocos2d::CCString* goodItemId, cocos2d::CCString* prevItemId, cocos2d::CCString* nextItemId,
-                  cocos2d::CCString* name, cocos2d::CCString* description,
-                  cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-        
-		/** 
-         Creates a `CCUpgradeVG` from a dictionary.
-         @param dict A dictionary containing keys to each of the parameters
-                required by the `create` function.
-         @return The Upgrade virtual good.
-		*/
-		static CCUpgradeVG *createWithDictionary(cocos2d::CCDictionary *dict);
-        bool initWithDictionary(cocos2d::CCDictionary *dict);
+		static CCUpgradeVG *create(cocos2d::__String* goodItemId, cocos2d::__String* prevItemId, cocos2d::__String* nextItemId,
+								   cocos2d::__String* name, cocos2d::__String* description,
+								   cocos2d::__String* itemId, CCPurchaseType * purchaseType);
 
         /**
-         Converts this `CCUpgradeVG` to a `CCDictionary`.
-         @return `CCDictionary` representation of this `CCUgradeVG`.
-         */
-        cocos2d::CCDictionary *toDictionary();
+        Creates a `CCUpgradeVG` from a dictionary.
+        @param dict A dictionary containing keys to each of the parameters
+        required by the `create` function.
+        @return The Upgrade virtual good.
+        */
+        SL_CREATE_WITH_DICTIONARY(CCUpgradeVG);
+
+        bool init(cocos2d::__String* goodItemId, cocos2d::__String* prevItemId, cocos2d::__String* nextItemId,
+                cocos2d::__String* name, cocos2d::__String* description,
+                cocos2d::__String* itemId, CCPurchaseType * purchaseType);
+        bool initWithDictionary(cocos2d::__Dictionary *dict);
+
+        /**
+        Creates a `CCUpgradeVG` from a dictionary.
+        @param dict A dictionary containing keys to each of the parameters
+        required by the `create` function.
+        @return The Upgrade virtual good.
+        */
+        cocos2d::__Dictionary *toDictionary();
 
         virtual ~CCUpgradeVG();
     };
 };
 
-#endif //__UpgradeVGX_H_
+#endif //__CCUpgradeVG_H_

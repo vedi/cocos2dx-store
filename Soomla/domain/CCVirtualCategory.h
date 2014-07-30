@@ -16,12 +16,14 @@
 
 // Created by Fedor Shubin on 5/19/13.
 
-#include "cocos2d.h"
-#include "../SoomlaMacros.h"
-#include "../data/SoomlaJSONConsts.h"
+#ifndef __CCVirtualCategory_H_
+#define __CCVirtualCategory_H_
 
-#ifndef __VirtualCategoryX_H_
-#define __VirtualCategoryX_H_
+
+#include "cocos2d.h"
+#include "CCSoomlaMacros.h"
+#include "CCDomain.h"
+#include "CCStoreConsts.h"
 
 namespace soomla {
 	/** 
@@ -32,9 +34,9 @@ namespace soomla {
      associated with many virtual goods. Virtual categories help in organizing 
      your economy's virtual goods.
 	 */
-    class CCVirtualCategory : public cocos2d::CCObject {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString*, mName, Name, JSON_CATEGORY_NAME);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCArray*, mGoodItemIds, GoodItemIds, JSON_CATEGORY_GOODSITEMIDS);
+    class CCVirtualCategory : public CCDomain {
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String*, mName, Name, CCStoreConsts::JSON_CATEGORY_NAME);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Array*, mGoodItemIds, GoodItemIds, CCStoreConsts::JSON_CATEGORY_GOODS_ITEM_IDS);
     public:
 	CCVirtualCategory(): mName(NULL), mGoodItemIds(NULL) {};
 
@@ -45,8 +47,7 @@ namespace soomla {
                 in this category.
          @return The virtual category.
 		 */
-        static CCVirtualCategory *create(cocos2d::CCString *name, cocos2d::CCArray *goodItemIds);
-        bool init(cocos2d::CCString *name, cocos2d::CCArray *goodItemIds);
+        static CCVirtualCategory *create(cocos2d::__String *name, cocos2d::__Array *goodItemIds);
 
 		/**
          Creates a virtual category.
@@ -54,18 +55,20 @@ namespace soomla {
                 required by the create function.
          @return The virtual category.
 		*/
-		static CCVirtualCategory *createWithDictionary(cocos2d::CCDictionary *dict);
-        bool initWithDictionary(cocos2d::CCDictionary *dict);
+        SL_CREATE_WITH_DICTIONARY(CCVirtualCategory);
+
+        bool init(cocos2d::__String *name, cocos2d::__Array *goodItemIds);
+        bool initWithDictionary(cocos2d::__Dictionary *dict);
 
         /**
-         Converts this `~CCVirtualCategory` to a `CCDictionary`.
-         @return `CCDictionary` representation of this `~CCVirtualCategory`.
-         */
-        cocos2d::CCDictionary *toDictionary();
+        Converts this `~CCVirtualCategory` to a `CCDictionary`.
+        @return `CCDictionary` representation of this `~CCVirtualCategory`.
+        */
+        cocos2d::__Dictionary *toDictionary();
 
         virtual ~CCVirtualCategory();
     };
 };
 
 
-#endif //__VirtualCategoryX_H_
+#endif //__CCVirtualCategory_H_

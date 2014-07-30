@@ -25,12 +25,14 @@ namespace soomla {
     }
     
     CCPurchaseType *CCPurchaseType::create() {
-        CCPurchaseType * pRet = new CCPurchaseType();
-        if (pRet) {
-            pRet->autorelease();
-            pRet->init();
+        CCPurchaseType *ret = new CCPurchaseType();
+        if (ret->init()) {
+            ret->autorelease();
         }
-        return pRet;
+        else {
+            CC_SAFE_DELETE(ret);
+        }
+        return ret;
     }
     
     CCPurchaseType::~CCPurchaseType() {}
