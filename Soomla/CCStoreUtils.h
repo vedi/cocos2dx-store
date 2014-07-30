@@ -23,7 +23,7 @@
 #include "CCError.h"
 
 #ifndef SOOMLA_DEBUG
-# define SOOMLA_DEBUG false
+#define SOOMLA_DEBUG false
 #endif
 
 namespace soomla {
