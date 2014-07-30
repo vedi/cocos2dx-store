@@ -22,7 +22,7 @@ USING_NS_CC;
 
 namespace soomla {
 
-    CCMarketItem *CCMarketItem::create(__String *productId, __Integer *consumable, __Double *price) {
+    CCMarketItem *CCMarketItem::create(CCString *productId, CCInteger *consumable, CCDouble *price) {
         CCMarketItem *ret = new CCMarketItem();
         if (ret->init(productId, consumable, price)) {
             ret->autorelease();
@@ -34,7 +34,7 @@ namespace soomla {
         return ret;
     }
 
-    bool CCMarketItem::init(__String *productId, __Integer *consumable, __Double *price) {
+    bool CCMarketItem::init(CCString *productId, CCInteger *consumable, CCDouble *price) {
         setProductId(productId);
         setConsumable(consumable);
         setPrice(price);
@@ -42,16 +42,16 @@ namespace soomla {
         return true;
     }
 
-    bool CCMarketItem::initWithDictionary(__Dictionary *dict) {
+    bool CCMarketItem::initWithDictionary(CCDictionary *dict) {
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         char const* key = CCStoreConsts::JSON_MARKET_ITEM_ANDROID_ID;
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         char const* key = CCStoreConsts::JSON_MARKET_ITEM_IOS_ID;
 #endif
-        cocos2d::Ref* obj = dict->objectForKey(key);
-        CCAssert(obj == NULL || dynamic_cast<__String *>(obj), "invalid object type in dictionary");
-        setProductId((__String *)obj);
+        cocos2d::CCObject* obj = dict->objectForKey(key);
+        CCAssert(obj == NULL || dynamic_cast<CCString *>(obj), "invalid object type in dictionary");
+        setProductId((CCString *)obj);
 
         if (mProductId == NULL) {
             fillProductIdFromDict(dict);
@@ -69,8 +69,8 @@ namespace soomla {
         CC_SAFE_RELEASE(mPrice);
     }
 
-    __Dictionary *CCMarketItem::toDictionary() {
-        __Dictionary *dict = __Dictionary::create();
+    CCDictionary *CCMarketItem::toDictionary() {
+        CCDictionary *dict = CCDictionary::create();
 
         putProductIdToDict(dict);
         putConsumableToDict(dict);

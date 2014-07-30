@@ -573,22 +573,22 @@ Soomla = new function () {
       }
 
       callNative({
-        method: "CCStoreController::setAndroidPublicKey",
+        method: "CCSoomlaStore::setAndroidPublicKey",
         androidPublicKey: storeParams.androidPublicKey
       });
       callNative({
-        method: "CCStoreController::setSoomSec",
+        method: "CCSoomlaStore::setSoomSec",
         soomSec: storeParams.soomSec
       });
       callNative({
-        method: "CCStoreController::setSSV",
+        method: "CCSoomlaStore::setSSV",
         ssv: storeParams.SSV
       });
 
       StoreInfo.createShared(storeAssets);
 
       callNative({
-        method: "CCStoreController::init",
+        method: "CCSoomlaStore::init",
         customSecret: storeParams.customSecret,
         androidPublicKey: storeParams.androidPublicKey
       });
@@ -597,43 +597,43 @@ Soomla = new function () {
     },
     buyMarketItem: function(productId, payload) {
       callNative({
-        method: "CCStoreController::buyMarketItem",
+        method: "CCSoomlaStore::buyMarketItem",
         productId: productId,
         payload: payload
       });
     },
     restoreTransactions: function() {
       callNative({
-        method: "CCStoreController::restoreTransactions"
+        method: "CCSoomlaStore::restoreTransactions"
       });
     },
     refreshInventory: function() {
       callNative({
-        method: "CCStoreController::refreshInventory"
+        method: "CCSoomlaStore::refreshInventory"
       });
     },
     // TODO: For iOS only
     transactionsAlreadyRestored: function() {
       var retParams = callNative({
-        method: "CCStoreController::transactionsAlreadyRestored"
+        method: "CCSoomlaStore::transactionsAlreadyRestored"
       });
       return retParams.return;
     },
     refreshMarketItemsDetails: function() {
       callNative({
-        method: "CCStoreController::refreshMarketItemsDetails"
+        method: "CCSoomlaStore::refreshMarketItemsDetails"
       });
     },
     // TODO: For Android only
     startIabServiceInBg: function() {
       callNative({
-        method: "CCStoreController::startIabServiceInBg"
+        method: "CCSoomlaStore::startIabServiceInBg"
       });
     },
     // TODO: For Android only
     stopIabServiceInBg: function() {
       callNative({
-        method: "CCStoreController::stopIabServiceInBg"
+        method: "CCSoomlaStore::stopIabServiceInBg"
       });
     }
   });

@@ -14,19 +14,19 @@
  limitations under the License.
  */
 
-@class Reward;
-@class SequenceReward;
+#import <Foundation/Foundation.h>
 
-@interface RewardStorage : NSObject
+/**
+ This exception is thrown when looking for a Virtual Item that cannot be found.
+ */
+@interface VirtualItemNotFoundException : NSException
 
-+ (void)setStatus:(BOOL)status forReward:(Reward *)reward;
-
-+ (void)setStatus:(BOOL)status forReward:(Reward *)reward andNotify:(BOOL)notify;
-
-+ (BOOL)isRewardGiven:(Reward *)reward;
-
-+ (int)getLastSeqIdxGivenForReward:(SequenceReward *)sequenceReward;
-
-+ (void)setLastSeqIdxGiven:(int)idx ForReward:(SequenceReward *)sequenceReward;
+/**
+ Constructor
+ 
+ @param lookupField The field of the virtual item to look for.
+ @param lookupVal The value of the field to look for.
+ */
+- (id)initWithLookupField:(NSString*)lookupField andLookupValue:(NSString*)lookupVal;
 
 @end

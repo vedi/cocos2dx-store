@@ -14,40 +14,19 @@
  limitations under the License.
  */
 
-// TODOL document abstract class
-@interface Reward : NSObject {
+#import "Reward.h"
+
+@interface VirtualItemReward : Reward {
     
     @private
-    NSString* rewardId;
-    NSString* name;
-    BOOL repeatable;
+    int amount;
+    NSString* associatedItemId;
 }
 
-@property (strong, nonatomic) NSString* rewardId;
-@property (strong, nonatomic) NSString* name;
-@property (nonatomic) BOOL repeatable;
+@property (strong, nonatomic) NSString* associatedItemId;
+@property (nonatomic) int amount;
 
 
-- (id)initWithRewardId:(NSString *)oRewardId andName:(NSString *)oName;
-
-- (id)initWithDictionary:(NSDictionary *)dict;
-
-- (NSDictionary *)toDictionary;
-
-- (BOOL)give;
-
-- (BOOL)take;
-
-- (BOOL)isOwned;
-
-// Abstract methods
-
-- (BOOL)giveInner;
-
-- (BOOL)takeInner;
-
-// Static methods
-
-+ (Reward *)fromDictionary:(NSDictionary *)dict;
+- (id)initWithRewardId:(NSString *)oRewardId andName:(NSString *)oName andAmount:(int)oAmount andAssociatedItemId:(NSString *)oAssociatedItemId;
 
 @end

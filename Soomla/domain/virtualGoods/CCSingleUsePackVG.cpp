@@ -21,7 +21,7 @@
 USING_NS_CC;
 
 namespace soomla {
-    CCSingleUsePackVG *CCSingleUsePackVG::create(__String *goodItemId, __Integer *goodAmount, __String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
+    CCSingleUsePackVG *CCSingleUsePackVG::create(CCString *goodItemId, CCInteger *goodAmount, CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
         CCSingleUsePackVG *ret = new CCSingleUsePackVG();
         if (ret->init(goodItemId, goodAmount, name, description, itemId, purchaseType)) {
             ret->autorelease();
@@ -32,7 +32,7 @@ namespace soomla {
         return ret;
     }
 
-    bool CCSingleUsePackVG::init(__String *goodItemId, __Integer *goodAmount, __String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
+    bool CCSingleUsePackVG::init(CCString *goodItemId, CCInteger *goodAmount, CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
         bool res = CCVirtualGood::init(name, description, itemId, purchaseType);
         if (res) {
             setGoodItemId(goodItemId);
@@ -43,7 +43,7 @@ namespace soomla {
         }
     }
 
-    bool CCSingleUsePackVG::initWithDictionary(__Dictionary *dict) {
+    bool CCSingleUsePackVG::initWithDictionary(CCDictionary *dict) {
         bool res = CCVirtualGood::initWithDictionary(dict);
         if (res) {
             fillGoodItemIdFromDict(dict);
@@ -54,8 +54,8 @@ namespace soomla {
         }
     }
 
-    __Dictionary *CCSingleUsePackVG::toDictionary() {
-        __Dictionary *dict = CCVirtualGood::toDictionary();
+    CCDictionary *CCSingleUsePackVG::toDictionary() {
+        CCDictionary *dict = CCVirtualGood::toDictionary();
 
         putGoodItemIdToDict(dict);
         putGoodAmountToDict(dict);

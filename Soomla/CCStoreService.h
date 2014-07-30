@@ -12,7 +12,7 @@
 
 namespace soomla {
 
-    class CCStoreService : public cocos2d::Ref {
+    class CCStoreService : public cocos2d::CCObject {
     public:
         /**
         This class is singleton, use this function to access it.
@@ -26,20 +26,20 @@ namespace soomla {
         @param storeParams A CCDictionary containing parameters for
         CCSoomlaStore (These were previously found in CCSoomla).
         This dictionary can contain the following:
-        "soomSec": __String - The value of the primary encryption key.
-        "customSecret": __String - The value of the secondary encryption
+        "soomSec": CCString - The value of the primary encryption key.
+        "customSecret": CCString - The value of the secondary encryption
         key.
-        "androidPublicKey": __String - Your Android public key.
+        "androidPublicKey": CCString - Your Android public key.
         "SSV": CCBool - Whether or not to enable server side
         verification of purchases.
         */
-        static void initShared(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams);
+        static void initShared(CCStoreAssets *gameAssets, cocos2d::CCDictionary *storeParams);
 
         CCStoreService();
 
-        virtual bool init(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams);
+        virtual bool init(CCStoreAssets *gameAssets, cocos2d::CCDictionary *storeParams);
 
-        void checkParams(cocos2d::__Dictionary *storeParams);
+        void checkParams(cocos2d::CCDictionary *storeParams);
     };
 }
 

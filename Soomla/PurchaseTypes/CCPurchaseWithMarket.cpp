@@ -19,9 +19,9 @@
 #include "CCPurchaseWithMarket.h"
 
 namespace soomla {
-    CCPurchaseWithMarket *CCPurchaseWithMarket::create(cocos2d::__String *productId, cocos2d::__Double *price) {
+    CCPurchaseWithMarket *CCPurchaseWithMarket::create(cocos2d::CCString *productId, cocos2d::CCDouble *price) {
         return createWithMarketItem(CCMarketItem::create(
-                productId, cocos2d::__Integer::create(CCMarketItem::CONSUMABLE), price));
+                productId, cocos2d::CCInteger::create(CCMarketItem::CONSUMABLE), price));
     }
 
     CCPurchaseWithMarket *CCPurchaseWithMarket::createWithMarketItem(CCMarketItem *marketItem) {

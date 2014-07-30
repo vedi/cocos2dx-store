@@ -14,17 +14,25 @@
  limitations under the License.
  */
 
-#import "Reward.h"
+/**
+ This file holds the store's configurations.
+ */
 
-@interface BadgeReward : Reward {
-    
-    @private
-    NSString* iconUrl;
-}
+/**
+ This value defines the version of the metadata located in your database.
+ 
+ @warning NEVER CHANGE THE VALUE FOR THIS VARIABLE !!!
+ */
+extern const int METADATA_VERSION;
 
-@property (strong, nonatomic) NSString* iconUrl;
+/**
+ When set to 'YES', this removes the need to verify purchases when there's no
+ signature.
+ NOTE: This is useful while you are in development and testing stages of your 
+ game.
 
+ @warning Set to 'NO' before you publish your app!!!
+ */
+extern BOOL VERIFY_PURCHASES;
 
-- (id)initWithRewardId:(NSString *)oRewardId andName:(NSString *)oName andIconUrl:(NSString *)oIconUrl;
-
-@end
+extern NSString* VERIFY_URL;

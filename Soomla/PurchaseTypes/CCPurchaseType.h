@@ -20,6 +20,7 @@
 #define __CCPurchaseType__
 
 #include "cocos2d.h"
+#include "CCSoomlaStore.h"
 
 namespace soomla {
 	/** 
@@ -30,7 +31,7 @@ namespace soomla {
      abstract class describes basic features of the actual implementations of
      `CCPurchaseType`.
 	 */
-    class CCPurchaseType : public cocos2d::Ref {
+    class CCPurchaseType : public cocos2d::CCObject {
     public:
         CCPurchaseType() {}
         

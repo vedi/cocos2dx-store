@@ -22,7 +22,7 @@ namespace soomla {
 
     using namespace cocos2d;
 
-    CCVirtualItem *CCVirtualItem::create(cocos2d::__String *name, cocos2d::__String *description, cocos2d::__String *itemId) {
+    CCVirtualItem *CCVirtualItem::create(cocos2d::CCString *name, cocos2d::CCString *description, cocos2d::CCString *itemId) {
         CCVirtualItem *ret = new CCVirtualItem();
         if (ret->init(name, description, itemId)) {
             ret->autorelease();
@@ -34,12 +34,12 @@ namespace soomla {
         return ret;
     }
 
-    __Dictionary *CCVirtualItem::toDictionary() {
-        __Dictionary *dict = CCSoomlaEntity::toDictionary();
+    CCDictionary *CCVirtualItem::toDictionary() {
+        CCDictionary *dict = CCSoomlaEntity::toDictionary();
         return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM);
     }
 
-    __String *CCVirtualItem::getItemId() {
+    CCString *CCVirtualItem::getItemId() {
         return getId();
     }
 }

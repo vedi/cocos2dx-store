@@ -21,6 +21,7 @@
 
 
 #include "cocos2d.h"
+#include "CCSoomlaMacros.h"
 
 namespace soomla {
 	/** @class CCStoreAssets
@@ -29,7 +30,7 @@ namespace soomla {
 		Implement this class to define your store's assets. See the wiki for
 		information about the various VirtualGoods and how to define them.
 	 */
-    class CCStoreAssets : public cocos2d::Ref {
+    class CCStoreAssets : public cocos2d::CCObject {
     public:
         
         /**
@@ -61,32 +62,32 @@ namespace soomla {
         Retrieves the array of your game's virtual currencies.
         @return All the virtual currencies in your game.
         */
-        virtual cocos2d::__Array *getCurrencies() = 0;
+        virtual cocos2d::CCArray *getCurrencies() = 0;
 
 		/**
         Retrieves the array of all virtual goods served by your store (all
         kinds in one array).
         @return All virtual goods in your game.
         */
-        virtual cocos2d::__Array *getGoods() = 0;
+        virtual cocos2d::CCArray *getGoods() = 0;
 
 		/**
         Retrieves the array of all virtual currency packs served by your store.
         @return All virtual currency packs in your game.
         */
-        virtual cocos2d::__Array *getCurrencyPacks() = 0;
+        virtual cocos2d::CCArray *getCurrencyPacks() = 0;
 
 		/**
         Retrieves the array of all virtual categories handled in your store.
         @return All virtual categories in your game.
         */
-        virtual cocos2d::__Array *getCategories() = 0;
+        virtual cocos2d::CCArray *getCategories() = 0;
 
 		/**
         Retrieves the array of all non-consumable items served by your store.
         @return All non-consumables served in your game.
         */
-        virtual cocos2d::__Array *getNonConsumableItems() = 0;
+        virtual cocos2d::CCArray *getNonConsumableItems() = 0;
     };
 };
 

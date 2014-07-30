@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C0B3C5EE168C6D0C00161FAA"
+               BlueprintIdentifier = "9D80465E1981152F00390E4C"
                BuildableName = "libCocos2dXStore.a"
                BlueprintName = "Cocos2dXStore"
                ReferencedContainer = "container:Cocos2dXStore.xcodeproj">

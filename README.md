@@ -77,16 +77,16 @@ The example project is still under development but it already has some important
 1. Initialize `CCServiceManager` with common params, setting your `customSecret` there:
 
     ```cpp
-    __Dictionary *commonParams = __Dictionary::create();
-    commonParams->setObject(__String::create("ExampleCustomSecret"), "customSecret");
+    CCDictionary *commonParams = CCDictionary::create();
+    commonParams->setObject(CCString::create("ExampleCustomSecret"), "customSecret");
     soomla::CCServiceManager::getInstance()->setCommonParams(commonParams);
     ```
 
-1. Initialize `CCStoreService` with your assets class (instance of `CCStoreAssets`), and a `__Dictionary` containing various parameters for it:
+1. Initialize `CCStoreService` with your assets class (instance of `CCStoreAssets`), and a `CCDictionary` containing various parameters for it:
 
     ```cpp
-    __Dictionary *storeParams = __Dictionary::create();
-    storeParams->setObject(__String::create("ExamplePublicKey"), "androidPublicKey");
+    CCDictionary *storeParams = CCDictionary::create();
+    storeParams->setObject(CCString::create("ExamplePublicKey"), "androidPublicKey");
 
     soomla::CCStoreService::initShared(assets, storeParams);
     ```
@@ -238,12 +238,12 @@ C++
 ```cpp
 // Start Iab Service
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	CCStoreController::sharedStoreController()->startIabServiceInBg();
+	CCSoomlaStore::getInstance()->startIabServiceInBg();
 #endif
 
 // Stop Iab Service
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	CCStoreController::sharedStoreController()->stopIabServiceInBg();
+	CCSoomlaStore::getInstance()->stopIabServiceInBg();
 #endif
 ```
 
@@ -338,7 +338,7 @@ The `CCStoreEventDispatcher` class is where all events go through. To handle var
 
 Since Cocos2d-x doesn't support exceptions, we use a different method to catch and work with exceptions on the native side. All functions that raise an exception on the native side have an additional *CCError*** parameter to them. In order to know if an exception was raised, send a reference to *CCError** to the function, and inspect it after running.
 
-For example, if I want to purchase an item with the ItemID `huge_sword`, and check if all went well after the purchase, I would call `CCStoreController::buyItem()`, like this:
+For example, if I want to purchase an item with the ItemID `huge_sword`, and check if all went well after the purchase, I would call `CCSoomlaStore::buyItem()`, like this:
 
 ```c++
 soomla::CCError *err;
@@ -364,7 +364,7 @@ You can choose to handle each exception on its own, handle all three at once, or
 ## iOS Server Side Verification
 
 As you probably know, fraud on IAP is pretty common. Hackers can crack their smartphones to think that a purchase is made when payment wasn't actually transferred to you. We want to help you with it so we created our verification server and we let you instantly use it through the framework.
-All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to `CCStoreController` for C++ or to `Soomla.StoreController` for JS:
+All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to `CCSoomlaStore` for C++ or to `Soomla.StoreController` for JS:
 
 ```cpp
 storeParams->setObject(Bool::create(true), "SSV");

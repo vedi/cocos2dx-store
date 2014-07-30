@@ -32,7 +32,7 @@ namespace soomla {
      access the native StoreController functionality. This class holds the most 
      basic assets needed to operate the Store.
 	 */
-    class CCSoomlaStore : public cocos2d::Ref {
+    class CCSoomlaStore : public cocos2d::CCObject {
     public:
         
 		/**
@@ -49,7 +49,7 @@ namespace soomla {
          Play, etc...).
          @param productId The product ID of the item in the market (App Store, 
                 Google Play, etc..).
-         @param soomlaError A CCSoomlaError for error checking.
+         @param soomlaError A CCError for error checking.
 		 */
         void buyMarketItem(const char *productId, const char *payload, CCError **error);
 

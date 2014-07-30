@@ -21,7 +21,7 @@
 USING_NS_CC;
 
 namespace soomla {
-    CCUpgradeVG *CCUpgradeVG::create(__String *goodItemId, __String *prevItemId, __String *nextItemId, __String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
+    CCUpgradeVG *CCUpgradeVG::create(CCString *goodItemId, CCString *prevItemId, CCString *nextItemId, CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
         CCUpgradeVG *ret = new CCUpgradeVG();
         if (ret->init(goodItemId, prevItemId, nextItemId, name, description, itemId, purchaseType)) {
             ret->autorelease();
@@ -33,7 +33,7 @@ namespace soomla {
         return ret;
     }
 
-    bool CCUpgradeVG::init(__String *goodItemId, __String *prevItemId, __String *nextItemId, __String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
+    bool CCUpgradeVG::init(CCString *goodItemId, CCString *prevItemId, CCString *nextItemId, CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
         bool res = CCVirtualGood::init(name, description, itemId, purchaseType);
         if (res) {
             setGoodItemId(goodItemId);
@@ -45,7 +45,7 @@ namespace soomla {
         }
     }
 
-    bool CCUpgradeVG::initWithDictionary(__Dictionary *dict) {
+    bool CCUpgradeVG::initWithDictionary(CCDictionary *dict) {
         bool res = CCVirtualGood::initWithDictionary(dict);
         if (res) {
             fillGoodItemIdFromDict(dict);
@@ -57,19 +57,19 @@ namespace soomla {
         }
     }
 
-    __Dictionary *CCUpgradeVG::toDictionary() {
-        __Dictionary *dict = CCVirtualGood::toDictionary();
+    CCDictionary *CCUpgradeVG::toDictionary() {
+        CCDictionary *dict = CCVirtualGood::toDictionary();
 
         putGoodItemIdToDict(dict);
         if (mPrevItemId != NULL) {
             putPrevItemIdToDict(dict);
         } else {
-            dict->setObject(__String::create(""), CCStoreConsts::JSON_VGU_PREV_ITEM_ID);
+            dict->setObject(CCString::create(""), CCStoreConsts::JSON_VGU_PREV_ITEM_ID);
         }
         if (mNextItemId != NULL) {
             putNextItemIdToDict(dict);
         } else {
-            dict->setObject(__String::create(""), CCStoreConsts::JSON_VGU_NEXT_ITEM_ID);
+            dict->setObject(CCString::create(""), CCStoreConsts::JSON_VGU_NEXT_ITEM_ID);
         }
 
         return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG);

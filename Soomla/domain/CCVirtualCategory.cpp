@@ -21,7 +21,7 @@
 USING_NS_CC;
 
 namespace soomla {
-    CCVirtualCategory *CCVirtualCategory::create(__String *name, __Array *goodItemIds) {
+    CCVirtualCategory *CCVirtualCategory::create(CCString *name, CCArray *goodItemIds) {
         CCVirtualCategory *ret = new CCVirtualCategory();
         if (ret->init(name, goodItemIds)) {
             ret->autorelease();
@@ -33,22 +33,22 @@ namespace soomla {
         return ret;
     }
 
-    bool CCVirtualCategory::init(__String *name, __Array *goodItemIds) {
+    bool CCVirtualCategory::init(CCString *name, CCArray *goodItemIds) {
         setName(name);
         setGoodItemIds(goodItemIds);
 
         return true;
     }
 
-    bool CCVirtualCategory::initWithDictionary(__Dictionary *dict) {
+    bool CCVirtualCategory::initWithDictionary(CCDictionary *dict) {
         fillNameFromDict(dict);
         fillGoodItemIdsFromDict(dict);
 
         return true;
     }
 
-    __Dictionary *CCVirtualCategory::toDictionary() {
-        __Dictionary *dict = __Dictionary::create();
+    CCDictionary *CCVirtualCategory::toDictionary() {
+        CCDictionary *dict = CCDictionary::create();
 
         putNameToDict(dict);
         putGoodItemIdsToDict(dict);

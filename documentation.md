@@ -124,10 +124,10 @@ Example:
  the given `goodItemId`.
  @param goodItemId Id of the virtual good whose upgrade id we want to
         know. The `goodItemId` can be of any `CCVirtualGood`.
- @param soomlaError A `CCSoomlaError` for error checking.
+ @param soomlaError A `CCError` for error checking.
  @return The upgrade id if exists, or empty string otherwise.
  */
- std::string getGoodCurrentUpgrade(const char *goodItemId, CCSoomlaError **soomlaError);
+ std::string getGoodCurrentUpgrade(const char *goodItemId, CCError **soomlaError);
 ```
 
 <br>
@@ -141,16 +141,16 @@ For non-trivial fields, write a clear description of the variable.
 
 Example:
 ```
-#define TAG "CCSoomlaError" // used for Log error messages
+#define TAG "CCError" // used for Log error messages
 
 // TAG is used for Log error messages ... more-text more-text more-text more-text...
-#define TAG "CCSoomlaError"
+#define TAG "CCError"
 
 /**
  TAG is used for Log error messages ... more-text more-text more-text more-text
  more-text more-text more-text more-text more-text more-text more-text more-text...
  */
-#define TAG "CCSoomlaError"
+#define TAG "CCError"
 ```
 
 

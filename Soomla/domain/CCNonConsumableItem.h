@@ -51,7 +51,7 @@ namespace soomla {
          @param purchaseType see parent.
          @return The non-consumable item.
 		*/
-		static CCNonConsumableItem * create(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId,
+		static CCNonConsumableItem * create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId,
             CCPurchaseType *purchaseType);
 
 		/**
@@ -62,7 +62,7 @@ namespace soomla {
 		*/
         SL_CREATE_WITH_DICTIONARY(CCNonConsumableItem);
 
-        virtual cocos2d::__Dictionary *toDictionary() override;
+        virtual cocos2d::CCDictionary *toDictionary();
     };
 };
 

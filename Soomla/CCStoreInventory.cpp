@@ -49,33 +49,33 @@ namespace soomla {
     }
 
     void CCStoreInventory::buyItem(char const *itemId, CCError **error) {
-        buyItem(itemId, nullptr, error);
+        buyItem(itemId, NULL, error);
     }
 
     void CCStoreInventory::buyItem(char const *itemId, const char *payload, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling buyItem with: %s", itemId)->getCString());
+                CCString::createWithFormat("SOOMLA/COCOS2DX Calling buyItem with: %s", itemId)->getCString());
 
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::buyItem"), "method");
-        params->setObject(__String::create(itemId), "itemId");
-        params->setObject(__String::create(payload != nullptr ? payload : ""), "payload");
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::buyItem"), "method");
+        params->setObject(CCString::create(itemId), "itemId");
+        params->setObject(CCString::create(payload != NULL ? payload : ""), "payload");
         CCNdkBridge::callNative (params, error);
     }
 
     int CCStoreInventory::getItemBalance(char const *itemId, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling getItemBalance with: %s", itemId)->getCString());
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::getItemBalance"), "method");
-        params->setObject(__String::create(itemId), "itemId");
-        __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
+                CCString::createWithFormat("SOOMLA/COCOS2DX Calling getItemBalance with: %s", itemId)->getCString());
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::getItemBalance"), "method");
+        params->setObject(CCString::create(itemId), "itemId");
+        CCDictionary *retParams = (CCDictionary *) CCNdkBridge::callNative (params, error);
 
         if (retParams == NULL) {
         	return 0;
         }
 
-		__Integer *retValue = (__Integer *) retParams->objectForKey("return");
+		CCInteger *retValue = (CCInteger *) retParams->objectForKey("return");
 		if (retValue) {
 			return retValue->getValue();
 		} else {
@@ -84,61 +84,61 @@ namespace soomla {
     }
 
     void CCStoreInventory::giveItem(char const *itemId, int amount, CCError **error) {
-        CCStoreUtils::logDebug(TAG, __String::createWithFormat(
+        CCStoreUtils::logDebug(TAG, CCString::createWithFormat(
                 "SOOMLA/COCOS2DX Calling giveItem with itemId: %s and amount %d", itemId, amount)->getCString());
 
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::giveItem"), "method");
-        params->setObject(__String::create(itemId), "itemId");
-        params->setObject(__Integer::create(amount), "amount");
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::giveItem"), "method");
+        params->setObject(CCString::create(itemId), "itemId");
+        params->setObject(CCInteger::create(amount), "amount");
         CCNdkBridge::callNative (params, error);
     }
 
     void CCStoreInventory::takeItem(char const *itemId, int amount, CCError **error) {
-        CCStoreUtils::logDebug(TAG, __String::createWithFormat(
+        CCStoreUtils::logDebug(TAG, CCString::createWithFormat(
                 "SOOMLA/COCOS2DX Calling takeItem with itemId: %s and amount %d", itemId, amount)->getCString());
 
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::takeItem"), "method");
-        params->setObject(__String::create(itemId), "itemId");
-        params->setObject(__Integer::create(amount), "amount");
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::takeItem"), "method");
+        params->setObject(CCString::create(itemId), "itemId");
+        params->setObject(CCInteger::create(amount), "amount");
         CCNdkBridge::callNative (params, error);
     }
 
     void CCStoreInventory::equipVirtualGood(char const *itemId, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling equipVirtualGood with: %s", itemId)->getCString());
+                CCString::createWithFormat("SOOMLA/COCOS2DX Calling equipVirtualGood with: %s", itemId)->getCString());
 
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::equipVirtualGood"), "method");
-        params->setObject(__String::create(itemId), "itemId");
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::equipVirtualGood"), "method");
+        params->setObject(CCString::create(itemId), "itemId");
         CCNdkBridge::callNative (params, error);
    }
 
     void CCStoreInventory::unEquipVirtualGood(char const *itemId, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling unEquipVirtualGood with: %s", itemId)->getCString());
+                CCString::createWithFormat("SOOMLA/COCOS2DX Calling unEquipVirtualGood with: %s", itemId)->getCString());
 
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::unEquipVirtualGood"), "method");
-        params->setObject(__String::create(itemId), "itemId");
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::unEquipVirtualGood"), "method");
+        params->setObject(CCString::create(itemId), "itemId");
         CCNdkBridge::callNative (params, error);
     }
 
     bool CCStoreInventory::isVirtualGoodEquipped(char const *itemId, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling isVirtualGoodEquipped with: %s", itemId)->getCString());
+                CCString::createWithFormat("SOOMLA/COCOS2DX Calling isVirtualGoodEquipped with: %s", itemId)->getCString());
 
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::isVirtualGoodEquipped"), "method");
-        params->setObject(__String::create(itemId), "itemId");
-        __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::isVirtualGoodEquipped"), "method");
+        params->setObject(CCString::create(itemId), "itemId");
+        CCDictionary *retParams = (CCDictionary *) CCNdkBridge::callNative (params, error);
 
         if (retParams == NULL) {
         	return false;
         }
 
-		__Bool *retValue = (__Bool *) retParams->objectForKey("return");
+		CCBool *retValue = (CCBool *) retParams->objectForKey("return");
 		if (retValue) {
 			return retValue->getValue();
 		} else {
@@ -148,17 +148,17 @@ namespace soomla {
 
     int CCStoreInventory::getGoodUpgradeLevel(char const *goodItemId, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling getGoodUpgradeLevel with: %s", goodItemId)->getCString());
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::getGoodUpgradeLevel"), "method");
-        params->setObject(__String::create(goodItemId), "goodItemId");
-        __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
+                CCString::createWithFormat("SOOMLA/COCOS2DX Calling getGoodUpgradeLevel with: %s", goodItemId)->getCString());
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::getGoodUpgradeLevel"), "method");
+        params->setObject(CCString::create(goodItemId), "goodItemId");
+        CCDictionary *retParams = (CCDictionary *) CCNdkBridge::callNative (params, error);
 
         if (retParams == NULL) {
         	return 0;
         }
 
-		__Integer *retValue = (__Integer *) retParams->objectForKey("return");
+		CCInteger *retValue = (CCInteger *) retParams->objectForKey("return");
 		if (retValue) {
 			return retValue->getValue();
 		} else {
@@ -168,17 +168,17 @@ namespace soomla {
 
     std::string CCStoreInventory::getGoodCurrentUpgrade(char const *goodItemId, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling getGoodCurrentUpgrade with: %s", goodItemId)->getCString());
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::getGoodCurrentUpgrade"), "method");
-        params->setObject(__String::create(goodItemId), "goodItemId");
-        __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
+                CCString::createWithFormat("SOOMLA/COCOS2DX Calling getGoodCurrentUpgrade with: %s", goodItemId)->getCString());
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::getGoodCurrentUpgrade"), "method");
+        params->setObject(CCString::create(goodItemId), "goodItemId");
+        CCDictionary *retParams = (CCDictionary *) CCNdkBridge::callNative (params, error);
 
         if (retParams == NULL) {
         	return "";
         }
 
-		__String *retValue = (__String *) retParams->objectForKey("return");
+		CCString *retValue = (CCString *) retParams->objectForKey("return");
 		if (retValue) {
 			return retValue->getCString();
 		} else {
@@ -188,38 +188,38 @@ namespace soomla {
 
     void CCStoreInventory::upgradeGood(char const *goodItemId, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling upgradeGood with: %s", goodItemId)->getCString());
+                CCString::createWithFormat("SOOMLA/COCOS2DX Calling upgradeGood with: %s", goodItemId)->getCString());
 
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::upgradeGood"), "method");
-        params->setObject(__String::create(goodItemId), "goodItemId");
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::upgradeGood"), "method");
+        params->setObject(CCString::create(goodItemId), "goodItemId");
         CCNdkBridge::callNative (params, error);
     }
 
     void CCStoreInventory::removeGoodUpgrades(char const *goodItemId, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling removeGoodUpgrades with: %s", goodItemId)->getCString());
+                CCString::createWithFormat("SOOMLA/COCOS2DX Calling removeGoodUpgrades with: %s", goodItemId)->getCString());
 
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::removeGoodUpgrades"), "method");
-        params->setObject(__String::create(goodItemId), "goodItemId");
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::removeGoodUpgrades"), "method");
+        params->setObject(CCString::create(goodItemId), "goodItemId");
         CCNdkBridge::callNative (params, error);
     }
 
     bool CCStoreInventory::nonConsumableItemExists(char const *nonConsItemId, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling nonConsumableItemExists with: %s", nonConsItemId)->getCString());
+                CCString::createWithFormat("SOOMLA/COCOS2DX Calling nonConsumableItemExists with: %s", nonConsItemId)->getCString());
 
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::nonConsumableItemExists"), "method");
-        params->setObject(__String::create(nonConsItemId), "nonConsItemId");
-        __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::nonConsumableItemExists"), "method");
+        params->setObject(CCString::create(nonConsItemId), "nonConsItemId");
+        CCDictionary *retParams = (CCDictionary *) CCNdkBridge::callNative (params, error);
 
         if (retParams == NULL) {
         	return false;
         }
 
-		__Bool *retValue = (__Bool *) retParams->objectForKey("return");
+		CCBool *retValue = (CCBool *) retParams->objectForKey("return");
 		if (retValue) {
 			return retValue->getValue();
 		} else {
@@ -229,21 +229,21 @@ namespace soomla {
 
     void CCStoreInventory::addNonConsumableItem(char const *nonConsItemId, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling addNonConsumableItem with: %s", nonConsItemId)->getCString());
+                CCString::createWithFormat("SOOMLA/COCOS2DX Calling addNonConsumableItem with: %s", nonConsItemId)->getCString());
 
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::addNonConsumableItem"), "method");
-        params->setObject(__String::create(nonConsItemId), "nonConsItemId");
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::addNonConsumableItem"), "method");
+        params->setObject(CCString::create(nonConsItemId), "nonConsItemId");
         CCNdkBridge::callNative (params, error);
    }
 
     void CCStoreInventory::removeNonConsumableItem(char const *nonConsItemId, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling removeNonConsumableItem with: %s", nonConsItemId)->getCString());
+                CCString::createWithFormat("SOOMLA/COCOS2DX Calling removeNonConsumableItem with: %s", nonConsItemId)->getCString());
 
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::removeNonConsumableItem"), "method");
-        params->setObject(__String::create(nonConsItemId), "nonConsItemId");
+        CCDictionary *params = CCDictionary::create();
+        params->setObject(CCString::create("CCStoreInventory::removeNonConsumableItem"), "method");
+        params->setObject(CCString::create(nonConsItemId), "nonConsItemId");
         CCNdkBridge::callNative (params, error);
     }
 }

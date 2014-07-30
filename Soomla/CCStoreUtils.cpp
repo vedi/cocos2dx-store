@@ -22,7 +22,7 @@
 namespace soomla {
     void CCStoreUtils::logDebug(const char *tag, const char *message) {
         if (SOOMLA_DEBUG) {
-            cocos2d::log("%s %s", tag, message);
+            CCLOG("%s %s", tag, message);
         }
     }
     void CCStoreUtils::logError(const char *tag, const char *message) {
@@ -31,7 +31,7 @@ namespace soomla {
 
     void CCStoreUtils::logException(char const *tag, CCError *error) {
         CC_ASSERT(error);
-        cocos2d::log("%s Soomla error: %s", tag, error->getInfo());
+        CCLOG("%s Soomla error: %s", tag, error->getInfo());
     }
 
 };

@@ -32,7 +32,7 @@ namespace soomla {
      `CCSoomla::addEventHandler()` to work with the events. Functions are
      called when their corresponding events are fired in the SOOMLA SDK.
 	 */
-    class CCStoreEventHandler : public cocos2d::Ref {
+    class CCStoreEventHandler : public cocos2d::CCObject {
     public:
         
         /**
@@ -115,7 +115,7 @@ namespace soomla {
         @param purchasableVirtualItem The market item being purchased.
         @param receiptUrl Receipt URL from the store.
         */
-        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *token, cocos2d::__String *payload) = 0;
+        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *token, cocos2d::CCString *payload) = 0;
 
         /**
         Handles an `onMarketPurchaseStarted` event, which is fired when a

@@ -45,7 +45,7 @@ namespace soomla {
          @param itemId The item's itemId.
          @return The virtual item.
 		*/
-        static CCVirtualItem * create(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId);
+        static CCVirtualItem * create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
 
         /**
          Creates a `CCVirtualItem` from a dictionary.
@@ -59,9 +59,9 @@ namespace soomla {
         Converts this `CCVirtualItem` to a `CCDictionary`.
         @return `CCDictionary` representation of this `CCVirtualItem`.
         */
-        virtual cocos2d::__Dictionary* toDictionary();
+        virtual cocos2d::CCDictionary* toDictionary();
 
-        cocos2d::__String *getItemId();
+        cocos2d::CCString *getItemId();
     };
     
 }

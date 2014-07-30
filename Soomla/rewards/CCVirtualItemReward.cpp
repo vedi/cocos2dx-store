@@ -6,11 +6,11 @@
 #include "CCStoreConsts.h"
 
 soomla::CCVirtualItemReward *soomla::CCVirtualItemReward::create(
-        cocos2d::__String *rewardId,
-        cocos2d::__String *name,
-        cocos2d::__Bool *repeatable,
-        cocos2d::__Integer *amount,
-        cocos2d::__String *associatedItemId
+        cocos2d::CCString *rewardId,
+        cocos2d::CCString *name,
+        cocos2d::CCBool *repeatable,
+        cocos2d::CCInteger *amount,
+        cocos2d::CCString *associatedItemId
 ) {
 
     CCVirtualItemReward *ret = new CCVirtualItemReward();
@@ -24,11 +24,11 @@ soomla::CCVirtualItemReward *soomla::CCVirtualItemReward::create(
 }
 
 bool soomla::CCVirtualItemReward::init(
-        cocos2d::__String *rewardId,
-        cocos2d::__String *name,
-        cocos2d::__Bool *repeatable,
-        cocos2d::__Integer *amount,
-        cocos2d::__String *associatedItemId
+        cocos2d::CCString *rewardId,
+        cocos2d::CCString *name,
+        cocos2d::CCBool *repeatable,
+        cocos2d::CCInteger *amount,
+        cocos2d::CCString *associatedItemId
 ) {
 
     bool result = CCReward::init(rewardId, name, repeatable);
@@ -42,7 +42,7 @@ bool soomla::CCVirtualItemReward::init(
     }
 }
 
-bool soomla::CCVirtualItemReward::initWithDictionary(cocos2d::__Dictionary *dict) {
+bool soomla::CCVirtualItemReward::initWithDictionary(cocos2d::CCDictionary *dict) {
     CCReward::initWithDictionary(dict);
 
     fillAmountFromDict(dict);
@@ -51,8 +51,8 @@ bool soomla::CCVirtualItemReward::initWithDictionary(cocos2d::__Dictionary *dict
     return true;
 }
 
-cocos2d::__Dictionary *soomla::CCVirtualItemReward::toDictionary() {
-    cocos2d::__Dictionary *dict = CCReward::toDictionary();
+cocos2d::CCDictionary *soomla::CCVirtualItemReward::toDictionary() {
+    cocos2d::CCDictionary *dict = CCReward::toDictionary();
 
     putAmountToDict(dict);
     putAssociatedItemIdToDict(dict);
