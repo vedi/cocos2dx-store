@@ -1,4 +1,4 @@
-*This branch contains the code for cocos2d-x v3.x, and was optimized and tested for v3.1. For cocos2d-x v2.x use `master` branch.* 
+*This branch contains the code for cocos2d-x v3.x, and was optimized and tested for v3.1. For cocos2d-x v2.x use `cocos2dx-v2` branch.* 
 
 *This project is a part of [The SOOMLA Project](http://project.soom.la) which is a series of open source initiatives with a joint goal to help mobile game developers get better stores and more in-app purchases.*
 
@@ -26,7 +26,7 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 **October 27, 2013**: cocos2dx-store has been updated since its last version. Everything has been rewritten from scratch and is much more Cocos2d-x friendly. cocos2dx-store allows your Cocos2d-x game to use SOOMLA's in app purchasing services and storage. cocos2dx-store has also been updated to use the third version of our economy model: modelV3.
 
-> cocos2dx-store currently supports all Cocos2d-x 3.x, and 2.x versions. At the moment code related to v2 is in `master` branch, v3 is in `cocos2dx-v3` branch.
+> cocos2dx-store currently supports all Cocos2d-x 3.x, and 2.x versions. At the moment code related to v2 is in `cocos2dx-v3` branch, v3 is in `master` branch.
 
 The current virtual economy model is called **modelV3**. Want to learn more about it? Try these links:
 * [Economy Model Objects](https://github.com/soomla/cocos2dx-store/wiki/Economy-Model-Objects)
