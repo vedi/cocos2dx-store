@@ -2,7 +2,7 @@
  * Created by vedi on 1/21/14.
  */
 
-var PrevSoomla = (typeof Soomla === 'undefined' ? {} : Soomla);
+var PrevSoomla = Soomla;
 Soomla = new function () {
 
   var Soomla = _.extend(PrevSoomla, {Models: {}}); // merge with binding instance

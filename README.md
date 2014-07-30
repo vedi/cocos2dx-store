@@ -1,4 +1,4 @@
-*This branch contains the code for cocos2d-x v3.x, and was optimized and tested for v3.1. For cocos2d-x v2.x use `master` branch.* 
+*This branch contains the code for cocos2d-x v2.x, and was optimized and tested for v2.2.5. For cocos2d-x v3.x use `master` branch.* 
 
 *This project is a part of [The SOOMLA Project](http://project.soom.la) which is a series of open source initiatives with a joint goal to help mobile game developers get better stores and more in-app purchases.*
 
@@ -26,7 +26,7 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
 
 **October 27, 2013**: cocos2dx-store has been updated since its last version. Everything has been rewritten from scratch and is much more Cocos2d-x friendly. cocos2dx-store allows your Cocos2d-x game to use SOOMLA's in app purchasing services and storage. cocos2dx-store has also been updated to use the third version of our economy model: modelV3.
 
-> cocos2dx-store currently supports all Cocos2d-x 3.x, and 2.x versions. At the moment code related to v2 is in `master` branch, v3 is in `cocos2dx-v3` branch.
+> cocos2dx-store currently supports all Cocos2d-x 3.x, and 2.x versions. At the moment code related to v2 is in `cocos2dx-v2` branch, v3 is in `master` branch.
 
 The current virtual economy model is called **modelV3**. Want to learn more about it? Try these links:
 * [Economy Model Objects](https://github.com/soomla/cocos2dx-store/wiki/Economy-Model-Objects)
@@ -60,7 +60,7 @@ The example project is still under development but it already has some important
     $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
     ```
 
-1. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your framework.
+1. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your cocos2d-x framework.
     ```
     $ git clone git@github.com:vedi/jansson.git external/jansson
     ```
@@ -109,6 +109,8 @@ And that's it! You now have storage and in-app purchasing capabilities.
 #### Instructions for iOS
 
 In your XCode project, perform following steps:
+
+1. Add `jansson` (**external/jansson/**) to sources of your project.
 
 1. Add `Cocos2dXCore.xcodeproj` (**extensions/soomla-cocos2dx-core/**) as linked project to your project.
 
@@ -187,8 +189,7 @@ If you're building your application for the Android platform, here are some inst
 
     <application ...
     	       android:name="com.soomla.store.SoomlaApp">
-        <activity android:name="com.soomla.store.StoreController$IabActivity"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+    	       ...
     </application>
     ```
 
@@ -257,7 +258,7 @@ When we implemented modelV3, we were thinking about ways that people buy things 
 - **CCPurchaseWithMarket** is a `CCPurchaseType` that allows users to purchase a `CCVirtualItem` with Google Play or the App Store.
 - **CCPurchaseWithVirtualItem** is a `CCPurchaseType` that lets your users purchase a `CCVirtualItem` with another `CCVirtualItem`. For example: Buying a sword with 100 gems.
 
-In order to define the way your various virtual items are purchased, you'll need to create your implementation of `CCIStoreAssets` (the same one from step 5 in the [Getting Started](https://github.com/soomla/cocos2dx-store#getting-started) section above).
+In order to define the way your various virtual items are purchased, you'll need to create your implementation of `CCStoreAssets` (the same one from step 5 in the [Getting Started](https://github.com/soomla/cocos2dx-store#getting-started) section above).
 
 Here is an example:
 
@@ -294,7 +295,7 @@ And that's it! cocos2dx-store knows how to contact Google Play or the App Store 
 
 `CCStoreInventory` and `CCStoreInfo` are important storage and metadata classes you should use when you want to perform all store operations:
 * `CCStoreInventory` is a convenience class to let you perform operations on `CCVirtualCurrencies` and `CCVirtualGood`s. Use it to fetch/change the balances of `CCVirtualItem`s in your game (using their ItemIds!)  
-* `CCStoreInfo` is where all meta data information about your specific game can be retrieved. It is initialized with your implementation of `CCIStoreAssets` and you can use it to retrieve information about your specific game.
+* `CCStoreInfo` is where all meta data information about your specific game can be retrieved. It is initialized with your implementation of `CCStoreAssets` and you can use it to retrieve information about your specific game.
 
 The on-device storage is encrypted and kept in a SQLite database. SOOMLA has a [cloud-based](http://dashboard.soom.la) storage service (The SOOMLA Highway) that allows this SQLite to be synced to a cloud-based repository that you define.
 
@@ -364,7 +365,7 @@ You can choose to handle each exception on its own, handle all three at once, or
 ## iOS Server Side Verification
 
 As you probably know, fraud on IAP is pretty common. Hackers can crack their smartphones to think that a purchase is made when payment wasn't actually transferred to you. We want to help you with it so we created our verification server and we let you instantly use it through the framework.
-All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to `CCSoomlaStore` for C++ or to `Soomla.StoreController` for JS:
+All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to `CCSoomlaStore`:
 
 ```cpp
 storeParams->setObject(Bool::create(true), "SSV");
