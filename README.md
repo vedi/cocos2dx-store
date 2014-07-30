@@ -60,7 +60,7 @@ The example project is still under development but it already has some important
     $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
     ```
 
-1. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your framework.
+1. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your cocos2d-x framework.
     ```
     $ git clone git@github.com:vedi/jansson.git external/jansson
     ```
@@ -109,6 +109,8 @@ And that's it! You now have storage and in-app purchasing capabilities.
 #### Instructions for iOS
 
 In your XCode project, perform following steps:
+
+1. Add `jansson` (**external/jansson/**) to sources of your project.
 
 1. Add `Cocos2dXCore.xcodeproj` (**extensions/soomla-cocos2dx-core/**) as linked project to your project.
 
@@ -187,8 +189,7 @@ If you're building your application for the Android platform, here are some inst
 
     <application ...
     	       android:name="com.soomla.store.SoomlaApp">
-        <activity android:name="com.soomla.store.StoreController$IabActivity"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+    	       ...
     </application>
     ```
 
@@ -238,12 +239,12 @@ C++
 ```cpp
 // Start Iab Service
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	CCStoreController::sharedStoreController()->startIabServiceInBg();
+	CCSoomlaStore::getInstance()->startIabServiceInBg();
 #endif
 
 // Stop Iab Service
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	CCStoreController::sharedStoreController()->stopIabServiceInBg();
+	CCSoomlaStore::getInstance()->stopIabServiceInBg();
 #endif
 ```
 
@@ -257,7 +258,7 @@ When we implemented modelV3, we were thinking about ways that people buy things 
 - **CCPurchaseWithMarket** is a `CCPurchaseType` that allows users to purchase a `CCVirtualItem` with Google Play or the App Store.
 - **CCPurchaseWithVirtualItem** is a `CCPurchaseType` that lets your users purchase a `CCVirtualItem` with another `CCVirtualItem`. For example: Buying a sword with 100 gems.
 
-In order to define the way your various virtual items are purchased, you'll need to create your implementation of `CCIStoreAssets` (the same one from step 5 in the [Getting Started](https://github.com/soomla/cocos2dx-store#getting-started) section above).
+In order to define the way your various virtual items are purchased, you'll need to create your implementation of `CCStoreAssets` (the same one from step 5 in the [Getting Started](https://github.com/soomla/cocos2dx-store#getting-started) section above).
 
 Here is an example:
 
@@ -294,7 +295,7 @@ And that's it! cocos2dx-store knows how to contact Google Play or the App Store 
 
 `CCStoreInventory` and `CCStoreInfo` are important storage and metadata classes you should use when you want to perform all store operations:
 * `CCStoreInventory` is a convenience class to let you perform operations on `CCVirtualCurrencies` and `CCVirtualGood`s. Use it to fetch/change the balances of `CCVirtualItem`s in your game (using their ItemIds!)  
-* `CCStoreInfo` is where all meta data information about your specific game can be retrieved. It is initialized with your implementation of `CCIStoreAssets` and you can use it to retrieve information about your specific game.
+* `CCStoreInfo` is where all meta data information about your specific game can be retrieved. It is initialized with your implementation of `CCStoreAssets` and you can use it to retrieve information about your specific game.
 
 The on-device storage is encrypted and kept in a SQLite database. SOOMLA has a [cloud-based](http://dashboard.soom.la) storage service (The SOOMLA Highway) that allows this SQLite to be synced to a cloud-based repository that you define.
 
@@ -338,7 +339,7 @@ The `CCStoreEventDispatcher` class is where all events go through. To handle var
 
 Since Cocos2d-x doesn't support exceptions, we use a different method to catch and work with exceptions on the native side. All functions that raise an exception on the native side have an additional *CCError*** parameter to them. In order to know if an exception was raised, send a reference to *CCError** to the function, and inspect it after running.
 
-For example, if I want to purchase an item with the ItemID `huge_sword`, and check if all went well after the purchase, I would call `CCStoreController::buyItem()`, like this:
+For example, if I want to purchase an item with the ItemID `huge_sword`, and check if all went well after the purchase, I would call `CCSoomlaStore::buyItem()`, like this:
 
 ```c++
 soomla::CCError *err;
@@ -364,7 +365,7 @@ You can choose to handle each exception on its own, handle all three at once, or
 ## iOS Server Side Verification
 
 As you probably know, fraud on IAP is pretty common. Hackers can crack their smartphones to think that a purchase is made when payment wasn't actually transferred to you. We want to help you with it so we created our verification server and we let you instantly use it through the framework.
-All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to `CCStoreController` for C++ or to `Soomla.StoreController` for JS:
+All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to `CCSoomlaStore`:
 
 ```cpp
 storeParams->setObject(Bool::create(true), "SSV");
