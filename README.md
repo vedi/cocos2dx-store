@@ -188,7 +188,7 @@ If you're building your application for the Android platform, here are some inst
     <uses-permission android:name="com.android.vending.BILLING"/>
 
     <application ...
-    	       android:name="com.soomla.store.SoomlaApp">
+    	       android:name="com.soomla.SoomlaApp">
     	       ...
     </application>
     ```
