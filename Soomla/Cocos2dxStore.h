@@ -15,7 +15,7 @@
 #include "CCSoomlaStore.h"
 #include "CCStoreInfo.h"
 #include "CCStoreInventory.h"
-#include "CCStoreUtils.h"
+#include "CCSoomlaUtils.h"
 #include "CCUpgradeVG.h"
 #include "CCVirtualCategory.h"
 #include "CCVirtualCurrency.h"

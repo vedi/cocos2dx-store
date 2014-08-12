@@ -33,7 +33,7 @@ namespace soomla {
         return ret;
     }
 
-    cocos2d::__Dictionary *CCNonConsumableItem::toDictionary() {
-        return this->putTypeData(CCPurchasableVirtualItem::toDictionary(), CCStoreConsts::JSON_JSON_TYPE_NON_CONSUMABLE_ITEM);
+    const char *CCNonConsumableItem::getType() {
+        return CCStoreConsts::JSON_JSON_TYPE_NON_CONSUMABLE_ITEM;
     }
 };

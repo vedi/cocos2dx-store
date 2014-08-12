@@ -55,13 +55,9 @@ namespace soomla {
 		*/
         SL_CREATE_WITH_DICTIONARY(CCVirtualItem);
 
-        /**
-        Converts this `CCVirtualItem` to a `CCDictionary`.
-        @return `CCDictionary` representation of this `CCVirtualItem`.
-        */
-        virtual cocos2d::__Dictionary* toDictionary();
-
         cocos2d::__String *getItemId();
+
+        virtual const char *getType();
     };
     
 }

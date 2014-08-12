@@ -6,7 +6,7 @@
 #include "CCSoomlaEventDispatcher.h"
 #include "CCError.h"
 #include "CCStoreInfo.h"
-#include "CCStoreUtils.h"
+#include "CCSoomlaUtils.h"
 #include "CCPurchaseWithMarket.h"
 
 namespace soomla {
@@ -51,7 +51,7 @@ namespace soomla {
                     CCVirtualCurrency *virtualCurrency =
                             dynamic_cast<CCVirtualCurrency *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_CURRENCY_BALANCE_CHANGED, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_CURRENCY_BALANCE_CHANGED, error);
                         return;
                     }
                     CC_ASSERT(virtualCurrency);
@@ -67,7 +67,7 @@ namespace soomla {
                     CCVirtualGood *virtualGood =
                             dynamic_cast<CCVirtualGood *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_GOOD_BALANCE_CHANGED, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_GOOD_BALANCE_CHANGED, error);
                         return;
                     }
                     CC_ASSERT(virtualGood);
@@ -81,7 +81,7 @@ namespace soomla {
                     CCEquippableVG *equippableVG =
                             dynamic_cast<CCEquippableVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_GOOD_EQUIPPED, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_GOOD_EQUIPPED, error);
                         return;
                     }
                     CC_ASSERT(equippableVG);
@@ -95,7 +95,7 @@ namespace soomla {
                     CCEquippableVG *equippableVG =
                             dynamic_cast<CCEquippableVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_GOOD_UNEQUIPPED, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_GOOD_UNEQUIPPED, error);
                         return;
                     }
                     CC_ASSERT(equippableVG);
@@ -113,7 +113,7 @@ namespace soomla {
                     CCVirtualGood *virtualGood =
                             dynamic_cast<CCVirtualGood *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_GOOD_UPGRADE, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_GOOD_UPGRADE, error);
                         return;
                     }
                     CC_ASSERT(virtualGood);
@@ -122,7 +122,7 @@ namespace soomla {
                     CCUpgradeVG *upgradeVG =
                             dynamic_cast<CCUpgradeVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(vguItemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_GOOD_UPGRADE, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_GOOD_UPGRADE, error);
                         return;
                     }
                     CC_ASSERT(upgradeVG);
@@ -136,7 +136,7 @@ namespace soomla {
                     CCPurchasableVirtualItem *purchasableVirtualItem =
                             dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_ITEM_PURCHASED, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_ITEM_PURCHASED, error);
                         return;
                     }
                     CC_ASSERT(purchasableVirtualItem);
@@ -150,7 +150,7 @@ namespace soomla {
                     CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(
                             CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_ITEM_PURCHASE_STARTED, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_ITEM_PURCHASE_STARTED, error);
                         return;
                     }
                     CC_ASSERT(purchasableVirtualItem);
@@ -164,7 +164,7 @@ namespace soomla {
                     CCPurchasableVirtualItem *purchasableVirtualItem =
                             dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE_CANCELED, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE_CANCELED, error);
                         return;
                     }
                     CC_ASSERT(purchasableVirtualItem);
@@ -178,7 +178,7 @@ namespace soomla {
                     CCPurchasableVirtualItem *purchasableVirtualItem =
                             dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE, error);
                         return;
                     }
                     CC_ASSERT(purchasableVirtualItem);
@@ -195,7 +195,7 @@ namespace soomla {
                     CCPurchasableVirtualItem *purchasableVirtualItem = dynamic_cast<CCPurchasableVirtualItem *>(
                             CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE_STARTED, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE_STARTED, error);
                         return;
                     }
                     CC_ASSERT(purchasableVirtualItem);
@@ -209,7 +209,7 @@ namespace soomla {
                     CCPurchasableVirtualItem *purchasableVirtualItem =
                             dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE_STARTED, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE_STARTED, error);
                         return;
                     }
                     CC_ASSERT(purchasableVirtualItem);
@@ -233,7 +233,7 @@ namespace soomla {
                         CCPurchasableVirtualItem *pvi = CCStoreInfo::sharedStoreInfo()->getPurchasableItemWithProductId(
                                 productId->getCString(), &error);
                         if (error) {
-                            CCStoreUtils::logException(CCStoreConsts::EVENT_MARKET_ITEMS_REFRESHED, error);
+                            CCSoomlaUtils::logException(CCStoreConsts::EVENT_MARKET_ITEMS_REFRESHED, error);
                             return;
                         }
                         CC_ASSERT(pvi);
@@ -262,7 +262,7 @@ namespace soomla {
                     CCPurchasableVirtualItem *purchasableVirtualItem =
                             dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE_VERIFICATION, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE_VERIFICATION, error);
                         return;
                     }
                     CC_ASSERT(purchasableVirtualItem);

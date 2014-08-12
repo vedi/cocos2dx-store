@@ -31,7 +31,7 @@ namespace soomla {
         return ret;
     }
 
-    cocos2d::__Dictionary *CCSingleUseVG::toDictionary() {
-        return this->putTypeData(CCPurchasableVirtualItem::toDictionary(), CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_VG);
+    const char *CCSingleUseVG::getType() {
+        return CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_VG;
     }
 }

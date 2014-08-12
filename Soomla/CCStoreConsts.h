@@ -21,10 +21,10 @@
 * This class contains all static const String names of the keys/vals in the
 * JSON being parsed all around the SDK.
 */
-#include "CCCommonConsts.h"
+#include "CCCoreConsts.h"
 
 namespace soomla {
-    class CCStoreConsts: public CCCommonConsts {
+    class CCStoreConsts: public CCCoreConsts {
     public:
         static char const *JSON_STORE_CURRENCIES;
         static char const *JSON_STORE_CURRENCY_PACKS;

@@ -99,6 +99,8 @@ namespace soomla {
         cocos2d::__Dictionary *toDictionary();
 
         virtual ~CCUpgradeVG();
+
+        virtual const char *getType();
     };
 };
 

@@ -33,8 +33,7 @@ namespace soomla {
         return ret;
     }
 
-
-    cocos2d::__Dictionary *CCVirtualGood::toDictionary() {
-        return this->putTypeData(CCPurchasableVirtualItem::toDictionary(), CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_GOOD);
+    const char *CCVirtualGood::getType() {
+        return CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_GOOD;
     }
 }

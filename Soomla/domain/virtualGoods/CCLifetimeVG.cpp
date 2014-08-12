@@ -35,7 +35,7 @@ namespace soomla {
         return ret;
     }
 
-    cocos2d::__Dictionary *CCLifetimeVG::toDictionary() {
-        return this->putTypeData(CCPurchasableVirtualItem::toDictionary(), CCStoreConsts::JSON_JSON_TYPE_LIFETIME_VG);
+    const char *CCLifetimeVG::getType() {
+        return CCStoreConsts::JSON_JSON_TYPE_LIFETIME_VG;
     }
 }

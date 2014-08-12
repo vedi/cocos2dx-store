@@ -34,9 +34,8 @@ namespace soomla {
         return ret;
     }
 
-    __Dictionary *CCVirtualItem::toDictionary() {
-        __Dictionary *dict = CCSoomlaEntity::toDictionary();
-        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM);
+    const char *CCVirtualItem::getType() {
+        return CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM;
     }
 
     __String *CCVirtualItem::getItemId() {

@@ -63,7 +63,7 @@ namespace soomla {
 		*/
         SL_CREATE_WITH_DICTIONARY(CCLifetimeVG);
 
-        virtual cocos2d::__Dictionary *toDictionary() override;
+        virtual const char *getType();
     };
 };
 

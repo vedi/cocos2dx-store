@@ -17,7 +17,7 @@
 // Created by Fedor Shubin on 5/21/13.
 
 #include "CCStoreInventory.h"
-#include "CCStoreUtils.h"
+#include "CCSoomlaUtils.h"
 #include "CCNdkBridge.h"
 
 namespace soomla {
@@ -53,7 +53,7 @@ namespace soomla {
     }
 
     void CCStoreInventory::buyItem(char const *itemId, const char *payload, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling buyItem with: %s", itemId)->getCString());
 
         __Dictionary *params = __Dictionary::create();
@@ -64,7 +64,7 @@ namespace soomla {
     }
 
     int CCStoreInventory::getItemBalance(char const *itemId, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling getItemBalance with: %s", itemId)->getCString());
         __Dictionary *params = __Dictionary::create();
         params->setObject(__String::create("CCStoreInventory::getItemBalance"), "method");
@@ -84,7 +84,7 @@ namespace soomla {
     }
 
     void CCStoreInventory::giveItem(char const *itemId, int amount, CCError **error) {
-        CCStoreUtils::logDebug(TAG, __String::createWithFormat(
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat(
                 "SOOMLA/COCOS2DX Calling giveItem with itemId: %s and amount %d", itemId, amount)->getCString());
 
         __Dictionary *params = __Dictionary::create();
@@ -95,7 +95,7 @@ namespace soomla {
     }
 
     void CCStoreInventory::takeItem(char const *itemId, int amount, CCError **error) {
-        CCStoreUtils::logDebug(TAG, __String::createWithFormat(
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat(
                 "SOOMLA/COCOS2DX Calling takeItem with itemId: %s and amount %d", itemId, amount)->getCString());
 
         __Dictionary *params = __Dictionary::create();
@@ -106,7 +106,7 @@ namespace soomla {
     }
 
     void CCStoreInventory::equipVirtualGood(char const *itemId, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling equipVirtualGood with: %s", itemId)->getCString());
 
         __Dictionary *params = __Dictionary::create();
@@ -116,7 +116,7 @@ namespace soomla {
    }
 
     void CCStoreInventory::unEquipVirtualGood(char const *itemId, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling unEquipVirtualGood with: %s", itemId)->getCString());
 
         __Dictionary *params = __Dictionary::create();
@@ -126,7 +126,7 @@ namespace soomla {
     }
 
     bool CCStoreInventory::isVirtualGoodEquipped(char const *itemId, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling isVirtualGoodEquipped with: %s", itemId)->getCString());
 
         __Dictionary *params = __Dictionary::create();
@@ -147,7 +147,7 @@ namespace soomla {
     }
 
     int CCStoreInventory::getGoodUpgradeLevel(char const *goodItemId, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling getGoodUpgradeLevel with: %s", goodItemId)->getCString());
         __Dictionary *params = __Dictionary::create();
         params->setObject(__String::create("CCStoreInventory::getGoodUpgradeLevel"), "method");
@@ -167,7 +167,7 @@ namespace soomla {
     }
 
     std::string CCStoreInventory::getGoodCurrentUpgrade(char const *goodItemId, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling getGoodCurrentUpgrade with: %s", goodItemId)->getCString());
         __Dictionary *params = __Dictionary::create();
         params->setObject(__String::create("CCStoreInventory::getGoodCurrentUpgrade"), "method");
@@ -187,7 +187,7 @@ namespace soomla {
     }
 
     void CCStoreInventory::upgradeGood(char const *goodItemId, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling upgradeGood with: %s", goodItemId)->getCString());
 
         __Dictionary *params = __Dictionary::create();
@@ -197,7 +197,7 @@ namespace soomla {
     }
 
     void CCStoreInventory::removeGoodUpgrades(char const *goodItemId, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling removeGoodUpgrades with: %s", goodItemId)->getCString());
 
         __Dictionary *params = __Dictionary::create();
@@ -207,7 +207,7 @@ namespace soomla {
     }
 
     bool CCStoreInventory::nonConsumableItemExists(char const *nonConsItemId, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling nonConsumableItemExists with: %s", nonConsItemId)->getCString());
 
         __Dictionary *params = __Dictionary::create();
@@ -228,7 +228,7 @@ namespace soomla {
     }
 
     void CCStoreInventory::addNonConsumableItem(char const *nonConsItemId, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling addNonConsumableItem with: %s", nonConsItemId)->getCString());
 
         __Dictionary *params = __Dictionary::create();
@@ -238,7 +238,7 @@ namespace soomla {
    }
 
     void CCStoreInventory::removeNonConsumableItem(char const *nonConsItemId, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
                 __String::createWithFormat("SOOMLA/COCOS2DX Calling removeNonConsumableItem with: %s", nonConsItemId)->getCString());
 
         __Dictionary *params = __Dictionary::create();

@@ -80,6 +80,8 @@ namespace soomla {
         cocos2d::__Dictionary *toDictionary();
 
         virtual ~CCVirtualCurrencyPack();
+
+        virtual const char *getType();
     };
 };
 

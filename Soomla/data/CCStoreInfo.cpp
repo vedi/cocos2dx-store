@@ -24,10 +24,10 @@
 #include "../domain/virtualCurrencies/CCVirtualCurrencyPack.h"
 #include "../domain/CCNonConsumableItem.h"
 #include "../domain/CCMarketItem.h"
-#include "../CCStoreUtils.h"
 #include "CCNdkBridge.h"
 #include "CCDomainFactory.h"
 #include "CCDomainHelper.h"
+#include "CCSoomlaUtils.h"
 
 namespace soomla {
 
@@ -141,7 +141,7 @@ namespace soomla {
     }
 
     CCVirtualItem *CCStoreInfo::getItemByItemId(char const *itemId, CCError **error) {
-        CCStoreUtils::logDebug(TAG,
+        CCSoomlaUtils::logDebug(TAG,
 							   __String::createWithFormat("Trying to fetch an item with itemId: %s", itemId)->getCString());
 
         __Dictionary *params = __Dictionary::create();
@@ -152,7 +152,7 @@ namespace soomla {
             SAFE_CREATE(CCVirtualItem *, ret, retParams);
             return ret;
         } else {
-            CCStoreUtils::logDebug(TAG, __String::createWithFormat(
+            CCSoomlaUtils::logDebug(TAG, __String::createWithFormat(
                     "getItemByItemId: Cannot get item: %s", itemId)->getCString());
             return NULL;
         }
@@ -167,7 +167,7 @@ namespace soomla {
             SAFE_CREATE(CCPurchasableVirtualItem *, ret, retParams);
             return ret;
         } else {
-            CCStoreUtils::logDebug(TAG, __String::createWithFormat(
+            CCSoomlaUtils::logDebug(TAG, __String::createWithFormat(
                     "getPurchasableItemWithProductId: Cannot get item: %s", productId)->getCString());
             return NULL;
         }
@@ -182,7 +182,7 @@ namespace soomla {
             SAFE_CREATE(CCVirtualCategory *, ret, retParams);
             return ret;
         } else {
-            CCStoreUtils::logDebug(TAG, __String::createWithFormat(
+            CCSoomlaUtils::logDebug(TAG, __String::createWithFormat(
                     "getCategoryForVirtualGood: Cannot get item: %s", goodItemId)->getCString());
             return NULL;
         }

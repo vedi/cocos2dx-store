@@ -17,7 +17,7 @@
 #include "CCSingleUseVG.h"
 #include "CCDomainHelper.h"
 #include "CCNdkBridge.h"
-#include "CCStoreUtils.h"
+#include "CCSoomlaUtils.h"
 #include "CCStoreInfo.h"
 #include "CCStoreEventDispatcher.h"
 #include "CCVirtualItemReward.h"
@@ -126,7 +126,7 @@ namespace soomla {
             CCNdkBridge::callNative (params, &error);
 
             if (error) {
-                CCStoreUtils::logError(TAG, error->getInfo());
+                CCSoomlaUtils::logError(TAG, error->getInfo());
                 return false;
             }
         }
@@ -143,7 +143,7 @@ namespace soomla {
                         key.compare("customSecret") == 0)) {
 
                     __String *message = __String::createWithFormat("WARNING!! Possible typo in member of storeParams: %s", key.c_str());
-                    CCStoreUtils::logError(TAG, message->getCString());
+                    CCSoomlaUtils::logError(TAG, message->getCString());
                 }
             }
     }

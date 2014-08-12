@@ -6,7 +6,7 @@
 #define __CCVirtualItemReward_H_
 
 #include "CCReward.h"
-#include "CCCommonConsts.h"
+#include "CCCoreConsts.h"
 #include "CCStoreConsts.h"
 
 namespace soomla {
@@ -27,9 +27,8 @@ namespace soomla {
         virtual bool init(
                 cocos2d::__String *rewardId,
                 cocos2d::__String *name,
-                cocos2d::__Bool *repeatable,
-                cocos2d::__Integer * amount,
-                cocos2d::__String * associatedItemId
+                cocos2d::__String *associatedItemId,
+                cocos2d::__Integer *amount
         );
 
         virtual bool initWithDictionary(cocos2d::__Dictionary *dict);
@@ -39,6 +38,12 @@ namespace soomla {
         virtual ~CCVirtualItemReward();
 
         virtual const char *getType() override;
+
+
+    protected:
+        virtual bool takeInner();
+
+        virtual bool giveInner();
     };
 };
 

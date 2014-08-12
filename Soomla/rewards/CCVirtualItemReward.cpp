@@ -4,6 +4,8 @@
 
 #include "CCVirtualItemReward.h"
 #include "CCStoreConsts.h"
+#include "CCStoreInventory.h"
+#include "CCSoomlaUtils.h"
 
 soomla::CCVirtualItemReward *soomla::CCVirtualItemReward::create(
         cocos2d::__String *rewardId,
@@ -14,7 +16,7 @@ soomla::CCVirtualItemReward *soomla::CCVirtualItemReward::create(
 ) {
 
     CCVirtualItemReward *ret = new CCVirtualItemReward();
-    if (ret->init(rewardId, name, repeatable, amount, associatedItemId)) {
+    if (ret->init(rewardId, name, associatedItemId, amount)) {
         ret->autorelease();
     }
     else {
@@ -26,12 +28,11 @@ soomla::CCVirtualItemReward *soomla::CCVirtualItemReward::create(
 bool soomla::CCVirtualItemReward::init(
         cocos2d::__String *rewardId,
         cocos2d::__String *name,
-        cocos2d::__Bool *repeatable,
-        cocos2d::__Integer *amount,
-        cocos2d::__String *associatedItemId
+        cocos2d::__String *associatedItemId,
+        cocos2d::__Integer *amount
 ) {
 
-    bool result = CCReward::init(rewardId, name, repeatable);
+    bool result = CCReward::init(rewardId, name);
 
     if (result) {
         setAmount(amount);
@@ -67,4 +68,30 @@ soomla::CCVirtualItemReward::~CCVirtualItemReward() {
 
 const char *soomla::CCVirtualItemReward::getType() {
     return CCStoreConsts::JSON_JSON_TYPE_ITEM;
+}
+
+bool soomla::CCVirtualItemReward::takeInner() {
+    CCError *error = NULL;
+    char const *itemId = this->getAssociatedItemId()->getCString();
+    CCStoreInventory::sharedStoreInventory()->takeItem(itemId, this->getAmount()->getValue(), &error);
+    if (error) {
+        CCSoomlaUtils::logError(TAG,
+                cocos2d::__String::createWithFormat("(take) Couldn't find associated itemId: %s", itemId)->getCString());
+        CCSoomlaUtils::logError(TAG, error->getInfo());
+        return false;
+    }
+    return true;
+}
+
+bool soomla::CCVirtualItemReward::giveInner() {
+    CCError *error = NULL;
+    char const *itemId = this->getAssociatedItemId()->getCString();
+    CCStoreInventory::sharedStoreInventory()->giveItem(itemId, this->getAmount()->getValue(), &error);
+    if (error) {
+        CCSoomlaUtils::logError(TAG,
+                cocos2d::__String::createWithFormat("(give) Couldn't find associated itemId: %s", itemId)->getCString());
+        CCSoomlaUtils::logError(TAG, error->getInfo());
+        return false;
+    }
+    return true;
 }

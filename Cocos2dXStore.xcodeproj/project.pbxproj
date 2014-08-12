@@ -19,8 +19,6 @@
 		9D4101CD1978D7F600907FA8 /* CCStoreInventory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D41018F1978D7F600907FA8 /* CCStoreInventory.h */; };
 		9D4101CE1978D7F600907FA8 /* CCStoreService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D4101901978D7F600907FA8 /* CCStoreService.cpp */; };
 		9D4101CF1978D7F600907FA8 /* CCStoreService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4101911978D7F600907FA8 /* CCStoreService.h */; };
-		9D4101D01978D7F600907FA8 /* CCStoreUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D4101921978D7F600907FA8 /* CCStoreUtils.cpp */; };
-		9D4101D11978D7F600907FA8 /* CCStoreUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4101931978D7F600907FA8 /* CCStoreUtils.h */; };
 		9D4101D21978D7F600907FA8 /* Cocos2dxStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4101941978D7F600907FA8 /* Cocos2dxStore.h */; };
 		9D4101D31978D7F600907FA8 /* CCStoreInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D4101961978D7F600907FA8 /* CCStoreInfo.cpp */; };
 		9D4101D41978D7F600907FA8 /* CCStoreInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4101971978D7F600907FA8 /* CCStoreInfo.h */; };
@@ -58,10 +56,27 @@
 		9D4101F81978D7F600907FA8 /* CCPurchaseWithVirtualItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4101C01978D7F600907FA8 /* CCPurchaseWithVirtualItem.h */; };
 		9D4101F91978D7F600907FA8 /* CCVirtualItemReward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D4101C21978D7F600907FA8 /* CCVirtualItemReward.cpp */; };
 		9D4101FA1978D7F600907FA8 /* CCVirtualItemReward.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4101C31978D7F600907FA8 /* CCVirtualItemReward.h */; };
-		9D4101FC1978D86800907FA8 /* libCocos2dXiOSStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4101FB1978D86800907FA8 /* libCocos2dXiOSStore.a */; };
 		9D4101FE1978D87900907FA8 /* libSoomlaiOSStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4101FD1978D87900907FA8 /* libSoomlaiOSStore.a */; };
+		9D6575F8199A28CB005FE63A /* libCocos2dXiOSStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6575F5199A2812005FE63A /* libCocos2dXiOSStore.a */; };
 		C0B3C5F3168C6D0C00161FAA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B3C5F2168C6D0C00161FAA /* Foundation.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9D6575F4199A2812005FE63A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D6575F0199A2811005FE63A /* Cocos2dXiOSStore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C0B3C5EF168C6D0C00161FAA;
+			remoteInfo = Cocos2dXiOSStore;
+		};
+		9D6575F6199A28A8005FE63A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D6575F0199A2811005FE63A /* Cocos2dXiOSStore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C0B3C5EE168C6D0C00161FAA;
+			remoteInfo = Cocos2dXiOSStore;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9D41016D1978D35200907FA8 /* libCocos2dXiOSCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocos2dXiOSCore.a; path = "soomla-native/compilations/ios/libCocos2dXiOSCore.a"; sourceTree = "<group>"; };
@@ -78,8 +93,6 @@
 		9D41018F1978D7F600907FA8 /* CCStoreInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreInventory.h; sourceTree = "<group>"; };
 		9D4101901978D7F600907FA8 /* CCStoreService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreService.cpp; sourceTree = "<group>"; };
 		9D4101911978D7F600907FA8 /* CCStoreService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreService.h; sourceTree = "<group>"; };
-		9D4101921978D7F600907FA8 /* CCStoreUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreUtils.cpp; sourceTree = "<group>"; };
-		9D4101931978D7F600907FA8 /* CCStoreUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreUtils.h; sourceTree = "<group>"; };
 		9D4101941978D7F600907FA8 /* Cocos2dxStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxStore.h; sourceTree = "<group>"; };
 		9D4101961978D7F600907FA8 /* CCStoreInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreInfo.cpp; sourceTree = "<group>"; };
 		9D4101971978D7F600907FA8 /* CCStoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreInfo.h; sourceTree = "<group>"; };
@@ -119,6 +132,7 @@
 		9D4101C31978D7F600907FA8 /* CCVirtualItemReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualItemReward.h; sourceTree = "<group>"; };
 		9D4101FB1978D86800907FA8 /* libCocos2dXiOSStore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocos2dXiOSStore.a; path = "soomla-native/compilations/ios/libCocos2dXiOSStore.a"; sourceTree = "<group>"; };
 		9D4101FD1978D87900907FA8 /* libSoomlaiOSStore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSoomlaiOSStore.a; path = "submodules/ios-store/build/libSoomlaiOSStore.a"; sourceTree = "<group>"; };
+		9D6575F0199A2811005FE63A /* Cocos2dXiOSStore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Cocos2dXiOSStore.xcodeproj; path = "soomla-native/projects/cocos2dx-ios-store/Cocos2dXiOSStore.xcodeproj"; sourceTree = "<group>"; };
 		C0B3C5EF168C6D0C00161FAA /* libCocos2dXStore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocos2dXStore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B3C5F2168C6D0C00161FAA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -128,8 +142,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D6575F8199A28CB005FE63A /* libCocos2dXiOSStore.a in Frameworks */,
 				9D4101FE1978D87900907FA8 /* libSoomlaiOSStore.a in Frameworks */,
-				9D4101FC1978D86800907FA8 /* libCocos2dXiOSStore.a in Frameworks */,
 				C0B3C5F3168C6D0C00161FAA /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,8 +166,6 @@
 				9D41018F1978D7F600907FA8 /* CCStoreInventory.h */,
 				9D4101901978D7F600907FA8 /* CCStoreService.cpp */,
 				9D4101911978D7F600907FA8 /* CCStoreService.h */,
-				9D4101921978D7F600907FA8 /* CCStoreUtils.cpp */,
-				9D4101931978D7F600907FA8 /* CCStoreUtils.h */,
 				9D4101941978D7F600907FA8 /* Cocos2dxStore.h */,
 				9D4101951978D7F600907FA8 /* data */,
 				9D4101981978D7F600907FA8 /* domain */,
@@ -243,9 +255,18 @@
 			path = rewards;
 			sourceTree = "<group>";
 		};
+		9D6575F1199A2811005FE63A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9D6575F5199A2812005FE63A /* libCocos2dXiOSStore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C0B3C5E4168C6D0C00161FAA = {
 			isa = PBXGroup;
 			children = (
+				9D6575F0199A2811005FE63A /* Cocos2dXiOSStore.xcodeproj */,
 				9D4101851978D7F600907FA8 /* Soomla */,
 				C0B3C5F1168C6D0C00161FAA /* Frameworks */,
 				C0B3C5F0168C6D0C00161FAA /* Products */,
@@ -280,7 +301,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D4101F81978D7F600907FA8 /* CCPurchaseWithVirtualItem.h in Headers */,
-				9D4101D11978D7F600907FA8 /* CCStoreUtils.h in Headers */,
 				9D4101F41978D7F600907FA8 /* CCPurchaseType.h in Headers */,
 				9D4101E01978D7F600907FA8 /* CCVirtualCurrency.h in Headers */,
 				9D4101FA1978D7F600907FA8 /* CCVirtualItemReward.h in Headers */,
@@ -323,6 +343,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9D6575F7199A28A8005FE63A /* PBXTargetDependency */,
 			);
 			name = Cocos2dXStore;
 			productName = SoomlaIOSStore;
@@ -348,12 +369,28 @@
 			mainGroup = C0B3C5E4168C6D0C00161FAA;
 			productRefGroup = C0B3C5F0168C6D0C00161FAA /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9D6575F1199A2811005FE63A /* Products */;
+					ProjectRef = 9D6575F0199A2811005FE63A /* Cocos2dXiOSStore.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C0B3C5EE168C6D0C00161FAA /* Cocos2dXStore */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9D6575F5199A2812005FE63A /* libCocos2dXiOSStore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCocos2dXiOSStore.a;
+			remoteRef = 9D6575F4199A2812005FE63A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C0B3C5EB168C6D0C00161FAA /* Sources */ = {
@@ -380,7 +417,6 @@
 				9D4101C51978D7F600907FA8 /* CCStoreConsts.cpp in Sources */,
 				9D4101EB1978D7F600907FA8 /* CCUpgradeVG.cpp in Sources */,
 				9D4101F51978D7F600907FA8 /* CCPurchaseWithMarket.cpp in Sources */,
-				9D4101D01978D7F600907FA8 /* CCStoreUtils.cpp in Sources */,
 				9D4101CC1978D7F600907FA8 /* CCStoreInventory.cpp in Sources */,
 				9D4101D31978D7F600907FA8 /* CCStoreInfo.cpp in Sources */,
 				9D4101C71978D7F600907FA8 /* CCSoomlaStore.cpp in Sources */,
@@ -388,6 +424,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9D6575F7199A28A8005FE63A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Cocos2dXiOSStore;
+			targetProxy = 9D6575F6199A28A8005FE63A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C0B3C5FB168C6D0C00161FAA /* Debug */ = {

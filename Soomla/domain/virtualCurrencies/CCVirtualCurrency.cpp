@@ -31,7 +31,7 @@ namespace soomla {
         return ret;
     }
 
-    cocos2d::__Dictionary *CCVirtualCurrency::toDictionary() {
-        return this->putTypeData(CCVirtualItem::toDictionary(), CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY);
+    const char *CCVirtualCurrency::getType() {
+        return CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY;
     }
 }
