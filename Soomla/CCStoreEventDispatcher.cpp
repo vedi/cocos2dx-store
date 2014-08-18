@@ -298,7 +298,7 @@ namespace soomla {
                     CCPurchasableVirtualItem *purchasableVirtualItem =
                             dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
                     if (error) {
-                        CCStoreUtils::logException(CCStoreConsts::EVENT_MARKET_REFUND, error);
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_MARKET_REFUND, error);
                         return;
                     }
                     CC_ASSERT(purchasableVirtualItem);

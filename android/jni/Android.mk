@@ -15,7 +15,6 @@ LOCAL_SRC_FILES := ../../Soomla/CCStoreConsts.cpp \
 	../../Soomla/CCStoreEventDispatcher.cpp \
 	../../Soomla/CCStoreInventory.cpp \
 	../../Soomla/CCStoreService.cpp \
-	../../Soomla/CCStoreUtils.cpp \
 	../../Soomla/PurchaseTypes/CCPurchaseType.cpp \
 	../../Soomla/PurchaseTypes/CCPurchaseWithMarket.cpp \
 	../../Soomla/PurchaseTypes/CCPurchaseWithVirtualItem.cpp \
