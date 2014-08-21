@@ -56,7 +56,7 @@ namespace soomla {
         return dict;
     }
 
-    const char *CCEquippableVG::getType() {
+    const char *CCEquippableVG::getType() const {
         return CCStoreConsts::JSON_JSON_TYPE_EQUIPPABLE_VG;
     }
 

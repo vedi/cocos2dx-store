@@ -88,7 +88,7 @@ namespace soomla {
 
         virtual ~CCSingleUsePackVG();
 
-        virtual const char *getType();
+        virtual const char *getType() const;
     };
 };
 

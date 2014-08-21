@@ -119,7 +119,7 @@ namespace soomla {
 
         virtual ~CCEquippableVG();
 
-        virtual const char *getType();
+        virtual const char *getType() const;
     };
 };
 

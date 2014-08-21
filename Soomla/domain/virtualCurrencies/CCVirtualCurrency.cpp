@@ -31,7 +31,7 @@ namespace soomla {
         return ret;
     }
 
-    const char *CCVirtualCurrency::getType() {
+    const char *CCVirtualCurrency::getType() const {
         return CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY;
     }
 }

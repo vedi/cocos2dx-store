@@ -66,7 +66,7 @@ soomla::CCVirtualItemReward::~CCVirtualItemReward() {
     CC_SAFE_RELEASE(mAssociatedItemId);
 }
 
-const char *soomla::CCVirtualItemReward::getType() {
+const char *soomla::CCVirtualItemReward::getType() const {
     return CCStoreConsts::JSON_JSON_TYPE_ITEM;
 }
 

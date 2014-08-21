@@ -34,7 +34,7 @@ namespace soomla {
         return ret;
     }
 
-    const char *CCVirtualItem::getType() {
+    const char *CCVirtualItem::getType() const {
         return CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM;
     }
 

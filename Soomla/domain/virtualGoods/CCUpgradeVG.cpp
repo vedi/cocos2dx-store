@@ -76,7 +76,7 @@ namespace soomla {
     }
 
 
-    const char *CCUpgradeVG::getType() {
+    const char *CCUpgradeVG::getType() const {
         return CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG;
     }
 

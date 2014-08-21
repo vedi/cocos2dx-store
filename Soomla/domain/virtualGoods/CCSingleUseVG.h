@@ -63,7 +63,7 @@ namespace soomla {
 		*/
         SL_CREATE_WITH_DICTIONARY(CCSingleUseVG);
 
-        virtual const char *getType();
+        virtual const char *getType() const;
     };
 };
 

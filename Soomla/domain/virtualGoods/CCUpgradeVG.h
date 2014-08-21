@@ -100,7 +100,7 @@ namespace soomla {
 
         virtual ~CCUpgradeVG();
 
-        virtual const char *getType();
+        virtual const char *getType() const;
     };
 };
 

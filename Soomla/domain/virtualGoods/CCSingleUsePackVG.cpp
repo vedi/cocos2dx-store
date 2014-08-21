@@ -64,7 +64,7 @@ namespace soomla {
     }
 
 
-    const char *CCSingleUsePackVG::getType() {
+    const char *CCSingleUsePackVG::getType() const {
         return CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_PACK_VG;
     }
 

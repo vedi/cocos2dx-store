@@ -33,7 +33,7 @@ namespace soomla {
         return ret;
     }
 
-    const char *CCNonConsumableItem::getType() {
+    const char *CCNonConsumableItem::getType() const {
         return CCStoreConsts::JSON_JSON_TYPE_NON_CONSUMABLE_ITEM;
     }
 };

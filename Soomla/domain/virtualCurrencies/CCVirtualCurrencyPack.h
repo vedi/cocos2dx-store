@@ -81,7 +81,7 @@ namespace soomla {
 
         virtual ~CCVirtualCurrencyPack();
 
-        virtual const char *getType();
+        virtual const char *getType() const;
     };
 };
 

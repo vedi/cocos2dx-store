@@ -35,7 +35,7 @@ namespace soomla {
         return ret;
     }
 
-    const char *CCLifetimeVG::getType() {
+    const char *CCLifetimeVG::getType() const {
         return CCStoreConsts::JSON_JSON_TYPE_LIFETIME_VG;
     }
 }

@@ -37,7 +37,7 @@ namespace soomla {
 
         virtual ~CCVirtualItemReward();
 
-        virtual const char *getType() override;
+        virtual const char *getType() const;
 
 
     protected:
