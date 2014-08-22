@@ -418,6 +418,19 @@ public class StoreService extends AbstractSoomlaService {
             }
         });
 
+        ndkGlue.registerCallHandler("CCStoreInfo::getVirtualCategories", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                List<JSONObject> ret = new ArrayList<JSONObject>();
+                List<VirtualCategory> virtualCategories = StoreInfo.getCategories();
+                for (VirtualCategory virtualCategory : virtualCategories) {
+                    ret.add(DomainHelper.getInstance().domainToJsonObject(virtualCategory));
+                }
+                JSONArray retValue = new JSONArray(ret);
+                retParams.put("return", retValue);
+            }
+        });
+
         final NdkGlue.ExceptionHandler exceptionHandler = new NdkGlue.ExceptionHandler() {
             @Override
             public void handle(Exception exception, JSONObject params, JSONObject retParams) throws Exception {
