@@ -57,8 +57,6 @@ namespace soomla {
 
         cocos2d::__String *getItemId();
 
-        virtual const char *getType() const;
-
         virtual void save();
     };
     
