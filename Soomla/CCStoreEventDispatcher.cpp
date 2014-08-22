@@ -423,9 +423,9 @@ namespace soomla {
         }
     }
 
-    void CCStoreEventDispatcher::onMarketItemsRefreshed(cocos2d::__Array *pArray) {
+    void CCStoreEventDispatcher::onMarketItemsRefreshed(cocos2d::__Array *virtualItems) {
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
-            eventHandler->onMarketItemsRefreshed(nullptr);
+            eventHandler->onMarketItemsRefreshed(virtualItems);
         }
     }
 

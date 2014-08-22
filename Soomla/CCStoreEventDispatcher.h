@@ -52,7 +52,7 @@ namespace soomla {
 
         virtual void onStoreControllerInitialized();
 
-        virtual void onMarketItemsRefreshed(cocos2d::__Array *pArray);
+        virtual void onMarketItemsRefreshed(cocos2d::__Array *virtualItems);
 
 /** Android only events*/
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
