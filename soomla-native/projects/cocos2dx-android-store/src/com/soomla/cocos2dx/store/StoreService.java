@@ -3,10 +3,7 @@ package com.soomla.cocos2dx.store;
 import android.opengl.GLSurfaceView;
 import com.soomla.Soomla;
 import com.soomla.SoomlaUtils;
-import com.soomla.cocos2dx.common.AbstractSoomlaService;
-import com.soomla.cocos2dx.common.DomainHelper;
-import com.soomla.cocos2dx.common.NdkGlue;
-import com.soomla.cocos2dx.common.ParamsProvider;
+import com.soomla.cocos2dx.common.*;
 import com.soomla.rewards.VirtualItemReward;
 import com.soomla.store.IStoreAssets;
 import com.soomla.store.SoomlaStore;
@@ -418,16 +415,12 @@ public class StoreService extends AbstractSoomlaService {
             }
         });
 
-        ndkGlue.registerCallHandler("CCStoreInfo::getVirtualCategories", new NdkGlue.CallHandler() {
+        ndkGlue.registerCallHandler("CCStoreInfo::saveItem", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                List<JSONObject> ret = new ArrayList<JSONObject>();
-                List<VirtualCategory> virtualCategories = StoreInfo.getCategories();
-                for (VirtualCategory virtualCategory : virtualCategories) {
-                    ret.add(DomainHelper.getInstance().domainToJsonObject(virtualCategory));
-                }
-                JSONArray retValue = new JSONArray(ret);
-                retParams.put("return", retValue);
+
+                JSONObject viJsonObject = params.getJSONObject("virtualItem");
+                StoreInfo.save(DomainFactory.getInstance().<VirtualItem>createWithJsonObject(viJsonObject));
             }
         });
 
