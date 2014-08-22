@@ -47,6 +47,10 @@ namespace soomla {
         static char const *JSON_MARKET_ITEM_CONSUMABLE;
         static char const *JSON_MARKET_ITEM_PRICE;
 
+        static char const *JSON_MARKET_ITEM_MARKET_PRICE;
+        static char const *JSON_MARKET_ITEM_MARKET_TITLE;
+        static char const *JSON_MARKET_ITEM_MARKET_DESCRIPTION;
+
         static char const *JSON_EQUIPPABLE_EQUIPPING;
 
         static char const *JSON_VGP_GOOD_ITEM_ID;

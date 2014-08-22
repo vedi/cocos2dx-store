@@ -62,6 +62,8 @@ namespace soomla {
         virtual cocos2d::__Dictionary* toDictionary();
 
         cocos2d::__String *getItemId();
+
+        virtual void save();
     };
     
 }

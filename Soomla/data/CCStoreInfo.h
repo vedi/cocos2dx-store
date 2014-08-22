@@ -141,6 +141,8 @@ namespace soomla {
          @return The virtual categories of the game.
 		*/
 		cocos2d::__Array *getVirtualCategories();
+
+        void saveItem(CCVirtualItem *virtualItem);
     private:
         cocos2d::Ref *createWithRetParams(cocos2d::__Dictionary *retParams);
     };

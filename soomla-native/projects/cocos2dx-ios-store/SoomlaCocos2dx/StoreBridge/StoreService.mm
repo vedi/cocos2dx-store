@@ -28,6 +28,7 @@
 #import "VirtualItemNotFoundException.h"
 #import "ParamsProvider.h"
 #import "Soomla.h"
+#import "DomainFactory.h"
 
 @interface StoreService ()
 @end
@@ -286,6 +287,11 @@
         NSArray *virtualCategories = [[StoreInfo getInstance] virtualCategories];
         NSArray *retObj = [[DomainHelper sharedDomainHelper] getDictListFromDomains:virtualCategories];
         [retParameters setObject: retObj forKey: @"return"];
+    }];
+
+    [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::saveItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
+        NSDictionary *viDict = parameters[@"virtualItem"];
+        [[StoreInfo getInstance] save:[[DomainFactory sharedDomainFactory] createWithDict:viDict]];
     }];
 
     /* -= Exception handlers =- */

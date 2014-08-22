@@ -218,12 +218,13 @@ namespace soomla {
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_ITEMS_REFRESHED,
                 [this](__Dictionary *parameters) {
-                    __Array *marketItems = (__Array *)(parameters->objectForKey("marketItems"));
+                    __Array *marketItemDicts = (__Array *)(parameters->objectForKey("marketItems"));
+                    __Array *marketItems = __Array::create();
 
                     CCError *error = NULL;
                     __Dictionary *marketItem = NULL;
-                    for (unsigned int i = 0; i < marketItems->count(); i++) {
-                        marketItem = dynamic_cast<__Dictionary *>(marketItems->getObjectAtIndex(i));
+                    for (unsigned int i = 0; i < marketItemDicts->count(); i++) {
+                        marketItem = dynamic_cast<__Dictionary *>(marketItemDicts->getObjectAtIndex(i));
                         CC_ASSERT(marketItem);
                         __String *productId = dynamic_cast<__String *>(marketItem->objectForKey("productId"));
                         __String *marketPrice = dynamic_cast<__String *>(marketItem->objectForKey("marketPrice"));
@@ -244,10 +245,12 @@ namespace soomla {
                         mi->setMarketPrice(marketPrice);
                         mi->setMarketTitle(marketTitle);
                         mi->setMarketDescription(marketDescription);
+                        pvi->save();
+
+                        marketItems->addObject(purchaseWithMarket);
                     }
 
-                    // TODO: Where are params?
-                    this->onMarketItemsRefreshed();
+                    this->onMarketItemsRefreshed(marketItems);
                 });
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_ITEMS_REFRESH_STARTED,
@@ -420,9 +423,9 @@ namespace soomla {
         }
     }
 
-    void CCStoreEventDispatcher::onMarketItemsRefreshed() {
+    void CCStoreEventDispatcher::onMarketItemsRefreshed(cocos2d::__Array *pArray) {
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
-            eventHandler->onMarketItemsRefreshed();
+            eventHandler->onMarketItemsRefreshed(nullptr);
         }
     }
 

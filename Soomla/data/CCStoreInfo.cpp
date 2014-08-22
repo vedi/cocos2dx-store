@@ -266,6 +266,13 @@ namespace soomla {
                 retArray, CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CATEGORY);
     }
 
+    void CCStoreInfo::saveItem(CCVirtualItem *virtualItem) {
+        __Dictionary *params = __Dictionary::create();
+        params->setObject(__String::create("CCStoreInfo::saveItem"), "method");
+        params->setObject(virtualItem->toDictionary(), "virtualItem");
+        CCNdkBridge::callNative (params, NULL);
+    }
+
 #undef SAFE_CREATE
 
 }
