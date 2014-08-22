@@ -73,7 +73,7 @@ void soomla::CCSimpleStoreEventHandler::onStoreControllerInitialized() {
 
 }
 
-void soomla::CCSimpleStoreEventHandler::onMarketItemsRefreshed() {
+void soomla::CCSimpleStoreEventHandler::onMarketItemsRefreshed(cocos2d::__Array *virtualItems) {
 
 }
 

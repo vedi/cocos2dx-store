@@ -65,6 +65,7 @@ namespace soomla {
         `CCPurchasableVirtualItem`.
         */
         virtual cocos2d::__Dictionary* toDictionary();
+
     };
 }
 
