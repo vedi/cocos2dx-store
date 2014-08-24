@@ -8,7 +8,6 @@ import com.soomla.rewards.VirtualItemReward;
 import com.soomla.store.IStoreAssets;
 import com.soomla.store.SoomlaStore;
 import com.soomla.store.StoreInventory;
-import com.soomla.store.billing.google.GooglePlayIabService;
 import com.soomla.store.data.StoreInfo;
 import com.soomla.store.domain.*;
 import com.soomla.store.domain.virtualCurrencies.VirtualCurrency;
@@ -19,9 +18,13 @@ import com.soomla.store.exceptions.NotEnoughGoodsException;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 import com.soomla.store.purchaseTypes.PurchaseWithMarket;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +37,6 @@ public class StoreService extends AbstractSoomlaService {
 
     private static StoreService INSTANCE = null;
 
-    private static String mPublicKey           = "";
     private static IStoreAssets mStoreAssets   = null;
     private boolean inited = false;
 
@@ -90,9 +92,6 @@ public class StoreService extends AbstractSoomlaService {
                 SoomlaUtils.LogDebug("SOOMLA", "initialize is called from java!");
                 Soomla.initialize(customSecret);
                 SoomlaStore.getInstance().initialize(mStoreAssets);
-                if (SoomlaStore.getInstance().getInAppBillingService() instanceof GooglePlayIabService) {
-                    ((GooglePlayIabService) SoomlaStore.getInstance().getInAppBillingService()).setPublicKey(mPublicKey);
-                }
             }
         });
 
@@ -153,7 +152,34 @@ public class StoreService extends AbstractSoomlaService {
         ndkGlue.registerCallHandler("CCSoomlaStore::setAndroidPublicKey", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                mPublicKey = params.getString("androidPublicKey");
+                try {
+                    String publicKey = params.getString("androidPublicKey");
+
+                    Class googlePlayClass = Class.forName("com.soomla.store.billing.google.GooglePlayIabService");
+                    Method factoryMethod = googlePlayClass.getDeclaredMethod("getInstance");
+                    Object singleton = factoryMethod.invoke(null, null);
+                    Method setPKMethod = googlePlayClass.getDeclaredMethod("setPublicKey", String.class);
+                    setPKMethod.invoke(singleton, publicKey);
+                } catch (Exception e) {
+                    SoomlaUtils.LogError("StoreService JNI", "Something happened while we were trying to run CCSoomlaStore::setAndroidPublicKey. error: " + e.getLocalizedMessage());
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCSoomlaStore::setTestPurchases", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                try {
+                    boolean testPurchases = params.getBoolean("testPurchases");
+                    Class googlePlayClass = Class.forName("com.soomla.store.billing.google.GooglePlayIabService");
+                    Field testPurchasesField = googlePlayClass.getDeclaredField("AllowAndroidTestPurchases");
+                    testPurchasesField.set(null, testPurchases);
+                } catch (Exception e) {
+                    SoomlaUtils.LogError("StoreService JNI", "Something happened while we were trying to run CCSoomlaStore::setTestPurchases. error: " + e.getLocalizedMessage());
+                    e.printStackTrace();
+                }
             }
         });
 
