@@ -88,7 +88,7 @@ public class StoreService extends AbstractSoomlaService {
         ndkGlue.registerCallHandler("CCStoreService::init", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                String customSecret = ParamsProvider.getInstance().getParams("common").optString("customSecret");
+                String customSecret = params.getString("customSecret");
                 SoomlaUtils.LogDebug("SOOMLA", "initialize is called from java!");
                 Soomla.initialize(customSecret);
                 SoomlaStore.getInstance().initialize(mStoreAssets);
