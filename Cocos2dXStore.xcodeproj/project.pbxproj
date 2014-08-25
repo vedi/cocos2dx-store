@@ -58,8 +58,8 @@
 		9D4101F81978D7F600907FA8 /* CCPurchaseWithVirtualItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4101C01978D7F600907FA8 /* CCPurchaseWithVirtualItem.h */; };
 		9D4101F91978D7F600907FA8 /* CCVirtualItemReward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D4101C21978D7F600907FA8 /* CCVirtualItemReward.cpp */; };
 		9D4101FA1978D7F600907FA8 /* CCVirtualItemReward.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4101C31978D7F600907FA8 /* CCVirtualItemReward.h */; };
-		9D4101FC1978D86800907FA8 /* libCocos2dXiOSStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4101FB1978D86800907FA8 /* libCocos2dXiOSStore.a */; };
 		9D4101FE1978D87900907FA8 /* libSoomlaiOSStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4101FD1978D87900907FA8 /* libSoomlaiOSStore.a */; };
+		9DD2BD4719AB9F4B00CB5FAE /* libCocos2dXiOSStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4101FB1978D86800907FA8 /* libCocos2dXiOSStore.a */; };
 		C0B3C5F3168C6D0C00161FAA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B3C5F2168C6D0C00161FAA /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -128,8 +128,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DD2BD4719AB9F4B00CB5FAE /* libCocos2dXiOSStore.a in Frameworks */,
 				9D4101FE1978D87900907FA8 /* libSoomlaiOSStore.a in Frameworks */,
-				9D4101FC1978D86800907FA8 /* libCocos2dXiOSStore.a in Frameworks */,
 				C0B3C5F3168C6D0C00161FAA /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
