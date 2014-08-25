@@ -128,7 +128,7 @@
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreService::init" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         [[StoreService sharedStoreService] init];
-        NSString *customSecret = (NSString *) [parameters objectForKey:@"productId"];
+        NSString *customSecret = (NSString *) [parameters objectForKey:@"customSecret"];
         [Soomla initializeWithSecret:customSecret];
         [[SoomlaStore getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]];
     }];
