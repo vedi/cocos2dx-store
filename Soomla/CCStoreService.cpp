@@ -53,15 +53,6 @@ namespace soomla {
 
     bool soomla::CCStoreService::init(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams) {
 
-        __String *customSecret = dynamic_cast<__String *>(storeParams->objectForKey("customSecret"));
-        if (customSecret == NULL || customSecret->length()==0) {
-            __String *message = __String::createWithFormat("Can't initialize CCStoreService without customSecret: %s", customSecret->getCString());
-            CCStoreUtils::logError(TAG, message->getCString());
-
-            return false;
-        }
-
-
         CCStoreEventDispatcher::getInstance();    // to get sure it's inited
 
         CCDomainFactory *domainFactory = CCDomainFactory::getInstance();
@@ -100,7 +91,6 @@ namespace soomla {
         {
             __Dictionary *params = __Dictionary::create();
             params->setObject(__String::create("CCStoreService::init"), "method");
-            params->setObject(customSecret, "customSecret");
             CCError *error = NULL;
             CCNdkBridge::callNative (params, &error);
 

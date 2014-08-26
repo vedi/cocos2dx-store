@@ -33,13 +33,12 @@ namespace soomla {
         "SSV": CCBool - Whether or not to enable server side
         verification of purchases.
         */
-        static void initShared(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams);
+        static void initShared(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams);
 
         CCStoreService();
 
-        virtual bool init(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams);
+        virtual bool init(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams);
 
-        void checkParams(cocos2d::__Dictionary *storeParams);
     };
 }
 

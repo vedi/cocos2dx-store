@@ -1,4 +1,4 @@
-*This branch contains the code for cocos2d-x v3.x, and was optimized and tested for v3.1. For cocos2d-x v2.x use `cocos2dx-v2` branch.*
+*This branch contains the code for cocos2d-x v3.x, and was optimized and tested for v3.1. For cocos2d-x v2.x use `cocos2dx-v2` branch.* 
 
 *This project is a part of [The SOOMLA Project](http://project.soom.la) which is a series of open source initiatives with a joint goal to help mobile game developers get better stores and more in-app purchases.*
 
@@ -74,12 +74,19 @@ The example project is still under development but it already has some important
 
 1. Implement your `CCStoreEventHandler` in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling) section for more information.
 
+1. Initialize `CCServiceManager` with common params, setting your `customSecret` there:
+
+    ```cpp
+    __Dictionary *commonParams = __Dictionary::create();
+    commonParams->setObject(__String::create("ExampleCustomSecret"), "customSecret");
+    soomla::CCServiceManager::getInstance()->setCommonParams(commonParams);
+    ```
+
 1. Initialize `CCStoreService` with your assets class (instance of `CCStoreAssets`), and a `__Dictionary` containing various parameters for it:
 
     ```cpp
     __Dictionary *storeParams = __Dictionary::create();
     storeParams->setObject(__String::create("ExamplePublicKey"), "androidPublicKey");
-    storeParams->setObject(__String::create("ExampleCustomSecret"), "customSecret");
 
     soomla::CCStoreService::initShared(assets, storeParams);
     ```
@@ -116,17 +123,17 @@ In your XCode project, perform following steps:
 1. Add to Build Settings->Header Search Paths:
  - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/Soomla`
  - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/soomla-native/compilations/ios/headers`
- - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/Soomla`
+ - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/Soomla` 
  - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/soomla-native/compilations/ios/headers`
 
 with `recursive` option.
 
-1. Register native StoreService, adding:
+1. Register native StoreService, adding: 
 
     ```cpp
     [[ServiceManager sharedServiceManager] registerService:[StoreService sharedStoreService]];
     ```
-at the begining of the method `application: didFinishLaunchingWithOptions:` of `AppController`.
+at the begining of the method `application: didFinishLaunchingWithOptions:` of `AppController`. 
 
 * Make sure you have these 3 Frameworks linked to your XCode project: Security, libsqlite3.0.dylib, StoreKit.
 
@@ -150,7 +157,7 @@ If you're building your application for the Android platform, here are some inst
     - Cocos2dxAndroidStore.jar
 
 1. In your main Cocos2dxActivity (The one your Cocos2d-x application runs in), call the following in the `onCreateView` method:
-     ```java
+     ```java 
      public Cocos2dxGLSurfaceView onCreateView() {
 
         // initialize services
@@ -159,8 +166,8 @@ If you're building your application for the Android platform, here are some inst
         serviceManager.setGlSurfaceView(glSurfaceView);
         serviceManager.registerService(StoreService.getInstance());
      ```
-
-1. Override `onPause`, `onResume`:
+     
+1. Override `onPause`, `onResume`: 
 
     @Override
     protected void onPause() {
@@ -377,7 +384,7 @@ To see debug messages on iOS, make sure you have also `DEBUG=1` in your Build Se
 
 We want you!
 
-Fork -> Clone -> Implement -> Insert Comments -> Test -> Pull-Request.
+Fork -> Clone -> Implement -> Insert Comments -> Test -> Pull-Request. 
 
 We have great RESPECT for contributors.
 

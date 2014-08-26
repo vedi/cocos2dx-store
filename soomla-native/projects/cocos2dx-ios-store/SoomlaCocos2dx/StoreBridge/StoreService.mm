@@ -26,6 +26,7 @@
 #import "SoomlaUtils.h"
 #import "StoreInventory.h"
 #import "VirtualItemNotFoundException.h"
+#import "ParamsProvider.h"
 #import "Soomla.h"
 #import "DomainFactory.h"
 
@@ -128,7 +129,8 @@
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreService::init" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         [[StoreService sharedStoreService] init];
-        NSString *customSecret = (NSString *) [parameters objectForKey:@"customSecret"];
+        NSDictionary *commonParams = [[ParamsProvider sharedParamsProvider] getParamsForKey:@"common"];
+        NSString *customSecret = commonParams[@"customSecret"];
         [Soomla initializeWithSecret:customSecret];
         [[SoomlaStore getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]];
     }];
