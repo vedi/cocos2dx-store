@@ -33,13 +33,6 @@ namespace soomla {
 
 #define TAG "SOOMLA StoreInfo"
 
-#define SAFE_CREATE(__T__, __ret__, __retParams__)			\
-    __Dictionary *retDict = (__Dictionary *)__retParams__->objectForKey("return"); \
-    soomla::CCDomain *domain = CCDomainFactory::getInstance()->createWithDictionary(retDict); \
-	__T__ __ret__ = dynamic_cast<__T__>(domain);			\
-	CC_ASSERT(__ret__);
-//========================
-
     USING_NS_CC;
 
     static CCStoreInfo *s_SharedStoreInfo = NULL;
@@ -149,7 +142,7 @@ namespace soomla {
         params->setObject(__String::create(itemId), "itemId");
         __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
         if (!*error) {
-            SAFE_CREATE(CCVirtualItem *, ret, retParams);
+            SL_SAFE_CREATE_FROM_RETURN(CCVirtualItem *, ret, retParams);
             return ret;
         } else {
             CCSoomlaUtils::logDebug(TAG, __String::createWithFormat(
@@ -164,7 +157,7 @@ namespace soomla {
         params->setObject(__String::create(productId), "productId");
         __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
         if (!*error) {
-            SAFE_CREATE(CCPurchasableVirtualItem *, ret, retParams);
+            SL_SAFE_CREATE_FROM_RETURN(CCPurchasableVirtualItem *, ret, retParams);
             return ret;
         } else {
             CCSoomlaUtils::logDebug(TAG, __String::createWithFormat(
@@ -179,7 +172,7 @@ namespace soomla {
         params->setObject(__String::create(goodItemId), "goodItemId");
         __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
         if (!*error) {
-            SAFE_CREATE(CCVirtualCategory *, ret, retParams);
+            SL_SAFE_CREATE_FROM_RETURN(CCVirtualCategory *, ret, retParams);
             return ret;
         } else {
             CCSoomlaUtils::logDebug(TAG, __String::createWithFormat(
@@ -193,7 +186,7 @@ namespace soomla {
         params->setObject(__String::create("CCStoreInfo::getFirstUpgradeForVirtualGood"), "method");
         params->setObject(__String::create(goodItemId), "goodItemId");
         __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, NULL);
-        SAFE_CREATE(CCUpgradeVG *, ret, retParams);
+        SL_SAFE_CREATE_FROM_RETURN(CCUpgradeVG *, ret, retParams);
         return ret;
     }
 
@@ -202,7 +195,7 @@ namespace soomla {
         params->setObject(__String::create("CCStoreInfo::getLastUpgradeForVirtualGood"), "method");
         params->setObject(__String::create(goodItemId), "goodItemId");
         __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, NULL);
-        SAFE_CREATE(CCUpgradeVG *, ret, retParams);
+        SL_SAFE_CREATE_FROM_RETURN(CCUpgradeVG *, ret, retParams);
         return ret;
     }
 
@@ -272,8 +265,6 @@ namespace soomla {
         params->setObject(virtualItem->toDictionary(), "virtualItem");
         CCNdkBridge::callNative (params, NULL);
     }
-
-#undef SAFE_CREATE
 
 }
 
