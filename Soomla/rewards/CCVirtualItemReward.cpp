@@ -7,6 +7,8 @@
 #include "CCStoreInventory.h"
 #include "CCSoomlaUtils.h"
 
+#define TAG "SOOMLA VirtualItemReward"
+
 soomla::CCVirtualItemReward *soomla::CCVirtualItemReward::create(
         cocos2d::__String *rewardId,
         cocos2d::__String *name,
