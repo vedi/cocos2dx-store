@@ -40,9 +40,9 @@ namespace soomla {
         return sInstance;
     }
 
-    void soomla::CCStoreService::initShared(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams) {
+    void soomla::CCStoreService::initShared(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams) {
         CCStoreService *storeService = CCStoreService::getInstance();
-        if (!storeService->init(gameAssets, storeParams)) {
+        if (!storeService->init(storeAssets, storeParams)) {
             exit(1);
         }
     }
@@ -51,7 +51,7 @@ namespace soomla {
 
     }
 
-    bool soomla::CCStoreService::init(CCStoreAssets *gameAssets, cocos2d::__Dictionary *storeParams) {
+    bool soomla::CCStoreService::init(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams) {
 
         CCStoreEventDispatcher::getInstance();    // to get sure it's inited
 
@@ -72,39 +72,12 @@ namespace soomla {
 
         domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_ITEM, &CCVirtualItemReward::createWithDictionary);
 
-        __String *customSecret = dynamic_cast<__String *>(storeParams->objectForKey("customSecret"));
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        __String *androidPublicKey = dynamic_cast<__String *>(storeParams->objectForKey("androidPublicKey"));
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         __Bool *SSV = dynamic_cast<__Bool *>(storeParams->objectForKey("SSV"));
-#endif
-
-        if (customSecret == NULL) {
-            customSecret = __String::create("");
-        }
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        if (androidPublicKey == NULL) {
-            androidPublicKey = __String::create("");
-        }
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         if (SSV == NULL) {
             SSV = __Bool::create(false);
         }
-#endif
-        checkParams(storeParams);
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        {
-            __Dictionary *params = __Dictionary::create();
-            params->setObject(__String::create("CCSoomlaStore::setAndroidPublicKey"), "method");
-            params->setObject(androidPublicKey, "androidPublicKey");
-            CCNdkBridge::callNative (params, NULL);
-        }
-#endif
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         {
             __Dictionary *params = __Dictionary::create();
             params->setObject(__String::create("CCSoomlaStore::setSSV"), "method");
@@ -113,15 +86,11 @@ namespace soomla {
         }
 #endif
 
-        CCStoreInfo::createShared(gameAssets);
+        CCStoreInfo::createShared(storeAssets);
 
         {
             __Dictionary *params = __Dictionary::create();
             params->setObject(__String::create("CCStoreService::init"), "method");
-            params->setObject(customSecret, "customSecret");
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-            params->setObject(androidPublicKey, "androidPublicKey");
-#endif
             CCError *error = NULL;
             CCNdkBridge::callNative (params, &error);
 
@@ -129,23 +98,34 @@ namespace soomla {
                 CCSoomlaUtils::logError(TAG, error->getInfo());
                 return false;
             }
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+            {
+                __String *androidPublicKey = dynamic_cast<__String *>(storeParams->objectForKey("androidPublicKey"));
+                if (androidPublicKey != NULL && androidPublicKey->length()>0) {
+                    __Dictionary *params = __Dictionary::create();
+                    params->setObject(__String::create("CCSoomlaStore::setAndroidPublicKey"), "method");
+                    params->setObject(androidPublicKey, "androidPublicKey");
+                    CCNdkBridge::callNative (params, NULL);
+                }
+
+            }
+
+            {
+                __Bool *testPurchases = dynamic_cast<__Bool *>(storeParams->objectForKey("testPurchases"));
+                if (testPurchases == NULL) {
+                    testPurchases = __Bool::create(false);
+                }
+                __Dictionary *params = __Dictionary::create();
+                params->setObject(__String::create("CCSoomlaStore::setTestPurchases"), "method");
+                params->setObject(testPurchases, "testPurchases");
+                CCNdkBridge::callNative (params, NULL);
+            }
+#endif
         }
 
         return true;
     }
 
-    void soomla::CCStoreService::checkParams(cocos2d::__Dictionary *storeParams) {
-        DictElement* el = NULL;
-        CCDICT_FOREACH(storeParams, el) {
-                std::string key = el->getStrKey();
-                if (!(key.compare("androidPublicKey") == 0 ||
-                        key.compare("SSV") == 0 ||
-                        key.compare("customSecret") == 0)) {
-
-                    __String *message = __String::createWithFormat("WARNING!! Possible typo in member of storeParams: %s", key.c_str());
-                    CCSoomlaUtils::logError(TAG, message->getCString());
-                }
-            }
-    }
 
 }

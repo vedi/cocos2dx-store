@@ -53,34 +53,59 @@
 }
 
 + (void)initDomainHelper {
-    [[DomainHelper sharedDomainHelper] registerType:@"virtualItem"
-                                      withClassName:NSStringFromClass([VirtualItem class])];
-    [[DomainHelper sharedDomainHelper] registerType:@"marketItem"
-                                      withClassName:NSStringFromClass([MarketItem class])];
-    [[DomainHelper sharedDomainHelper] registerType:@"nonConsumableItem"
-                                      withClassName:NSStringFromClass([NonConsumableItem class])];
-    [[DomainHelper sharedDomainHelper] registerType:@"purchasableVirtualItem"
-                                      withClassName:NSStringFromClass([PurchasableVirtualItem class])];
-    [[DomainHelper sharedDomainHelper] registerType:@"virtualCategory"
-                                      withClassName:NSStringFromClass([VirtualCategory class])];
-    [[DomainHelper sharedDomainHelper] registerType:@"virtualCurrency"
-                                      withClassName:NSStringFromClass([VirtualCurrency class])];
-    [[DomainHelper sharedDomainHelper] registerType:@"virtualCurrencyPack"
-                                      withClassName:NSStringFromClass([VirtualCurrencyPack class])];
-    [[DomainHelper sharedDomainHelper] registerType:@"equippableVG"
-                                      withClassName:NSStringFromClass([EquippableVG class])];
-    [[DomainHelper sharedDomainHelper] registerType:@"lifetimeVG"
-                                      withClassName:NSStringFromClass([LifetimeVG class])];
-    [[DomainHelper sharedDomainHelper] registerType:@"singleUsePackVG"
-                                      withClassName:NSStringFromClass([SingleUsePackVG class])];
-    [[DomainHelper sharedDomainHelper] registerType:@"singleUseVG"
-                                      withClassName:NSStringFromClass([SingleUseVG class])];
-    [[DomainHelper sharedDomainHelper] registerType:@"upgradeVG"
-                                      withClassName:NSStringFromClass([UpgradeVG class])];
-    [[DomainHelper sharedDomainHelper] registerType:@"virtualGood"
-                                      withClassName:NSStringFromClass([VirtualGood class])];
-}
 
+    [[DomainHelper sharedDomainHelper] registerType:@"equippableVG"
+                                      withClassName:NSStringFromClass([EquippableVG class])
+                                           andBlock:^id(NSDictionary *dict) {
+                                               return [[[EquippableVG alloc] initWithDictionary:dict] autorelease];
+                                           }];
+    [[DomainHelper sharedDomainHelper] registerType:@"lifetimeVG"
+                                      withClassName:NSStringFromClass([LifetimeVG class])
+                                           andBlock:^id(NSDictionary *dict) {
+                                               return [[[LifetimeVG alloc] initWithDictionary:dict] autorelease];
+                                           }];
+    [[DomainHelper sharedDomainHelper] registerType:@"singleUsePackVG"
+                                      withClassName:NSStringFromClass([SingleUsePackVG class])
+                                           andBlock:^id(NSDictionary *dict) {
+                                               return [[[SingleUsePackVG alloc] initWithDictionary:dict] autorelease];
+                                           }];
+    [[DomainHelper sharedDomainHelper] registerType:@"singleUseVG"
+                                      withClassName:NSStringFromClass([SingleUseVG class])
+                                           andBlock:^id(NSDictionary *dict) {
+                                               return [[[SingleUseVG alloc] initWithDictionary:dict] autorelease];
+                                           }];
+    [[DomainHelper sharedDomainHelper] registerType:@"upgradeVG"
+                                      withClassName:NSStringFromClass([UpgradeVG class])
+                                           andBlock:^id(NSDictionary *dict) {
+                                               return [[[UpgradeVG alloc] initWithDictionary:dict] autorelease];
+                                           }];
+    [[DomainHelper sharedDomainHelper] registerType:@"virtualCurrency"
+                                      withClassName:NSStringFromClass([VirtualCurrency class])
+                                           andBlock:^id(NSDictionary *dict) {
+                                               return [[[VirtualCurrency alloc] initWithDictionary:dict] autorelease];
+                                           }];
+    [[DomainHelper sharedDomainHelper] registerType:@"virtualCurrencyPack"
+                                      withClassName:NSStringFromClass([VirtualCurrencyPack class])
+                                           andBlock:^id(NSDictionary *dict) {
+                                               return [[[VirtualCurrencyPack alloc] initWithDictionary:dict] autorelease];
+                                           }];
+    [[DomainHelper sharedDomainHelper] registerType:@"nonConsumableItem"
+                                      withClassName:NSStringFromClass([NonConsumableItem class])
+                                           andBlock:^id(NSDictionary *dict) {
+                                               return [[[NonConsumableItem alloc] initWithDictionary:dict] autorelease];
+                                           }];
+
+    [[DomainHelper sharedDomainHelper] registerType:@"marketItem"
+                                      withClassName:NSStringFromClass([MarketItem class])
+                                           andBlock:^id(NSDictionary *dict) {
+                                               return [[[MarketItem alloc] initWithDictionary:dict] autorelease];
+                                           }];
+    [[DomainHelper sharedDomainHelper] registerType:@"virtualCategory"
+                                      withClassName:NSStringFromClass([VirtualCategory class])
+                                           andBlock:^id(NSDictionary *dict) {
+                                               return [[[VirtualCategory alloc] initWithDictionary:dict] autorelease];
+                                           }];
+}
 
 - (id)init {
     self = [super init];
@@ -105,7 +130,7 @@
     [ndkGlue registerCallHandlerForKey:@"CCStoreService::init" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         [[StoreService sharedStoreService] init];
         NSDictionary *commonParams = [[ParamsProvider sharedParamsProvider] getParamsForKey:@"common"];
-        NSString *customSecret = [commonParams objectForKey:@"customSecret"];
+        NSString *customSecret = commonParams[@"customSecret"];
         [Soomla initializeWithSecret:customSecret];
         [[SoomlaStore getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]];
     }];

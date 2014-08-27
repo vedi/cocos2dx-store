@@ -188,7 +188,7 @@ If you're building your application for the Android platform, here are some inst
     <uses-permission android:name="com.android.vending.BILLING"/>
 
     <application ...
-    	       android:name="com.soomla.store.SoomlaApp">
+    	       android:name="com.soomla.SoomlaApp">
     	       ...
     </application>
     ```
@@ -396,7 +396,7 @@ android-store follows strict code documentation conventions. If you would like t
 
 ## SOOMLA, Elsewhere ...
 
-+ [Framework Page](http://project.soom.la/)
++ [Framework Website](http://www.soom.la/)
 + [On Facebook](https://www.facebook.com/pages/The-SOOMLA-Project/389643294427376)
 + [On AngelList](https://angel.co/the-soomla-project)
 
