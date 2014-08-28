@@ -21,19 +21,4 @@
 USING_NS_CC;
 
 namespace soomla {
-    CCVirtualGood *CCVirtualGood::create(__String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
-        CCVirtualGood *ret = new CCVirtualGood();
-        if (ret->init(name, description, itemId, purchaseType)) {
-            ret->autorelease();
-        }
-        else {
-            CC_SAFE_DELETE(ret);
-        }
-
-        return ret;
-    }
-
-    const char *CCVirtualGood::getType() const {
-        return CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_GOOD;
-    }
 }

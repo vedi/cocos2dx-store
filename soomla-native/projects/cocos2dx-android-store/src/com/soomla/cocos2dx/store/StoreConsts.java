@@ -6,10 +6,8 @@ package com.soomla.cocos2dx.store;
  *         time 6:49 PM
  */
 public class StoreConsts {
-    public static final String JSON_JSON_TYPE_VIRTUAL_ITEM = "virtualItem";
     public static final String JSON_JSON_TYPE_MARKET_ITEM = "marketItem";
     public static final String JSON_JSON_TYPE_NON_CONSUMABLE_ITEM = "nonConsumableItem";
-    public static final String JSON_JSON_TYPE_PURCHASABLE_VIRTUAL_ITEM = "purchasableVirtualItem";
     public static final String JSON_JSON_TYPE_VIRTUAL_CATEGORY = "virtualCategory";
     public static final String JSON_JSON_TYPE_VIRTUAL_CURRENCY = "virtualCurrency";
     public static final String JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK = "virtualCurrencyPack";
@@ -18,7 +16,6 @@ public class StoreConsts {
     public static final String JSON_JSON_TYPE_SINGLE_USE_PACK_VG = "singleUsePackVG";
     public static final String JSON_JSON_TYPE_SINGLE_USE_VG = "singleUseVG";
     public static final String JSON_JSON_TYPE_UPGRADE_VG = "upgradeVG";
-    public static final String JSON_JSON_TYPE_VIRTUAL_GOOD = "virtualGood";
 
     public static final String JSON_JSON_TYPE_ITEM     = "item";
 

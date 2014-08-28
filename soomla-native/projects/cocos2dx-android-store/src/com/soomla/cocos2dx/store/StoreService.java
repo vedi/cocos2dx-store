@@ -57,10 +57,8 @@ public class StoreService extends AbstractSoomlaService {
     public StoreService() {
         storeEventHandlerBridge = new StoreEventHandlerBridge();
 
-        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_VIRTUAL_ITEM, VirtualItem.class);
         DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_MARKET_ITEM, MarketItem.class);
         DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_NON_CONSUMABLE_ITEM, NonConsumableItem.class);
-        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_PURCHASABLE_VIRTUAL_ITEM, PurchasableVirtualItem.class);
         DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_VIRTUAL_CATEGORY, VirtualCategory.class);
         DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_VIRTUAL_CURRENCY, VirtualCurrency.class);
         DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK, VirtualCurrencyPack.class);
@@ -69,7 +67,6 @@ public class StoreService extends AbstractSoomlaService {
         DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_SINGLE_USE_PACK_VG, SingleUsePackVG.class);
         DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_SINGLE_USE_VG, SingleUseVG.class);
         DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_UPGRADE_VG, UpgradeVG.class);
-        DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_VIRTUAL_GOOD, VirtualGood.class);
 
         DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_ITEM, VirtualItemReward.class);
 

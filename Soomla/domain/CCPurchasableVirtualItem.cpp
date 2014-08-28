@@ -43,18 +43,6 @@ namespace soomla {
         }
     }
 
-    CCPurchasableVirtualItem *CCPurchasableVirtualItem::create(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId, CCPurchaseType * purchaseType) {
-        CCPurchasableVirtualItem * ret = new CCPurchasableVirtualItem();
-        if (ret->init(name, description, itemId, purchaseType)) {
-            ret->autorelease();
-        }
-        else {
-            CC_SAFE_DELETE(ret);
-        }
-
-        return ret;
-    }
-
     CCPurchasableVirtualItem::~CCPurchasableVirtualItem() {
         CC_SAFE_RELEASE(mPurchaseType);
     }
@@ -64,7 +52,7 @@ namespace soomla {
 
         putPurchaseTypeToDict(dict);
 
-        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_PURCHASABLE_VIRTUAL_ITEM);
+        return dict;
     }
 
     void CCPurchasableVirtualItem::fillPurchaseTypeFromDict(__Dictionary *dict) {

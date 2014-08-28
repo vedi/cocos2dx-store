@@ -23,22 +23,6 @@ namespace soomla {
 
     using namespace cocos2d;
 
-    CCVirtualItem *CCVirtualItem::create(cocos2d::__String *name, cocos2d::__String *description, cocos2d::__String *itemId) {
-        CCVirtualItem *ret = new CCVirtualItem();
-        if (ret->init(itemId, name, description)) {
-            ret->autorelease();
-        }
-        else {
-            CC_SAFE_DELETE(ret);
-        }
-
-        return ret;
-    }
-
-    const char *CCVirtualItem::getType() const {
-        return CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM;
-    }
-
     __String *CCVirtualItem::getItemId() {
         return getId();
     }
