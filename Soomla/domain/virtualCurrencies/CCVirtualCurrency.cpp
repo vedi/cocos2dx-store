@@ -22,7 +22,7 @@ namespace soomla {
     
     CCVirtualCurrency* CCVirtualCurrency::create(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId) {
         CCVirtualCurrency*ret = new CCVirtualCurrency();
-        if (ret->init(name, description, itemId)) {
+        if (ret->init(itemId, name, description)) {
             ret->autorelease();
         } 
         else {

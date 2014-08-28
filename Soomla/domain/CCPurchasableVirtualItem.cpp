@@ -26,7 +26,7 @@ namespace soomla {
     using namespace cocos2d;
     
     bool CCPurchasableVirtualItem::init(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId, CCPurchaseType * purchaseType) {
-        bool bRet = CCVirtualItem::init(name, description, itemId);
+        bool bRet = CCVirtualItem::init(itemId, name, description);
         if (bRet) {
             setPurchaseType(purchaseType);
         }
