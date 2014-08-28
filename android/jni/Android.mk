@@ -11,6 +11,7 @@ COCOS2D_JAVASCRIPT = $(filter %-DCOCOS2D_JAVASCRIPT,$(APP_CPPFLAGS))
 LOCAL_MODULE := cocos2dx_store_static
 LOCAL_MODULE_FILENAME := libcocos2dxstore
 LOCAL_SRC_FILES := ../../Soomla/CCStoreConsts.cpp \
+	../../Soomla/CCSimpleStoreEventHandler.cpp \
 	../../Soomla/CCSoomlaStore.cpp \
 	../../Soomla/CCStoreEventDispatcher.cpp \
 	../../Soomla/CCStoreInventory.cpp \
