@@ -29,6 +29,7 @@
 #import "ParamsProvider.h"
 #import "Soomla.h"
 #import "DomainFactory.h"
+#import "VirtualItemReward.h"
 
 @interface StoreService ()
 @end
@@ -104,6 +105,11 @@
                                       withClassName:NSStringFromClass([VirtualCategory class])
                                            andBlock:^id(NSDictionary *dict) {
                                                return [[[VirtualCategory alloc] initWithDictionary:dict] autorelease];
+                                           }];
+    [[DomainHelper sharedDomainHelper] registerType:@"item"
+                                      withClassName:NSStringFromClass([VirtualItemReward class])
+                                           andBlock:^id(NSDictionary *dict) {
+                                               return [[[VirtualItemReward alloc] initWithDictionary:dict] autorelease];
                                            }];
 }
 
