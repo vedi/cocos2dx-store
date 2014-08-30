@@ -48,6 +48,8 @@ The example project is still under development but it already has the most of im
 
 ## Getting Started
 
+*Please, draw your attention, this section describes, how to start with the fastest way with prebuilt libs. If you need to get access to all the sources in the best way, please, have a look at [Working with sources](https://github.com/soomla/cocos2dx-store#working-with-sources) section of this document*
+
 1. As with all Cocos2d-x projects, you need to clone the Cocos2d-x framework from [here](https://github.com/cocos2d/cocos2d-x) or download it from the [Cocos2d-x website](http://www.cocos2d-x.org/download).  
 
     > Make sure the version you clone is supported by cocos2dx-store (the tag is the version).
@@ -392,8 +394,26 @@ Fork -> Clone -> Implement -> Insert Comments -> Test -> Pull-Request.
 
 We have great RESPECT for contributors.
 
-## Code Documentation
+## Working with sources
 
+We try to do all our best to make your contributions as easy as it's possible. We prepared "sourced" environment for you if you wish to contribute in soomla projects. In order to get it you should:
+
+1. Fetch submodules of repositories, you can do it recursively cloning them:
+    ```
+    $ git clone --recursivegit@github.com:soomla/soomla-cocos2dx-core.git extensions/soomla-cocos2dx-core
+    $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
+    ```
+or, if you have repositories already cloned, deliver submodules with command:
+    ```
+    $ git submodule update --init --recursive
+    ```
+> You should run this command in every repository.
+
+1. For iOS: Use sourced versions of Linked projects (`extensions/soomla-cocos2dx-core/development/Cocos2dxCoreFromSources.xcodeproj`, `extensions/cocos2dx-store/development/Cocos2dxStoreFromSources.xcodeproj`)
+
+1. For Android: You can use our "sourced" modules for Android Studio (or IntelliJ IDEA) (`extensions/soomla-cocos2dx-core/development/Cocos2dxCoreFromSources.iml`, `extensions/cocos2dx-store/development/Cocos2dxStoreFromSources.iml`), just including them to your project.
+
+## Code Documentation
 
 android-store follows strict code documentation conventions. If you would like to contribute please read our [Documentation Guidelines](https://github.com/soomla/cocos2dx-store/blob/master/documentation.md) and follow them. Clear, consistent  comments will make our code easy to understand.
 
