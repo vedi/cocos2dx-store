@@ -18,9 +18,9 @@
 
 /**
  ABSTRACT.
- This is the parent class of all entitys in the application.
- Almost every entity in your virtual economy will be a entity. There
- are many types of entitys - each one of the various types extends
+ This is the parent class of all entities in the application.
+ Almost every entity in your virtual economy will be an entity. There
+ are many types of entities - each one of the various types extends
  `SoomlaEntity` and adds its own behavior on top of it.
  */
 @interface SoomlaEntity : NSObject {
@@ -31,7 +31,7 @@
 
 @property (retain, nonatomic) NSString* name;
 @property (retain, nonatomic) NSString* description;
-@property (retain, nonatomic) NSString* ID;
+@property (retain, nonatomic, readonly) NSString* ID;
 
 - (id)init;
 
@@ -59,4 +59,12 @@
  */
 - (NSDictionary*)toDictionary;
 
+/**
+ Tests equality between two `SoomlaEntity`s
+ 
+ @return `YES` if they are equal, false otherwise
+ */
+- (BOOL)isEqualToSoomlaEntity:(SoomlaEntity*)soomlaEntity;
+
+- (id)clone:(NSString*)newId;
 @end

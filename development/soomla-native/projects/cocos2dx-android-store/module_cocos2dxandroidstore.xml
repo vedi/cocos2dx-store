@@ -17,9 +17,9 @@
   <path id="cocos2dxandroidstore.module.production.classpath">
     <path refid="${module.jdk.classpath.cocos2dxandroidstore}"/>
     <pathelement location="${basedir}/../../../submodules/android-store/build/AndroidStore.jar"/>
-    <pathelement location="${basedir}/../../../../soomla-cocos2dx-core/submodules/soomla-android-core/build/SoomlaAndroidCore.jar"/>
-    <pathelement location="${basedir}/../../../../soomla-cocos2dx-core/soomla-native/compilations/android/Cocos2dxAndroidCore.jar"/>
-    <pathelement location="${basedir}/../../../../soomla-cocos2dx-core/submodules/soomla-android-core/build/square-otto-1.3.2.jar"/>
+    <pathelement location="${basedir}/../../../../../soomla-cocos2dx-core/build/android/Cocos2dxAndroidCore.jar"/>
+    <pathelement location="${basedir}/../../../../../soomla-cocos2dx-core/build/android/SoomlaAndroidCore.jar"/>
+    <pathelement location="${basedir}/../../../../../soomla-cocos2dx-core/build/android/square-otto-1.3.2.jar"/>
   </path>
 
   <path id="cocos2dxandroidstore.runtime.production.module.classpath">
