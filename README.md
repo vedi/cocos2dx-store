@@ -4,9 +4,11 @@
 
 Haven't you always wanted an in-app purchase one liner that looks like this?!
 
-soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]");
+soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]", NULL);
 
 # cocos2dx-store
+
+**Aug 30, 2014**: Arrange project structure
 
 **Jul 21, 2014**: Improved implementation
 
@@ -42,7 +44,7 @@ There is an example project that show how to use cocos2dx-store:
 
 http://github.com/soomla/cocos2dx-store-example,
 
-The example project is still under development but it already has some important aspects of the framework you can learn and implement in your application.
+The example project is still under development but it already has the most of important aspects of the framework you can learn and implement in your application.
 
 ## Getting Started
 
@@ -50,14 +52,14 @@ The example project is still under development but it already has some important
 
     > Make sure the version you clone is supported by cocos2dx-store (the tag is the version).
 
-1. Go into your cocos2d-x project and recursively clone cocos2dx-core into the `extensions` directory located at the root of your Cocos2d-x framework.
+1. Go into your cocos2d-x project and clone cocos2dx-core into the `extensions` directory located at the root of your Cocos2d-x framework.
     ```
-    $ git clone --recursive git@github.com:soomla/soomla-cocos2dx-core.git extensions/soomla-cocos2dx-core
+    $ git clone git@github.com:soomla/soomla-cocos2dx-core.git extensions/soomla-cocos2dx-core
     ```
 
 1. Perform the same action for cocos2dx-store.
     ```
-    $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
+    $ git clone git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
     ```
 
 1. We use a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone our fork into the `external` directory at the root of your cocos2d-x framework.
@@ -103,8 +105,7 @@ The example project is still under development but it already has some important
     soomla::CCStoreEventDispatcher::getInstance()->addEventHandler(handler);
     ```
 
-And that's it! You now have storage and in-app purchasing capabilities.
-
+The next steps are different for the different platforms.
 
 #### Instructions for iOS
 
@@ -122,9 +123,9 @@ In your XCode project, perform following steps:
 
 1. Add to Build Settings->Header Search Paths:
  - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/Soomla`
- - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/soomla-native/compilations/ios/headers`
+ - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/build/ios/headers`
  - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/Soomla` 
- - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/soomla-native/compilations/ios/headers`
+ - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/build/ios/headers`
 
 with `recursive` option.
 
@@ -147,12 +148,14 @@ If you're building your application for the Android platform, here are some inst
     ```
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_store_static        # add this line along with your other LOCAL_WHOLE_STATIC_LIBRARIES
 
-    $(call import-module, extensions/cocos2dx-store/android/jni) # add this line at the end of the file, along with the other import-module calls
+    $(call import-module, extensions/cocos2dx-store) # add this line at the end of the file, along with the other import-module calls
     ```
 
-1. Add the following jars from the folder `extensions/cocos2dx-store/soomla-native/compilations/android` to your classpath:
+1. Add the following jars from the folder `extensions/soomla-cocos2dx-store/build/android` to your classpath:
     - SoomlaAndroidCore.jar
     - Cocos2dxAndroidCore.jar
+
+1. Add the following jars from the folder `extensions/cocos2dx-store/build/android` to your classpath:
     - SoomlaAndroidStore.jar
     - Cocos2dxAndroidStore.jar
 
@@ -197,7 +200,7 @@ If you're building your application for the Android platform, here are some inst
 
 ##### Google Play
 
-1. Add `AndroidStoreGooglePlay.jar` from the folder `extensions/cocos2dx-store/soomla-native/compilations/android` to your classpath:
+1. Add `AndroidStoreGooglePlay.jar` from the folder `extensions/cocos2dx-store/build/android/billing-services/google-play` to your classpath:
 
 1. Update your manifest:
 
@@ -214,7 +217,7 @@ If you're building your application for the Android platform, here are some inst
 
 ##### Amazon
 
-1. Add `in-app-purchasing-1.0.3.jar` and `AndroidStoreAmazon.jar` from the folder `extensions/cocos2dx-store/soomla-native/compilations/android` to your classpath:
+1. Add `in-app-purchasing-1.0.3.jar` and `AndroidStoreAmazon.jar` from the folder `extensions/cocos2dx-store/build/android/billing-services/amazon` to your classpath:
 
 1. Update your manifest:
 
@@ -250,6 +253,7 @@ C++
 
 Don't forget to close the Iab Service when your store is closed. You don't have to do this at all, this is just an optimization.
 
+And that's it! You now have storage and in-app purchasing capabilities.
 
 ## What's next? In App Purchasing.
 
@@ -374,7 +378,7 @@ soomla::CCStoreService::initShared(assets, storeParams);
 
 ## Debugging
 
-You can enable debug logging in cocos2dx-store by setting `SOOMLA_DEBUG` in `CCSoomlaUtils.h` to `true`. Debug logging can also be enabled at build time by adding `-DSOOMLA_DEBUG=1` to `APP_CPPFLAGS` in your `Application.mk` on Android, or by setting `SOOMLA_DEBUG=1` in your Build Settings' `Preprocessor Macros` on iOS.
+You can enable debug logging in cocos2dx-store by setting `SOOMLA_DEBUG` in `CCStoreUtils.h` to `true`. Debug logging can also be enabled at build time by adding `-DSOOMLA_DEBUG=1` to `APP_CPPFLAGS` in your `Application.mk` on Android, or by setting `SOOMLA_DEBUG=1` in your Build Settings' `Preprocessor Macros` on iOS.
 
 If you want to see debug messages from _android-store_, set the `logDebug` variable in `com.soomla.store.StoreConfig` to `true`.
 
