@@ -118,6 +118,8 @@ namespace soomla {
         cocos2d::CCDictionary *toDictionary();
 
         virtual ~CCEquippableVG();
+
+        virtual const char *getType() const;
     };
 };
 

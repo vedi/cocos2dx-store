@@ -61,7 +61,12 @@ namespace soomla {
         putCurrencyAmountToDict(dict);
         putCurrencyItemIdToDict(dict);
 
-        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK);
+        return dict;
+    }
+
+
+    const char *CCVirtualCurrencyPack::getType() const {
+        return CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK;
     }
 
     CCVirtualCurrencyPack::~CCVirtualCurrencyPack() {

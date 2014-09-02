@@ -35,27 +35,8 @@ namespace soomla {
     public:
         CCPurchasableVirtualItem(): CCVirtualItem(), mPurchaseType(NULL) {}
 
-		/**
-         Creates a `CCPurchasableVirtualItem`.
-         @param name see parent.
-         @param description see parent.
-         @param itemId see parent.
-         @param purchaseType Either purchase with market or purchase with
-                virtual good.
-         @return The item.
-		*/
-        static CCPurchasableVirtualItem * create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-
-		/**
-         Creates a `CCPurchasableVirtualItem` from a dictionary.
-         @param dict A dictionary containing keys to each of the parameters
-                required by the create function.
-         @return The purchasable virtual item.
-		*/
-        SL_CREATE_WITH_DICTIONARY(CCPurchasableVirtualItem);
-
-        virtual bool init(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-        virtual bool initWithDictionary(cocos2d::CCDictionary* dict);
+        virtual bool init(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId, CCPurchaseType * purchaseType);
+        virtual bool initWithDictionary(cocos2d::__Dictionary* dict);
         
         virtual ~CCPurchasableVirtualItem();
 
@@ -64,7 +45,8 @@ namespace soomla {
         @return `CCDictionary` representation of this
         `CCPurchasableVirtualItem`.
         */
-        virtual cocos2d::CCDictionary* toDictionary();
+        virtual cocos2d::__Dictionary* toDictionary();
+
     };
 }
 

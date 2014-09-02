@@ -17,29 +17,17 @@
 //  Created by Igor Yegoroff on 5/16/13.
 
 #include "CCVirtualItem.h"
+#include "CCStoreInfo.h"
 
 namespace soomla {
 
     using namespace cocos2d;
 
-    CCVirtualItem *CCVirtualItem::create(cocos2d::CCString *name, cocos2d::CCString *description, cocos2d::CCString *itemId) {
-        CCVirtualItem *ret = new CCVirtualItem();
-        if (ret->init(name, description, itemId)) {
-            ret->autorelease();
-        }
-        else {
-            CC_SAFE_DELETE(ret);
-        }
-
-        return ret;
-    }
-
-    CCDictionary *CCVirtualItem::toDictionary() {
-        CCDictionary *dict = CCSoomlaEntity::toDictionary();
-        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM);
-    }
-
-    CCString *CCVirtualItem::getItemId() {
+    __String *CCVirtualItem::getItemId() {
         return getId();
+    }
+
+    void soomla::CCVirtualItem::save() {
+        CCStoreInfo::sharedStoreInfo()->saveItem(this);
     }
 }

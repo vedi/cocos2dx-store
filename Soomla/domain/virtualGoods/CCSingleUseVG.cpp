@@ -20,7 +20,7 @@
 
 namespace soomla {
     USING_NS_CC;
-    CCSingleUseVG *CCSingleUseVG::create(CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
+    CCSingleUseVG *CCSingleUseVG::create(__String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
         CCSingleUseVG *ret = new CCSingleUseVG();
         if (ret->init(name, description, itemId, purchaseType)) {
             ret->autorelease();
@@ -31,7 +31,7 @@ namespace soomla {
         return ret;
     }
 
-    cocos2d::CCDictionary *CCSingleUseVG::toDictionary() {
-        return this->putTypeData(CCPurchasableVirtualItem::toDictionary(), CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_VG);
+    const char *CCSingleUseVG::getType() const {
+        return CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_VG;
     }
 }

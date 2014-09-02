@@ -38,30 +38,9 @@ namespace soomla {
     class CCVirtualItem : public CCSoomlaEntity {
     public:
 
-		/**
-         Creates an instance of `CCVirtualItem`.
-         @param name The item's name.
-         @param description The item's description.
-         @param itemId The item's itemId.
-         @return The virtual item.
-		*/
-        static CCVirtualItem * create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId);
+        cocos2d::__String *getItemId();
 
-        /**
-         Creates a `CCVirtualItem` from a dictionary.
-         @param dict A dictionary containing keys to each of the parameters 
-                required by the create function.
-         @return The item.
-		*/
-        SL_CREATE_WITH_DICTIONARY(CCVirtualItem);
-
-        /**
-        Converts this `CCVirtualItem` to a `CCDictionary`.
-        @return `CCDictionary` representation of this `CCVirtualItem`.
-        */
-        virtual cocos2d::CCDictionary* toDictionary();
-
-        cocos2d::CCString *getItemId();
+        virtual void save();
     };
     
 }

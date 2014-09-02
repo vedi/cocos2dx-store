@@ -17,7 +17,7 @@
 // Created by Fedor Shubin on 5/21/13.
 
 #include "CCStoreInventory.h"
-#include "CCStoreUtils.h"
+#include "CCSoomlaUtils.h"
 #include "CCNdkBridge.h"
 
 namespace soomla {
@@ -127,7 +127,7 @@ namespace soomla {
 
     bool CCStoreInventory::isVirtualGoodEquipped(char const *itemId, CCError **error) {
         CCStoreUtils::logDebug(TAG,
-                CCString::createWithFormat("SOOMLA/COCOS2DX Calling isVirtualGoodEquipped with: %s", itemId)->getCString());
+                __String::createWithFormat("SOOMLA/COCOS2DX Calling isVirtualGoodEquipped with: %s", itemId)->getCString());
 
         CCDictionary *params = CCDictionary::create();
         params->setObject(CCString::create("CCStoreInventory::isVirtualGoodEquipped"), "method");

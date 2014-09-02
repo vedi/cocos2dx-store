@@ -37,26 +37,6 @@ namespace soomla {
     
     public:
 		
-        /**
-		   Creates a `CCVirtualGood`.
-		   @param name see parent.
-		   @param description see parent.
-		   @param itemId see parent.
-		   @param purchaseType see parent.
-		   @return The virtual good.
-		*/
-        static CCVirtualGood *create(cocos2d::CCString* name, cocos2d::CCString* description,
-                cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
-
-		/**
-         Creates a `CCLifetimeVG` from a dictionary.
-         @param dict A dictionary containing keys to each of the parameters 
-                required by the `create` function.
-         @return The virtual good.
-		*/
-        SL_CREATE_WITH_DICTIONARY(CCVirtualGood);
-
-        virtual cocos2d::CCDictionary *toDictionary();
     };
 };
 

@@ -21,20 +21,4 @@
 USING_NS_CC;
 
 namespace soomla {
-    CCVirtualGood *CCVirtualGood::create(CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
-        CCVirtualGood *ret = new CCVirtualGood();
-        if (ret->init(name, description, itemId, purchaseType)) {
-            ret->autorelease();
-        }
-        else {
-            CC_SAFE_DELETE(ret);
-        }
-
-        return ret;
-    }
-
-
-    cocos2d::CCDictionary *CCVirtualGood::toDictionary() {
-        return this->putTypeData(CCPurchasableVirtualItem::toDictionary(), CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_GOOD);
-    }
 }

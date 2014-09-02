@@ -20,9 +20,9 @@
 
 namespace soomla {
     
-    CCVirtualCurrency* CCVirtualCurrency::create(cocos2d::CCString* name, cocos2d::CCString* description, cocos2d::CCString* itemId) {
+    CCVirtualCurrency* CCVirtualCurrency::create(cocos2d::__String* name, cocos2d::__String* description, cocos2d::__String* itemId) {
         CCVirtualCurrency*ret = new CCVirtualCurrency();
-        if (ret->init(name, description, itemId)) {
+        if (ret->init(itemId, name, description)) {
             ret->autorelease();
         } 
         else {
@@ -31,7 +31,7 @@ namespace soomla {
         return ret;
     }
 
-    cocos2d::CCDictionary *CCVirtualCurrency::toDictionary() {
-        return this->putTypeData(CCVirtualItem::toDictionary(), CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY);
+    const char *CCVirtualCurrency::getType() const {
+        return CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY;
     }
 }

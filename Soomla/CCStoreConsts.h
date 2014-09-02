@@ -21,10 +21,10 @@
 * This class contains all static const String names of the keys/vals in the
 * JSON being parsed all around the SDK.
 */
-#include "CCCommonConsts.h"
+#include "CCCoreConsts.h"
 
 namespace soomla {
-    class CCStoreConsts: public CCCommonConsts {
+    class CCStoreConsts: public CCCoreConsts {
     public:
         static char const *JSON_STORE_CURRENCIES;
         static char const *JSON_STORE_CURRENCY_PACKS;
@@ -46,6 +46,10 @@ namespace soomla {
 
         static char const *JSON_MARKET_ITEM_CONSUMABLE;
         static char const *JSON_MARKET_ITEM_PRICE;
+
+        static char const *JSON_MARKET_ITEM_MARKET_PRICE;
+        static char const *JSON_MARKET_ITEM_MARKET_TITLE;
+        static char const *JSON_MARKET_ITEM_MARKET_DESCRIPTION;
 
         static char const *JSON_EQUIPPABLE_EQUIPPING;
 
@@ -73,10 +77,8 @@ namespace soomla {
         static char const *JSON_AMOUNT;
         static char const *JSON_ASSOCIATED_ITEM_ID;
 
-        static char const *JSON_JSON_TYPE_VIRTUAL_ITEM;
         static char const *JSON_JSON_TYPE_MARKET_ITEM;
         static char const *JSON_JSON_TYPE_NON_CONSUMABLE_ITEM;
-        static char const *JSON_JSON_TYPE_PURCHASABLE_VIRTUAL_ITEM;
         static char const *JSON_JSON_TYPE_VIRTUAL_CATEGORY;
         static char const *JSON_JSON_TYPE_VIRTUAL_CURRENCY;
         static char const *JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK;
@@ -85,7 +87,6 @@ namespace soomla {
         static char const *JSON_JSON_TYPE_SINGLE_USE_PACK_VG;
         static char const *JSON_JSON_TYPE_SINGLE_USE_VG;
         static char const *JSON_JSON_TYPE_UPGRADE_VG;
-        static char const *JSON_JSON_TYPE_VIRTUAL_GOOD;
         static char const *JSON_JSON_TYPE_ITEM;
 
         static char const *EVENT_BILLING_NOT_SUPPORTED;

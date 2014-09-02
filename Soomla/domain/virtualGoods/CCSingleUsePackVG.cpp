@@ -60,7 +60,12 @@ namespace soomla {
         putGoodItemIdToDict(dict);
         putGoodAmountToDict(dict);
 
-        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_PACK_VG);
+        return dict;
+    }
+
+
+    const char *CCSingleUsePackVG::getType() const {
+        return CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_PACK_VG;
     }
 
     CCSingleUsePackVG::~CCSingleUsePackVG() {

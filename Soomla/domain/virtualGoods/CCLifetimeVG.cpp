@@ -23,7 +23,7 @@ namespace soomla {
 
     USING_NS_CC;
 
-    CCLifetimeVG *CCLifetimeVG::create(CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
+    CCLifetimeVG *CCLifetimeVG::create(__String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
         CCLifetimeVG *ret = new CCLifetimeVG();
         if (ret->init(name, description, itemId, purchaseType)) {
             ret->autorelease();
@@ -35,7 +35,7 @@ namespace soomla {
         return ret;
     }
 
-    cocos2d::CCDictionary *CCLifetimeVG::toDictionary() {
-        return this->putTypeData(CCPurchasableVirtualItem::toDictionary(), CCStoreConsts::JSON_JSON_TYPE_LIFETIME_VG);
+    const char *CCLifetimeVG::getType() const {
+        return CCStoreConsts::JSON_JSON_TYPE_LIFETIME_VG;
     }
 }

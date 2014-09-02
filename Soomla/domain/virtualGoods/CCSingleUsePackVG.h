@@ -87,6 +87,8 @@ namespace soomla {
         cocos2d::CCDictionary *toDictionary();
 
         virtual ~CCSingleUsePackVG();
+
+        virtual const char *getType() const;
     };
 };
 

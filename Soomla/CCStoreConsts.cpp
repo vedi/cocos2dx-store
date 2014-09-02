@@ -41,6 +41,10 @@ namespace soomla {
     char const *CCStoreConsts::JSON_MARKET_ITEM_CONSUMABLE = "consumable";
     char const *CCStoreConsts::JSON_MARKET_ITEM_PRICE = "price";
 
+    char const *CCStoreConsts::JSON_MARKET_ITEM_MARKET_PRICE = "market_price";
+    char const *CCStoreConsts::JSON_MARKET_ITEM_MARKET_TITLE = "market_title";
+    char const *CCStoreConsts::JSON_MARKET_ITEM_MARKET_DESCRIPTION = "market_desc";
+
     char const *CCStoreConsts::JSON_EQUIPPABLE_EQUIPPING = "equipping";
 
     char const *CCStoreConsts::JSON_VGP_GOOD_ITEM_ID = "good_itemId";
@@ -67,10 +71,8 @@ namespace soomla {
     char const *CCStoreConsts::JSON_AMOUNT = "amount";
     char const *CCStoreConsts::JSON_ASSOCIATED_ITEM_ID = "associatedItemId";
 
-    char const *CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_ITEM = "virtualItem";
     char const *CCStoreConsts::JSON_JSON_TYPE_MARKET_ITEM = "marketItem";
     char const *CCStoreConsts::JSON_JSON_TYPE_NON_CONSUMABLE_ITEM = "nonConsumableItem";
-    char const *CCStoreConsts::JSON_JSON_TYPE_PURCHASABLE_VIRTUAL_ITEM = "purchasableVirtualItem";
     char const *CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CATEGORY = "virtualCategory";
     char const *CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY = "virtualCurrency";
     char const *CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK = "virtualCurrencyPack";
@@ -79,7 +81,6 @@ namespace soomla {
     char const *CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_PACK_VG = "singleUsePackVG";
     char const *CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_VG = "singleUseVG";
     char const *CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG = "upgradeVG";
-    char const *CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_GOOD = "virtualGood";
     char const *CCStoreConsts::JSON_JSON_TYPE_ITEM = "item";
 
     char const *CCStoreConsts::EVENT_BILLING_NOT_SUPPORTED = "CCStoreEventHandler::onBillingNotSupported";

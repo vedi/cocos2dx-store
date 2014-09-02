@@ -53,7 +53,11 @@ namespace soomla {
 
         putEquippingModelToDict(dict);
 
-        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_EQUIPPABLE_VG);
+        return dict;
+    }
+
+    const char *CCEquippableVG::getType() const {
+        return CCStoreConsts::JSON_JSON_TYPE_EQUIPPABLE_VG;
     }
 
     void CCEquippableVG::fillEquippingModelFromDict(CCDictionary *dict) {

@@ -72,7 +72,12 @@ namespace soomla {
             dict->setObject(CCString::create(""), CCStoreConsts::JSON_VGU_NEXT_ITEM_ID);
         }
 
-        return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG);
+        return dict;
+    }
+
+
+    const char *CCUpgradeVG::getType() const {
+        return CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG;
     }
 
     CCUpgradeVG::~CCUpgradeVG() {
