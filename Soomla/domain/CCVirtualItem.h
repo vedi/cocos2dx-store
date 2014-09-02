@@ -38,7 +38,7 @@ namespace soomla {
     class CCVirtualItem : public CCSoomlaEntity {
     public:
 
-        cocos2d::__String *getItemId();
+        cocos2d::CCString *getItemId();
 
         virtual void save();
     };

@@ -164,7 +164,7 @@ namespace soomla {
          Handles an `onMarketItemsRefreshed` event, which is fired when a market
          item refreshed process has completed.
          */
-        virtual void onMarketItemsRefreshed(cocos2d::__Array *virtualItems) = 0;
+        virtual void onMarketItemsRefreshed(cocos2d::CCArray *virtualItems) = 0;
 
         /**
         Handles an `onMarketItemsRefreshStarted` event, which is fired when a market

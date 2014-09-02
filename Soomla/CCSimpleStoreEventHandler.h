@@ -33,7 +33,7 @@ namespace soomla {
 
         virtual void onMarketPurchaseCancelled(CCPurchasableVirtualItem *purchasableVirtualItem);
 
-        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *token, cocos2d::__String *payload);
+        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *token, cocos2d::CCString *payload);
 
         virtual void onMarketPurchaseStarted(CCPurchasableVirtualItem *purchasableVirtualItem);
 
@@ -47,7 +47,7 @@ namespace soomla {
 
         virtual void onStoreControllerInitialized();
 
-        virtual void onMarketItemsRefreshed(cocos2d::__Array *virtualItems);
+        virtual void onMarketItemsRefreshed(cocos2d::CCArray *virtualItems);
 
         virtual void onMarketItemsRefreshStarted();
 

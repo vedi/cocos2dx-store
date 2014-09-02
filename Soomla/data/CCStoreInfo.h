@@ -38,7 +38,7 @@ namespace soomla {
      virtual categories, and
      non-consumables
 	*/
-	class CCStoreInfo: cocos2d::Ref {
+	class CCStoreInfo: cocos2d::CCObject {
     public:
         
 		/**
@@ -110,41 +110,41 @@ namespace soomla {
          @param goodItemId the `CCVirtualGood` we're searching the upgrades for.
          @return Array of all upgrades for the good with the given item id.
          */
-        cocos2d::__Array *getUpgradesForVirtualGood(const char *goodItemId);
+        cocos2d::CCArray *getUpgradesForVirtualGood(const char *goodItemId);
 
 		/**
          Retrieves all virtual currencies.
          @return The virtual currencies of the game.
 		*/
-		cocos2d::__Array *getVirtualCurrencies();
+		cocos2d::CCArray *getVirtualCurrencies();
 
 		/**
          Retrieves all virtual goods.
          @return The virtual goods of the game.
 		*/
-        cocos2d::__Array *getVirtualGoods();
+        cocos2d::CCArray *getVirtualGoods();
 
 		/**
          Retrieves all virtual currency packs.
          @return The virtual currency packs of the game.
 		*/
-        cocos2d::__Array *getVirtualCurrencyPacks();
+        cocos2d::CCArray *getVirtualCurrencyPacks();
 
 		/**
          Retrieves all non consumable items.
          @return The non consumable items of the game.
 		*/
-        cocos2d::__Array *getNonConsumableItems();
+        cocos2d::CCArray *getNonConsumableItems();
 
 		/**
          Retrieves all virtual categories.
          @return The virtual categories of the game.
 		*/
-		cocos2d::__Array *getVirtualCategories();
+		cocos2d::CCArray *getVirtualCategories();
 
         void saveItem(CCVirtualItem *virtualItem);
     private:
-        cocos2d::Ref *createWithRetParams(cocos2d::__Dictionary *retParams);
+        cocos2d::CCObject *createWithRetParams(cocos2d::CCDictionary *retParams);
     };
 };
 

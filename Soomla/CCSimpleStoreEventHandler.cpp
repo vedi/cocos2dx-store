@@ -45,7 +45,7 @@ void soomla::CCSimpleStoreEventHandler::onMarketPurchaseCancelled(soomla::CCPurc
 
 }
 
-void soomla::CCSimpleStoreEventHandler::onMarketPurchase(soomla::CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *token, cocos2d::__String *payload) {
+void soomla::CCSimpleStoreEventHandler::onMarketPurchase(soomla::CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *token, cocos2d::CCString *payload) {
 
 }
 
@@ -73,7 +73,7 @@ void soomla::CCSimpleStoreEventHandler::onStoreControllerInitialized() {
 
 }
 
-void soomla::CCSimpleStoreEventHandler::onMarketItemsRefreshed(cocos2d::__Array *virtualItems) {
+void soomla::CCSimpleStoreEventHandler::onMarketItemsRefreshed(cocos2d::CCArray *virtualItems) {
 
 }
 

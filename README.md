@@ -61,7 +61,7 @@ This example is still under development but it can give you a taste of the impor
     soomla::CCServiceManager::getInstance()->setCommonParams(commonParams);
     ```
 
-1. Initialize `CCStoreService` with your assets class (instance of `CCStoreAssets`), and a `__Dictionary` containing various parameters for it:
+1. Initialize `CCStoreService` with your assets class (instance of `CCStoreAssets`), and a `CCDictionary` containing various parameters for it:
 
     ```cpp
     CCDictionary *storeParams = CCDictionary::create();

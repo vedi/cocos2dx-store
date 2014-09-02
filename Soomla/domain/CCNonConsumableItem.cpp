@@ -21,7 +21,7 @@
 USING_NS_CC;
 
 namespace soomla {
-    CCNonConsumableItem *CCNonConsumableItem::create(__String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
+    CCNonConsumableItem *CCNonConsumableItem::create(CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
         CCNonConsumableItem *ret = new CCNonConsumableItem();
         if (ret->init(name, description, itemId, purchaseType)) {
             ret->autorelease();

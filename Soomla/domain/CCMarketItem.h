@@ -34,12 +34,12 @@ namespace soomla {
      `CCPurchaseWithMarket` has an instance of this class.
 	 */
     class CCMarketItem : public CCDomain {
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mProductId, ProductId, CCStoreConsts::JSON_MARKET_ITEM_PRODUCT_ID);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mConsumable, Consumable, CCStoreConsts::JSON_MARKET_ITEM_CONSUMABLE);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Double *, mPrice, Price, CCStoreConsts::JSON_MARKET_ITEM_PRICE);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mMarketPrice, MarketPrice, CCStoreConsts::JSON_MARKET_ITEM_MARKET_PRICE);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mMarketTitle, MarketTitle, CCStoreConsts::JSON_MARKET_ITEM_MARKET_TITLE);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mMarketDescription, MarketDescription, CCStoreConsts::JSON_MARKET_ITEM_MARKET_DESCRIPTION);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mProductId, ProductId, CCStoreConsts::JSON_MARKET_ITEM_PRODUCT_ID);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCInteger *, mConsumable, Consumable, CCStoreConsts::JSON_MARKET_ITEM_CONSUMABLE);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCDouble *, mPrice, Price, CCStoreConsts::JSON_MARKET_ITEM_PRICE);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mMarketPrice, MarketPrice, CCStoreConsts::JSON_MARKET_ITEM_MARKET_PRICE);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mMarketTitle, MarketTitle, CCStoreConsts::JSON_MARKET_ITEM_MARKET_TITLE);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mMarketDescription, MarketDescription, CCStoreConsts::JSON_MARKET_ITEM_MARKET_DESCRIPTION);
     public:
         
         /**
@@ -60,7 +60,7 @@ namespace soomla {
          @param price The price of the item, in USD.
          @return The Market item.
 		 */
-        static CCMarketItem *create(cocos2d::__String *productId, cocos2d::__Integer *consumable, cocos2d::__Double * price);
+        static CCMarketItem *create(cocos2d::CCString *productId, cocos2d::CCInteger *consumable, cocos2d::CCDouble * price);
 
 		/**
          Creates a `CCMarketItem` from a dictionary.
@@ -70,8 +70,8 @@ namespace soomla {
 		*/
         SL_CREATE_WITH_DICTIONARY(CCMarketItem);
 
-        bool init(cocos2d::__String *productId, cocos2d::__Integer *consumable, cocos2d::__Double * price);
-        virtual bool initWithDictionary(cocos2d::__Dictionary* dict);
+        bool init(cocos2d::CCString *productId, cocos2d::CCInteger *consumable, cocos2d::CCDouble * price);
+        virtual bool initWithDictionary(cocos2d::CCDictionary* dict);
 
         virtual ~CCMarketItem();
 
@@ -79,7 +79,7 @@ namespace soomla {
         Converts this `CCMarketItem` to a `CCDictionary`.
         @return `CCDictionary` representation of this `CCMarketItem`.
         */
-        virtual cocos2d::__Dictionary* toDictionary();
+        virtual cocos2d::CCDictionary* toDictionary();
     };
 };
 

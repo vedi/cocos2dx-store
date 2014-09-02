@@ -23,7 +23,7 @@ namespace soomla {
 
     USING_NS_CC;
 
-    CCLifetimeVG *CCLifetimeVG::create(__String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
+    CCLifetimeVG *CCLifetimeVG::create(CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
         CCLifetimeVG *ret = new CCLifetimeVG();
         if (ret->init(name, description, itemId, purchaseType)) {
             ret->autorelease();
