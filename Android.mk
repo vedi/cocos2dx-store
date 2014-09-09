@@ -10,30 +10,16 @@ COCOS2D_JAVASCRIPT = $(filter %-DCOCOS2D_JAVASCRIPT,$(APP_CPPFLAGS))
 
 LOCAL_MODULE := cocos2dx_store_static
 LOCAL_MODULE_FILENAME := libcocos2dxstore
-LOCAL_SRC_FILES := Soomla/CCStoreConsts.cpp \
-	Soomla/CCSimpleStoreEventHandler.cpp \
-	Soomla/CCSoomlaStore.cpp \
-	Soomla/CCStoreEventDispatcher.cpp \
-	Soomla/CCStoreInventory.cpp \
-	Soomla/CCStoreService.cpp \
-	Soomla/PurchaseTypes/CCPurchaseType.cpp \
-	Soomla/PurchaseTypes/CCPurchaseWithMarket.cpp \
-	Soomla/PurchaseTypes/CCPurchaseWithVirtualItem.cpp \
-	Soomla/data/CCStoreInfo.cpp \
-	Soomla/domain/CCMarketItem.cpp \
-	Soomla/domain/CCNonConsumableItem.cpp \
-	Soomla/domain/CCPurchasableVirtualItem.cpp \
-	Soomla/domain/CCVirtualCategory.cpp \
-	Soomla/domain/CCVirtualItem.cpp \
-	Soomla/domain/virtualCurrencies/CCVirtualCurrency.cpp \
-	Soomla/domain/virtualCurrencies/CCVirtualCurrencyPack.cpp \
-	Soomla/domain/virtualGoods/CCEquippableVG.cpp \
-	Soomla/domain/virtualGoods/CCLifetimeVG.cpp \
-	Soomla/domain/virtualGoods/CCSingleUsePackVG.cpp \
-	Soomla/domain/virtualGoods/CCSingleUseVG.cpp \
-	Soomla/domain/virtualGoods/CCUpgradeVG.cpp \
-	Soomla/domain/virtualGoods/CCVirtualGood.cpp \
-	Soomla/rewards/CCVirtualItemReward.cpp
+
+STORE_SRC_LIST := $(wildcard $(LOCAL_PATH)/Soomla/*.cpp)
+STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/PurchaseTypes/*.cpp)
+STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/data/*.cpp)
+STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/domain/*.cpp)
+STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/domain/virtualCurrencies/*.cpp)
+STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/domain/virtualGoods/*.cpp)
+STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/rewards/*.cpp)
+
+LOCAL_SRC_FILES := $(STORE_SRC_LIST)
 
 
 ifneq '$(COCOS2D_JAVASCRIPT)' ''
