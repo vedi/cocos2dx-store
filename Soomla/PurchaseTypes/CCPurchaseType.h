@@ -31,7 +31,7 @@ namespace soomla {
      abstract class describes basic features of the actual implementations of
      `CCPurchaseType`.
 	 */
-    class CCPurchaseType : public cocos2d::CCObject {
+    class CCPurchaseType : public cocos2d::Ref {
     public:
         CCPurchaseType() {}
         

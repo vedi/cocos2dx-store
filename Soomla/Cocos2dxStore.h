@@ -15,16 +15,17 @@
 #include "CCSoomlaStore.h"
 #include "CCStoreInfo.h"
 #include "CCStoreInventory.h"
-#include "CCSoomlaUtils.h"
 #include "CCUpgradeVG.h"
 #include "CCVirtualCategory.h"
 #include "CCVirtualCurrency.h"
 #include "CCVirtualCurrencyPack.h"
 #include "CCVirtualGood.h"
 #include "CCVirtualItem.h"
+#include "CCVirtualItemReward.h"
 
 #include "CCStoreEventDispatcher.h"
 #include "CCStoreEventHandler.h"
+#include "CCSimpleStoreEventHandler.h"
 #include "CCStoreService.h"
 
 #endif /* !_Cocos2dxSoomla_H */
