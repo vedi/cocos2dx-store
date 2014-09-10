@@ -8,7 +8,7 @@ mkdir -p $build
 cd submodules/android-store/SoomlaAndroidStore
 ./build_all
 cd -
-cp -R submodules/android-store/build/* $build/
+cp -L submodules/android-store/build/AndroidStore.jar $build/
 cp -R submodules/android-store/billing-services $build/
 
 for path in "${paths[@]}"
@@ -18,5 +18,3 @@ do
   cd -
   cp -R $path/build/* $build/
 done
-
-
