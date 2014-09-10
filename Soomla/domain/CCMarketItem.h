@@ -36,7 +36,7 @@ namespace soomla {
     class CCMarketItem : public CCDomain {
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mProductId, ProductId, CCStoreConsts::JSON_MARKET_ITEM_PRODUCT_ID);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCInteger *, mConsumable, Consumable, CCStoreConsts::JSON_MARKET_ITEM_CONSUMABLE);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCDouble *, mPrice, Price, CCStoreConsts::JSON_MARKET_ITEM_PRICE);
+        SL_SYNTHESIZE_DOUBLE_RETAIN_WITH_DICT(mPrice, Price, CCStoreConsts::JSON_MARKET_ITEM_PRICE);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mMarketPrice, MarketPrice, CCStoreConsts::JSON_MARKET_ITEM_MARKET_PRICE);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mMarketTitle, MarketTitle, CCStoreConsts::JSON_MARKET_ITEM_MARKET_TITLE);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mMarketDescription, MarketDescription, CCStoreConsts::JSON_MARKET_ITEM_MARKET_DESCRIPTION);
