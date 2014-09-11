@@ -52,7 +52,7 @@ This example is still under development but it can give you a taste of the impor
 1. Create your own implementation of `CCStoreAssets` in order to describe your specific game's assets ([example](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)).
 
 1. Implement your `CCStoreEventHandler` in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling) section for more information.
-
+ 
 1. Initialize `CCServiceManager` and `CCStoreService` the the class you just created, a `customSecret` and other params:
 
     ```cpp
@@ -74,7 +74,7 @@ This example is still under development but it can give you a taste of the impor
     - *Android Public Key* - is the public key given to you from Google. (iOS doesn't have a public key).
 
     > Initialize `CCStoreService` ONLY ONCE when your application loads.
-
+ 
 1. Make sure to include the `Cocos2dxStore.h` header whenever you use any of the *cocos2dx-store* functions:
     ```cpp
     #include "Cocos2dxStore.h"
@@ -108,6 +108,8 @@ In your XCode project, perform following steps:
  - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/build/ios/headers/**`
  - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/Soomla/**`
  - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/build/ios/headers/**`
+
+1. Add `-ObjC` to your project **Build Setting->Other Linker Flags**.
 
 1. Register the native StoreService by adding:
 
