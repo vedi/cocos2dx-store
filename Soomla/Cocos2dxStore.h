@@ -1,6 +1,8 @@
 #ifndef _Cocos2dxSoomla_H
 #define _Cocos2dxSoomla_H
 
+#include "Cocos2dxCore.h"
+
 #include "CCEquippableVG.h"
 #include "CCStoreAssets.h"
 #include "CCLifetimeVG.h"
