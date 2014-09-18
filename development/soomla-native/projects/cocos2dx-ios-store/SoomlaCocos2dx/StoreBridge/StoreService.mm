@@ -418,7 +418,7 @@
         for (MarketItem* mi in marketItems) {
             miDict = [NSMutableDictionary dictionary];
             [miDict setObject:mi.productId forKey:@"productId"];
-            [miDict setObject:[mi priceWithCurrencySymbol] forKey:@"marketPrice"];
+            [miDict setObject:mi.marketPrice forKey:@"marketPrice"];
             [miDict setObject:mi.marketTitle forKey:@"marketTitle"];
             [miDict setObject:mi.marketDescription forKey:@"marketDesc"];
             [jsonArr addObject:miDict];
