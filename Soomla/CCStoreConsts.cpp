@@ -41,9 +41,9 @@ namespace soomla {
     char const *CCStoreConsts::JSON_MARKET_ITEM_CONSUMABLE = "consumable";
     char const *CCStoreConsts::JSON_MARKET_ITEM_PRICE = "price";
 
-    char const *CCStoreConsts::JSON_MARKET_ITEM_MARKET_PRICE = "market_price";
-    char const *CCStoreConsts::JSON_MARKET_ITEM_MARKET_TITLE = "market_title";
-    char const *CCStoreConsts::JSON_MARKET_ITEM_MARKET_DESCRIPTION = "market_desc";
+    char const *CCStoreConsts::JSON_MARKET_ITEM_MARKET_PRICE = "marketPrice";
+    char const *CCStoreConsts::JSON_MARKET_ITEM_MARKET_TITLE = "marketTitle";
+    char const *CCStoreConsts::JSON_MARKET_ITEM_MARKET_DESCRIPTION = "marketDesc";
 
     char const *CCStoreConsts::JSON_EQUIPPABLE_EQUIPPING = "equipping";
 
