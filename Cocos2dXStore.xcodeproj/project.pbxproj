@@ -68,10 +68,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9D41016D1978D35200907FA8 /* libCocos2dXiOSCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocos2dXiOSCore.a; path = "soomla-native/compilations/ios/libCocos2dXiOSCore.a"; sourceTree = "<group>"; };
-		9D41016E1978D35200907FA8 /* libSoomlaiOSCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSoomlaiOSCore.a; path = "soomla-native/compilations/ios/libSoomlaiOSCore.a"; sourceTree = "<group>"; };
-		9D63D09D19B1B20D0054EA87 /* libCocos2dXiOSCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocos2dXiOSCore.a; path = build/ios/libCocos2dXiOSCore.a; sourceTree = "<group>"; };
-		9D63D09E19B1B20D0054EA87 /* libSoomlaiOSCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSoomlaiOSCore.a; path = build/ios/libSoomlaiOSCore.a; sourceTree = "<group>"; };
 		9D63D1C119B1C4FF0054EA87 /* CCSimpleStoreEventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSimpleStoreEventHandler.cpp; sourceTree = "<group>"; };
 		9D63D1C219B1C4FF0054EA87 /* CCSimpleStoreEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSimpleStoreEventHandler.h; sourceTree = "<group>"; };
 		9D63D1C319B1C4FF0054EA87 /* CCSoomlaStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSoomlaStore.cpp; sourceTree = "<group>"; };
@@ -287,10 +283,6 @@
 			children = (
 				9D63D23619B1C56E0054EA87 /* libCocos2dXiOSStore.a */,
 				9D63D23719B1C56E0054EA87 /* libSoomlaiOSStore.a */,
-				9D63D09D19B1B20D0054EA87 /* libCocos2dXiOSCore.a */,
-				9D63D09E19B1B20D0054EA87 /* libSoomlaiOSCore.a */,
-				9D41016D1978D35200907FA8 /* libCocos2dXiOSCore.a */,
-				9D41016E1978D35200907FA8 /* libSoomlaiOSCore.a */,
 				C0B3C5F2168C6D0C00161FAA /* Foundation.framework */,
 			);
 			name = Frameworks;
