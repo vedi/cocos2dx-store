@@ -413,6 +413,8 @@ namespace soomla {
             CCString *marketPrice = dynamic_cast<CCString *>(marketItem->objectForKey("marketPrice"));
             CCString *marketTitle = dynamic_cast<CCString *>(marketItem->objectForKey("marketTitle"));
             CCString *marketDescription = dynamic_cast<CCString *>(marketItem->objectForKey("marketDesc"));
+            CCString *marketCurrencyCode = dynamic_cast<CCString *>(marketItem->objectForKey("marketCurrencyCode"));
+            CCInteger *marketPriceMicros = dynamic_cast<CCInteger *>(marketItem->objectForKey("marketPriceMicros"));
 
             CCPurchasableVirtualItem *pvi = CCStoreInfo::sharedStoreInfo()->getPurchasableItemWithProductId(
                     productId->getCString(), &error);
@@ -425,9 +427,11 @@ namespace soomla {
             CCPurchaseWithMarket *purchaseWithMarket = dynamic_cast<CCPurchaseWithMarket *>(pvi->getPurchaseType());
             CC_ASSERT(purchaseWithMarket);
             CCMarketItem *mi = purchaseWithMarket->getMarketItem();
-            mi->setMarketPrice(marketPrice);
+                        mi->setMarketPriceAndCurrency(marketPrice);
             mi->setMarketTitle(marketTitle);
             mi->setMarketDescription(marketDescription);
+                        mi->setMarketCurrencyCode(marketCurrencyCode);
+                        mi->setMarketPriceMicros(marketPriceMicros);
             pvi->save();
 
             marketItems->addObject(purchaseWithMarket);

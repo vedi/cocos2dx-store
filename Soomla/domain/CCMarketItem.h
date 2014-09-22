@@ -37,9 +37,14 @@ namespace soomla {
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mProductId, ProductId, CCStoreConsts::JSON_MARKET_ITEM_PRODUCT_ID);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCInteger *, mConsumable, Consumable, CCStoreConsts::JSON_MARKET_ITEM_CONSUMABLE);
         SL_SYNTHESIZE_DOUBLE_RETAIN_WITH_DICT(mPrice, Price, CCStoreConsts::JSON_MARKET_ITEM_PRICE);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mMarketPrice, MarketPrice, CCStoreConsts::JSON_MARKET_ITEM_MARKET_PRICE);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mMarketPriceAndCurrency, MarketPriceAndCurrency, CCStoreConsts::JSON_MARKET_ITEM_MARKET_PRICE);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mMarketTitle, MarketTitle, CCStoreConsts::JSON_MARKET_ITEM_MARKET_TITLE);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mMarketDescription, MarketDescription, CCStoreConsts::JSON_MARKET_ITEM_MARKET_DESCRIPTION);
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCString *, mMarketCurrencyCode, MarketCurrencyCode, CCStoreConsts::JSON_MARKET_ITEM_MARKET_CURRENCY_CODE);
+        // (21.9.14) - This is saved as an Integer since Jansson
+        // (JSON parse) does not support long and IAP are relatively low on price
+        // so int could be enough, if it's a problem need to replace Jansson
+        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::CCInteger *, mMarketPriceMicros, MarketPriceMicros, CCStoreConsts::JSON_MARKET_ITEM_MARKET_PRICE_MICROS);
     public:
         
         /**
@@ -51,7 +56,8 @@ namespace soomla {
             CONSUMABLE,
             SUBSCRIPTION,
         };
-        CCMarketItem(): mProductId(NULL), mConsumable(NULL), mPrice(NULL), mMarketPrice(NULL), mMarketTitle(NULL), mMarketDescription(NULL) {};
+        CCMarketItem(): mProductId(NULL), mConsumable(NULL), mPrice(NULL), mMarketPriceAndCurrency(NULL), mMarketTitle(NULL), mMarketDescription(NULL),
+            mMarketCurrencyCode(NULL), mMarketPriceMicros(NULL){};
 
 		/**
          Creates a `CCMarketItem`.

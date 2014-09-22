@@ -60,9 +60,11 @@ namespace soomla {
         fillConsumableFromDict(dict);
         fillPriceFromDict(dict);
         
-        fillMarketPriceFromDict(dict);
+        fillMarketPriceAndCurrencyFromDict(dict);
         fillMarketTitleFromDict(dict);
         fillMarketDescriptionFromDict(dict);
+        fillMarketCurrencyCodeFromDict(dict);
+        fillMarketPriceMicrosFromDict(dict);
 
         return true;
     }
@@ -71,9 +73,11 @@ namespace soomla {
         CC_SAFE_RELEASE(mProductId);
         CC_SAFE_RELEASE(mConsumable);
         CC_SAFE_RELEASE(mPrice);
-        CC_SAFE_RELEASE(mMarketPrice);
+        CC_SAFE_RELEASE(mMarketPriceAndCurrency);
         CC_SAFE_RELEASE(mMarketTitle);
         CC_SAFE_RELEASE(mMarketDescription);
+        CC_SAFE_RELEASE(mMarketCurrencyCode);
+        CC_SAFE_RELEASE(mMarketPriceMicros);
     }
 
     CCDictionary *CCMarketItem::toDictionary() {
@@ -83,9 +87,11 @@ namespace soomla {
         putConsumableToDict(dict);
         putPriceToDict(dict);
 
-        putMarketPriceToDict(dict);
+        putMarketPriceAndCurrencyToDict(dict);
         putMarketTitleToDict(dict);
         putMarketDescriptionToDict(dict);
+        putMarketCurrencyCodeToDict(dict);
+        putMarketPriceMicrosToDict(dict);
 
         return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_MARKET_ITEM);
     }
