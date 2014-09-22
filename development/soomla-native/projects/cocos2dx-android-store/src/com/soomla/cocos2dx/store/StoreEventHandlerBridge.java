@@ -290,9 +290,11 @@ public class StoreEventHandlerBridge {
                     for (MarketItem marketItem : marketItemsRefreshed.getMarketItems()) {
                         marketItemJson = new JSONObject();
                         marketItemJson.put("productId", marketItem.getProductId());
-                        marketItemJson.put("marketPrice", marketItem.getMarketPrice());
+                        marketItemJson.put("marketPrice", marketItem.getMarketPriceAndCurrency());
                         marketItemJson.put("marketTitle", marketItem.getMarketTitle());
                         marketItemJson.put("marketDesc", marketItem.getMarketDescription());
+                        marketItemJson.put("marketCurrencyCode", marketItem.getMarketCurrencyCode());
+                        marketItemJson.put("marketPriceMicros", marketItem.getMarketPriceMicros());
                         marketItemsJson.put(marketItemJson);
                     }
                     JSONObject parameters = new JSONObject();

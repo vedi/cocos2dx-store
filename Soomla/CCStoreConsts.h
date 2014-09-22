@@ -50,6 +50,8 @@ namespace soomla {
         static char const *JSON_MARKET_ITEM_MARKET_PRICE;
         static char const *JSON_MARKET_ITEM_MARKET_TITLE;
         static char const *JSON_MARKET_ITEM_MARKET_DESCRIPTION;
+        static char const *JSON_MARKET_ITEM_MARKET_CURRENCY_CODE;
+        static char const *JSON_MARKET_ITEM_MARKET_PRICE_MICROS;
 
         static char const *JSON_EQUIPPABLE_EQUIPPING;
 
