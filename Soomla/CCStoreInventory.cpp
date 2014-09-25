@@ -205,45 +205,4 @@ namespace soomla {
         params->setObject(__String::create(goodItemId), "goodItemId");
         CCNdkBridge::callNative (params, error);
     }
-
-    bool CCStoreInventory::nonConsumableItemExists(char const *nonConsItemId, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling nonConsumableItemExists with: %s", nonConsItemId)->getCString());
-
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::nonConsumableItemExists"), "method");
-        params->setObject(__String::create(nonConsItemId), "nonConsItemId");
-        __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
-
-        if (retParams == NULL) {
-        	return false;
-        }
-
-		__Bool *retValue = (__Bool *) retParams->objectForKey("return");
-		if (retValue) {
-			return retValue->getValue();
-		} else {
-			return false;
-		}
-    }
-
-    void CCStoreInventory::addNonConsumableItem(char const *nonConsItemId, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling addNonConsumableItem with: %s", nonConsItemId)->getCString());
-
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::addNonConsumableItem"), "method");
-        params->setObject(__String::create(nonConsItemId), "nonConsItemId");
-        CCNdkBridge::callNative (params, error);
-   }
-
-    void CCStoreInventory::removeNonConsumableItem(char const *nonConsItemId, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling removeNonConsumableItem with: %s", nonConsItemId)->getCString());
-
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::removeNonConsumableItem"), "method");
-        params->setObject(__String::create(nonConsItemId), "nonConsItemId");
-        CCNdkBridge::callNative (params, error);
-    }
 }

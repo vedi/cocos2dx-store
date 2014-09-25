@@ -7,7 +7,6 @@
 #include "CCStoreConsts.h"
 #include "CCVirtualItem.h"
 #include "CCMarketItem.h"
-#include "CCNonConsumableItem.h"
 #include "CCVirtualCategory.h"
 #include "CCVirtualCurrency.h"
 #include "CCVirtualCurrencyPack.h"
@@ -57,7 +56,6 @@ namespace soomla {
 
         CCDomainFactory *domainFactory = CCDomainFactory::getInstance();
         domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_MARKET_ITEM, CCMarketItem::createWithDictionary);
-        domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_NON_CONSUMABLE_ITEM, CCNonConsumableItem::createWithDictionary);
         domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CATEGORY, CCVirtualCategory::createWithDictionary);
         domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY, CCVirtualCurrency::createWithDictionary);
         domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK, CCVirtualCurrencyPack::createWithDictionary);
