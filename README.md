@@ -17,6 +17,22 @@ cocos2dx-store
 
 **October 28, 2013**: iOS server side verification is added. This feature is not activated by default. [learn more](https://github.com/soomla/cocos2dx-store#ios-server-side-verification)
 
+**September 28, 2014**: 
+*BREAKING* - `CCNonConsumableItem` class has been removed to prevent confusion between `NonConsumableItem` and `LifeTimeVG`. 
+To create a non-consumable item, define it as `CCLifeTimeVG` with a `CCPurchaseWithMarket` and `CCMarketItem::NONCONSUMABLE` in your `iStoreAssets` implementation.
+For example: 
+```c++
+CCVirtualGood *noAdsLTVG = CCLifetimeVG::create(
+              CCString::create("No Ads"),
+              CCString::create("Test LifeTimeVG non-consumable item"),
+              CCString::create("no_ads"),
+              CCPurchaseWithMarket::createWithMarketItem(CCMarketItem::create(
+                            CCString::create("android.test.purchased"),
+                            CCInteger::create(CCMarketItem::NONCONSUMABLE), CCDouble::create(1.99))
+              )
+);
+```
+
 * More documentation and information in SOOMLA's [Knowledge Base](http://know.soom.la/docs/platforms/cocos2dx)  
 * For issues you can use the [issues](https://github.com/soomla/cocos2dx-store/issues) section or SOOMLA's [Answers Website](http://answers.soom.la)
 
