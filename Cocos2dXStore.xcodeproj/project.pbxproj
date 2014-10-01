@@ -333,10 +333,6 @@
 			children = (
 				9D63D23619B1C56E0054EA87 /* libCocos2dXiOSStore.a */,
 				9D63D23719B1C56E0054EA87 /* libSoomlaiOSStore.a */,
-				9D63D09D19B1B20D0054EA87 /* libCocos2dXiOSCore.a */,
-				9D63D09E19B1B20D0054EA87 /* libSoomlaiOSCore.a */,
-				9D41016D1978D35200907FA8 /* libCocos2dXiOSCore.a */,
-				9D41016E1978D35200907FA8 /* libSoomlaiOSCore.a */,
 				C0B3C5F2168C6D0C00161FAA /* Foundation.framework */,
 			);
 			name = Frameworks;
