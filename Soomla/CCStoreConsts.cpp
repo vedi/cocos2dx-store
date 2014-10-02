@@ -24,7 +24,6 @@ namespace soomla {
     char const *CCStoreConsts::JSON_STORE_CURRENCY_PACKS = "currencyPacks";
     char const *CCStoreConsts::JSON_STORE_GOODS = "goods";
     char const *CCStoreConsts::JSON_STORE_CATEGORIES = "categories";
-    char const *CCStoreConsts::JSON_STORE_NON_CONSUMABLES = "nonConsumables";
     char const *CCStoreConsts::JSON_STORE_GOODS_SU = "singleUse";
     char const *CCStoreConsts::JSON_STORE_GOODS_PA = "goodPacks";
     char const *CCStoreConsts::JSON_STORE_GOODS_UP = "goodUpgrades";
@@ -74,7 +73,6 @@ namespace soomla {
     char const *CCStoreConsts::JSON_ASSOCIATED_ITEM_ID = "associatedItemId";
 
     char const *CCStoreConsts::JSON_JSON_TYPE_MARKET_ITEM = "MarketItem";
-    char const *CCStoreConsts::JSON_JSON_TYPE_NON_CONSUMABLE_ITEM = "NonConsumableItem";
     char const *CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CATEGORY = "VirtualCategory";
     char const *CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY = "VirtualCurrency";
     char const *CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK = "VirtualCurrencyPack";

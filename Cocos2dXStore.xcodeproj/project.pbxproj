@@ -26,8 +26,6 @@
 		9D63D20F19B1C4FF0054EA87 /* CCStoreInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1D219B1C4FF0054EA87 /* CCStoreInfo.h */; };
 		9D63D21019B1C4FF0054EA87 /* CCMarketItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1D419B1C4FF0054EA87 /* CCMarketItem.cpp */; };
 		9D63D21119B1C4FF0054EA87 /* CCMarketItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1D519B1C4FF0054EA87 /* CCMarketItem.h */; };
-		9D63D21219B1C4FF0054EA87 /* CCNonConsumableItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1D619B1C4FF0054EA87 /* CCNonConsumableItem.cpp */; };
-		9D63D21319B1C4FF0054EA87 /* CCNonConsumableItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1D719B1C4FF0054EA87 /* CCNonConsumableItem.h */; };
 		9D63D21419B1C4FF0054EA87 /* CCPurchasableVirtualItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1D819B1C4FF0054EA87 /* CCPurchasableVirtualItem.cpp */; };
 		9D63D21519B1C4FF0054EA87 /* CCPurchasableVirtualItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1D919B1C4FF0054EA87 /* CCPurchasableVirtualItem.h */; };
 		9D63D21619B1C4FF0054EA87 /* CCVirtualCategory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1DA19B1C4FF0054EA87 /* CCVirtualCategory.cpp */; };
@@ -87,8 +85,6 @@
 		9D63D1D219B1C4FF0054EA87 /* CCStoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreInfo.h; sourceTree = "<group>"; };
 		9D63D1D419B1C4FF0054EA87 /* CCMarketItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCMarketItem.cpp; sourceTree = "<group>"; };
 		9D63D1D519B1C4FF0054EA87 /* CCMarketItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMarketItem.h; sourceTree = "<group>"; };
-		9D63D1D619B1C4FF0054EA87 /* CCNonConsumableItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNonConsumableItem.cpp; sourceTree = "<group>"; };
-		9D63D1D719B1C4FF0054EA87 /* CCNonConsumableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNonConsumableItem.h; sourceTree = "<group>"; };
 		9D63D1D819B1C4FF0054EA87 /* CCPurchasableVirtualItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPurchasableVirtualItem.cpp; sourceTree = "<group>"; };
 		9D63D1D919B1C4FF0054EA87 /* CCPurchasableVirtualItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPurchasableVirtualItem.h; sourceTree = "<group>"; };
 		9D63D1DA19B1C4FF0054EA87 /* CCVirtualCategory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualCategory.cpp; sourceTree = "<group>"; };
@@ -184,8 +180,6 @@
 			children = (
 				9D63D1D419B1C4FF0054EA87 /* CCMarketItem.cpp */,
 				9D63D1D519B1C4FF0054EA87 /* CCMarketItem.h */,
-				9D63D1D619B1C4FF0054EA87 /* CCNonConsumableItem.cpp */,
-				9D63D1D719B1C4FF0054EA87 /* CCNonConsumableItem.h */,
 				9D63D1D819B1C4FF0054EA87 /* CCPurchasableVirtualItem.cpp */,
 				9D63D1D919B1C4FF0054EA87 /* CCPurchasableVirtualItem.h */,
 				9D63D1DA19B1C4FF0054EA87 /* CCVirtualCategory.cpp */,
@@ -316,7 +310,6 @@
 				9D63D22519B1C4FF0054EA87 /* CCSingleUseVG.h in Headers */,
 				9D63D20219B1C4FF0054EA87 /* CCSoomlaStore.h in Headers */,
 				9D63D22119B1C4FF0054EA87 /* CCLifetimeVG.h in Headers */,
-				9D63D21319B1C4FF0054EA87 /* CCNonConsumableItem.h in Headers */,
 				9D63D22319B1C4FF0054EA87 /* CCSingleUsePackVG.h in Headers */,
 				9D63D21F19B1C4FF0054EA87 /* CCEquippableVG.h in Headers */,
 				9D63D20A19B1C4FF0054EA87 /* CCStoreInventory.h in Headers */,
@@ -379,7 +372,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D63D22819B1C4FF0054EA87 /* CCVirtualGood.cpp in Sources */,
-				9D63D21219B1C4FF0054EA87 /* CCNonConsumableItem.cpp in Sources */,
 				9D63D21A19B1C4FF0054EA87 /* CCVirtualCurrency.cpp in Sources */,
 				9D63D22419B1C4FF0054EA87 /* CCSingleUseVG.cpp in Sources */,
 				9D63D23219B1C4FF0054EA87 /* CCPurchaseWithVirtualItem.cpp in Sources */,

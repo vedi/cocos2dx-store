@@ -16,7 +16,6 @@
 #import "EquippableVG.h"
 #import "UpgradeVG.h"
 #import "MarketItem.h"
-#import "NonConsumableItem.h"
 #import "VirtualCategory.h"
 #import "VirtualCurrencyPack.h"
 #import "SingleUsePackVG.h"
@@ -91,12 +90,6 @@
                                            andBlock:^id(NSDictionary *dict) {
                                                return [[[VirtualCurrencyPack alloc] initWithDictionary:dict] autorelease];
                                            }];
-    [[DomainHelper sharedDomainHelper] registerType:(NSString *)JSON_JSON_TYPE_NON_CONSUMABLE_ITEM
-                                      withClassName:NSStringFromClass([NonConsumableItem class])
-                                           andBlock:^id(NSDictionary *dict) {
-                                               return [[[NonConsumableItem alloc] initWithDictionary:dict] autorelease];
-                                           }];
-
     [[DomainHelper sharedDomainHelper] registerType:(NSString *)JSON_JSON_TYPE_MARKET_ITEM
                                       withClassName:NSStringFromClass([MarketItem class])
                                            andBlock:^id(NSDictionary *dict) {
@@ -234,22 +227,6 @@
         [StoreInventory removeUpgrades:goodItemId];
     }];
 
-    [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::nonConsumableItemExists" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        NSString *nonConsItemId = (NSString *) [parameters objectForKey:@"nonConsItemId"];
-        bool res = [StoreInventory nonConsumableItemExists:nonConsItemId];
-        [retParameters setObject:[NSNumber numberWithBool:res] forKey:@"return"];
-    }];
-
-    [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::addNonConsumableItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        NSString *nonConsItemId = (NSString *) [parameters objectForKey:@"nonConsItemId"];
-        [StoreInventory addNonConsumableItem:nonConsItemId];
-    }];
-
-    [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::removeNonConsumableItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        NSString *nonConsItemId = (NSString *) [parameters objectForKey:@"nonConsItemId"];
-        [StoreInventory removeNonConsumableItem:nonConsItemId];
-    }];
-
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getItemByItemId" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
         VirtualItem* vi = [[StoreInfo getInstance] virtualItemWithId:itemId];
@@ -306,12 +283,6 @@
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getVirtualCurrencyPacks" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSArray *virtualCurrencyPacks = [[StoreInfo getInstance] virtualCurrencyPacks];
         NSArray *retObj = [[DomainHelper sharedDomainHelper] getDictListFromDomains:virtualCurrencyPacks];
-        [retParameters setObject: retObj forKey: @"return"];
-    }];
-
-    [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getNonConsumableItems" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        NSArray *nonConsumableItems = [[StoreInfo getInstance] nonConsumableItems];
-        NSArray *retObj = [[DomainHelper sharedDomainHelper] getDictListFromDomains:nonConsumableItems];
         [retParameters setObject: retObj forKey: @"return"];
     }];
 

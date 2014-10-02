@@ -7,7 +7,6 @@ package com.soomla.cocos2dx.store;
  */
 public class StoreConsts {
     public static final String JSON_JSON_TYPE_MARKET_ITEM = "MarketItem";
-    public static final String JSON_JSON_TYPE_NON_CONSUMABLE_ITEM = "NonConsumableItem";
     public static final String JSON_JSON_TYPE_VIRTUAL_CATEGORY = "VirtualCategory";
     public static final String JSON_JSON_TYPE_VIRTUAL_CURRENCY = "VirtualCurrency";
     public static final String JSON_JSON_TYPE_VIRTUAL_CURRENCY_PACK = "VirtualCurrencyPack";
