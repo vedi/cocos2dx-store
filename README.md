@@ -9,6 +9,8 @@ cocos2dx-store
 
 > The `master` branch supports cocos2d-x v3.x. For cocos2d-x v2.x use `cocos2dx-v2` branch.*
 
+> Draw your attention this page covers integration of C++ based solutions. If you need information regarding JS solution follow the link: https://github.com/soomla/cocos2dx-store/wiki/jsb#cocos2dx-store
+
 **Aug 30, 2014**: Re-Arranged project structure and optimized integration process.
 
 **May 30, 2014**: Support Amazon Billing Provider.
