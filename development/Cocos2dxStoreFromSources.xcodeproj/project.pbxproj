@@ -247,6 +247,8 @@
 		9D63D1BE19B1C13F0054EA87 /* StoreInventory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D17C19B1C13F0054EA87 /* StoreInventory.h */; };
 		9D63D1BF19B1C13F0054EA87 /* StoreInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D17D19B1C13F0054EA87 /* StoreInventory.m */; };
 		C0B3C5F3168C6D0C00161FAA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B3C5F2168C6D0C00161FAA /* Foundation.framework */; };
+		F820C00319DC4BDA0084BBA5 /* StoreTypeConsts.mm in Sources */ = {isa = PBXBuildFile; fileRef = F820C00219DC4BDA0084BBA5 /* StoreTypeConsts.mm */; };
+		F820C00519DC4C140084BBA5 /* StoreTypeConsts.h in Headers */ = {isa = PBXBuildFile; fileRef = F820C00419DC4C140084BBA5 /* StoreTypeConsts.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -374,6 +376,8 @@
 		9D63D17D19B1C13F0054EA87 /* StoreInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreInventory.m; sourceTree = "<group>"; };
 		C0B3C5EF168C6D0C00161FAA /* libCocos2dxStoreFromSources.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocos2dxStoreFromSources.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B3C5F2168C6D0C00161FAA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F820C00219DC4BDA0084BBA5 /* StoreTypeConsts.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = StoreTypeConsts.mm; sourceTree = "<group>"; };
+		F820C00419DC4C140084BBA5 /* StoreTypeConsts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreTypeConsts.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -517,6 +521,8 @@
 				9D63D12D19B1C0C40054EA87 /* StoreAssetsBridge.mm */,
 				9D63D12E19B1C0C40054EA87 /* StoreService.h */,
 				9D63D12F19B1C0C40054EA87 /* StoreService.mm */,
+				F820C00419DC4C140084BBA5 /* StoreTypeConsts.h */,
+				F820C00219DC4BDA0084BBA5 /* StoreTypeConsts.mm */,
 			);
 			path = StoreBridge;
 			sourceTree = "<group>";
@@ -802,6 +808,7 @@
 				9D63D1BE19B1C13F0054EA87 /* StoreInventory.h in Headers */,
 				9D63D1AC19B1C13F0054EA87 /* IStoreAssets.h in Headers */,
 				9D63D0F919B1BFE30054EA87 /* CCStoreConsts.h in Headers */,
+				F820C00519DC4C140084BBA5 /* StoreTypeConsts.h in Headers */,
 				9D63D18019B1C13F0054EA87 /* StorageManager.h in Headers */,
 				9D63D10519B1BFE30054EA87 /* CCMarketItem.h in Headers */,
 				9D63D1AF19B1C13F0054EA87 /* PurchaseWithMarket.h in Headers */,
@@ -959,6 +966,7 @@
 			files = (
 				9D63D12219B1BFE30054EA87 /* CCPurchaseType.cpp in Sources */,
 				9D63D0FA19B1BFE30054EA87 /* CCStoreEventDispatcher.cpp in Sources */,
+				F820C00319DC4BDA0084BBA5 /* StoreTypeConsts.mm in Sources */,
 				9D63D1B919B1C13F0054EA87 /* SoomlaVerification.m in Sources */,
 				9D63D1B419B1C13F0054EA87 /* VirtualItemReward.m in Sources */,
 				9D63D10A19B1BFE30054EA87 /* CCVirtualCategory.cpp in Sources */,
