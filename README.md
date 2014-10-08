@@ -11,7 +11,7 @@ cocos2dx-store
 
 > Draw your attention this page covers integration of C++ based solutions. If you need information regarding JS solution follow the link: https://github.com/soomla/cocos2dx-store/wiki/jsb#cocos2dx-store
 
-**September 28, 2014**: `CCNonConsumableItem` class was removed.
+**September 15, 2014**: `CCNonConsumableItem` class was removed.
 To create a non-consumable item, define it as `CCLifeTimeVG` with a `CCPurchaseWithMarket` in your `iStoreAssets` implementation.
 
 **Aug 30, 2014**: Re-Arranged project structure and optimized integration process.
