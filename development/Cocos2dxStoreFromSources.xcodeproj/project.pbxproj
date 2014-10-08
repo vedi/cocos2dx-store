@@ -18,7 +18,6 @@
 		9D4A720A19DAAA1A0033DC46 /* CCUpgradeVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0E019B1BFE30054EA87 /* CCUpgradeVG.cpp */; };
 		9D4A720B19DAAA1A0033DC46 /* CCVirtualCurrency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0D319B1BFE30054EA87 /* CCVirtualCurrency.cpp */; };
 		9D4A720C19DAAA1A0033DC46 /* CCStoreInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0C519B1BFE30054EA87 /* CCStoreInfo.cpp */; };
-		9D4A720D19DAAA1A0033DC46 /* CCNonConsumableItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0CA19B1BFE30054EA87 /* CCNonConsumableItem.cpp */; };
 		9D4A720E19DAAA1A0033DC46 /* StoreService.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D12F19B1C0C40054EA87 /* StoreService.mm */; };
 		9D4A720F19DAAA1A0033DC46 /* CCVirtualCurrencyPack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0D519B1BFE30054EA87 /* CCVirtualCurrencyPack.cpp */; };
 		9D4A721019DAAA1A0033DC46 /* CCPurchaseWithMarket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0EC19B1BFE30054EA87 /* CCPurchaseWithMarket.cpp */; };
@@ -70,7 +69,6 @@
 		9D4A724019DAAA1A0033DC46 /* CCVirtualCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0CF19B1BFE30054EA87 /* CCVirtualCategory.h */; };
 		9D4A724119DAAA1A0033DC46 /* CCVirtualGood.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0E319B1BFE30054EA87 /* CCVirtualGood.h */; };
 		9D4A724219DAAA1A0033DC46 /* SingleUsePackVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D15719B1C13F0054EA87 /* SingleUsePackVG.h */; };
-		9D4A724319DAAA1A0033DC46 /* CCNonConsumableItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0CB19B1BFE30054EA87 /* CCNonConsumableItem.h */; };
 		9D4A724419DAAA1A0033DC46 /* EquippableVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D15319B1C13F0054EA87 /* EquippableVG.h */; };
 		9D4A724519DAAA1A0033DC46 /* VirtualCurrency.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D14E19B1C13F0054EA87 /* VirtualCurrency.h */; };
 		9D4A724619DAAA1A0033DC46 /* CCVirtualItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0D119B1BFE30054EA87 /* CCVirtualItem.h */; };
@@ -246,6 +244,8 @@
 		9D63D1BD19B1C13F0054EA87 /* StoreEventHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D17B19B1C13F0054EA87 /* StoreEventHandling.m */; };
 		9D63D1BE19B1C13F0054EA87 /* StoreInventory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D17C19B1C13F0054EA87 /* StoreInventory.h */; };
 		9D63D1BF19B1C13F0054EA87 /* StoreInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D17D19B1C13F0054EA87 /* StoreInventory.m */; };
+		9DABE27319E5353000911DA2 /* StoreTypeConsts.h in Headers */ = {isa = PBXBuildFile; fileRef = F820C00419DC4C140084BBA5 /* StoreTypeConsts.h */; };
+		9DABE27519E53A8200911DA2 /* StoreTypeConsts.mm in Sources */ = {isa = PBXBuildFile; fileRef = F820C00219DC4BDA0084BBA5 /* StoreTypeConsts.mm */; };
 		C0B3C5F3168C6D0C00161FAA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B3C5F2168C6D0C00161FAA /* Foundation.framework */; };
 		F820C00319DC4BDA0084BBA5 /* StoreTypeConsts.mm in Sources */ = {isa = PBXBuildFile; fileRef = F820C00219DC4BDA0084BBA5 /* StoreTypeConsts.mm */; };
 		F820C00519DC4C140084BBA5 /* StoreTypeConsts.h in Headers */ = {isa = PBXBuildFile; fileRef = F820C00419DC4C140084BBA5 /* StoreTypeConsts.h */; };
@@ -698,7 +698,6 @@
 				9D4A724019DAAA1A0033DC46 /* CCVirtualCategory.h in Headers */,
 				9D4A724119DAAA1A0033DC46 /* CCVirtualGood.h in Headers */,
 				9D4A724219DAAA1A0033DC46 /* SingleUsePackVG.h in Headers */,
-				9D4A724319DAAA1A0033DC46 /* CCNonConsumableItem.h in Headers */,
 				9D4A724419DAAA1A0033DC46 /* EquippableVG.h in Headers */,
 				9D4A724519DAAA1A0033DC46 /* VirtualCurrency.h in Headers */,
 				9D4A724619DAAA1A0033DC46 /* CCVirtualItem.h in Headers */,
@@ -739,6 +738,7 @@
 				9D4A726919DAAA1A0033DC46 /* StoreInventory.h in Headers */,
 				9D4A726A19DAAA1A0033DC46 /* IStoreAssets.h in Headers */,
 				9D4A726B19DAAA1A0033DC46 /* CCStoreConsts.h in Headers */,
+				9DABE27319E5353000911DA2 /* StoreTypeConsts.h in Headers */,
 				9D4A726C19DAAA1A0033DC46 /* StorageManager.h in Headers */,
 				9D4A726D19DAAA1A0033DC46 /* CCMarketItem.h in Headers */,
 				9D4A726E19DAAA1A0033DC46 /* PurchaseWithMarket.h in Headers */,
@@ -899,6 +899,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DABE27519E53A8200911DA2 /* StoreTypeConsts.mm in Sources */,
 				9D4A720219DAAA1A0033DC46 /* CCPurchaseType.cpp in Sources */,
 				9D4A720319DAAA1A0033DC46 /* CCStoreEventDispatcher.cpp in Sources */,
 				9D4A720419DAAA1A0033DC46 /* SoomlaVerification.m in Sources */,
@@ -910,7 +911,6 @@
 				9D4A720A19DAAA1A0033DC46 /* CCUpgradeVG.cpp in Sources */,
 				9D4A720B19DAAA1A0033DC46 /* CCVirtualCurrency.cpp in Sources */,
 				9D4A720C19DAAA1A0033DC46 /* CCStoreInfo.cpp in Sources */,
-				9D4A720D19DAAA1A0033DC46 /* CCNonConsumableItem.cpp in Sources */,
 				9D4A720E19DAAA1A0033DC46 /* StoreService.mm in Sources */,
 				9D4A720F19DAAA1A0033DC46 /* CCVirtualCurrencyPack.cpp in Sources */,
 				9D4A721019DAAA1A0033DC46 /* CCPurchaseWithMarket.cpp in Sources */,
@@ -966,7 +966,6 @@
 			files = (
 				9D63D12219B1BFE30054EA87 /* CCPurchaseType.cpp in Sources */,
 				9D63D0FA19B1BFE30054EA87 /* CCStoreEventDispatcher.cpp in Sources */,
-				F820C00319DC4BDA0084BBA5 /* StoreTypeConsts.mm in Sources */,
 				9D63D1B919B1C13F0054EA87 /* SoomlaVerification.m in Sources */,
 				9D63D1B419B1C13F0054EA87 /* VirtualItemReward.m in Sources */,
 				9D63D10A19B1BFE30054EA87 /* CCVirtualCategory.cpp in Sources */,
@@ -985,6 +984,7 @@
 				9D63D1BF19B1C13F0054EA87 /* StoreInventory.m in Sources */,
 				9D63D1A719B1C13F0054EA87 /* InsufficientFundsException.m in Sources */,
 				9D63D18119B1C13F0054EA87 /* StorageManager.m in Sources */,
+				F820C00319DC4BDA0084BBA5 /* StoreTypeConsts.mm in Sources */,
 				9D63D11419B1BFE30054EA87 /* CCLifetimeVG.cpp in Sources */,
 				9D63D19B19B1C13F0054EA87 /* LifetimeVG.m in Sources */,
 				9D63D12619B1BFE30054EA87 /* CCPurchaseWithVirtualItem.cpp in Sources */,
