@@ -10,7 +10,7 @@ cocos2dx-store
 > The `master` branch supports cocos2d-x v3.x. For cocos2d-x v2.x use `cocos2dx-v2` branch.*
 
 > Draw your attention this page covers integration of C++ based solutions. If you need information regarding JS solution follow the link: https://github.com/soomla/cocos2dx-store/wiki/jsb#cocos2dx-store
-**September 15th, 2014**: `CCNonConsumableItem` class was removed.
+**September 15, 2014**: `CCNonConsumableItem` class was removed.
 To create a non-consumable item, define it as `CCLifeTimeVG` with a `CCPurchaseWithMarket` in your `iStoreAssets` implementation.
 
 **Aug 30, 2014**: Re-Arranged project structure and optimized integration process.
