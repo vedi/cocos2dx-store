@@ -181,6 +181,59 @@ Soomla = new function () {
     pvi_amount: null
   }, PurchaseType);
 
+
+  //------ Profile ------//
+  /**
+   * UserProfile
+   */
+  var UserProfile = Soomla.Models.UserProfile = declareClass("UserProfile", {
+    provider: null,
+    profileId: null,
+    email: null,
+    firstName: null,
+    lastName: null,
+    avatarLink: null,
+    location: null,
+    gender: null,
+    language: null,
+    birthday: null
+  }, Domain);
+
+  var Provider = Soomla.Models.Provider = {
+    FACEBOOK: {id: 0, key: 'facebook'},
+    FOURSQUARE: {id: 1, key: 'foursquare'},
+    GOOGLE: {id: 2, key: 'google'},
+    LINKEDIN: {id: 3, key: 'linkedin'},
+    MYSPACE: {id: 4, key: 'myspace'},
+    TWITTER: {id: 5, key: 'twitter'},
+    YAHOO: {id: 6, key: 'yahoo'},
+    SALESFORCE: {id: 7, key: 'salesforce'},
+    YAMMER: {id: 8, key: 'yammer'},
+    RUNKEEPER: {id: 9, key: 'runkeeper'},
+    INSTAGRAM: {id: 10, key: 'instagram'},
+    FLICKR: {id: 11, key: 'flickr'}
+  };
+
+  Provider.findById = function(id) {
+    _.find(Soomla.Models.Provider, function(provider) {
+      return !_.isFunction(provider) && provider.id == id;
+    })
+  };
+  Provider.findByKey = function(key) {
+    _.find(Soomla.Models.Provider, function(provider) {
+      return !_.isFunction(provider) && provider.key == key;
+    });
+  };
+
+  var SocialActionType = Soomla.Models.SocialActionType = {
+    UPDATE_STATUS: 0,
+    UPDATE_STORY: 1,
+    UPLOAD_IMAGE: 2,
+    GET_CONTACTS: 3,
+    GET_FEED: 4
+  };
+
+
   function extractModel(retParams) {
     return retParams.return;
   }
@@ -332,7 +385,148 @@ Soomla = new function () {
     // For Android only
     onMarketRefund: function(purchasableVirtualItem) {},
     onIabServiceStarted: function() {},
-    onIabServiceStopped: function() {}
+    onIabServiceStopped: function() {},
+
+    // Profile
+    /**
+     * Called after the service has been initialized
+     */
+    onProfileInitialized: function() {},
+    /**
+     Called when the market page for the app is opened
+     */
+    onUserRatingEvent: function() {},
+
+    /**
+     Called when the login process to a provider has failed
+
+     @param provider The provider on which the login has failed
+     @param errorDescription a Description of the reason for failure
+     */
+    onLoginFailed: function(provider, errorDescription) {},
+
+    /**
+     Called when the login process finishes successfully
+
+     @param userProfile The user's profile from the logged in provider
+     */
+    onLoginFinished: function(userProfile) {},
+
+    /**
+     Called when the login process to a provider has started
+
+     @param provider The provider on where the login has started
+     */
+    onLoginStarted: function(provider) {},
+
+    /**
+     Called when the logout process from a provider has failed
+
+     @param provider The provider on which the logout has failed
+     @param errorDescription a Description of the reason for failure
+     */
+    onLogoutFailed: function(provider, errorDescription) {},
+
+    /**
+     Called when the logout process from a provider has finished
+
+     @param provider The provider on which the logout has finished
+     */
+    onLogoutFinished: function(provider) {},
+
+    /**
+     Called when the logout process from a provider has started
+
+     @param provider The provider on which the login has started
+     */
+    onLogoutStarted: function(provider) {},
+
+    /**
+     Called when the get contacts process from a provider has failed
+
+     @param provider The provider on which the get contacts process has
+     failed
+     @param errorDescription a Description of the reason for failure
+     */
+    onGetContactsFailed: function(provider, errorDescription) {},
+
+    /**
+     Called when the get contacts process from a provider has finished
+
+     @param provider The provider on which the get contacts process finished
+     @param contactsDict an Array of contacts represented by CCUserProfile
+     */
+    onGetContactsFinished: function(provider, contactsDict) {},
+
+    /**
+     Called when the get contacts process from a provider has started
+
+     @param provider The provider on which the get contacts process started
+     */
+    onGetContactsStarted: function(provider) {},
+
+    /**
+     Called when the get feed process from a provider has failed
+
+     @param provider The provider on which the get feed process has
+     failed
+     @param errorDescription a Description of the reason for failure
+     */
+    onGetFeedFailed: function(provider, errorDescription) {},
+
+    /**
+     Called when the get feed process from a provider has finished
+
+     @param provider The provider on which the get feed process finished
+     @param feedList an Array of feed entries represented by __String
+     */
+    onGetFeedFinished: function(provider, feedList) {},
+
+    /**
+     Called when the get feed process from a provider has started
+
+     @param provider The provider on which the get feed process started
+     */
+    onGetFeedStarted: function(provider) {},
+
+    /**
+     Called when a generic social action on a provider has failed
+
+     @param provider The provider on which the social action has failed
+     @param socialActionType The social action which failed
+     @param errorDescription a Description of the reason for failure
+     */
+    onSocialActionFailedEvent: function(provider, socialActionType, errorDescription) {},
+
+    /**
+     Called when a generic social action on a provider has finished
+
+     @param provider The provider on which the social action has finished
+     @param socialActionType The social action which finished
+     */
+    onSocialActionFinishedEvent: function(provider, socialActionType) {},
+
+    /**
+     Called when a generic social action on a provider has started
+
+     @param provider The provider on which the social action has started
+     @param socialActionType The social action which started
+     */
+    onSocialActionStartedEvent: function(provider, socialActionType) {},
+
+    /**
+     Called the login process to a provider has been cancelled
+
+     @param provider The provider on which the login has failed
+     */
+    onLoginCancelledEvent: function(provider) {},
+
+    /**
+     Called when a user profile from a provider has been retrieved
+
+     @param userProfile The user's profile which was updated
+     */
+    onUserProfileUpdatedEvent: function(userProfile) {}
   });
 
   /**
@@ -346,10 +540,11 @@ Soomla = new function () {
     var idx = Soomla.eventHandlers.indexOf(eventHandler);
     Soomla.eventHandlers.splice(idx, 1);
   };
-  Soomla.easyNDKCallBack = function (parameters) {
+  Soomla.ndkCallback = function (parameters) {
     parameters = JSON.parse(parameters);
     try {
       var methodName = parameters.method || "";
+
       if (methodName == "CCStoreEventHandler::onBillingNotSupported") {
         _.forEach(Soomla.eventHandlers, function (eventHandler) {
           if (eventHandler.onBillingNotSupported) {
@@ -544,13 +739,190 @@ Soomla = new function () {
           }
         });
       }
+
+      // Profile
+      else if (methodName == "com.soomla.profile.events.ProfileInitializedEvent") {
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onProfileInitialized) {
+            eventHandler.onProfileInitialized();
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.UserRatingEvent") {
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onUserRatingEvent) {
+            eventHandler.onUserRatingEvent();
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.auth.LoginCancelledEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onLoginCancelledEvent) {
+            eventHandler.onLoginCancelledEvent(provider);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.auth.LoginFailedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        var errorDescription = parameters.errorDescription;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onLoginFailed) {
+            eventHandler.onLoginFailed(provider, errorDescription);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.auth.LoginFinishedEvent") {
+        var userProfile = parameters.userProfile;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onLoginFinished) {
+            eventHandler.onLoginFinished(userProfile);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.auth.LoginStartedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onLoginStarted) {
+            eventHandler.onLoginStarted(provider);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.auth.LogoutFailedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        var errorDescription = parameters.errorDescription;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onLogoutFailed) {
+            eventHandler.onLogoutFailed(provider, errorDescription);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.auth.LogoutFinishedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onLogoutFinished) {
+            eventHandler.onLogoutFinished(provider);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.auth.LogoutStartedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onLogoutStarted) {
+            eventHandler.onLogoutStarted(provider);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.social.GetContactsFailedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        var errorDescription = parameters.errorDescription;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGetContactsFailed) {
+            eventHandler.onGetContactsFailed(provider, errorDescription);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.social.GetContactsFinishedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        var contacts = parameters.contacts;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGetContactsFinished) {
+            eventHandler.onGetContactsFinished(provider, errorDescription);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.social.GetContactsStartedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGetContactsStarted) {
+            eventHandler.onGetContactsStarted(provider);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.social.GetFeedFailedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        var errorDescription = parameters.errorDescription;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGetFeedFailed) {
+            eventHandler.onGetFeedFailed(provider, errorDescription);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.social.GetFeedFinishedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        var feed = parameters.feed;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGetFeedFinished) {
+            eventHandler.onGetFeedFinished(provider, feed);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.social.GetFeedStartedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGetFeedStarted) {
+            eventHandler.onGetFeedStarted(provider);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.social.SocialActionFailedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        var socialActionType = parameters.socialActionType;
+        var errorDescription = parameters.errorDescription;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onSocialActionFailedEvent) {
+            eventHandler.onSocialActionFailedEvent(provider, socialActionType, errorDescription);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.social.SocialActionFinishedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        var socialActionType = parameters.socialActionType;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onSocialActionFinishedEvent) {
+            eventHandler.onSocialActionFinishedEvent(provider, socialActionType);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.social.SocialActionStartedEvent") {
+        var providerId = parameters.provider;
+        var provider = Provider.findById(providerId);
+        var socialActionType = parameters.socialActionType;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onSocialActionStartedEvent) {
+            eventHandler.onSocialActionStartedEvent(provider, socialActionType);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.profile.events.UserProfileUpdatedEvent") {
+        var userProfile = parameters.userProfile;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onUserProfileUpdatedEvent) {
+            eventHandler.onUserProfileUpdatedEvent(userProfile);
+          }
+        });
+      }
     } catch (e) {
-      logError("easyNDKCallBack: " + e.message);
+      logError("ndkCallback: " + e.message);
     }
   };
   // put it into global context
-  easyNDKCallBack = function(params) {
-    Soomla.easyNDKCallBack.call(Soomla, params);
+  ndkCallback = function(params) {
+    Soomla.ndkCallback.call(Soomla, params);
   };
 
   /**
@@ -785,6 +1157,110 @@ Soomla = new function () {
     INSUFFICIENT_FUNDS: -2,
     NOT_ENOUGH_GOODS: -3,
     OTHER: -4
+  };
+
+  /**
+   * SoomlaProfile
+   */
+  var SoomlaProfile = Soomla.SoomlaProfile = declareClass("SoomlaProfile", {
+    inited: false,
+    init: function() {
+      this.inited = true;
+      return true;
+    },
+    login: function(provider, reward) {
+      callNative({
+        method: "CCSoomlaProfile::login",
+        provider: provider.key,
+        reward: reward
+      });
+    },
+    logout: function(provider) {
+      callNative({
+        method: "CCSoomlaProfile::logout",
+        provider: provider.key
+      });
+    },
+    getStoredUserProfile: function(provider) {
+      var retParams = callNative({
+        method: "CCSoomlaProfile::getStoredUserProfile",
+        provider: provider.key
+      });
+      return retParams.return;
+    },
+    updateStatus: function(provider, status, reward) {
+      callNative({
+        method: "CCSoomlaProfile::updateStatus",
+        provider: provider.key,
+        status: status,
+        reward: reward
+      });
+    },
+    updateStory: function(provider, message, name, caption, description, link, picture, reward) {
+      callNative({
+        method: "CCSoomlaProfile::updateStory",
+        provider: provider.key,
+        message: message,
+        name: name,
+        caption: caption,
+        description: description,
+        link: link,
+        picture: picture,
+        reward: reward
+      });
+    },
+    uploadImage: function(provider, message, filePath, reward) {
+      callNative({
+        method: "CCSoomlaProfile::uploadImage",
+        provider: provider.key,
+        message: message,
+        filePath: filePath,
+        reward: reward
+      });
+    },
+    getContacts: function(provider, filePath, reward) {
+      callNative({
+        method: "CCSoomlaProfile::getContacts",
+        provider: provider.key,
+        reward: reward
+      });
+    },
+    getFeed: function(provider, reward) {
+      callNative({
+        method: "CCSoomlaProfile::getFeed",
+        provider: provider.key,
+        reward: reward
+      });
+    },
+    isLoggedIn: function(provider) {
+      var retParams = callNative({
+        method: "CCSoomlaProfile::isLoggedIn",
+        provider: provider.key
+      });
+      return retParams.return;
+    },
+    like: function(provider, pageName, reward) {
+      callNative({
+        method: "CCSoomlaProfile::like",
+        provider: provider.key,
+        pageName: pageName,
+        reward: reward
+      });
+    },
+    openAppRatingPage: function() {
+      callNative({
+        method: "CCSoomlaProfile::openAppRatingPage"
+      });
+    }
+  });
+
+  SoomlaProfile.createShared = function() {
+    var ret = new SoomlaProfile();
+    if (ret.init()) {
+      Soomla.soomlaProfile = ret;
+    } else {
+      Soomla.soomlaProfile = null;
+    }
   };
 
   var callNative = function (params) {
