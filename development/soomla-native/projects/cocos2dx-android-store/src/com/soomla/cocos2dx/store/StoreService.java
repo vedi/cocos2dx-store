@@ -28,11 +28,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author vedi
- *         date 6/10/14
- *         time 11:08 AM
- */
 public class StoreService extends AbstractSoomlaService {
 
     private static StoreService INSTANCE = null;

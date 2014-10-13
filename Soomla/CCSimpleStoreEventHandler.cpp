@@ -1,7 +1,4 @@
-//
-// Created by Shubin Fedor on 20/08/14.
-// Copyright (c) 2014 SOOMLA. All rights reserved.
-//
+
 
 #include "CCSimpleStoreEventHandler.h"
 

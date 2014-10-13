@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/21/13.
+
 
 #ifndef __CCStoreInfo_H_
 #define __CCStoreInfo_H_

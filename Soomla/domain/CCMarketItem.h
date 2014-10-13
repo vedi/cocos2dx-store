@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
+
 
 #ifndef __CCMarketItem_H_
 #define __CCMarketItem_H_

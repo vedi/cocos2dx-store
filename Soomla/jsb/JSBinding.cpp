@@ -1,6 +1,4 @@
-//
-// Created by Fedor Shubin on 1/22/14.
-//
+
 
 #ifdef COCOS2D_JAVASCRIPT
 

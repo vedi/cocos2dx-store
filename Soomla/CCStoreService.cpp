@@ -1,6 +1,4 @@
-//
-// Created by Fedor Shubin on 6/19/14.
-//
+
 
 #include "CCStoreService.h"
 #include "CCDomainFactory.h"

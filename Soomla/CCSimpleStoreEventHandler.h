@@ -1,8 +1,3 @@
-//
-// Created by Shubin Fedor on 20/08/14.
-// Copyright (c) 2014 SOOMLA. All rights reserved.
-//
-
 
 #ifndef __CCSimpleStoreEventHandler_H_
 #define __CCSimpleStoreEventHandler_H_

@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
+
 
 #ifndef __CCVirtualCategory_H_
 #define __CCVirtualCategory_H_

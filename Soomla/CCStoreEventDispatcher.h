@@ -1,6 +1,3 @@
-//
-// Created by Fedor Shubin on 6/19/14.
-//
 
 #ifndef __CCStoreEventDispatcher_H_
 #define __CCStoreEventDispatcher_H_

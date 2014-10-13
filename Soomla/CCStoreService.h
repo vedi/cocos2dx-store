@@ -1,6 +1,3 @@
-//
-// Created by Fedor Shubin on 6/19/14.
-//
 
 
 #ifndef __CCStoreService_H_

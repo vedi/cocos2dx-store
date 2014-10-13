@@ -1,6 +1,3 @@
-//
-// Created by Fedor on 04/06/14.
-//
 
 #ifndef __CCVirtualItemReward_H_
 #define __CCVirtualItemReward_H_
