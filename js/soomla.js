@@ -22,6 +22,7 @@ Soomla = new function () {
     return Clazz;
   };
 
+  //------ Core ------//
   /**
    * Domain
    */
@@ -34,9 +35,290 @@ Soomla = new function () {
   var SoomlaEntity = Soomla.Models.SoomlaEntity = declareClass("SoomlaEntity", {
     name: "",
     description: "",
-    itemId: null
+    id: null,
+    equals: function equals(obj) {
+      // If parameter is null return false.
+      if (obj == null) {
+        return false;
+      }
+
+      if (obj.jsonType != this.jsonType) {
+        return false;
+      }
+
+      if (obj.id != this.id) {
+        return false;
+      }
+
+      return true;
+    }
   }, Domain);
 
+
+  /**
+   * Recurrence
+   */
+  var Recurrence = Soomla.Models.Recurrence = {
+    EVERY_MONTH: 0,
+    EVERY_WEEK: 1,
+    EVERY_DAY: 2,
+    EVERY_HOUR: 3,
+    NONE: 4
+  };
+
+  /**
+   * DateTimeRange
+   */
+  var DateTimeRange = Soomla.Models.DateTimeRange = declareClass("DateTimeRange", {
+    schedTimeRangeStart: null,
+    schedTimeRangeEnd: null
+  });
+
+  /**
+   * Schedule
+   */
+  var Schedule = Soomla.Models.Schedule = declareClass("Schedule", {
+    schedRecurrence: null,
+    schedTimeRanges: null,
+    schedApprovals: null,
+    approve: function approve(activationTimes) {
+      var now = Date.now(); 
+
+      if (this.schedApprovals && this.schedApprovals < 1 && (!this.schedTimeRanges || this.schedTimeRanges.length == 0)) {
+        logDebug("There's no activation limit and no TimeRanges. APPROVED!");
+        return true;
+      }
+
+      if (this.schedApprovals && this.schedApprovals > 0 && activationTimes >= this.schedApprovals) {
+        logDebug("Activation limit exceeded.");
+        return false;
+      }
+
+      if ((!this.schedTimeRanges || this.schedTimeRanges.length == 0)) {
+        logDebug("We have an activation limit that was not reached. Also, we don't have any time ranges. APPROVED!");
+        return true;
+      }
+
+
+      // NOTE: From this point on ... we know that we didn't reach the activation limit AND we have TimeRanges.
+      //		 We'll just make sure the time ranges and the Recurrence copmlies.
+
+      var found = _.find(this.schedTimeRanges, function(dateTimeRange) {
+        if (now < dateTimeRange.schedTimeRangeStart && now > dateTimeRange.schedTimeRangeEnd) {
+          logDebug("We are just in one of the time spans, it can't get any better then that. APPROVED!");
+          return true;
+        }
+      });
+
+      if (found) {
+        return true;
+      }
+
+      // we don't need to continue if RequiredRecurrence is NONE
+      if (this.schedRecurrence == Recurrence.NONE) {
+        return false;
+      }
+
+      var _this = this;
+      return _.find(this.schedTimeRanges, function(dateTimeRange) {
+        if (now.getMinutes() >= dateTimeRange.schedTimeRangeStart.getMinutes()
+          && now.getMinutes() <= dateTimeRange.schedTimeRangeEnd.getMinutes()) {
+
+          logDebug("Now is in one of the time ranges' minutes span.");
+
+          if (_this.schedRecurrence == Recurrence.EVERY_HOUR) {
+            logDebug(TAG, "It's a EVERY_HOUR recurrence. APPROVED!");
+            return true;
+          }
+
+          if (now.getHours() >= dateTimeRange.schedTimeRangeStart.getHours()
+            && now.getHours() <= dateTimeRange.schedTimeRangeEnd.getHours()) {
+
+            logDebug("Now is in one of the time ranges' hours span.");
+
+            if (_this.schedRecurrence == Recurrence.EVERY_DAY) {
+              logDebug("It's a EVERY_DAY recurrence. APPROVED!");
+              return true;
+            }
+
+            if (now.getDay() >= dateTimeRange.schedTimeRangeStart.getDay()
+              && now.getDay() <= dateTimeRange.schedTimeRangeEnd.getDay()) {
+
+              logDebug("Now is in one of the time ranges' day-of-week span.");
+
+              if (_this.schedRecurrence == Recurrence.EVERY_WEEK) {
+                logDebug("It's a EVERY_WEEK recurrence. APPROVED!");
+                return true;
+              }
+
+              if (now.getDate() >= dateTimeRange.schedTimeRangeStart.getDate()
+                && now.getDate() <= dateTimeRange.schedTimeRangeEnd.getDate()) {
+
+                logDebug("Now is in one of the time ranges' days span.");
+
+                if (_this.schedRecurrence == Recurrence.EVERY_MONTH) {
+                  logDebug("It's a EVERY_MONTH recurrence. APPROVED!");
+                  return true;
+                }
+              }
+            }
+          }
+        }
+      }) || false;
+    }
+  });
+  Schedule.createAnyTimeOnce = function createAnyTimeOnce() {
+    return Schedule.create({
+      schedRecurrence: Recurrence.NONE,
+      schedApprovals: 1
+    });
+  };
+  Schedule.createAnyTimeLimited = function createAnyTimeLimited(activationLimit) {
+    return Schedule.create({
+      schedRecurrence: Recurrence.NONE,
+      schedApprovals: activationLimit
+    });
+  };
+  Schedule.createAnyTimeUnLimited = function createAnyTimeUnLimited() {
+    return Schedule.create({
+      schedRecurrence: Recurrence.NONE,
+      schedApprovals: 0
+    });
+  };
+
+  //noinspection JSUnusedGlobalSymbols
+  /**
+   * Reward
+   */
+  var Reward = Soomla.Models.Reward = declareClass("Reward", {
+    schedule: null,
+    take: function take() {
+      if (!Soomla.rewardStorage.isRewardGiven(this)) {
+        logDebug("Reward not given. id: " + id);
+        return false;
+      }
+
+      if (this.takeInner()) {
+        Soomla.rewardStorage.setRewardStatus(this, false);
+        return true;
+      }
+
+      return false;
+    },
+    give: function give() {
+      if (!this.schedule.approve(Soomla.rewardStorage.getTimesGiven(this))) {
+        logDebug("(Give) Reward is not approved by Schedule. id: " + this.id);
+        return false;
+      }
+
+      if (this.giveInner()) {
+        Soomla.rewardStorage.setRewardStatus(this, true);
+        return true;
+      }
+
+      return false;
+    },
+    isOwned: function isOwned() {
+      return Soomla.rewardStorage.isRewardGiven(this);
+    },
+    takeInner: function takeInner() {
+      return new Error("takeInner is not implemented");
+    },
+    giveInner: function giveInner() {
+      return new Error("giveInner is not implemented");
+    }
+  }, SoomlaEntity);
+
+  /**
+   * AggregateReward
+   */
+  var AggregateReward = Soomla.Models.AggregateReward = declareClass("AggregateReward", {
+    rewards: null
+  }, Reward);
+
+  /**
+   * BadgeReward
+   */
+  var BadgeReward = Soomla.Models.BadgeReward = declareClass("BadgeReward", {
+    iconUrl: null,
+    takeInner: function takeInner() {
+      // nothing to do here... the parent Reward takes in storage
+      return true;
+    },
+    giveInner: function giveInner() {
+      // nothing to do here... the parent Reward gives in storage
+      return true;
+    }
+  }, Reward);
+
+  /**
+   * RandomReward
+   */
+  var RandomReward = Soomla.Models.RandomReward = declareClass("RandomReward", {
+    lastGivenReward: null,
+    takeInner: function takeInner() {
+      // for now is able to take only last given
+      if (this.lastGivenReward == null) {
+        return false;
+      }
+
+      var taken = this.lastGivenReward.take();
+      this.lastGivenReward = null;
+
+      return taken;
+    },
+    giveInner: function giveInner() {
+      var randomReward = _.sample(this.rewards);
+      randomReward.give();
+      this.lastGivenReward = randomReward;
+
+      return true;
+    }
+  }, AggregateReward);
+
+  /**
+   * SequenceReward
+   */
+  var SequenceReward = Soomla.Models.SequenceReward = declareClass("SequenceReward", {
+    takeInner: function takeInner() {
+      var idx = Soomla.rewardStorage.getLastSeqIdxGiven(this);
+      if (idx <= 0) {
+        return false; // all rewards in the sequence were taken
+      }
+      Soomla.rewardStorage.setLastSeqIdxGiven(this, --idx);
+      return true;
+    },
+    giveInner: function giveInner() {
+      var idx = Soomla.rewardStorage.getLastSeqIdxGiven(this);
+      if (idx >= this.rewards.length) {
+        return false; // all rewards in the sequence were given
+      }
+      Soomla.rewardStorage.setLastSeqIdxGiven(this, ++idx);
+      return true;
+    },
+    getLastGivenReward: function getLastGivenReward() {
+      var idx = Soomla.rewardStorage.getLastSeqIdxGiven(this);
+      if (idx < 0) {
+        return null;
+      }
+      return this.rewards[idx];
+    },
+    hasMoreToGive: function hasMoreToGive() {
+      return Soomla.rewardStorage.getLastSeqIdxGiven(this) < this.rewards.length;
+    },
+    forceNextRewardToGive: function forceNextRewardToGive(reward) {
+      for (var i = 0; i < this.rewards.length; i++) {
+        if (reward.equals(this.reward[i])) {
+          Soomla.rewardStorage.setLastSeqIdxGiven(this, i - 1);
+          return true;
+        }
+      }
+      return false;
+    }
+  }, AggregateReward);
+
+
+  //------ Store ------//
   /**
    * VirtualItem
    */
@@ -248,6 +530,125 @@ Soomla = new function () {
     return result;
   }
 
+  // ------- Core -------- //
+  /**
+   * KeyValueStorage
+   */
+  var CoreService = Soomla.CoreService = declareClass("CoreService", {
+    init: function init() {
+      callNative({
+        method: "CCCoreService::init"
+      });
+      return true;
+    },
+    getTimesGiven: function getTimesGiven(reward) {
+      var result = callNative({
+        method: "CCCoreService::getTimesGiven",
+        reward: reward
+      });
+      return result.return;
+    },
+    setRewardStatus: function setRewardStatus(reward, give, notify) {
+      callNative({
+        method: "CCCoreService::setRewardStatus",
+        reward: reward,
+        give: give,
+        notify: notify
+      });
+    },
+    getLastSeqIdxGiven: function getLastSeqIdxGiven(sequenceReward) {
+      var result = callNative({
+        method: "CCCoreService::getLastSeqIdxGiven",
+        reward: sequenceReward
+      });
+      return result.return;
+    },
+    setLastSeqIdxGiven: function setLastSeqIdxGiven(sequenceReward, idx) {
+      callNative({
+        method: "CCCoreService::setLastSeqIdxGiven",
+        reward: sequenceReward,
+        idx: idx
+      });
+    },
+
+    kvStorageGetValue: function kvStorageGetValue(key) {
+      var result = callNative({
+        method: "CCCoreService::getValue",
+        key: key
+      });
+      return result.return;
+    },
+    kvStorageSetValue: function kvStorageSetValue(key, val) {
+      callNative({
+        method: "CCCoreService::setValue",
+        key: key,
+        val: val
+      });
+    },
+    kvStorageDeleteKeyValue: function kvStorageDeleteKeyValue(key) {
+      callNative({
+        method: "CCCoreService::deleteKeyValue",
+        key: key
+      });
+    },
+    kvStoragePurge: function kvStoragePurge() {
+      callNative({
+        method: "CCCoreService::purge"
+      });
+    }
+  });
+  CoreService.createShared = function() {
+    var ret = new CoreService();
+    if (ret.init()) {
+      Soomla.coreService = ret;
+    } else {
+      Soomla.coreService = null;
+    }
+  };
+
+  /**
+   * KeyValueStorage
+   */
+  var KeyValueStorage = Soomla.KeyValueStorage = declareClass("KeyValueStorage", {
+    getValue: function getValue(key) {
+      Soomla.coreService.kvStorageGetValue(key);
+    },
+    setValue: function setValue(key, val) {
+      Soomla.coreService.kvStorageSetValue(key, val);
+    },
+    deleteKeyValue: function deleteKeyValue(key) {
+      Soomla.coreService.kvStorageDeleteKeyValue(key);
+    },
+    purge: function purge() {
+      Soomla.coreService.kvStoragePurge();
+    }
+  });
+  Soomla.keyValueStorage = KeyValueStorage.create();
+
+  /**
+   * RewardStorage
+   */
+  var RewardStorage = Soomla.RewardStorage = declareClass("RewardStorage", {
+    setRewardStatus: function setRewardStatus(reward, give, notify) {
+      notify = notify || notify == undefined;
+      Soomla.coreService.setRewardStatus(reward, give, notify);
+    },
+    getTimesGiven: function getTimesGiven(reward) {
+      return Soomla.coreService.getTimesGiven(reward);
+    },
+    isRewardGiven: function isRewardGiven(reward) {
+      return this.getTimesGiven(reward) > 0;
+    },
+    getLastSeqIdxGiven: function getLastSeqIdxGiven(sequenceReward) {
+      return Soomla.coreService.getLastSeqIdxGiven(sequenceReward);
+    },
+    setLastSeqIdxGiven: function setLastSeqIdxGiven(sequenceReward, idx) {
+      return Soomla.coreService.setLastSeqIdxGiven(sequenceReward, idx);
+    }
+  });
+  Soomla.rewardStorage = RewardStorage.create();
+
+  // ------- Store -------- //
   /**
    * StoreInfo
    */
@@ -363,6 +764,12 @@ Soomla = new function () {
    * EventHandler
    */
   var EventHandler = Soomla.EventHandler = declareClass("EventHandler", {
+
+    //------ Core ------//
+    onRewardGivenEvent: function(reward) {},
+    onRewardTakenEvent: function(reward) {},
+
+    //------ Store ------//
     onBillingNotSupported: function() {},
     onBillingSupported: function() {},
     onCurrencyBalanceChanged: function(virtualCurrency, balance, amountAdded) {},
@@ -387,7 +794,7 @@ Soomla = new function () {
     onIabServiceStarted: function() {},
     onIabServiceStopped: function() {},
 
-    // Profile
+    //------ Profile ------//
     /**
      * Called after the service has been initialized
      */
@@ -545,7 +952,26 @@ Soomla = new function () {
     try {
       var methodName = parameters.method || "";
 
-      if (methodName == "CCStoreEventHandler::onBillingNotSupported") {
+      // ------- Core -------- //
+      if (methodName == "com.soomla.events.RewardGivenEvent") {
+        var reward = parameters['reward'];
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onRewardGivenEvent) {
+            eventHandler.onRewardGivenEvent(reward);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.events.RewardTakenEvent") {
+        var reward = parameters['reward'];
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onRewardTakenEvent) {
+            eventHandler.onRewardTakenEvent(reward);
+          }
+        });
+      }
+
+      // ------- Store -------- //
+      else if (methodName == "CCStoreEventHandler::onBillingNotSupported") {
         _.forEach(Soomla.eventHandlers, function (eventHandler) {
           if (eventHandler.onBillingNotSupported) {
             eventHandler.onBillingNotSupported();
