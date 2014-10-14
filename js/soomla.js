@@ -763,43 +763,26 @@ Soomla = new function () {
 
 // ------- Highway -------- //
   /**
-   * HighwayService
+   * SoomlaHighway
    */
-  var HighwayService = Soomla.HighwayService = declareClass("HighwayService", {
+  var SoomlaHighway = Soomla.SoomlaHighway = declareClass("SoomlaHighway", {
     init: function init(gameKey, envKey, countryCode, url) {
       var result = callNative({
-        method: "CCHighwayService::init",
+        method: "CCSoomlaHighway::init",
         gameKey: gameKey,
         envKey: envKey,
         url: url,
         countryCode: countryCode
       });
       return result.return;
-    },
-    initWithMasterKey: function initWithMasterKey(masterKey, countryCode, url) {
-      var result = callNative({
-        method: "CCHighwayService::init",
-        masterKey: masterKey,
-        url: url,
-        countryCode: countryCode
-      });
-      return result.return;
     }
   });
-  HighwayService.createShared = function(gameKey, envKey, countryCode, url) {
-    var ret = new HighwayService();
+  SoomlaHighway.createShared = function(gameKey, envKey, countryCode, url) {
+    var ret = new SoomlaHighway();
     if (ret.init(gameKey, envKey, countryCode, url)) {
-      Soomla.highwayService = ret;
+      Soomla.SoomlaHighway = ret;
     } else {
-      Soomla.highwayService = null;
-    }
-  };
-  HighwayService.createSharedWithMasterKey = function(masterKey, countryCode, url) {
-    var ret = new HighwayService();
-    if (ret.initWithMasterKey(masterKey, countryCode, url)) {
-      Soomla.highwayService = ret;
-    } else {
-      Soomla.highwayService = null;
+      Soomla.SoomlaHighway = null;
     }
   };
 
