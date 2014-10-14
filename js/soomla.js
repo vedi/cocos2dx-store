@@ -532,7 +532,7 @@ Soomla = new function () {
 
   // ------- Core -------- //
   /**
-   * KeyValueStorage
+   * CoreService
    */
   var CoreService = Soomla.CoreService = declareClass("CoreService", {
     init: function init() {
@@ -759,6 +759,49 @@ Soomla = new function () {
     nonConsumables: [],
     version: 1
   });
+
+
+// ------- Highway -------- //
+  /**
+   * HighwayService
+   */
+  var HighwayService = Soomla.HighwayService = declareClass("HighwayService", {
+    init: function init(gameKey, envKey, countryCode, url) {
+      var result = callNative({
+        method: "CCHighwayService::init",
+        gameKey: gameKey,
+        envKey: envKey,
+        url: url,
+        countryCode: countryCode
+      });
+      return result.return;
+    },
+    initWithMasterKey: function initWithMasterKey(masterKey, countryCode, url) {
+      var result = callNative({
+        method: "CCHighwayService::init",
+        masterKey: masterKey,
+        url: url,
+        countryCode: countryCode
+      });
+      return result.return;
+    }
+  });
+  HighwayService.createShared = function(gameKey, envKey, countryCode, url) {
+    var ret = new HighwayService();
+    if (ret.init(gameKey, envKey, countryCode, url)) {
+      Soomla.highwayService = ret;
+    } else {
+      Soomla.highwayService = null;
+    }
+  };
+  HighwayService.createSharedWithMasterKey = function(masterKey, countryCode, url) {
+    var ret = new HighwayService();
+    if (ret.initWithMasterKey(masterKey, countryCode, url)) {
+      Soomla.highwayService = ret;
+    } else {
+      Soomla.highwayService = null;
+    }
+  };
 
   /**
    * EventHandler
