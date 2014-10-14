@@ -121,11 +121,5 @@ static NSString* TAG = @"SOOMLA StoreAssets";
     return virtualCategoriesArray;
 }
 
-- (void)dealloc {
-    [virtualCurrenciesArray release];
-    [virtualGoodsArray release];
-    [virtualCurrencyPacksArray release];
-    [virtualCategoriesArray release];
-    [super dealloc];
-}
+
 @end
