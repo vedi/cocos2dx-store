@@ -760,12 +760,11 @@ Soomla = new function () {
     version: 1
   });
 
-
 // ------- Highway -------- //
   /**
-   * SoomlaHighway
+   * Cocos2dXSoomlaHighway
    */
-  var SoomlaHighway = Soomla.SoomlaHighway = declareClass("SoomlaHighway", {
+  var Cocos2dXSoomlaHighway = Soomla.Cocos2dXSoomlaHighway = declareClass("Cocos2dXSoomlaHighway", {
     init: function init(gameKey, envKey, countryCode, url) {
       var result = callNative({
         method: "CCSoomlaHighway::init",
@@ -777,12 +776,12 @@ Soomla = new function () {
       return result.return;
     }
   });
-  SoomlaHighway.createShared = function(gameKey, envKey, countryCode, url) {
-    var ret = new SoomlaHighway();
+  Cocos2dXSoomlaHighway.createShared = function(gameKey, envKey, countryCode, url) {
+    var ret = new Cocos2dXSoomlaHighway();
     if (ret.init(gameKey, envKey, countryCode, url)) {
-      Soomla.SoomlaHighway = ret;
+      Soomla.cocos2dXSoomlaHighway = ret;
     } else {
-      Soomla.SoomlaHighway = null;
+      Soomla.cocos2dXSoomlaHighway = null;
     }
   };
 
