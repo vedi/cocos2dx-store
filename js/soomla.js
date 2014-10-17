@@ -323,6 +323,9 @@ Soomla = new function () {
    * VirtualItem
    */
   var VirtualItem = Soomla.Models.VirtualItem = declareClass("VirtualItem", {
+    save: function () {
+      Soomla.storeInfo.saveItem(this);
+    }
   }, SoomlaEntity);
 
   /**
@@ -733,6 +736,12 @@ Soomla = new function () {
         method: "CCStoreInfo::getVirtualCategories"
       });
       return extractCollection(retParams);
+    },
+    saveItem: function(virtualItem) {
+      callNative({
+        method: "CCStoreInfo::saveItem",
+        virtualItem: virtualItem
+      });
     }
   });
 
