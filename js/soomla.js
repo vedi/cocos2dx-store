@@ -1106,7 +1106,7 @@ Soomla = new function () {
 
           var pvi = Soomla.storeInfo.getPurchasableItemWithProductId(productId);
 
-          var purchaseWithMarket = pvi.purchaseType;
+          var purchaseWithMarket = pvi.purchasableItem;
           var mi = purchaseWithMarket.marketItem;
 
           mi.marketPrice        = marketPrice;
