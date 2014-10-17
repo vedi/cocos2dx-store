@@ -12,11 +12,11 @@ Soomla = new function () {
   var declareClass = Soomla.declareClass = function (ClassName, fields, parentClass) {
     var Clazz = function () {
       return _.extend(parentClass ? parentClass() : {}, fields ? fields : {}, {
-        jsonType: ClassName
+        className: ClassName
       });
     };
     Clazz.create = function (values) {
-      return _.defaults(values ? _.omit(values, "jsonType") : {}, Clazz());
+      return _.defaults(values ? _.omit(values, "className") : {}, Clazz());
     };
 
     return Clazz;
@@ -42,7 +42,7 @@ Soomla = new function () {
         return false;
       }
 
-      if (obj.jsonType != this.jsonType) {
+      if (obj.className != this.className) {
         return false;
       }
 
