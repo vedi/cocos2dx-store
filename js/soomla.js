@@ -366,13 +366,6 @@ Soomla = new function () {
   }, VirtualItem);
 
   /**
-   * NonConsumableItem
-   */
-  var NonConsumableItem = Soomla.Models.NonConsumableItem = declareClass("NonConsumableItem", {
-
-  }, PurchasableVirtualItem);
-
-  /**
    * VirtualCurrency
    */
   var VirtualCurrency = Soomla.Models.VirtualCurrency = declareClass("VirtualCurrency", {
@@ -725,12 +718,6 @@ Soomla = new function () {
       });
       return extractCollection(retParams);
     },
-    getNonConsumableItems: function() {
-      var retParams = callNative({
-        method: "CCStoreInfo::getNonConsumableItems"
-      });
-      return extractCollection(retParams);
-    },
     getVirtualCategories: function() {
       var retParams = callNative({
         method: "CCStoreInfo::getVirtualCategories"
@@ -765,7 +752,6 @@ Soomla = new function () {
       goodUpgrades: [],
       goodPacks: []
     },
-    nonConsumables: [],
     version: 1
   });
 
@@ -1581,25 +1567,6 @@ Soomla = new function () {
       callNative({
         method: "CCStoreInventory::removeGoodUpgrades",
         goodItemId: goodItemId
-      });
-    },
-    nonConsumableItemExists: function(nonConsItemId) {
-      var retParams = callNative({
-        method: "CCStoreInventory::nonConsumableItemExists",
-        nonConsItemId: nonConsItemId
-      });
-      return retParams.return;
-    },
-    addNonConsumableItem: function(nonConsItemId) {
-      callNative({
-        method: "CCStoreInventory::addNonConsumableItem",
-        nonConsItemId: nonConsItemId
-      });
-    },
-    removeNonConsumableItem: function(nonConsItemId) {
-      callNative({
-        method: "CCStoreInventory::removeNonConsumableItem",
-        nonConsItemId: nonConsItemId
       });
     }
   });
