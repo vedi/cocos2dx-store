@@ -119,10 +119,10 @@ In your XCode project, perform following steps:
 1. Add the following directoris to **Build Settings->Header Search Paths** (with `recursive` option):
 > This article assumes you have a `cocos2d` folder under your project folder and which either contains the Cocos2d-x framework, or links to to its root folder 
 
- - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/Soomla/**`
- - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/build/ios/headers/**`
- - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/Soomla/**`
- - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/build/ios/headers/**`
+ - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/Soomla`
+ - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/build/ios/headers`
+ - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/Soomla`
+ - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/build/ios/headers`
 
 1. Add `-ObjC` to your project **Build Setting->Other Linker Flags**.
 
