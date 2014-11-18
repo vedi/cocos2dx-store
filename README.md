@@ -384,7 +384,7 @@ To see debug messages on iOS, make sure you have also `DEBUG=1` in your Build Se
 
 We try to do all our best to make your contributions as easy as it's possible. We prepared "sourced" environment for you if you wish to contribute in soomla projects. In order to get it you should:
 
-1. Fetch submodules of repositories, you can do it recursively cloning them:
+1. Fetch submodules of repositories, you can do it by recursively cloning them:
     ```
     $ git clone --recursivegit@github.com:soomla/soomla-cocos2dx-core.git extensions/soomla-cocos2dx-core
     $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
