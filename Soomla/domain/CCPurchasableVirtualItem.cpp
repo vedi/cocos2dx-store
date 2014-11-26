@@ -29,6 +29,9 @@ namespace soomla {
         bool bRet = CCVirtualItem::init(itemId, name, description);
         if (bRet) {
             setPurchaseType(purchaseType);
+            
+            if (getPurchaseType() != NULL) {
+            }
         }
         return bRet;
     }
@@ -53,6 +56,14 @@ namespace soomla {
         putPurchaseTypeToDict(dict);
 
         return dict;
+    }
+    
+    void CCPurchasableVirtualItem::buy(cocos2d::__String* payload, CCError **error) {
+        if (!canBuy()) {
+            return;
+        }
+        
+        getPurchaseType()->buy(payload, error);
     }
 
     void CCPurchasableVirtualItem::fillPurchaseTypeFromDict(__Dictionary *dict) {

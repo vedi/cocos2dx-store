@@ -62,6 +62,21 @@ namespace soomla {
          @return The Lifetime virtual good.
 		*/
         SL_CREATE_WITH_DICTIONARY(CCLifetimeVG);
+        
+        /**
+         See parent
+         */
+        virtual bool canBuy();
+        
+        /**
+         See parent
+         */
+        virtual int give(int amount, bool notify, CCError **error = NULL);
+        
+        /**
+         See parent
+         */
+        virtual int take(int amount, bool notify, CCError **error = NULL);
 
         virtual const char *getType() const;
     };

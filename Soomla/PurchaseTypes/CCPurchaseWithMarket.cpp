@@ -15,8 +15,15 @@
  */
 
 #include "CCPurchaseWithMarket.h"
+#include "CCSoomlaUtils.h"
+#include "CCStoreEventDispatcher.h"
+#include "CCSoomlaStore.h"
+#include "CCStoreInfo.h"
 
 namespace soomla {
+    
+    #define TAG "SOOMLA PurchaseWithMarket"
+    
     CCPurchaseWithMarket *CCPurchaseWithMarket::create(cocos2d::__String *productId, cocos2d::__Double *price) {
         return createWithMarketItem(CCMarketItem::create(
                 productId, cocos2d::CCInteger::create(CCMarketItem::CONSUMABLE), price));
@@ -42,6 +49,16 @@ namespace soomla {
         } else {
             return false;
         }
+    }
+    
+    void CCPurchaseWithMarket::buy(cocos2d::__String* payload, CCError **error) {
+        CCSoomlaUtils::logDebug(TAG, cocos2d::__String::createWithFormat("Starting in-app purchase for productId: %s",
+                                                                         getMarketItem()->getProductId()->getCString())->getCString());
+        
+        //TODO:
+//        CCPurchasableVirtualItem *pvi = CCStoreInfo::getItemByItemId(, error);
+//        CCStoreEventDispatcher::getInstance()->onItemPurchaseStarted(pvi);
+        CCSoomlaStore::getInstance()->buyMarketItem(getMarketItem()->getProductId()->getCString(), payload->getCString(), error);
     }
 
     CCPurchaseWithMarket::~CCPurchaseWithMarket() {

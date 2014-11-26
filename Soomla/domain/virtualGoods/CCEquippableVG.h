@@ -118,6 +118,35 @@ namespace soomla {
         cocos2d::__Dictionary *toDictionary();
 
         virtual ~CCEquippableVG();
+        
+        /**
+         Equips the current `CCEquippableVG`
+         @param error If an error was generated during the execution it will
+         be returned here
+         */
+        virtual void equip(CCError **error = NULL) { equip(true, error); }
+        /**
+         Equips the current `CCEquippableVG`.
+         The equipping is done according to the equipping model ('GLOBAL', 'CATEGORY', or 'LOCAL').
+         @param notify if true, the relevant event will be posted when equipped.
+         @param error If an error was generated during the execution it will
+         be returned here
+         */
+        virtual void equip(bool notify, CCError **error = NULL);
+        
+        /**
+         Unequips the current `CCEquippableVG`
+         @param error If an error was generated during the execution it will
+         be returned here
+         */
+        virtual void unequip(CCError **error = NULL) { equip(true, error); }
+        /**
+         Unequips the current `CCEquippableVG`
+         @param notify if true, the relevant event will be posted when equipped.
+         @param error If an error was generated during the execution it will
+         be returned here
+         */
+        virtual void unequip(bool notify, CCError **error = NULL);
 
         virtual const char *getType() const;
     };

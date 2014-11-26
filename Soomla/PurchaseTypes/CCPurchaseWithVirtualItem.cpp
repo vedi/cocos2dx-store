@@ -37,6 +37,10 @@ namespace soomla {
 
         return true;
     }
+    
+    void CCPurchaseWithVirtualItem::buy(cocos2d::__String* payload, CCError **error) {
+        
+    }
 
     CCPurchaseWithVirtualItem::~CCPurchaseWithVirtualItem() {
         CC_SAFE_RELEASE(mItemId);

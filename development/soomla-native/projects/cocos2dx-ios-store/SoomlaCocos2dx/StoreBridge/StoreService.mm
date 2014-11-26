@@ -116,6 +116,14 @@
 
 + (void)initGlue {
     NdkGlue *ndkGlue = [NdkGlue sharedInstance];
+    
+    //TODO: add loadBillingService
+    
+    //TODO: add impl for VGStorage
+    
+    //TODO: add setItemBalance itemId balance notify
+    //TODO: add addVGStorage itemId amount notify
+    //TODO: add removeVGStorage itemId amount notify
 
     /* -= Call handlers =- */
     [ndkGlue registerCallHandlerForKey:@"CCStoreAssets::init" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
@@ -126,9 +134,6 @@
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreService::init" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         [[StoreService sharedStoreService] init];
-        NSDictionary *commonParams = [[ParamsProvider sharedParamsProvider] getParamsForKey:@"common"];
-        NSString *customSecret = commonParams[@"customSecret"];
-        [Soomla initializeWithSecret:customSecret];
         [[SoomlaStore getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]];
     }];
 

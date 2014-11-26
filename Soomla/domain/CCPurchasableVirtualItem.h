@@ -39,6 +39,24 @@ namespace soomla {
         virtual bool initWithDictionary(cocos2d::__Dictionary* dict);
         
         virtual ~CCPurchasableVirtualItem();
+        
+        /**
+         Buys the `CCPurchasableVirtualItem`, after checking if the user is in a state that
+         allows him/her to buy. This action uses the associated `CCPurchaseType` to perform
+         the purchase.
+         
+         @param payload a string you want to be assigned to the purchase. 
+         This string is saved in a static variable and will be given bacl to you 
+         when the purchase is completed..
+         @param error A `CCError` for error checking.
+         */
+        void buy(cocos2d::__String* payload, CCError **error = NULL);
+        
+        /**
+         Determines if user is in a state that allows him/her to buy a specific 
+         `CCVirtualItem`.
+         */
+        virtual bool canBuy() { return false; }
 
         /**
         Converts this `CCPurchasableVirtualItem` to a `CCDictionary`.

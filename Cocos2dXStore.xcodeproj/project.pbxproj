@@ -63,6 +63,20 @@
 		9D63D23819B1C56E0054EA87 /* libCocos2dXiOSStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D63D23619B1C56E0054EA87 /* libCocos2dXiOSStore.a */; };
 		9D63D23919B1C56E0054EA87 /* libSoomlaiOSStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D63D23719B1C56E0054EA87 /* libSoomlaiOSStore.a */; };
 		C0B3C5F3168C6D0C00161FAA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B3C5F2168C6D0C00161FAA /* Foundation.framework */; };
+		F84141321A2472930047FB73 /* CCNativeStoreService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141301A2472930047FB73 /* CCNativeStoreService.cpp */; };
+		F84141331A2472930047FB73 /* CCNativeStoreService.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141311A2472930047FB73 /* CCNativeStoreService.h */; };
+		F841413A1A2484370047FB73 /* CCNativeSoomlaStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141381A2484370047FB73 /* CCNativeSoomlaStore.cpp */; };
+		F841413B1A2484370047FB73 /* CCNativeSoomlaStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141391A2484370047FB73 /* CCNativeSoomlaStore.h */; };
+		F84141441A24B66A0047FB73 /* CCVirtualItemStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141421A24B66A0047FB73 /* CCVirtualItemStorage.cpp */; };
+		F84141451A24B66A0047FB73 /* CCVirtualItemStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141431A24B66A0047FB73 /* CCVirtualItemStorage.h */; };
+		F84141481A24B67D0047FB73 /* CCVirtualCurrencyStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141461A24B67D0047FB73 /* CCVirtualCurrencyStorage.cpp */; };
+		F84141491A24B67D0047FB73 /* CCVirtualCurrencyStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141471A24B67D0047FB73 /* CCVirtualCurrencyStorage.h */; };
+		F841414C1A24B6900047FB73 /* CCVirtualGoodsStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F841414A1A24B6900047FB73 /* CCVirtualGoodsStorage.cpp */; };
+		F841414D1A24B6900047FB73 /* CCVirtualGoodsStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F841414B1A24B6900047FB73 /* CCVirtualGoodsStorage.h */; };
+		F84141501A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F841414E1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.cpp */; };
+		F84141511A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F841414F1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.h */; };
+		F84141541A24D6160047FB73 /* CCNativeVirtualGoodsStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141521A24D6160047FB73 /* CCNativeVirtualGoodsStorage.cpp */; };
+		F84141551A24D6160047FB73 /* CCNativeVirtualGoodsStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141531A24D6160047FB73 /* CCNativeVirtualGoodsStorage.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +137,20 @@
 		9D63D23719B1C56E0054EA87 /* libSoomlaiOSStore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSoomlaiOSStore.a; path = build/ios/libSoomlaiOSStore.a; sourceTree = "<group>"; };
 		C0B3C5EF168C6D0C00161FAA /* libCocos2dXStore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocos2dXStore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B3C5F2168C6D0C00161FAA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F84141301A2472930047FB73 /* CCNativeStoreService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeStoreService.cpp; sourceTree = "<group>"; };
+		F84141311A2472930047FB73 /* CCNativeStoreService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeStoreService.h; sourceTree = "<group>"; };
+		F84141381A2484370047FB73 /* CCNativeSoomlaStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeSoomlaStore.cpp; sourceTree = "<group>"; };
+		F84141391A2484370047FB73 /* CCNativeSoomlaStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeSoomlaStore.h; sourceTree = "<group>"; };
+		F84141421A24B66A0047FB73 /* CCVirtualItemStorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualItemStorage.cpp; sourceTree = "<group>"; };
+		F84141431A24B66A0047FB73 /* CCVirtualItemStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualItemStorage.h; sourceTree = "<group>"; };
+		F84141461A24B67D0047FB73 /* CCVirtualCurrencyStorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualCurrencyStorage.cpp; sourceTree = "<group>"; };
+		F84141471A24B67D0047FB73 /* CCVirtualCurrencyStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualCurrencyStorage.h; sourceTree = "<group>"; };
+		F841414A1A24B6900047FB73 /* CCVirtualGoodsStorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualGoodsStorage.cpp; sourceTree = "<group>"; };
+		F841414B1A24B6900047FB73 /* CCVirtualGoodsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualGoodsStorage.h; sourceTree = "<group>"; };
+		F841414E1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeVirtualCurrencyStorage.cpp; sourceTree = "<group>"; };
+		F841414F1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeVirtualCurrencyStorage.h; sourceTree = "<group>"; };
+		F84141521A24D6160047FB73 /* CCNativeVirtualGoodsStorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeVirtualGoodsStorage.cpp; sourceTree = "<group>"; };
+		F84141531A24D6160047FB73 /* CCNativeVirtualGoodsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeVirtualGoodsStorage.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +170,8 @@
 		9D63D1C019B1C4FF0054EA87 /* Soomla */ = {
 			isa = PBXGroup;
 			children = (
+				F8A1E3F01A238F45006FAA3C /* NativeImpl */,
+				F8A1E3F11A238F45006FAA3C /* BridgelessImpl */,
 				9D63D1C119B1C4FF0054EA87 /* CCSimpleStoreEventHandler.cpp */,
 				9D63D1C219B1C4FF0054EA87 /* CCSimpleStoreEventHandler.h */,
 				9D63D1C319B1C4FF0054EA87 /* CCSoomlaStore.cpp */,
@@ -171,6 +201,12 @@
 			children = (
 				9D63D1D119B1C4FF0054EA87 /* CCStoreInfo.cpp */,
 				9D63D1D219B1C4FF0054EA87 /* CCStoreInfo.h */,
+				F84141421A24B66A0047FB73 /* CCVirtualItemStorage.cpp */,
+				F84141431A24B66A0047FB73 /* CCVirtualItemStorage.h */,
+				F84141461A24B67D0047FB73 /* CCVirtualCurrencyStorage.cpp */,
+				F84141471A24B67D0047FB73 /* CCVirtualCurrencyStorage.h */,
+				F841414A1A24B6900047FB73 /* CCVirtualGoodsStorage.cpp */,
+				F841414B1A24B6900047FB73 /* CCVirtualGoodsStorage.h */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -282,6 +318,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F8A1E3F01A238F45006FAA3C /* NativeImpl */ = {
+			isa = PBXGroup;
+			children = (
+				F84141301A2472930047FB73 /* CCNativeStoreService.cpp */,
+				F84141311A2472930047FB73 /* CCNativeStoreService.h */,
+				F84141381A2484370047FB73 /* CCNativeSoomlaStore.cpp */,
+				F84141391A2484370047FB73 /* CCNativeSoomlaStore.h */,
+				F841414E1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.cpp */,
+				F841414F1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.h */,
+				F84141521A24D6160047FB73 /* CCNativeVirtualGoodsStorage.cpp */,
+				F84141531A24D6160047FB73 /* CCNativeVirtualGoodsStorage.h */,
+			);
+			path = NativeImpl;
+			sourceTree = "<group>";
+		};
+		F8A1E3F11A238F45006FAA3C /* BridgelessImpl */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BridgelessImpl;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -294,8 +352,12 @@
 				9D63D22F19B1C4FF0054EA87 /* CCPurchaseType.h in Headers */,
 				9D63D21B19B1C4FF0054EA87 /* CCVirtualCurrency.h in Headers */,
 				9D63D23519B1C4FF0054EA87 /* CCVirtualItemReward.h in Headers */,
+				F84141331A2472930047FB73 /* CCNativeStoreService.h in Headers */,
 				9D63D21119B1C4FF0054EA87 /* CCMarketItem.h in Headers */,
 				9D63D23119B1C4FF0054EA87 /* CCPurchaseWithMarket.h in Headers */,
+				F84141511A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.h in Headers */,
+				F841413B1A2484370047FB73 /* CCNativeSoomlaStore.h in Headers */,
+				F84141451A24B66A0047FB73 /* CCVirtualItemStorage.h in Headers */,
 				9D63D22B19B1C4FF0054EA87 /* jsb_soomla.h in Headers */,
 				9D63D21719B1C4FF0054EA87 /* CCVirtualCategory.h in Headers */,
 				9D63D21519B1C4FF0054EA87 /* CCPurchasableVirtualItem.h in Headers */,
@@ -303,6 +365,7 @@
 				9D63D20019B1C4FF0054EA87 /* CCSimpleStoreEventHandler.h in Headers */,
 				9D63D22D19B1C4FF0054EA87 /* JSBinding.h in Headers */,
 				9D63D22919B1C4FF0054EA87 /* CCVirtualGood.h in Headers */,
+				F841414D1A24B6900047FB73 /* CCVirtualGoodsStorage.h in Headers */,
 				9D63D20C19B1C4FF0054EA87 /* CCStoreService.h in Headers */,
 				9D63D20F19B1C4FF0054EA87 /* CCStoreInfo.h in Headers */,
 				9D63D21D19B1C4FF0054EA87 /* CCVirtualCurrencyPack.h in Headers */,
@@ -313,8 +376,10 @@
 				9D63D22319B1C4FF0054EA87 /* CCSingleUsePackVG.h in Headers */,
 				9D63D21F19B1C4FF0054EA87 /* CCEquippableVG.h in Headers */,
 				9D63D20A19B1C4FF0054EA87 /* CCStoreInventory.h in Headers */,
+				F84141551A24D6160047FB73 /* CCNativeVirtualGoodsStorage.h in Headers */,
 				9D63D22719B1C4FF0054EA87 /* CCUpgradeVG.h in Headers */,
 				9D63D21919B1C4FF0054EA87 /* CCVirtualItem.h in Headers */,
+				F84141491A24B67D0047FB73 /* CCVirtualCurrencyStorage.h in Headers */,
 				9D63D20519B1C4FF0054EA87 /* CCStoreConsts.h in Headers */,
 				9D63D20319B1C4FF0054EA87 /* CCStoreAssets.h in Headers */,
 			);
@@ -372,8 +437,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D63D22819B1C4FF0054EA87 /* CCVirtualGood.cpp in Sources */,
+				F841413A1A2484370047FB73 /* CCNativeSoomlaStore.cpp in Sources */,
+				F84141441A24B66A0047FB73 /* CCVirtualItemStorage.cpp in Sources */,
 				9D63D21A19B1C4FF0054EA87 /* CCVirtualCurrency.cpp in Sources */,
 				9D63D22419B1C4FF0054EA87 /* CCSingleUseVG.cpp in Sources */,
+				F84141501A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.cpp in Sources */,
 				9D63D23219B1C4FF0054EA87 /* CCPurchaseWithVirtualItem.cpp in Sources */,
 				9D63D21419B1C4FF0054EA87 /* CCPurchasableVirtualItem.cpp in Sources */,
 				9D63D22019B1C4FF0054EA87 /* CCLifetimeVG.cpp in Sources */,
@@ -385,9 +453,12 @@
 				9D63D21E19B1C4FF0054EA87 /* CCEquippableVG.cpp in Sources */,
 				9D63D20419B1C4FF0054EA87 /* CCStoreConsts.cpp in Sources */,
 				9D63D21019B1C4FF0054EA87 /* CCMarketItem.cpp in Sources */,
+				F841414C1A24B6900047FB73 /* CCVirtualGoodsStorage.cpp in Sources */,
 				9D63D22E19B1C4FF0054EA87 /* CCPurchaseType.cpp in Sources */,
 				9D63D21619B1C4FF0054EA87 /* CCVirtualCategory.cpp in Sources */,
 				9D63D22219B1C4FF0054EA87 /* CCSingleUsePackVG.cpp in Sources */,
+				F84141541A24D6160047FB73 /* CCNativeVirtualGoodsStorage.cpp in Sources */,
+				F84141481A24B67D0047FB73 /* CCVirtualCurrencyStorage.cpp in Sources */,
 				9D63D20919B1C4FF0054EA87 /* CCStoreInventory.cpp in Sources */,
 				9D63D22619B1C4FF0054EA87 /* CCUpgradeVG.cpp in Sources */,
 				9D63D23019B1C4FF0054EA87 /* CCPurchaseWithMarket.cpp in Sources */,
@@ -395,6 +466,7 @@
 				9D63D1FF19B1C4FF0054EA87 /* CCSimpleStoreEventHandler.cpp in Sources */,
 				9D63D20E19B1C4FF0054EA87 /* CCStoreInfo.cpp in Sources */,
 				9D63D22C19B1C4FF0054EA87 /* JSBinding.cpp in Sources */,
+				F84141321A2472930047FB73 /* CCNativeStoreService.cpp in Sources */,
 				9D63D20619B1C4FF0054EA87 /* CCStoreEventDispatcher.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

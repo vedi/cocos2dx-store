@@ -14,18 +14,24 @@
  limitations under the License.
  */
 
-#include "CCVirtualGood.h"
-#include "CCVirtualGoodsStorage.h"
+#ifndef __CCNativeStoreService_H_
+#define __CCNativeStoreService_H_
+
+#include "CCStoreService.h"
 
 namespace soomla {
+
+    /**
+     Implements the `CCStoreService` using the bridge to talk with
+     the native implementation of StoreService
+     
+     See parent for all functions.
+     */
+    class CCNativeStoreService : public CCStoreService {
+    public:
+        virtual bool init(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams);
+    };
     
-    USING_NS_CC;
-    
-    int CCVirtualGood::resetBalance(int balance, bool notify, CCError **error) {
-        return CCVirtualGoodsStorage::getInstance()->setBalance(this, balance, notify, error);
-    }
-    
-    int CCVirtualGood::getBalance() {
-        return CCVirtualGoodsStorage::getInstance()->getBalance(this);
-    }
 }
+
+#endif // __CCNativeStoreService_H_

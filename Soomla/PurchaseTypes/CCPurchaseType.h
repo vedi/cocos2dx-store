@@ -20,6 +20,7 @@
 #define __CCPurchaseType__
 
 #include "cocos2d.h"
+#include "CCError.h"
 
 namespace soomla {
 	/** 
@@ -39,6 +40,18 @@ namespace soomla {
          */
         static CCPurchaseType * create();
         virtual bool init();
+        
+        /**
+         Buys the purchasable virtual item.
+         Implementation in subclasses will be according to specific type of 
+         purchase.
+         
+         @param payload string you want to be assigned to the purchase. This
+         string is saved in a static variable and will be given bacl to you when 
+         the purchase is completed.
+         @param error A `CCError` for error checking.
+         */
+        virtual void buy(cocos2d::__String* payload, CCError **error = NULL);
       
         virtual ~CCPurchaseType();
     };

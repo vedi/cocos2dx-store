@@ -14,9 +14,8 @@
  limitations under the License.
  */
 
-// Created by Igor Yegoroff on 5/17/13.
-
 #include "CCPurchaseType.h"
+#include "CCSoomlaUtils.h"
 
 namespace soomla {
     
@@ -33,6 +32,10 @@ namespace soomla {
             CC_SAFE_DELETE(ret);
         }
         return ret;
+    }
+    
+    void CCPurchaseType::buy(cocos2d::__String* payload, CCError **error) {
+        CCSoomlaUtils::logError("SOOMLA PurchaseType", "Cannot buy CCPurchaseType");
     }
     
     CCPurchaseType::~CCPurchaseType() {}
