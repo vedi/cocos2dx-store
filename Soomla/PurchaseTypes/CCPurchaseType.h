@@ -32,13 +32,13 @@ namespace soomla {
      `CCPurchaseType`.
 	 */
     class CCPurchaseType : public cocos2d::Ref {
+        // 26.11.14 - this is done through ID instead of actual object, since
+        // macro needs an object inheriting from `Ref`, which we cannot forward
+        // declare. Including `CCPurchasableVirtualItem.h` causes circular dependency
+        CC_SYNTHESIZE_RETAIN(cocos2d::__String *, mAssociatedItemId, AssociatedItemId);
     public:
         CCPurchaseType() {}
         
-        /**
-         Creates a purchase type.
-         */
-        static CCPurchaseType * create();
         virtual bool init();
         
         /**
@@ -51,7 +51,7 @@ namespace soomla {
          the purchase is completed.
          @param error A `CCError` for error checking.
          */
-        virtual void buy(cocos2d::__String* payload, CCError **error = NULL);
+        virtual void buy(cocos2d::__String* payload, CCError **error = NULL) = 0;
       
         virtual ~CCPurchaseType();
     };

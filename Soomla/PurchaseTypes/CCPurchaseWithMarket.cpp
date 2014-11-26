@@ -55,9 +55,8 @@ namespace soomla {
         CCSoomlaUtils::logDebug(TAG, cocos2d::__String::createWithFormat("Starting in-app purchase for productId: %s",
                                                                          getMarketItem()->getProductId()->getCString())->getCString());
         
-        //TODO:
-//        CCPurchasableVirtualItem *pvi = CCStoreInfo::getItemByItemId(, error);
-//        CCStoreEventDispatcher::getInstance()->onItemPurchaseStarted(pvi);
+        CCPurchasableVirtualItem *pvi = dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(getAssociatedItemId()->getCString(), error));
+        CCStoreEventDispatcher::getInstance()->onItemPurchaseStarted(pvi);
         CCSoomlaStore::getInstance()->buyMarketItem(getMarketItem()->getProductId()->getCString(), payload->getCString(), error);
     }
 

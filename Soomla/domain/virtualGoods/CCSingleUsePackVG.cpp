@@ -109,7 +109,7 @@ namespace soomla {
         return 0;
     }
     
-    int CCSingleUsePackVG::getBalance() {
+    int CCSingleUsePackVG::getBalance(CCError **error) {
         // Not supported for SingleUsePackVGs !
         CCSoomlaUtils::logError(TAG, "Someone tried to check balance of GoodPack. That's not right.");
         return 0;

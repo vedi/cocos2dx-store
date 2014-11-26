@@ -14,11 +14,19 @@
  limitations under the License.
  */
 
-
-
 #include "CCPurchaseWithVirtualItem.h"
+#include "CCSoomlaUtils.h"
+#include "CCStoreInfo.h"
+#include "CCPurchasableVirtualItem.h"
+#include "CCStoreEventDispatcher.h"
+#include "CCVirtualGoodsStorage.h"
+#include "CCVirtualCurrencyStorage.h"
 
 namespace soomla {
+    USING_NS_CC;
+    
+    #define TAG "SOOMLA PurchaseWithVirtualItem"
+    
     CCPurchaseWithVirtualItem *CCPurchaseWithVirtualItem::create(cocos2d::__String *itemId, cocos2d::__Integer *amount) {
         CCPurchaseWithVirtualItem *ret = new CCPurchaseWithVirtualItem();
         if (ret->init(itemId, amount)) {
@@ -39,7 +47,58 @@ namespace soomla {
     }
     
     void CCPurchaseWithVirtualItem::buy(cocos2d::__String* payload, CCError **error) {
+        const char *associatedItemId = getAssociatedItemId()->getCString();
+        CCPurchasableVirtualItem *associatedItem = dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(associatedItemId, error));
+        if (associatedItem == NULL) {
+            CCSoomlaUtils::logError(TAG, __String::createWithFormat("Trying to buy an non-existing associated item: %s", associatedItemId)->getCString());
+            return;
+        }
         
+        const char *targetItemId = getItemId()->getCString();
+        int amount = getAmount()->getValue();
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("Trying to buy a %s with %d pieces of %s",
+                                                                associatedItem->getName()->getCString(),
+                                                                amount,
+                                                                targetItemId)->getCString());
+        
+        CCVirtualItem *item = CCStoreInfo::sharedStoreInfo()->getItemByItemId(targetItemId, error);
+        if (item == NULL) {
+            CCSoomlaUtils::logError(TAG, __String::createWithFormat("Target virtual item %s doesn't exist !", targetItemId)->getCString());
+            return;
+        }
+        
+        //TODO: check compatability with Unity (push)
+        CCStoreEventDispatcher::getInstance()->onItemPurchaseStarted(associatedItem);
+        
+        int balance = item->getBalance();
+        
+        if (dynamic_cast<CCVirtualCurrency *>(item)) {
+            balance = CCVirtualCurrencyStorage::getInstance()->getBalance(item);
+        } else {
+            balance = CCVirtualGoodsStorage::getInstance()->getBalance(item);
+        }
+        
+        if (balance < amount){
+            __String *errorStr = __String::createWithFormat("You tried to buy with itemId: %s \
+                                                            but you don't have enough funds to buy it.", item->getItemId()->getCString());
+            if (error != NULL) {
+                CCError *resultError = CCError::createWithObject(errorStr);
+                if (resultError != NULL) {
+                    *error = resultError;
+                }
+            }
+            else {
+                CCSoomlaUtils::logError(TAG, errorStr->getCString());
+            }
+            return;
+        }
+        
+        item->take(amount);
+        
+        associatedItem->give(1);
+        
+        //TODO: check compatability with Unity (push)
+        CCStoreEventDispatcher::getInstance()->CCStoreEventHandler::onItemPurchased(associatedItem);
     }
 
     CCPurchaseWithVirtualItem::~CCPurchaseWithVirtualItem() {

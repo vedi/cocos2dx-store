@@ -46,7 +46,7 @@ namespace soomla {
         return CCVirtualCurrencyStorage::getInstance()->setBalance(this, balance, notify, error);
     }
     
-    int CCVirtualCurrency::getBalance() {
-        return CCVirtualCurrencyStorage::getInstance()->getBalance(this);
+    int CCVirtualCurrency::getBalance(CCError **error) {
+        return CCVirtualCurrencyStorage::getInstance()->getBalance(this, error);
     }
 }

@@ -23,20 +23,5 @@ namespace soomla {
         return true;
     }
     
-    CCPurchaseType *CCPurchaseType::create() {
-        CCPurchaseType *ret = new CCPurchaseType();
-        if (ret->init()) {
-            ret->autorelease();
-        }
-        else {
-            CC_SAFE_DELETE(ret);
-        }
-        return ret;
-    }
-    
-    void CCPurchaseType::buy(cocos2d::__String* payload, CCError **error) {
-        CCSoomlaUtils::logError("SOOMLA PurchaseType", "Cannot buy CCPurchaseType");
-    }
-    
     CCPurchaseType::~CCPurchaseType() {}
 }

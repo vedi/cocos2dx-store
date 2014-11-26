@@ -148,12 +148,16 @@ namespace soomla {
             CCVirtualGoodsStorage::getInstance()->equip(this, notify, error);
         }
         else {
+            __String *errorStr = __String::createWithFormat("You tried to equip virtual good with itemId: %s \
+                                                            but you don't have any of it.", getItemId()->getCString());
             if (error != NULL) {
-                CCError *resultError = CCError::createWithObject(__String::createWithFormat("You tried to equip virtual good with itemId: %s \
-                                                                                      but you don't have any of it.", getItemId()->getCString()));
+                CCError *resultError = CCError::createWithObject(errorStr);
                 if (resultError != NULL) {
                     *error = resultError;
                 }
+            }
+            else {
+                CCSoomlaUtils::logError(TAG, errorStr->getCString());
             }
         }
     }

@@ -110,7 +110,7 @@ namespace soomla {
         return 0;
     }
     
-    int CCVirtualCurrencyPack::getBalance() {
+    int CCVirtualCurrencyPack::getBalance(CCError **error) {
         // Not supported for VirtualCurrencyPacks !
         CCSoomlaUtils::logError(TAG, "Someone tried to check balance of CurrencyPack. That's not right.");
         return 0;

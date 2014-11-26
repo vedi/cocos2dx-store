@@ -30,8 +30,7 @@ namespace soomla {
         if (bRet) {
             setPurchaseType(purchaseType);
             
-            if (getPurchaseType() != NULL) {
-            }
+            purchaseType->setAssociatedItemId(getItemId());
         }
         return bRet;
     }
@@ -86,6 +85,11 @@ namespace soomla {
         } else {
             CC_ASSERT(false);
             cocos2d::log("Couldn't determine what type of class is the given purchaseType.");
+        }
+        
+        CCPurchaseType *purchaseType = getPurchaseType();
+        if (purchaseType != NULL) {
+            purchaseType->setAssociatedItemId(getItemId());
         }
     }
 

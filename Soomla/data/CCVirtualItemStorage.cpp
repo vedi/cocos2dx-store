@@ -34,7 +34,7 @@ namespace soomla {
             balance = __String::create(val)->intValue();
         }
         
-        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("the balance for %s is %d", item->getId()->getCString(), balance)->getCString());
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("the balance for %s is %d", itemId, balance)->getCString());
         
         return balance;
     }

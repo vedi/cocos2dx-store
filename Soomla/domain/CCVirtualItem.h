@@ -106,7 +106,7 @@ namespace soomla {
          
          @return The balance.
          */
-        virtual int getBalance() = 0;
+        virtual int getBalance(CCError **error = NULL) = 0;
 
         /**
          Save this instance with changes that were made to it.

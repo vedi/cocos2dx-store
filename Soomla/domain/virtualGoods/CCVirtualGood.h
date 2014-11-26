@@ -43,7 +43,7 @@ namespace soomla {
         /**
          See parent
          */
-        virtual int getBalance();
+        virtual int getBalance(CCError **error = NULL);
     };
 };
 
