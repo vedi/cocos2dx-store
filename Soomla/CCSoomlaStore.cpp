@@ -18,6 +18,7 @@
 #include "CCStoreInfo.h"
 #include "CCSoomlaUtils.h"
 #include "CCNativeSoomlaStore.h"
+#include "CCStoreEventDispatcher.h"
 
 namespace soomla {
     #define TAG "SOOMLA SoomlaStore"
@@ -45,7 +46,7 @@ namespace soomla {
         
         if (initialized) {
             const char *err = "SoomlaStore is already initialized. You can't initialize it twice!";
-            //TODO: push unexpected error in store
+            CCStoreEventDispatcher::getInstance()->onUnexpectedErrorInStore(__String::create(err), true);
             CCSoomlaUtils::logError(TAG, err);
             return;
         }
@@ -66,7 +67,7 @@ namespace soomla {
         #endif
         
         initialized = true;
-        //TODO: push initialized
+        CCStoreEventDispatcher::getInstance()->onSoomlaStoreInitialized(true);
     }
     
     void CCSoomlaStore::buyMarketItem(const char *productId, const char *payload, CCError **error) {

@@ -22,7 +22,7 @@ namespace soomla {
 
         virtual void onGoodUpgrade(CCVirtualGood *virtualGood, CCUpgradeVG *upgradeVG);
 
-        virtual void onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem);
+        virtual void onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *payload);
 
         virtual void onItemPurchaseStarted(CCPurchasableVirtualItem *purchasableVirtualItem);
 
@@ -38,9 +38,9 @@ namespace soomla {
 
         virtual void onRestoreTransactionsStarted();
 
-        virtual void onUnexpectedErrorInStore();
+        virtual void onUnexpectedErrorInStore(cocos2d::__String *errorMessage);
 
-        virtual void onStoreControllerInitialized();
+        virtual void onStoreStoreInitialized();
 
         virtual void onMarketItemsRefreshed(cocos2d::__Array *virtualItems);
 

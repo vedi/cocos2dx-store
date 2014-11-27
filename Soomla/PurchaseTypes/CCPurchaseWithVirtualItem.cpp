@@ -67,8 +67,7 @@ namespace soomla {
             return;
         }
         
-        //TODO: check compatability with Unity (push)
-        CCStoreEventDispatcher::getInstance()->onItemPurchaseStarted(associatedItem);
+        CCStoreEventDispatcher::getInstance()->onItemPurchaseStarted(associatedItem, true);
         
         int balance = item->getBalance();
         
@@ -89,8 +88,7 @@ namespace soomla {
         
         associatedItem->give(1);
         
-        //TODO: check compatability with Unity (push)
-        CCStoreEventDispatcher::getInstance()->CCStoreEventHandler::onItemPurchased(associatedItem);
+        CCStoreEventDispatcher::getInstance()->onItemPurchased(associatedItem, __String::create(payload), true);
     }
 
     CCPurchaseWithVirtualItem::~CCPurchaseWithVirtualItem() {

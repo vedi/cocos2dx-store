@@ -58,7 +58,6 @@ namespace soomla {
             return;
         }
         
-        //TODO: check compatability with Unity (push)
         CCStoreEventDispatcher::getInstance()->onCurrencyBalanceChanged(virtualCurrency, balance, amountAdded);
     }
 

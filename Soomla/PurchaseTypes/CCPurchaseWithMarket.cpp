@@ -56,7 +56,7 @@ namespace soomla {
                                                                          getMarketItem()->getProductId()->getCString())->getCString());
         
         CCPurchasableVirtualItem *pvi = dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(getAssociatedItemId()->getCString(), error));
-        CCStoreEventDispatcher::getInstance()->onItemPurchaseStarted(pvi);
+        CCStoreEventDispatcher::getInstance()->onItemPurchaseStarted(pvi, true);
         CCSoomlaStore::getInstance()->buyMarketItem(getMarketItem()->getProductId()->getCString(), payload, error);
     }
 

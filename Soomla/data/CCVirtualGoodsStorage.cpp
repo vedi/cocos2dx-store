@@ -56,7 +56,6 @@ namespace soomla {
         CCKeyValueStorage::getInstance()->deleteKeyValue(key);
         
         if (notify) {
-            //TODO: check compatability with Unity (push)
             CCStoreEventDispatcher::getInstance()->onGoodUpgrade(good, NULL);
         }
     }
@@ -74,7 +73,6 @@ namespace soomla {
         CCKeyValueStorage::getInstance()->setValue(key, upItemId);
         
         if (notify) {
-            //TODO: check compatability with Unity (push)
             CCStoreEventDispatcher::getInstance()->onGoodUpgrade(good, upgradeVG);
         }
     }
@@ -135,13 +133,11 @@ namespace soomla {
         if (equip) {
             CCKeyValueStorage::getInstance()->setValue(key, "yes");
             if (notify) {
-                //TODO: check compatability with Unity (push)
                 CCStoreEventDispatcher::getInstance()->onGoodEquipped(good);
             }
         } else {
             CCKeyValueStorage::getInstance()->deleteKeyValue(key);
             if (notify) {
-                //TODO: check compatability with Unity (push)
                 CCStoreEventDispatcher::getInstance()->onGoodUnEquipped(good);
             }
         }
@@ -158,7 +154,6 @@ namespace soomla {
             return;
         }
         
-        //TODO: check compatability with Unity (push)
         CCStoreEventDispatcher::getInstance()->onGoodBalanceChanged(good, balance, amountAdded);
     }
     
