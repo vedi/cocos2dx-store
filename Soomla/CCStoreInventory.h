@@ -20,6 +20,10 @@
 
 #include "cocos2d.h"
 #include "CCError.h"
+#include "CCVirtualGood.h"
+#include "CCUpgradeVG.h"
+#include "CCVirtualCurrency.h"
+#include "CCEquippableVG.h"
 
 namespace soomla {
 	/** @class CCStoreInventory
@@ -46,7 +50,7 @@ namespace soomla {
          @param itemId The id of the item to be purchased.
          @param error A `CCError` for error checking.
 		 */
-        void buyItem(const char *itemId, CCError **error);
+        void buyItem(const char *itemId, CCError **error = NULL);
 
 		/**
          Buys the item with the given `itemId`.
@@ -54,7 +58,7 @@ namespace soomla {
          @param payload Payload.
          @param error A `CCError` for error checking.
 		 */
-        void buyItem(const char *itemId, const char *payload, CCError **error);
+        void buyItem(const char *itemId, const char *payload, CCError **error = NULL);
 
 		/**
          Retrieves the balance of the virtual item with the given `itemId`.
@@ -63,7 +67,7 @@ namespace soomla {
          @param error A `CCError` for error checking.
          @return The balance of the virtual item with the given `itemId`.
 		*/
-        int getItemBalance(const char *itemId, CCError **error);
+        int getItemBalance(const char *itemId, CCError **error = NULL);
 
 		/**
          Gives your user the given amount of the virtual item with the given
@@ -77,7 +81,7 @@ namespace soomla {
          @param itemId The id of the virtual item to be given.
          @param error A `CCError`for error checking.
          */
-		void giveItem(const char *itemId, int amount, CCError **error);
+		void giveItem(const char *itemId, int amount, CCError **error = NULL);
 
 		/**
          Takes from your user the given amount of the virtual item with the
@@ -88,7 +92,7 @@ namespace soomla {
          @param itemId The id of the virtual item to be taken.
          @param error A `CCError` for error checking.
          */
-        void takeItem(const char *itemId, int amount, CCError **error);
+        void takeItem(const char *itemId, int amount, CCError **error = NULL);
 
 		/**
          Equips the virtual good with the given `goodItemId`.
@@ -98,7 +102,7 @@ namespace soomla {
                 be of a `CCEquippableVG`.
          @param error A `CCError` for error checking.
 		*/
-        void equipVirtualGood(const char *itemId, CCError **error);
+        void equipVirtualGood(const char *itemId, CCError **error = NULL);
 
 		/**
          Unequips the virtual good with the given `goodItemId`. Unequipping
@@ -108,7 +112,7 @@ namespace soomla {
                 be of a `CCEquippableVG`.
          @param error A `CCError` for error checking.
          */
-		void unEquipVirtualGood(const char *itemId, CCError **error);
+		void unEquipVirtualGood(const char *itemId, CCError **error = NULL);
 
 		/**
          Checks if the virtual good with the given `goodItemId` is equipped
@@ -119,7 +123,7 @@ namespace soomla {
          @return True if the virtual good with the given id is equipped, false
                 otherwise.
          */
-        bool isVirtualGoodEquipped(const char *itemId, CCError **error);
+        bool isVirtualGoodEquipped(const char *itemId, CCError **error = NULL);
 
 		/**
          Retrieves the upgrade level of the virtual good with the given
@@ -140,7 +144,7 @@ namespace soomla {
          @param error A `CCError` for error checking.
          @return The upgrade level.
          */
-        int getGoodUpgradeLevel(const char *goodItemId, CCError **error);
+        int getGoodUpgradeLevel(const char *goodItemId, CCError **error = NULL);
 
 		/**
          Retrieves the item id of the current upgrade of the virtual good with
@@ -150,7 +154,7 @@ namespace soomla {
          @param error A `CCError` for error checking.
          @return The upgrade id if exists, or empty string otherwise.
          */
-		std::string getGoodCurrentUpgrade(const char *goodItemId, CCError **error);
+		std::string getGoodCurrentUpgrade(const char *goodItemId, CCError **error = NULL);
 
 		/**
          Upgrades the virtual good with the given `goodItemId` by doing the
@@ -168,7 +172,7 @@ namespace soomla {
                 `upgradeItemId` can be of any `CCUpgradeVG`.
          @param error A `CCError` for error checking.
          */
-        void upgradeGood(const char *goodItemId, CCError **error);
+        void upgradeGood(const char *goodItemId, CCError **error = NULL);
 
 		/**
          Removes all upgrades from the virtual good with the given `goodItemId`.
@@ -176,9 +180,36 @@ namespace soomla {
                 upgrades from. The `upgradeItemId` can be of any `UpgradeVG`.
          @param error A `CCError` for error checking.
          */
-		void removeGoodUpgrades(const char *goodItemId, CCError **error);
+		void removeGoodUpgrades(const char *goodItemId, CCError **error = NULL);
 
-        int getItemBalance(char const *itemId, char const *payload, CCError **error);
+        int getItemBalance(char const *itemId, char const *payload, CCError **error = NULL);
+        
+        /**
+         This function refreshes a local set of objects that will hold your user's balances in memory for quick
+         and more efficient fetching for your game UI.
+         This way, we save many JNI or static calls to native platforms.
+         
+         NOTE: You don't need to call this function as it's automatically called when the game initializes.
+         NOTE: This is less useful when you work in editor.
+         */
+        void refreshLocalInventory();
+        void refreshOnGoodUpgrade(CCVirtualGood *vg, CCUpgradeVG *uvg);
+        void refreshOnGoodEquipped(CCEquippableVG *equippable);
+        void refreshOnGoodUnEquipped(CCEquippableVG *equippable);
+        void refreshOnCurrencyBalanceChanged(CCVirtualCurrency *virtualCurrency, int balance, int amountAdded);
+        void refreshOnGoodBalanceChanged(CCVirtualGood *good, int balance, int amountAdded);
+        void updateLocalBalance(const char *itemId, int balance);
+    private:
+        cocos2d::__Dictionary *mLocalItemBalances;
+        cocos2d::__Dictionary *mLocalUpgrades;
+        cocos2d::__Set *mLocalEquippedGoods;
+        
+        class CCLocalUpgrade : public cocos2d::Ref {
+            CC_SYNTHESIZE_RETAIN(cocos2d::__Integer *, mLevel, Level);
+            CC_SYNTHESIZE_RETAIN(cocos2d::__String *, mItemId, ItemId);
+        public:
+            static CCLocalUpgrade *create();
+        };
     };
 };
 

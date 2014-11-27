@@ -50,7 +50,7 @@ namespace soomla {
          when the purchase is completed..
          @param error A `CCError` for error checking.
          */
-        void buy(cocos2d::__String* payload, CCError **error = NULL);
+        void buy(const char* payload, CCError **error = NULL);
         
         /**
          Determines if user is in a state that allows him/her to buy a specific 

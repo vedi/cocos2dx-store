@@ -57,7 +57,7 @@ namespace soomla {
         return dict;
     }
     
-    void CCPurchasableVirtualItem::buy(cocos2d::__String* payload, CCError **error) {
+    void CCPurchasableVirtualItem::buy(const char* payload, CCError **error) {
         if (!canBuy()) {
             return;
         }

@@ -51,13 +51,13 @@ namespace soomla {
         }
     }
     
-    void CCPurchaseWithMarket::buy(cocos2d::__String* payload, CCError **error) {
+    void CCPurchaseWithMarket::buy(const char* payload, CCError **error) {
         CCSoomlaUtils::logDebug(TAG, cocos2d::__String::createWithFormat("Starting in-app purchase for productId: %s",
                                                                          getMarketItem()->getProductId()->getCString())->getCString());
         
         CCPurchasableVirtualItem *pvi = dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(getAssociatedItemId()->getCString(), error));
         CCStoreEventDispatcher::getInstance()->onItemPurchaseStarted(pvi);
-        CCSoomlaStore::getInstance()->buyMarketItem(getMarketItem()->getProductId()->getCString(), payload->getCString(), error);
+        CCSoomlaStore::getInstance()->buyMarketItem(getMarketItem()->getProductId()->getCString(), payload, error);
     }
 
     CCPurchaseWithMarket::~CCPurchaseWithMarket() {

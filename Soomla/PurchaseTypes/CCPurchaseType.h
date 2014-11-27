@@ -51,7 +51,7 @@ namespace soomla {
          the purchase is completed.
          @param error A `CCError` for error checking.
          */
-        virtual void buy(cocos2d::__String* payload, CCError **error = NULL) = 0;
+        virtual void buy(const char* payload, CCError **error = NULL) = 0;
       
         virtual ~CCPurchaseType();
     };

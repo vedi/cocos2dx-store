@@ -46,7 +46,7 @@ namespace soomla {
         return true;
     }
     
-    void CCPurchaseWithVirtualItem::buy(cocos2d::__String* payload, CCError **error) {
+    void CCPurchaseWithVirtualItem::buy(const char* payload, CCError **error) {
         const char *associatedItemId = getAssociatedItemId()->getCString();
         CCPurchasableVirtualItem *associatedItem = dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(associatedItemId, error));
         if (associatedItem == NULL) {

@@ -73,7 +73,7 @@ namespace soomla {
          @param error A `CCError` for error checking.
          @return The virtual item with the given `itemId`.
 		 */
-        CCVirtualItem *getItemByItemId(const char *itemId, CCError **error);
+        CCVirtualItem *getItemByItemId(const char *itemId, CCError **error = NULL);
 
 		/**
          Retrieves a single `CCPurchasableVirtualItem` that resides in the
@@ -86,7 +86,7 @@ namespace soomla {
          @param error A `CCError` for error checking.
          @return The purchasable virtual item with the given `productId`.
 		*/
-		CCPurchasableVirtualItem *getPurchasableItemWithProductId(const char *productId, CCError **error);
+		CCPurchasableVirtualItem *getPurchasableItemWithProductId(const char *productId, CCError **error = NULL);
 
 		/**
          Retrieves the `CCVirtualCategory` that the `CCVirtualGood` with the 
@@ -97,7 +97,7 @@ namespace soomla {
          @return The `CCVirtualCategory` for the `CCVirtualGood` with the given
          `goodItemId`.
 		*/
-		CCVirtualCategory *getCategoryForVirtualGood(const char *goodItemId, CCError **error);
+		CCVirtualCategory *getCategoryForVirtualGood(const char *goodItemId, CCError **error = NULL);
 
 		/**
          Retrieves the first `CCUpgradeVG` for the`CCVirtualGood` with the given
@@ -106,7 +106,7 @@ namespace soomla {
          @return The first `CCUpgradeVG` for the virtual good with the given
                 `itemId`.
 		*/
-        CCUpgradeVG *getFirstUpgradeForVirtualGood(const char *goodItemId);
+        CCUpgradeVG *getFirstUpgradeForVirtualGood(const char *goodItemId = NULL);
 
 		/**
          Retrieves the last `CCUpgradeVG` for the`CCVirtualGood` with the given
@@ -115,7 +115,7 @@ namespace soomla {
          @return The last `CCUpgradeVG` for the virtual good with the given
                 `ItemId`.
 		*/
-		CCUpgradeVG *getLastUpgradeForVirtualGood(const char *goodItemId);
+		CCUpgradeVG *getLastUpgradeForVirtualGood(const char *goodItemId = NULL);
 
 		/**
          Retrieves all `CCUpgradeVG`s for the `CCVirtualGood` with the given
@@ -123,7 +123,7 @@ namespace soomla {
          @param goodItemId the `CCVirtualGood` we're searching the upgrades for.
          @return Array of all upgrades for the good with the given item id.
          */
-        cocos2d::__Array *getUpgradesForVirtualGood(const char *goodItemId);
+        cocos2d::__Array *getUpgradesForVirtualGood(const char *goodItemId = NULL);
 
         void saveItem(CCVirtualItem *virtualItem);
         

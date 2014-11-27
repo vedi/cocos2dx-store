@@ -55,7 +55,7 @@ namespace soomla {
         /**
          See parent
          */
-        virtual void buy(cocos2d::__String* payload, CCError **error = NULL);
+        virtual void buy(const char* payload, CCError **error = NULL);
 
         ~CCPurchaseWithMarket();
     };
