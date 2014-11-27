@@ -21,7 +21,7 @@
 #include "CCUpgradeVG.h"
 
 namespace soomla {
-#define TAG "SOOMLA NativeVirtualGoodsStorage"
+    #define TAG "SOOMLA NativeVirtualGoodsStorage"
     
     USING_NS_CC;
     

@@ -81,15 +81,7 @@ namespace soomla {
         if (balance < amount){
             __String *errorStr = __String::createWithFormat("You tried to buy with itemId: %s \
                                                             but you don't have enough funds to buy it.", item->getItemId()->getCString());
-            if (error != NULL) {
-                CCError *resultError = CCError::createWithObject(errorStr);
-                if (resultError != NULL) {
-                    *error = resultError;
-                }
-            }
-            else {
-                CCSoomlaUtils::logError(TAG, errorStr->getCString());
-            }
+            CCError::tryFillError(error, errorStr, TAG);
             return;
         }
         

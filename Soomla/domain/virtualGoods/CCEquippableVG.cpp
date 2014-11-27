@@ -136,13 +136,15 @@ namespace soomla {
                     }
                 }
             } else if (equippingModel == kGlobal) {
-                //TODO:
-//                foreach(VirtualGood good in StoreInfo.Goods) {
-//                    if (good != this &&
-//                        good is EquippableVG) {
-//                        ((EquippableVG)good).Unequip(notify);
-//                    }
-//                }
+                Ref* obj;
+                __Array *virtualGoods = CCStoreInfo::sharedStoreInfo()->getGoods();
+                CCARRAY_FOREACH(virtualGoods, obj) {
+                    CCVirtualGood *good = dynamic_cast<CCVirtualGood *>(virtualGoods);
+                    CCEquippableVG *equippableVG = dynamic_cast<CCEquippableVG *>(good);
+                    if ((good != this) && (equippableVG != NULL)) {
+                        equippableVG->unequip(notify, error);
+                    }
+                }
             }
             
             CCVirtualGoodsStorage::getInstance()->equip(this, notify, error);
@@ -150,15 +152,7 @@ namespace soomla {
         else {
             __String *errorStr = __String::createWithFormat("You tried to equip virtual good with itemId: %s \
                                                             but you don't have any of it.", getItemId()->getCString());
-            if (error != NULL) {
-                CCError *resultError = CCError::createWithObject(errorStr);
-                if (resultError != NULL) {
-                    *error = resultError;
-                }
-            }
-            else {
-                CCSoomlaUtils::logError(TAG, errorStr->getCString());
-            }
+            CCError::tryFillError(error, errorStr, TAG);
         }
     }
     

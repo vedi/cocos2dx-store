@@ -39,6 +39,14 @@ namespace soomla {
      non-consumables
 	*/
 	class CCStoreInfo: cocos2d::Ref {
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Dictionary *, mVirtualItems, VirtualItems);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Dictionary *, mPurchasableItems, PurchasableItems);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Dictionary *, mGoodsCategories, GoodsCategories);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Dictionary *, mGoodsUpgrades, GoodsUpgrades);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Array*, mCurrencies, Currencies);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Array*, mCurrencyPacks, CurrencyPacks);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Array*, mGoods, Goods);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Array*, mCategories, Categories);
     public:
         
 		/**
@@ -52,7 +60,12 @@ namespace soomla {
          @param storeAssets An instance of your store's assets class.
 		 */
         static void createShared(CCStoreAssets *storeAssets);
+        
         virtual bool init(CCStoreAssets *storeAssets);
+        virtual bool initWithDictionary(cocos2d::__Dictionary* dict);
+        
+        CCStoreInfo() : mVirtualItems(NULL), mPurchasableItems(NULL), mGoodsCategories(NULL),
+        mGoodsUpgrades(NULL), mCurrencies(NULL), mCurrencyPacks(NULL), mGoods(NULL), mCategories(NULL) {}
 
 		/**
          Retrieves a single `CCVirtualItem` that resides in the metadata.
@@ -112,31 +125,17 @@ namespace soomla {
          */
         cocos2d::__Array *getUpgradesForVirtualGood(const char *goodItemId);
 
-		/**
-         Retrieves all virtual currencies.
-         @return The virtual currencies of the game.
-		*/
-		cocos2d::__Array *getVirtualCurrencies();
-
-		/**
-         Retrieves all virtual goods.
-         @return The virtual goods of the game.
-		*/
-        cocos2d::__Array *getVirtualGoods();
-
-		/**
-         Retrieves all virtual currency packs.
-         @return The virtual currency packs of the game.
-		*/
-        cocos2d::__Array *getVirtualCurrencyPacks();
-
-		/**
-         Retrieves all virtual categories.
-         @return The virtual categories of the game.
-		*/
-		cocos2d::__Array *getVirtualCategories();
-
         void saveItem(CCVirtualItem *virtualItem);
+        
+        virtual void save();
+        
+        virtual cocos2d::__Dictionary* toDictionary();
+    protected:
+        virtual void setStoreAssets(CCStoreAssets *storeAssets);
+        virtual void initializeFromDB();
+        void updateAggregatedLists();
+        void replaceVirtualItem(CCVirtualItem *virtualItem);
+        cocos2d::__Dictionary *storeAssetsToDictionary(CCStoreAssets *storeAssets);
     private:
         cocos2d::Ref *createWithRetParams(cocos2d::__Dictionary *retParams);
     };
