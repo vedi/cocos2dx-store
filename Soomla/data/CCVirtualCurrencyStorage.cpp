@@ -30,9 +30,9 @@ namespace soomla {
         if (!s_SharedVirtualCurrencyStorage)
         {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-            s_SharedVirtualCurrencyStorage = new CCVirtualCurrencyStorage();
-#else
             s_SharedVirtualCurrencyStorage = new CCNativeVirtualCurrencyStorage();
+#else
+            s_SharedVirtualCurrencyStorage = new CCVirtualCurrencyStorage();
 #endif
 //            s_SharedVirtualCurrencyStorage->retain();
         }

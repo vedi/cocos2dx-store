@@ -488,6 +488,8 @@ namespace soomla {
             eventHandler->onSoomlaStoreInitialized();
         }
 
+        CCStoreInventory::sharedStoreInventory()->refreshLocalInventory();
+
         if (alsoPush) {
         #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
             

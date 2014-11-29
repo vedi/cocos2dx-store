@@ -37,7 +37,7 @@ namespace soomla {
         // declare. Including `CCPurchasableVirtualItem.h` causes circular dependency
         CC_SYNTHESIZE_RETAIN(cocos2d::__String *, mAssociatedItemId, AssociatedItemId);
     public:
-        CCPurchaseType() {}
+        CCPurchaseType() : mAssociatedItemId(NULL) {}
         
         virtual bool init();
         

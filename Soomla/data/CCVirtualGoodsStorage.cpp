@@ -32,9 +32,9 @@ namespace soomla {
         if (!s_SharedVirtualGoodsStorage)
         {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-            s_SharedVirtualGoodsStorage = new CCVirtualGoodsStorage();
-#else
             s_SharedVirtualGoodsStorage = new CCNativeVirtualGoodsStorage();
+#else
+            s_SharedVirtualGoodsStorage = new CCVirtualGoodsStorage();
 #endif
 //            s_SharedVirtualGoodsStorage->retain();
         }

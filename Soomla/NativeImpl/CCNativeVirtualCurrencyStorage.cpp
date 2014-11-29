@@ -35,7 +35,7 @@ namespace soomla {
         
     }
     
-    int getBalance(CCVirtualItem *item, CCError **error) {
+    int CCNativeVirtualCurrencyStorage::getBalance(CCVirtualItem *item, CCError **error) {
         const char *itemId = item->getId()->getCString();
         
         CCSoomlaUtils::logDebug(TAG,
@@ -57,7 +57,7 @@ namespace soomla {
         }
     }
     
-    int setBalance(CCVirtualItem *item, int balance, bool notify, CCError **error) {
+    int CCNativeVirtualCurrencyStorage::setBalance(CCVirtualItem *item, int balance, bool notify, CCError **error) {
         const char *itemId = item->getId()->getCString();
         
         CCSoomlaUtils::logDebug(TAG,
@@ -81,7 +81,7 @@ namespace soomla {
         }
     }
     
-    int add(CCVirtualItem *item, int amount, bool notify, CCError **error) {
+    int CCNativeVirtualCurrencyStorage::add(CCVirtualItem *item, int amount, bool notify, CCError **error) {
         const char *itemId = item->getId()->getCString();
         
         CCSoomlaUtils::logDebug(TAG,
@@ -105,7 +105,7 @@ namespace soomla {
         }
     }
     
-    int remove(CCVirtualItem *item, int amount, bool notify, CCError **error) {
+    int CCNativeVirtualCurrencyStorage::remove(CCVirtualItem *item, int amount, bool notify, CCError **error) {
         const char *itemId = item->getId()->getCString();
         
         CCSoomlaUtils::logDebug(TAG,

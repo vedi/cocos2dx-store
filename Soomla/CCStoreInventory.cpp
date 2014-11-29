@@ -37,10 +37,6 @@ namespace soomla {
         return s_SharedStoreInventory;
     }
 
-    CCStoreInventory::CCStoreInventory() {
-
-    }
-
     CCStoreInventory::~CCStoreInventory() {
 
     }

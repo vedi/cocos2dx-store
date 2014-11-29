@@ -40,7 +40,9 @@ namespace soomla {
 		 */
         static CCStoreInventory* sharedStoreInventory();
 
-        CCStoreInventory(void);
+        CCStoreInventory() : mLocalItemBalances(NULL), mLocalUpgrades(NULL),
+            mLocalEquippedGoods(NULL) {}
+        
         virtual bool init();
 
         virtual ~CCStoreInventory(void);
@@ -181,8 +183,6 @@ namespace soomla {
          @param error A `CCError` for error checking.
          */
 		void removeGoodUpgrades(const char *goodItemId, CCError **error = NULL);
-
-        int getItemBalance(char const *itemId, char const *payload, CCError **error = NULL);
         
         /**
          This function refreshes a local set of objects that will hold your user's balances in memory for quick
@@ -209,6 +209,7 @@ namespace soomla {
             CC_SYNTHESIZE_RETAIN(cocos2d::__String *, mItemId, ItemId);
         public:
             static CCLocalUpgrade *create();
+            CCLocalUpgrade() : mLevel(NULL), mItemId(NULL) {}
         };
     };
 };
