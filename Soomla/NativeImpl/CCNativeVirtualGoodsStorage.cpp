@@ -39,7 +39,7 @@ namespace soomla {
         CCSoomlaUtils::logDebug(TAG,
                                 __String::createWithFormat("SOOMLA/COCOS2DX Calling getBalance with: %s", itemId)->getCString());
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCVirtualGoodsStorage::getBalance"), "method");
+        params->setObject(__String::create("CCNativeVirtualGoodsStorage::getBalance"), "method");
         params->setObject(__String::create(itemId), "itemId");
         __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
         
@@ -61,7 +61,7 @@ namespace soomla {
         CCSoomlaUtils::logDebug(TAG,
                                 __String::createWithFormat("SOOMLA/COCOS2DX Calling setBalance with: %s", itemId)->getCString());
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCVirtualGoodsStorage::setBalance"), "method");
+        params->setObject(__String::create("CCNativeVirtualGoodsStorage::setBalance"), "method");
         params->setObject(__String::create(itemId), "itemId");
         params->setObject(__Integer::create(balance), "balance");
         params->setObject(__Bool::create(notify), "notify");
@@ -85,7 +85,7 @@ namespace soomla {
         CCSoomlaUtils::logDebug(TAG,
                                 __String::createWithFormat("SOOMLA/COCOS2DX Calling add with: %s", itemId)->getCString());
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCVirtualGoodsStorage::add"), "method");
+        params->setObject(__String::create("CCNativeVirtualGoodsStorage::add"), "method");
         params->setObject(__String::create(itemId), "itemId");
         params->setObject(__Integer::create(amount), "amount");
         params->setObject(__Bool::create(notify), "notify");
@@ -109,7 +109,7 @@ namespace soomla {
         CCSoomlaUtils::logDebug(TAG,
                                 __String::createWithFormat("SOOMLA/COCOS2DX Calling remove with: %s", itemId)->getCString());
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCVirtualGoodsStorage::remove"), "method");
+        params->setObject(__String::create("CCNativeVirtualGoodsStorage::remove"), "method");
         params->setObject(__String::create(itemId), "itemId");
         params->setObject(__Integer::create(amount), "amount");
         params->setObject(__Bool::create(notify), "notify");
@@ -134,7 +134,7 @@ namespace soomla {
                                 __String::createWithFormat("SOOMLA/COCOS2DX Calling removeUpgrades with: %s", itemId)->getCString());
         
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCVirtualGoodsStorage::removeUpgrades"), "method");
+        params->setObject(__String::create("CCNativeVirtualGoodsStorage::removeUpgrades"), "method");
         params->setObject(__String::create(itemId), "itemId");
         params->setObject(__Bool::create(notify), "notify");
         CCNdkBridge::callNative (params, error);
@@ -142,13 +142,15 @@ namespace soomla {
     
     void CCNativeVirtualGoodsStorage::assignCurrentUpgrade(CCVirtualGood *good, CCUpgradeVG *upgradeVG, bool notify, CCError **error) {
         const char *itemId = good->getId()->getCString();
+        const char *upgradeItemId = upgradeVG->getId()->getCString();
         
         CCSoomlaUtils::logDebug(TAG,
                                 __String::createWithFormat("SOOMLA/COCOS2DX Calling assignCurrentUpgrade with: %s", itemId)->getCString());
         
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCVirtualGoodsStorage::assignCurrentUpgrade"), "method");
+        params->setObject(__String::create("CCNativeVirtualGoodsStorage::assignCurrentUpgrade"), "method");
         params->setObject(__String::create(itemId), "itemId");
+        params->setObject(__String::create(upgradeItemId), "upgradeItemId");
         params->setObject(__Bool::create(notify), "notify");
         CCNdkBridge::callNative (params, error);
     }
@@ -160,7 +162,7 @@ namespace soomla {
                                 __String::createWithFormat("SOOMLA/COCOS2DX Calling getCurrentUpgrade with: %s", itemId)->getCString());
         
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCVirtualGoodsStorage::assignCurrentUpgrade"), "method");
+        params->setObject(__String::create("CCNativeVirtualGoodsStorage::getCurrentUpgrade"), "method");
         params->setObject(__String::create(itemId), "itemId");
         __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
         
@@ -183,7 +185,7 @@ namespace soomla {
                                 __String::createWithFormat("SOOMLA/COCOS2DX Calling isEquipped with: %s", itemId)->getCString());
         
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCVirtualGoodsStorage::isEquipped"), "method");
+        params->setObject(__String::create("CCNativeVirtualGoodsStorage::isEquipped"), "method");
         params->setObject(__String::create(itemId), "itemId");
         __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
         
@@ -206,7 +208,7 @@ namespace soomla {
                                 __String::createWithFormat("SOOMLA/COCOS2DX Calling equip with: %s", itemId)->getCString());
         
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCVirtualGoodsStorage::equip"), "method");
+        params->setObject(__String::create("CCNativeVirtualGoodsStorage::equip"), "method");
         params->setObject(__String::create(itemId), "itemId");
         params->setObject(__Bool::create(notify), "notify");
         CCNdkBridge::callNative (params, error);
@@ -219,7 +221,7 @@ namespace soomla {
                                 __String::createWithFormat("SOOMLA/COCOS2DX Calling unequip with: %s", itemId)->getCString());
         
         __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCVirtualGoodsStorage::unequip"), "method");
+        params->setObject(__String::create("CCNativeVirtualGoodsStorage::unequip"), "method");
         params->setObject(__String::create(itemId), "itemId");
         params->setObject(__Bool::create(notify), "notify");
         CCNdkBridge::callNative (params, error);

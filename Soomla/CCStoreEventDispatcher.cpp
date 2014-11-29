@@ -492,7 +492,7 @@ namespace soomla {
         #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
             
             __Dictionary *params = __Dictionary::create();
-            params->setObject(__String::create("CCStoreEventDispatcher::pushOnStoreControllerInitialized"), "method");
+            params->setObject(__String::create("CCStoreEventDispatcher::pushOnSoomlaStoreInitialized"), "method");
             CCNdkBridge::callNative (params, NULL);
             
         #endif
