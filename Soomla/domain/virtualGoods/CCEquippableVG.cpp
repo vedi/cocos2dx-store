@@ -43,9 +43,19 @@ namespace soomla {
     }
 
     bool CCEquippableVG::init(__Integer *equippingModel, __String *name, __String *description, __String *itemId, CCPurchaseType *purchaseType) {
-        bool res = CCPurchasableVirtualItem::init(name, description, itemId, purchaseType);
+        bool res = CCLifetimeVG::init(name, description, itemId, purchaseType);
         if (res) {
             setEquippingModel(equippingModel);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    bool CCEquippableVG::initWithDictionary(cocos2d::__Dictionary *dict) {
+        bool res = CCLifetimeVG::initWithDictionary(dict);
+        if (res) {
+            fillEquippingModelFromDict(dict);
             return true;
         } else {
             return false;

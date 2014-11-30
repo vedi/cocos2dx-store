@@ -74,14 +74,14 @@ public class StoreService extends AbstractSoomlaService {
                 init();
                 int version = params.getInt("version");
                 JSONObject storeAssetsJson = params.getJSONObject("storeAssets");
-                mStoreAssets = new StoreAssetsBridge(version, storeAssetsJson);
+                StoreInfo.setStoreAssets(version, storeAssetsJson.toString());
             }
         });
 
         ndkGlue.registerCallHandler("CCStoreService::init", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                SoomlaStore.getInstance().initialize(mStoreAssets);
+                // Compatibility
             }
         });
 

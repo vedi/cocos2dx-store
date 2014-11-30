@@ -88,7 +88,7 @@ namespace soomla {
             return 0;
         }
         
-        return CCVirtualCurrencyStorage::getInstance()->add(currency, amount, notify, error);
+        return CCVirtualCurrencyStorage::getInstance()->add(currency, getCurrencyAmount()->getValue() * amount, notify, error);
     }
     
     int CCVirtualCurrencyPack::take(int amount, bool notify, CCError **error) {
@@ -101,7 +101,7 @@ namespace soomla {
             return 0;
         }
         
-        return CCVirtualCurrencyStorage::getInstance()->remove(currency, amount, notify, error);
+        return CCVirtualCurrencyStorage::getInstance()->remove(currency, getCurrencyAmount()->getValue() * amount, notify, error);
     }
     
     int CCVirtualCurrencyPack::resetBalance(int balance, bool notify, CCError **error) {

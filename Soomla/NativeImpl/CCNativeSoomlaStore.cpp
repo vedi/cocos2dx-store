@@ -25,6 +25,9 @@ namespace soomla {
         __Dictionary *params = __Dictionary::create();
         params->setObject(__String::create("CCSoomlaStore::buyMarketItem"), "method");
         params->setObject(__String::create(productId), "productId");
+        if (payload == NULL) {
+            payload = "";
+        }
         params->setObject(__String::create(payload), "payload");
         CCNdkBridge::callNative (params, error);
     }

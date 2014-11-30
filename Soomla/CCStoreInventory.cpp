@@ -167,7 +167,7 @@ namespace soomla {
         
         if (upgradeVG != NULL) {
             __String *nextItemId = upgradeVG->getNextItemId();
-            if (nextItemId == NULL) {
+            if (CCSoomlaUtils::isNullOrEmpty(nextItemId)) {
                 return;
             }
             CCUpgradeVG *vgu = dynamic_cast<CCUpgradeVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(nextItemId->getCString(), error));
@@ -226,7 +226,8 @@ namespace soomla {
         CCARRAY_FOREACH(CCStoreInfo::sharedStoreInfo()->getGoods(), obj) {
             CCVirtualGood *item = dynamic_cast<CCVirtualGood *>(obj);
             CC_ASSERT(item);
-            mLocalItemBalances->setObject(__Integer::create(CCVirtualCurrencyStorage::getInstance()->getBalance(item)), item->getItemId()->getCString());
+            int balance = CCVirtualGoodsStorage::getInstance()->getBalance(item);
+            mLocalItemBalances->setObject(__Integer::create(balance), item->getItemId()->getCString());
             
             CCUpgradeVG *upgrade = CCVirtualGoodsStorage::getInstance()->getCurrentUpgrade(item);
             if (upgrade != NULL) {

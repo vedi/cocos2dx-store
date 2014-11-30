@@ -48,6 +48,9 @@ namespace soomla {
     
     void CCPurchaseWithVirtualItem::buy(const char* payload, CCError **error) {
         const char *associatedItemId = getAssociatedItemId()->getCString();
+        if (payload == NULL) {
+            payload = "";
+        }
         CCPurchasableVirtualItem *associatedItem = dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(associatedItemId, error));
         if (associatedItem == NULL) {
             CCSoomlaUtils::logError(TAG, __String::createWithFormat("Trying to buy an non-existing associated item: %s", associatedItemId)->getCString());

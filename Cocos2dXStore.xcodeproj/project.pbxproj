@@ -175,7 +175,6 @@
 			isa = PBXGroup;
 			children = (
 				F8A1E3F01A238F45006FAA3C /* NativeImpl */,
-				F8A1E3F11A238F45006FAA3C /* BridgelessImpl */,
 				9D63D1C119B1C4FF0054EA87 /* CCSimpleStoreEventHandler.cpp */,
 				9D63D1C219B1C4FF0054EA87 /* CCSimpleStoreEventHandler.h */,
 				9D63D1C319B1C4FF0054EA87 /* CCSoomlaStore.cpp */,
@@ -337,13 +336,6 @@
 				F8F644991A262F5E00C6D3CC /* CCNativeStoreInfo.h */,
 			);
 			path = NativeImpl;
-			sourceTree = "<group>";
-		};
-		F8A1E3F11A238F45006FAA3C /* BridgelessImpl */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BridgelessImpl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

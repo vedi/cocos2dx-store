@@ -167,7 +167,7 @@ namespace soomla {
         __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
         
         if (retParams == NULL) {
-            return 0;
+            return NULL;
         }
         
         __String *retItemId = (__String *) retParams->objectForKey("return");
@@ -190,7 +190,7 @@ namespace soomla {
         __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
         
         if (retParams == NULL) {
-            return 0;
+            return false;
         }
         
         __Bool *retValue = (__Bool *) retParams->objectForKey("return");

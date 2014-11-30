@@ -87,7 +87,7 @@ namespace soomla {
             return 0;
         }
         
-        return CCVirtualGoodsStorage::getInstance()->add(good, amount, notify, error);
+        return CCVirtualGoodsStorage::getInstance()->add(good, getGoodAmount()->getValue() * amount, notify, error);
     }
     
     int CCSingleUsePackVG::take(int amount, bool notify, CCError **error) {
@@ -100,7 +100,7 @@ namespace soomla {
             return 0;
         }
         
-        return CCVirtualGoodsStorage::getInstance()->remove(good, amount, notify, error);
+        return CCVirtualGoodsStorage::getInstance()->remove(good, getGoodAmount()->getValue() * amount, notify, error);
     }
     
     int CCSingleUsePackVG::resetBalance(int balance, bool notify, CCError **error) {

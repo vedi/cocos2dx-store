@@ -101,6 +101,8 @@ namespace soomla {
 									  cocos2d::__String* itemId, CCPurchaseType * purchaseType);
         bool init(cocos2d::__Integer *equippingModel, cocos2d::__String* name, cocos2d::__String* description,
                 cocos2d::__String* itemId, CCPurchaseType * purchaseType);
+        
+        bool initWithDictionary(cocos2d::__Dictionary *dict);
 
 		/**
          Creates a `CCEquippableVG` from a dictionary.

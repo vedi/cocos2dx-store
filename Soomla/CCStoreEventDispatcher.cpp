@@ -384,6 +384,10 @@ namespace soomla {
     }
 
     void CCStoreEventDispatcher::onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *payload, bool alsoPush) {
+        if (payload == NULL) {
+            payload = __String::create("");
+        }
+        
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
             eventHandler->onItemPurchased(purchasableVirtualItem, payload);
         }

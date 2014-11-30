@@ -30,9 +30,9 @@ namespace soomla {
         if (!sInstance)
         {
             #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-            sInstance = new CCStoreService();
-            #else
             sInstance = new CCNativeStoreService();
+            #else
+            sInstance = new CCStoreService();
             #endif
             sInstance->retain();
         }

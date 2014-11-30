@@ -29,7 +29,7 @@ namespace soomla {
      */
     class CCNativeSoomlaStore : public CCSoomlaStore {
     public:
-        virtual void buyMarketItem(const char *productId, const char *payload, CCError **error);
+        virtual void buyMarketItem(const char *productId, const char *payload, CCError **error = NULL);
         
         virtual void restoreTransactions();
         
@@ -39,7 +39,7 @@ namespace soomla {
         
         virtual bool transactionsAlreadyRestored();
         
-        virtual void refreshMarketItemsDetails(CCError **error);
+        virtual void refreshMarketItemsDetails(CCError **error = NULL);
 #endif
         
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

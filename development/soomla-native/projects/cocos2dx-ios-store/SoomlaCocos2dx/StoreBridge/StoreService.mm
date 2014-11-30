@@ -124,12 +124,11 @@
     [ndkGlue registerCallHandlerForKey:@"CCStoreAssets::init" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSNumber *version = (NSNumber *) [parameters objectForKey:@"version"];
         NSDictionary *storeAssetsDict = (NSDictionary *) [parameters objectForKey:@"storeAssets"];
-        [[StoreAssetsBridge sharedInstance] initializeWithStoreAssetsDict:storeAssetsDict andVersion:version.intValue];
+        [[StoreInfo getInstance] setStoreAssetsJSON:[SoomlaUtils dictToJsonString:storeAssetsDict] withVersion:[version intValue]];
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCStoreService::init" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         [[StoreService sharedStoreService] init];
-        [[SoomlaStore getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]];
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCSoomlaStore::buyMarketItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
@@ -240,13 +239,15 @@
         NSString *itemId = [parameters objectForKey:@"itemId"];
         NSString *upgradeItemId = [parameters objectForKey:@"upgradeItemId"];
         bool notify = [(NSNumber*)[parameters objectForKey:@"notify"] boolValue];
-        [[[StorageManager getInstance] virtualGoodStorage] assignCurrentUpgrade:itemId toGood:upgradeItemId withEvent:notify];
+        [[[StorageManager getInstance] virtualGoodStorage] assignCurrentUpgrade:upgradeItemId toGood:itemId withEvent:notify];
     }];
     
     [ndkGlue registerCallHandlerForKey:@"CCNativeVirtualGoodsStorage::getCurrentUpgrade" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *itemId = [parameters objectForKey:@"itemId"];
         NSString* upgradeItemId = [[[StorageManager getInstance] virtualGoodStorage] currentUpgradeOf:itemId];
-        [retParameters setObject:upgradeItemId forKey:@"return"];
+        if (upgradeItemId) {
+            [retParameters setObject:upgradeItemId forKey:@"return"];
+        }
     }];
     
     [ndkGlue registerCallHandlerForKey:@"CCNativeVirtualGoodsStorage::isEquipped" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
@@ -273,24 +274,24 @@
         NSDictionary *userInfo = @{ DICT_ELEMENT_PURCHASABLE_ID: [parameters objectForKey:@"itemId"],
                                     DICT_ELEMENT_DEVELOPERPAYLOAD: [parameters objectForKey:@"payload"] };
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_ITEM_PURCHASED object:self userInfo:userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_ITEM_PURCHASED object:[NdkGlue sharedInstance] userInfo:userInfo];
     }];
     
     [ndkGlue registerCallHandlerForKey:@"CCStoreEventDispatcher::pushOnItemPurchaseStarted" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSDictionary *userInfo = @{ DICT_ELEMENT_PURCHASABLE_ID: [parameters objectForKey:@"itemId"] };
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_ITEM_PURCHASE_STARTED object:self userInfo:userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_ITEM_PURCHASE_STARTED object:[NdkGlue sharedInstance] userInfo:userInfo];
     }];
     
     [ndkGlue registerCallHandlerForKey:@"CCStoreEventDispatcher::pushOnUnexpectedErrorInStore" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         // TODO: we're ignoring errorMessage here. change it?
         
         NSDictionary *userInfo = @{ DICT_ELEMENT_ERROR_CODE: [NSNumber numberWithInt:ERR_GENERAL] };
-        [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_UNEXPECTED_ERROR_IN_STORE object:self userInfo:userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_UNEXPECTED_ERROR_IN_STORE object:[NdkGlue sharedInstance] userInfo:userInfo];
     }];
     
     [ndkGlue registerCallHandlerForKey:@"CCStoreEventDispatcher::pushOnSoomlaStoreInitialized" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_SOOMLASTORE_INIT object:self userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_SOOMLASTORE_INIT object:[NdkGlue sharedInstance] userInfo:nil];
     }];
 
     /* -= Exception handlers =- */
@@ -341,10 +342,6 @@
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_ITEM_PURCHASED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
-        if (notification.object == self) {
-            return;
-        }
-        
         NSString* payload = [notification.userInfo objectForKey:DICT_ELEMENT_DEVELOPERPAYLOAD];
         [parameters setObject:@"CCStoreEventHandler::onItemPurchased" forKey:@"method"];
         [parameters setObject:(NSString*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE_ID] forKey:@"itemId"];
@@ -352,10 +349,6 @@
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_ITEM_PURCHASE_STARTED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
-        if (notification.object == self) {
-            return;
-        }
-        
         [parameters setObject:@"CCStoreEventHandler::onItemPurchaseStarted" forKey:@"method"];
         [parameters setObject:(NSString*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE_ID] forKey:@"itemId"];
     }];
@@ -420,18 +413,10 @@
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_UNEXPECTED_ERROR_IN_STORE withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
-        if (notification.object == self) {
-            return;
-        }
-        
         [parameters setObject:@"CCStoreEventHandler::onUnexpectedErrorInStore" forKey:@"method"];
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_SOOMLASTORE_INIT withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
-        if (notification.object == self) {
-            return;
-        }
-        
         [parameters setObject:@"CCStoreEventHandler::onStoreControllerInitialized" forKey:@"method"];
     }];
 }

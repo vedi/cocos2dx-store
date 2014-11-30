@@ -92,7 +92,7 @@ namespace soomla {
         
         CCUpgradeVG *upgradeVG = CCVirtualGoodsStorage::getInstance()->getCurrentUpgrade(good);
         
-        return ((upgradeVG == NULL && getPrevItemId() == NULL) ||
+        return ((upgradeVG == NULL && CCSoomlaUtils::isNullOrEmpty(getPrevItemId())) ||
                 (upgradeVG != NULL && ((upgradeVG->getNextItemId()->isEqual(getItemId())) ||
                                        (upgradeVG->getPrevItemId()->isEqual(getItemId())))))
                 && CCLifetimeVG::canBuy();
@@ -137,7 +137,7 @@ namespace soomla {
             return 0;
         }
         
-        if (getPrevItemId() != NULL) {
+        if (!CCSoomlaUtils::isNullOrEmpty(getPrevItemId())) {
             const char* prevItemId = getPrevItemId()->getCString();
             CCUpgradeVG *prevUpgradeVG = dynamic_cast<CCUpgradeVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(prevItemId, error));
             

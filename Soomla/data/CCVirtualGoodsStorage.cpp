@@ -67,7 +67,7 @@ namespace soomla {
         }
         
         const char *itemId = good->getId()->getCString();
-        const char * key = keyGoodUpgrade(itemId);
+        const char *key = keyGoodUpgrade(itemId);
         const char *upItemId = upgradeVG->getId()->getCString();
         
         CCKeyValueStorage::getInstance()->setValue(key, upItemId);

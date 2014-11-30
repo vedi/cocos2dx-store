@@ -62,6 +62,10 @@ namespace soomla {
             return;
         }
         
+        if (payload == NULL) {
+            payload = "";
+        }
+        
         getPurchaseType()->buy(payload, error);
     }
 

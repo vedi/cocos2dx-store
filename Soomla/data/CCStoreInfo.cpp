@@ -48,9 +48,9 @@ namespace soomla {
     void CCStoreInfo::createShared(CCStoreAssets *storeAssets) {
         CCStoreInfo *ret = NULL;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        ret = new CCStoreInfo();
-#else
         ret = new CCNativeStoreInfo();
+#else
+        ret = new CCStoreInfo();
 #endif
         if (ret->init(storeAssets)) {
             s_SharedStoreInfo = ret;
@@ -125,7 +125,7 @@ namespace soomla {
             Ref *obj;
             CCARRAY_FOREACH(upgrades, obj) {
                 CCUpgradeVG *upgradeVG = dynamic_cast<CCUpgradeVG *>(obj);
-                if (upgradeVG->getPrevItemId() == NULL) {
+                if (CCSoomlaUtils::isNullOrEmpty(upgradeVG->getPrevItemId())) {
                     return upgradeVG;
                 }
             }
@@ -143,7 +143,7 @@ namespace soomla {
             Ref *obj;
             CCARRAY_FOREACH(upgrades, obj) {
                 CCUpgradeVG *upgradeVG = dynamic_cast<CCUpgradeVG *>(obj);
-                if (upgradeVG->getNextItemId() == NULL) {
+                if (CCSoomlaUtils::isNullOrEmpty(upgradeVG->getNextItemId())) {
                     return upgradeVG;
                 }
             }
@@ -203,12 +203,12 @@ namespace soomla {
                 suGoods->addObject(((CCSingleUseVG *)obj)->toDictionary());
             } else if (dynamic_cast<CCEquippableVG *>(obj)) {
                 eqGoods->addObject(((CCEquippableVG *)obj)->toDictionary());
+            } else if (dynamic_cast<CCUpgradeVG *>(obj)) {
+                upGoods->addObject(((CCUpgradeVG *)obj)->toDictionary());
             } else if (dynamic_cast<CCLifetimeVG *>(obj)) {
                 ltGoods->addObject(((CCLifetimeVG *)obj)->toDictionary());
             } else if (dynamic_cast<CCSingleUsePackVG *>(obj)) {
                 paGoods->addObject(((CCSingleUsePackVG *)obj)->toDictionary());
-            } else if (dynamic_cast<CCUpgradeVG *>(obj)) {
-                upGoods->addObject(((CCUpgradeVG *)obj)->toDictionary());
             }
         }
         
@@ -535,12 +535,12 @@ namespace soomla {
                 suGoods->addObject(((CCSingleUseVG *)obj)->toDictionary());
             } else if (dynamic_cast<CCEquippableVG *>(obj)) {
                 eqGoods->addObject(((CCEquippableVG *)obj)->toDictionary());
+            } else if (dynamic_cast<CCUpgradeVG *>(obj)) {
+                upGoods->addObject(((CCUpgradeVG *)obj)->toDictionary());
             } else if (dynamic_cast<CCLifetimeVG *>(obj)) {
                 ltGoods->addObject(((CCLifetimeVG *)obj)->toDictionary());
             } else if (dynamic_cast<CCSingleUsePackVG *>(obj)) {
                 paGoods->addObject(((CCSingleUsePackVG *)obj)->toDictionary());
-            } else if (dynamic_cast<CCUpgradeVG *>(obj)) {
-                upGoods->addObject(((CCUpgradeVG *)obj)->toDictionary());
             }
         }
         

@@ -33,9 +33,9 @@ namespace soomla {
         if (!s_SharedSoomlaStore)
         {
             #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-            s_SharedSoomlaStore = new CCSoomlaStore();
-            #else
             s_SharedSoomlaStore = new CCNativeSoomlaStore();
+            #else
+            s_SharedSoomlaStore = new CCSoomlaStore();
             #endif
             s_SharedSoomlaStore->retain();
         }
@@ -76,6 +76,7 @@ namespace soomla {
             return;
         }
         
+        // in the editor we just give the item... no real market.
         item->give(1);
     }
 }

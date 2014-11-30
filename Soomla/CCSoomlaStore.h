@@ -52,7 +52,7 @@ namespace soomla {
                 Google Play, etc..).
          @param soomlaError A CCSoomlaError for error checking.
 		 */
-        virtual void buyMarketItem(const char *productId, const char *payload, CCError **error);
+        virtual void buyMarketItem(const char *productId, const char *payload, CCError **error = NULL);
 
 		/**
          Restores this user's previous transactions.
@@ -78,7 +78,7 @@ namespace soomla {
          Refreshes the details of all market-purchasable items that were defined
          in the market (App Store, Google Play, etc..).
          */
-        virtual void refreshMarketItemsDetails(CCError **error) {}
+        virtual void refreshMarketItemsDetails(CCError **error = NULL) {}
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
