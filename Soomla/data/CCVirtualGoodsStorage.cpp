@@ -90,16 +90,17 @@ namespace soomla {
         }
         
         CCVirtualItem *item = CCStoreInfo::sharedStoreInfo()->getItemByItemId(upItemId, error);
-        if (error != NULL) {
+        if (item == NULL) {
             return NULL;
         }
         
         CCUpgradeVG *upgrade = dynamic_cast<CCUpgradeVG *>(item);
         if (upgrade == NULL) {
             CCSoomlaUtils::logDebug(TAG, "The current upgrade's itemId from the DB is not an UpgradeVG.");
+            return NULL;
         }
         
-        return NULL;
+        return upgrade;
     }
     
     bool CCVirtualGoodsStorage::isEquipped(CCEquippableVG *good, CCError **error) {

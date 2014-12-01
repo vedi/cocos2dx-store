@@ -126,8 +126,8 @@ namespace soomla {
                 const char *itemId = getItemId()->getCString();
                 CCVirtualCategory *category = CCStoreInfo::sharedStoreInfo()->getCategoryForVirtualGood(itemId, error);
                 if (category == NULL) {
-                    CCSoomlaUtils::logError(TAG, __String::createWithFormat("Tried to unequip all other category VirtualGoods but there was no \
-                                                                            associated category. virtual good itemId: %s", itemId)->getCString());
+                    CCSoomlaUtils::logError(TAG, __String::createWithFormat("Tried to unequip all other category VirtualGoods but there was no associated category. virtual good itemId: %s",
+                                                                            itemId)->getCString());
                     return;
                 }
                 
@@ -138,8 +138,8 @@ namespace soomla {
                     const char *goodItemId = goodItemIdStr->getCString();
                     CCEquippableVG *equippableVG = dynamic_cast<CCEquippableVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(goodItemId, error));
                     if (equippableVG == NULL) {
-                        CCSoomlaUtils::logError(TAG, __String::createWithFormat("On equip, couldn't find one of the itemIds \
-                                                                             in the category. Continuing to the next one. itemId: %s", goodItemId)->getCString());
+                        CCSoomlaUtils::logError(TAG, __String::createWithFormat("On equip, couldn't find one of the itemIds in the category. Continuing to the next one. itemId: %s",
+                                                                                goodItemId)->getCString());
                     }
                     else if (equippableVG != this) {
                         equippableVG->unequip(notify, error);

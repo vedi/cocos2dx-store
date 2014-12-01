@@ -131,8 +131,7 @@ namespace soomla {
         
         // Case: Upgrade is not assigned to this Virtual Good
         if (upgradeVG != this) {
-            CCSoomlaUtils::logError(TAG, __String::createWithFormat("You can't take an upgrade that's not currently assigned.\
-                                                                    The UpgradeVG %s is not assigned to the VirtualGood: %s",
+            CCSoomlaUtils::logError(TAG, __String::createWithFormat("You can't take an upgrade that's not currently assigned. The UpgradeVG %s is not assigned to the VirtualGood: %s",
                                                                     getName()->getCString(), good->getName()->getCString())->getCString());
             return 0;
         }

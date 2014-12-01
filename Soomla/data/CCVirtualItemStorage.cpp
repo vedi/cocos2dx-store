@@ -67,7 +67,7 @@ namespace soomla {
             amount = 0;
         }
         
-        const char *balanceStr = __String::createWithFormat("%d", balance)->getCString();
+        const char *balanceStr = __String::createWithFormat("%d", balance + amount)->getCString();
         const char *key = keyBalance(itemId);
         
         CCKeyValueStorage::getInstance()->setValue(key, balanceStr);

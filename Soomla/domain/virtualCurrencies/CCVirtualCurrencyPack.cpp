@@ -83,8 +83,7 @@ namespace soomla {
         CCVirtualCurrency *currency = dynamic_cast<CCVirtualCurrency *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(currencyId, error));
         
         if (currency == NULL) {
-            CCSoomlaUtils::logError(TAG, __String::createWithFormat("VirtualCurrency with itemId: %s \
-                                 doesn't exist! Can't give this pack.", currencyId)->getCString());
+            CCSoomlaUtils::logError(TAG, __String::createWithFormat("VirtualCurrency with itemId: %s doesn't exist! Can't give this pack.", currencyId)->getCString());
             return 0;
         }
         
@@ -96,8 +95,7 @@ namespace soomla {
         CCVirtualCurrency *currency = dynamic_cast<CCVirtualCurrency *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(currencyId, error));
         
         if (currency == NULL) {
-            CCSoomlaUtils::logError(TAG, __String::createWithFormat("VirtualCurrency with itemId: %s \
-                                                                    doesn't exist! Can't take this pack.", currencyId)->getCString());
+            CCSoomlaUtils::logError(TAG, __String::createWithFormat("VirtualCurrency with itemId: %s doesn't exist! Can't take this pack.", currencyId)->getCString());
             return 0;
         }
         
