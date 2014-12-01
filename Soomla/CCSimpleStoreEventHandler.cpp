@@ -66,7 +66,7 @@ void soomla::CCSimpleStoreEventHandler::onUnexpectedErrorInStore(cocos2d::__Stri
 
 }
 
-void soomla::CCSimpleStoreEventHandler::onStoreStoreInitialized() {
+void soomla::CCSimpleStoreEventHandler::onSoomlaStoreInitialized() {
 
 }
 

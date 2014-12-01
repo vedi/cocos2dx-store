@@ -40,7 +40,7 @@ namespace soomla {
 
         virtual void onUnexpectedErrorInStore(cocos2d::__String *errorMessage);
 
-        virtual void onStoreStoreInitialized();
+        virtual void onSoomlaStoreInitialized();
 
         virtual void onMarketItemsRefreshed(cocos2d::__Array *virtualItems);
 
