@@ -61,6 +61,25 @@ namespace soomla {
         SL_CREATE_WITH_DICTIONARY(CCVirtualCurrency);
 
         virtual const char *getType() const;
+        
+        /**
+         See parent
+         */
+        virtual int give(int amount, bool notify, CCError **error = NULL);
+        
+        /**
+         See parent
+         */
+        virtual int take(int amount, bool notify, CCError **error = NULL);
+        
+        /**
+         See parent
+         */
+        virtual int resetBalance(int balance, bool notify, CCError **error = NULL);
+        /**
+         See parent
+         */
+        virtual int getBalance(CCError **error = NULL);
     };
 }
 

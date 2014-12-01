@@ -16,7 +16,10 @@
 
 #include "CCStoreInventory.h"
 #include "CCSoomlaUtils.h"
-#include "CCNdkBridge.h"
+#include "CCStoreInfo.h"
+#include "CCPurchasableVirtualItem.h"
+#include "CCVirtualCurrencyStorage.h"
+#include "CCVirtualGoodsStorage.h"
 
 namespace soomla {
 #define TAG "SOOMLA StoreInventory"
@@ -34,10 +37,6 @@ namespace soomla {
         return s_SharedStoreInventory;
     }
 
-    CCStoreInventory::CCStoreInventory() {
-
-    }
-
     CCStoreInventory::~CCStoreInventory() {
 
     }
@@ -51,156 +50,246 @@ namespace soomla {
     }
 
     void CCStoreInventory::buyItem(char const *itemId, const char *payload, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling buyItem with: %s", itemId)->getCString());
-
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::buyItem"), "method");
-        params->setObject(__String::create(itemId), "itemId");
-        params->setObject(__String::create(payload != nullptr ? payload : ""), "payload");
-        CCNdkBridge::callNative (params, error);
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("Buying: %s", itemId)->getCString());
+        
+        CCPurchasableVirtualItem *pvi = dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId, error));
+        if (pvi != NULL) {
+            pvi->buy(payload, error);
+        }
     }
 
     int CCStoreInventory::getItemBalance(char const *itemId, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling getItemBalance with: %s", itemId)->getCString());
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::getItemBalance"), "method");
-        params->setObject(__String::create(itemId), "itemId");
-        __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
-
-        if (retParams == NULL) {
-        	return 0;
+        __Integer *amount = dynamic_cast<__Integer *>(mLocalItemBalances->objectForKey(itemId));
+        if (amount != NULL) {
+            return amount->getValue();
         }
-
-		__Integer *retValue = (__Integer *) retParams->objectForKey("return");
-		if (retValue) {
-			return retValue->getValue();
-		} else {
-			return 0;
-		}
+        
+        CCVirtualItem *item = CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId, error);
+        if (item == NULL) {
+            return 0;
+        }
+        return item->getBalance(error);
     }
 
     void CCStoreInventory::giveItem(char const *itemId, int amount, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat(
-                "SOOMLA/COCOS2DX Calling giveItem with itemId: %s and amount %d", itemId, amount)->getCString());
-
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::giveItem"), "method");
-        params->setObject(__String::create(itemId), "itemId");
-        params->setObject(__Integer::create(amount), "amount");
-        CCNdkBridge::callNative (params, error);
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("Giving: %d pieces of: %s", amount, itemId)->getCString());
+        
+        CCVirtualItem *item = CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId, error);
+        if (item != NULL) {
+            item->give(amount, error);
+        }
     }
 
     void CCStoreInventory::takeItem(char const *itemId, int amount, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat(
-                "SOOMLA/COCOS2DX Calling takeItem with itemId: %s and amount %d", itemId, amount)->getCString());
-
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::takeItem"), "method");
-        params->setObject(__String::create(itemId), "itemId");
-        params->setObject(__Integer::create(amount), "amount");
-        CCNdkBridge::callNative (params, error);
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("Taking: %d pieces of: %s", amount, itemId)->getCString());
+        
+        CCVirtualItem *item = CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId, error);
+        if (item != NULL) {
+            item->take(amount, error);
+        }
     }
 
     void CCStoreInventory::equipVirtualGood(char const *itemId, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling equipVirtualGood with: %s", itemId)->getCString());
-
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::equipVirtualGood"), "method");
-        params->setObject(__String::create(itemId), "itemId");
-        CCNdkBridge::callNative (params, error);
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("Equipping: %s", itemId)->getCString());
+        
+        CCEquippableVG *good = dynamic_cast<CCEquippableVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId, error));
+        if (good != NULL) {
+            good->equip(error);
+        }
    }
 
     void CCStoreInventory::unEquipVirtualGood(char const *itemId, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling unEquipVirtualGood with: %s", itemId)->getCString());
-
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::unEquipVirtualGood"), "method");
-        params->setObject(__String::create(itemId), "itemId");
-        CCNdkBridge::callNative (params, error);
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("UnEquipping: %s", itemId)->getCString());
+        
+        CCEquippableVG *good = dynamic_cast<CCEquippableVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId, error));
+        if (good != NULL) {
+            good->unequip(error);
+        }
     }
 
     bool CCStoreInventory::isVirtualGoodEquipped(char const *itemId, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling isVirtualGoodEquipped with: %s", itemId)->getCString());
-
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::isVirtualGoodEquipped"), "method");
-        params->setObject(__String::create(itemId), "itemId");
-        __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
-
-        if (retParams == NULL) {
-        	return false;
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("Checking if %s is equipped", itemId)->getCString());
+        
+        CCEquippableVG *good = dynamic_cast<CCEquippableVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId, error));
+        if (good != NULL) {
+            return CCVirtualGoodsStorage::getInstance()->isEquipped(good, error);
         }
-
-		__Bool *retValue = (__Bool *) retParams->objectForKey("return");
-		if (retValue) {
-			return retValue->getValue();
-		} else {
-			return false;
-		}
+        
+        return false;
     }
 
     int CCStoreInventory::getGoodUpgradeLevel(char const *goodItemId, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling getGoodUpgradeLevel with: %s", goodItemId)->getCString());
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::getGoodUpgradeLevel"), "method");
-        params->setObject(__String::create(goodItemId), "goodItemId");
-        __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
-
-        if (retParams == NULL) {
-        	return 0;
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("Checking %s upgrade level", goodItemId)->getCString());
+        
+        CCVirtualGood *good = dynamic_cast<CCVirtualGood *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(goodItemId, error));
+        if (good == NULL) {
+            CCSoomlaUtils::logError(TAG, "You tried to get the level of a non-existant virtual good.");
+            return 0;
         }
-
-		__Integer *retValue = (__Integer *) retParams->objectForKey("return");
-		if (retValue) {
-			return retValue->getValue();
-		} else {
-			return 0;
-		}
+        CCUpgradeVG *upgradeVG = CCVirtualGoodsStorage::getInstance()->getCurrentUpgrade(good, error);
+        if (upgradeVG == NULL) {
+            return 0; //no upgrade
+        }
+        
+        CCUpgradeVG *first = CCStoreInfo::sharedStoreInfo()->getFirstUpgradeForVirtualGood(goodItemId);
+        int level = 1;
+        while (!first->getItemId()->isEqual(upgradeVG->getItemId())) {
+            first = dynamic_cast<CCUpgradeVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(first->getNextItemId()->getCString(), error));
+            level++;
+        }
+        
+        return level;
     }
 
     std::string CCStoreInventory::getGoodCurrentUpgrade(char const *goodItemId, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling getGoodCurrentUpgrade with: %s", goodItemId)->getCString());
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::getGoodCurrentUpgrade"), "method");
-        params->setObject(__String::create(goodItemId), "goodItemId");
-        __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, error);
-
-        if (retParams == NULL) {
-        	return "";
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("Checking %s current upgrade", goodItemId)->getCString());
+        
+        CCVirtualGood *good = dynamic_cast<CCVirtualGood *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(goodItemId, error));
+        if (good == NULL) {
+            return "";
         }
-
-		__String *retValue = (__String *) retParams->objectForKey("return");
-		if (retValue) {
-			return retValue->getCString();
-		} else {
-			return "";
-		}
+        
+        CCUpgradeVG *upgradeVG = CCVirtualGoodsStorage::getInstance()->getCurrentUpgrade(good, error);
+        if (upgradeVG == NULL) {
+            return "";
+        }
+        return upgradeVG->getItemId()->getCString();
     }
 
     void CCStoreInventory::upgradeGood(char const *goodItemId, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling upgradeGood with: %s", goodItemId)->getCString());
-
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::upgradeGood"), "method");
-        params->setObject(__String::create(goodItemId), "goodItemId");
-        CCNdkBridge::callNative (params, error);
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("Upgrading Good with: %s", goodItemId)->getCString());
+        CCVirtualGood *good = dynamic_cast<CCVirtualGood *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(goodItemId, error));
+        if (good == NULL) {
+            return;
+        }
+        
+        CCUpgradeVG *upgradeVG = CCVirtualGoodsStorage::getInstance()->getCurrentUpgrade(good, error);
+        
+        if (upgradeVG != NULL) {
+            __String *nextItemId = upgradeVG->getNextItemId();
+            if (CCSoomlaUtils::isNullOrEmpty(nextItemId)) {
+                return;
+            }
+            CCUpgradeVG *vgu = dynamic_cast<CCUpgradeVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(nextItemId->getCString(), error));
+            if (vgu != NULL) {
+                vgu->buy("");
+            }
+        }
+        else {
+            CCUpgradeVG *first = dynamic_cast<CCUpgradeVG *>(CCStoreInfo::sharedStoreInfo()->getFirstUpgradeForVirtualGood(goodItemId));
+            if (first != NULL) {
+                first->buy("");
+            }
+        }
     }
 
     void CCStoreInventory::removeGoodUpgrades(char const *goodItemId, CCError **error) {
-        CCSoomlaUtils::logDebug(TAG,
-                __String::createWithFormat("SOOMLA/COCOS2DX Calling removeGoodUpgrades with: %s", goodItemId)->getCString());
-
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCStoreInventory::removeGoodUpgrades"), "method");
-        params->setObject(__String::create(goodItemId), "goodItemId");
-        CCNdkBridge::callNative (params, error);
+        CCSoomlaUtils::logDebug(TAG, __String::createWithFormat("Removing Good Upgrades for: %s", goodItemId)->getCString());
+        
+        __Array *upgrades = CCStoreInfo::sharedStoreInfo()->getUpgradesForVirtualGood(goodItemId);
+        Ref *obj;
+        CCARRAY_FOREACH(upgrades, obj) {
+            CCUpgradeVG *upgrade = dynamic_cast<CCUpgradeVG *>(obj);
+            CCVirtualGoodsStorage::getInstance()->remove(upgrade, 1, true, error);
+        }
+        
+        CCVirtualGood *good = dynamic_cast<CCVirtualGood *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(goodItemId, error));
+        CCVirtualGoodsStorage::getInstance()->removeUpgrades(good, error);
+    }
+    
+    void CCStoreInventory::refreshLocalInventory() {
+        if (mLocalItemBalances != NULL) {
+            CC_SAFE_RELEASE(mLocalItemBalances);
+        }
+        mLocalItemBalances = __Dictionary::create();
+        CC_SAFE_RETAIN(mLocalItemBalances);
+        
+        if (mLocalUpgrades != NULL) {
+            CC_SAFE_RELEASE(mLocalUpgrades);
+        }
+        mLocalUpgrades = __Dictionary::create();
+        CC_SAFE_RETAIN(mLocalUpgrades);
+        
+        if (mLocalEquippedGoods != NULL) {
+            CC_SAFE_RELEASE(mLocalEquippedGoods);
+        }
+        mLocalEquippedGoods = __Set::create();
+        CC_SAFE_RETAIN(mLocalEquippedGoods);
+        
+        Ref *obj;
+        CCARRAY_FOREACH(CCStoreInfo::sharedStoreInfo()->getCurrencies(), obj) {
+            CCVirtualCurrency *item = dynamic_cast<CCVirtualCurrency *>(obj);
+            CC_ASSERT(item);
+            mLocalItemBalances->setObject(__Integer::create(CCVirtualCurrencyStorage::getInstance()->getBalance(item)), item->getItemId()->getCString());
+        }
+        
+        CCARRAY_FOREACH(CCStoreInfo::sharedStoreInfo()->getGoods(), obj) {
+            CCVirtualGood *item = dynamic_cast<CCVirtualGood *>(obj);
+            CC_ASSERT(item);
+            int balance = CCVirtualGoodsStorage::getInstance()->getBalance(item);
+            mLocalItemBalances->setObject(__Integer::create(balance), item->getItemId()->getCString());
+            
+            CCUpgradeVG *upgrade = CCVirtualGoodsStorage::getInstance()->getCurrentUpgrade(item);
+            if (upgrade != NULL) {
+                int upgradeLevel = getGoodUpgradeLevel(item->getItemId()->getCString());
+                CCLocalUpgrade *localUpgrade = CCLocalUpgrade::create();
+                localUpgrade->setItemId(upgrade->getItemId());
+                localUpgrade->setLevel(__Integer::create(upgradeLevel));
+                mLocalUpgrades->setObject(localUpgrade, item->getItemId()->getCString());
+            }
+            
+            CCEquippableVG *equippableVG = dynamic_cast<CCEquippableVG *>(item);
+            if (equippableVG != NULL) {
+                if (CCVirtualGoodsStorage::getInstance()->isEquipped(equippableVG)) {
+                    mLocalEquippedGoods->addObject(equippableVG);
+                }
+            }
+        }
+    }
+    
+    void CCStoreInventory::refreshOnGoodUpgrade(CCVirtualGood *vg, CCUpgradeVG *uvg) {
+        if (uvg == NULL) {
+            mLocalUpgrades->removeObjectForKey(vg->getItemId()->getCString());
+        }
+        else {
+            int upgradeLevel = getGoodUpgradeLevel(vg->getItemId()->getCString());
+            CCLocalUpgrade *upgrade = dynamic_cast<CCLocalUpgrade *>(mLocalUpgrades->objectForKey(vg->getItemId()->getCString()));
+            if (upgrade != NULL) {
+                upgrade->setItemId(uvg->getItemId());
+                upgrade->setLevel(__Integer::create(upgradeLevel));
+            }
+            else {
+                CCLocalUpgrade *localUpgrade = CCLocalUpgrade::create();
+                localUpgrade->setItemId(uvg->getItemId());
+                localUpgrade->setLevel(__Integer::create(upgradeLevel));
+                mLocalUpgrades->setObject(localUpgrade, vg->getItemId()->getCString());
+            }
+        }
+    }
+    
+    void CCStoreInventory::refreshOnGoodEquipped(CCEquippableVG *equippable) {
+        mLocalEquippedGoods->addObject(equippable->getItemId());
+    }
+    
+    void CCStoreInventory::refreshOnGoodUnEquipped(CCEquippableVG *equippable) {
+        mLocalEquippedGoods->removeObject(equippable->getItemId());
+    }
+    
+    void CCStoreInventory::refreshOnCurrencyBalanceChanged(CCVirtualCurrency *virtualCurrency, int balance, int amountAdded) {
+        updateLocalBalance(virtualCurrency->getItemId()->getCString(), balance);
+    }
+    
+    void CCStoreInventory::refreshOnGoodBalanceChanged(CCVirtualGood *good, int balance, int amountAdded) {
+        updateLocalBalance(good->getItemId()->getCString(), balance);
+    }
+    
+    void CCStoreInventory::updateLocalBalance(const char *itemId, int balance) {
+        mLocalItemBalances->setObject(__Integer::create(balance), itemId);
+    }
+    
+    CCStoreInventory::CCLocalUpgrade *CCStoreInventory::CCLocalUpgrade::create() {
+        CCLocalUpgrade *ret = new CCLocalUpgrade();
+        ret->autorelease();
+        return ret;
     }
 }

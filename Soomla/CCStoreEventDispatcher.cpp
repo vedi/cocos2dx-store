@@ -6,6 +6,8 @@
 #include "CCStoreInfo.h"
 #include "CCSoomlaUtils.h"
 #include "CCPurchaseWithMarket.h"
+#include "CCNdkBridge.h"
+#include "CCStoreInventory.h"
 
 namespace soomla {
 
@@ -130,6 +132,7 @@ namespace soomla {
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_ITEM_PURCHASED,
                 [this](__Dictionary *parameters) {
                     __String *itemId = (__String *)(parameters->objectForKey("itemId"));
+                    __String *payload = (__String *)(parameters->objectForKey("payload"));
                     CCError *error = NULL;
                     CCPurchasableVirtualItem *purchasableVirtualItem =
                             dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
@@ -138,7 +141,7 @@ namespace soomla {
                         return;
                     }
                     CC_ASSERT(purchasableVirtualItem);
-                    this->onItemPurchased(purchasableVirtualItem);
+                    this->onItemPurchased(purchasableVirtualItem, payload);
                 });
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_ITEM_PURCHASE_STARTED,
@@ -287,12 +290,13 @@ namespace soomla {
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_UNEXPECTED_ERROR_IN_STORE,
                 [this](__Dictionary *parameters) {
-                    this->onUnexpectedErrorInStore();
+                    __String *errorMessage = (__String *)(parameters->objectForKey("errorMessage"));
+                    this->onUnexpectedErrorInStore(errorMessage);
                });
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_STORE_CONTROLLER_INITIALIZED,
                 [this](__Dictionary *parameters) {
-                    this->onStoreControllerInitialized();
+                    this->onSoomlaStoreInitialized();
                });
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -336,44 +340,89 @@ namespace soomla {
     }
 
     void CCStoreEventDispatcher::onCurrencyBalanceChanged(CCVirtualCurrency *virtualCurrency, int balance, int amountAdded) {
+        CCStoreInventory::sharedStoreInventory()->refreshOnCurrencyBalanceChanged(virtualCurrency, balance, amountAdded);
+        
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
             eventHandler->onCurrencyBalanceChanged(virtualCurrency, balance, amountAdded);
         }
     }
 
     void CCStoreEventDispatcher::onGoodBalanceChanged(CCVirtualGood *virtualGood, int balance, int amountAdded) {
+        CCStoreInventory::sharedStoreInventory()->refreshOnGoodBalanceChanged(virtualGood, balance, amountAdded);
+        
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
             eventHandler->onGoodBalanceChanged(virtualGood, balance, amountAdded);
         }
     }
 
     void CCStoreEventDispatcher::onGoodEquipped(CCEquippableVG *equippableVG) {
+        CCStoreInventory::sharedStoreInventory()->refreshOnGoodEquipped(equippableVG);
+        
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
             eventHandler->onGoodEquipped(equippableVG);
         }
     }
 
     void CCStoreEventDispatcher::onGoodUnEquipped(CCEquippableVG *equippableVG) {
+        CCStoreInventory::sharedStoreInventory()->refreshOnGoodUnEquipped(equippableVG);
+        
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
             eventHandler->onGoodUnEquipped(equippableVG);
         }
     }
 
     void CCStoreEventDispatcher::onGoodUpgrade(CCVirtualGood *virtualGood, CCUpgradeVG *upgradeVG) {
+        CCStoreInventory::sharedStoreInventory()->refreshOnGoodUpgrade(virtualGood, upgradeVG);
+        
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
             eventHandler->onGoodUpgrade(virtualGood, upgradeVG);
         }
     }
 
-    void CCStoreEventDispatcher::onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem) {
+    void CCStoreEventDispatcher::onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *payload) {
+        onItemPurchased(purchasableVirtualItem, payload, false);
+    }
+
+    void CCStoreEventDispatcher::onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *payload, bool alsoPush) {
+        if (payload == NULL) {
+            payload = __String::create("");
+        }
+        
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
-            eventHandler->onItemPurchased(purchasableVirtualItem);
+            eventHandler->onItemPurchased(purchasableVirtualItem, payload);
+        }
+
+        if (alsoPush) {
+            #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+            
+            __Dictionary *params = __Dictionary::create();
+            params->setObject(__String::create("CCStoreEventDispatcher::pushOnItemPurchased"), "method");
+            params->setObject(purchasableVirtualItem->getItemId(), "itemId");
+            params->setObject(payload, "payload");
+            CCNdkBridge::callNative (params, NULL);
+            
+            #endif
         }
     }
 
     void CCStoreEventDispatcher::onItemPurchaseStarted(CCPurchasableVirtualItem *purchasableVirtualItem) {
+        onItemPurchaseStarted(purchasableVirtualItem, false);
+    }
+
+    void CCStoreEventDispatcher::onItemPurchaseStarted(CCPurchasableVirtualItem *purchasableVirtualItem, bool alsoPush) {
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
             eventHandler->onItemPurchaseStarted(purchasableVirtualItem);
+        }
+
+        if (alsoPush) {
+        #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+            
+            __Dictionary *params = __Dictionary::create();
+            params->setObject(__String::create("CCStoreEventDispatcher::pushOnItemPurchaseStarted"), "method");
+            params->setObject(purchasableVirtualItem->getItemId(), "itemId");
+            CCNdkBridge::callNative (params, NULL);
+            
+        #endif
         }
     }
 
@@ -413,15 +462,46 @@ namespace soomla {
         }
     }
 
-    void CCStoreEventDispatcher::onUnexpectedErrorInStore() {
+    void CCStoreEventDispatcher::onUnexpectedErrorInStore(cocos2d::__String *errorMessage) {
+        onUnexpectedErrorInStore(errorMessage, false);
+    }
+
+    void CCStoreEventDispatcher::onUnexpectedErrorInStore(cocos2d::__String *errorMessage, bool alsoPush) {
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
-            eventHandler->onUnexpectedErrorInStore();
+            eventHandler->onUnexpectedErrorInStore(errorMessage);
+        }
+
+        if (alsoPush) {
+            #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+                        
+            __Dictionary *params = __Dictionary::create();
+            params->setObject(__String::create("CCStoreEventDispatcher::pushOnUnexpectedErrorInStore"), "method");
+            params->setObject(errorMessage, "errorMessage");
+            CCNdkBridge::callNative (params, NULL);
+            
+            #endif
         }
     }
 
-    void CCStoreEventDispatcher::onStoreControllerInitialized() {
+    void CCStoreEventDispatcher::onSoomlaStoreInitialized() {
+        onSoomlaStoreInitialized(false);
+    }
+
+    void CCStoreEventDispatcher::onSoomlaStoreInitialized(bool alsoPush) {
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
-            eventHandler->onStoreControllerInitialized();
+            eventHandler->onSoomlaStoreInitialized();
+        }
+
+        CCStoreInventory::sharedStoreInventory()->refreshLocalInventory();
+
+        if (alsoPush) {
+        #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+            
+            __Dictionary *params = __Dictionary::create();
+            params->setObject(__String::create("CCStoreEventDispatcher::pushOnSoomlaStoreInitialized"), "method");
+            CCNdkBridge::callNative (params, NULL);
+            
+        #endif
         }
     }
 

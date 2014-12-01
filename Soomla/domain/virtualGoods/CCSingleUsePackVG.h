@@ -87,6 +87,30 @@ namespace soomla {
         cocos2d::__Dictionary *toDictionary();
 
         virtual ~CCSingleUsePackVG();
+        
+        /**
+         See parent
+         */
+        virtual bool canBuy() { return true; }
+        
+        /**
+         See parent
+         */
+        virtual int give(int amount, bool notify, CCError **error = NULL);
+        
+        /**
+         See parent
+         */
+        virtual int take(int amount, bool notify, CCError **error = NULL);
+        
+        /**
+         See parent
+         */
+        virtual int resetBalance(int balance, bool notify, CCError **error = NULL);
+        /**
+         See parent
+         */
+        virtual int getBalance(CCError **error = NULL);
 
         virtual const char *getType() const;
     };

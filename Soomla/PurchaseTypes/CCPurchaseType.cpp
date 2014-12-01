@@ -14,25 +14,13 @@
  limitations under the License.
  */
 
-// Created by Igor Yegoroff on 5/17/13.
-
 #include "CCPurchaseType.h"
+#include "CCSoomlaUtils.h"
 
 namespace soomla {
     
     bool CCPurchaseType::init() {
         return true;
-    }
-    
-    CCPurchaseType *CCPurchaseType::create() {
-        CCPurchaseType *ret = new CCPurchaseType();
-        if (ret->init()) {
-            ret->autorelease();
-        }
-        else {
-            CC_SAFE_DELETE(ret);
-        }
-        return ret;
     }
     
     CCPurchaseType::~CCPurchaseType() {}

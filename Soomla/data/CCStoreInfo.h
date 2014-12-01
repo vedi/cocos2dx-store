@@ -39,6 +39,14 @@ namespace soomla {
      non-consumables
 	*/
 	class CCStoreInfo: cocos2d::Ref {
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Dictionary *, mVirtualItems, VirtualItems);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Dictionary *, mPurchasableItems, PurchasableItems);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Dictionary *, mGoodsCategories, GoodsCategories);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Dictionary *, mGoodsUpgrades, GoodsUpgrades);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Array*, mCurrencies, Currencies);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Array*, mCurrencyPacks, CurrencyPacks);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Array*, mGoods, Goods);
+        CC_SYNTHESIZE_RETAIN(cocos2d::__Array*, mCategories, Categories);
     public:
         
 		/**
@@ -52,7 +60,12 @@ namespace soomla {
          @param storeAssets An instance of your store's assets class.
 		 */
         static void createShared(CCStoreAssets *storeAssets);
+        
         virtual bool init(CCStoreAssets *storeAssets);
+        virtual bool initWithDictionary(cocos2d::__Dictionary* dict);
+        
+        CCStoreInfo() : mVirtualItems(NULL), mPurchasableItems(NULL), mGoodsCategories(NULL),
+        mGoodsUpgrades(NULL), mCurrencies(NULL), mCurrencyPacks(NULL), mGoods(NULL), mCategories(NULL) {}
 
 		/**
          Retrieves a single `CCVirtualItem` that resides in the metadata.
@@ -60,7 +73,7 @@ namespace soomla {
          @param error A `CCError` for error checking.
          @return The virtual item with the given `itemId`.
 		 */
-        CCVirtualItem *getItemByItemId(const char *itemId, CCError **error);
+        CCVirtualItem *getItemByItemId(const char *itemId, CCError **error = NULL);
 
 		/**
          Retrieves a single `CCPurchasableVirtualItem` that resides in the
@@ -73,7 +86,7 @@ namespace soomla {
          @param error A `CCError` for error checking.
          @return The purchasable virtual item with the given `productId`.
 		*/
-		CCPurchasableVirtualItem *getPurchasableItemWithProductId(const char *productId, CCError **error);
+		CCPurchasableVirtualItem *getPurchasableItemWithProductId(const char *productId, CCError **error = NULL);
 
 		/**
          Retrieves the `CCVirtualCategory` that the `CCVirtualGood` with the 
@@ -84,7 +97,7 @@ namespace soomla {
          @return The `CCVirtualCategory` for the `CCVirtualGood` with the given
          `goodItemId`.
 		*/
-		CCVirtualCategory *getCategoryForVirtualGood(const char *goodItemId, CCError **error);
+		CCVirtualCategory *getCategoryForVirtualGood(const char *goodItemId, CCError **error = NULL);
 
 		/**
          Retrieves the first `CCUpgradeVG` for the`CCVirtualGood` with the given
@@ -93,7 +106,7 @@ namespace soomla {
          @return The first `CCUpgradeVG` for the virtual good with the given
                 `itemId`.
 		*/
-        CCUpgradeVG *getFirstUpgradeForVirtualGood(const char *goodItemId);
+        CCUpgradeVG *getFirstUpgradeForVirtualGood(const char *goodItemId = NULL);
 
 		/**
          Retrieves the last `CCUpgradeVG` for the`CCVirtualGood` with the given
@@ -102,7 +115,7 @@ namespace soomla {
          @return The last `CCUpgradeVG` for the virtual good with the given
                 `ItemId`.
 		*/
-		CCUpgradeVG *getLastUpgradeForVirtualGood(const char *goodItemId);
+		CCUpgradeVG *getLastUpgradeForVirtualGood(const char *goodItemId = NULL);
 
 		/**
          Retrieves all `CCUpgradeVG`s for the `CCVirtualGood` with the given
@@ -110,33 +123,19 @@ namespace soomla {
          @param goodItemId the `CCVirtualGood` we're searching the upgrades for.
          @return Array of all upgrades for the good with the given item id.
          */
-        cocos2d::__Array *getUpgradesForVirtualGood(const char *goodItemId);
-
-		/**
-         Retrieves all virtual currencies.
-         @return The virtual currencies of the game.
-		*/
-		cocos2d::__Array *getVirtualCurrencies();
-
-		/**
-         Retrieves all virtual goods.
-         @return The virtual goods of the game.
-		*/
-        cocos2d::__Array *getVirtualGoods();
-
-		/**
-         Retrieves all virtual currency packs.
-         @return The virtual currency packs of the game.
-		*/
-        cocos2d::__Array *getVirtualCurrencyPacks();
-
-		/**
-         Retrieves all virtual categories.
-         @return The virtual categories of the game.
-		*/
-		cocos2d::__Array *getVirtualCategories();
+        cocos2d::__Array *getUpgradesForVirtualGood(const char *goodItemId = NULL);
 
         void saveItem(CCVirtualItem *virtualItem);
+        
+        virtual void save();
+        
+        virtual cocos2d::__Dictionary* toDictionary();
+    protected:
+        virtual void setStoreAssets(CCStoreAssets *storeAssets);
+        virtual void initializeFromDB();
+        void updateAggregatedLists();
+        void replaceVirtualItem(CCVirtualItem *virtualItem);
+        cocos2d::__Dictionary *storeAssetsToDictionary(CCStoreAssets *storeAssets);
     private:
         cocos2d::Ref *createWithRetParams(cocos2d::__Dictionary *retParams);
     };

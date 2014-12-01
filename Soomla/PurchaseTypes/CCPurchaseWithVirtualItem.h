@@ -51,6 +51,11 @@ namespace soomla {
         static CCPurchaseWithVirtualItem * create(cocos2d::__String *itemId, cocos2d::__Integer *amount);
 
         virtual bool init(cocos2d::__String *itemId, cocos2d::__Integer *amount);
+        
+        /**
+         See parent
+         */
+        virtual void buy(const char* payload, CCError **error = NULL);
 
         virtual ~CCPurchaseWithVirtualItem();
     };

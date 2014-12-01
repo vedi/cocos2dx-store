@@ -25,7 +25,7 @@
 namespace soomla {
 	/**
      @class CCSoomlaStore
-     @brief An interface to the native StoreController class.
+     @brief An interface to the native SoomlaStore class.
 
      An interface to the native StoreController class, use this class to
      access the native StoreController functionality. This class holds the most
@@ -38,11 +38,13 @@ namespace soomla {
          This class is singleton, use this function to access it.
 		*/
         static CCSoomlaStore *getInstance();
-
-        CCSoomlaStore();
-
-        virtual ~CCSoomlaStore();
-
+        
+        /**
+         Initializes the singleton instance of CCSoomlaStore
+         @param storeAssets The game's economy
+         */
+        static void initialize(CCStoreAssets *storeAssets);
+        
 		/**
          Starts an in app purchase process in the market (App Store, Google
          Play, etc...).
@@ -50,19 +52,19 @@ namespace soomla {
                 Google Play, etc..).
          @param soomlaError A CCSoomlaError for error checking.
 		 */
-        void buyMarketItem(const char *productId, const char *payload, CCError **error);
+        virtual void buyMarketItem(const char *productId, const char *payload, CCError **error = NULL);
 
 		/**
          Restores this user's previous transactions.
 		 */
-        void restoreTransactions();
+        virtual void restoreTransactions() {}
 
         /**
          Creates a list of all metadata stored in the Market (the items that
          have been purchased). The metadata includes the item's name,
          description, price, product id, etc..
          */
-        void refreshInventory();
+        virtual void refreshInventory() {}
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
@@ -70,13 +72,13 @@ namespace soomla {
          Checks if the user has already restored his/her transactions.
          @return Whether or not the user restored his/her transactions.
 		*/
-        bool transactionsAlreadyRestored();
+        virtual bool transactionsAlreadyRestored() { return true; }
 
         /**
          Refreshes the details of all market-purchasable items that were defined
          in the market (App Store, Google Play, etc..).
          */
-        void refreshMarketItemsDetails(CCError **error);
+        virtual void refreshMarketItemsDetails(CCError **error = NULL) {}
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -84,13 +86,20 @@ namespace soomla {
         /**
          Starts the in-app billing service in background.
          */
-		void startIabServiceInBg();
+        virtual void startIabServiceInBg() {}
 
         /**
          Stops the in-app billing service in background.
          */
-		void stopIabServiceInBg();
+        virtual void stopIabServiceInBg() {}
 #endif
+    protected:
+        /**
+         Loads the billing service for the store
+         */
+        virtual void loadBillingService() {}
+    private:
+        static bool initialized;
     };
 };
 

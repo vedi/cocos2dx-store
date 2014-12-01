@@ -30,7 +30,7 @@ void soomla::CCSimpleStoreEventHandler::onGoodUpgrade(soomla::CCVirtualGood *vir
 
 }
 
-void soomla::CCSimpleStoreEventHandler::onItemPurchased(soomla::CCPurchasableVirtualItem *purchasableVirtualItem) {
+void soomla::CCSimpleStoreEventHandler::onItemPurchased(soomla::CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *payload) {
 
 }
 
@@ -62,11 +62,11 @@ void soomla::CCSimpleStoreEventHandler::onRestoreTransactionsStarted() {
 
 }
 
-void soomla::CCSimpleStoreEventHandler::onUnexpectedErrorInStore() {
+void soomla::CCSimpleStoreEventHandler::onUnexpectedErrorInStore(cocos2d::__String *errorMessage) {
 
 }
 
-void soomla::CCSimpleStoreEventHandler::onStoreControllerInitialized() {
+void soomla::CCSimpleStoreEventHandler::onSoomlaStoreInitialized() {
 
 }
 

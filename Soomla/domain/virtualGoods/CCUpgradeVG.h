@@ -22,6 +22,7 @@
 #include "CCVirtualGood.h"
 #include "CCSoomlaMacros.h"
 #include "CCStoreConsts.h"
+#include "CCLifetimeVG.h"
 
 namespace soomla {
     
@@ -51,13 +52,13 @@ namespace soomla {
      Inheritance: CCUpgradeVG > CCLifeTimeVG > CCVirtualGood > 
      CCPurchasableVirtualItem > CCVirtualItem
      */
-    class CCUpgradeVG : public CCVirtualGood {
+    class CCUpgradeVG : public CCLifetimeVG {
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mGoodItemId, GoodItemId, CCStoreConsts::JSON_VGU_GOOD_ITEM_ID);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mPrevItemId, PrevItemId, CCStoreConsts::JSON_VGU_PREV_ITEM_ID);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mNextItemId, NextItemId, CCStoreConsts::JSON_VGU_NEXT_ITEM_ID);
     public:
         
-	CCUpgradeVG(): CCVirtualGood(), mGoodItemId(NULL), mPrevItemId(NULL), mNextItemId(NULL) {};
+	CCUpgradeVG(): CCLifetimeVG(), mGoodItemId(NULL), mPrevItemId(NULL), mNextItemId(NULL) {};
 
 		/**
          Creates a `CCUpgradeVG`.
@@ -97,6 +98,21 @@ namespace soomla {
         @return The Upgrade virtual good.
         */
         cocos2d::__Dictionary *toDictionary();
+        
+        /**
+         See parent
+         */
+        virtual bool canBuy();
+        
+        /**
+         See parent
+         */
+        virtual int give(int amount, bool notify, CCError **error = NULL);
+        
+        /**
+         See parent
+         */
+        virtual int take(int amount, bool notify, CCError **error = NULL);
 
         virtual ~CCUpgradeVG();
 

@@ -13,42 +13,40 @@
 #include "CCUpgradeVG.h"
 #include "CCSingleUseVG.h"
 #include "CCDomainHelper.h"
-#include "CCNdkBridge.h"
-#include "CCSoomlaUtils.h"
-#include "CCStoreInfo.h"
 #include "CCStoreEventDispatcher.h"
 #include "CCVirtualItemReward.h"
-
-USING_NS_CC;
-
+#include "CCNativeStoreService.h"
+#include "CCSoomlaStore.h"
 
 namespace soomla {
+    
+    USING_NS_CC;
 
 #define TAG "SOOMLA CCStoreService"
 
     static CCStoreService *sInstance = nullptr;
 
-    soomla::CCStoreService *soomla::CCStoreService::getInstance() {
+    CCStoreService *CCStoreService::getInstance() {
         if (!sInstance)
         {
+            #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+            sInstance = new CCNativeStoreService();
+            #else
             sInstance = new CCStoreService();
+            #endif
             sInstance->retain();
         }
         return sInstance;
     }
 
-    void soomla::CCStoreService::initShared(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams) {
+    void CCStoreService::initShared(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams) {
         CCStoreService *storeService = CCStoreService::getInstance();
         if (!storeService->init(storeAssets, storeParams)) {
             exit(1);
         }
     }
 
-    soomla::CCStoreService::CCStoreService() {
-
-    }
-
-    bool soomla::CCStoreService::init(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams) {
+    bool CCStoreService::init(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams) {
 
         CCStoreEventDispatcher::getInstance();    // to get sure it's inited
 
@@ -64,61 +62,9 @@ namespace soomla {
         domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG, CCUpgradeVG::createWithDictionary);
 
         domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_ITEM, &CCVirtualItemReward::createWithDictionary);
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-        __Bool *SSV = dynamic_cast<__Bool *>(storeParams->objectForKey("SSV"));
-        if (SSV == NULL) {
-            SSV = __Bool::create(false);
-        }
-
-        {
-            __Dictionary *params = __Dictionary::create();
-            params->setObject(__String::create("CCSoomlaStore::setSSV"), "method");
-            params->setObject(SSV, "ssv");
-            CCNdkBridge::callNative (params, NULL);
-        }
-#endif
-
-        CCStoreInfo::createShared(storeAssets);
-
-        {
-            __Dictionary *params = __Dictionary::create();
-            params->setObject(__String::create("CCStoreService::init"), "method");
-            CCError *error = NULL;
-            CCNdkBridge::callNative (params, &error);
-
-            if (error) {
-                CCSoomlaUtils::logError(TAG, error->getInfo());
-                return false;
-            }
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-            {
-                __String *androidPublicKey = dynamic_cast<__String *>(storeParams->objectForKey("androidPublicKey"));
-                if (androidPublicKey != NULL && androidPublicKey->length()>0) {
-                    __Dictionary *params = __Dictionary::create();
-                    params->setObject(__String::create("CCSoomlaStore::setAndroidPublicKey"), "method");
-                    params->setObject(androidPublicKey, "androidPublicKey");
-                    CCNdkBridge::callNative (params, NULL);
-                }
-
-            }
-
-            {
-                __Bool *testPurchases = dynamic_cast<__Bool *>(storeParams->objectForKey("testPurchases"));
-                if (testPurchases == NULL) {
-                    testPurchases = __Bool::create(false);
-                }
-                __Dictionary *params = __Dictionary::create();
-                params->setObject(__String::create("CCSoomlaStore::setTestPurchases"), "method");
-                params->setObject(testPurchases, "testPurchases");
-                CCNdkBridge::callNative (params, NULL);
-            }
-#endif
-        }
+        
+        CCSoomlaStore::initialize(storeAssets);
 
         return true;
     }
-
-
 }

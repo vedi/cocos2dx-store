@@ -29,6 +29,8 @@ namespace soomla {
         bool bRet = CCVirtualItem::init(itemId, name, description);
         if (bRet) {
             setPurchaseType(purchaseType);
+            
+            purchaseType->setAssociatedItemId(getItemId());
         }
         return bRet;
     }
@@ -54,6 +56,18 @@ namespace soomla {
 
         return dict;
     }
+    
+    void CCPurchasableVirtualItem::buy(const char* payload, CCError **error) {
+        if (!canBuy()) {
+            return;
+        }
+        
+        if (payload == NULL) {
+            payload = "";
+        }
+        
+        getPurchaseType()->buy(payload, error);
+    }
 
     void CCPurchasableVirtualItem::fillPurchaseTypeFromDict(__Dictionary *dict) {
         __Dictionary *purchasableDict = dynamic_cast<__Dictionary *>(dict->objectForKey(CCStoreConsts::JSON_PURCHASABLE_ITEM));
@@ -75,6 +89,11 @@ namespace soomla {
         } else {
             CC_ASSERT(false);
             cocos2d::log("Couldn't determine what type of class is the given purchaseType.");
+        }
+        
+        CCPurchaseType *purchaseType = getPurchaseType();
+        if (purchaseType != NULL) {
+            purchaseType->setAssociatedItemId(getItemId());
         }
     }
 

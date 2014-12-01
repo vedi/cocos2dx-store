@@ -51,6 +51,11 @@ namespace soomla {
 		 */
         static CCPurchaseWithMarket *createWithMarketItem(CCMarketItem *marketItem);
         bool initWithMarketItem(CCMarketItem *marketItem);
+        
+        /**
+         See parent
+         */
+        virtual void buy(const char* payload, CCError **error = NULL);
 
         ~CCPurchaseWithMarket();
     };

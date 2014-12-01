@@ -14,18 +14,22 @@
  limitations under the License.
  */
 
-#include "CCVirtualGood.h"
-#include "CCVirtualGoodsStorage.h"
+#ifndef __CCNativeStoreInfo_H_
+#define __CCNativeStoreInfo_H_
+
+#include "CCStoreInfo.h"
 
 namespace soomla {
-    
-    USING_NS_CC;
-    
-    int CCVirtualGood::resetBalance(int balance, bool notify, CCError **error) {
-        return CCVirtualGoodsStorage::getInstance()->setBalance(this, balance, notify, error);
-    }
-    
-    int CCVirtualGood::getBalance(CCError **error) {
-        return CCVirtualGoodsStorage::getInstance()->getBalance(this, error);
-    }
+    class CCNativeStoreInfo : public CCStoreInfo {
+    public:
+        CCNativeStoreInfo() : CCStoreInfo() {}
+        
+        virtual ~CCNativeStoreInfo();
+        
+        virtual void save();
+    protected:
+        virtual void setStoreAssets(CCStoreAssets *storeAssets);
+    };
 }
+
+#endif // __CCNativeStoreInfo_H_

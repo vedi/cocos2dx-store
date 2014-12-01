@@ -36,7 +36,14 @@ namespace soomla {
     class CCVirtualGood : public CCPurchasableVirtualItem {
     
     public:
-		
+        /**
+         See parent
+         */
+        virtual int resetBalance(int balance, bool notify, CCError **error = NULL);
+        /**
+         See parent
+         */
+        virtual int getBalance(CCError **error = NULL);
     };
 };
 
