@@ -124,6 +124,14 @@ public class StoreService extends AbstractSoomlaService {
             }
         });
 
+        ndkGlue.registerCallHandler("CCSoomlaStore::refreshMarketItemsDetails", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                SoomlaUtils.LogDebug("SOOMLA", "refreshMarketItemsDetails is called from java!");
+                SoomlaStore.getInstance().refreshMarketItemsDetails();
+            }
+        });
+
         ndkGlue.registerCallHandler("CCSoomlaStore::transactionsAlreadyRestored", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {

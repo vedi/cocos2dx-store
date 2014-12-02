@@ -23,7 +23,7 @@ namespace soomla {
 
     /**
      The native implementation of CCSoomlaStore, uses the bridge to talk
-     to native implementations of Store.
+     to native implementations of SoomlaStore.
      
      See parent for all functions.
      */
@@ -35,11 +35,12 @@ namespace soomla {
         
         virtual void refreshInventory();
         
+        virtual void refreshMarketItemsDetails(CCError **error = NULL);
+        
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         
         virtual bool transactionsAlreadyRestored();
         
-        virtual void refreshMarketItemsDetails(CCError **error = NULL);
 #endif
         
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

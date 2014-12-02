@@ -125,10 +125,21 @@ namespace soomla {
          */
         cocos2d::__Array *getUpgradesForVirtualGood(const char *goodItemId = NULL);
 
+        /**
+         Replaces the given virtual item, and then saves the store's metadata.
+         @param virtualItem The virtual item to save.
+         */
         void saveItem(CCVirtualItem *virtualItem);
         
+        /**
+         Saves the store's metadata in the database as JSON.
+         */
         virtual void save();
         
+        /**
+         Converts the store info into a `CCDictionary`.
+         @return `CCDictionary` representation of `CCStoreInfo`.
+         */
         virtual cocos2d::__Dictionary* toDictionary();
     protected:
         virtual void setStoreAssets(CCStoreAssets *storeAssets);

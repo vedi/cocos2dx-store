@@ -43,6 +43,12 @@ namespace soomla {
         params->setObject(__String::create("CCSoomlaStore::refreshInventory"), "method");
         CCNdkBridge::callNative (params, NULL);
     }
+    
+    void CCNativeSoomlaStore::refreshMarketItemsDetails(CCError **error) {
+        __Dictionary *params = __Dictionary::create();
+        params->setObject(__String::create("CCSoomlaStore::refreshMarketItemsDetails"), "method");
+        CCNdkBridge::callNative (params, error);
+    }
 
     #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     bool CCNativeSoomlaStore::transactionsAlreadyRestored() {
@@ -51,12 +57,6 @@ namespace soomla {
         __Dictionary *retParams = (__Dictionary *) CCNdkBridge::callNative (params, NULL);
         __Bool *retValue = (__Bool *) retParams->objectForKey("return");
         return retValue->getValue();
-    }
-
-    void CCNativeSoomlaStore::refreshMarketItemsDetails(CCError **error) {
-        __Dictionary *params = __Dictionary::create();
-        params->setObject(__String::create("CCSoomlaStore::refreshMarketItemsDetails"), "method");
-        CCNdkBridge::callNative (params, error);
     }
     #endif
 

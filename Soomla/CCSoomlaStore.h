@@ -50,7 +50,7 @@ namespace soomla {
          Play, etc...).
          @param productId The product ID of the item in the market (App Store,
                 Google Play, etc..).
-         @param soomlaError A CCSoomlaError for error checking.
+         @param error A `CCError` for error checking.
 		 */
         virtual void buyMarketItem(const char *productId, const char *payload, CCError **error = NULL);
 
@@ -65,6 +65,13 @@ namespace soomla {
          description, price, product id, etc..
          */
         virtual void refreshInventory() {}
+        
+        /**
+         Refreshes the details of all market-purchasable items that were defined
+         in the market (App Store, Google Play, etc..).
+         @param error A `CCError` for error checking.
+         */
+        virtual void refreshMarketItemsDetails(CCError **error = NULL) {}
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
@@ -74,11 +81,6 @@ namespace soomla {
 		*/
         virtual bool transactionsAlreadyRestored() { return true; }
 
-        /**
-         Refreshes the details of all market-purchasable items that were defined
-         in the market (App Store, Google Play, etc..).
-         */
-        virtual void refreshMarketItemsDetails(CCError **error = NULL) {}
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

@@ -51,6 +51,7 @@ namespace soomla {
          You use `buy()` to give your user something and get something in return.
          
          @param amount the amount of the specific item to be given.
+         @param error A `CCError` for error checking.
          @return The balance after the giving process.
          */
         int give(int amount, CCError **error = NULL) { return give(amount, true, error); }
@@ -60,6 +61,7 @@ namespace soomla {
          
          @param amount the amount of the specific item to be given
          @param notify Notify of change in user's balance of current virtual item
+         @param error A `CCError` for error checking.
          @return The balance after the giving process.
          */
         virtual int give(int amount, bool notify, CCError **error = NULL) = 0;
@@ -69,6 +71,7 @@ namespace soomla {
          For example, when you want to downgrade a virtual good, you take the upgrade.
          
          @param amount The amount of the specific item to be taken.
+         @param error A `CCError` for error checking.
          @return The balance after the taking process.
          */
         int take(int amount, CCError **error = NULL) { return take(amount, true, error); }
@@ -79,6 +82,7 @@ namespace soomla {
          
          @param amount The amount of the specific item to be taken.
          @param notify Notify of change in user's balance of current virtual item
+         @param error A `CCError` for error checking.
          @return The balance after the taking process.
          */
         virtual int take(int amount, bool notify, CCError **error = NULL) = 0;
@@ -87,6 +91,7 @@ namespace soomla {
          Resets this Virtual Item's balance to the given balance.
          
          @param balance The balance of the current virtual item.
+         @param error A `CCError` for error checking.
          @return The balance after the reset process.
          */
         int resetBalance(int balance, CCError **error = NULL) { return resetBalance(balance, true, error); }
@@ -97,6 +102,7 @@ namespace soomla {
          
          @param balance The balance of the current virtual item.
          @param notify Notify of change in user's balance of current virtual item.
+         @param error A `CCError` for error checking.
          @return The balance after the reset process.
          */
         virtual int resetBalance(int balance, bool notify, CCError **error = NULL) = 0;
@@ -104,6 +110,7 @@ namespace soomla {
         /**
          Will fetch the balance for the current VirtualItem according to its type.
          
+         @param error A `CCError` for error checking.
          @return The balance.
          */
         virtual int getBalance(CCError **error = NULL) = 0;

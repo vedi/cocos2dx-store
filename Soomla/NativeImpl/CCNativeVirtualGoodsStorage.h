@@ -20,6 +20,12 @@
 #include "CCVirtualGoodsStorage.h"
 
 namespace soomla {
+    /**
+     Implements the `CCVirtualGoodsStorage` using the bridge to talk
+     with the native implementation of VirtualGoodsStorage
+     
+     See parent for all functions.
+     */
     class CCNativeVirtualGoodsStorage : public CCVirtualGoodsStorage {
     public:
         CCNativeVirtualGoodsStorage();

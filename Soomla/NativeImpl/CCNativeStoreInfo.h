@@ -20,6 +20,12 @@
 #include "CCStoreInfo.h"
 
 namespace soomla {
+    /**
+     Implements the `CCStoreInfo` using the bridge to talk
+     with the native implementation of StoreInfo
+     
+     See parent for all functions.
+     */
     class CCNativeStoreInfo : public CCStoreInfo {
     public:
         CCNativeStoreInfo() : CCStoreInfo() {}

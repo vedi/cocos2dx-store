@@ -23,6 +23,9 @@
 #include "CCEquippableVG.h"
 
 namespace soomla {
+    /**
+     This class is a definition of a Virtual Goods Storage.
+     */
     class CCVirtualGoodsStorage : public CCVirtualItemStorage {
     public:
         static CCVirtualGoodsStorage* getInstance();
@@ -31,19 +34,78 @@ namespace soomla {
         
         virtual ~CCVirtualGoodsStorage();
         
+        /**
+         Removes any upgrade associated with the given `CCVirtualGood`.
+         @param good `CCVirtualGood` to remove upgrade from.
+         @param error Gets A `CCError` for error checking.
+         */
         virtual void removeUpgrades(CCVirtualGood *good, CCError **error = NULL) { removeUpgrades(good, true, error); }
+        /**
+         Removes any upgrade associated with the given `CCVirtualGood`.
+         @param good `CCVirtualGood` to remove upgrade from.
+         @param notify true will also post event.
+         @param error Gets A `CCError` for error checking.
+         */
         virtual void removeUpgrades(CCVirtualGood *good, bool notify, CCError **error = NULL);
         
+        /**
+         Assigns a specific upgrade to the given virtual good.
+         @param good `CCVirtualGood` to remove upgrade from.
+         @param upgradeVG the upgrade to assign.
+         @param error Gets A `CCError` for error checking.
+         */
         virtual void assignCurrentUpgrade(CCVirtualGood *good, CCUpgradeVG *upgradeVG, CCError **error = NULL) { assignCurrentUpgrade(good, upgradeVG, true, error); }
+        /**
+         Assigns a specific upgrade to the given virtual good.
+         @param good `CCVirtualGood` to remove upgrade from.
+         @param upgradeVG the upgrade to assign.
+         @param notify true will also post event.
+         @param error Gets A `CCError` for error checking.
+         */
         virtual void assignCurrentUpgrade(CCVirtualGood *good, CCUpgradeVG *upgradeVG, bool notify, CCError **error = NULL);
         
+        /**
+         Retrieves the current upgrade for the given virtual good.
+         @param good the virtual good to retrieve upgrade for.
+         @param error Gets A `CCError` for error checking.
+         @return the current upgrade for the given virtual good, or NULL if one
+         does not exist
+         */
         virtual CCUpgradeVG *getCurrentUpgrade(CCVirtualGood *good, CCError **error = NULL);
+        /**
+         Checks the equipping status of the given `CCEquippableVG`.
+         @param good The `CCEquippableVG` to check the status for.
+         @param error Gets A `CCError` for error checking.
+         @return true if the good is equipped, false otherwise
+         */
         virtual bool isEquipped(CCEquippableVG *good, CCError **error = NULL);
         
+        /**
+         Equips the given `CCEquippableVG`.
+         @param good The `CCEquippableVG` to equip.
+         @param error Gets A `CCError` for error checking.
+         */
         virtual void equip(CCEquippableVG *good, CCError **error = NULL) { equip(good, true, error); }
+        /**
+         Equips the given `CCEquippableVG`.
+         @param good The `CCEquippableVG` to equip.
+         @param notify true will also post event.
+         @param error Gets A `CCError` for error checking.
+         */
         virtual void equip(CCEquippableVG *good, bool notify, CCError **error = NULL);
         
+        /**
+         UnEquips the given `CCEquippableVG`.
+         @param good The `CCEquippableVG` to unequip.
+         @param error Gets A `CCError` for error checking.
+         */
         virtual void unequip(CCEquippableVG *good, CCError **error = NULL) { unequip(good, true, error); }
+        /**
+         UnEquips the given `CCEquippableVG`.
+         @param good The `CCEquippableVG` to unequip.
+         @param notify true will also post event.
+         @param error Gets A `CCError` for error checking.
+         */
         virtual void unequip(CCEquippableVG *good, bool notify, CCError **error = NULL);
         
     protected:

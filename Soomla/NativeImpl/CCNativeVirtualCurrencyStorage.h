@@ -20,6 +20,12 @@
 #include "CCVirtualCurrencyStorage.h"
 
 namespace soomla {
+    /**
+     Implements the `CCVirtualCurrencyStorage` using the bridge to talk 
+     with the native implementation of VirtualCurrencyStorage
+     
+     See parent for all functions.
+     */
     class CCNativeVirtualCurrencyStorage : public CCVirtualCurrencyStorage {
     public:
         CCNativeVirtualCurrencyStorage();

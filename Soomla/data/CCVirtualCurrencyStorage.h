@@ -20,6 +20,9 @@
 #include "CCVirtualItemStorage.h"
 
 namespace soomla {
+    /**
+     This class is a definition of a Virtual Currency Storage.
+     */
     class CCVirtualCurrencyStorage : public CCVirtualItemStorage {
     public:
         static CCVirtualCurrencyStorage* getInstance();

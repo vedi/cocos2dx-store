@@ -193,6 +193,9 @@ namespace soomla {
          NOTE: This is less useful when you work in editor.
          */
         void refreshLocalInventory();
+        
+        /** Internal methods **/
+        
         void refreshOnGoodUpgrade(CCVirtualGood *vg, CCUpgradeVG *uvg);
         void refreshOnGoodEquipped(CCEquippableVG *equippable);
         void refreshOnGoodUnEquipped(CCEquippableVG *equippable);

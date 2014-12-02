@@ -22,17 +22,74 @@
 #include "CCError.h"
 
 namespace soomla {
+    /**
+     This class is an abstract definition of a Virtual Item Storage.
+     */
     class CCVirtualItemStorage : public cocos2d::Ref {
     public:
+        /**
+         Retrieves the balance of the given virtual item.
+         @param item The required virtual item.
+         @param error Gets A `CCError` for error checking.
+         @return The balance of the required virtual item.
+         */
         virtual int getBalance(CCVirtualItem *item, CCError **error = NULL);
         
+        /**
+         Sets the balance of the given virtual item to be the given balance, and 
+         if notify is true posts the change in the balance to the event bus.
+         @param item the required virtual item.
+         @param balance the new balance to be set.
+         @param error Gets A `CCError` for error checking.
+         @return the balance of the required virtual item
+         */
         virtual int setBalance(CCVirtualItem *item, int balance, CCError **error = NULL) { return setBalance(item, balance, true, error); }
+        /**
+         Same as the other `setBalance` but with "notify".
+         @param item the required virtual item.
+         @param balance the new balance to be set.
+         @param notify if notify is true post balance change event.
+         @param error Gets A `CCError` for error checking.
+         @return the balance of the required virtual item
+         */
         virtual int setBalance(CCVirtualItem *item, int balance, bool notify, CCError **error = NULL);
         
+        /**
+         Adds the given amount of items to the storage.
+         @param item the required virtual item.
+         @param amount the amount of items to add.
+         @param error Gets A `CCError` for error checking.
+         @return the balance of the required virtual item
+         */
         virtual int add(CCVirtualItem *item, int amount, CCError **error = NULL) { return add(item, amount, true, error); }
+        /**
+         Adds the given amount of items to the storage, and if notify is true
+         posts the change in the balance to the event bus.
+         @param item the required virtual item.
+         @param amount the amount of items to add.
+         @param notify if notify is true post balance change event.
+         @param error Gets A `CCError` for error checking.
+         @return the balance of the required virtual item
+         */
         virtual int add(CCVirtualItem *item, int amount, bool notify, CCError **error = NULL);
         
+        /**
+         Removes the given amount from the given virtual item's balance.
+         @param item the required virtual item.
+         @param amount the amount of items to remove.
+         @param error Gets A `CCError` for error checking.
+         @return the balance of the required virtual item
+         */
         virtual int remove(CCVirtualItem *item, int amount, CCError **error = NULL) { return remove(item, amount, true, error); }
+        /**
+         Removes the given amount of items from the storage, and if notify is true
+         posts the change in the balance to the event bus.
+         @param item the required virtual item.
+         @param amount the amount of items to remove.
+         @param notify if notify is true post balance change event.
+         @param error Gets A `CCError` for error checking.
+         @return the balance of the required virtual item
+         */
         virtual int remove(CCVirtualItem *item, int amount, bool notify, CCError **error = NULL);
         
     protected:
