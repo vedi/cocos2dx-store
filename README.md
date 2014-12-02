@@ -1,4 +1,4 @@
-*This project is a part of The [SOOMLA](http://www.soom.la) Framework which is a series of open source initiatives with a joint goal to help mobile game developers do more together. SOOMLA encourages better game designing, economy modeling and faster development.*
+*This project is a part of The [SOOMLA](http://www.soom.la) Framework, which is a series of open source initiatives with a joint goal to help mobile game developers do more together. SOOMLA encourages better game design, economy modeling, social engagement, and faster development.*
 
 Haven't you ever wanted an in-app purchase one liner that looks like this ?!
 
@@ -10,6 +10,7 @@ cocos2dx-store
 > The `master` branch supports cocos2d-x v3.x. For cocos2d-x v2.x use `cocos2dx-v2` branch.*
 
 > Draw your attention this page covers integration of C++ based solutions. If you need information regarding JS solution follow the link: https://github.com/soomla/cocos2dx-store/wiki/jsb#cocos2dx-store
+**December 01, 2014**: v4.3.0 **Work Without a Device!** when working without a device, data is saved to UserDefault, you cannot test in-app purchases without a device
 **September 15, 2014**: `CCNonConsumableItem` class was removed.
 To create a non-consumable item, define it as `CCLifeTimeVG` with a `CCPurchaseWithMarket` in your `iStoreAssets` implementation.
 
@@ -117,7 +118,7 @@ In your XCode project, perform following steps:
     1. Add the *.a of these projects to **Build Phases->Link Binary With Libraries**.
 
 1. Add the following directoris to **Build Settings->Header Search Paths** (with `recursive` option):
-> This article assumes you have a `cocos2d` folder under your project folder and which either contains the Cocos2d-x framework, or links to to its root folder 
+> This article assumes you have a `cocos2d` folder under your project folder and which either contains the Cocos2d-x framework, or links to to its root folder
 
  - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/Soomla`
  - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/build/ios/headers`
@@ -393,12 +394,12 @@ To see debug messages on iOS, make sure you have also `DEBUG=1` in your Build Se
 
 We try to do all our best to make your contributions as easy as it's possible. We prepared "sourced" environment for you if you wish to contribute in soomla projects. In order to get it you should:
 
-1. Fetch submodules of repositories, you can do it recursively cloning them:
+1. Fetch submodules of repositories, you can do it by recursively cloning them:
     ```
     $ git clone --recursivegit@github.com:soomla/soomla-cocos2dx-core.git extensions/soomla-cocos2dx-core
     $ git clone --recursive git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
     ```
-or, if you have repositories already cloned, deliver submodules with command:
+or, if you have repositories already cloned, fetch the submodules with this command:
     ```
     $ git submodule update --init --recursive
     ```
@@ -406,27 +407,24 @@ or, if you have repositories already cloned, deliver submodules with command:
 
 1. For iOS: Use sourced versions of Linked projects (`extensions/soomla-cocos2dx-core/development/Cocos2dxCoreFromSources.xcodeproj`, `extensions/cocos2dx-store/development/Cocos2dxStoreFromSources.xcodeproj`)
 
-1. For Android: You can use our "sourced" modules for Android Studio (or IntelliJ IDEA) (`extensions/soomla-cocos2dx-core/development/Cocos2dxCoreFromSources.iml`, `extensions/cocos2dx-store/development/Cocos2dxStoreFromSources.iml`), just including them to your project.
+1. For Android: You can use our "sourced" modules for Android Studio (or IntelliJ IDEA) (`extensions/soomla-cocos2dx-core/development/Cocos2dxCoreFromSources.iml`, `extensions/cocos2dx-store/development/Cocos2dxStoreFromSources.iml`), just include them to your project.
 
-## Contribution
+Contribution
+---
+SOOMLA appreciates code contributions! You are more than welcome to extend the capabilities of SOOMLA.
 
-We want you!
+Fork -> Clone -> Implement -> Add documentation -> Test -> Pull-Request.
 
-Fork -> Clone -> Implement -> Insert Comments -> Test -> Pull-Request.
-
-We have great RESPECT for contributors.
-
-## Code Documentation
-
-android-store follows strict code documentation conventions. If you would like to contribute please read our [Documentation Guidelines](https://github.com/soomla/cocos2dx-store/blob/master/documentation.md) and follow them. Clear, consistent  comments will make our code easy to understand.
-
+IMPORTANT: If you would like to contribute, please follow our [Documentation Guidelines](https://github.com/soomla/cocos2dx-store/blob/master/documentation.md
+). Clear, consistent comments will make our code easy to understand.
 
 ## SOOMLA, Elsewhere ...
 
 + [Framework Website](http://www.soom.la/)
-+ [On Facebook](https://www.facebook.com/pages/The-SOOMLA-Project/389643294427376)
-+ [On AngelList](https://angel.co/the-soomla-project)
++ [Knowledge Base](http://know.soom.la/)
 
+
+<a href="https://www.facebook.com/pages/The-SOOMLA-Project/389643294427376"><img src="http://know.soom.la/img/tutorial_img/social/Facebook.png"></a><a href="https://twitter.com/Soomla"><img src="http://know.soom.la/img/tutorial_img/social/Twitter.png"></a><a href="https://plus.google.com/+SoomLa/posts"><img src="http://know.soom.la/img/tutorial_img/social/GoogleP.png"></a><a href ="https://www.youtube.com/channel/UCR1-D9GdSRRLD0fiEDkpeyg"><img src="http://know.soom.la/img/tutorial_img/social/Youtube.png"></a>
 
 ## License
 

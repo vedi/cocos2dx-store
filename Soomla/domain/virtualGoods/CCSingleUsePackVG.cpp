@@ -14,13 +14,17 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
-
 #include "CCSingleUsePackVG.h"
-
-USING_NS_CC;
+#include "CCSoomlaUtils.h"
+#include "CCVirtualGoodsStorage.h"
+#include "CCStoreInfo.h"
+#include "CCSingleUseVG.h"
 
 namespace soomla {
+    USING_NS_CC;
+    
+    #define TAG "SOOMLA SingleUsePackVG"
+    
     CCSingleUsePackVG *CCSingleUsePackVG::create(CCString *goodItemId, CCInteger *goodAmount, CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
         CCSingleUsePackVG *ret = new CCSingleUsePackVG();
         if (ret->init(goodItemId, goodAmount, name, description, itemId, purchaseType)) {
@@ -71,5 +75,43 @@ namespace soomla {
     CCSingleUsePackVG::~CCSingleUsePackVG() {
         CC_SAFE_RELEASE(mGoodItemId);
         CC_SAFE_RELEASE(mGoodAmount);
+    }
+    
+    int CCSingleUsePackVG::give(int amount, bool notify, CCError **error) {
+        const char *goodItemId = getGoodItemId()->getCString();
+        CCSingleUseVG *good = dynamic_cast<CCSingleUseVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(goodItemId, error));
+        
+        if (good == NULL) {
+            CCSoomlaUtils::logError(TAG, CCString::createWithFormat("SingleUseVG with itemId: %s doesn't exist! Can't give this pack.",
+                                                                   goodItemId)->getCString());
+            return 0;
+        }
+        
+        return CCVirtualGoodsStorage::getInstance()->add(good, getGoodAmount()->getValue() * amount, notify, error);
+    }
+    
+    int CCSingleUsePackVG::take(int amount, bool notify, CCError **error) {
+        const char *goodItemId = getGoodItemId()->getCString();
+        CCSingleUseVG *good = dynamic_cast<CCSingleUseVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(goodItemId, error));
+        
+        if (good == NULL) {
+            CCSoomlaUtils::logError(TAG, CCString::createWithFormat("SingleUseVG with itemId: %s doesn't exist! Can't take this pack.",
+                                                                    goodItemId)->getCString());
+            return 0;
+        }
+        
+        return CCVirtualGoodsStorage::getInstance()->remove(good, getGoodAmount()->getValue() * amount, notify, error);
+    }
+    
+    int CCSingleUsePackVG::resetBalance(int balance, bool notify, CCError **error) {
+        // Not supported for SingleUsePackVGs !
+        CCSoomlaUtils::logError(TAG, "Someone tried to reset balance of GoodPack. That's not right.");
+        return 0;
+    }
+    
+    int CCSingleUsePackVG::getBalance(CCError **error) {
+        // Not supported for SingleUsePackVGs !
+        CCSoomlaUtils::logError(TAG, "Someone tried to check balance of GoodPack. That's not right.");
+        return 0;
     }
 }

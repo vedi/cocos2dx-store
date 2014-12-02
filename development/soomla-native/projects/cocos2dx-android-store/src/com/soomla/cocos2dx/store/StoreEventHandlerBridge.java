@@ -21,6 +21,22 @@ public class StoreEventHandlerBridge {
         BusProvider.getInstance().register(this);
     }
 
+    public void pushOnItemPurchased(String itemId, String payload) {
+        BusProvider.getInstance().post(new ItemPurchasedEvent(itemId, payload, this));
+    }
+
+    public void pushOnItemPurchaseStarted(String itemId) {
+        BusProvider.getInstance().post(new ItemPurchaseStartedEvent(itemId, this));
+    }
+
+    public void pushOnUnexpectedErrorInStore(String errorMessage) {
+        BusProvider.getInstance().post(new UnexpectedStoreErrorEvent(errorMessage, this));
+    }
+
+    public void pushOnSoomlaStoreInitialized() {
+        BusProvider.getInstance().post(new SoomlaStoreInitializedEvent(this));
+    }
+
     @Subscribe
     public void onBillingNotSupported(BillingNotSupportedEvent billingNotSupportedEvent) {
         mGLThread.queueEvent(new Runnable() {
@@ -93,7 +109,7 @@ public class StoreEventHandlerBridge {
                 try {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCStoreEventHandler::onCurrencyBalanceChanged");
-                    parameters.put("itemId", currencyBalanceChangedEvent.getCurrency().getItemId());
+                    parameters.put("itemId", currencyBalanceChangedEvent.getCurrencyItemId());
                     parameters.put("balance", currencyBalanceChangedEvent.getBalance());
                     parameters.put("amountAdded", currencyBalanceChangedEvent.getAmountAdded());
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
@@ -112,7 +128,7 @@ public class StoreEventHandlerBridge {
                 try {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCStoreEventHandler::onGoodBalanceChanged");
-                    parameters.put("itemId", goodBalanceChangedEvent.getGood().getItemId());
+                    parameters.put("itemId", goodBalanceChangedEvent.getGoodItemId());
                     parameters.put("balance", goodBalanceChangedEvent.getBalance());
                     parameters.put("amountAdded", goodBalanceChangedEvent.getAmountAdded());
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
@@ -131,7 +147,7 @@ public class StoreEventHandlerBridge {
                 try {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCStoreEventHandler::onGoodEquipped");
-                    parameters.put("itemId", goodEquippedEvent.getGood().getItemId());
+                    parameters.put("itemId", goodEquippedEvent.getGoodItemId());
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
@@ -148,7 +164,7 @@ public class StoreEventHandlerBridge {
                 try {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCStoreEventHandler::onGoodUnEquipped");
-                    parameters.put("itemId", goodUnEquippedEvent.getGood().getItemId());
+                    parameters.put("itemId", goodUnEquippedEvent.getGoodItemId());
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
@@ -165,8 +181,8 @@ public class StoreEventHandlerBridge {
                 try {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCStoreEventHandler::onGoodUpgrade");
-                    parameters.put("itemId", goodUpgradeEvent.getGood().getItemId());
-                    parameters.put("vguItemId", goodUpgradeEvent.getCurrentUpgrade().getItemId());
+                    parameters.put("itemId", goodUpgradeEvent.getGoodItemId());
+                    parameters.put("vguItemId", goodUpgradeEvent.getCurrentUpgrade());
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
@@ -177,13 +193,16 @@ public class StoreEventHandlerBridge {
 
     @Subscribe
     public void onItemPurchased(final ItemPurchasedEvent itemPurchasedEvent) {
+        if (itemPurchasedEvent.Sender == this) {
+            return;
+        }
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCStoreEventHandler::onItemPurchased");
-                    parameters.put("itemId", itemPurchasedEvent.getPurchasableVirtualItem().getItemId());
+                    parameters.put("itemId", itemPurchasedEvent.getItemId());
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
@@ -194,13 +213,16 @@ public class StoreEventHandlerBridge {
 
     @Subscribe
     public void onItemPurchaseStarted(final ItemPurchaseStartedEvent itemPurchaseStartedEvent) {
+        if (itemPurchaseStartedEvent.Sender == this) {
+            return;
+        }
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCStoreEventHandler::onItemPurchaseStarted");
-                    parameters.put("itemId", itemPurchaseStartedEvent.getPurchasableVirtualItem().getItemId());
+                    parameters.put("itemId", itemPurchaseStartedEvent.getItemId());
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
@@ -360,6 +382,9 @@ public class StoreEventHandlerBridge {
 
     @Subscribe
     public void onUnexpectedErrorInStore(UnexpectedStoreErrorEvent unexpectedStoreErrorEvent) {
+        if (unexpectedStoreErrorEvent.Sender == this) {
+            return;
+        }
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
@@ -375,13 +400,16 @@ public class StoreEventHandlerBridge {
     }
 
     @Subscribe
-    public void onStoreControllerInitialized(SoomlaStoreInitializedEvent soomlaStoreInitializedEvent) {
+    public void onStoreStoreInitialized(SoomlaStoreInitializedEvent soomlaStoreInitializedEvent) {
+        if (soomlaStoreInitializedEvent.Sender == this) {
+            return;
+        }
         mGLThread.queueEvent(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
-                    parameters.put("method", "CCStoreEventHandler::onStoreControllerInitialized");
+                    parameters.put("method", "CCStoreEventHandler::onStoreStoreInitialized");
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);

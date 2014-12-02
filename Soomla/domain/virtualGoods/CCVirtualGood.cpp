@@ -14,11 +14,18 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
-
 #include "CCVirtualGood.h"
-
-USING_NS_CC;
+#include "CCVirtualGoodsStorage.h"
 
 namespace soomla {
+    
+    USING_NS_CC;
+    
+    int CCVirtualGood::resetBalance(int balance, bool notify, CCError **error) {
+        return CCVirtualGoodsStorage::getInstance()->setBalance(this, balance, notify, error);
+    }
+    
+    int CCVirtualGood::getBalance(CCError **error) {
+        return CCVirtualGoodsStorage::getInstance()->getBalance(this, error);
+    }
 }

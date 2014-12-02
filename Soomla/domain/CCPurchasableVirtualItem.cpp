@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
+
 
 #include "CCPurchasableVirtualItem.h"
 
@@ -29,6 +29,8 @@ namespace soomla {
         bool bRet = CCVirtualItem::init(itemId, name, description);
         if (bRet) {
             setPurchaseType(purchaseType);
+            
+            purchaseType->setAssociatedItemId(getItemId());
         }
         return bRet;
     }
@@ -54,6 +56,18 @@ namespace soomla {
 
         return dict;
     }
+    
+    void CCPurchasableVirtualItem::buy(const char* payload, CCError **error) {
+        if (!canBuy()) {
+            return;
+        }
+        
+        if (payload == NULL) {
+            payload = "";
+        }
+        
+        getPurchaseType()->buy(payload, error);
+    }
 
     void CCPurchasableVirtualItem::fillPurchaseTypeFromDict(CCDictionary *dict) {
         CCDictionary *purchasableDict = dynamic_cast<CCDictionary *>(dict->objectForKey(CCStoreConsts::JSON_PURCHASABLE_ITEM));
@@ -75,6 +89,11 @@ namespace soomla {
         } else {
             CC_ASSERT(false);
             CCLog("Couldn't determine what type of class is the given purchaseType.");
+        }
+        
+        CCPurchaseType *purchaseType = getPurchaseType();
+        if (purchaseType != NULL) {
+            purchaseType->setAssociatedItemId(getItemId());
         }
     }
 

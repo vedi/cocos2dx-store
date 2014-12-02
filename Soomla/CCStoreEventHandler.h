@@ -92,7 +92,7 @@ namespace soomla {
          virtual good has been purchased.
          @param purchasableVirtualItem The item being purchased.
          */
-        virtual void onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem) = 0;
+        virtual void onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *payload) = 0;
        
         /**
          Handles an `onItemPurchaseStarted` event, which is fired when a 
@@ -152,13 +152,13 @@ namespace soomla {
          Handles an `onUnexpectedErrorInStore` event, which is fired when an 
          unexpected error occurs in the store.
          */
-        virtual void onUnexpectedErrorInStore() = 0;
+        virtual void onUnexpectedErrorInStore(cocos2d::CCString *errorMessage) = 0;
 		
         /**
          Handles an `onStoreControllerInitialized` event, which is fired when 
          store controller is initialized.
          */
-        virtual void onStoreControllerInitialized() = 0;
+        virtual void onSoomlaStoreInitialized() = 0;
 
         /**
          Handles an `onMarketItemsRefreshed` event, which is fired when a market

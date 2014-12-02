@@ -14,13 +14,17 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
-
 #include "CCVirtualCurrencyPack.h"
-
-USING_NS_CC;
+#include "CCStoreInfo.h"
+#include "CCSoomlaUtils.h"
+#include "CCVirtualCurrency.h"
+#include "CCVirtualCurrencyStorage.h"
 
 namespace soomla {
+    USING_NS_CC;
+    
+    #define TAG "SOOMLA VirtualCurrencyPack"
+    
     CCVirtualCurrencyPack *CCVirtualCurrencyPack::create(CCString *name, CCString *description, CCString *itemId, CCInteger *currencyAmount, CCString *currencyItemId, CCPurchaseType *purchaseType) {
         CCVirtualCurrencyPack *ret = new CCVirtualCurrencyPack();
         if (ret->init(name, description, itemId, currencyAmount, currencyItemId, purchaseType)) {
@@ -73,4 +77,40 @@ namespace soomla {
         CC_SAFE_RELEASE(mCurrencyAmount);
         CC_SAFE_RELEASE(mCurrencyItemId);
     }
-}    
+    
+    int CCVirtualCurrencyPack::give(int amount, bool notify, CCError **error) {
+        const char *currencyId = getCurrencyItemId()->getCString();
+        CCVirtualCurrency *currency = dynamic_cast<CCVirtualCurrency *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(currencyId, error));
+        
+        if (currency == NULL) {
+            CCSoomlaUtils::logError(TAG, CCString::createWithFormat("VirtualCurrency with itemId: %s doesn't exist! Can't give this pack.", currencyId)->getCString());
+            return 0;
+        }
+        
+        return CCVirtualCurrencyStorage::getInstance()->add(currency, getCurrencyAmount()->getValue() * amount, notify, error);
+    }
+    
+    int CCVirtualCurrencyPack::take(int amount, bool notify, CCError **error) {
+        const char *currencyId = getCurrencyItemId()->getCString();
+        CCVirtualCurrency *currency = dynamic_cast<CCVirtualCurrency *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(currencyId, error));
+        
+        if (currency == NULL) {
+            CCSoomlaUtils::logError(TAG, CCString::createWithFormat("VirtualCurrency with itemId: %s doesn't exist! Can't take this pack.", currencyId)->getCString());
+            return 0;
+        }
+        
+        return CCVirtualCurrencyStorage::getInstance()->remove(currency, getCurrencyAmount()->getValue() * amount, notify, error);
+    }
+    
+    int CCVirtualCurrencyPack::resetBalance(int balance, bool notify, CCError **error) {
+        // Not supported for VirtualCurrencyPacks !
+        CCSoomlaUtils::logError(TAG, "Someone tried to reset balance of CurrencyPack. That's not right.");
+        return 0;
+    }
+    
+    int CCVirtualCurrencyPack::getBalance(CCError **error) {
+        // Not supported for VirtualCurrencyPacks !
+        CCSoomlaUtils::logError(TAG, "Someone tried to check balance of CurrencyPack. That's not right.");
+        return 0;
+    }
+}

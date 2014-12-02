@@ -14,12 +14,12 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
-
 #include "CCSingleUseVG.h"
+#include "CCVirtualGoodsStorage.h"
 
 namespace soomla {
     USING_NS_CC;
+    
     CCSingleUseVG *CCSingleUseVG::create(CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
         CCSingleUseVG *ret = new CCSingleUseVG();
         if (ret->init(name, description, itemId, purchaseType)) {
@@ -29,6 +29,18 @@ namespace soomla {
             CC_SAFE_DELETE(ret);
         }
         return ret;
+    }
+    
+    bool CCSingleUseVG::canBuy() {
+        return true;
+    }
+    
+    int CCSingleUseVG::give(int amount, bool notify, CCError **error) {
+        return CCVirtualGoodsStorage::getInstance()->add(this, amount, notify, error);
+    }
+    
+    int CCSingleUseVG::take(int amount, bool notify, CCError **error) {
+        return CCVirtualGoodsStorage::getInstance()->remove(this, amount, notify, error);
     }
 
     const char *CCSingleUseVG::getType() const {

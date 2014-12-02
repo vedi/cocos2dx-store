@@ -13,11 +13,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author vedi
- *         date 5/21/13
- *         time 11:23 PM
- */
+
 public class StoreAssetsBridge implements IStoreAssets {
 
     private int version;

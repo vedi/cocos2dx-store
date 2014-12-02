@@ -111,6 +111,91 @@
 		9D63D23819B1C56E0054EA87 /* libCocos2dXiOSStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D63D23619B1C56E0054EA87 /* libCocos2dXiOSStore.a */; };
 		9D63D23919B1C56E0054EA87 /* libSoomlaiOSStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D63D23719B1C56E0054EA87 /* libSoomlaiOSStore.a */; };
 		C0B3C5F3168C6D0C00161FAA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B3C5F2168C6D0C00161FAA /* Foundation.framework */; };
+		F84141321A2472930047FB73 /* CCNativeStoreService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141301A2472930047FB73 /* CCNativeStoreService.cpp */; };
+		F84141331A2472930047FB73 /* CCNativeStoreService.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141311A2472930047FB73 /* CCNativeStoreService.h */; };
+		F841413A1A2484370047FB73 /* CCNativeSoomlaStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141381A2484370047FB73 /* CCNativeSoomlaStore.cpp */; };
+		F841413B1A2484370047FB73 /* CCNativeSoomlaStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141391A2484370047FB73 /* CCNativeSoomlaStore.h */; };
+		F84141441A24B66A0047FB73 /* CCVirtualItemStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141421A24B66A0047FB73 /* CCVirtualItemStorage.cpp */; };
+		F84141451A24B66A0047FB73 /* CCVirtualItemStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141431A24B66A0047FB73 /* CCVirtualItemStorage.h */; };
+		F84141481A24B67D0047FB73 /* CCVirtualCurrencyStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141461A24B67D0047FB73 /* CCVirtualCurrencyStorage.cpp */; };
+		F84141491A24B67D0047FB73 /* CCVirtualCurrencyStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141471A24B67D0047FB73 /* CCVirtualCurrencyStorage.h */; };
+		F841414C1A24B6900047FB73 /* CCVirtualGoodsStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F841414A1A24B6900047FB73 /* CCVirtualGoodsStorage.cpp */; };
+		F841414D1A24B6900047FB73 /* CCVirtualGoodsStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F841414B1A24B6900047FB73 /* CCVirtualGoodsStorage.h */; };
+		F84141501A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F841414E1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.cpp */; };
+		F84141511A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F841414F1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.h */; };
+		F84141541A24D6160047FB73 /* CCNativeVirtualGoodsStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141521A24D6160047FB73 /* CCNativeVirtualGoodsStorage.cpp */; };
+		F84141551A24D6160047FB73 /* CCNativeVirtualGoodsStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141531A24D6160047FB73 /* CCNativeVirtualGoodsStorage.h */; };
+		F844840E1A2B8C76002D9EC0 /* CCNativeStoreService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141301A2472930047FB73 /* CCNativeStoreService.cpp */; };
+		F844840F1A2B8C76002D9EC0 /* CCNativeSoomlaStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141381A2484370047FB73 /* CCNativeSoomlaStore.cpp */; };
+		F84484101A2B8C76002D9EC0 /* CCNativeVirtualCurrencyStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F841414E1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.cpp */; };
+		F84484111A2B8C76002D9EC0 /* CCNativeVirtualGoodsStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141521A24D6160047FB73 /* CCNativeVirtualGoodsStorage.cpp */; };
+		F84484121A2B8C76002D9EC0 /* CCNativeStoreInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8F644981A262F5E00C6D3CC /* CCNativeStoreInfo.cpp */; };
+		F84484131A2B8C76002D9EC0 /* CCSimpleStoreEventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1C119B1C4FF0054EA87 /* CCSimpleStoreEventHandler.cpp */; };
+		F84484141A2B8C76002D9EC0 /* CCSoomlaStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1C319B1C4FF0054EA87 /* CCSoomlaStore.cpp */; };
+		F84484151A2B8C76002D9EC0 /* CCStoreConsts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1C619B1C4FF0054EA87 /* CCStoreConsts.cpp */; };
+		F84484161A2B8C76002D9EC0 /* CCStoreEventDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1C819B1C4FF0054EA87 /* CCStoreEventDispatcher.cpp */; };
+		F84484171A2B8C76002D9EC0 /* CCStoreInventory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1CB19B1C4FF0054EA87 /* CCStoreInventory.cpp */; };
+		F84484181A2B8C76002D9EC0 /* CCStoreService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1CD19B1C4FF0054EA87 /* CCStoreService.cpp */; };
+		F84484191A2B8C76002D9EC0 /* CCStoreInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1D119B1C4FF0054EA87 /* CCStoreInfo.cpp */; };
+		F844841A1A2B8C76002D9EC0 /* CCVirtualItemStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141421A24B66A0047FB73 /* CCVirtualItemStorage.cpp */; };
+		F844841B1A2B8C76002D9EC0 /* CCVirtualCurrencyStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F84141461A24B67D0047FB73 /* CCVirtualCurrencyStorage.cpp */; };
+		F844841C1A2B8C76002D9EC0 /* CCVirtualGoodsStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F841414A1A24B6900047FB73 /* CCVirtualGoodsStorage.cpp */; };
+		F844841D1A2B8C76002D9EC0 /* CCMarketItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1D419B1C4FF0054EA87 /* CCMarketItem.cpp */; };
+		F844841E1A2B8C76002D9EC0 /* CCPurchasableVirtualItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1D819B1C4FF0054EA87 /* CCPurchasableVirtualItem.cpp */; };
+		F844841F1A2B8C76002D9EC0 /* CCVirtualCategory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1DA19B1C4FF0054EA87 /* CCVirtualCategory.cpp */; };
+		F84484201A2B8C76002D9EC0 /* CCVirtualItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1DC19B1C4FF0054EA87 /* CCVirtualItem.cpp */; };
+		F84484211A2B8C76002D9EC0 /* CCVirtualCurrency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1DF19B1C4FF0054EA87 /* CCVirtualCurrency.cpp */; };
+		F84484221A2B8C76002D9EC0 /* CCVirtualCurrencyPack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1E119B1C4FF0054EA87 /* CCVirtualCurrencyPack.cpp */; };
+		F84484231A2B8C76002D9EC0 /* CCEquippableVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1E419B1C4FF0054EA87 /* CCEquippableVG.cpp */; };
+		F84484241A2B8C76002D9EC0 /* CCLifetimeVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1E619B1C4FF0054EA87 /* CCLifetimeVG.cpp */; };
+		F84484251A2B8C76002D9EC0 /* CCSingleUsePackVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1E819B1C4FF0054EA87 /* CCSingleUsePackVG.cpp */; };
+		F84484261A2B8C76002D9EC0 /* CCSingleUseVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1EA19B1C4FF0054EA87 /* CCSingleUseVG.cpp */; };
+		F84484271A2B8C76002D9EC0 /* CCUpgradeVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1EC19B1C4FF0054EA87 /* CCUpgradeVG.cpp */; };
+		F84484281A2B8C76002D9EC0 /* CCVirtualGood.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1EE19B1C4FF0054EA87 /* CCVirtualGood.cpp */; };
+		F84484291A2B8C76002D9EC0 /* CCPurchaseType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1F619B1C4FF0054EA87 /* CCPurchaseType.cpp */; };
+		F844842A1A2B8C76002D9EC0 /* CCPurchaseWithMarket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1F819B1C4FF0054EA87 /* CCPurchaseWithMarket.cpp */; };
+		F844842B1A2B8C76002D9EC0 /* CCPurchaseWithVirtualItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1FA19B1C4FF0054EA87 /* CCPurchaseWithVirtualItem.cpp */; };
+		F844842C1A2B8C76002D9EC0 /* CCVirtualItemReward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D1FD19B1C4FF0054EA87 /* CCVirtualItemReward.cpp */; };
+		F844842D1A2B8C83002D9EC0 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F844842E1A2B8C8C002D9EC0 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F844842F1A2B8CAD002D9EC0 /* CCNativeStoreService.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141311A2472930047FB73 /* CCNativeStoreService.h */; };
+		F84484301A2B8CAD002D9EC0 /* CCNativeSoomlaStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141391A2484370047FB73 /* CCNativeSoomlaStore.h */; };
+		F84484311A2B8CAD002D9EC0 /* CCNativeVirtualCurrencyStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F841414F1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.h */; };
+		F84484321A2B8CAD002D9EC0 /* CCNativeVirtualGoodsStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141531A24D6160047FB73 /* CCNativeVirtualGoodsStorage.h */; };
+		F84484331A2B8CAD002D9EC0 /* CCNativeStoreInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F8F644991A262F5E00C6D3CC /* CCNativeStoreInfo.h */; };
+		F84484341A2B8CAD002D9EC0 /* CCSimpleStoreEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1C219B1C4FF0054EA87 /* CCSimpleStoreEventHandler.h */; };
+		F84484351A2B8CAD002D9EC0 /* CCSoomlaStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1C419B1C4FF0054EA87 /* CCSoomlaStore.h */; };
+		F84484361A2B8CAD002D9EC0 /* CCStoreAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1C519B1C4FF0054EA87 /* CCStoreAssets.h */; };
+		F84484371A2B8CAD002D9EC0 /* CCStoreConsts.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1C719B1C4FF0054EA87 /* CCStoreConsts.h */; };
+		F84484381A2B8CAD002D9EC0 /* CCStoreEventDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1C919B1C4FF0054EA87 /* CCStoreEventDispatcher.h */; };
+		F84484391A2B8CAE002D9EC0 /* CCStoreEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1CA19B1C4FF0054EA87 /* CCStoreEventHandler.h */; };
+		F844843A1A2B8CAE002D9EC0 /* CCStoreInventory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1CC19B1C4FF0054EA87 /* CCStoreInventory.h */; };
+		F844843B1A2B8CAE002D9EC0 /* CCStoreService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1CE19B1C4FF0054EA87 /* CCStoreService.h */; };
+		F844843C1A2B8CAE002D9EC0 /* Cocos2dxStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1CF19B1C4FF0054EA87 /* Cocos2dxStore.h */; };
+		F844843D1A2B8CAE002D9EC0 /* CCStoreInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1D219B1C4FF0054EA87 /* CCStoreInfo.h */; };
+		F844843E1A2B8CAE002D9EC0 /* CCVirtualItemStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141431A24B66A0047FB73 /* CCVirtualItemStorage.h */; };
+		F844843F1A2B8CAE002D9EC0 /* CCVirtualCurrencyStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F84141471A24B67D0047FB73 /* CCVirtualCurrencyStorage.h */; };
+		F84484401A2B8CAE002D9EC0 /* CCVirtualGoodsStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F841414B1A24B6900047FB73 /* CCVirtualGoodsStorage.h */; };
+		F84484411A2B8CAE002D9EC0 /* CCMarketItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1D519B1C4FF0054EA87 /* CCMarketItem.h */; };
+		F84484421A2B8CAE002D9EC0 /* CCPurchasableVirtualItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1D919B1C4FF0054EA87 /* CCPurchasableVirtualItem.h */; };
+		F84484431A2B8CAE002D9EC0 /* CCVirtualCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1DB19B1C4FF0054EA87 /* CCVirtualCategory.h */; };
+		F84484441A2B8CAE002D9EC0 /* CCVirtualItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1DD19B1C4FF0054EA87 /* CCVirtualItem.h */; };
+		F84484451A2B8CAE002D9EC0 /* CCVirtualCurrency.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1E019B1C4FF0054EA87 /* CCVirtualCurrency.h */; };
+		F84484461A2B8CAE002D9EC0 /* CCVirtualCurrencyPack.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1E219B1C4FF0054EA87 /* CCVirtualCurrencyPack.h */; };
+		F84484471A2B8CAE002D9EC0 /* CCEquippableVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1E519B1C4FF0054EA87 /* CCEquippableVG.h */; };
+		F84484481A2B8CAE002D9EC0 /* CCLifetimeVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1E719B1C4FF0054EA87 /* CCLifetimeVG.h */; };
+		F84484491A2B8CAE002D9EC0 /* CCSingleUsePackVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1E919B1C4FF0054EA87 /* CCSingleUsePackVG.h */; };
+		F844844A1A2B8CAE002D9EC0 /* CCSingleUseVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1EB19B1C4FF0054EA87 /* CCSingleUseVG.h */; };
+		F844844B1A2B8CAE002D9EC0 /* CCUpgradeVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1ED19B1C4FF0054EA87 /* CCUpgradeVG.h */; };
+		F844844C1A2B8CAE002D9EC0 /* CCVirtualGood.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1EF19B1C4FF0054EA87 /* CCVirtualGood.h */; };
+		F844844D1A2B8CAE002D9EC0 /* (null) in Headers */ = {isa = PBXBuildFile; };
+		F844844E1A2B8CAE002D9EC0 /* (null) in Headers */ = {isa = PBXBuildFile; };
+		F844844F1A2B8CAE002D9EC0 /* CCPurchaseType.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1F719B1C4FF0054EA87 /* CCPurchaseType.h */; };
+		F84484501A2B8CAE002D9EC0 /* CCPurchaseWithMarket.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1F919B1C4FF0054EA87 /* CCPurchaseWithMarket.h */; };
+		F84484511A2B8CAE002D9EC0 /* CCPurchaseWithVirtualItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1FB19B1C4FF0054EA87 /* CCPurchaseWithVirtualItem.h */; };
+		F84484521A2B8CAE002D9EC0 /* CCVirtualItemReward.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D1FE19B1C4FF0054EA87 /* CCVirtualItemReward.h */; };
+		F8F6449A1A262F5E00C6D3CC /* CCNativeStoreInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8F644981A262F5E00C6D3CC /* CCNativeStoreInfo.cpp */; };
+		F8F6449B1A262F5E00C6D3CC /* CCNativeStoreInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F8F644991A262F5E00C6D3CC /* CCNativeStoreInfo.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -168,6 +253,23 @@
 		9D63D23719B1C56E0054EA87 /* libSoomlaiOSStore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSoomlaiOSStore.a; path = build/ios/libSoomlaiOSStore.a; sourceTree = "<group>"; };
 		C0B3C5EF168C6D0C00161FAA /* libCocos2dXStore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocos2dXStore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B3C5F2168C6D0C00161FAA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F84141301A2472930047FB73 /* CCNativeStoreService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeStoreService.cpp; sourceTree = "<group>"; };
+		F84141311A2472930047FB73 /* CCNativeStoreService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeStoreService.h; sourceTree = "<group>"; };
+		F84141381A2484370047FB73 /* CCNativeSoomlaStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeSoomlaStore.cpp; sourceTree = "<group>"; };
+		F84141391A2484370047FB73 /* CCNativeSoomlaStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeSoomlaStore.h; sourceTree = "<group>"; };
+		F84141421A24B66A0047FB73 /* CCVirtualItemStorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualItemStorage.cpp; sourceTree = "<group>"; };
+		F84141431A24B66A0047FB73 /* CCVirtualItemStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualItemStorage.h; sourceTree = "<group>"; };
+		F84141461A24B67D0047FB73 /* CCVirtualCurrencyStorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualCurrencyStorage.cpp; sourceTree = "<group>"; };
+		F84141471A24B67D0047FB73 /* CCVirtualCurrencyStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualCurrencyStorage.h; sourceTree = "<group>"; };
+		F841414A1A24B6900047FB73 /* CCVirtualGoodsStorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVirtualGoodsStorage.cpp; sourceTree = "<group>"; };
+		F841414B1A24B6900047FB73 /* CCVirtualGoodsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVirtualGoodsStorage.h; sourceTree = "<group>"; };
+		F841414E1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeVirtualCurrencyStorage.cpp; sourceTree = "<group>"; };
+		F841414F1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeVirtualCurrencyStorage.h; sourceTree = "<group>"; };
+		F84141521A24D6160047FB73 /* CCNativeVirtualGoodsStorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeVirtualGoodsStorage.cpp; sourceTree = "<group>"; };
+		F84141531A24D6160047FB73 /* CCNativeVirtualGoodsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeVirtualGoodsStorage.h; sourceTree = "<group>"; };
+		F84483F71A2B8AF0002D9EC0 /* libCocos2dXStore Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCocos2dXStore Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8F644981A262F5E00C6D3CC /* CCNativeStoreInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNativeStoreInfo.cpp; sourceTree = "<group>"; };
+		F8F644991A262F5E00C6D3CC /* CCNativeStoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeStoreInfo.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,12 +293,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F84483F41A2B8AF0002D9EC0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		9D63D1C019B1C4FF0054EA87 /* Soomla */ = {
 			isa = PBXGroup;
 			children = (
+				F8A1E3F01A238F45006FAA3C /* NativeImpl */,
 				9D63D1C119B1C4FF0054EA87 /* CCSimpleStoreEventHandler.cpp */,
 				9D63D1C219B1C4FF0054EA87 /* CCSimpleStoreEventHandler.h */,
 				9D63D1C319B1C4FF0054EA87 /* CCSoomlaStore.cpp */,
@@ -225,6 +335,12 @@
 			children = (
 				9D63D1D119B1C4FF0054EA87 /* CCStoreInfo.cpp */,
 				9D63D1D219B1C4FF0054EA87 /* CCStoreInfo.h */,
+				F84141421A24B66A0047FB73 /* CCVirtualItemStorage.cpp */,
+				F84141431A24B66A0047FB73 /* CCVirtualItemStorage.h */,
+				F84141461A24B67D0047FB73 /* CCVirtualCurrencyStorage.cpp */,
+				F84141471A24B67D0047FB73 /* CCVirtualCurrencyStorage.h */,
+				F841414A1A24B6900047FB73 /* CCVirtualGoodsStorage.cpp */,
+				F841414B1A24B6900047FB73 /* CCVirtualGoodsStorage.h */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -312,6 +428,7 @@
 			children = (
 				C0B3C5EF168C6D0C00161FAA /* libCocos2dXStore.a */,
 				9D52648219DBE06100BDA0F5 /* libCocos2dXStoreWithJsb.a */,
+				F84483F71A2B8AF0002D9EC0 /* libCocos2dXStore Mac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -324,6 +441,23 @@
 				C0B3C5F2168C6D0C00161FAA /* Foundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F8A1E3F01A238F45006FAA3C /* NativeImpl */ = {
+			isa = PBXGroup;
+			children = (
+				F84141301A2472930047FB73 /* CCNativeStoreService.cpp */,
+				F84141311A2472930047FB73 /* CCNativeStoreService.h */,
+				F84141381A2484370047FB73 /* CCNativeSoomlaStore.cpp */,
+				F84141391A2484370047FB73 /* CCNativeSoomlaStore.h */,
+				F841414E1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.cpp */,
+				F841414F1A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.h */,
+				F84141521A24D6160047FB73 /* CCNativeVirtualGoodsStorage.cpp */,
+				F84141531A24D6160047FB73 /* CCNativeVirtualGoodsStorage.h */,
+				F8F644981A262F5E00C6D3CC /* CCNativeStoreInfo.cpp */,
+				F8F644991A262F5E00C6D3CC /* CCNativeStoreInfo.h */,
+			);
+			path = NativeImpl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,7 +486,6 @@
 				9D52647419DBE06100BDA0F5 /* CCSingleUseVG.h in Headers */,
 				9D52647519DBE06100BDA0F5 /* CCSoomlaStore.h in Headers */,
 				9D52647619DBE06100BDA0F5 /* CCLifetimeVG.h in Headers */,
-				9D52647719DBE06100BDA0F5 /* CCNonConsumableItem.h in Headers */,
 				9D52647819DBE06100BDA0F5 /* CCSingleUsePackVG.h in Headers */,
 				9D52647919DBE06100BDA0F5 /* CCEquippableVG.h in Headers */,
 				9D52647A19DBE06100BDA0F5 /* CCStoreInventory.h in Headers */,
@@ -372,13 +505,18 @@
 				9D63D22F19B1C4FF0054EA87 /* CCPurchaseType.h in Headers */,
 				9D63D21B19B1C4FF0054EA87 /* CCVirtualCurrency.h in Headers */,
 				9D63D23519B1C4FF0054EA87 /* CCVirtualItemReward.h in Headers */,
+				F84141331A2472930047FB73 /* CCNativeStoreService.h in Headers */,
 				9D63D21119B1C4FF0054EA87 /* CCMarketItem.h in Headers */,
 				9D63D23119B1C4FF0054EA87 /* CCPurchaseWithMarket.h in Headers */,
+				F84141511A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.h in Headers */,
+				F841413B1A2484370047FB73 /* CCNativeSoomlaStore.h in Headers */,
+				F84141451A24B66A0047FB73 /* CCVirtualItemStorage.h in Headers */,
 				9D63D21719B1C4FF0054EA87 /* CCVirtualCategory.h in Headers */,
 				9D63D21519B1C4FF0054EA87 /* CCPurchasableVirtualItem.h in Headers */,
 				9D63D20D19B1C4FF0054EA87 /* Cocos2dxStore.h in Headers */,
 				9D63D20019B1C4FF0054EA87 /* CCSimpleStoreEventHandler.h in Headers */,
 				9D63D22919B1C4FF0054EA87 /* CCVirtualGood.h in Headers */,
+				F841414D1A24B6900047FB73 /* CCVirtualGoodsStorage.h in Headers */,
 				9D63D20C19B1C4FF0054EA87 /* CCStoreService.h in Headers */,
 				9D63D20F19B1C4FF0054EA87 /* CCStoreInfo.h in Headers */,
 				9D63D21D19B1C4FF0054EA87 /* CCVirtualCurrencyPack.h in Headers */,
@@ -387,12 +525,58 @@
 				9D63D20219B1C4FF0054EA87 /* CCSoomlaStore.h in Headers */,
 				9D63D22119B1C4FF0054EA87 /* CCLifetimeVG.h in Headers */,
 				9D63D22319B1C4FF0054EA87 /* CCSingleUsePackVG.h in Headers */,
+				F8F6449B1A262F5E00C6D3CC /* CCNativeStoreInfo.h in Headers */,
 				9D63D21F19B1C4FF0054EA87 /* CCEquippableVG.h in Headers */,
 				9D63D20A19B1C4FF0054EA87 /* CCStoreInventory.h in Headers */,
+				F84141551A24D6160047FB73 /* CCNativeVirtualGoodsStorage.h in Headers */,
 				9D63D22719B1C4FF0054EA87 /* CCUpgradeVG.h in Headers */,
 				9D63D21919B1C4FF0054EA87 /* CCVirtualItem.h in Headers */,
+				F84141491A24B67D0047FB73 /* CCVirtualCurrencyStorage.h in Headers */,
 				9D63D20519B1C4FF0054EA87 /* CCStoreConsts.h in Headers */,
 				9D63D20319B1C4FF0054EA87 /* CCStoreAssets.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F84483F51A2B8AF0002D9EC0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F844842F1A2B8CAD002D9EC0 /* CCNativeStoreService.h in Headers */,
+				F84484301A2B8CAD002D9EC0 /* CCNativeSoomlaStore.h in Headers */,
+				F84484311A2B8CAD002D9EC0 /* CCNativeVirtualCurrencyStorage.h in Headers */,
+				F84484321A2B8CAD002D9EC0 /* CCNativeVirtualGoodsStorage.h in Headers */,
+				F84484331A2B8CAD002D9EC0 /* CCNativeStoreInfo.h in Headers */,
+				F84484341A2B8CAD002D9EC0 /* CCSimpleStoreEventHandler.h in Headers */,
+				F84484351A2B8CAD002D9EC0 /* CCSoomlaStore.h in Headers */,
+				F84484361A2B8CAD002D9EC0 /* CCStoreAssets.h in Headers */,
+				F84484371A2B8CAD002D9EC0 /* CCStoreConsts.h in Headers */,
+				F84484381A2B8CAD002D9EC0 /* CCStoreEventDispatcher.h in Headers */,
+				F84484391A2B8CAE002D9EC0 /* CCStoreEventHandler.h in Headers */,
+				F844843A1A2B8CAE002D9EC0 /* CCStoreInventory.h in Headers */,
+				F844843B1A2B8CAE002D9EC0 /* CCStoreService.h in Headers */,
+				F844843C1A2B8CAE002D9EC0 /* Cocos2dxStore.h in Headers */,
+				F844843D1A2B8CAE002D9EC0 /* CCStoreInfo.h in Headers */,
+				F844843E1A2B8CAE002D9EC0 /* CCVirtualItemStorage.h in Headers */,
+				F844843F1A2B8CAE002D9EC0 /* CCVirtualCurrencyStorage.h in Headers */,
+				F84484401A2B8CAE002D9EC0 /* CCVirtualGoodsStorage.h in Headers */,
+				F84484411A2B8CAE002D9EC0 /* CCMarketItem.h in Headers */,
+				F84484421A2B8CAE002D9EC0 /* CCPurchasableVirtualItem.h in Headers */,
+				F84484431A2B8CAE002D9EC0 /* CCVirtualCategory.h in Headers */,
+				F84484441A2B8CAE002D9EC0 /* CCVirtualItem.h in Headers */,
+				F84484451A2B8CAE002D9EC0 /* CCVirtualCurrency.h in Headers */,
+				F84484461A2B8CAE002D9EC0 /* CCVirtualCurrencyPack.h in Headers */,
+				F84484471A2B8CAE002D9EC0 /* CCEquippableVG.h in Headers */,
+				F84484481A2B8CAE002D9EC0 /* CCLifetimeVG.h in Headers */,
+				F84484491A2B8CAE002D9EC0 /* CCSingleUsePackVG.h in Headers */,
+				F844844A1A2B8CAE002D9EC0 /* CCSingleUseVG.h in Headers */,
+				F844844B1A2B8CAE002D9EC0 /* CCUpgradeVG.h in Headers */,
+				F844844C1A2B8CAE002D9EC0 /* CCVirtualGood.h in Headers */,
+				F844844D1A2B8CAE002D9EC0 /* (null) in Headers */,
+				F844844E1A2B8CAE002D9EC0 /* (null) in Headers */,
+				F844844F1A2B8CAE002D9EC0 /* CCPurchaseType.h in Headers */,
+				F84484501A2B8CAE002D9EC0 /* CCPurchaseWithMarket.h in Headers */,
+				F84484511A2B8CAE002D9EC0 /* CCPurchaseWithVirtualItem.h in Headers */,
+				F84484521A2B8CAE002D9EC0 /* CCVirtualItemReward.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +617,23 @@
 			productReference = C0B3C5EF168C6D0C00161FAA /* libCocos2dXStore.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		F84483F61A2B8AF0002D9EC0 /* Cocos2dXStore Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F84484081A2B8AF1002D9EC0 /* Build configuration list for PBXNativeTarget "Cocos2dXStore Mac" */;
+			buildPhases = (
+				F84483F31A2B8AF0002D9EC0 /* Sources */,
+				F84483F41A2B8AF0002D9EC0 /* Frameworks */,
+				F84483F51A2B8AF0002D9EC0 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Cocos2dXStore Mac";
+			productName = "Cocos2dXStore Mac";
+			productReference = F84483F71A2B8AF0002D9EC0 /* libCocos2dXStore Mac.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -441,6 +642,11 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = SOOMLA;
+				TargetAttributes = {
+					F84483F61A2B8AF0002D9EC0 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
 			};
 			buildConfigurationList = C0B3C5E9168C6D0C00161FAA /* Build configuration list for PBXProject "Cocos2dXStore" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -456,6 +662,7 @@
 			targets = (
 				C0B3C5EE168C6D0C00161FAA /* Cocos2dXStore */,
 				9D52644119DBE06100BDA0F5 /* Cocos2dXStoreWithJsb */,
+				F84483F61A2B8AF0002D9EC0 /* Cocos2dXStore Mac */,
 			);
 		};
 /* End PBXProject section */
@@ -496,28 +703,76 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D63D22819B1C4FF0054EA87 /* CCVirtualGood.cpp in Sources */,
+				F841413A1A2484370047FB73 /* CCNativeSoomlaStore.cpp in Sources */,
+				F84141441A24B66A0047FB73 /* CCVirtualItemStorage.cpp in Sources */,
 				9D63D21A19B1C4FF0054EA87 /* CCVirtualCurrency.cpp in Sources */,
 				9D63D22419B1C4FF0054EA87 /* CCSingleUseVG.cpp in Sources */,
+				F84141501A24D5FF0047FB73 /* CCNativeVirtualCurrencyStorage.cpp in Sources */,
 				9D63D23219B1C4FF0054EA87 /* CCPurchaseWithVirtualItem.cpp in Sources */,
 				9D63D21419B1C4FF0054EA87 /* CCPurchasableVirtualItem.cpp in Sources */,
 				9D63D22019B1C4FF0054EA87 /* CCLifetimeVG.cpp in Sources */,
 				9D63D21C19B1C4FF0054EA87 /* CCVirtualCurrencyPack.cpp in Sources */,
 				9D63D21819B1C4FF0054EA87 /* CCVirtualItem.cpp in Sources */,
+				F8F6449A1A262F5E00C6D3CC /* CCNativeStoreInfo.cpp in Sources */,
 				9D63D20119B1C4FF0054EA87 /* CCSoomlaStore.cpp in Sources */,
 				9D63D23419B1C4FF0054EA87 /* CCVirtualItemReward.cpp in Sources */,
 				9D63D21E19B1C4FF0054EA87 /* CCEquippableVG.cpp in Sources */,
 				9D63D20419B1C4FF0054EA87 /* CCStoreConsts.cpp in Sources */,
 				9D63D21019B1C4FF0054EA87 /* CCMarketItem.cpp in Sources */,
+				F841414C1A24B6900047FB73 /* CCVirtualGoodsStorage.cpp in Sources */,
 				9D63D22E19B1C4FF0054EA87 /* CCPurchaseType.cpp in Sources */,
 				9D63D21619B1C4FF0054EA87 /* CCVirtualCategory.cpp in Sources */,
 				9D63D22219B1C4FF0054EA87 /* CCSingleUsePackVG.cpp in Sources */,
+				F84141541A24D6160047FB73 /* CCNativeVirtualGoodsStorage.cpp in Sources */,
+				F84141481A24B67D0047FB73 /* CCVirtualCurrencyStorage.cpp in Sources */,
 				9D63D20919B1C4FF0054EA87 /* CCStoreInventory.cpp in Sources */,
 				9D63D22619B1C4FF0054EA87 /* CCUpgradeVG.cpp in Sources */,
 				9D63D23019B1C4FF0054EA87 /* CCPurchaseWithMarket.cpp in Sources */,
 				9D63D20B19B1C4FF0054EA87 /* CCStoreService.cpp in Sources */,
 				9D63D1FF19B1C4FF0054EA87 /* CCSimpleStoreEventHandler.cpp in Sources */,
 				9D63D20E19B1C4FF0054EA87 /* CCStoreInfo.cpp in Sources */,
+				F84141321A2472930047FB73 /* CCNativeStoreService.cpp in Sources */,
 				9D63D20619B1C4FF0054EA87 /* CCStoreEventDispatcher.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F84483F31A2B8AF0002D9EC0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F844842E1A2B8C8C002D9EC0 /* (null) in Sources */,
+				F844842D1A2B8C83002D9EC0 /* (null) in Sources */,
+				F844840E1A2B8C76002D9EC0 /* CCNativeStoreService.cpp in Sources */,
+				F844840F1A2B8C76002D9EC0 /* CCNativeSoomlaStore.cpp in Sources */,
+				F84484101A2B8C76002D9EC0 /* CCNativeVirtualCurrencyStorage.cpp in Sources */,
+				F84484111A2B8C76002D9EC0 /* CCNativeVirtualGoodsStorage.cpp in Sources */,
+				F84484121A2B8C76002D9EC0 /* CCNativeStoreInfo.cpp in Sources */,
+				F84484131A2B8C76002D9EC0 /* CCSimpleStoreEventHandler.cpp in Sources */,
+				F84484141A2B8C76002D9EC0 /* CCSoomlaStore.cpp in Sources */,
+				F84484151A2B8C76002D9EC0 /* CCStoreConsts.cpp in Sources */,
+				F84484161A2B8C76002D9EC0 /* CCStoreEventDispatcher.cpp in Sources */,
+				F84484171A2B8C76002D9EC0 /* CCStoreInventory.cpp in Sources */,
+				F84484181A2B8C76002D9EC0 /* CCStoreService.cpp in Sources */,
+				F84484191A2B8C76002D9EC0 /* CCStoreInfo.cpp in Sources */,
+				F844841A1A2B8C76002D9EC0 /* CCVirtualItemStorage.cpp in Sources */,
+				F844841B1A2B8C76002D9EC0 /* CCVirtualCurrencyStorage.cpp in Sources */,
+				F844841C1A2B8C76002D9EC0 /* CCVirtualGoodsStorage.cpp in Sources */,
+				F844841D1A2B8C76002D9EC0 /* CCMarketItem.cpp in Sources */,
+				F844841E1A2B8C76002D9EC0 /* CCPurchasableVirtualItem.cpp in Sources */,
+				F844841F1A2B8C76002D9EC0 /* CCVirtualCategory.cpp in Sources */,
+				F84484201A2B8C76002D9EC0 /* CCVirtualItem.cpp in Sources */,
+				F84484211A2B8C76002D9EC0 /* CCVirtualCurrency.cpp in Sources */,
+				F84484221A2B8C76002D9EC0 /* CCVirtualCurrencyPack.cpp in Sources */,
+				F84484231A2B8C76002D9EC0 /* CCEquippableVG.cpp in Sources */,
+				F84484241A2B8C76002D9EC0 /* CCLifetimeVG.cpp in Sources */,
+				F84484251A2B8C76002D9EC0 /* CCSingleUsePackVG.cpp in Sources */,
+				F84484261A2B8C76002D9EC0 /* CCSingleUseVG.cpp in Sources */,
+				F84484271A2B8C76002D9EC0 /* CCUpgradeVG.cpp in Sources */,
+				F84484281A2B8C76002D9EC0 /* CCVirtualGood.cpp in Sources */,
+				F84484291A2B8C76002D9EC0 /* CCPurchaseType.cpp in Sources */,
+				F844842A1A2B8C76002D9EC0 /* CCPurchaseWithMarket.cpp in Sources */,
+				F844842B1A2B8C76002D9EC0 /* CCPurchaseWithVirtualItem.cpp in Sources */,
+				F844842C1A2B8C76002D9EC0 /* CCVirtualItemReward.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,15 +793,11 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(SRCROOT)/../../cocos2dx\"",
-					"\"$(SRCROOT)/../../cocos2dx/include\"",
-					"\"$(SRCROOT)/../../cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../../cocos2dx/platform/third_party/ios\"",
 					"\"$(SRCROOT)/../../cocos2dx/platform/ios\"",
 					"\"$(SRCROOT)/../../cocos2dx/platform/ios/Simulation\"",
-					"$(SRCROOT)/../../external/jansson",
 					"$(SRCROOT)/build/ios/headers/**",
-					"$(SRCROOT)/../soomla-cocos2dx-core/Soomla/**",
+					"$(SRCROOT)/../soomla-cocos2dx-core/build/ios/headers/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/build/ios";
 				LINK_WITH_STANDARD_LIBRARIES = NO;
@@ -574,16 +825,11 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(SRCROOT)/../../cocos2dx\"",
-					"\"$(SRCROOT)/../../cocos2dx/include\"",
-					"\"$(SRCROOT)/../../cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../../cocos2dx/platform/third_party/ios\"",
 					"\"$(SRCROOT)/../../cocos2dx/platform/ios\"",
 					"\"$(SRCROOT)/../../cocos2dx/platform/ios/Simulation\"",
-					"$(SRCROOT)/../../external/jansson",
 					"$(SRCROOT)/build/ios/headers/**",
 					"$(SRCROOT)/../soomla-cocos2dx-core/build/ios/headers/**",
-					"$(SRCROOT)/../soomla-cocos2dx-core/Soomla/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/build/ios";
 				LINK_WITH_STANDARD_LIBRARIES = NO;
@@ -615,11 +861,21 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"COCOS2D_DEBUG=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../cocos2dx\"",
+					"\"$(SRCROOT)/../../cocos2dx/include\"",
+					"\"$(SRCROOT)/../../cocos2dx/kazmath/include\"",
+					"$(SRCROOT)/../../external/jansson",
+					"$(SRCROOT)/../soomla-cocos2dx-core/Soomla/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -641,6 +897,15 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../cocos2dx\"",
+					"\"$(SRCROOT)/../../cocos2dx/include\"",
+					"\"$(SRCROOT)/../../cocos2dx/kazmath/include\"",
+					"$(SRCROOT)/../../external/jansson",
+					"$(SRCROOT)/../soomla-cocos2dx-core/Soomla/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -654,21 +919,16 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOS2D_DEBUG=1",
 					CC_TARGET_OS_IPHONE,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(SRCROOT)/../../cocos2dx\"",
-					"\"$(SRCROOT)/../../cocos2dx/include\"",
-					"\"$(SRCROOT)/../../cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../../cocos2dx/platform/third_party/ios\"",
 					"\"$(SRCROOT)/../../cocos2dx/platform/ios\"",
 					"\"$(SRCROOT)/../../cocos2dx/platform/ios/Simulation\"",
-					"$(SRCROOT)/../../external/jansson",
 					"$(SRCROOT)/build/ios/headers/**",
-					"$(SRCROOT)/../soomla-cocos2dx-core/Soomla/**",
+					"$(SRCROOT)/../soomla-cocos2dx-core/build/ios/headers/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/build/ios";
 				LINK_WITH_STANDARD_LIBRARIES = NO;
@@ -693,16 +953,11 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(SRCROOT)/../../cocos2dx\"",
-					"\"$(SRCROOT)/../../cocos2dx/include\"",
-					"\"$(SRCROOT)/../../cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../../cocos2dx/platform/third_party/ios\"",
 					"\"$(SRCROOT)/../../cocos2dx/platform/ios\"",
 					"\"$(SRCROOT)/../../cocos2dx/platform/ios/Simulation\"",
-					"$(SRCROOT)/../../external/jansson",
 					"$(SRCROOT)/build/ios/headers/**",
 					"$(SRCROOT)/../soomla-cocos2dx-core/build/ios/headers/**",
-					"$(SRCROOT)/../soomla-cocos2dx-core/Soomla/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/build/ios";
 				LINK_WITH_STANDARD_LIBRARIES = NO;
@@ -714,6 +969,81 @@
 				SKIP_INSTALL = YES;
 				SYMROOT = out;
 				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		F84484091A2B8AF1002D9EC0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					CC_TARGET_OS_MAC,
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../cocos2dx/platform/mac\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SYMROOT = out;
+			};
+			name = Debug;
+		};
+		F844840A1A2B8AF1002D9EC0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = CC_TARGET_OS_MAC;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../../cocos2dx/platform/mac\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SYMROOT = out;
 			};
 			name = Release;
 		};
@@ -743,6 +1073,15 @@
 			buildConfigurations = (
 				C0B3C5FE168C6D0C00161FAA /* Debug */,
 				C0B3C5FF168C6D0C00161FAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F84484081A2B8AF1002D9EC0 /* Build configuration list for PBXNativeTarget "Cocos2dXStore Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F84484091A2B8AF1002D9EC0 /* Debug */,
+				F844840A1A2B8AF1002D9EC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

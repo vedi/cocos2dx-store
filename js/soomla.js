@@ -1,6 +1,3 @@
-/**
- * Created by vedi on 1/21/14.
- */
 
 var PrevSoomla = Soomla;
 Soomla = new function () {

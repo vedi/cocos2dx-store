@@ -14,13 +14,16 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
-
 #include "CCUpgradeVG.h"
-
-USING_NS_CC;
+#include "CCStoreInfo.h"
+#include "CCSoomlaUtils.h"
+#include "CCVirtualGoodsStorage.h"
 
 namespace soomla {
+    USING_NS_CC;
+    
+    #define TAG "SOOMLA UpgradeVG"
+    
     CCUpgradeVG *CCUpgradeVG::create(CCString *goodItemId, CCString *prevItemId, CCString *nextItemId, CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
         CCUpgradeVG *ret = new CCUpgradeVG();
         if (ret->init(goodItemId, prevItemId, nextItemId, name, description, itemId, purchaseType)) {
@@ -34,7 +37,7 @@ namespace soomla {
     }
 
     bool CCUpgradeVG::init(CCString *goodItemId, CCString *prevItemId, CCString *nextItemId, CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
-        bool res = CCVirtualGood::init(name, description, itemId, purchaseType);
+        bool res = CCLifetimeVG::init(name, description, itemId, purchaseType);
         if (res) {
             setGoodItemId(goodItemId);
             setPrevItemId(prevItemId);
@@ -46,7 +49,7 @@ namespace soomla {
     }
 
     bool CCUpgradeVG::initWithDictionary(CCDictionary *dict) {
-        bool res = CCVirtualGood::initWithDictionary(dict);
+        bool res = CCLifetimeVG::initWithDictionary(dict);
         if (res) {
             fillGoodItemIdFromDict(dict);
             fillPrevItemIdFromDict(dict);
@@ -58,7 +61,7 @@ namespace soomla {
     }
 
     CCDictionary *CCUpgradeVG::toDictionary() {
-        CCDictionary *dict = CCVirtualGood::toDictionary();
+        CCDictionary *dict = CCLifetimeVG::toDictionary();
 
         putGoodItemIdToDict(dict);
         if (mPrevItemId != NULL) {
@@ -73,6 +76,92 @@ namespace soomla {
         }
 
         return dict;
+    }
+    
+    bool CCUpgradeVG::canBuy() {
+        CCError *error = NULL;
+        const char *goodItemId = getGoodItemId()->getCString();
+        CCVirtualGood *good = dynamic_cast<CCVirtualGood *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(goodItemId, &error));
+        if ((error != NULL) || (good == NULL)) {
+            CCSoomlaUtils::logError(TAG, CCString::createWithFormat("VirtualGood with itemId: %s doesn't exist! Returning false (can't buy).", goodItemId)->getCString());
+            if (error != NULL) {
+                CCSoomlaUtils::logException(TAG, error);
+            }
+            return false;
+        }
+        
+        CCUpgradeVG *upgradeVG = CCVirtualGoodsStorage::getInstance()->getCurrentUpgrade(good);
+        
+        return ((upgradeVG == NULL && CCSoomlaUtils::isNullOrEmpty(getPrevItemId())) ||
+                (upgradeVG != NULL && ((upgradeVG->getNextItemId()->isEqual(getItemId())) ||
+                                       (upgradeVG->getPrevItemId()->isEqual(getItemId())))))
+                && CCLifetimeVG::canBuy();
+    }
+    
+    int CCUpgradeVG::give(int amount, bool notify, CCError **error) {
+        const char *goodItemId = getGoodItemId()->getCString();
+        CCSoomlaUtils::logDebug(TAG, CCString::createWithFormat("Assigning %s to: %s",
+                                                                getName()->getCString(),
+                                                                goodItemId)->getCString());
+        
+        CCVirtualGood *good = dynamic_cast<CCVirtualGood *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(goodItemId, error));
+        
+        if (good == NULL) {
+            CCSoomlaUtils::logError(TAG, CCString::createWithFormat("VirtualGood with itemId: %s doesn't exist! Can't upgrade.",
+                                                                    goodItemId)->getCString());
+            return 0;
+        }
+        
+        CCVirtualGoodsStorage::getInstance()->assignCurrentUpgrade(good, this, notify, error);
+        
+        return CCLifetimeVG::give(amount, notify, error);
+    }
+    
+    int CCUpgradeVG::take(int amount, bool notify, CCError **error) {
+        const char *goodItemId = getGoodItemId()->getCString();
+        CCVirtualGood *good = dynamic_cast<CCVirtualGood *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(goodItemId, error));
+        
+        if (good == NULL) {
+            CCSoomlaUtils::logError(TAG, CCString::createWithFormat("VirtualGood with itemId: %s doesn't exist! Can't downgrade.",
+                                                                    goodItemId)->getCString());
+            return 0;
+        }
+        
+        CCUpgradeVG *upgradeVG = CCVirtualGoodsStorage::getInstance()->getCurrentUpgrade(good, error);
+        
+        // Case: Upgrade is not assigned to this Virtual Good
+        if (upgradeVG != this) {
+            CCSoomlaUtils::logError(TAG, CCString::createWithFormat("You can't take an upgrade that's not currently assigned. The UpgradeVG %s is not assigned to the VirtualGood: %s",
+                                                                    getName()->getCString(), good->getName()->getCString())->getCString());
+            return 0;
+        }
+        
+        if (!CCSoomlaUtils::isNullOrEmpty(getPrevItemId())) {
+            const char* prevItemId = getPrevItemId()->getCString();
+            CCUpgradeVG *prevUpgradeVG = dynamic_cast<CCUpgradeVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(prevItemId, error));
+            
+            // Case: downgrade is not possible because previous upgrade does not exist
+            if (prevUpgradeVG == NULL) {
+                CCSoomlaUtils::logError(TAG, CCString::createWithFormat("Previous UpgradeVG with itemId: %s doesn't exist! Can't downgrade.",
+                                                                        prevItemId)->getCString());
+                return 0;
+            }
+            
+            // Case: downgrade is successful!
+            CCSoomlaUtils::logDebug(TAG, CCString::createWithFormat("Downgrading %s to: %s",
+                                                                    good->getName()->getCString(), prevUpgradeVG->getName()->getCString())->getCString());
+
+            CCVirtualGoodsStorage::getInstance()->assignCurrentUpgrade(good, prevUpgradeVG, notify, error);
+        }
+        
+        // Case: first Upgrade in the series - so we downgrade to NO upgrade.
+        else {
+            CCSoomlaUtils::logError(TAG, CCString::createWithFormat("Downgrading %s to NO-UPGRADE",
+                                                                    good->getName()->getCString())->getCString());
+            CCVirtualGoodsStorage::getInstance()->removeUpgrades(good, notify, error);
+        }
+        
+        return CCLifetimeVG::take(amount, notify, error);
     }
 
 

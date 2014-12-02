@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
+
 
 #ifndef __CCPurchasableVirtualItem__
 #define __CCPurchasableVirtualItem__
@@ -39,6 +39,24 @@ namespace soomla {
         virtual bool initWithDictionary(cocos2d::CCDictionary* dict);
         
         virtual ~CCPurchasableVirtualItem();
+        
+        /**
+         Buys the `CCPurchasableVirtualItem`, after checking if the user is in a state that
+         allows him/her to buy. This action uses the associated `CCPurchaseType` to perform
+         the purchase.
+         
+         @param payload a string you want to be assigned to the purchase. 
+         This string is saved in a static variable and will be given bacl to you 
+         when the purchase is completed..
+         @param error A `CCError` for error checking.
+         */
+        void buy(const char* payload, CCError **error = NULL);
+        
+        /**
+         Determines if user is in a state that allows him/her to buy a specific 
+         `CCVirtualItem`.
+         */
+        virtual bool canBuy() { return false; }
 
         /**
         Converts this `CCPurchasableVirtualItem` to a `CCDictionary`.

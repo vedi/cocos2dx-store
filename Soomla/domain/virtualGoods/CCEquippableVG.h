@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
+
 
 #ifndef __CCEquippableVG_H_
 #define __CCEquippableVG_H_
@@ -101,6 +101,8 @@ namespace soomla {
 									  cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
         bool init(cocos2d::CCInteger *equippingModel, cocos2d::CCString* name, cocos2d::CCString* description,
                 cocos2d::CCString* itemId, CCPurchaseType * purchaseType);
+        
+        bool initWithDictionary(cocos2d::CCDictionary *dict);
 
 		/**
          Creates a `CCEquippableVG` from a dictionary.
@@ -118,6 +120,35 @@ namespace soomla {
         cocos2d::CCDictionary *toDictionary();
 
         virtual ~CCEquippableVG();
+        
+        /**
+         Equips the current `CCEquippableVG`
+         @param error If an error was generated during the execution it will
+         be returned here
+         */
+        virtual void equip(CCError **error = NULL) { equip(true, error); }
+        /**
+         Equips the current `CCEquippableVG`.
+         The equipping is done according to the equipping model ('GLOBAL', 'CATEGORY', or 'LOCAL').
+         @param notify if true, the relevant event will be posted when equipped.
+         @param error If an error was generated during the execution it will
+         be returned here
+         */
+        virtual void equip(bool notify, CCError **error = NULL);
+        
+        /**
+         Unequips the current `CCEquippableVG`
+         @param error If an error was generated during the execution it will
+         be returned here
+         */
+        virtual void unequip(CCError **error = NULL) { equip(true, error); }
+        /**
+         Unequips the current `CCEquippableVG`
+         @param notify if true, the relevant event will be posted when equipped.
+         @param error If an error was generated during the execution it will
+         be returned here
+         */
+        virtual void unequip(bool notify, CCError **error = NULL);
 
         virtual const char *getType() const;
     };

@@ -14,9 +14,8 @@
  limitations under the License.
  */
 
-//  Created by Igor Yegoroff on 5/17/13.
-
 #include "CCVirtualCurrency.h"
+#include "CCVirtualCurrencyStorage.h"
 
 namespace soomla {
     
@@ -33,5 +32,21 @@ namespace soomla {
 
     const char *CCVirtualCurrency::getType() const {
         return CCStoreConsts::JSON_JSON_TYPE_VIRTUAL_CURRENCY;
+    }
+    
+    int CCVirtualCurrency::give(int amount, bool notify, CCError **error) {
+        return CCVirtualCurrencyStorage::getInstance()->add(this, amount, notify, error);
+    }
+    
+    int CCVirtualCurrency::take(int amount, bool notify, CCError **error) {
+        return CCVirtualCurrencyStorage::getInstance()->remove(this, amount, notify, error);
+    }
+    
+    int CCVirtualCurrency::resetBalance(int balance, bool notify, CCError **error) {
+        return CCVirtualCurrencyStorage::getInstance()->setBalance(this, balance, notify, error);
+    }
+    
+    int CCVirtualCurrency::getBalance(CCError **error) {
+        return CCVirtualCurrencyStorage::getInstance()->getBalance(this, error);
     }
 }
