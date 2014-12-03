@@ -1,6 +1,3 @@
-//
-// Created by Fedor Shubin on 6/19/14.
-//
 
 #ifndef __CCStoreEventDispatcher_H_
 #define __CCStoreEventDispatcher_H_
@@ -32,9 +29,13 @@ namespace soomla {
 
         virtual void onGoodUpgrade(CCVirtualGood *virtualGood, CCUpgradeVG *upgradeVG);
 
-        virtual void onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem);
+        virtual void onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *payload);
+        
+        virtual void onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *payload, bool alsoPush);
 
         virtual void onItemPurchaseStarted(CCPurchasableVirtualItem *purchasableVirtualItem);
+        
+        virtual void onItemPurchaseStarted(CCPurchasableVirtualItem *purchasableVirtualItem, bool alsoPush);
 
         virtual void onMarketPurchaseCancelled(CCPurchasableVirtualItem *purchasableVirtualItem);
 
@@ -48,9 +49,13 @@ namespace soomla {
 
         virtual void onRestoreTransactionsStarted();
 
-        virtual void onUnexpectedErrorInStore();
+        virtual void onUnexpectedErrorInStore(cocos2d::CCString *errorMessage);
+        
+        virtual void onUnexpectedErrorInStore(cocos2d::CCString *errorMessage, bool alsoPush);
 
-        virtual void onStoreControllerInitialized();
+        virtual void onSoomlaStoreInitialized();
+        
+        virtual void onSoomlaStoreInitialized(bool alsoPush);
 
         virtual void onMarketItemsRefreshed(cocos2d::CCArray *virtualItems);
 

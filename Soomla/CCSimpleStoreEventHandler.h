@@ -1,8 +1,3 @@
-//
-// Created by Shubin Fedor on 20/08/14.
-// Copyright (c) 2014 SOOMLA. All rights reserved.
-//
-
 
 #ifndef __CCSimpleStoreEventHandler_H_
 #define __CCSimpleStoreEventHandler_H_
@@ -27,7 +22,7 @@ namespace soomla {
 
         virtual void onGoodUpgrade(CCVirtualGood *virtualGood, CCUpgradeVG *upgradeVG);
 
-        virtual void onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem);
+        virtual void onItemPurchased(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *payload);
 
         virtual void onItemPurchaseStarted(CCPurchasableVirtualItem *purchasableVirtualItem);
 
@@ -43,9 +38,9 @@ namespace soomla {
 
         virtual void onRestoreTransactionsStarted();
 
-        virtual void onUnexpectedErrorInStore();
+        virtual void onUnexpectedErrorInStore(cocos2d::CCString *errorMessage);
 
-        virtual void onStoreControllerInitialized();
+        virtual void onSoomlaStoreInitialized();
 
         virtual void onMarketItemsRefreshed(cocos2d::CCArray *virtualItems);
 

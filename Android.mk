@@ -7,6 +7,7 @@ LOCAL_MODULE := cocos2dx_store_static
 LOCAL_MODULE_FILENAME := libcocos2dxstore
 
 STORE_SRC_LIST := $(wildcard $(LOCAL_PATH)/Soomla/*.cpp)
+STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/NativeImpl/*.cpp)
 STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/PurchaseTypes/*.cpp)
 STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/data/*.cpp)
 STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/domain/*.cpp)
@@ -14,7 +15,7 @@ STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/domain/virtualCurrencies/*.cpp
 STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/domain/virtualGoods/*.cpp)
 STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/rewards/*.cpp)
 
-LOCAL_SRC_FILES := $(STORE_SRC_LIST)
+LOCAL_SRC_FILES := $(STORE_SRC_LIST:$(LOCAL_PATH)/%=%)
 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/Soomla
@@ -24,6 +25,7 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/Soomla/domain/virtualCurrencies
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/Soomla/domain/virtualGoods
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/Soomla/jsb
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/Soomla/PurchaseTypes
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/Soomla/NativeImpl
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/Soomla/rewards
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../lib
 

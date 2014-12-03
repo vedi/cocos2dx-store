@@ -1,12 +1,12 @@
 /*
  Copyright (C) 2012-2014 Soomla Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
+
 
 #ifndef __CCPurchaseWithMarket_H_
 #define __CCPurchaseWithMarket_H_
@@ -23,12 +23,12 @@
 #include "../domain/CCMarketItem.h"
 
 namespace soomla {
-	/** 
+	/**
      @class CCPurchaseWithMarket
      @brief This type of Purchase is used to let users purchase
      `CCPurchasableVirtualItems` with real money.
-     
-     This type of Purchase is used to let users purchase 
+
+     This type of Purchase is used to let users purchase
      `CCPurchasableVirtualItems` via the store (with real money $$$).
 	 */
     class CCPurchaseWithMarket : public CCPurchaseType {
@@ -44,13 +44,18 @@ namespace soomla {
 		 */
         static CCPurchaseWithMarket *create(cocos2d::CCString *productId, cocos2d::CCDouble *price);
 
-		/** 
+		/**
          Creates a `CCPurchaseWithMarket` from a `CCMarketItem`.
          @param marketItem A `CCMarketItem` that represents this item.
          @return The purchase with market type.
 		 */
         static CCPurchaseWithMarket *createWithMarketItem(CCMarketItem *marketItem);
         bool initWithMarketItem(CCMarketItem *marketItem);
+        
+        /**
+         See parent
+         */
+        virtual void buy(const char* payload, CCError **error = NULL);
 
         ~CCPurchaseWithMarket();
     };

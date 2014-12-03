@@ -1,5 +1,5 @@
 //
-// Created by Fedor Shubin on 5/21/13.
+
 //
 
 
@@ -120,5 +120,6 @@ static NSString* TAG = @"SOOMLA StoreAssets";
 - (NSArray*)virtualCategories{
     return virtualCategoriesArray;
 }
+
 
 @end

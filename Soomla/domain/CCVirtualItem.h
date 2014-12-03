@@ -24,6 +24,7 @@
 #include "CCStoreConsts.h"
 #include "CCSoomlaMacros.h"
 #include "CCSoomlaEntity.h"
+#include "CCError.h"
 
 namespace soomla {
 	/** 
@@ -39,7 +40,85 @@ namespace soomla {
     public:
 
         cocos2d::CCString *getItemId();
+        
+        /**
+         Gives your user the given amount of the specific virtual item.
+         For example, when your users play your game for the first time you 
+         GIVE them 1000 gems.
+         
+         NOTE: This action is different than `PurchasableVirtualItem<`'s `buy()`:
+         You use `give(int amount)`to give your user something for free.
+         You use `buy()` to give your user something and get something in return.
+         
+         @param amount the amount of the specific item to be given.
+         @param error A `CCError` for error checking.
+         @return The balance after the giving process.
+         */
+        int give(int amount, CCError **error = NULL) { return give(amount, true, error); }
+        
+        /**
+         Works like "give" but receives an argument, notify, to indicate
+         
+         @param amount the amount of the specific item to be given
+         @param notify Notify of change in user's balance of current virtual item
+         @param error A `CCError` for error checking.
+         @return The balance after the giving process.
+         */
+        virtual int give(int amount, bool notify, CCError **error = NULL) = 0;
+        
+        /**
+         Takes from your user the given amount of the specific virtual item.
+         For example, when you want to downgrade a virtual good, you take the upgrade.
+         
+         @param amount The amount of the specific item to be taken.
+         @param error A `CCError` for error checking.
+         @return The balance after the taking process.
+         */
+        int take(int amount, CCError **error = NULL) { return take(amount, true, error); }
+        
+        /**
+         Works like "take" but receives an argument, notify, to indicate
+         if there has been a change in the balance of the current virtual item.
+         
+         @param amount The amount of the specific item to be taken.
+         @param notify Notify of change in user's balance of current virtual item
+         @param error A `CCError` for error checking.
+         @return The balance after the taking process.
+         */
+        virtual int take(int amount, bool notify, CCError **error = NULL) = 0;
+        
+        /**
+         Resets this Virtual Item's balance to the given balance.
+         
+         @param balance The balance of the current virtual item.
+         @param error A `CCError` for error checking.
+         @return The balance after the reset process.
+         */
+        int resetBalance(int balance, CCError **error = NULL) { return resetBalance(balance, true, error); }
+        
+        /**
+         Works like "resetBalance" but receives an argument, notify, to indicate
+         if there has been a change in the balance of the current virtual item.
+         
+         @param balance The balance of the current virtual item.
+         @param notify Notify of change in user's balance of current virtual item.
+         @param error A `CCError` for error checking.
+         @return The balance after the reset process.
+         */
+        virtual int resetBalance(int balance, bool notify, CCError **error = NULL) = 0;
+        
+        /**
+         Will fetch the balance for the current VirtualItem according to its type.
+         
+         @param error A `CCError` for error checking.
+         @return The balance.
+         */
+        virtual int getBalance(CCError **error = NULL) = 0;
 
+        /**
+         Save this instance with changes that were made to it.
+         The saving is done in the metadata in StoreInfo and being persisted to the local DB.
+         */
         virtual void save();
     };
     

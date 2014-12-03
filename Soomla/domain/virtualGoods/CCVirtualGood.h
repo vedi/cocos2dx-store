@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
+
 
 #ifndef __CCVirtualGood_H_
 #define __CCVirtualGood_H_
@@ -36,7 +36,14 @@ namespace soomla {
     class CCVirtualGood : public CCPurchasableVirtualItem {
     
     public:
-		
+        /**
+         See parent
+         */
+        virtual int resetBalance(int balance, bool notify, CCError **error = NULL);
+        /**
+         See parent
+         */
+        virtual int getBalance(CCError **error = NULL);
     };
 };
 

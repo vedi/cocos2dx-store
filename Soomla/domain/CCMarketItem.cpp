@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
+
 
 #include "CCMarketItem.h"
 
@@ -48,6 +48,8 @@ namespace soomla {
         char const* key = CCStoreConsts::JSON_MARKET_ITEM_ANDROID_ID;
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         char const* key = CCStoreConsts::JSON_MARKET_ITEM_IOS_ID;
+#else
+        char const* key = CCStoreConsts::JSON_MARKET_ITEM_PRODUCT_ID;
 #endif
         cocos2d::CCObject* obj = dict->objectForKey(key);
         CCAssert(obj == NULL || dynamic_cast<CCString *>(obj), "invalid object type in dictionary");

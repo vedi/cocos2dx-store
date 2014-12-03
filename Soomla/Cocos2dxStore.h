@@ -23,6 +23,8 @@
 #include "CCVirtualGood.h"
 #include "CCVirtualItem.h"
 #include "CCVirtualItemReward.h"
+#include "CCVirtualCurrencyStorage.h"
+#include "CCVirtualGoodsStorage.h"
 
 #include "CCStoreEventDispatcher.h"
 #include "CCStoreEventHandler.h"

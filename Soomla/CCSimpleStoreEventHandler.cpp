@@ -1,7 +1,4 @@
-//
-// Created by Shubin Fedor on 20/08/14.
-// Copyright (c) 2014 SOOMLA. All rights reserved.
-//
+
 
 #include "CCSimpleStoreEventHandler.h"
 
@@ -33,7 +30,7 @@ void soomla::CCSimpleStoreEventHandler::onGoodUpgrade(soomla::CCVirtualGood *vir
 
 }
 
-void soomla::CCSimpleStoreEventHandler::onItemPurchased(soomla::CCPurchasableVirtualItem *purchasableVirtualItem) {
+void soomla::CCSimpleStoreEventHandler::onItemPurchased(soomla::CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *payload) {
 
 }
 
@@ -65,11 +62,11 @@ void soomla::CCSimpleStoreEventHandler::onRestoreTransactionsStarted() {
 
 }
 
-void soomla::CCSimpleStoreEventHandler::onUnexpectedErrorInStore() {
+void soomla::CCSimpleStoreEventHandler::onUnexpectedErrorInStore(cocos2d::CCString *errorMessage) {
 
 }
 
-void soomla::CCSimpleStoreEventHandler::onStoreControllerInitialized() {
+void soomla::CCSimpleStoreEventHandler::onSoomlaStoreInitialized() {
 
 }
 

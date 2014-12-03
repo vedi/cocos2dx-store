@@ -1,12 +1,12 @@
 /*
  Copyright (C) 2012-2014 Soomla Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,12 +14,11 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/20/13.
-
 #include "CCSoomlaStore.h"
-#include "CCNdkBridge.h"
-
-using namespace cocos2d;
+#include "CCStoreInfo.h"
+#include "CCSoomlaUtils.h"
+#include "CCNativeSoomlaStore.h"
+#include "CCStoreEventDispatcher.h"
 
 namespace soomla {
     #define TAG "SOOMLA SoomlaStore"
@@ -27,70 +26,57 @@ namespace soomla {
     USING_NS_CC;
 
     static CCSoomlaStore *s_SharedSoomlaStore = NULL;
+    
+    bool CCSoomlaStore::initialized = false;
 
     CCSoomlaStore *CCSoomlaStore::getInstance() {
         if (!s_SharedSoomlaStore)
         {
+            #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+            s_SharedSoomlaStore = new CCNativeSoomlaStore();
+            #else
             s_SharedSoomlaStore = new CCSoomlaStore();
+            #endif
             s_SharedSoomlaStore->retain();
         }
         return s_SharedSoomlaStore;
     }
-
-    CCSoomlaStore::CCSoomlaStore() {
+    
+    void CCSoomlaStore::initialize(CCStoreAssets *storeAssets) {
+        
+        if (initialized) {
+            const char *err = "SoomlaStore is already initialized. You can't initialize it twice!";
+            CCStoreEventDispatcher::getInstance()->onUnexpectedErrorInStore(CCString::create(err), true);
+            CCSoomlaUtils::logError(TAG, err);
+            return;
+        }
+        
+        CCSoomlaUtils::logDebug(TAG, "CCSoomlaStore Initializing...");
+        
+        getInstance()->loadBillingService();
+        
+        CCStoreInfo::createShared(storeAssets);
+        
+        #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        // On iOS we only refresh market items
+        CCError *error = NULL;
+        getInstance()->refreshMarketItemsDetails(&error);
+        #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+        // On Android we refresh market items and restore transactions
+        getInstance()->refreshInventory();
+        #endif
+        
+        initialized = true;
+        CCStoreEventDispatcher::getInstance()->onSoomlaStoreInitialized(true);
     }
-
-    CCSoomlaStore::~CCSoomlaStore() {
-
-    }
-
+    
     void CCSoomlaStore::buyMarketItem(const char *productId, const char *payload, CCError **error) {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCSoomlaStore::buyMarketItem"), "method");
-        params->setObject(CCString::create(productId), "productId");
-        params->setObject(CCString::create(payload), "payload");
-        CCNdkBridge::callNative (params, error);
+        CCPurchasableVirtualItem *item = CCStoreInfo::sharedStoreInfo()->getPurchasableItemWithProductId(productId, error);
+        if (item == NULL) {
+            return;
+        }
+        
+        // in the editor we just give the item... no real market.
+        item->give(1);
     }
-
-    void CCSoomlaStore::restoreTransactions() {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCSoomlaStore::restoreTransactions"), "method");
-        CCNdkBridge::callNative (params, NULL);
-    }
-
-    void CCSoomlaStore::refreshInventory() {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCSoomlaStore::refreshInventory"), "method");
-        CCNdkBridge::callNative (params, NULL);
-    }
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    bool CCSoomlaStore::transactionsAlreadyRestored() {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCSoomlaStore::transactionsAlreadyRestored"), "method");
-        CCDictionary *retParams = (CCDictionary *) CCNdkBridge::callNative (params, NULL);
-        CCBool *retValue = (CCBool *) retParams->objectForKey("return");
-        return retValue->getValue();
-    }
-
-    void CCSoomlaStore::refreshMarketItemsDetails(CCError **error) {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCSoomlaStore::refreshMarketItemsDetails"), "method");
-        CCNdkBridge::callNative (params, error);
-    }
-#endif
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    void CCSoomlaStore::startIabServiceInBg() {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCSoomlaStore::startIabServiceInBg"), "method");
-        CCNdkBridge::callNative (params, NULL);
-    }
-
-    void CCSoomlaStore::stopIabServiceInBg() {
-        CCDictionary *params = CCDictionary::create();
-        params->setObject(CCString::create("CCSoomlaStore::stopIabServiceInBg"), "method");
-        CCNdkBridge::callNative (params, NULL);
-    }
-#endif
 }

@@ -1,6 +1,7 @@
 package com.soomla.cocos2dx.store;
 
 import android.opengl.GLSurfaceView;
+
 import com.soomla.Soomla;
 import com.soomla.SoomlaUtils;
 import com.soomla.cocos2dx.common.*;
@@ -9,6 +10,7 @@ import com.soomla.store.IStoreAssets;
 import com.soomla.store.SoomlaStore;
 import com.soomla.store.StoreInventory;
 import com.soomla.store.data.StoreInfo;
+import com.soomla.store.data.StorageManager;
 import com.soomla.store.domain.*;
 import com.soomla.store.domain.virtualCurrencies.VirtualCurrency;
 import com.soomla.store.domain.virtualCurrencies.VirtualCurrencyPack;
@@ -28,11 +30,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author vedi
- *         date 6/10/14
- *         time 11:08 AM
- */
 public class StoreService extends AbstractSoomlaService {
 
     private static StoreService INSTANCE = null;
@@ -77,6 +74,7 @@ public class StoreService extends AbstractSoomlaService {
                 init();
                 int version = params.getInt("version");
                 JSONObject storeAssetsJson = params.getJSONObject("storeAssets");
+                StoreInfo.setStoreAssets(version, storeAssetsJson.toString());
                 mStoreAssets = new StoreAssetsBridge(version, storeAssetsJson);
             }
         });
@@ -84,10 +82,7 @@ public class StoreService extends AbstractSoomlaService {
         ndkGlue.registerCallHandler("CCStoreService::init", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                String customSecret = ParamsProvider.getInstance().getParams("common").optString("customSecret");
-                SoomlaUtils.LogDebug("SOOMLA", "initialize is called from java!");
-                Soomla.initialize(customSecret);
-                SoomlaStore.getInstance().initialize(mStoreAssets);
+                // Compatibility
             }
         });
 
@@ -127,6 +122,14 @@ public class StoreService extends AbstractSoomlaService {
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 SoomlaUtils.LogDebug("SOOMLA", "restoreTransactions is called from java!");
                 SoomlaStore.getInstance().restoreTransactions();
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCSoomlaStore::refreshMarketItemsDetails", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                SoomlaUtils.LogDebug("SOOMLA", "refreshMarketItemsDetails is called from java!");
+                SoomlaStore.getInstance().refreshMarketItemsDetails();
             }
         });
 
@@ -176,6 +179,169 @@ public class StoreService extends AbstractSoomlaService {
                     SoomlaUtils.LogError("StoreService JNI", "Something happened while we were trying to run CCSoomlaStore::setTestPurchases. error: " + e.getLocalizedMessage());
                     e.printStackTrace();
                 }
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCSoomlaStore::loadBillingService", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                SoomlaUtils.LogDebug("SOOMLA", "refreshInventory is called from java!");
+                SoomlaStore.getInstance().loadBillingService();
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCStoreInfo::loadFromDB", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                StoreInfo.loadFromDB();
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualCurrencyStorage::getBalance", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                int outBalance = StorageManager.getVirtualCurrencyStorage().getBalance(itemId);
+                retParams.put("return", outBalance);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualCurrencyStorage::setBalance", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                int balance = params.getInt("balance");
+                boolean notify = params.getBoolean("notify");
+                int outBalance = StorageManager.getVirtualCurrencyStorage().setBalance(itemId, balance, notify);
+                retParams.put("return", outBalance);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualCurrencyStorage::add", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                int amount = params.getInt("amount");
+                boolean notify = params.getBoolean("notify");
+                int outBalance = StorageManager.getVirtualCurrencyStorage().add(itemId, amount, notify);
+                retParams.put("return", outBalance);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualCurrencyStorage::remove", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                int amount = params.getInt("amount");
+                boolean notify = params.getBoolean("notify");
+                int outBalance = StorageManager.getVirtualCurrencyStorage().remove(itemId, amount, notify);
+                retParams.put("return", outBalance);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualGoodsStorage::getBalance", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                int outBalance = StorageManager.getVirtualGoodsStorage().getBalance(itemId);
+                retParams.put("return", outBalance);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualGoodsStorage::setBalance", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                int balance = params.getInt("balance");
+                boolean notify = params.getBoolean("notify");
+                int outBalance = StorageManager.getVirtualGoodsStorage().setBalance(itemId, balance, notify);
+                retParams.put("return", outBalance);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualGoodsStorage::add", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                int amount = params.getInt("amount");
+                boolean notify = params.getBoolean("notify");
+                int outBalance = StorageManager.getVirtualGoodsStorage().add(itemId, amount, notify);
+                retParams.put("return", outBalance);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualGoodsStorage::remove", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                int amount = params.getInt("amount");
+                boolean notify = params.getBoolean("notify");
+                int outBalance = StorageManager.getVirtualGoodsStorage().remove(itemId, amount, notify);
+                retParams.put("return", outBalance);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualGoodsStorage::removeUpgrades", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                boolean notify = params.getBoolean("notify");
+                StorageManager.getVirtualGoodsStorage().removeUpgrades(itemId, notify);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualGoodsStorage::assignCurrentUpgrade", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                String upgradeItemId = params.getString("upgradeItemId");
+                boolean notify = params.getBoolean("notify");
+                StorageManager.getVirtualGoodsStorage().assignCurrentUpgrade(itemId, upgradeItemId, notify);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualGoodsStorage::getCurrentUpgrade", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                String upgradeItemId = StorageManager.getVirtualGoodsStorage().getCurrentUpgrade(itemId);
+                retParams.put("return", upgradeItemId);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualGoodsStorage::isEquipped", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                boolean res = StorageManager.getVirtualGoodsStorage().isEquipped(itemId);
+                retParams.put("return", res);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualGoodsStorage::equip", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                boolean notify = params.getBoolean("notify");
+                StorageManager.getVirtualGoodsStorage().equip(itemId, notify);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCNativeVirtualGoodsStorage::unequip", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                boolean notify = params.getBoolean("notify");
+                StorageManager.getVirtualGoodsStorage().unequip(itemId, notify);
+            }
+        });
+
+        /******* Old Bridge (Here for JSB ONLY) *******/
+
+        ndkGlue.registerCallHandler("CCStoreServiceJsb::init", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                SoomlaStore.getInstance().initialize(mStoreAssets);
             }
         });
 
@@ -404,6 +570,41 @@ public class StoreService extends AbstractSoomlaService {
                 StoreInfo.save(DomainFactory.getInstance().<VirtualItem>createWithJsonObject(viJsonObject));
             }
         });
+
+        /******* Event Pusher *******/
+
+        ndkGlue.registerCallHandler("CCStoreEventDispatcher::pushOnItemPurchased", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                String payload = params.getString("payload");
+                storeEventHandlerBridge.pushOnItemPurchased(itemId, payload);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCStoreEventDispatcher::pushOnItemPurchaseStarted", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String itemId = params.getString("itemId");
+                storeEventHandlerBridge.pushOnItemPurchaseStarted(itemId);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCStoreEventDispatcher::pushOnUnexpectedErrorInStore", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                String errorMessage = params.getString("errorMessage");
+                storeEventHandlerBridge.pushOnUnexpectedErrorInStore(errorMessage);
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCStoreEventDispatcher::pushOnSoomlaStoreInitialized", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                storeEventHandlerBridge.pushOnSoomlaStoreInitialized();
+            }
+        });
+
 
         final NdkGlue.ExceptionHandler exceptionHandler = new NdkGlue.ExceptionHandler() {
             @Override

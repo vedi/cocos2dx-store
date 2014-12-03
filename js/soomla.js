@@ -1,6 +1,3 @@
-/**
- * Created by vedi on 1/21/14.
- */
 
 var PrevSoomla = Soomla;
 Soomla = new function () {
@@ -16,7 +13,11 @@ Soomla = new function () {
       });
     };
     Clazz.create = function (values) {
-      return _.defaults(values ? _.omit(values, "className") : {}, Clazz());
+      var instance = _.defaults(values ? _.omit(values, "className") : {}, Clazz());
+      if (typeof instance.onCreate == 'function') {
+          instance.onCreate();
+      }
+      return instance;
     };
 
     return Clazz;
@@ -82,7 +83,7 @@ Soomla = new function () {
     schedTimeRanges: null,
     schedApprovals: null,
     approve: function approve(activationTimes) {
-      var now = Date.now(); 
+      var now = Date.now();
 
       if (this.schedApprovals && this.schedApprovals < 1 && (!this.schedTimeRanges || this.schedTimeRanges.length == 0)) {
         logDebug("There's no activation limit and no TimeRanges. APPROVED!");
@@ -226,8 +227,25 @@ Soomla = new function () {
     },
     giveInner: function giveInner() {
       return new Error("giveInner is not implemented");
+    },
+    onCreate: function () {
+      Reward.addReward(this);
     }
   }, SoomlaEntity);
+
+  Reward.rewardsMap = {};
+
+  Reward.getReward = function(id) {
+    if (id in Soomla.Models.Reward.rewardsMap) {
+      return Soomla.Models.Reward.rewardsMap[id];
+    }
+
+    return null;
+  };
+
+  Reward.addReward = function(reward) {
+    Soomla.Models.Reward.rewardsMap[reward.itemId] = reward;
+  };
 
   /**
    * AggregateReward
@@ -794,6 +812,7 @@ Soomla = new function () {
     //------ Core ------//
     onRewardGivenEvent: function(reward) {},
     onRewardTakenEvent: function(reward) {},
+    onCustomEvent: function(name, extra) {}, 
 
     //------ Store ------//
     onBillingNotSupported: function() {},
@@ -993,18 +1012,29 @@ Soomla = new function () {
 
       // ------- Core -------- //
       if (methodName == "com.soomla.events.RewardGivenEvent") {
-        var reward = parameters['reward'];
+        var rewardId = parameters['reward'];
         _.forEach(Soomla.eventHandlers, function (eventHandler) {
           if (eventHandler.onRewardGivenEvent) {
-            eventHandler.onRewardGivenEvent(reward);
+            var result = Soomla.Models.Reward.getReward(rewardId);
+            eventHandler.onRewardGivenEvent(result);
           }
         });
       }
       else if (methodName == "com.soomla.events.RewardTakenEvent") {
-        var reward = parameters['reward'];
+        var rewardId = parameters['reward'];
         _.forEach(Soomla.eventHandlers, function (eventHandler) {
           if (eventHandler.onRewardTakenEvent) {
-            eventHandler.onRewardTakenEvent(reward);
+            var result = Soomla.Models.Reward.getReward(rewardId);
+            eventHandler.onRewardTakenEvent(result);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.events.CustomEvent") {
+        var name = parameters['name'];
+        var extra = parameters['extra'];
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onCustomEvent) {
+            eventHandler.onCustomEvent(name, extra);
           }
         });
       }
@@ -1450,6 +1480,8 @@ Soomla = new function () {
         params: {customSecret: storeParams.customSecret}
       });
 
+      Soomla.CoreService.createShared();
+
       if (sys.os == "ios") {
         callNative({
           method: "CCSoomlaStore::setSSV",
@@ -1460,7 +1492,7 @@ Soomla = new function () {
       StoreInfo.createShared(storeAssets);
 
       callNative({
-        method: "CCStoreService::init"
+        method: "CCStoreServiceJsb::init"
       });
 
       if (sys.os == "android") {
@@ -1650,7 +1682,7 @@ Soomla = new function () {
         toPassData.reward = reward;
       }
 
-      callNative(toPassData);
+      callNative(toPassData, true);
     },
     logout: function(provider) {
       callNative({
@@ -1683,7 +1715,7 @@ Soomla = new function () {
         toPassData.reward = reward;
       }
 
-      callNative(toPassData);
+      callNative(toPassData, true);
     },
     updateStatusDialog: function(provider, link, reward, payload) {
       var toPassData = {
@@ -1703,7 +1735,7 @@ Soomla = new function () {
         toPassData.reward = reward;
       }
 
-      callNative(toPassData);
+      callNative(toPassData, true);
     },
     updateStory: function(provider, message, name, caption, description, link, picture, reward, payload) {
       var toPassData = {
@@ -1728,7 +1760,7 @@ Soomla = new function () {
         toPassData.reward = reward;
       }
 
-      callNative(toPassData);
+      callNative(toPassData, true);
     },
     updateStoryDialog: function(provider, name, caption, description, link, picture, reward, payload) {
       var toPassData = {
@@ -1752,7 +1784,7 @@ Soomla = new function () {
         toPassData.reward = reward;
       }
 
-      callNative(toPassData);
+      callNative(toPassData, true);
     },
     uploadImage: function(provider, message, filePath, reward, payload) {
       var toPassData = {
@@ -1773,7 +1805,7 @@ Soomla = new function () {
         toPassData.reward = reward;
       }
 
-      callNative(toPassData);
+      callNative(toPassData, true);
     },
     getContacts: function(provider, filePath, reward, payload) {
       var toPassData = {
@@ -1793,7 +1825,7 @@ Soomla = new function () {
         toPassData.reward = reward;
       }
 
-      callNative(toPassData);
+      callNative(toPassData, true);
     },
     getFeed: function(provider, reward, payload) {
       var toPassData = {
@@ -1812,7 +1844,7 @@ Soomla = new function () {
         toPassData.reward = reward;
       }
 
-      callNative(toPassData);
+      callNative(toPassData, true);
     },
     isLoggedIn: function(provider) {
       var retParams = callNative({
@@ -1832,7 +1864,7 @@ Soomla = new function () {
         toPassData.reward = reward;
       }
 
-      callNative(toPassData);
+      callNative(toPassData, true);
     },
     openAppRatingPage: function() {
       callNative({
@@ -1850,8 +1882,16 @@ Soomla = new function () {
     }
   };
 
-  var callNative = function (params) {
-    var jsonString = Soomla.CCSoomlaNdkBridge.callNative(JSON.stringify(params, removeNulls));
+    var callNative = function (params, clean) {
+    var jsonString = null;
+
+    if (typeof(clean) === "undefined") {
+      jsonString = Soomla.CCSoomlaNdkBridge.callNative(JSON.stringify(params));
+    }
+    else {
+      jsonString = Soomla.CCSoomlaNdkBridge.callNative(JSON.stringify(params, removeNulls));
+    }
+        
     var result = JSON.parse(jsonString);
 
     if (!result.success) {

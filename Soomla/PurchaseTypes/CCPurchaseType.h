@@ -20,7 +20,7 @@
 #define __CCPurchaseType__
 
 #include "cocos2d.h"
-#include "CCSoomlaStore.h"
+#include "CCError.h"
 
 namespace soomla {
 	/** 
@@ -32,14 +32,26 @@ namespace soomla {
      `CCPurchaseType`.
 	 */
     class CCPurchaseType : public cocos2d::CCObject {
+        // 26.11.14 - this is done through ID instead of actual object, since
+        // macro needs an object inheriting from `Ref`, which we cannot forward
+        // declare. Including `CCPurchasableVirtualItem.h` causes circular dependency
+        CC_SYNTHESIZE_RETAIN(cocos2d::CCString *, mAssociatedItemId, AssociatedItemId);
     public:
-        CCPurchaseType() {}
+        CCPurchaseType() : mAssociatedItemId(NULL) {}
+        
+        virtual bool init();
         
         /**
-         Creates a purchase type.
+         Buys the purchasable virtual item.
+         Implementation in subclasses will be according to specific type of 
+         purchase.
+         
+         @param payload string you want to be assigned to the purchase. This
+         string is saved in a static variable and will be given bacl to you when 
+         the purchase is completed.
+         @param error A `CCError` for error checking.
          */
-        static CCPurchaseType * create();
-        virtual bool init();
+        virtual void buy(const char* payload, CCError **error = NULL) = 0;
       
         virtual ~CCPurchaseType();
     };

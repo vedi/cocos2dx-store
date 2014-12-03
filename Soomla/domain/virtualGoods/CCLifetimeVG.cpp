@@ -14,14 +14,15 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
-
 #include "CCLifetimeVG.h"
-
+#include "CCVirtualGoodsStorage.h"
+#include "CCSoomlaUtils.h"
 
 namespace soomla {
 
     USING_NS_CC;
+    
+    #define TAG "SOOMLA LifetimeVG"
 
     CCLifetimeVG *CCLifetimeVG::create(CCString *name, CCString *description, CCString *itemId, CCPurchaseType *purchaseType) {
         CCLifetimeVG *ret = new CCLifetimeVG();
@@ -33,6 +34,40 @@ namespace soomla {
         }
 
         return ret;
+    }
+    
+    bool CCLifetimeVG::canBuy() {
+        int balance = CCVirtualGoodsStorage::getInstance()->getBalance(this);
+        
+        return balance < 1;
+    }
+    
+    int CCLifetimeVG::give(int amount, bool notify, CCError **error) {
+        if (amount > 1) {
+            CCSoomlaUtils::logDebug(TAG, "You tried to give more than one LifetimeVG. \
+                                    Will try to give one anyway.");
+            amount = 1;
+        }
+        
+        int balance = CCVirtualGoodsStorage::getInstance()->getBalance(this);
+        
+        if (balance < 1) {
+            return CCVirtualGoodsStorage::getInstance()->add(this, amount, notify, error);
+        }
+        return 1;
+    }
+    
+    int CCLifetimeVG::take(int amount, bool notify, CCError **error) {
+        if (amount > 1) {
+            amount = 1;
+        }
+        
+        int balance = CCVirtualGoodsStorage::getInstance()->getBalance(this);
+        
+        if (balance > 0) {
+            return CCVirtualGoodsStorage::getInstance()->remove(this, amount, notify, error);
+        }
+        return 0;
     }
 
     const char *CCLifetimeVG::getType() const {

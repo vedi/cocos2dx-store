@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-// Created by Fedor Shubin on 5/19/13.
+
 
 #ifndef __CCVirtualCurrencyPack_H_
 #define __CCVirtualCurrencyPack_H_
@@ -82,6 +82,30 @@ namespace soomla {
         virtual ~CCVirtualCurrencyPack();
 
         virtual const char *getType() const;
+        
+        /**
+         See parent
+         */
+        virtual bool canBuy() { return true; }
+        
+        /**
+         See parent
+         */
+        virtual int give(int amount, bool notify, CCError **error = NULL);
+        
+        /**
+         See parent
+         */
+        virtual int take(int amount, bool notify, CCError **error = NULL);
+        
+        /**
+         See parent
+         */
+        virtual int resetBalance(int balance, bool notify, CCError **error = NULL);
+        /**
+         See parent
+         */
+        virtual int getBalance(CCError **error = NULL);
     };
 };
 

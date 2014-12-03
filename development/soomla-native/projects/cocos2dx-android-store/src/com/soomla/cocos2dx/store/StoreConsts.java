@@ -1,10 +1,6 @@
 package com.soomla.cocos2dx.store;
 
-/**
- * @author vedi
- *         date 6/9/14
- *         time 6:49 PM
- */
+
 public class StoreConsts {
     public static final String JSON_JSON_TYPE_MARKET_ITEM = "MarketItem";
     public static final String JSON_JSON_TYPE_VIRTUAL_CATEGORY = "VirtualCategory";

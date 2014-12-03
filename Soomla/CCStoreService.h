@@ -1,6 +1,3 @@
-//
-// Created by Fedor Shubin on 6/19/14.
-//
 
 
 #ifndef __CCStoreService_H_
@@ -20,7 +17,7 @@ namespace soomla {
         static CCStoreService *getInstance();
 
         /**
-        Initializes StoreController on native side and allows using its
+        Initializes StoreService on native side and allows using its
         functions.
         @param storeAssets An instance of your store's assets class.
         @param storeParams A CCDictionary containing parameters for
@@ -35,10 +32,7 @@ namespace soomla {
         */
         static void initShared(CCStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
 
-        CCStoreService();
-
         virtual bool init(CCStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
-
     };
 }
 
