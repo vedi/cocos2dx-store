@@ -1,4 +1,4 @@
-### v4.3.0 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.2.0...v4.3.0)
+### v4.3.0
 
 ***Important***: there are some breaking changes. Read the changes carefully.
 

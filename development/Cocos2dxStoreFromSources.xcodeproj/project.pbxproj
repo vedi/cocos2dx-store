@@ -286,8 +286,8 @@
 		F8B1A4D21A2C73B1002969AF /* CCSingleUseVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0DE19B1BFE30054EA87 /* CCSingleUseVG.cpp */; };
 		F8B1A4D31A2C73B1002969AF /* CCUpgradeVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0E019B1BFE30054EA87 /* CCUpgradeVG.cpp */; };
 		F8B1A4D41A2C73B1002969AF /* CCVirtualGood.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0E219B1BFE30054EA87 /* CCVirtualGood.cpp */; };
-		F8B1A4D51A2C73B1002969AF /* jsb_soomla.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0E519B1BFE30054EA87 /* jsb_soomla.cpp */; };
-		F8B1A4D61A2C73B1002969AF /* JSBinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0E719B1BFE30054EA87 /* JSBinding.cpp */; };
+		F8B1A4D51A2C73B1002969AF /* (null) in Sources */ = {isa = PBXBuildFile; };
+		F8B1A4D61A2C73B1002969AF /* (null) in Sources */ = {isa = PBXBuildFile; };
 		F8B1A4D71A2C73B1002969AF /* CCPurchaseType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0EA19B1BFE30054EA87 /* CCPurchaseType.cpp */; };
 		F8B1A4D81A2C73B1002969AF /* CCPurchaseWithMarket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0EC19B1BFE30054EA87 /* CCPurchaseWithMarket.cpp */; };
 		F8B1A4D91A2C73B1002969AF /* CCPurchaseWithVirtualItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0EE19B1BFE30054EA87 /* CCPurchaseWithVirtualItem.cpp */; };
@@ -322,8 +322,8 @@
 		F8B1A4F61A2C73D6002969AF /* CCSingleUseVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0DF19B1BFE30054EA87 /* CCSingleUseVG.h */; };
 		F8B1A4F71A2C73D6002969AF /* CCUpgradeVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0E119B1BFE30054EA87 /* CCUpgradeVG.h */; };
 		F8B1A4F81A2C73D6002969AF /* CCVirtualGood.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0E319B1BFE30054EA87 /* CCVirtualGood.h */; };
-		F8B1A4F91A2C73D6002969AF /* jsb_soomla.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0E619B1BFE30054EA87 /* jsb_soomla.h */; };
-		F8B1A4FA1A2C73D6002969AF /* JSBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0E819B1BFE30054EA87 /* JSBinding.h */; };
+		F8B1A4F91A2C73D6002969AF /* (null) in Headers */ = {isa = PBXBuildFile; };
+		F8B1A4FA1A2C73D6002969AF /* (null) in Headers */ = {isa = PBXBuildFile; };
 		F8B1A4FB1A2C73D6002969AF /* CCPurchaseType.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0EB19B1BFE30054EA87 /* CCPurchaseType.h */; };
 		F8B1A4FC1A2C73D6002969AF /* CCPurchaseWithMarket.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0ED19B1BFE30054EA87 /* CCPurchaseWithMarket.h */; };
 		F8B1A4FD1A2C73D6002969AF /* CCPurchaseWithVirtualItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0EF19B1BFE30054EA87 /* CCPurchaseWithVirtualItem.h */; };
@@ -988,8 +988,8 @@
 				F8B1A4F61A2C73D6002969AF /* CCSingleUseVG.h in Headers */,
 				F8B1A4F71A2C73D6002969AF /* CCUpgradeVG.h in Headers */,
 				F8B1A4F81A2C73D6002969AF /* CCVirtualGood.h in Headers */,
-				F8B1A4F91A2C73D6002969AF /* jsb_soomla.h in Headers */,
-				F8B1A4FA1A2C73D6002969AF /* JSBinding.h in Headers */,
+				F8B1A4F91A2C73D6002969AF /* (null) in Headers */,
+				F8B1A4FA1A2C73D6002969AF /* (null) in Headers */,
 				F8B1A4FB1A2C73D6002969AF /* CCPurchaseType.h in Headers */,
 				F8B1A4FC1A2C73D6002969AF /* CCPurchaseWithMarket.h in Headers */,
 				F8B1A4FD1A2C73D6002969AF /* CCPurchaseWithVirtualItem.h in Headers */,
@@ -1250,8 +1250,8 @@
 				F8B1A4D21A2C73B1002969AF /* CCSingleUseVG.cpp in Sources */,
 				F8B1A4D31A2C73B1002969AF /* CCUpgradeVG.cpp in Sources */,
 				F8B1A4D41A2C73B1002969AF /* CCVirtualGood.cpp in Sources */,
-				F8B1A4D51A2C73B1002969AF /* jsb_soomla.cpp in Sources */,
-				F8B1A4D61A2C73B1002969AF /* JSBinding.cpp in Sources */,
+				F8B1A4D51A2C73B1002969AF /* (null) in Sources */,
+				F8B1A4D61A2C73B1002969AF /* (null) in Sources */,
 				F8B1A4D71A2C73B1002969AF /* CCPurchaseType.cpp in Sources */,
 				F8B1A4D81A2C73B1002969AF /* CCPurchaseWithMarket.cpp in Sources */,
 				F8B1A4D91A2C73B1002969AF /* CCPurchaseWithVirtualItem.cpp in Sources */,
@@ -1270,15 +1270,11 @@
 				GCC_PREFIX_HEADER = Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"COCOS2D_DEBUG=1",
 					CC_TARGET_OS_IPHONE,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(SRCROOT)/../../../cocos2dx\"",
-					"\"$(SRCROOT)/../../../cocos2dx/include\"",
-					"\"$(SRCROOT)/../../../cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/ios\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/ios/Simulation\"",
@@ -1311,9 +1307,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(SRCROOT)/../../../cocos2dx\"",
-					"\"$(SRCROOT)/../../../cocos2dx/include\"",
-					"\"$(SRCROOT)/../../../cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/ios\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/ios/Simulation\"",
@@ -1361,9 +1354,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../../cocos",
-					"$(SRCROOT)/../../../cocos/base",
-					"$(SRCROOT)/../../../cocos/2d",
+					"\"$(SRCROOT)/../../../cocos2dx\"",
+					"\"$(SRCROOT)/../../../cocos2dx/include\"",
+					"\"$(SRCROOT)/../../../cocos2dx/kazmath/include\"",
 					"$(SRCROOT)/../../../external/jansson",
 					"$(SRCROOT)/../../soomla-cocos2dx-core/Soomla/**",
 				);
@@ -1391,9 +1384,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../../cocos",
-					"$(SRCROOT)/../../../cocos/base",
-					"$(SRCROOT)/../../../cocos/2d",
+					"\"$(SRCROOT)/../../../cocos2dx\"",
+					"\"$(SRCROOT)/../../../cocos2dx/include\"",
+					"\"$(SRCROOT)/../../../cocos2dx/kazmath/include\"",
 					"$(SRCROOT)/../../../external/jansson",
 					"$(SRCROOT)/../../soomla-cocos2dx-core/Soomla/**",
 				);
@@ -1417,9 +1410,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(SRCROOT)/../../../cocos2dx\"",
-					"\"$(SRCROOT)/../../../cocos2dx/include\"",
-					"\"$(SRCROOT)/../../../cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/ios\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/ios/Simulation\"",
@@ -1451,9 +1441,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(SRCROOT)/../../../cocos2dx\"",
-					"\"$(SRCROOT)/../../../cocos2dx/include\"",
-					"\"$(SRCROOT)/../../../cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/ios\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/ios/Simulation\"",
@@ -1476,7 +1463,8 @@
 		F8B1A4B41A2C72F7002969AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1488,7 +1476,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					CC_TARGET_OS_MAC,
@@ -1501,9 +1489,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../../cocos/platform/mac",
-					"$(SRCROOT)/../../../cocos/platform/desktop",
-					"$(SRCROOT)/../../../external/glfw3/include/mac",
+					"\"$(SRCROOT)/../../../cocos2dx/platform/mac\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1516,7 +1502,8 @@
 		F8B1A4B51A2C72F7002969AF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1530,7 +1517,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PREPROCESSOR_DEFINITIONS = CC_TARGET_OS_MAC;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1540,9 +1527,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../../cocos/platform/mac",
-					"$(SRCROOT)/../../../cocos/platform/desktop",
-					"$(SRCROOT)/../../../external/glfw3/include/mac",
+					"\"$(SRCROOT)/../../../cocos2dx/platform/mac\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -1589,6 +1574,7 @@
 				F8B1A4B51A2C72F7002969AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
