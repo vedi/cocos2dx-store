@@ -10,6 +10,10 @@ cocos2dx-store
 > The `master` branch supports cocos2d-x v3.x. For cocos2d-x v2.x use `cocos2dx-v2` branch.*
 
 > Draw your attention this page covers integration of C++ based solutions. If you need information regarding JS solution follow the link: https://github.com/soomla/cocos2dx-store/wiki/jsb#cocos2dx-store
+
+**December 3rd, 2014**:
+Migrating Amazon IAP from v1.0 to v2.0. Read the [instructions]https://github.com/soomla/cocos2dx-store/tree/cocos2dx-v2#amazon) carefully!
+
 **December 01, 2014**: v4.3.0 **Work Without a Device!** when working without a device, data is saved to UserDefault, you cannot test in-app purchases without a device
 **September 15, 2014**: `CCNonConsumableItem` class was removed.
 To create a non-consumable item, define it as `CCLifeTimeVG` with a `CCPurchaseWithMarket` in your `iStoreAssets` implementation.
