@@ -11,6 +11,9 @@ cocos2dx-store
 
 > Draw your attention this page covers integration of C++ based solutions. If you need information regarding JS solution follow the link: https://github.com/soomla/cocos2dx-store/wiki/jsb#cocos2dx-store
 
+**December 3rd, 2014**:
+Migrating Amazon IAP from v1.0 to v2.0. Read the [instructions](https://github.com/soomla/cocos2dx-store#amazon) carefully!
+
 **December 01, 2014**: v4.3.0 **Work Without a Device!** when working without a device, data is saved to UserDefault, you cannot test in-app purchases without a device
 
 **September 15, 2014**: `CCNonConsumableItem` class was removed.
@@ -214,13 +217,13 @@ That's it! Now all you have to do is build your XCode project and run your game 
 
   ##### Amazon
 
-  1. Add `in-app-purchasing-1.0.3.jar` and `AndroidStoreAmazon.jar` from `extensions/cocos2dx-store/build/android/billing-services/amazon` to your classpath:
+  1. Add `in-app-purchasing-2.0.1.jar` and `AndroidStoreAmazon.jar` from `extensions/cocos2dx-store/build/android/billing-services/amazon` to your classpath:
 
   1. Update your manifest:
 
       ```xml
       ...
-      <receiver android:name = "com.amazon.inapp.purchasing.ResponseReceiver" >
+      <receiver android:name = "com.amazon.device.iap.ResponseReceiver" >
       <intent-filter>
           <action android:name = "com.amazon.inapp.purchasing.NOTIFY"
                   android:permission = "com.amazon.inapp.purchasing.Permission.NOTIFY" />
