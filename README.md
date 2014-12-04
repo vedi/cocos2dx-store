@@ -226,13 +226,13 @@ That's it! Now all you have to do is build your XCode project and run your game 
 
   ##### Amazon
 
-  1. Add `in-app-purchasing-1.0.3.jar` and `AndroidStoreAmazon.jar` from `extensions/cocos2dx-store/build/android/billing-services/amazon` to your classpath:
+  1. Add `in-app-purchasing-2.0.1.jar` and `AndroidStoreAmazon.jar` from `extensions/cocos2dx-store/build/android/billing-services/amazon` to your classpath:
 
   1. Update your manifest:
 
       ```xml
       ...
-      <receiver android:name = "com.amazon.inapp.purchasing.ResponseReceiver" >
+      <receiver android:name = "com.amazon.device.iap.ResponseReceiver" >
       <intent-filter>
           <action android:name = "com.amazon.inapp.purchasing.NOTIFY"
                   android:permission = "com.amazon.inapp.purchasing.Permission.NOTIFY" />
