@@ -41,6 +41,15 @@ namespace soomla {
         virtual ~CCPurchasableVirtualItem();
         
         /**
+         Checks if there is enough funds to afford the `CCPurchasableVirtualItem`.
+         This action uses the associated `CCPurchaseType` to perform the check.
+         @param error A `CCError` for error checking.
+         @return True if there are enough funds to afford the virtual item 
+         with the given item id
+         */
+        bool canAfford(CCError **error = NULL);
+        
+        /**
          Buys the `CCPurchasableVirtualItem`, after checking if the user is in a state that
          allows him/her to buy. This action uses the associated `CCPurchaseType` to perform
          the purchase.

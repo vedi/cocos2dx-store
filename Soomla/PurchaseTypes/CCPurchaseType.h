@@ -52,6 +52,15 @@ namespace soomla {
          @param error A `CCError` for error checking.
          */
         virtual void buy(const char* payload, CCError **error = NULL) = 0;
+        
+        /**
+         Checks if there is enough funds to afford the `CCPurchasableVirtualItem`.
+         Implementation in subclasses will be according to specific type of purchase.
+         @param error A `CCError` for error checking.
+         @return True if there are enough funds to afford the virtual item
+         with the given item id
+         */
+        virtual bool canAfford(CCError **error = NULL) = 0;
       
         virtual ~CCPurchaseType();
     };

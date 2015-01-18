@@ -67,4 +67,9 @@ namespace soomla {
     CCPurchaseWithMarket::~CCPurchaseWithMarket() {
         CC_SAFE_RELEASE(mMarketItem);
     }
+    
+    bool CCPurchaseWithMarket::canAfford(CCError **error) {
+        // for market purchases, always assume it can be afforded
+        return true;
+    }
 }

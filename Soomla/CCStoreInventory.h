@@ -46,6 +46,15 @@ namespace soomla {
         virtual bool init();
 
         virtual ~CCStoreInventory(void);
+        
+        /**
+         Checks if there is enough funds to afford `itemId`.
+         @param itemId id of item to be checked
+         @param error A `CCError` for error checking.
+         @return True if there are enough funds to afford the virtual item 
+         with the given item id
+         */
+        bool canAfford(const char *itemId, CCError **error = NULL);
 
 		/**
          Buys the item with the given `itemId`.
