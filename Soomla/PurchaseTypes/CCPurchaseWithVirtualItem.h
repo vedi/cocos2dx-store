@@ -57,6 +57,11 @@ namespace soomla {
          See parent
          */
         virtual void buy(const char* payload, CCError **error = NULL);
+        
+        /**
+         See parent
+         */
+        virtual bool canAfford(CCError **error = NULL);
 
         virtual ~CCPurchaseWithVirtualItem();
     };

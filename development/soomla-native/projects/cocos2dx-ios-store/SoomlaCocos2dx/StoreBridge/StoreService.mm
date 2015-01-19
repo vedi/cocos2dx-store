@@ -521,10 +521,10 @@
         for (MarketItem* mi in marketItems) {
             miDict = [NSMutableDictionary dictionary];
             [miDict setObject:mi.productId forKey:@"productId"];
-            [miDict setObject:mi.marketPriceAndCurrency forKey:@"marketPrice"];
-            [miDict setObject:mi.marketTitle forKey:@"marketTitle"];
-            [miDict setObject:mi.marketDescription forKey:@"marketDesc"];
-            [miDict setObject:mi.marketCurrencyCode forKey:@"marketCurrencyCode"];
+            [miDict setObject:(mi.marketPriceAndCurrency ?: @"") forKey:@"marketPrice"];
+            [miDict setObject:(mi.marketTitle ?: @"") forKey:@"marketTitle"];
+            [miDict setObject:(mi.marketDescription ?: @"") forKey:@"marketDesc"];
+            [miDict setObject:(mi.marketCurrencyCode ?: @"") forKey:@"marketCurrencyCode"];
             [miDict setObject:@(mi.marketPriceMicros) forKey:@"marketPriceMicros"];
             [jsonArr addObject:miDict];
         }

@@ -44,6 +44,13 @@ namespace soomla {
     bool CCStoreInventory::init() {
         return true;
     }
+    
+    bool CCStoreInventory::canAfford(const char *itemId, CCError **error) {
+        CCSoomlaUtils::logDebug(TAG, CCString::createWithFormat("Checking can afford: %s", itemId)->getCString());
+        
+        CCPurchasableVirtualItem *pvi = dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId, error));
+        return pvi->canAfford();
+    }
 
     void CCStoreInventory::buyItem(char const *itemId, CCError **error) {
         buyItem(itemId, NULL, error);

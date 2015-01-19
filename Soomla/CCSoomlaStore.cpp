@@ -76,7 +76,13 @@ namespace soomla {
             return;
         }
         
+        // simulate onMarketPurchaseStarted event
+        CCStoreEventDispatcher::getInstance()->onMarketPurchaseStarted(item);
+        
         // in the editor we just give the item... no real market.
         item->give(1);
+        
+        // simulate onMarketPurchase event
+        CCStoreEventDispatcher::getInstance()->onMarketPurchase(item, CCString::create("fake_token_zyxw9876"), CCString::create(payload));
     }
 }

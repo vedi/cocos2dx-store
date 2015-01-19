@@ -14,6 +14,7 @@ cocos2dx-store
 **December 3rd, 2014**:
 Migrating Amazon IAP from v1.0 to v2.0. Read the [instructions]https://github.com/soomla/cocos2dx-store/tree/cocos2dx-v2#amazon) carefully!
 
+
 **December 01, 2014**: v4.3.0 **Work Without a Device!** when working without a device, data is saved to UserDefault, you cannot test in-app purchases without a device
 **September 15, 2014**: `CCNonConsumableItem` class was removed.
 To create a non-consumable item, define it as `CCLifeTimeVG` with a `CCPurchaseWithMarket` in your `iStoreAssets` implementation.
@@ -48,6 +49,13 @@ Note: On iOS, the item also should be created as Non Consumable on iTunes Connec
 A simple example project to show you some basic usage of cocos2dx-store: http://github.com/soomla/cocos2dx-store-example
 
 This example is still under development but it can give you a taste of the important aspects of the framework.
+
+## Download
+
+####Pre baked zip:
+
+- [soomla-cocos2dx-core 1.0.1](http://library.soom.la/fetch/cocos2dx-v2-core/1.0.1?cf=github)
+- [cocos2dx-store 4.3.1](http://library.soom.la/fetch/cocos2dx-v2-store/4.3.1?cf=github)
 
 ## Getting Started (With pre-built libraries)
 

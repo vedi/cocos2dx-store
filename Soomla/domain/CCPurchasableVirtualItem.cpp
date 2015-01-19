@@ -57,6 +57,10 @@ namespace soomla {
         return dict;
     }
     
+    bool CCPurchasableVirtualItem::canAfford(CCError **error) {
+        return getPurchaseType()->canAfford(error);
+    }
+    
     void CCPurchasableVirtualItem::buy(const char* payload, CCError **error) {
         if (!canBuy()) {
             return;
