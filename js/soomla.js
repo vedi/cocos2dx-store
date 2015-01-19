@@ -784,13 +784,12 @@ Soomla = new function () {
    * Cocos2dXSoomlaHighway
    */
   var Cocos2dXSoomlaHighway = Soomla.Cocos2dXSoomlaHighway = declareClass("Cocos2dXSoomlaHighway", {
-    init: function init(gameKey, envKey, countryCode, url) {
+    init: function init(gameKey, envKey, url) {
       var result = callNative({
         method: "CCSoomlaHighway::init",
         gameKey: gameKey,
         envKey: envKey,
-        url: url,
-        countryCode: countryCode
+        url: url
       });
       return result.return;
     }
