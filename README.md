@@ -42,6 +42,13 @@ A simple example project to show you some basic usage of cocos2dx-store: http://
 
 This example is still under development but it can give you a taste of the important aspects of the framework.
 
+## Download
+
+####Pre baked zip:
+
+[soomla-cocos2dx-core 1.0.1](http://library.soom.la/fetch/cocos2dx-core/1.0.1?cf=github)
+[cocos2dx-store 4.3.1](http://library.soom.la/fetch/cocos2dx-store/4.3.1?cf=github)
+
 ## Getting Started (With pre-built libraries)
 
 *If you want to develop with sources, refer to the [Working with sources](https://github.com/soomla/cocos2dx-store#working-with-sources) section below*
