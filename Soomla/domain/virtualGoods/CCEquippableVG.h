@@ -141,7 +141,7 @@ namespace soomla {
          @param error If an error was generated during the execution it will
          be returned here
          */
-        virtual void unequip(CCError **error = NULL) { equip(true, error); }
+        virtual void unequip(CCError **error = NULL) { unequip(true, error); }
         /**
          Unequips the current `CCEquippableVG`
          @param notify if true, the relevant event will be posted when equipped.
