@@ -30,6 +30,7 @@
 #include "CCKeyValueStorage.h"
 #include "CCJsonHelper.h"
 #include "CCNativeStoreInfo.h"
+#include "CCSoomlaEventDispatcher.h"
 
 namespace soomla {
 
@@ -66,6 +67,12 @@ namespace soomla {
             CCSoomlaUtils::logError(TAG, "The given store assets can't be null!");
             return false;
         }
+        
+        // support reflection call to initializeFromDB
+        CCSoomlaEventDispatcher::getInstance()->registerEventHandler("Reflection::CCStoreInfo::initializeFromDB",
+                                                                     [this](__Dictionary *parameters) {
+                                                                         this->initializeFromDB();
+                                                                     });
         
         setStoreAssets(storeAssets);
         
