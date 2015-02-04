@@ -221,6 +221,7 @@ namespace soomla {
                 [this](__Dictionary *parameters) {
                     __Array *marketItemDicts = (__Array *)(parameters->objectForKey("marketItems"));
                     __Array *marketItems = __Array::create();
+                    __Array *virtualItems = __Array::create();
 
                     CCError *error = NULL;
                     __Dictionary *marketItem = NULL;
@@ -250,9 +251,15 @@ namespace soomla {
                         mi->setMarketDescription(marketDescription);
                         mi->setMarketCurrencyCode(marketCurrencyCode);
                         mi->setMarketPriceMicros(marketPriceMicros);
-                        pvi->save();
 
                         marketItems->addObject(purchaseWithMarket);
+                        virtualItems->addObject(pvi);
+                    }
+                    
+                    if (virtualItems->count() > 0) {
+                        // no need to save to DB since it's already saved in native
+                        // before this event is received
+                        CCStoreInfo::sharedStoreInfo()->saveItems(virtualItems, false);
                     }
 
                     this->onMarketItemsRefreshed(marketItems);
@@ -261,6 +268,12 @@ namespace soomla {
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_ITEMS_REFRESH_STARTED,
                 [this](__Dictionary *parameters) {
                     this->onMarketItemsRefreshStarted();
+                });
+        
+        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_ITEMS_REFRESH_FAILED,
+                [this](__Dictionary *parameters) {
+                    __String *errorMessage = (__String *)(parameters->objectForKey("errorMessage"));
+                    this->onMarketItemsRefreshFailed(errorMessage);
                 });
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_PURCHASE_VERIFICATION,
@@ -514,6 +527,12 @@ namespace soomla {
     void CCStoreEventDispatcher::onMarketItemsRefreshStarted() {
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
             eventHandler->onMarketItemsRefreshStarted();
+        }
+    }
+
+    void CCStoreEventDispatcher::onMarketItemsRefreshFailed(cocos2d::__String *errorMessage) {
+        FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
+            eventHandler->onMarketItemsRefreshFailed(errorMessage);
         }
     }
 

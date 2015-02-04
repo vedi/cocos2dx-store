@@ -118,8 +118,10 @@ namespace soomla {
         /**
          Save this instance with changes that were made to it.
          The saving is done in the metadata in StoreInfo and being persisted to the local DB.
+         
+         @param saveToDB should the save persist to the local DB.
          */
-        virtual void save();
+        virtual void save(bool saveToDB = true);
     };
     
 }

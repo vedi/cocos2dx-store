@@ -167,9 +167,29 @@ namespace soomla {
         return upgrades;
     }
 
-    void CCStoreInfo::saveItem(CCVirtualItem *virtualItem) {
+    void CCStoreInfo::saveItem(CCVirtualItem *virtualItem, bool saveToDB) {
         replaceVirtualItem(virtualItem);
-        save();
+        
+        if (saveToDB) {
+            save();
+        }
+    }
+    
+    void CCStoreInfo::saveItems(cocos2d::__Array *virtualItems, bool saveToDB) {
+        if ((virtualItems == NULL) || (virtualItems->count() == 0)) {
+            return;
+        }
+        
+        Ref *obj;
+        CCARRAY_FOREACH(virtualItems, obj) {
+            CCVirtualItem *virtualItem = dynamic_cast<CCVirtualItem *>(obj);
+            CC_ASSERT(virtualItem);
+            replaceVirtualItem(virtualItem);
+        }
+        
+        if (saveToDB) {
+            save();
+        }
     }
     
     void CCStoreInfo::save() {

@@ -70,6 +70,8 @@ namespace soomla {
 #endif
 
         virtual void onMarketItemsRefreshStarted();
+        
+        virtual void onMarketItemsRefreshFailed(cocos2d::__String *errorMessage);
     };
 }
 
