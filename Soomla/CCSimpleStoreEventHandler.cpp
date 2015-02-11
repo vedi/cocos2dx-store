@@ -78,6 +78,10 @@ void soomla::CCSimpleStoreEventHandler::onMarketItemsRefreshStarted() {
 
 }
 
+void soomla::CCSimpleStoreEventHandler::onMarketItemsRefreshFailed(cocos2d::CCString *errorMessage) {
+    
+}
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 
 void soomla::CCSimpleStoreEventHandler::onMarketRefund(soomla::CCPurchasableVirtualItem *purchasableVirtualItem) {

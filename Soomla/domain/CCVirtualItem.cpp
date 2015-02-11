@@ -26,8 +26,8 @@ namespace soomla {
     CCString *CCVirtualItem::getItemId() {
         return getId();
     }
-
-    void soomla::CCVirtualItem::save() {
-        CCStoreInfo::sharedStoreInfo()->saveItem(this);
+    
+    void CCVirtualItem::save(bool saveToDB) {
+        CCStoreInfo::sharedStoreInfo()->saveItem(this, saveToDB);
     }
 }

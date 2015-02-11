@@ -70,6 +70,8 @@ namespace soomla {
 #endif
 
         virtual void onMarketItemsRefreshStarted();
+        
+        virtual void onMarketItemsRefreshFailed(cocos2d::CCString *errorMessage);
 
         void handle__EVENT_BILLING_NOT_SUPPORTED(cocos2d::CCDictionary *paramaters);
 
@@ -98,6 +100,8 @@ namespace soomla {
         void handle__EVENT_MARKET_ITEMS_REFRESHED(cocos2d::CCDictionary *parameters);
 
         void handle__EVENT_MARKET_ITEMS_REFRESH_STARTED(cocos2d::CCDictionary *parameters);
+        
+        void handle__EVENT_MARKET_ITEMS_REFRESH_FAILED(cocos2d::CCDictionary *parameters);
 
         void handle__EVENT_MARKET_PURCHASE_VERIFICATION(cocos2d::CCDictionary *parameters);
 

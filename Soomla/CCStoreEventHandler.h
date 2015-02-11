@@ -171,6 +171,13 @@ namespace soomla {
         item refreshed process has started.
         */
         virtual void onMarketItemsRefreshStarted() = 0;
+        
+        /**
+         Handles an `onMarketItemsRefreshFailed` event, which is fired when a market
+         item refreshed process has failed.
+         @param errorMessage the error which caused the failure
+         */
+        virtual void onMarketItemsRefreshFailed(cocos2d::CCString *errorMessage) = 0;
 
 /** Android only events*/
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
