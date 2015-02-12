@@ -550,12 +550,54 @@ Soomla = new function () {
     return result;
   }
 
+  //------ Highway ------//
+
+  var Gift = Soomla.Models.Gift = declareClass("Gift", {
+    giftId : null,
+    fromUid : null,
+    toProvider : null,
+    toProfileId : null,
+    payload : null
+
+  }, Domain);
+
+  var GiftPayload = Soomla.Models.GiftPayload = declareClass("GiftPayload", {
+    associatedItemId : null,
+    itemsAmount : null
+
+  }, Domain);
+
+  var MetaDataSyncError = Soomla.Models.MetaDataSyncError = {
+    METADATA_GENERAL_ERROR: 0,
+    METADATA_SERVER_ERROR: 1,
+    METADATA_UPDATE_MODEL_ERROR: 2
+  };
+
+  var StateSyncError = Soomla.Models.StateSyncError = {
+    STATE_GENERAL_ERROR: 0,
+    STATE_SERVER_ERROR: 1,
+    STATE_UPDATE_STATE_ERROR: 2
+  };
+
   // ------- Core -------- //
   /**
    * CoreService
    */
   var CoreService = Soomla.CoreService = declareClass("CoreService", {
-    init: function init() {
+	SOOMLA_ONLY_ONCE_DEFAULT: "SET ONLY ONCE",
+    init: function init(commonParams) {
+	  commonParams.customSecret = commonParams.customSecret || "";
+
+      if (commonParams.customSecret.length == 0) {
+        logError("SOOMLA/COCOS2DX MISSING customSecret!!! Stopping here !!");
+        return false;
+      }
+
+	  callNative({
+		method: "CCServiceManager::setCommonParams",
+		params: {customSecret: commonParams.customSecret}
+	  });
+
       callNative({
         method: "CCCoreService::init"
       });
@@ -617,9 +659,9 @@ Soomla = new function () {
       });
     }
   });
-  CoreService.createShared = function() {
+  CoreService.createShared = function(commonParams) {
     var ret = new CoreService();
-    if (ret.init()) {
+    if (ret.init(commonParams)) {
       Soomla.coreService = ret;
     } else {
       Soomla.coreService = null;
@@ -794,12 +836,101 @@ Soomla = new function () {
       return result.return;
     }
   });
-  Cocos2dXSoomlaHighway.createShared = function(gameKey, envKey, countryCode, url) {
+  Cocos2dXSoomlaHighway.createShared = function(gameKey, envKey, url) {
     var ret = new Cocos2dXSoomlaHighway();
-    if (ret.init(gameKey, envKey, countryCode, url)) {
+    if (ret.init(gameKey, envKey, url)) {
       Soomla.cocos2dXSoomlaHighway = ret;
     } else {
       Soomla.cocos2dXSoomlaHighway = null;
+    }
+  };
+
+  /**
+   * SoomlaSync
+   */
+  var SoomlaSync = Soomla.SoomlaSync = declareClass("SoomlaSync", {
+    init: function init(metaDataSync, stateSync) {
+      var result = callNative({
+        method: "CCSoomlaSync::init",
+        metaDataSync: metaDataSync,
+        stateSync: stateSync
+      });
+      return result.return;
+    },
+    resetState : function() {
+      var result = callNative({
+        method: "CCSoomlaSync::resetState"
+      });
+      return result.return;
+    },
+    stateConflictResolver : function(remoteState, currentState, stateDiff) {
+      return remoteState;
+    },
+    resolveStateConflict : function(remoteState, currentState, stateDiff) {
+      var resolvedState = this.stateConflictResolver(remoteState, currentState, stateDiff);
+
+      var conflictResolveStrategy = 2;
+      if (_.isEqual(resolvedState, remoteState)) {
+        conflictResolveStrategy = 0;
+      }
+      else if (_.isEqual(resolvedState, currentState)) {
+        conflictResolveStrategy = 1;
+      }
+
+      var result = callNative({
+        method: "CCSoomlaSync::resolveConflictCallback",
+        conflictResolveStrategy: conflictResolveStrategy,
+        resolvedState: resolvedState
+      });
+      return result.return;
+    }
+  });
+  SoomlaSync.createShared = function(metaDataSync, stateSync) {
+    var ret = new SoomlaSync();
+    if (ret.init(metaDataSync, stateSync)) {
+      Soomla.soomlaSync = ret;
+    } else {
+      Soomla.soomlaSync = null;
+    }
+  };
+
+  /**
+   * SoomlaGifting
+   */
+  var SoomlaGifting = Soomla.SoomlaGifting = declareClass("SoomlaGifting", {
+    init: function init() {
+      var result = callNative({
+        method: "CCSoomlaGifting::init"
+      });
+      return result.return;
+    },
+    sendGift: function(toProvider, toProfileId, itemId, amount, deductFromUser) {
+      if (_.isUndefined(deductFromUser)) {
+        deductFromUser = false;
+      }
+
+      var result = callNative({
+        method: "CCSoomlaGifting::sendGift",
+        toProvider: toProvider,
+        toProfileId: toProfileId,
+        itemId: itemId,
+        amount: amount,
+        deductFromUser: deductFromUser
+      });
+
+      if (result.return) {
+        return result.willStart;
+      }
+
+      return false;
+    }
+  });
+  SoomlaGifting.createShared = function() {
+    var ret = new SoomlaGifting();
+    if (ret.init()) {
+      Soomla.soomlaGifting = ret;
+    } else {
+      Soomla.soomlaGifting = null;
     }
   };
 
@@ -811,7 +942,7 @@ Soomla = new function () {
     //------ Core ------//
     onRewardGivenEvent: function(reward) {},
     onRewardTakenEvent: function(reward) {},
-    onCustomEvent: function(name, extra) {}, 
+    onCustomEvent: function(name, extra) {},
 
     //------ Store ------//
     onBillingNotSupported: function() {},
@@ -827,6 +958,7 @@ Soomla = new function () {
     onMarketPurchase: function(purchasableVirtualItem, token, payload) {},
     onMarketPurchaseStarted: function(purchasableVirtualItem) {},
     onMarketItemsRefreshStarted: function() {},
+    onMarketItemsRefreshFailed: function(errorMessage) {},
     onMarketItemsRefreshed: function(marketItems) {},
     onMarketPurchaseVerification: function(purchasableVirtualItem) {},
     onRestoreTransactionsStarted: function() {},
@@ -990,7 +1122,108 @@ Soomla = new function () {
 
      @param userProfile The user's profile which was updated
      */
-    onUserProfileUpdatedEvent: function(userProfile) {}
+    onUserProfileUpdatedEvent: function(userProfile) {},
+
+    //------ Highway ------//
+
+    /**
+     Fired when Soomla Sync is initialized.
+     */
+    onSoomlaSyncInitialized : function() {},
+    /**
+     Fired when the meta-data sync process has began.
+     */
+    onMetaDataSyncStarted : function() {},
+    /**
+     Fired when the meta-data sync process has finished.
+     @param changedComponents a List of modules' names (string) which were synced.
+     */
+    onMetaDataSyncFinished : function(changedComponents) {},
+    /**
+     Fired when the meta-data sync process has failed.
+     @param errorCode (MetaDataSyncError) The error code of the failure
+     @param errorMessage The reason why the process failed
+     */
+    onMetaDataSyncFailed : function(errorCode, errorMessage) {},
+    /**
+     Fired when the state sync process has began.
+     */
+    onStateSyncStarted : function() {},
+    /**
+     Fired when the state sync process has finished.
+     @param changedComponents a List of modules' names (string) which were updated.
+     @param failedComponents a List of modules' names (string) which failed to update.
+     */
+    onStateSyncFinished : function(changedComponents, failedComponents) {},
+    /**
+     Fired when the state sync process has failed.
+     @param errorCode (StateSyncError) The error code of the failure
+     @param errorMessage The reason why the process failed
+     */
+    onStateSyncFailed : function(errorCode, errorMessage) {},
+    /**
+     Fired when the state reset process has began.
+     */
+    onStateResetStarted : function() {},
+    /**
+     Fired when the state reset process has finished.
+     */
+    onStateResetFinished : function() {},
+    /**
+     Fired when the state reset process has failed.
+     @param errorCode (StateSyncError) The error code of the failure
+     @param errorMessage The reason why the process failed
+     */
+    onStateResetFailed : function(errorCode, errorMessage) {},
+    /**
+     Fired when Soomla Gifting is initialized.
+     */
+    onSoomlaGiftingInitialized : function() {},
+    /**
+     Fired when gifting has started retrieving a list of gifts for the user.
+     */
+    onGiftsRetrieveStarted : function() {},
+    /**
+     Fired when the list of gifts for the user has been retrieved.
+     NOTE: This event is fired just before the gifts are handed out
+     to the user
+     @param retrievedGifts a List of gifts (`Gift`) which will be handed
+     out.
+     */
+    onGiftsRetrieveFinished : function(retrievedGifts) {},
+    /**
+     Fired when gifting failed to retrieve a list of gifts for the user.
+     @param errorMessage The reason why the retrieval failed
+     */
+    onGiftsRetrieveFailed : function(errorMessage) {},
+    /**
+     Fired when a gift has began to be sent to the server.
+     @param gift the gift that is being sent.
+     */
+    onGiftSendStarted : function(gift) {},
+    /**
+     Fired when sending the gift has failed.
+     NOTE: At this point the gift will have an ID
+     @param gift the gift which was sent
+     */
+    onGiftSendFinished : function(gift) {},
+    /**
+     Fired when sending the gift has failed.
+     @param gift the gift has failed to be sent.
+     @param errorMessage The reason why the gift has failed to be sent.
+     */
+    onGiftSendFailed : function(gift, errorMessage) {},
+    /**
+     Fired when the gift was handed out to the user.
+     @param gift the gift which was handed out to the user.
+     */
+    onGiftHandOutSuccess : function(gift) {},
+    /**
+     Fired when handing out the gift to the user has failed.
+     @param gift the gift that failed to be handed out.
+     @param errorMessage The reason why the gift has failed to be handed out.
+     */
+    onGiftHandOutFailed : function(gift, errorMessage) {}
   });
 
   /**
@@ -1156,8 +1389,6 @@ Soomla = new function () {
           mi.marketTitle        = marketTitle;
           mi.marketDescription  = marketDescription;
 
-          Soomla.storeInfo.saveItem(pvi);
-
           marketItems.push(pvi);
         });
 
@@ -1171,6 +1402,13 @@ Soomla = new function () {
         _.forEach(Soomla.eventHandlers, function (eventHandler) {
           if (eventHandler.onMarketItemsRefreshStarted) {
             eventHandler.onMarketItemsRefreshStarted();
+          }
+        });
+      }
+      else if (methodName == "CCStoreEventHandler::onMarketItemsRefreshFailed") {
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onMarketItemsRefreshFailed) {
+            eventHandler.onMarketItemsRefreshFailed(parameters.errorMessage);
           }
         });
       }
@@ -1424,6 +1662,166 @@ Soomla = new function () {
           }
         });
       }
+      else if (methodName == "CCHighwayEventDispatcher::onStateConflict") {
+        var remoteState = parameters.remoteState;
+        var currentState = parameters.currentState;
+        var stateDiff = parameters.stateDiff;
+
+        if (Soomla.soomlaSync.resolveStateConflict) {
+          Soomla.soomlaSync.resolveStateConflict(remoteState, currentState, stateDiff);
+        }
+      }
+      else if (methodName == "com.soomla.sync.events.SoomlaSyncInitializedEvent") {
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onSoomlaSyncInitialized) {
+            eventHandler.onSoomlaSyncInitialized();
+          }
+        });
+      }
+      else if (methodName == "com.soomla.sync.events.MetaDataSyncStartedEvent") {
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onMetaDataSyncStarted) {
+            eventHandler.onMetaDataSyncStarted();
+          }
+        });
+      }
+      else if (methodName == "com.soomla.sync.events.MetaDataSyncFinishedEvent") {
+        var changedComponents = parameters.changedComponents;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onMetaDataSyncFinished) {
+            eventHandler.onMetaDataSyncFinished(changedComponents);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.sync.events.MetaDataSyncFailedEvent") {
+        var errorCode = parameters.errorCode;
+        var errorMessage = parameters.errorMessage;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onMetaDataSyncFailed) {
+            eventHandler.onMetaDataSyncFailed(errorCode, errorMessage);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.sync.events.StateSyncStartedEvent") {
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onStateResetStarted) {
+            eventHandler.onStateSyncStarted();
+          }
+        });
+      }
+      else if (methodName == "com.soomla.sync.events.StateSyncFinishedEvent") {
+        var changedComponents = parameters.changedComponents;
+        var failedComponents = parameters.failedComponents;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onStateSyncFinished) {
+            eventHandler.onStateSyncFinished(changedComponents, failedComponents);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.sync.events.StateSyncFailedEvent") {
+        var errorCode = parameters.errorCode;
+        var errorMessage = parameters.errorMessage;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onStateSyncFailed) {
+            eventHandler.onStateSyncFailed(errorCode, errorMessage);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.sync.events.StateResetStartedEvent") {
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onStateResetStarted) {
+            eventHandler.onStateResetStarted();
+          }
+        });
+      }
+      else if (methodName == "com.soomla.sync.events.StateResetFinishedEvent") {
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onStateResetFinished) {
+            eventHandler.onStateResetFinished();
+          }
+        });
+      }
+      else if (methodName == "com.soomla.sync.events.StateResetFailedEvent") {
+        var errorCode = parameters.errorCode;
+        var errorMessage = parameters.errorMessage;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onStateResetFailed) {
+            eventHandler.onStateResetFailed(errorCode, errorMessage);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.gifting.events.SoomlaGiftingInitializedEvent") {
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onSoomlaGiftingInitialized) {
+            eventHandler.onSoomlaGiftingInitialized();
+          }
+        });
+      }
+      else if (methodName == "com.soomla.gifting.events.GiftsRetrieveStartedEvent") {
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGiftsRetrieveStarted) {
+            eventHandler.onGiftsRetrieveStarted();
+          }
+        });
+      }
+      else if (methodName == "com.soomla.gifting.events.GiftsRetrieveFinishedEvent") {
+        var givenGifts = parameters.givenGifts;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGiftsRetrieveFinished) {
+            eventHandler.onGiftsRetrieveFinished(givenGifts);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.gifting.events.GiftsRetrieveFailedEvent") {
+        var errorMessage = parameters.errorMessage;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGiftsRetrieveFailed) {
+            eventHandler.onGiftsRetrieveFailed(errorMessage);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.gifting.events.GiftSendStartedEvent") {
+        var gift = parameters.gift;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGiftSendStarted) {
+            eventHandler.onGiftSendStarted(gift);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.gifting.events.GiftSendFinishedEvent") {
+        var gift = parameters.gift;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGiftSendFinished) {
+            eventHandler.onGiftSendFinished(gift);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.gifting.events.GiftSendFailedEvent") {
+        var gift = parameters.gift;
+        var errorMessage = parameters.errorMessage;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGiftSendFailed) {
+            eventHandler.onGiftSendFailed(gift, errorMessage);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.gifting.events.GiftHandOutSuccessEvent") {
+        var gift = parameters.gift;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGiftHandOutSuccess) {
+            eventHandler.onGiftHandOutSuccess(gift);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.gifting.events.GiftHandOutFailedEvent") {
+        var gift = parameters.gift;
+        var errorMessage = parameters.errorMessage;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onGiftHandOutFailed) {
+            eventHandler.onGiftHandOutFailed(gift, errorMessage);
+          }
+        });
+      }
     } catch (e) {
       logError("ndkCallback: " + e.message);
     }
@@ -1438,31 +1836,19 @@ Soomla = new function () {
    */
   var SoomlaStore = Soomla.SoomlaStore = declareClass("SoomlaStore", {
     SOOMLA_AND_PUB_KEY_DEFAULT: "YOUR GOOGLE PLAY PUBLIC KEY",
-    SOOMLA_ONLY_ONCE_DEFAULT: "SET ONLY ONCE",
     init: function(storeAssets, storeParams) {
 
       // Redundancy checking. Most JS libraries don't do this. I hate it when they don't do this. Do this.
-      var fields = ["customSecret", "androidPublicKey", "SSV", "testPurchases"];
+      var fields = ["androidPublicKey", "SSV", "testPurchases"];
       var wrongParams = _.omit(storeParams, fields);
       if (wrongParams.length > 0) {
         logDebug("WARNING!! Possible typo in member of storeParams: " + wrongParams);
       }
 
       storeParams = _.pick(storeParams, fields);
-      storeParams.customSecret      = storeParams.customSecret || "";
       storeParams.androidPublicKey  = storeParams.androidPublicKey || "";
       storeParams.SSV  = storeParams.SSV === true || false;
       storeParams.testPurchases  = storeParams.testPurchases === true || false;
-
-      if (storeParams.customSecret.length == 0) {
-        logError("SOOMLA/COCOS2DX MISSING customSecret!!! Stopping here !!");
-        return false;
-      }
-
-      if (storeParams.customSecret == this.SOOMLA_ONLY_ONCE_DEFAULT) {
-        logError("SOOMLA/COCOS2DX You have to change customSecret!!! Stopping here !!");
-        return false;
-      }
 
       if (sys.os == "android" && storeParams.androidPublicKey.length == 0) {
         logError("SOOMLA/COCOS2DX MISSING publickKey !!! Stopping here !!");
@@ -1473,13 +1859,6 @@ Soomla = new function () {
         logError("SOOMLA/COCOS2DX You have to change android publicKey !!! Stopping here !!");
         return false;
       }
-
-      callNative({
-        method: "CCServiceManager::setCommonParams",
-        params: {customSecret: storeParams.customSecret}
-      });
-
-      Soomla.CoreService.createShared();
 
       if (sys.os == "ios") {
         callNative({
@@ -1890,7 +2269,7 @@ Soomla = new function () {
     else {
       jsonString = Soomla.CCSoomlaNdkBridge.callNative(JSON.stringify(params, removeNulls));
     }
-        
+
     var result = JSON.parse(jsonString);
 
     if (!result.success) {
