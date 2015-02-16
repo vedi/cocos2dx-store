@@ -211,6 +211,8 @@ namespace soomla {
         void refreshOnCurrencyBalanceChanged(CCVirtualCurrency *virtualCurrency, int balance, int amountAdded);
         void refreshOnGoodBalanceChanged(CCVirtualGood *good, int balance, int amountAdded);
         void updateLocalBalance(const char *itemId, int balance);
+        
+        void handle__REFLECTION_REFRESH_LOCAL_INVENTORY(cocos2d::CCDictionary *paramaters);
     private:
         cocos2d::CCDictionary *mLocalItemBalances;
         cocos2d::CCDictionary *mLocalUpgrades;

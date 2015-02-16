@@ -535,6 +535,11 @@
     [ndkGlue registerCallbackHandlerForKey:EVENT_MARKET_ITEMS_REFRESH_STARTED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
         [parameters setObject:@"CCStoreEventHandler::onMarketItemsRefreshStarted" forKey:@"method"];
     }];
+    
+    [ndkGlue registerCallbackHandlerForKey:EVENT_MARKET_ITEMS_REFRESH_FAILED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
+        [parameters setObject:@"CCStoreEventHandler::onMarketItemsRefreshFailed" forKey:@"method"];
+        [parameters setObject:(NSString*)[notification.userInfo objectForKey:DICT_ELEMENT_ERROR_MESSAGE] forKey:@"errorMessage"];
+    }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_MARKET_PURCHASE_VERIF withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
         PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];

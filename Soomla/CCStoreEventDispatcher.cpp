@@ -74,6 +74,9 @@ namespace soomla {
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_ITEMS_REFRESH_STARTED,
                 this, (SEL_EventHandler) (&CCStoreEventDispatcher::handle__EVENT_MARKET_ITEMS_REFRESH_STARTED));
+        
+        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_ITEMS_REFRESH_FAILED,
+                this, (SEL_EventHandler) (&CCStoreEventDispatcher::handle__EVENT_MARKET_ITEMS_REFRESH_FAILED));
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_PURCHASE_VERIFICATION,
                 this, (SEL_EventHandler) (&CCStoreEventDispatcher::handle__EVENT_MARKET_PURCHASE_VERIFICATION));
@@ -293,6 +296,12 @@ namespace soomla {
         }
     }
 
+    void CCStoreEventDispatcher::onMarketItemsRefreshFailed(cocos2d::CCString *errorMessage) {
+        FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
+            eventHandler->onMarketItemsRefreshFailed(errorMessage);
+        }
+    }
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     void CCStoreEventDispatcher::onMarketRefund(CCPurchasableVirtualItem *purchasableVirtualItem) {
         FOR_EACH_EVENT_HANDLER(CCStoreEventHandler)
@@ -476,6 +485,7 @@ namespace soomla {
     void CCStoreEventDispatcher::handle__EVENT_MARKET_ITEMS_REFRESHED(cocos2d::CCDictionary *parameters) {
         CCArray *marketItemDicts = (CCArray *)(parameters->objectForKey("marketItems"));
         CCArray *marketItems = CCArray::create();
+        CCArray *virtualItems = CCArray::create();
 
         CCError *error = NULL;
         CCDictionary *marketItem = NULL;
@@ -505,9 +515,15 @@ namespace soomla {
             mi->setMarketDescription(marketDescription);
                         mi->setMarketCurrencyCode(marketCurrencyCode);
                         mi->setMarketPriceMicros(marketPriceMicros);
-            pvi->save();
 
             marketItems->addObject(purchaseWithMarket);
+            virtualItems->addObject(pvi);
+        }
+        
+        if (virtualItems->count() > 0) {
+            // no need to save to DB since it's already saved in native
+            // before this event is received
+            CCStoreInfo::sharedStoreInfo()->saveItems(virtualItems, false);
         }
 
         this->onMarketItemsRefreshed(marketItems);
@@ -515,6 +531,11 @@ namespace soomla {
 
     void CCStoreEventDispatcher::handle__EVENT_MARKET_ITEMS_REFRESH_STARTED(cocos2d::CCDictionary *parameters) {
         this->onMarketItemsRefreshStarted();
+    }
+
+    void CCStoreEventDispatcher::handle__EVENT_MARKET_ITEMS_REFRESH_FAILED(cocos2d::CCDictionary *parameters) {
+        CCString *errorMessage = (CCString *)(parameters->objectForKey("errorMessage"));
+        this->onMarketItemsRefreshFailed(errorMessage);
     }
 
     void CCStoreEventDispatcher::handle__EVENT_MARKET_PURCHASE_VERIFICATION(cocos2d::CCDictionary *parameters) {

@@ -45,6 +45,8 @@ namespace soomla {
         virtual void onMarketItemsRefreshed(cocos2d::CCArray *virtualItems);
 
         virtual void onMarketItemsRefreshStarted();
+        
+        virtual void onMarketItemsRefreshFailed(cocos2d::CCString *errorMessage);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 

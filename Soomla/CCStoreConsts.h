@@ -103,6 +103,7 @@ namespace soomla {
         static char const *EVENT_MARKET_PURCHASE_STARTED;
         static char const *EVENT_MARKET_ITEMS_REFRESHED;
         static char const *EVENT_MARKET_ITEMS_REFRESH_STARTED;
+        static char const *EVENT_MARKET_ITEMS_REFRESH_FAILED;
         static char const *EVENT_MARKET_PURCHASE_VERIFICATION;
         static char const *EVENT_RESTORE_TRANSACTION_FINISHED;
         static char const *EVENT_RESTORE_TRANSACTION_STARTED;

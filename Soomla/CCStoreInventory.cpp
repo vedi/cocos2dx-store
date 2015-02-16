@@ -20,6 +20,7 @@
 #include "CCPurchasableVirtualItem.h"
 #include "CCVirtualCurrencyStorage.h"
 #include "CCVirtualGoodsStorage.h"
+#include "CCSoomlaEventDispatcher.h"
 
 namespace soomla {
 #define TAG "SOOMLA StoreInventory"
@@ -42,6 +43,10 @@ namespace soomla {
     }
 
     bool CCStoreInventory::init() {
+        
+        // support reflection call to refreshLocalInventory
+        CCSoomlaEventDispatcher::getInstance()->registerEventHandler("Reflection::CCStoreInventory::refreshLocalInventory",
+                                                                     this, (SEL_EventHandler)(&CCStoreInventory::handle__REFLECTION_REFRESH_LOCAL_INVENTORY));
         return true;
     }
     
@@ -252,6 +257,10 @@ namespace soomla {
                 }
             }
         }
+    }
+    
+    void CCStoreInventory::handle__REFLECTION_REFRESH_LOCAL_INVENTORY(cocos2d::CCDictionary *paramaters) {
+        this->refreshLocalInventory();
     }
     
     void CCStoreInventory::refreshOnGoodUpgrade(CCVirtualGood *vg, CCUpgradeVG *uvg) {
