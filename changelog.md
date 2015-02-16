@@ -1,3 +1,12 @@
+### v4.3.2 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.3.1...v4.3.2)
+
+* Features
+  * Adding market refresh failed event
+
+* Changes
+  * Removing save to DB from market refresh
+  * Fixes from updates submodules
+
 ### v4.3.1 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.3.0...v4.3.1)
 
 * Features
