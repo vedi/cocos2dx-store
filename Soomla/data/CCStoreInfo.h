@@ -128,8 +128,16 @@ namespace soomla {
         /**
          Replaces the given virtual item, and then saves the store's metadata.
          @param virtualItem The virtual item to save.
+         @param saveToDB should the data persist to the local DB.
          */
-        void saveItem(CCVirtualItem *virtualItem);
+        void saveItem(CCVirtualItem *virtualItem, bool saveToDB = true);
+        
+        /**
+         Replaces the given virtual items, and then saves the store's metadata.
+         @param virtualItems The virtual items to save.
+         @param saveToDB should the data persist to the local DB.
+         */
+        void saveItems(cocos2d::__Array *virtualItems, bool saveToDB = true);
         
         /**
          Saves the store's metadata in the database as JSON.

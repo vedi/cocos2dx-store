@@ -30,6 +30,7 @@
 #include "CCKeyValueStorage.h"
 #include "CCJsonHelper.h"
 #include "CCNativeStoreInfo.h"
+#include "CCSoomlaEventDispatcher.h"
 
 namespace soomla {
 
@@ -66,6 +67,12 @@ namespace soomla {
             CCSoomlaUtils::logError(TAG, "The given store assets can't be null!");
             return false;
         }
+        
+        // support reflection call to initializeFromDB
+        CCSoomlaEventDispatcher::getInstance()->registerEventHandler("Reflection::CCStoreInfo::initializeFromDB",
+                                                                     [this](__Dictionary *parameters) {
+                                                                         this->initializeFromDB();
+                                                                     });
         
         setStoreAssets(storeAssets);
         
@@ -160,9 +167,29 @@ namespace soomla {
         return upgrades;
     }
 
-    void CCStoreInfo::saveItem(CCVirtualItem *virtualItem) {
+    void CCStoreInfo::saveItem(CCVirtualItem *virtualItem, bool saveToDB) {
         replaceVirtualItem(virtualItem);
-        save();
+        
+        if (saveToDB) {
+            save();
+        }
+    }
+    
+    void CCStoreInfo::saveItems(cocos2d::__Array *virtualItems, bool saveToDB) {
+        if ((virtualItems == NULL) || (virtualItems->count() == 0)) {
+            return;
+        }
+        
+        Ref *obj;
+        CCARRAY_FOREACH(virtualItems, obj) {
+            CCVirtualItem *virtualItem = dynamic_cast<CCVirtualItem *>(obj);
+            CC_ASSERT(virtualItem);
+            replaceVirtualItem(virtualItem);
+        }
+        
+        if (saveToDB) {
+            save();
+        }
     }
     
     void CCStoreInfo::save() {
