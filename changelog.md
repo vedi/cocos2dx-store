@@ -1,3 +1,8 @@
+### v4.3.3 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.3.2...v4.3.3)
+
+* Changes
+  * Updating Amazon plugin (v2.0.1)
+
 ### v4.3.2 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.3.1...v4.3.2)
 
 * Features
