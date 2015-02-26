@@ -1,3 +1,8 @@
+### v4.3.4 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/cocos2dx-v2-v4.3.3...cocos2dx-v2-v4.3.4)
+
+* Changes
+  * (JSB) Updated initialization in highway
+
 ### v4.3.3 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/cocos2dx-v2-v4.3.2...cocos2dx-v2-v4.3.3)
 
 * Changes

@@ -826,19 +826,20 @@ Soomla = new function () {
    * Cocos2dXSoomlaHighway
    */
   var Cocos2dXSoomlaHighway = Soomla.Cocos2dXSoomlaHighway = declareClass("Cocos2dXSoomlaHighway", {
-    init: function init(gameKey, envKey, url) {
+    init: function init(gameKey, envKey, highwayUrl, servicesUrl) {
       var result = callNative({
         method: "CCSoomlaHighway::init",
         gameKey: gameKey,
         envKey: envKey,
-        url: url
+        highwayUrl: highwayUrl,
+        servicesUrl: servicesUrl
       });
       return result.return;
     }
   });
-  Cocos2dXSoomlaHighway.createShared = function(gameKey, envKey, url) {
+  Cocos2dXSoomlaHighway.createShared = function(gameKey, envKey, highwayUrl, servicesUrl) {
     var ret = new Cocos2dXSoomlaHighway();
-    if (ret.init(gameKey, envKey, url)) {
+    if (ret.init(gameKey, envKey, highwayUrl, servicesUrl)) {
       Soomla.cocos2dXSoomlaHighway = ret;
     } else {
       Soomla.cocos2dXSoomlaHighway = null;
