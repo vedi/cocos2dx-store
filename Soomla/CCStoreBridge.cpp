@@ -66,5 +66,5 @@ namespace soomla {
         return true;
     }
     
-    void CCStoreBridge::applyParams(cocos2d::__Dictionary *storeParams) {}
+    void CCStoreBridge::applyParams(cocos2d::CCDictionary *storeParams) {}
 }

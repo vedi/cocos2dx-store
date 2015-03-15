@@ -7,6 +7,7 @@ import com.soomla.cocos2dx.common.*;
 import com.soomla.rewards.VirtualItemReward;
 import com.soomla.store.IStoreAssets;
 import com.soomla.store.SoomlaStore;
+import com.soomla.store.StoreInventory;
 import com.soomla.store.data.StoreInfo;
 import com.soomla.store.data.StorageManager;
 import com.soomla.store.domain.*;
@@ -18,11 +19,13 @@ import com.soomla.store.exceptions.NotEnoughGoodsException;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 import com.soomla.store.purchaseTypes.PurchaseWithMarket;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StoreBridge {
 

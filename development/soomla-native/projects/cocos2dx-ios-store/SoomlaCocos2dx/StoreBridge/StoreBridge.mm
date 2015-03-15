@@ -267,7 +267,6 @@
     /******* Old Bridge (Here for JSB ONLY) *******/
     
     [ndkGlue registerCallHandlerForKey:@"CCStoreServiceJsb::init" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        [[StoreService sharedStoreService] init];
         [[SoomlaStore getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]];
     }];
     

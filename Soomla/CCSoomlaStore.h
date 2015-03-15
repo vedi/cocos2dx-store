@@ -49,7 +49,7 @@ namespace soomla {
          "SSV": __Bool - Whether or not to enable server side
          verification of purchases.
          */
-        static void initialize(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams);
+        static void initialize(CCStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
         
 		/**
          Starts an in app purchase process in the market (App Store, Google

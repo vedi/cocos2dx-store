@@ -43,7 +43,7 @@ namespace soomla {
         this->bindNative();
     }
     
-    void CCNativeStoreBridge::applyParams(cocos2d::__Dictionary *storeParams) {
+    void CCNativeStoreBridge::applyParams(cocos2d::CCDictionary *storeParams) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         CCBool *SSV = dynamic_cast<CCBool *>(storeParams->objectForKey("SSV"));
         if (SSV == NULL) {

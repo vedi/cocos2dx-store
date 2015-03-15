@@ -43,7 +43,7 @@ namespace soomla {
         return s_SharedSoomlaStore;
     }
     
-    void CCSoomlaStore::initialize(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams) {
+    void CCSoomlaStore::initialize(CCStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams) {
         
         if (initialized) {
             const char *err = "SoomlaStore is already initialized. You can't initialize it twice!";
