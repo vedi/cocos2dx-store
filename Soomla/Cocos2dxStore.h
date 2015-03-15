@@ -29,6 +29,6 @@
 #include "CCStoreEventDispatcher.h"
 #include "CCStoreEventHandler.h"
 #include "CCSimpleStoreEventHandler.h"
-#include "CCStoreService.h"
+#include "CCStoreBridge.h"
 
 #endif /* !_Cocos2dxSoomla_H */

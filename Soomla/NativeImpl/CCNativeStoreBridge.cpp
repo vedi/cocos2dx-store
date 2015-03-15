@@ -14,24 +14,37 @@
  limitations under the License.
  */
 
-#include "CCNativeStoreService.h"
+#include "CCNativeStoreBridge.h"
 #include "CCNdkBridge.h"
 #include "CCSoomlaUtils.h"
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#include "platform/android/jni/JniHelper.h"
+#include <jni.h>
+#include <string>
+
+#define CLASS_NAME "com/soomla/cocos2dx/store/StoreBridgeBinder"
+#endif
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
+#include "CCStoreBridgeBinderIos.h"
+
+#endif
 
 namespace soomla {
     
     USING_NS_CC;
     
-#define TAG "SOOMLA CCNativeStoreService"
-
-    bool CCNativeStoreService::init(CCStoreAssets *storeAssets, CCDictionary *storeParams) {
-        bool result = CCStoreService::init(storeAssets, storeParams);
-        
-        if (!result) {
-            return false;
-        }
-        
-    #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    #define TAG "SOOMLA CCNativeStoreBridge"
+    
+    CCNativeStoreBridge::CCNativeStoreBridge() {
+        // Just bind to native before initing
+        this->bindNative();
+    }
+    
+    void CCNativeStoreBridge::applyParams(cocos2d::__Dictionary *storeParams) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         CCBool *SSV = dynamic_cast<CCBool *>(storeParams->objectForKey("SSV"));
         if (SSV == NULL) {
             SSV = CCBool::create(false);
@@ -43,20 +56,11 @@ namespace soomla {
             params->setObject(SSV, "ssv");
             CCNdkBridge::callNative (params, NULL);
         }
-    #endif
+#endif
         
         {
-            CCDictionary *params = CCDictionary::create();
-            params->setObject(CCString::create("CCStoreService::init"), "method");
-            CCError *error = NULL;
-            CCNdkBridge::callNative (params, &error);
             
-            if (error) {
-                CCSoomlaUtils::logError(TAG, error->getInfo());
-                return false;
-            }
-            
-    #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
             {
                 CCString *androidPublicKey = dynamic_cast<CCString *>(storeParams->objectForKey("androidPublicKey"));
                 if (androidPublicKey != NULL && androidPublicKey->length()>0) {
@@ -78,9 +82,27 @@ namespace soomla {
                 params->setObject(testPurchases, "testPurchases");
                 CCNdkBridge::callNative (params, NULL);
             }
-    #endif
+#endif
         }
+    }
+    
+    void CCNativeStoreBridge::bindNative() {
+        CCSoomlaUtils::logDebug(TAG, "Binding to native platform Store bridge...");
         
-        return true;
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+        JniMethodInfo minfo;
+        
+        bool exists = JniHelper::getStaticMethodInfo(minfo, CLASS_NAME, "bind", "()V");
+        
+        if (exists)
+        {
+            minfo.env->CallStaticVoidMethod(minfo.classID, minfo.methodID);
+        }
+        else {
+            CCSoomlaUtils::logError(TAG, "Unable to bind native Store bridge on Android");
+        }
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        soomla::CCStoreBridgeBinderIos::bind();
+#endif
     }
 }

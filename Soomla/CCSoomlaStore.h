@@ -42,8 +42,14 @@ namespace soomla {
         /**
          Initializes the singleton instance of CCSoomlaStore
          @param storeAssets The game's economy
+         @param storeParams The initialization parameters
+         This dictionary can contain the following:
+         "androidPublicKey": __String - Your Android public key.
+         "testPurchases": __Bool - Should test purchases be used in Android.
+         "SSV": __Bool - Whether or not to enable server side
+         verification of purchases.
          */
-        static void initialize(CCStoreAssets *storeAssets);
+        static void initialize(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams);
         
 		/**
          Starts an in app purchase process in the market (App Store, Google

@@ -1,6 +1,6 @@
 
 #import "StoreTypeConsts.h"
-#import "StoreService.h"
+#import "StoreBridge.h"
 #import "NdkGlue.h"
 #import "DomainHelper.h"
 #import "StoreEventHandling.h"
@@ -23,7 +23,6 @@
 #import "SoomlaUtils.h"
 #import "StoreInventory.h"
 #import "VirtualItemNotFoundException.h"
-#import "ParamsProvider.h"
 #import "Soomla.h"
 #import "DomainFactory.h"
 #import "VirtualItemReward.h"
@@ -31,20 +30,20 @@
 #import "VirtualCurrencyStorage.h"
 #import "VirtualGoodStorage.h"
 
-@interface StoreService ()
+@interface StoreBridge ()
 @end
 
-@implementation StoreService {
+@implementation StoreBridge {
 
 }
 
-+ (id)sharedStoreService {
-    static StoreService *sharedProfileService = nil;
++ (id)sharedStoreBridge {
+    static StoreBridge *sharedStoreBridge = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedProfileService = [self alloc];
+        sharedStoreBridge = [self alloc];
     });
-    return sharedProfileService;
+    return sharedStoreBridge;
 }
 
 + (void)initialize {
@@ -126,10 +125,6 @@
         NSDictionary *storeAssetsDict = (NSDictionary *) [parameters objectForKey:@"storeAssets"];
         [[StoreInfo getInstance] setStoreAssetsJSON:[SoomlaUtils dictToJsonString:storeAssetsDict] withVersion:[version intValue]];
         [[StoreAssetsBridge sharedInstance] initializeWithStoreAssetsDict:storeAssetsDict andVersion:version.intValue];
-    }];
-
-    [ndkGlue registerCallHandlerForKey:@"CCStoreService::init" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        [[StoreService sharedStoreService] init];
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCSoomlaStore::buyMarketItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
@@ -562,7 +557,7 @@
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_SOOMLASTORE_INIT withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
-        [parameters setObject:@"CCStoreEventHandler::onStoreControllerInitialized" forKey:@"method"];
+        [parameters setObject:@"CCStoreEventHandler::onSoomlaStoreInitialized" forKey:@"method"];
     }];
 }
 

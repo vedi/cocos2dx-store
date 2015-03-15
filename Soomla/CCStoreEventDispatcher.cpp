@@ -90,7 +90,7 @@ namespace soomla {
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_UNEXPECTED_ERROR_IN_STORE,
                 this, (SEL_EventHandler) (&CCStoreEventDispatcher::handle__EVENT_UNEXPECTED_ERROR_IN_STORE));
 
-        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_STORE_CONTROLLER_INITIALIZED,
+        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_SOOMLA_STORE_INITIALIZED,
                 this, (SEL_EventHandler) (&CCStoreEventDispatcher::handle__EVENT_STORE_CONTROLLER_INITIALIZED));
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

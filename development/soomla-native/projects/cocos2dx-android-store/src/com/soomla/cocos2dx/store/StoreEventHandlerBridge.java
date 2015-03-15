@@ -426,7 +426,7 @@ public class StoreEventHandlerBridge {
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
-                    parameters.put("method", "CCStoreEventHandler::onStoreStoreInitialized");
+                    parameters.put("method", "CCStoreEventHandler::onSoomlaStoreInitialized");
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);

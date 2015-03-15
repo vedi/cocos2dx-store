@@ -14,24 +14,11 @@
  limitations under the License.
  */
 
-#ifndef __CCNativeStoreService_H_
-#define __CCNativeStoreService_H_
-
-#include "CCStoreService.h"
+#import "CCStoreBridgeBinderIos.h"
+#import "StoreBridge.h"
 
 namespace soomla {
-
-    /**
-     Implements the `CCStoreService` using the bridge to talk with
-     the native implementation of StoreService
-     
-     See parent for all functions.
-     */
-    class CCNativeStoreService : public CCStoreService {
-    public:
-        virtual bool init(CCStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams);
-    };
-    
+    void CCStoreBridgeBinderIos::bind() {
+        [[StoreBridge sharedStoreBridge] init];
+    }
 }
-
-#endif // __CCNativeStoreService_H_
