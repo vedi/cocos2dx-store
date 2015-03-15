@@ -29,7 +29,7 @@ namespace soomla {
      */
     class CCNativeStoreBridge : public CCStoreBridge {
     public:
-        virtual bool init();
+        CCNativeStoreBridge();
         virtual void applyParams(cocos2d::__Dictionary *storeParams);        
     private:
         void bindNative();

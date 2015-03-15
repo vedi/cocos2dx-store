@@ -37,17 +37,10 @@ namespace soomla {
     USING_NS_CC;
     
     #define TAG "SOOMLA CCNativeStoreBridge"
-
-    bool CCNativeStoreBridge::init() {
-        bool result = CCStoreBridge::init();
-        
-        if (!result) {
-            return false;
-        }
-        
+    
+    CCNativeStoreBridge::CCNativeStoreBridge() {
+        // Just bind to native before initing
         this->bindNative();
-        
-        return true;
     }
     
     void CCNativeStoreBridge::applyParams(cocos2d::__Dictionary *storeParams) {
