@@ -13,7 +13,7 @@ cocos2dx-store
 
 > Draw your attention this page covers integration of C++ based solutions. If you need information regarding JS solution follow the link: https://github.com/soomla/cocos2dx-store/wiki/jsb#cocos2dx-store
 
-**March 16, 2015**: Better integration for all Soomla modules in Cocos2d-x (needs core update as well)
+**March 16, 2015**: v4.4 Better integration for all Soomla modules in Cocos2d-x (needs core update as well)
 
 **December 3rd, 2014**:
 Migrating Amazon IAP from v1.0 to v2.0. Read the [instructions]https://github.com/soomla/cocos2dx-store/tree/cocos2dx-v2#amazon) carefully!
@@ -394,6 +394,7 @@ If you are using v4.3.x and want to move to v4.4.x follow these steps:
   - Change `soomla::CCProfileService::initShared(profileParams);` to `soomla::CCSoomlaProfile::initialize(profileParams);`
   - Remove `soomla::CCLevelUpService::initShared();`
   - Remove any `#include`s to missing header files, you only need `Cocos2dxStore.h`, `Cocos2dxProfile.h` and `Cocos2dxLevelUp.h`
+`1. When in doubt follow the [cocos2dx-store-example](https://github.com/soomla/cocos2dx-store#example-project)`
 
 Contribution
 ---
