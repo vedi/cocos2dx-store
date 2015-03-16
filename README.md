@@ -79,7 +79,7 @@ This example is still under development but it can give you a taste of the impor
     ```cpp
     #include "Cocos2dxStore.h"
     ```
-1. Add instance of your event handler to `CCStoreEventDispatcher` after `CCStoreService` initialization:
+1. Add instance of your event handler to `CCStoreEventDispatcher` before `CCSoomlaStore` initialization:
     ```cpp
     soomla::CCStoreEventDispatcher::getInstance()->addEventHandler(handler);
     ```
@@ -342,7 +342,7 @@ All you need to do is let cocos2dx-store know you want to verify purchases. You 
 
 ```cpp
 storeParams->setObject(Bool::create(true), "SSV");
-soomla::CCStoreService::initShared(assets, storeParams);
+soomla::CCSoomlaStore::initialize(assets, storeParams);
 ```
 
 ## Debugging
