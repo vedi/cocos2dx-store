@@ -66,7 +66,7 @@ This example is still under development but it can give you a taste of the impor
     $ git clone git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
     ```
 
-1. cocos2dx-store uses a [fork](https://github.com/vedi/jansson) of the jansson library for json parsing, clone it into the `external` directory at the root of your cocos2d-x framework.
+1. cocos2dx-store uses a [fork](https://github.com/soomla/jansson) of the jansson library for json parsing, clone it into the `external` directory at the root of your cocos2d-x framework.
     ```
     $ git clone git@github.com:soomla/jansson.git external/jansson
     ```
