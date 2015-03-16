@@ -391,8 +391,9 @@ If you are using v4.3.x and want to move to v4.4.x follow these steps:
 1. In your AppDelegate.cpp:
   - Change `soomla::CCServiceManager::getInstance()->setCommonParams(commonParams);` to `soomla::CCSoomla::initialize("customSecret");`
   - Change `soomla::CCStoreService::initShared(assets, storeParams);` to `soomla::CCSoomlaStore::initialize(assets, storeParams);`
-  - Remove any `#include`s to missing header files, you only need `Cocos2dxStore.h`
-1. When in doubt follow the [cocos2dx-store-example](https://github.com/soomla/cocos2dx-store#example-project)
+  - Change `soomla::CCProfileService::initShared(profileParams);` to `soomla::CCSoomlaProfile::initialize(profileParams);`
+  - Remove `soomla::CCLevelUpService::initShared();`
+  - Remove any `#include`s to missing header files, you only need `Cocos2dxStore.h`, `Cocos2dxProfile.h` and `Cocos2dxLevelUp.h`
 
 Contribution
 ---
