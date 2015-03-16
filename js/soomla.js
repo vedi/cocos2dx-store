@@ -581,38 +581,34 @@ Soomla = new function () {
 
   // ------- Core -------- //
   /**
-   * CoreService
+   * CoreBridge
    */
-  var CoreService = Soomla.CoreService = declareClass("CoreService", {
+  var CoreBridge = Soomla.CoreBridge = declareClass("CoreBridge", {
 	SOOMLA_ONLY_ONCE_DEFAULT: "SET ONLY ONCE",
-    init: function init(commonParams) {
-	  commonParams.customSecret = commonParams.customSecret || "";
+    init: function init(soomlaSecret) {
 
-      if (commonParams.customSecret.length == 0) {
+      if (soomlaSecret.length == 0) {
         logError("SOOMLA/COCOS2DX MISSING customSecret!!! Stopping here !!");
         return false;
       }
 
 	  callNative({
-		method: "CCServiceManager::setCommonParams",
-		params: {customSecret: commonParams.customSecret}
+		method: "CCSoomla::initialize",
+		soomlaSecret: soomlaSecret
 	  });
 
-      callNative({
-        method: "CCCoreService::init"
-      });
       return true;
     },
     getTimesGiven: function getTimesGiven(reward) {
       var result = callNative({
-        method: "CCCoreService::getTimesGiven",
+        method: "CCNativeRewardStorage::getTimesGiven",
         reward: reward
       });
       return result.return;
     },
     setRewardStatus: function setRewardStatus(reward, give, notify) {
       callNative({
-        method: "CCCoreService::setRewardStatus",
+        method: "CCNativeRewardStorage::setRewardStatus",
         reward: reward,
         give: give,
         notify: notify
@@ -620,14 +616,14 @@ Soomla = new function () {
     },
     getLastSeqIdxGiven: function getLastSeqIdxGiven(sequenceReward) {
       var result = callNative({
-        method: "CCCoreService::getLastSeqIdxGiven",
+        method: "CCNativeRewardStorage::getLastSeqIdxGiven",
         reward: sequenceReward
       });
       return result.return;
     },
     setLastSeqIdxGiven: function setLastSeqIdxGiven(sequenceReward, idx) {
       callNative({
-        method: "CCCoreService::setLastSeqIdxGiven",
+        method: "CCNativeRewardStorage::setLastSeqIdxGiven",
         reward: sequenceReward,
         idx: idx
       });
@@ -635,36 +631,36 @@ Soomla = new function () {
 
     kvStorageGetValue: function kvStorageGetValue(key) {
       var result = callNative({
-        method: "CCCoreService::getValue",
+        method: "CCNativeKeyValueStorage::getValue",
         key: key
       });
       return result.return;
     },
     kvStorageSetValue: function kvStorageSetValue(key, val) {
       callNative({
-        method: "CCCoreService::setValue",
+        method: "CCNativeKeyValueStorage::setValue",
         key: key,
         val: val
       });
     },
     kvStorageDeleteKeyValue: function kvStorageDeleteKeyValue(key) {
       callNative({
-        method: "CCCoreService::deleteKeyValue",
+        method: "CCNativeKeyValueStorage::deleteKeyValue",
         key: key
       });
     },
     kvStoragePurge: function kvStoragePurge() {
       callNative({
-        method: "CCCoreService::purge"
+        method: "CCNativeKeyValueStorage::purge"
       });
     }
   });
-  CoreService.createShared = function(commonParams) {
-    var ret = new CoreService();
-    if (ret.init(commonParams)) {
-      Soomla.coreService = ret;
+  CoreBridge.createShared = function(customSecret) {
+    var ret = new CoreBridge();
+    if (ret.init(customSecret)) {
+      Soomla.coreBridge = ret;
     } else {
-      Soomla.coreService = null;
+      Soomla.coreBridge = null;
     }
   };
 
@@ -673,16 +669,16 @@ Soomla = new function () {
    */
   var KeyValueStorage = Soomla.KeyValueStorage = declareClass("KeyValueStorage", {
     getValue: function getValue(key) {
-      Soomla.coreService.kvStorageGetValue(key);
+      Soomla.coreBridge.kvStorageGetValue(key);
     },
     setValue: function setValue(key, val) {
-      Soomla.coreService.kvStorageSetValue(key, val);
+      Soomla.coreBridge.kvStorageSetValue(key, val);
     },
     deleteKeyValue: function deleteKeyValue(key) {
-      Soomla.coreService.kvStorageDeleteKeyValue(key);
+      Soomla.coreBridge.kvStorageDeleteKeyValue(key);
     },
     purge: function purge() {
-      Soomla.coreService.kvStoragePurge();
+      Soomla.coreBridge.kvStoragePurge();
     }
   });
   Soomla.keyValueStorage = KeyValueStorage.create();
@@ -693,19 +689,19 @@ Soomla = new function () {
   var RewardStorage = Soomla.RewardStorage = declareClass("RewardStorage", {
     setRewardStatus: function setRewardStatus(reward, give, notify) {
       notify = notify || notify == undefined;
-      Soomla.coreService.setRewardStatus(reward, give, notify);
+      Soomla.coreBridge.setRewardStatus(reward, give, notify);
     },
     getTimesGiven: function getTimesGiven(reward) {
-      return Soomla.coreService.getTimesGiven(reward);
+      return Soomla.coreBridge.getTimesGiven(reward);
     },
     isRewardGiven: function isRewardGiven(reward) {
       return this.getTimesGiven(reward) > 0;
     },
     getLastSeqIdxGiven: function getLastSeqIdxGiven(sequenceReward) {
-      return Soomla.coreService.getLastSeqIdxGiven(sequenceReward);
+      return Soomla.coreBridge.getLastSeqIdxGiven(sequenceReward);
     },
     setLastSeqIdxGiven: function setLastSeqIdxGiven(sequenceReward, idx) {
-      return Soomla.coreService.setLastSeqIdxGiven(sequenceReward, idx);
+      return Soomla.coreBridge.setLastSeqIdxGiven(sequenceReward, idx);
     }
   });
   Soomla.rewardStorage = RewardStorage.create();
@@ -965,7 +961,7 @@ Soomla = new function () {
     onRestoreTransactionsStarted: function() {},
     onRestoreTransactionsFinished: function(success) {},
     onUnexpectedErrorInStore: function() {},
-    onStoreControllerInitialized: function() {},
+	onSoomlaStoreInitialized: function() {},
     // For Android only
     onMarketRefund: function(purchasableVirtualItem) {},
     onIabServiceStarted: function() {},
@@ -1442,10 +1438,10 @@ Soomla = new function () {
           }
         });
       }
-      else if (methodName == "CCStoreEventHandler::onStoreControllerInitialized") {
+      else if (methodName == "CCStoreEventHandler::onSoomlaStoreInitialized") {
         _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onStoreControllerInitialized) {
-            eventHandler.onStoreControllerInitialized();
+          if (eventHandler.onSoomlaStoreInitialized) {
+            eventHandler.onSoomlaStoreInitialized();
           }
         });
       }
@@ -2037,7 +2033,7 @@ Soomla = new function () {
     inited: false,
     init: function(customParams) {
       callNative({
-        method: "CCProfileService::init",
+        method: "CCProfileBridge::init",
         params: customParams
       });
 
