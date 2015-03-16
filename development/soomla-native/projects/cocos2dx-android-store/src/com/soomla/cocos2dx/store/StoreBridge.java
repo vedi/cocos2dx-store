@@ -2,7 +2,6 @@ package com.soomla.cocos2dx.store;
 
 import android.opengl.GLSurfaceView;
 
-import com.soomla.Soomla;
 import com.soomla.SoomlaUtils;
 import com.soomla.cocos2dx.common.*;
 import com.soomla.rewards.VirtualItemReward;
@@ -19,29 +18,26 @@ import com.soomla.store.exceptions.InsufficientFundsException;
 import com.soomla.store.exceptions.NotEnoughGoodsException;
 import com.soomla.store.exceptions.VirtualItemNotFoundException;
 import com.soomla.store.purchaseTypes.PurchaseWithMarket;
+
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoreService extends AbstractSoomlaService {
+public class StoreBridge {
 
-    private static StoreService INSTANCE = null;
+    private static StoreBridge INSTANCE = null;
 
     private static IStoreAssets mStoreAssets   = null;
-    private boolean inited = false;
 
-    public static StoreService getInstance() {
+    public static StoreBridge getInstance() {
         if (INSTANCE == null) {
-            synchronized (StoreService.class) {
+            synchronized (StoreBridge.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new StoreService();
+                    INSTANCE = new StoreBridge();
                 }
             }
         }
@@ -51,7 +47,7 @@ public class StoreService extends AbstractSoomlaService {
     @SuppressWarnings("FieldCanBeLocal")
     private StoreEventHandlerBridge storeEventHandlerBridge;
 
-    public StoreService() {
+    public StoreBridge() {
         storeEventHandlerBridge = new StoreEventHandlerBridge();
 
         DomainHelper.getInstance().registerTypeWithClassName(StoreConsts.JSON_JSON_TYPE_MARKET_ITEM, MarketItem.class);
@@ -76,13 +72,6 @@ public class StoreService extends AbstractSoomlaService {
                 JSONObject storeAssetsJson = params.getJSONObject("storeAssets");
                 StoreInfo.setStoreAssets(version, storeAssetsJson.toString());
                 mStoreAssets = new StoreAssetsBridge(version, storeAssetsJson);
-            }
-        });
-
-        ndkGlue.registerCallHandler("CCStoreService::init", new NdkGlue.CallHandler() {
-            @Override
-            public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                // Compatibility
             }
         });
 
@@ -619,19 +608,9 @@ public class StoreService extends AbstractSoomlaService {
     }
 
     public void init() {
-        final GLSurfaceView glSurfaceView = glSurfaceViewRef.get();
+        final GLSurfaceView glSurfaceView = NdkGlue.getInstance().getGlSurfaceRef().get();
         if (glSurfaceView != null) {
             storeEventHandlerBridge.setGlSurfaceView(glSurfaceView);
-        }
-
-        inited = true;
-    }
-
-    public void setGlSurfaceView(GLSurfaceView glSurfaceView) {
-        if (inited) {
-            storeEventHandlerBridge.setGlSurfaceView(glSurfaceView);
-        } else {
-            glSurfaceViewRef = new WeakReference<GLSurfaceView>(glSurfaceView);
         }
     }
 }

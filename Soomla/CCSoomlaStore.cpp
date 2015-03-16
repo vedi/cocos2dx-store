@@ -19,6 +19,7 @@
 #include "CCSoomlaUtils.h"
 #include "CCNativeSoomlaStore.h"
 #include "CCStoreEventDispatcher.h"
+#include "CCStoreBridge.h"
 
 namespace soomla {
     #define TAG "SOOMLA SoomlaStore"
@@ -42,7 +43,7 @@ namespace soomla {
         return s_SharedSoomlaStore;
     }
     
-    void CCSoomlaStore::initialize(CCStoreAssets *storeAssets) {
+    void CCSoomlaStore::initialize(CCStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams) {
         
         if (initialized) {
             const char *err = "SoomlaStore is already initialized. You can't initialize it twice!";
@@ -51,11 +52,15 @@ namespace soomla {
             return;
         }
         
+        CCStoreBridge::initShared();
+        
         CCSoomlaUtils::logDebug(TAG, "CCSoomlaStore Initializing...");
         
         getInstance()->loadBillingService();
         
         CCStoreInfo::createShared(storeAssets);
+        
+        CCStoreBridge::getInstance()->applyParams(storeParams);
         
         #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         // On iOS we only refresh market items

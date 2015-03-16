@@ -1,6 +1,6 @@
 
 
-#include "CCStoreService.h"
+#include "CCStoreBridge.h"
 #include "CCDomainFactory.h"
 #include "CCStoreConsts.h"
 #include "CCVirtualItem.h"
@@ -15,38 +15,38 @@
 #include "CCDomainHelper.h"
 #include "CCStoreEventDispatcher.h"
 #include "CCVirtualItemReward.h"
-#include "CCNativeStoreService.h"
+#include "CCNativeStoreBridge.h"
 #include "CCSoomlaStore.h"
 
 namespace soomla {
     
     USING_NS_CC;
 
-#define TAG "SOOMLA CCStoreService"
+    #define TAG "SOOMLA CCStoreBridge"
 
-    static CCStoreService *sInstance = NULL;
+    static CCStoreBridge *sInstance = NULL;
 
-    CCStoreService *CCStoreService::getInstance() {
+    CCStoreBridge *CCStoreBridge::getInstance() {
         if (!sInstance)
         {
             #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-            sInstance = new CCNativeStoreService();
+            sInstance = new CCNativeStoreBridge();
             #else
-            sInstance = new CCStoreService();
+            sInstance = new CCStoreBridge();
             #endif
             sInstance->retain();
         }
         return sInstance;
     }
 
-    void CCStoreService::initShared(CCStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams) {
-        CCStoreService *storeService = CCStoreService::getInstance();
-        if (!storeService->init(storeAssets, storeParams)) {
+    void CCStoreBridge::initShared() {
+        CCStoreBridge *storeBridge = CCStoreBridge::getInstance();
+        if (!storeBridge->init()) {
             exit(1);
         }
     }
 
-    bool CCStoreService::init(CCStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams) {
+    bool CCStoreBridge::init() {
 
         CCStoreEventDispatcher::getInstance();    // to get sure it's inited
 
@@ -62,9 +62,9 @@ namespace soomla {
         domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG, (SEL_DomainCreator)CCUpgradeVG::createWithDictionary);
 
         domainFactory->registerCreator(CCStoreConsts::JSON_JSON_TYPE_ITEM, (SEL_DomainCreator)CCVirtualItemReward::createWithDictionary);
-        
-        CCSoomlaStore::initialize(storeAssets);
 
         return true;
     }
+    
+    void CCStoreBridge::applyParams(cocos2d::CCDictionary *storeParams) {}
 }
