@@ -63,7 +63,8 @@ namespace soomla {
          Creates a `CCMarketItem`.
          @param productId The item's id in the native store.
          @param consumable Whether or not the item is consumable.
-         @param price The price of the item, in USD.
+         @param price The default price of the item, for display when connection
+         to the market is not available
          @return The Market item.
 		 */
         static CCMarketItem *create(cocos2d::CCString *productId, cocos2d::CCInteger *consumable, cocos2d::CCDouble * price);
