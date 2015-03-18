@@ -12,12 +12,12 @@
 		9D4A720419DAAA1A0033DC46 /* SoomlaVerification.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D17719B1C13F0054EA87 /* SoomlaVerification.m */; };
 		9D4A720519DAAA1A0033DC46 /* VirtualItemReward.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D17219B1C13F0054EA87 /* VirtualItemReward.m */; };
 		9D4A720619DAAA1A0033DC46 /* CCVirtualCategory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0CE19B1BFE30054EA87 /* CCVirtualCategory.cpp */; };
-		9D4A720719DAAA1A0033DC46 /* CCStoreService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0C119B1BFE30054EA87 /* CCStoreService.cpp */; };
+		9D4A720719DAAA1A0033DC46 /* CCStoreBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0C119B1BFE30054EA87 /* CCStoreBridge.cpp */; };
 		9D4A720819DAAA1A0033DC46 /* UpgradeVG.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D15C19B1C13F0054EA87 /* UpgradeVG.m */; };
 		9D4A720A19DAAA1A0033DC46 /* CCUpgradeVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0E019B1BFE30054EA87 /* CCUpgradeVG.cpp */; };
 		9D4A720B19DAAA1A0033DC46 /* CCVirtualCurrency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0D319B1BFE30054EA87 /* CCVirtualCurrency.cpp */; };
 		9D4A720C19DAAA1A0033DC46 /* CCStoreInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0C519B1BFE30054EA87 /* CCStoreInfo.cpp */; };
-		9D4A720E19DAAA1A0033DC46 /* StoreService.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D12F19B1C0C40054EA87 /* StoreService.mm */; };
+		9D4A720E19DAAA1A0033DC46 /* StoreBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D12F19B1C0C40054EA87 /* StoreBridge.mm */; };
 		9D4A720F19DAAA1A0033DC46 /* CCVirtualCurrencyPack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0D519B1BFE30054EA87 /* CCVirtualCurrencyPack.cpp */; };
 		9D4A721019DAAA1A0033DC46 /* CCPurchaseWithMarket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0EC19B1BFE30054EA87 /* CCPurchaseWithMarket.cpp */; };
 		9D4A721119DAAA1A0033DC46 /* CCEquippableVG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0D819B1BFE30054EA87 /* CCEquippableVG.cpp */; };
@@ -85,7 +85,7 @@
 		9D4A725519DAAA1A0033DC46 /* VirtualItemNotFoundException.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D16619B1C13F0054EA87 /* VirtualItemNotFoundException.h */; };
 		9D4A725619DAAA1A0033DC46 /* VirtualGoodStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D14019B1C13F0054EA87 /* VirtualGoodStorage.h */; };
 		9D4A725719DAAA1A0033DC46 /* PurchasableVirtualItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D14919B1C13F0054EA87 /* PurchasableVirtualItem.h */; };
-		9D4A725819DAAA1A0033DC46 /* CCStoreService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0C219B1BFE30054EA87 /* CCStoreService.h */; };
+		9D4A725819DAAA1A0033DC46 /* CCStoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0C219B1BFE30054EA87 /* CCStoreBridge.h */; };
 		9D4A725919DAAA1A0033DC46 /* VirtualItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D15F19B1C13F0054EA87 /* VirtualItem.h */; };
 		9D4A725A19DAAA1A0033DC46 /* CCStoreAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0B919B1BFE30054EA87 /* CCStoreAssets.h */; };
 		9D4A725B19DAAA1A0033DC46 /* InsufficientFundsException.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D16219B1C13F0054EA87 /* InsufficientFundsException.h */; };
@@ -112,7 +112,7 @@
 		9D4A727019DAAA1A0033DC46 /* VirtualCurrencyStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D13E19B1C13F0054EA87 /* VirtualCurrencyStorage.h */; };
 		9D4A727119DAAA1A0033DC46 /* CCSoomlaStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0B819B1BFE30054EA87 /* CCSoomlaStore.h */; };
 		9D4A727219DAAA1A0033DC46 /* CCSimpleStoreEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0B619B1BFE30054EA87 /* CCSimpleStoreEventHandler.h */; };
-		9D4A727319DAAA1A0033DC46 /* StoreService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D12E19B1C0C40054EA87 /* StoreService.h */; };
+		9D4A727319DAAA1A0033DC46 /* StoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D12E19B1C0C40054EA87 /* StoreBridge.h */; };
 		9D4A727419DAAA1A0033DC46 /* CCStoreInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0C619B1BFE30054EA87 /* CCStoreInfo.h */; };
 		9D4A727519DAAA1A0033DC46 /* VirtualItemReward.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D17119B1C13F0054EA87 /* VirtualItemReward.h */; };
 		9D4A727619DAAA1A0033DC46 /* StoreConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D17819B1C13F0054EA87 /* StoreConfig.h */; };
@@ -243,6 +243,15 @@
 		C0B3C5F3168C6D0C00161FAA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B3C5F2168C6D0C00161FAA /* Foundation.framework */; };
 		F820C00319DC4BDA0084BBA5 /* StoreTypeConsts.mm in Sources */ = {isa = PBXBuildFile; fileRef = F820C00219DC4BDA0084BBA5 /* StoreTypeConsts.mm */; };
 		F820C00519DC4C140084BBA5 /* StoreTypeConsts.h in Headers */ = {isa = PBXBuildFile; fileRef = F820C00419DC4C140084BBA5 /* StoreTypeConsts.h */; };
+		F83D72511AB96DF60003AD54 /* CCNativeSoomlaStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67901A2A15DE006A06A8 /* CCNativeSoomlaStore.cpp */; };
+		F83D72521AB96DF60003AD54 /* CCNativeStoreInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67921A2A15DE006A06A8 /* CCNativeStoreInfo.cpp */; };
+		F83D72531AB96DF60003AD54 /* CCNativeStoreBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67941A2A15DE006A06A8 /* CCNativeStoreBridge.cpp */; };
+		F83D72541AB96DF60003AD54 /* CCNativeVirtualCurrencyStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67961A2A15DE006A06A8 /* CCNativeVirtualCurrencyStorage.cpp */; };
+		F83D72551AB96DF60003AD54 /* CCNativeVirtualGoodsStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67981A2A15DE006A06A8 /* CCNativeVirtualGoodsStorage.cpp */; };
+		F83D72561AB96DF60003AD54 /* CCVirtualItemStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67A51A2A15F7006A06A8 /* CCVirtualItemStorage.cpp */; };
+		F83D72571AB96DF60003AD54 /* CCVirtualGoodsStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67A71A2A15F7006A06A8 /* CCVirtualGoodsStorage.cpp */; };
+		F83D72581AB96DF60003AD54 /* CCVirtualCurrencyStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67A91A2A15F7006A06A8 /* CCVirtualCurrencyStorage.cpp */; };
+		F83D72591AB96DF60003AD54 /* CCStoreBridgeBinderIos.mm in Sources */ = {isa = PBXBuildFile; fileRef = F89F723B1AB19A6F000ECC23 /* CCStoreBridgeBinderIos.mm */; };
 		F89D679A1A2A15DE006A06A8 /* CCNativeSoomlaStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67901A2A15DE006A06A8 /* CCNativeSoomlaStore.cpp */; };
 		F89D679B1A2A15DE006A06A8 /* CCNativeSoomlaStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F89D67911A2A15DE006A06A8 /* CCNativeSoomlaStore.h */; };
 		F89D679C1A2A15DE006A06A8 /* CCNativeStoreInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67921A2A15DE006A06A8 /* CCNativeStoreInfo.cpp */; };
@@ -842,7 +851,7 @@
 				9D4A725519DAAA1A0033DC46 /* VirtualItemNotFoundException.h in Headers */,
 				9D4A725619DAAA1A0033DC46 /* VirtualGoodStorage.h in Headers */,
 				9D4A725719DAAA1A0033DC46 /* PurchasableVirtualItem.h in Headers */,
-				9D4A725819DAAA1A0033DC46 /* CCStoreService.h in Headers */,
+				9D4A725819DAAA1A0033DC46 /* CCStoreBridge.h in Headers */,
 				9D4A725919DAAA1A0033DC46 /* VirtualItem.h in Headers */,
 				9D4A725A19DAAA1A0033DC46 /* CCStoreAssets.h in Headers */,
 				9D4A725B19DAAA1A0033DC46 /* InsufficientFundsException.h in Headers */,
@@ -870,7 +879,7 @@
 				9D4A727019DAAA1A0033DC46 /* VirtualCurrencyStorage.h in Headers */,
 				9D4A727119DAAA1A0033DC46 /* CCSoomlaStore.h in Headers */,
 				9D4A727219DAAA1A0033DC46 /* CCSimpleStoreEventHandler.h in Headers */,
-				9D4A727319DAAA1A0033DC46 /* StoreService.h in Headers */,
+				9D4A727319DAAA1A0033DC46 /* StoreBridge.h in Headers */,
 				9D4A727419DAAA1A0033DC46 /* CCStoreInfo.h in Headers */,
 				9D4A727519DAAA1A0033DC46 /* VirtualItemReward.h in Headers */,
 				9D4A727619DAAA1A0033DC46 /* StoreConfig.h in Headers */,
@@ -1096,18 +1105,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F83D72511AB96DF60003AD54 /* CCNativeSoomlaStore.cpp in Sources */,
+				F83D72521AB96DF60003AD54 /* CCNativeStoreInfo.cpp in Sources */,
+				F83D72531AB96DF60003AD54 /* CCNativeStoreBridge.cpp in Sources */,
+				F83D72541AB96DF60003AD54 /* CCNativeVirtualCurrencyStorage.cpp in Sources */,
+				F83D72551AB96DF60003AD54 /* CCNativeVirtualGoodsStorage.cpp in Sources */,
+				F83D72561AB96DF60003AD54 /* CCVirtualItemStorage.cpp in Sources */,
+				F83D72571AB96DF60003AD54 /* CCVirtualGoodsStorage.cpp in Sources */,
+				F83D72581AB96DF60003AD54 /* CCVirtualCurrencyStorage.cpp in Sources */,
+				F83D72591AB96DF60003AD54 /* CCStoreBridgeBinderIos.mm in Sources */,
 				9DABE27519E53A8200911DA2 /* StoreTypeConsts.mm in Sources */,
 				9D4A720219DAAA1A0033DC46 /* CCPurchaseType.cpp in Sources */,
 				9D4A720319DAAA1A0033DC46 /* CCStoreEventDispatcher.cpp in Sources */,
 				9D4A720419DAAA1A0033DC46 /* SoomlaVerification.m in Sources */,
 				9D4A720519DAAA1A0033DC46 /* VirtualItemReward.m in Sources */,
 				9D4A720619DAAA1A0033DC46 /* CCVirtualCategory.cpp in Sources */,
-				9D4A720719DAAA1A0033DC46 /* CCStoreService.cpp in Sources */,
+				9D4A720719DAAA1A0033DC46 /* CCStoreBridge.cpp in Sources */,
 				9D4A720819DAAA1A0033DC46 /* UpgradeVG.m in Sources */,
 				9D4A720A19DAAA1A0033DC46 /* CCUpgradeVG.cpp in Sources */,
 				9D4A720B19DAAA1A0033DC46 /* CCVirtualCurrency.cpp in Sources */,
 				9D4A720C19DAAA1A0033DC46 /* CCStoreInfo.cpp in Sources */,
-				9D4A720E19DAAA1A0033DC46 /* StoreService.mm in Sources */,
+				9D4A720E19DAAA1A0033DC46 /* StoreBridge.mm in Sources */,
 				9D4A720F19DAAA1A0033DC46 /* CCVirtualCurrencyPack.cpp in Sources */,
 				9D4A721019DAAA1A0033DC46 /* CCPurchaseWithMarket.cpp in Sources */,
 				9D4A721119DAAA1A0033DC46 /* CCEquippableVG.cpp in Sources */,
