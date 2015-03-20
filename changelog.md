@@ -1,3 +1,10 @@
+### v4.4.0 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.3.3...v4.4.0)
+
+**BREAKING API VERSION**
+
+* Features
+  * Better integration process for Store module (see README for instructions)
+
 ### v4.3.3 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.3.2...v4.3.3)
 
 * Changes

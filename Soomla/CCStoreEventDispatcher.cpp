@@ -307,7 +307,7 @@ namespace soomla {
                     this->onUnexpectedErrorInStore(errorMessage);
                });
 
-        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_STORE_CONTROLLER_INITIALIZED,
+        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_SOOMLA_STORE_INITIALIZED,
                 [this](__Dictionary *parameters) {
                     this->onSoomlaStoreInitialized();
                });
