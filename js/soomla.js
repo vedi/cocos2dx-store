@@ -558,13 +558,17 @@ Soomla = new function () {
     toProvider : null,
     toProfileId : null,
     payload : null
-
   }, Domain);
 
   var GiftPayload = Soomla.Models.GiftPayload = declareClass("GiftPayload", {
     associatedItemId : null,
     itemsAmount : null
+  }, Domain);
 
+  var FriendState = Soomla.Models.FriendState = declareClass("FriendState", {
+    profileId : null,
+    records : null,
+    lastCompletedWorlds : null
   }, Domain);
 
   var MetaDataSyncError = Soomla.Models.MetaDataSyncError = {
@@ -932,6 +936,25 @@ Soomla = new function () {
   };
 
   /**
+   * SoomlaQuery
+   */
+  var SoomlaQuery = Soomla.SoomlaQuery = {
+    queryFriendsStates: function(providerId, friendsProfileIds) {
+      var result = callNative({
+        method: "CCSoomlaQuery::queryFriendsStates",
+        providerId: providerId,
+        friendsList: friendsProfileIds
+      });
+
+      if (result.return) {
+        return result.willStart;
+      }
+
+      return false;
+    }
+  };
+
+  /**
    * EventHandler
    */
   var EventHandler = Soomla.EventHandler = declareClass("EventHandler", {
@@ -1220,7 +1243,31 @@ Soomla = new function () {
      @param gift the gift that failed to be handed out.
      @param errorMessage The reason why the gift has failed to be handed out.
      */
-    onGiftHandOutFailed : function(gift, errorMessage) {}
+    onGiftHandOutFailed : function(gift, errorMessage) {},
+    /**
+     Fired when soomla query starts querying friends' states for a
+     specific social provider.
+     @param providerId The social provider ID for which the query operation
+     is preformed.
+     */
+    onQueryFriendsStatesStarted : function(providerId) {},
+    /**
+     Fired when soomla query finished querying friends' states for a
+     specific social provider
+     @param providerId The social provider ID for which the query operation
+     is preformed.
+     @param friendsStates a List of friends' states for the requested query
+     */
+    onQueryFriendsStatesFinished : function(providerId, friendsStates) {},
+    /**
+     Fired when soomla query fails to query friends' states for a specific
+     social provider
+     @param providerId The social provider ID for which the query operation
+     is preformed.
+     @param errorMessage The error message explaining why the query
+     operation failed
+     */
+    onQueryFriendsStatesFailed : function(providerId, errorMessage) {}
   });
 
   /**
@@ -1816,6 +1863,32 @@ Soomla = new function () {
         _.forEach(Soomla.eventHandlers, function (eventHandler) {
           if (eventHandler.onGiftHandOutFailed) {
             eventHandler.onGiftHandOutFailed(gift, errorMessage);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.query.events.QueryFriendsStatesStartedEvent") {
+        var providerId = parameters.providerId;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onQueryFriendsStatesStarted) {
+            eventHandler.onQueryFriendsStatesStarted(providerId);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.query.events.QueryFriendsStatesFinishedEvent") {
+        var providerId = parameters.providerId;
+        var friendsStates = parameters.friendsStates;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onQueryFriendsStatesFinished) {
+            eventHandler.onQueryFriendsStatesFinished(providerId, friendsStates);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.query.events.QueryFriendsStatesFailedEvent") {
+        var providerId = parameters.providerId;
+        var errorMessage = parameters.errorMessage;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onQueryFriendsStatesFailed) {
+            eventHandler.onQueryFriendsStatesFailed(providerId, errorMessage);
           }
         });
       }
