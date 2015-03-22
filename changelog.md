@@ -1,3 +1,9 @@
+### v4.4.1 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/cocos2dx-v2-v4.4.0...cocos2dx-v2-v4.4.1)
+
+* Changes
+  * Changing iOS bridge compilation and resulting header location
+  * (JSB) adding Soomla Query to JS
+
 ### v4.4.0 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/cocos2dx-v2-v4.3.4...cocos2dx-v2-v4.4.0)
 
 **BREAKING API VERSION**
