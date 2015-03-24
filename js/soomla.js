@@ -361,9 +361,11 @@ Soomla = new function () {
     productId: null,
     consumable: null,
     price: null,
-    market_price: null,
-    market_title: null,
-    market_desc: null
+    marketPrice: 0,
+    marketTitle: null,
+    marketDesc: null,
+    marketCurrencyCode: null,
+    marketPriceMicros: 0
   }, Domain);
   MarketItem.Consumable = {
     NONCONSUMABLE: 0,
@@ -581,6 +583,13 @@ Soomla = new function () {
     STATE_GENERAL_ERROR: 0,
     STATE_SERVER_ERROR: 1,
     STATE_UPDATE_STATE_ERROR: 2
+  };
+
+  var DLCSyncError = Soomla.Models.DLCSyncError = {
+    DLC_GENERAL_ERROR: 0,
+    DLC_DOWNLOAD_ERROR: 1,
+    DLC_DELETE_ERROR: 2,
+    DLC_SERVER_ERROR: 3
   };
 
   // ------- Core -------- //
@@ -955,6 +964,68 @@ Soomla = new function () {
   };
 
   /**
+   * SoomlaDLC
+   */
+  var SoomlaDLC = Soomla.SoomlaDLC = declareClass("SoomlaDLC", {
+    init: function init() {
+      var result = callNative({
+        method: "CCSoomlaDLC::init"
+      });
+      return true;
+    },
+    checkPackageStatus: function(packageId) {
+
+      callNative({
+        method: "CCSoomlaDLC::checkPackageStatus",
+        packageId: packageId
+      });
+    },
+    checkSyncedPackagesStatus: function() {
+
+      callNative({
+        method: "CCSoomlaDLC::checkSyncedPackagesStatus"
+      });
+    },
+    startSync: function(packageId) {
+      var result = callNative({
+        method: "CCSoomlaDLC::startSync",
+        packageId: packageId
+      });
+
+      if (result.return) {
+        return result.willStart;
+      }
+
+      return false;
+    },
+    getPathToFile: function(packageId, fileName) {
+      var result = callNative({
+        method: "CCSoomlaDLC::getFilePath",
+        packageId: packageId,
+        fileName: fileName
+      });
+
+      return result.return;
+    },
+    getListOfFiles: function(packageId) {
+      var result = callNative({
+        method: "CCSoomlaDLC::getFilesPathsInPackage",
+        packageId: packageId
+      });
+
+      return result.return;
+    }
+  });
+  SoomlaDLC.createShared = function() {
+    var ret = new SoomlaDLC();
+    if (ret.init()) {
+      Soomla.soomlaDLC = ret;
+    } else {
+      Soomla.soomlaDLC = null;
+    }
+  };
+
+  /**
    * EventHandler
    */
   var EventHandler = Soomla.EventHandler = declareClass("EventHandler", {
@@ -1267,7 +1338,38 @@ Soomla = new function () {
      @param errorMessage The error message explaining why the query
      operation failed
      */
-    onQueryFriendsStatesFailed : function(providerId, errorMessage) {}
+    onQueryFriendsStatesFailed : function(providerId, errorMessage) {},
+
+    /**
+     Fired when the DLC client is initialized.
+     */
+    onSoomlaDLCInitialized: function() {},
+    /**
+     Fired when a package/s update status check has returned from the server.
+     @param hasChanges General status against the server state of packages
+     @param packagesToSync All packages which were updated on the server
+     and need to be synced on the device.
+     @param packagesDeleted All packages which were deleted from the
+     device as a result of their deletion from the server.
+     */
+    onDLCPackagesStatusUpdate: function(hasChanges, packagesToSync, packagesDeleted) {},
+    /**
+     This event is fired when the package starts the syncing process
+     @param packageId The package started syncing
+     */
+    onDLCPackageSyncStarted: function(packageId) {},
+    /**
+     This event is fired when the package finishes the syncing process
+     @param packageId The package finished syncing
+     */
+    onDLCPackageSyncFinished: function(packageId) {},
+    /**
+     This event is fired when the package failed the syncing process.
+     @param packageId The package which failed to sync
+     @param errorCode The error code for this failure
+     @param errorMessage The error message for the failure
+     */
+    onDLCPackageSyncFailed: function(packageId, errorCode, errorMessage) {}
   });
 
   /**
@@ -1889,6 +1991,49 @@ Soomla = new function () {
         _.forEach(Soomla.eventHandlers, function (eventHandler) {
           if (eventHandler.onQueryFriendsStatesFailed) {
             eventHandler.onQueryFriendsStatesFailed(providerId, errorMessage);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.dlc.events.SoomlaDLCInitializedEvent") {
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onSoomlaDLCInitialized) {
+            eventHandler.onSoomlaDLCInitialized();
+          }
+        });
+      }
+      else if (methodName == "com.soomla.dlc.events.DLCPackagesStatusUpdateEvent") {
+        var hasChanges = parameters.hasChanges;
+        var packagesToSync = parameters.packagesToSync;
+        var packagesDeleted = parameters.packagesDeleted;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onDLCPackagesStatusUpdate) {
+            eventHandler.onDLCPackagesStatusUpdate(hasChanges, packagesToSync, packagesDeleted);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.dlc.events.DLCPackageSyncStartedEvent") {
+        var packageId = parameters.packageId;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onDLCPackageSyncStarted) {
+            eventHandler.onDLCPackageSyncStarted(packageId);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.dlc.events.DLCPackageSyncFinishedEvent") {
+        var packageId = parameters.packageId;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onDLCPackageSyncFinished) {
+            eventHandler.onDLCPackageSyncFinished(packageId);
+          }
+        });
+      }
+      else if (methodName == "com.soomla.dlc.events.DLCPackageSyncFailedEvent") {
+        var packageId = parameters.packageId;
+        var errorCode = parameters.errorCode;
+        var errorMessage = parameters.errorMessage;
+        _.forEach(Soomla.eventHandlers, function (eventHandler) {
+          if (eventHandler.onDLCPackageSyncFailed()) {
+            eventHandler.onDLCPackageSyncFailed(packageId, errorCode, errorMessage);
           }
         });
       }
