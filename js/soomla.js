@@ -364,7 +364,7 @@ Soomla = new function () {
     marketTitle: null,
     marketDesc: null,
     marketCurrencyCode: null,
-    marketPriceMicros: null
+    marketPriceMicros: 0
   }, Domain);
   MarketItem.Consumable = {
     NONCONSUMABLE: 0,
@@ -542,7 +542,7 @@ Soomla = new function () {
   }
 
   function extractCollection(retParams) {
-    var retArray = retParams.return;
+    var retArray = retParams.return || [];
 
     var result = [];
     for (var i = 0; i < retArray.length; i++) {
