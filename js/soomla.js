@@ -1819,6 +1819,8 @@ Soomla = new function () {
     SOOMLA_AND_PUB_KEY_DEFAULT: "YOUR GOOGLE PLAY PUBLIC KEY",
     init: function(storeAssets, storeParams) {
 
+      var platform = sys.os.toLowerCase();
+
       // Redundancy checking. Most JS libraries don't do this. I hate it when they don't do this. Do this.
       var fields = ["androidPublicKey", "SSV", "testPurchases"];
       var wrongParams = _.omit(storeParams, fields);
@@ -1831,17 +1833,17 @@ Soomla = new function () {
       storeParams.SSV  = storeParams.SSV === true || false;
       storeParams.testPurchases  = storeParams.testPurchases === true || false;
 
-      if (sys.os == "android" && storeParams.androidPublicKey.length == 0) {
+      if (platform === "android" && storeParams.androidPublicKey.length == 0) {
         logError("SOOMLA/COCOS2DX MISSING publickKey !!! Stopping here !!");
         return false;
       }
 
-      if (sys.os == "android" && storeParams.androidPublicKey == this.SOOMLA_AND_PUB_KEY_DEFAULT) {
+      if (platform === "android" && storeParams.androidPublicKey == this.SOOMLA_AND_PUB_KEY_DEFAULT) {
         logError("SOOMLA/COCOS2DX You have to change android publicKey !!! Stopping here !!");
         return false;
       }
 
-      if (sys.os == "ios") {
+      if (platform === "ios") {
         callNative({
           method: "CCSoomlaStore::setSSV",
           ssv: storeParams.SSV
@@ -1854,7 +1856,7 @@ Soomla = new function () {
         method: "CCStoreServiceJsb::init"
       });
 
-      if (sys.os == "android") {
+      if (platform === "android") {
         callNative({
           method: "CCSoomlaStore::setAndroidPublicKey",
           androidPublicKey: storeParams.androidPublicKey
