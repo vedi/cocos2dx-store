@@ -2,11 +2,15 @@
 #ifndef __CCStoreEventDispatcher_H_
 #define __CCStoreEventDispatcher_H_
 
-#include "CCStoreEventHandler.h"
-#include "CCAbstractAggregatedEventHandler.h"
+#include "cocos2d.h"
+#include "CCVirtualGood.h"
+#include "CCVirtualCurrency.h"
+#include "CCPurchasableVirtualItem.h"
+#include "CCEquippableVG.h"
+#include "CCUpgradeVG.h"
 
 namespace soomla {
-    class CCStoreEventDispatcher: public CCAbstractAggregatedEventHandler<CCStoreEventHandler>, public CCStoreEventHandler {
+    class CCStoreEventDispatcher: public cocos2d::Ref {
     public:
         /**
         This class is singleton, access it with this function.
@@ -57,7 +61,7 @@ namespace soomla {
         
         virtual void onSoomlaStoreInitialized(bool alsoPush);
 
-        virtual void onMarketItemsRefreshed(cocos2d::__Array *virtualItems);
+        virtual void onMarketItemsRefreshed(cocos2d::__Array *marketItems);
 
 /** Android only events*/
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
