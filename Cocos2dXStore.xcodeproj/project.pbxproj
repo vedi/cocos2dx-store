@@ -943,13 +943,13 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../cocos/platform/ios",
-					"$(SRCROOT)/../../cocos/platform/ios/Simulation",
 					"$(SRCROOT)/../../cocos",
 					"$(SRCROOT)/../../cocos/base",
 					"$(SRCROOT)/../../cocos/2d",
-					"$(SRCROOT)/../soomla-cocos2dx-core/build/ios/headers/**",
+					"$(SRCROOT)/../../cocos/platform/ios",
+					"$(SRCROOT)/../../cocos/platform/ios/Simulation",
 					"$(SRCROOT)/../../external/jansson",
+					"$(SRCROOT)/../soomla-cocos2dx-core/build/ios/headers/**",
 					"$(SRCROOT)/build/ios/headers/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/build/ios";
@@ -975,13 +975,13 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../cocos/platform/ios",
-					"$(SRCROOT)/../../cocos/platform/ios/Simulation",
 					"$(SRCROOT)/../../cocos",
 					"$(SRCROOT)/../../cocos/base",
 					"$(SRCROOT)/../../cocos/2d",
-					"$(SRCROOT)/../soomla-cocos2dx-core/build/ios/headers/**",
+					"$(SRCROOT)/../../cocos/platform/ios",
+					"$(SRCROOT)/../../cocos/platform/ios/Simulation",
 					"$(SRCROOT)/../../external/jansson",
+					"$(SRCROOT)/../soomla-cocos2dx-core/build/ios/headers/**",
 					"$(SRCROOT)/build/ios/headers/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/build/ios";
