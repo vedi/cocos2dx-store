@@ -140,8 +140,15 @@ namespace soomla {
          CCStoreConsts::DICT_ELEMENT_TOKEN - __String - The purchase token.
          CCStoreConsts::DICT_ELEMENT_DEVELOPERPAYLOAD - __String -
          The developer payload.
+         CCStoreConsts::DICT_ELEMENT_ORIGINAL_JSON - __String - Original JSON of
+         the purchase (Google Only)
+         CCStoreConsts::DICT_ELEMENT_SIGNATURE - __String - Purchase signature
+         (Google Only)
+         CCStoreConsts::DICT_ELEMENT_USER_ID - __String - The purchasing user ID
+         (Amazon Only)
          */
-        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *token, cocos2d::__String *payload);
+        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *token, cocos2d::__String *payload, cocos2d::__String *originalJson,
+                                      cocos2d::__String *signature, cocos2d::__String *userId);
 
         /**
          Fired when a purchase process has started, where the item is being 

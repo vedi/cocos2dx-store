@@ -94,6 +94,9 @@ namespace soomla {
     char const *CCStoreConsts::DICT_ELEMENT_DEVELOPERPAYLOAD = "DeveloperPayload";
     char const *CCStoreConsts::DICT_ELEMENT_RECEIPT = "receipt";
     char const *CCStoreConsts::DICT_ELEMENT_TOKEN = "token";
+    char const *CCStoreConsts::DICT_ELEMENT_ORIGINAL_JSON = "originalJson";
+    char const *CCStoreConsts::DICT_ELEMENT_SIGNATURE = "signature";
+    char const *CCStoreConsts::DICT_ELEMENT_USER_ID = "userId";
     char const *CCStoreConsts::DICT_ELEMENT_SUCCESS = "success";
     char const *CCStoreConsts::DICT_ELEMENT_VERIFIED = "verified";
     char const *CCStoreConsts::DICT_ELEMENT_TRANSACTION = "transaction";
