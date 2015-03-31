@@ -325,13 +325,11 @@ namespace soomla {
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_IAB_SERVICE_STARTED,
                 [this](__Dictionary *parameters) {
-                    CCSoomlaUtils::logDebug("ASDADASD", "onIabServiceStarted O");
                     this->onIabServiceStarted();
                });
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_IAB_SERVICE_STOPPED,
                 [this](__Dictionary *parameters) {
-                    CCSoomlaUtils::logDebug("ASDADASD", "onIabServiceStopped O");
                     this->onIabServiceStopped();
                });
 #endif
@@ -563,12 +561,10 @@ namespace soomla {
     }
 
     void CCStoreEventDispatcher::onIabServiceStarted() {
-        CCSoomlaUtils::logDebug("ASDADASD", "onIabServiceStarted S");
         Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(CCStoreConsts::EVENT_IAB_SERVICE_STARTED);
     }
 
     void CCStoreEventDispatcher::onIabServiceStopped() {
-        CCSoomlaUtils::logDebug("ASDADASD", "onIabServiceStopped E");
         Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(CCStoreConsts::EVENT_IAB_SERVICE_STOPPED);
     }
 #endif
