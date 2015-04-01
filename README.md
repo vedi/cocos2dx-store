@@ -316,9 +316,9 @@ Continuing the example, here's how you would handle and extract data from such a
 
 ```cpp
 void ExampleScene::onItemPurchased(cocos2d::EventCustom *event) {
-  __Dictionary *eventData = (__Dictionary *)event->getUserData();
-  CCPurchasableVirtualItem *purchasable = dynamic_cast<CCPurchasableVirtualItem *>(eventData->objectForKey(soomla::CCStoreConsts::DICT_ELEMENT_PURCHASABLE));
-  __String *payload = dynamic_cast<__String *>(eventData->objectForKey(soomla::CCStoreConsts::DICT_ELEMENT_DEVELOPERPAYLOAD));
+  cocos2d::__Dictionary *eventData = (cocos2d::__Dictionary *)event->getUserData();
+  soomla::CCPurchasableVirtualItem *purchasable = dynamic_cast<soomla::CCPurchasableVirtualItem *>(eventData->objectForKey(soomla::CCStoreConsts::DICT_ELEMENT_PURCHASABLE));
+  cocos2d::__String *payload = dynamic_cast<cocos2d::__String *>(eventData->objectForKey(soomla::CCStoreConsts::DICT_ELEMENT_DEVELOPERPAYLOAD));
 
   // Use purchasable and payload for your needs
 }
