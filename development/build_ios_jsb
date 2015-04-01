@@ -1,0 +1,19 @@
+build=../build/ios
+build_headers=$build/headers
+
+rm -rf $build
+mkdir -p $build
+mkdir -p $build_headers
+
+cd submodules/ios-store
+./build_all
+cd -
+cp -L submodules/ios-store/build/libSoomlaiOSStore.a $build/
+cp -RL submodules/ios-store/build/headers/SoomlaiOSStore $build_headers/
+
+path="soomla-native/projects/cocos2dx-ios-store"
+cd $path
+./build_jsb
+cd -
+cp -R $path/build/* $build/
+
