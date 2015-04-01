@@ -259,6 +259,9 @@ public class StoreEventHandlerBridge {
                     parameters.put("itemId", marketPurchaseEvent.getPurchasableVirtualItem().getItemId());
                     parameters.put("payload", marketPurchaseEvent.getPayload());
                     parameters.put("token", marketPurchaseEvent.getToken());
+                    parameters.put("originalJson", marketPurchaseEvent.getOriginalJson());
+                    parameters.put("signature", marketPurchaseEvent.getSignature());
+                    parameters.put("userId", marketPurchaseEvent.getUserId());
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
