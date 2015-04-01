@@ -9,9 +9,11 @@ soomla::CCStoreInventory::sharedStoreInventory()->buyItem("[itemId]", NULL);
 cocos2dx-store
 ---
 
-> The `master` branch supports cocos2d-x v3.x. For cocos2d-x v2.x use `cocos2dx-v2` branch.*
+> The `master` branch supports cocos2d-x v3.x. For cocos2d-x v2.x use `cocos2dx-v2` branch.
 
 > Draw your attention this page covers integration of C++ based solutions. If you need information regarding JS solution follow the link: https://github.com/soomla/cocos2dx-store/wiki/jsb#cocos2dx-store
+
+**April 1st, 2015**: v4.5 Event handlers replaced with Cocos2d-x event system (needs core update as well)
 
 **March 16, 2015**: v4.4 Better integration for all Soomla modules in Cocos2d-x (needs core update as well)
 
@@ -50,8 +52,8 @@ This example is still under development but it can give you a taste of the impor
 
 ####Pre baked zip:
 
-- [soomla-cocos2dx-core 1.1.1](http://library.soom.la/fetch/cocos2dx-core/1.1.1?cf=github)
-- [cocos2dx-store 4.4.1](http://library.soom.la/fetch/cocos2dx-store/4.4.1?cf=github)
+- [soomla-cocos2dx-core 1.2.0](http://library.soom.la/fetch/cocos2dx-core/1.2.0?cf=github)
+- [cocos2dx-store 4.5.0](http://library.soom.la/fetch/cocos2dx-store/4.5.0?cf=github)
 
 ## Getting Started (With pre-built libraries)
 
@@ -73,15 +75,9 @@ This example is still under development but it can give you a taste of the impor
 
 1. Create your own implementation of `CCStoreAssets` in order to describe your specific game's assets ([example](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)).
 
-1. Implement your `CCStoreEventHandler` in order to be notified about in-app purchasing related events. Refer to the [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling) section for more information.
-
 1. Make sure to include the `Cocos2dxStore.h` header whenever you use any of the *cocos2dx-store* functions:
     ```cpp
     #include "Cocos2dxStore.h"
-    ```
-1. Add instance of your event handler to `CCStoreEventDispatcher` before `CCSoomlaStore` initialization:
-    ```cpp
-    soomla::CCStoreEventDispatcher::getInstance()->addEventHandler(handler);
     ```
 
 1. Initialize `CCSoomla` and `CCSoomlaStore` with the class you just created, a `customSecret` and other params:
@@ -103,6 +99,8 @@ This example is still under development but it can give you a taste of the impor
     - *Test Purchases* - allows testing IAP on Google Play. (iOS doesn't have this functionality).
 
     > Initialize `CCSoomlaStore` ONLY ONCE when your application loads.
+
+1. You'll need to subscribe to store events to get notified about in-app purchasing related events. refer to the [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling) section for more information.
 
 The next steps are different for the different platforms.
 
@@ -304,9 +302,29 @@ SOOMLA lets you subscribe to store events, get notified and implement your own a
 
 > Your behaviour is an addition to the default behaviour implemented by SOOMLA. You don't replace SOOMLA's behaviour.
 
-The `CCStoreEventDispatcher` class is where all events go through. To handle various events, create your own event handler, a class that implements `CCEventHandler`, and add it to the `CCStoreEventDispatcher` class:
+SOOMLA uses the Cocos2d-x [`EventDispatcher`](http://www.cocos2d-x.org/wiki/EventDispatcher_Mechanism) to dispatch its own custom events.
+The names of such events are defined in `CCStoreConsts`, the received event has a `__Dictionary` set in its `userData` which holds all the meta-data for the event.
+You can subscribe to any event from anywhere in your code.
 
-    soomla::CCStoreEventDispatcher::getInstance()->addEventHandler(storeEventHandler);
+For example here's how to subscribe to the item purchased event:
+
+```cpp
+cocos2d::Director::getInstance()->getEventDispatcher()->addCustomEventListener(soomla::CCStoreConsts::EVENT_ITEM_PURCHASED, CC_CALLBACK_1(ExampleScene::onItemPurchased, this));
+```
+
+Continuing the example, here's how you would handle and extract data from such an event:
+
+```cpp
+void ExampleScene::onItemPurchased(cocos2d::EventCustom *event) {
+  __Dictionary *eventData = (__Dictionary *)event->getUserData();
+  CCPurchasableVirtualItem *purchasable = dynamic_cast<CCPurchasableVirtualItem *>(eventData->objectForKey(soomla::CCStoreConsts::DICT_ELEMENT_PURCHASABLE));
+  __String *payload = dynamic_cast<__String *>(eventData->objectForKey(soomla::CCStoreConsts::DICT_ELEMENT_DEVELOPERPAYLOAD));
+
+  // Use purchasable and payload for your needs
+}
+```
+
+Each event has its own meta-data, see inline documentation in [`CCStoreEventDispatcher`](https://github.com/soomla/cocos2dx-store/blob/master/Soomla/CCStoreEventDispatcher.h) for more information.
 
 ## Error Handling
 
@@ -373,9 +391,9 @@ or, if you have repositories already cloned, fetch the submodules with this comm
 
 1. For Android: You can use our "sourced" modules for Android Studio (or IntelliJ IDEA) (`extensions/soomla-cocos2dx-core/development/Cocos2dxCoreFromSources.iml`, `extensions/cocos2dx-store/development/Cocos2dxStoreFromSources.iml`), just include them to your project.
 
-## How to move from v4.3.x to v4.4.x?
+## How to move from v4.3.x to v4.5.x?
 
-Version 4.4.x is all about making the integration process on iOS and Android easier.
+Version 4.5.x is all about making the integration process on iOS and Android easier.
 If you are using v4.3.x and want to move to v4.4.x follow these steps:
 
 1. Pull the latest version to your `extensions` folder
@@ -386,7 +404,8 @@ If you are using v4.3.x and want to move to v4.4.x follow these steps:
   - Change `soomla::CCProfileService::initShared(profileParams);` to `soomla::CCSoomlaProfile::initialize(profileParams);`
   - Remove `soomla::CCLevelUpService::initShared();`
   - Remove any `#include`s to missing header files, you only need `Cocos2dxStore.h`, `Cocos2dxProfile.h` and `Cocos2dxLevelUp.h`
-`1. When in doubt follow the [cocos2dx-store-example](https://github.com/soomla/cocos2dx-store#example-project)`
+1. Remove any reference to `EventHandler`s and subscribing through Soomla `EventDispatcher`s, instead use the Cocos2d-x `EventDispatcher` to subscribe to events.
+1. When in doubt follow the [cocos2dx-store-example](https://github.com/soomla/cocos2dx-store#example-project)`
 
 Contribution
 ---
