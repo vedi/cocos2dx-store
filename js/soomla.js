@@ -601,6 +601,9 @@ Soomla = new function () {
   /**
    * CoreBridge
    */
+
+  Soomla.DB_KEY_PRFIX = 'soomla.';
+
   var CoreBridge = Soomla.CoreBridge = declareClass("CoreBridge", {
     SOOMLA_ONLY_ONCE_DEFAULT: "SET ONLY ONCE",
     init: function init(soomlaSecret) {
@@ -616,35 +619,6 @@ Soomla = new function () {
       });
 
       return true;
-    },
-    getTimesGiven: function getTimesGiven(reward) {
-      var result = callNative({
-        method: "CCNativeRewardStorage::getTimesGiven",
-        reward: reward
-      });
-      return result.return;
-    },
-    setRewardStatus: function setRewardStatus(reward, give, notify) {
-      callNative({
-        method: "CCNativeRewardStorage::setRewardStatus",
-        reward: reward,
-        give: give,
-        notify: notify
-      });
-    },
-    getLastSeqIdxGiven: function getLastSeqIdxGiven(sequenceReward) {
-      var result = callNative({
-        method: "CCNativeRewardStorage::getLastSeqIdxGiven",
-        reward: sequenceReward
-      });
-      return result.return;
-    },
-    setLastSeqIdxGiven: function setLastSeqIdxGiven(sequenceReward, idx) {
-      callNative({
-        method: "CCNativeRewardStorage::setLastSeqIdxGiven",
-        reward: sequenceReward,
-        idx: idx
-      });
     }
   });
   CoreBridge.createShared = function(customSecret) {
@@ -745,30 +719,111 @@ Soomla = new function () {
     }
   });
 
-  Soomla.keyValueStorage =  platform.isNativeSupported() ? NativeKeyValueStorage.create() : BridgelessKeyValueStorage.create();
+  Soomla.keyValueStorage = platform.isNativeSupported() ? NativeKeyValueStorage.create() : BridgelessKeyValueStorage.create();
 
   /**
-   * RewardStorage
+   * NativeRewardStorage
    */
-  var RewardStorage = Soomla.RewardStorage = declareClass("RewardStorage", {
+  var NativeRewardStorage = Soomla.NativeRewardStorage = declareClass("NativeRewardStorage", {
     setRewardStatus: function setRewardStatus(reward, give, notify) {
       notify = notify || notify == undefined;
-      Soomla.coreBridge.setRewardStatus(reward, give, notify);
+      callNative({
+        method: "CCNativeRewardStorage::setRewardStatus",
+        reward: reward,
+        give: give,
+        notify: notify
+      });
     },
     getTimesGiven: function getTimesGiven(reward) {
-      return Soomla.coreBridge.getTimesGiven(reward);
+      var result = callNative({
+        method: "CCNativeRewardStorage::getTimesGiven",
+        reward: reward
+      });
+      return result.return;
     },
     isRewardGiven: function isRewardGiven(reward) {
       return this.getTimesGiven(reward) > 0;
     },
     getLastSeqIdxGiven: function getLastSeqIdxGiven(sequenceReward) {
-      return Soomla.coreBridge.getLastSeqIdxGiven(sequenceReward);
+      var result = callNative({
+        method: "CCNativeRewardStorage::getLastSeqIdxGiven",
+        reward: sequenceReward
+      });
+      return result.return;
     },
     setLastSeqIdxGiven: function setLastSeqIdxGiven(sequenceReward, idx) {
-      return Soomla.coreBridge.setLastSeqIdxGiven(sequenceReward, idx);
+      callNative({
+        method: "CCNativeRewardStorage::setLastSeqIdxGiven",
+        reward: sequenceReward,
+        idx: idx
+      });
     }
   });
-  Soomla.rewardStorage = RewardStorage.create();
+
+  /**
+   * BridgelessRewardStorage
+   */
+  var BridgelessRewardStorage = Soomla.BridgelessRewardStorage = declareClass("BridgelessRewardStorage", {
+    setRewardStatus: function setRewardStatus(reward, give, notify) {
+      notify = notify || notify === undefined;
+      this.setTimesGiven(reward, give, notify);
+    },
+    getTimesGiven: function getTimesGiven(reward) {
+      var key = this.keyRewardTimesGiven(reward.getId());
+      var val = Soomla.keyValueStorage.getValue(key);
+      return (!_.isUndefined(val) && !_.isNull(val)) ? val : 0;
+    },
+    isRewardGiven: function isRewardGiven(reward) {
+      return this.getTimesGiven(reward) > 0;
+    },
+    getLastSeqIdxGiven: function getLastSeqIdxGiven(sequenceReward) {
+      var key = this.keyRewardIdxSeqGiven(sequenceReward.getId());
+      var val = Soomla.keyValueStorage.getValue(key);
+      return (!_.isUndefined(val) && !_.isNull(val)) ? val : -1;
+    },
+    setLastSeqIdxGiven: function setLastSeqIdxGiven(sequenceReward, idx) {
+      var key = this.keyRewardIdxSeqGiven(sequenceReward.getId());
+      Soomla.keyValueStorage.setValue(key, idx);
+    },
+
+
+    setTimesGiven: function setTimesGiven(reward, up, notify) {
+      var total = this.getTimesGiven(reward) + (up ? 1 : -1);
+      if (total < 0) {
+        total = 0;
+      }
+
+      var key = this.keyRewardTimesGiven(reward.getId());
+      Soomla.keyValueStorage.setValue(key, total);
+
+      if (up) {
+        key = this.keyRewardLastGiven(reward.getId());
+        Soomla.keyValueStorage.setValue(key, Date.now());
+      }
+
+      if (notify) {
+        if (up) {
+          Soomla.dispatchEvent('onRewardGivenEvent', reward);
+        } else {
+          Soomla.dispatchEvent('onRewardTakenEvent', reward);
+        }
+      }
+    },
+    keyRewards: function keyRewards(rewardId, postfix) {
+      return Soomla.DB_KEY_PRFIX + 'rewards.' + rewardId + '.' + postfix;
+    },
+    keyRewardIdxSeqGiven: function keyRewardIdxSeqGiven(rewardId) {
+      return this.keyRewards(rewardId, "seq.id");
+    },
+    keyRewardTimesGiven: function keyRewardTimesGiven(rewardId) {
+      return this.keyRewards(rewardId, "timesGiven");
+    },
+    keyRewardLastGiven: function keyRewardLastGiven(rewardId) {
+      return this.keyRewards(rewardId, "lastGiven");
+    }
+  });
+
+  Soomla.rewardStorage = platform.isNativeSupported() ? NativeRewardStorage.create() : BridgelessRewardStorage.create();
 
   // ------- Store -------- //
   /**
@@ -1274,6 +1329,26 @@ Soomla = new function () {
    * Root definitions
    */
   Soomla.eventHandlers = [];
+
+  /**
+   * Dispatch event. Goes through event handlers and calls
+   * @param eventName function to call in event handlers
+   * @param {...Mixed} params params to pass to the function of event handlers
+   */
+  Soomla.dispatchEvent = function (eventName) {
+    // TODO: Switch all dispatching to this function
+    if (arguments.length === 0) {
+      console.log('dispatchEvent: Wrong arguments number');
+      return;
+    }
+    var functionName = arguments.shift();
+    _.forEach(Soomla.eventHandlers, function (eventHandler) {
+      if (_.isFunction(eventHandler[functionName])) {
+        eventHandler[functionName].apply(eventHandler, arguments);
+      }
+    });
+  };
+
   Soomla.addEventHandler = Soomla.on = function (eventHandler) {
     Soomla.eventHandlers.push(eventHandler);
   };
