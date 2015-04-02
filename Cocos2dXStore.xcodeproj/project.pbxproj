@@ -1025,6 +1025,10 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../cocos",
+					"$(SRCROOT)/../../cocos/base",
+					"$(SRCROOT)/../../cocos/2d",
+					"$(SRCROOT)/../../external/jansson",
 					"$(SRCROOT)/../../cocos/platform/mac",
 					"$(SRCROOT)/../../cocos/platform/desktop",
 					"$(SRCROOT)/../../external/glfw3/include/mac",
@@ -1064,6 +1068,10 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../cocos",
+					"$(SRCROOT)/../../cocos/base",
+					"$(SRCROOT)/../../cocos/2d",
+					"$(SRCROOT)/../../external/jansson",
 					"$(SRCROOT)/../../cocos/platform/mac",
 					"$(SRCROOT)/../../cocos/platform/desktop",
 					"$(SRCROOT)/../../external/glfw3/include/mac",

@@ -1447,6 +1447,8 @@
 					"$(SRCROOT)/../../../cocos/platform/ios/Simulation",
 					"$(SRCROOT)/../../../external/jansson",
 					"$(SRCROOT)/../../soomla-cocos2dx-core/build/ios/headers/**",
+					"$(SRCROOT)/../../soomla-cocos2dx-core/development/soomla-native/projects/cocos2dx-ios-core/CoreCocos2dx",
+					"$(SRCROOT)/../../soomla-cocos2dx-core/development/submodules/soomla-ios-core/SoomlaiOSCore",
 					"$(SRCROOT)/../build/ios/headers/**",
 				);
 				LIBRARY_SEARCH_PATHS = "";
@@ -1481,6 +1483,8 @@
 					"$(SRCROOT)/../../../cocos/platform/ios/Simulation",
 					"$(SRCROOT)/../../../external/jansson",
 					"$(SRCROOT)/../../soomla-cocos2dx-core/build/ios/headers/**",
+					"$(SRCROOT)/../../soomla-cocos2dx-core/development/soomla-native/projects/cocos2dx-ios-core/CoreCocos2dx",
+					"$(SRCROOT)/../../soomla-cocos2dx-core/development/submodules/soomla-ios-core/SoomlaiOSCore",
 					"$(SRCROOT)/../build/ios/headers/**",
 				);
 				LIBRARY_SEARCH_PATHS = "";
@@ -1524,6 +1528,10 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../cocos",
+					"$(SRCROOT)/../../../cocos/base",
+					"$(SRCROOT)/../../../cocos/2d",
+					"$(SRCROOT)/../../../external/jansson",
 					"$(SRCROOT)/../../../cocos/platform/mac",
 					"$(SRCROOT)/../../../cocos/platform/desktop",
 					"$(SRCROOT)/../../../external/glfw3/include/mac",
@@ -1563,6 +1571,10 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../cocos",
+					"$(SRCROOT)/../../../cocos/base",
+					"$(SRCROOT)/../../../cocos/2d",
+					"$(SRCROOT)/../../../external/jansson",
 					"$(SRCROOT)/../../../cocos/platform/mac",
 					"$(SRCROOT)/../../../cocos/platform/desktop",
 					"$(SRCROOT)/../../../external/glfw3/include/mac",
