@@ -1,15 +1,32 @@
 var PrevSoomla = Soomla;
 Soomla = new function () {
 
+  var platform = {
+    name: sys.os.toLowerCase(),
+    isNativeSupported: function isNativeSupported() {
+      return this.isAndroid() || this.isIos();
+    },
+    isAndroid: function isAndroid() {
+      return this.name === "android";
+    },
+    isIos: function isIos() {
+      return this.name === "ios";
+    }
+  };
+
   var Soomla = _.extend(PrevSoomla, {Models: {}}); // merge with binding instance
 
   Soomla.DEBUG = false;
 
   var declareClass = Soomla.declareClass = function (ClassName, fields, parentClass) {
     var Clazz = function () {
-      return _.extend(parentClass ? parentClass() : {}, fields ? fields : {}, {
+      var obj = _.extend(parentClass ? parentClass() : {}, fields ? fields : {}, {
         className: ClassName
       });
+      if (obj.ctor && obj.ctor === 'function') {
+        obj.ctor.call(obj);
+      }
+      return obj;
     };
     Clazz.create = function (values) {
       var instance = _.defaults(values ? _.omit(values, "className") : {}, Clazz());
@@ -628,32 +645,6 @@ Soomla = new function () {
         reward: sequenceReward,
         idx: idx
       });
-    },
-
-    kvStorageGetValue: function kvStorageGetValue(key) {
-      var result = callNative({
-        method: "CCNativeKeyValueStorage::getValue",
-        key: key
-      });
-      return result.return;
-    },
-    kvStorageSetValue: function kvStorageSetValue(key, val) {
-      callNative({
-        method: "CCNativeKeyValueStorage::setValue",
-        key: key,
-        val: val
-      });
-    },
-    kvStorageDeleteKeyValue: function kvStorageDeleteKeyValue(key) {
-      callNative({
-        method: "CCNativeKeyValueStorage::deleteKeyValue",
-        key: key
-      });
-    },
-    kvStoragePurge: function kvStoragePurge() {
-      callNative({
-        method: "CCNativeKeyValueStorage::purge"
-      });
     }
   });
   CoreBridge.createShared = function(customSecret) {
@@ -666,23 +657,95 @@ Soomla = new function () {
   };
 
   /**
-   * KeyValueStorage
+   * NativeKeyValueStorage
    */
-  var KeyValueStorage = Soomla.KeyValueStorage = declareClass("KeyValueStorage", {
+  var NativeKeyValueStorage = Soomla.NativeKeyValueStorage = declareClass("NativeKeyValueStorage", {
     getValue: function getValue(key) {
-      return Soomla.coreBridge.kvStorageGetValue(key);
+      var result = callNative({
+        method: "CCNativeNativeKeyValueStorage::getValue",
+        key: key
+      });
+      return result.return;
     },
     setValue: function setValue(key, val) {
-      Soomla.coreBridge.kvStorageSetValue(key, val);
+      callNative({
+        method: "CCNativeNativeKeyValueStorage::setValue",
+        key: key,
+        val: val
+      });
     },
     deleteKeyValue: function deleteKeyValue(key) {
-      Soomla.coreBridge.kvStorageDeleteKeyValue(key);
+      callNative({
+        method: "CCNativeNativeKeyValueStorage::deleteKeyValue",
+        key: key
+      });
     },
     purge: function purge() {
-      Soomla.coreBridge.kvStoragePurge();
+      callNative({
+        method: "CCNativeNativeKeyValueStorage::purge"
+      });
     }
   });
-  Soomla.keyValueStorage = KeyValueStorage.create();
+
+  /**
+   * BridgelessKeyValueStorage
+   */
+  var BridgelessKeyValueStorage = Soomla.BridgelessKeyValueStorage = declareClass("BridgelessKeyValueStorage", {
+    KEY_VALUE_STORAGE_KEY: 'soomla.kvs.keys',
+    mStoredKeys: [],
+
+    ctor: function () {
+      this.loadStoredKeys();
+    },
+
+    getValue: function getValue(key) {
+      var defaultValue = "";
+      var result = cc.sys.localStorage.getItem(key);
+      return result || defaultValue;
+    },
+    setValue: function setValue(key, val) {
+      cc.sys.localStorage.setItem(key, val);
+
+      this.addStoredKeys(key);
+      this.saveStoredKeys();
+    },
+    deleteKeyValue: function deleteKeyValue(key) {
+      cc.sys.localStorage.removeItem(key);
+
+      this.removeStoredKeys(key);
+      this.saveStoredKeys();
+    },
+    purge: function purge() {
+      _.forEach(this.mStoredKeys, function (key) {
+        this.deleteKeyValue(key);
+      }, this);
+
+      cc.sys.localStorage.setItem(this.KEY_VALUE_STORAGE_KEY, "");
+    },
+
+    addStoredKeys: function (key) {
+      if (this.mStoredKeys.indexOf(key) < 0) {
+        this.mStoredKeys.push(key);
+      }
+    },
+    removeStoredKeys: function (key) {
+      var idx = this.mStoredKeys.indexOf(key);
+      if (idx >= 0) {
+        this.mStoredKeys.splice(idx, 1);
+      }
+    },
+    saveStoredKeys: function () {
+      cc.sys.localStorage.setItem(this.KEY_VALUE_STORAGE_KEY, JSON.stringify(this.mStoredKeys));
+    },
+    loadStoredKeys: function () {
+      var strKeys = cc.sys.localStorage.getItem(this.KEY_VALUE_STORAGE_KEY);
+      if (strKeys) {
+        this.mStoredKeys = JSON.parse(strKeys);
+      }
+    }
+  });
+
+  Soomla.keyValueStorage =  platform.isNativeSupported() ? NativeKeyValueStorage.create() : BridgelessKeyValueStorage.create();
 
   /**
    * RewardStorage
@@ -1819,8 +1882,6 @@ Soomla = new function () {
     SOOMLA_AND_PUB_KEY_DEFAULT: "YOUR GOOGLE PLAY PUBLIC KEY",
     init: function(storeAssets, storeParams) {
 
-      var platform = sys.os.toLowerCase();
-
       // Redundancy checking. Most JS libraries don't do this. I hate it when they don't do this. Do this.
       var fields = ["androidPublicKey", "SSV", "testPurchases"];
       var wrongParams = _.omit(storeParams, fields);
@@ -1833,17 +1894,17 @@ Soomla = new function () {
       storeParams.SSV  = storeParams.SSV === true || false;
       storeParams.testPurchases  = storeParams.testPurchases === true || false;
 
-      if (platform === "android" && storeParams.androidPublicKey.length == 0) {
+      if (platform.isAndroid() && storeParams.androidPublicKey.length == 0) {
         logError("SOOMLA/COCOS2DX MISSING publickKey !!! Stopping here !!");
         return false;
       }
 
-      if (platform === "android" && storeParams.androidPublicKey == this.SOOMLA_AND_PUB_KEY_DEFAULT) {
+      if (platform.isAndroid() && storeParams.androidPublicKey == this.SOOMLA_AND_PUB_KEY_DEFAULT) {
         logError("SOOMLA/COCOS2DX You have to change android publicKey !!! Stopping here !!");
         return false;
       }
 
-      if (platform === "ios") {
+      if (platform.isIos()) {
         callNative({
           method: "CCSoomlaStore::setSSV",
           ssv: storeParams.SSV
@@ -1856,7 +1917,7 @@ Soomla = new function () {
         method: "CCStoreServiceJsb::init"
       });
 
-      if (platform === "android") {
+      if (platform.isAndroid()) {
         callNative({
           method: "CCSoomlaStore::setAndroidPublicKey",
           androidPublicKey: storeParams.androidPublicKey
