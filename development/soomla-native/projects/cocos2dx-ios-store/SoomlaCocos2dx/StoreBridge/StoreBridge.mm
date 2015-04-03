@@ -37,6 +37,10 @@
 
 }
 
++ (id)initShared {
+    return [[StoreBridge sharedStoreBridge] init];
+}
+
 + (id)sharedStoreBridge {
     static StoreBridge *sharedStoreBridge = nil;
     static dispatch_once_t onceToken;
