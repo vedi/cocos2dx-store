@@ -653,27 +653,27 @@ Soomla = new function () {
   var NativeKeyValueStorage = Soomla.NativeKeyValueStorage = declareClass("NativeKeyValueStorage", {
     getValue: function getValue(key) {
       var result = callNative({
-        method: "CCNativeNativeKeyValueStorage::getValue",
+        method: "CCNativeKeyValueStorage::getValue",
         key: key
       });
       return result.return;
     },
     setValue: function setValue(key, val) {
       callNative({
-        method: "CCNativeNativeKeyValueStorage::setValue",
+        method: "CCNativeKeyValueStorage::setValue",
         key: key,
         val: val
       });
     },
     deleteKeyValue: function deleteKeyValue(key) {
       callNative({
-        method: "CCNativeNativeKeyValueStorage::deleteKeyValue",
+        method: "CCNativeKeyValueStorage::deleteKeyValue",
         key: key
       });
     },
     purge: function purge() {
       callNative({
-        method: "CCNativeNativeKeyValueStorage::purge"
+        method: "CCNativeKeyValueStorage::purge"
       });
     }
   });
@@ -2020,7 +2020,7 @@ Soomla = new function () {
       console.log('dispatchEvent: Wrong arguments number');
       return;
     }
-    var functionName = arguments.shift();
+    var functionName = _.take(arguments);
     _.forEach(Soomla.eventHandlers, function (eventHandler) {
       if (_.isFunction(eventHandler[functionName])) {
         eventHandler[functionName].apply(eventHandler, arguments);
@@ -2634,47 +2634,26 @@ Soomla = new function () {
     Soomla.ndkCallback.call(Soomla, params);
   };
 
-  /**
-   * SoomlaStore
-   */
-  var SoomlaStore = Soomla.SoomlaStore = declareClass("SoomlaStore", {
-    SOOMLA_AND_PUB_KEY_DEFAULT: "YOUR GOOGLE PLAY PUBLIC KEY",
-    init: function(storeAssets, storeParams) {
+  var StoreBridge = Soomla.StoreBridge = declareClass("StoreBridge", {
+    init: function () {
+      return true;
+    },
+    applyParams: function applyParams(storeParams) {
+    }
+  });
 
-      // Redundancy checking. Most JS libraries don't do this. I hate it when they don't do this. Do this.
-      var fields = ["androidPublicKey", "SSV", "testPurchases"];
-      var wrongParams = _.omit(storeParams, fields);
-      if (wrongParams.length > 0) {
-        logDebug("WARNING!! Possible typo in member of storeParams: " + wrongParams);
-      }
-
-      storeParams = _.pick(storeParams, fields);
-      storeParams.androidPublicKey  = storeParams.androidPublicKey || "";
-      storeParams.SSV  = storeParams.SSV === true || false;
-      storeParams.testPurchases  = storeParams.testPurchases === true || false;
-
-      if (platform.isAndroid() && storeParams.androidPublicKey.length == 0) {
-        logError("SOOMLA/COCOS2DX MISSING publickKey !!! Stopping here !!");
-        return false;
-      }
-
-      if (platform.isAndroid() && storeParams.androidPublicKey == this.SOOMLA_AND_PUB_KEY_DEFAULT) {
-        logError("SOOMLA/COCOS2DX You have to change android publicKey !!! Stopping here !!");
-        return false;
-      }
-
+  var NativeStoreBridge = Soomla.NativeStoreBridge = declareClass("NativeStoreBridge", {
+    init: function () {
+      this.bindNative();
+      return true;
+    },
+    applyParams: function applyParams(storeParams) {
       if (platform.isIos()) {
         callNative({
           method: "CCSoomlaStore::setSSV",
           ssv: storeParams.SSV
         });
       }
-
-      StoreInfo.createShared(storeAssets);
-
-      callNative({
-        method: "CCStoreServiceJsb::init"
-      });
 
       if (platform.isAndroid()) {
         callNative({
@@ -2686,9 +2665,107 @@ Soomla = new function () {
           testPurchases: storeParams.testPurchases
         });
       }
+    },
+
+    bindNative: function bindNative() {
+      logDebug('Binding to native platform Store bridge...');
+
+      if (platform.isAndroid()) {
+        jsb.reflection.callStaticMethod('com/soomla/cocos2dx/store/StoreBridgeBinder', "bind", "()V");
+      } else if (platform.isIos()) {
+        jsb.reflection.callStaticMethod('StoreBridge', 'initShared');
+      } else {
+        logError('Unsupported platform: ' + platform.name);
+      }
+    }
+  }, StoreBridge);
+
+  StoreBridge.initShared = function () {
+    var ret = platform.isNativeSupported() ? NativeStoreBridge.create() : StoreBridge.create();
+    if (ret.init()) {
+      Soomla.storeBridge = ret;
+    } else {
+      Soomla.storeBridge = null;
+    }
+  };
+
+  /**
+   * SoomlaStore
+   */
+  var SoomlaStore = Soomla.SoomlaStore = declareClass("SoomlaStore", {
+    SOOMLA_AND_PUB_KEY_DEFAULT: "YOUR GOOGLE PLAY PUBLIC KEY",
+    initialized: false,
+    initialize: function(storeAssets, storeParams) {
+
+      if (this.initialized) {
+        var err = "SoomlaStore is already initialized. You can't initialize it twice!";
+        Soomla.dispatchEvent('onUnexpectedErrorInStore', err, true);
+        logError(err);
+        return;
+      }
+
+      StoreBridge.initShared();
+
+      logDebug("CCSoomlaStore Initializing...");
+
+      this.loadBillingService();
+
+      StoreInfo.createShared(storeAssets);
+
+      Soomla.storeBridge.applyParams(storeParams);
+
+      if (platform.isIos()) {
+        this.refreshMarketItemsDetails();
+      } else if (platform.isAndroid()) {
+        this.refreshInventory();
+      }
+
+      this.initialized = true;
+      Soomla.dispatchEvent('onSoomlaStoreInitialized', true);
 
       return true;
     },
+    buyMarketItem: function(productId, payload) {
+      ////===========
+      var item = Soomla.storeInfo.getPurchasableItemWithProductId(productId);
+      if (!item) {
+        return;
+      }
+
+      // simulate onMarketPurchaseStarted event
+      Soomla.dispatchEvent('onMarketPurchaseStarted', item);
+
+      // in the editor we just give the item... no real market.
+      item.give(1);
+
+      // simulate onMarketPurchase event
+      Soomla.dispatchEvent('onMarketPurchase', item, 'fake_token_zyxw9876', payload);
+    },
+    restoreTransactions: function() {
+    },
+    refreshInventory: function() {
+    },
+    refreshMarketItemsDetails: function() {
+    },
+    // For iOS only
+    transactionsAlreadyRestored: function() {
+    },
+    // For Android only
+    startIabServiceInBg: function() {
+    },
+    // For Android only
+    stopIabServiceInBg: function() {
+    },
+
+    loadBillingService: function loadBillingService() {
+
+    }
+  });
+
+  /**
+   * NativeSoomlaStore
+   */
+  var NativeSoomlaStore = Soomla.NativeSoomlaStore = declareClass("NativeSoomlaStore", {
     buyMarketItem: function(productId, payload) {
       callNative({
         method: "CCSoomlaStore::buyMarketItem",
@@ -2706,40 +2783,39 @@ Soomla = new function () {
         method: "CCSoomlaStore::refreshInventory"
       });
     },
-    // TODO: For iOS only
+    refreshMarketItemsDetails: function() {
+      callNative({
+        method: "CCSoomlaStore::refreshMarketItemsDetails"
+      });
+    },
+    // For iOS only
     transactionsAlreadyRestored: function() {
       var retParams = callNative({
         method: "CCSoomlaStore::transactionsAlreadyRestored"
       });
       return retParams.return;
     },
-    refreshMarketItemsDetails: function() {
-      callNative({
-        method: "CCSoomlaStore::refreshMarketItemsDetails"
-      });
-    },
-    // TODO: For Android only
+    // For Android only
     startIabServiceInBg: function() {
       callNative({
         method: "CCSoomlaStore::startIabServiceInBg"
       });
     },
-    // TODO: For Android only
+    // For Android only
     stopIabServiceInBg: function() {
       callNative({
         method: "CCSoomlaStore::stopIabServiceInBg"
       });
-    }
-  });
+    },
 
-  SoomlaStore.createShared = function(storeAssets, storeParams) {
-    var ret = new SoomlaStore();
-    if (ret.init(storeAssets, storeParams)) {
-      Soomla.soomlaStore = ret;
-    } else {
-      Soomla.soomlaStore = null;
+    loadBillingService: function() {
+      callNative({
+        method: "CCSoomlaStore::loadBillingService"
+      });
     }
-  };
+  }, SoomlaStore);
+
+  Soomla.soomlaStore = platform.isNativeSupported() ? NativeSoomlaStore.create() : SoomlaStore.create();
 
   var StoreInventory = Soomla.StoreInventory = declareClass("StoreInventory", {
     buyItem: function(itemId, payload) {
