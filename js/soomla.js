@@ -19,17 +19,20 @@ Soomla = new function () {
   Soomla.DEBUG = false;
 
   var declareClass = Soomla.declareClass = function (ClassName, fields, parentClass) {
+    // TODO: It's better if change it to standard constructor
     var Clazz = function () {
       var obj = _.extend(parentClass ? parentClass() : {}, fields ? fields : {}, {
         className: ClassName
       });
-      if (obj.ctor && obj.ctor === 'function') {
+
+      if (_.isFunction(obj.ctor)) {
         obj.ctor.call(obj);
       }
       return obj;
     };
     Clazz.create = function (values) {
       var instance = _.defaults(values ? _.omit(values, "className") : {}, Clazz());
+      // TODO: Do not think it works
       if (typeof instance.onCreate == 'function') {
         instance.onCreate();
       }
@@ -599,36 +602,50 @@ Soomla = new function () {
 
   // ------- Core -------- //
   /**
-   * CoreBridge
+   * Soomla
    */
-
   Soomla.DB_KEY_PRFIX = 'soomla.';
+  Soomla.initialize = function initialize(soomlaSecret) {
+    if (!soomlaSecret || soomlaSecret.length == 0) {
+      logError("Can't initialize SOOMLA without soomlaSecret");
+      return false;
+    }
 
-  var CoreBridge = Soomla.CoreBridge = declareClass("CoreBridge", {
-    SOOMLA_ONLY_ONCE_DEFAULT: "SET ONLY ONCE",
-    init: function init(soomlaSecret) {
+    Soomla.coreBridge = platform.isNativeSupported() ? NativeCoreBridge.create() : BridgelessCoreBridge.create();
 
-      if (soomlaSecret.length == 0) {
-        logError("SOOMLA/COCOS2DX MISSING customSecret!!! Stopping here !!");
-        return false;
+    callNative({
+      method: "CCSoomla::initialize",
+      soomlaSecret: soomlaSecret
+    });
+
+    return true;
+  };
+
+  /**
+   * NativeCoreBridge
+   */
+  var NativeCoreBridge = Soomla.NativeCoreBridge = declareClass("NativeCoreBridge", {
+    ctor: function () {
+      this.bindNative();
+    },
+    bindNative: function () {
+      logDebug('Binding to native platform bridge...');
+      if (platform.isAndroid()) {
+        jsb.reflection.callStaticMethod('com/soomla/cocos2dx/common/CoreBridgeBinder', "bind", "()V");
+      } else if (platform.isIos()) {
+        jsb.reflection.callStaticMethod('CoreBridge', 'initShared');
+      } else {
+        logError('Unsupported platform: ' + platform.name);
       }
-
-      callNative({
-        method: "CCSoomla::initialize",
-        soomlaSecret: soomlaSecret
-      });
-
-      return true;
     }
   });
-  CoreBridge.createShared = function(customSecret) {
-    var ret = new CoreBridge();
-    if (ret.init(customSecret)) {
-      Soomla.coreBridge = ret;
-    } else {
-      Soomla.coreBridge = null;
-    }
-  };
+
+  /**
+   * BridgelessCoreBridge
+   */
+  var BridgelessCoreBridge = Soomla.BridgelessCoreBridge = declareClass("BridgelessCoreBridge", {
+  });
+
 
   /**
    * NativeKeyValueStorage
