@@ -847,14 +847,98 @@ Soomla = new function () {
    * StoreInfo
    */
   var StoreInfo = Soomla.StoreInfo = declareClass("StoreInfo", {
+    KEY_META_STORE_INFO: "meta.storeinfo",
+
+    virtualItems: null,
+    purchasableItems: null,
+    goodsCategories: null,
+    goodsUpgrades: null,
+    currencies: null,
+    currencyPacks: null,
+    goods: null,
+    categories: null,
+
     init: function(storeAssets) {
-      callNative({
-        method: "CCStoreAssets::init",
-        version: storeAssets.version,
-        storeAssets: storeAssets
+
+      Soomla.logDebug('Setting store assets in SoomlaInfo');
+
+      if (!storeAssets){
+        Soomla.logDebug('The given store assets can\'t be null!');
+        return false;
+      }
+
+      var _this = this;
+      // support reflection call to initializeFromDB
+      Soomla.addEventHandler({
+        initializeFromDB: function () {
+          _this.initializeFromDB();
+        }
       });
+
+      this.setStoreAssets(storeAssets);
+
+      // At this point we have StoreInfo JSON saved at the local key-value storage. We can just
+      // continue by initializing from DB.
+
+      this.initializeFromDB();
+
       return true;
     },
+
+    setStoreAssets: function (storeAssets) {
+      var jsonString = JSON.stringify(storeAssets);
+      Soomla.keyValueStorage.setValue(this.KEY_META_STORE_INFO, jsonString);
+    },
+
+    initializeFromDB: function () {
+      var val = Soomla.keyValueStorage.getValue(this.KEY_META_STORE_INFO);
+
+      if (!val){
+        var message = 'store json is not in DB. Make sure you initialized SoomlaStore with your Store assets. The App will shut down now.';
+        logError(message);
+        throw message;
+      }
+
+      logDebug('the metadata-economy json (from DB) is ' + val);
+
+      this.currencies = val.currencies;
+      this.currencyPacks = val.currencyPacks;
+      if (val.goods) {
+        this.goods = _.union(
+          val.goods.singleUse,
+          val.goods.lifetime,
+          val.goods.equippable,
+          val.goods.goodPacks,
+          val.goods.goodUpgrades
+        );
+      } else {
+        this.goods = [];
+      }
+      this.categories = val.categories;
+
+
+      this.virtualItems = _.groupBy(_.union(this.currencies, this.currencyPacks, this.goods), 'itemId');
+
+      this.purchasableItems = _.groupBy(
+        _.filter(_.union(this.currencyPacks, this.goods),
+          function (vi) {
+            return vi.purchasableItem && vi.purchasableItem.marketItem;
+          }
+        ),
+        function (vi) {
+          return vi.purchasableItem.marketItem.productId;
+        }
+      );
+      this.goodsUpgrades = _.groupBy(_.filter(this.goods, {className: 'UpgradeVG'}), 'goodItemId');
+
+      var goodsCategories = this.goodsCategories = {};
+      _.each(this.categories, function (category) {
+        _.each(category.goods_itemIds, function (itemId) {
+          goodsCategories[itemId] = category;
+        });
+      });
+    },
+
     getItemByItemId: function(itemId) {
       var retParams = callNative({
         method: "CCStoreInfo::getItemByItemId",
@@ -898,40 +982,157 @@ Soomla = new function () {
 
       return extractCollection(retParams);
     },
-    getVirtualCurrencies: function() {
-      var retParams = callNative({
-        method: "CCStoreInfo::getVirtualCurrencies"
-      });
-      return extractCollection(retParams);
+
+    getVirtualItems: function () {
+      return this.virtualItems;
     },
-    getVirtualGoods: function() {
-      var retParams = callNative({
-        method: "CCStoreInfo::getVirtualGoods"
-      });
-      return extractCollection(retParams);
+
+    getPurchasableItems: function () {
+      return this.purchasableItems;
     },
-    getVirtualCurrencyPacks: function() {
-      var retParams = callNative({
-        method: "CCStoreInfo::getVirtualCurrencyPacks"
-      });
-      return extractCollection(retParams);
+
+    getGoodsCategories: function () {
+      return this.goodsCategories;
     },
-    getVirtualCategories: function() {
-      var retParams = callNative({
-        method: "CCStoreInfo::getVirtualCategories"
-      });
-      return extractCollection(retParams);
+
+    getGoodsUpgrades: function () {
+      return this.goodsUpgrades;
     },
-    saveItem: function(virtualItem) {
-      callNative({
-        method: "CCStoreInfo::saveItem",
-        virtualItem: virtualItem
+
+    getCurrencies: function () {
+      return this.currencies;
+    },
+
+    getCurrencyPacks: function () {
+      return this.currencyPacks;
+    },
+
+    getGoods: function () {
+      return this.goods;
+    },
+
+    getCategories: function () {
+      return this.categories;
+    },
+
+    saveItem: function (virtualItem, saveToDB) {
+      this.replaceVirtualItem(virtualItem);
+      if (saveToDB) {
+        this.save();
+      }
+    },
+    saveItems: function(virtualItems, saveToDB) {
+      if (!virtualItems || virtualItems.length == 0) {
+        return;
+      }
+
+      _.each(virtualItems, function (vi) {
+        this.replaceVirtualItem(vi);
       });
+
+      if (saveToDB) {
+        this.save();
+      }
+    },
+    save: function () {
+      var assets = Soomla.IStoreAssets.create();
+      assets.currencies = this.currencies;
+      assets.currencyPacks = this.currencyPacks;
+
+      _.each(this.goods, function (vi) {
+        if (vi.className === 'SingleUseVG') {
+          assets.goods.singleUse.push(vi);
+        } else if (vi.className === 'EquippableVG') {
+          assets.goods.equippable.push(vi);
+        } else if (vi.className === 'UpgradeVG') {
+          assets.goods.goodUpgrades.push(vi);
+        } else if (vi.className === 'LifetimeVG') {
+          assets.goods.lifetime.push(vi);
+        } else if (vi.className === 'SingleUsePackVG') {
+          assets.goods.goodPacks.push(vi);
+        }
+      });
+      assets.categories = this.categories;
+
+      var jsonString = JSON.stringify(assets);
+      logDebug("saving StoreInfo to DB. json is: " + jsonString);
+      Soomla.keyValueStorage.setValue(this.KEY_META_STORE_INFO, jsonString);
+    },
+
+    replaceVirtualItem: function(virtualItem) {
+      var foundIdx;
+      this.virtualItems[virtualItem.itemId] = virtualItem;
+
+      if (virtualItem.className === 'VirtualCurrency') {
+        foundIdx = _.findIndex(this.currencies, {itemId: virtualItem.itemId});
+        if (foundIdx >= 0) {
+          _.slice(this.currencies, foundIdx);
+        }
+        this.currencies.push(virtualItem);
+      }
+
+      if (virtualItem.className === 'VirtualCurrencyPack') {
+        if (virtualItem.purchasableItem && virtualItem.purchasableItem.marketItem) {
+          this.purchasableItems[virtualItem.purchasableItem.marketItem.productId] = virtualItem;
+        }
+
+        foundIdx = _.findIndex(this.currencyPacks, {itemId: virtualItem.itemId});
+        if (foundIdx >= 0) {
+          _.slice(this.currencyPacks, foundIdx);
+        }
+        this.currencyPacks.push(virtualItem);
+      }
+
+      if (virtualItem.className === 'SingleUseVG' ||
+        virtualItem.className === 'EquippableVG' ||
+        virtualItem.className === 'UpgradeVG' ||
+        virtualItem.className === 'LifetimeVG' ||
+        virtualItem.className === 'SingleUsePackVG') {
+
+        if (virtualItem.className === 'UpgradeVG') {
+          foundIdx = _.findIndex(this.goodsUpgrades, {itemId: virtualItem.itemId});
+          if (foundIdx >= 0) {
+            _.slice(this.goodsUpgrades, foundIdx);
+          }
+          this.goodsUpgrades.push(virtualItem);
+        }
+
+        if (virtualItem.purchasableItem && virtualItem.purchasableItem.marketItem) {
+          this.purchasableItems[virtualItem.purchasableItem.marketItem.productId] = virtualItem;
+        }
+
+        foundIdx = _.findIndex(this.goods, {itemId: virtualItem.itemId});
+        if (foundIdx >= 0) {
+          _.slice(this.goods, foundIdx);
+        }
+        this.goods.push(virtualItem);
+      }
     }
   });
 
+  var NativeStoreInfo = Soomla.NativeStoreInfo = declareClass("NativeStoreInfo", {
+    setStoreAssets: function setStoreAssets(storeAssets) {
+      logDebug('pushing CCStoreAssets to StoreInfo on native side');
+
+      callNative({
+        method: "CCStoreAssets::init",
+        version: storeAssets.version,
+        storeAssets: storeAssets
+      });
+
+      logDebug('done! (pushing data to StoreAssets on native side)');
+    },
+    save: function save() {
+      StoreInfo.save.apply(this, arguments);
+
+      callNative({
+        method: "CCStoreInfo::loadFromDB"
+      });
+    }
+  }, StoreInfo);
+
   StoreInfo.createShared = function(storeAssets) {
-    var ret = new StoreInfo();
+    var ret = platform.isNativeSupported() ? NativeStoreInfo.create() : StoreInfo.create();
     if (ret.init(storeAssets)) {
       Soomla.storeInfo = ret;
     } else {
@@ -1798,6 +1999,11 @@ Soomla = new function () {
           }
         });
       }
+
+      else if (methodName == "Reflection::CCStoreInfo::initializeFromDB") {
+        Soomla.dispatchEvent('initializeFromDB');
+      }
+
       else if (methodName == "CCHighwayEventDispatcher::onStateConflict") {
         var remoteState = parameters.remoteState;
         var currentState = parameters.currentState;
