@@ -310,29 +310,28 @@ SOOMLA lets you subscribe to store events, get notified and implement your own a
 
 > Your behaviour is an addition to the default behaviour implemented by SOOMLA. You don't replace SOOMLA's behaviour.
 
-SOOMLA uses the Cocos2d-x [`EventDispatcher`](http://www.cocos2d-x.org/wiki/EventDispatcher_Mechanism) to dispatch its own custom events.
-The names of such events are defined in `CCStoreConsts`, the received event has a `__Dictionary` set in its `userData` which holds all the meta-data for the event.
-You can subscribe to any event from anywhere in your code.
+SOOMLA uses the Cocos2d-x `CCNotificationCenter` to dispatch its own custom events.
+The names of such events are defined in `CCStoreConsts`, the received event data is a `CCDictionary` which holds all the meta-data for the event.
+You can subscribe to any event from any `CCObject` in your code.
 
 For example here's how to subscribe to the item purchased event:
 
 ```cpp
-cocos2d::Director::getInstance()->getEventDispatcher()->addCustomEventListener(soomla::CCStoreConsts::EVENT_ITEM_PURCHASED, CC_CALLBACK_1(ExampleScene::onItemPurchased, this));
+cocos2d::CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(ExampleScene::onItemPurchased), soomla::CCStoreConsts::EVENT_ITEM_PURCHASED, NULL);
 ```
 
 Continuing the example, here's how you would handle and extract data from such an event:
 
 ```cpp
-void ExampleScene::onItemPurchased(cocos2d::EventCustom *event) {
-  cocos2d::__Dictionary *eventData = (cocos2d::__Dictionary *)event->getUserData();
+void ExampleScene::onItemPurchased(CCDictionary *eventData) {
   soomla::CCPurchasableVirtualItem *purchasable = dynamic_cast<soomla::CCPurchasableVirtualItem *>(eventData->objectForKey(soomla::CCStoreConsts::DICT_ELEMENT_PURCHASABLE));
-  cocos2d::__String *payload = dynamic_cast<cocos2d::__String *>(eventData->objectForKey(soomla::CCStoreConsts::DICT_ELEMENT_DEVELOPERPAYLOAD));
+  cocos2d::CCString *payload = dynamic_cast<cocos2d::CCString *>(eventData->objectForKey(soomla::CCStoreConsts::DICT_ELEMENT_DEVELOPERPAYLOAD));
 
   // Use purchasable and payload for your needs
 }
 ```
 
-Each event has its own meta-data, see inline documentation in [`CCStoreEventDispatcher`](https://github.com/soomla/cocos2dx-store/blob/master/Soomla/CCStoreEventDispatcher.h) for more information.
+Each event has its own meta-data, see inline documentation in [`CCStoreEventDispatcher`](https://github.com/soomla/cocos2dx-store/blob/cocos2dx-v2/Soomla/CCStoreEventDispatcher.h) for more information.
 
 ## Error Handling
 
