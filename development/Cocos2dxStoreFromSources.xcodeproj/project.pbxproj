@@ -123,8 +123,6 @@
 		9D4A727B19DAAA1A0033DC46 /* SoomlaStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D17419B1C13F0054EA87 /* SoomlaStore.h */; };
 		9D4A727C19DAAA1A0033DC46 /* PurchaseWithVirtualItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D16E19B1C13F0054EA87 /* PurchaseWithVirtualItem.h */; };
 		9D4A727D19DAAA1A0033DC46 /* UpgradeVG.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D15B19B1C13F0054EA87 /* UpgradeVG.h */; };
-		9D63D0F319B1BFE30054EA87 /* CCSimpleStoreEventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0B519B1BFE30054EA87 /* CCSimpleStoreEventHandler.cpp */; };
-		9D63D0F419B1BFE30054EA87 /* CCSimpleStoreEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0B619B1BFE30054EA87 /* CCSimpleStoreEventHandler.h */; };
 		9D63D0F519B1BFE30054EA87 /* CCSoomlaStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0B719B1BFE30054EA87 /* CCSoomlaStore.cpp */; };
 		9D63D0F619B1BFE30054EA87 /* CCSoomlaStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0B819B1BFE30054EA87 /* CCSoomlaStore.h */; };
 		9D63D0F719B1BFE30054EA87 /* CCStoreAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0B919B1BFE30054EA87 /* CCStoreAssets.h */; };
@@ -132,7 +130,6 @@
 		9D63D0F919B1BFE30054EA87 /* CCStoreConsts.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0BB19B1BFE30054EA87 /* CCStoreConsts.h */; };
 		9D63D0FA19B1BFE30054EA87 /* CCStoreEventDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0BC19B1BFE30054EA87 /* CCStoreEventDispatcher.cpp */; };
 		9D63D0FB19B1BFE30054EA87 /* CCStoreEventDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0BD19B1BFE30054EA87 /* CCStoreEventDispatcher.h */; };
-		9D63D0FC19B1BFE30054EA87 /* CCStoreEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0BE19B1BFE30054EA87 /* CCStoreEventHandler.h */; };
 		9D63D0FD19B1BFE30054EA87 /* CCStoreInventory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0BF19B1BFE30054EA87 /* CCStoreInventory.cpp */; };
 		9D63D0FE19B1BFE30054EA87 /* CCStoreInventory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0C019B1BFE30054EA87 /* CCStoreInventory.h */; };
 		9D63D0FF19B1BFE30054EA87 /* CCStoreBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0C119B1BFE30054EA87 /* CCStoreBridge.cpp */; };
@@ -275,7 +272,6 @@
 		F8B1A4BC1A2C73B1002969AF /* CCNativeStoreBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67941A2A15DE006A06A8 /* CCNativeStoreBridge.cpp */; };
 		F8B1A4BD1A2C73B1002969AF /* CCNativeVirtualCurrencyStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67961A2A15DE006A06A8 /* CCNativeVirtualCurrencyStorage.cpp */; };
 		F8B1A4BE1A2C73B1002969AF /* CCNativeVirtualGoodsStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F89D67981A2A15DE006A06A8 /* CCNativeVirtualGoodsStorage.cpp */; };
-		F8B1A4BF1A2C73B1002969AF /* CCSimpleStoreEventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0B519B1BFE30054EA87 /* CCSimpleStoreEventHandler.cpp */; };
 		F8B1A4C01A2C73B1002969AF /* CCSoomlaStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0B719B1BFE30054EA87 /* CCSoomlaStore.cpp */; };
 		F8B1A4C11A2C73B1002969AF /* CCStoreConsts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0BA19B1BFE30054EA87 /* CCStoreConsts.cpp */; };
 		F8B1A4C21A2C73B1002969AF /* CCStoreEventDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9D63D0BC19B1BFE30054EA87 /* CCStoreEventDispatcher.cpp */; };
@@ -308,12 +304,10 @@
 		F8B1A4DD1A2C73D5002969AF /* CCNativeStoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = F89D67951A2A15DE006A06A8 /* CCNativeStoreBridge.h */; };
 		F8B1A4DE1A2C73D5002969AF /* CCNativeVirtualCurrencyStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F89D67971A2A15DE006A06A8 /* CCNativeVirtualCurrencyStorage.h */; };
 		F8B1A4DF1A2C73D5002969AF /* CCNativeVirtualGoodsStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = F89D67991A2A15DE006A06A8 /* CCNativeVirtualGoodsStorage.h */; };
-		F8B1A4E01A2C73D5002969AF /* CCSimpleStoreEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0B619B1BFE30054EA87 /* CCSimpleStoreEventHandler.h */; };
 		F8B1A4E11A2C73D5002969AF /* CCSoomlaStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0B819B1BFE30054EA87 /* CCSoomlaStore.h */; };
 		F8B1A4E21A2C73D5002969AF /* CCStoreAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0B919B1BFE30054EA87 /* CCStoreAssets.h */; };
 		F8B1A4E31A2C73D5002969AF /* CCStoreConsts.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0BB19B1BFE30054EA87 /* CCStoreConsts.h */; };
 		F8B1A4E41A2C73D5002969AF /* CCStoreEventDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0BD19B1BFE30054EA87 /* CCStoreEventDispatcher.h */; };
-		F8B1A4E51A2C73D6002969AF /* CCStoreEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0BE19B1BFE30054EA87 /* CCStoreEventHandler.h */; };
 		F8B1A4E61A2C73D6002969AF /* CCStoreInventory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0C019B1BFE30054EA87 /* CCStoreInventory.h */; };
 		F8B1A4E71A2C73D6002969AF /* CCStoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0C219B1BFE30054EA87 /* CCStoreBridge.h */; };
 		F8B1A4E81A2C73D6002969AF /* Cocos2dxStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D63D0C319B1BFE30054EA87 /* Cocos2dxStore.h */; };
@@ -345,8 +339,6 @@
 		9D41016D1978D35200907FA8 /* libCocos2dXiOSCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCocos2dXiOSCore.a; path = "soomla-native/compilations/ios/libCocos2dXiOSCore.a"; sourceTree = "<group>"; };
 		9D41016E1978D35200907FA8 /* libSoomlaiOSCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSoomlaiOSCore.a; path = "soomla-native/compilations/ios/libSoomlaiOSCore.a"; sourceTree = "<group>"; };
 		9D4A728119DAAA1A0033DC46 /* libCocos2dxStoreFromSourcesWithJsb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocos2dxStoreFromSourcesWithJsb.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D63D0B519B1BFE30054EA87 /* CCSimpleStoreEventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSimpleStoreEventHandler.cpp; sourceTree = "<group>"; };
-		9D63D0B619B1BFE30054EA87 /* CCSimpleStoreEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSimpleStoreEventHandler.h; sourceTree = "<group>"; };
 		9D63D0B719B1BFE30054EA87 /* CCSoomlaStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSoomlaStore.cpp; sourceTree = "<group>"; };
 		9D63D0B819B1BFE30054EA87 /* CCSoomlaStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSoomlaStore.h; sourceTree = "<group>"; };
 		9D63D0B919B1BFE30054EA87 /* CCStoreAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreAssets.h; sourceTree = "<group>"; };
@@ -354,7 +346,6 @@
 		9D63D0BB19B1BFE30054EA87 /* CCStoreConsts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreConsts.h; sourceTree = "<group>"; };
 		9D63D0BC19B1BFE30054EA87 /* CCStoreEventDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreEventDispatcher.cpp; sourceTree = "<group>"; };
 		9D63D0BD19B1BFE30054EA87 /* CCStoreEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreEventDispatcher.h; sourceTree = "<group>"; };
-		9D63D0BE19B1BFE30054EA87 /* CCStoreEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreEventHandler.h; sourceTree = "<group>"; };
 		9D63D0BF19B1BFE30054EA87 /* CCStoreInventory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreInventory.cpp; sourceTree = "<group>"; };
 		9D63D0C019B1BFE30054EA87 /* CCStoreInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreInventory.h; sourceTree = "<group>"; };
 		9D63D0C119B1BFE30054EA87 /* CCStoreBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreBridge.cpp; sourceTree = "<group>"; };
@@ -516,8 +507,6 @@
 			isa = PBXGroup;
 			children = (
 				F89D678F1A2A15DE006A06A8 /* NativeImpl */,
-				9D63D0B519B1BFE30054EA87 /* CCSimpleStoreEventHandler.cpp */,
-				9D63D0B619B1BFE30054EA87 /* CCSimpleStoreEventHandler.h */,
 				9D63D0B719B1BFE30054EA87 /* CCSoomlaStore.cpp */,
 				9D63D0B819B1BFE30054EA87 /* CCSoomlaStore.h */,
 				9D63D0B919B1BFE30054EA87 /* CCStoreAssets.h */,
@@ -525,7 +514,6 @@
 				9D63D0BB19B1BFE30054EA87 /* CCStoreConsts.h */,
 				9D63D0BC19B1BFE30054EA87 /* CCStoreEventDispatcher.cpp */,
 				9D63D0BD19B1BFE30054EA87 /* CCStoreEventDispatcher.h */,
-				9D63D0BE19B1BFE30054EA87 /* CCStoreEventHandler.h */,
 				9D63D0BF19B1BFE30054EA87 /* CCStoreInventory.cpp */,
 				9D63D0C019B1BFE30054EA87 /* CCStoreInventory.h */,
 				9D63D0C119B1BFE30054EA87 /* CCStoreBridge.cpp */,
@@ -909,7 +897,6 @@
 				9D63D0FB19B1BFE30054EA87 /* CCStoreEventDispatcher.h in Headers */,
 				9D63D1A819B1C13F0054EA87 /* NotEnoughGoodsException.h in Headers */,
 				9D63D11719B1BFE30054EA87 /* CCSingleUsePackVG.h in Headers */,
-				9D63D0FC19B1BFE30054EA87 /* CCStoreEventHandler.h in Headers */,
 				9D63D12319B1BFE30054EA87 /* CCPurchaseType.h in Headers */,
 				9D63D18A19B1C13F0054EA87 /* VirtualItemStorage.h in Headers */,
 				9D63D1B819B1C13F0054EA87 /* SoomlaVerification.h in Headers */,
@@ -951,7 +938,6 @@
 				9D63D19219B1C13F0054EA87 /* VirtualCategory.h in Headers */,
 				9D63D18619B1C13F0054EA87 /* VirtualCurrencyStorage.h in Headers */,
 				9D63D0F619B1BFE30054EA87 /* CCSoomlaStore.h in Headers */,
-				9D63D0F419B1BFE30054EA87 /* CCSimpleStoreEventHandler.h in Headers */,
 				9D63D13219B1C0C40054EA87 /* StoreBridge.h in Headers */,
 				9D63D10319B1BFE30054EA87 /* CCStoreInfo.h in Headers */,
 				9D63D1B319B1C13F0054EA87 /* VirtualItemReward.h in Headers */,
@@ -979,12 +965,10 @@
 				F8B1A4DD1A2C73D5002969AF /* CCNativeStoreBridge.h in Headers */,
 				F8B1A4DE1A2C73D5002969AF /* CCNativeVirtualCurrencyStorage.h in Headers */,
 				F8B1A4DF1A2C73D5002969AF /* CCNativeVirtualGoodsStorage.h in Headers */,
-				F8B1A4E01A2C73D5002969AF /* CCSimpleStoreEventHandler.h in Headers */,
 				F8B1A4E11A2C73D5002969AF /* CCSoomlaStore.h in Headers */,
 				F8B1A4E21A2C73D5002969AF /* CCStoreAssets.h in Headers */,
 				F8B1A4E31A2C73D5002969AF /* CCStoreConsts.h in Headers */,
 				F8B1A4E41A2C73D5002969AF /* CCStoreEventDispatcher.h in Headers */,
-				F8B1A4E51A2C73D6002969AF /* CCStoreEventHandler.h in Headers */,
 				F8B1A4E61A2C73D6002969AF /* CCStoreInventory.h in Headers */,
 				F8B1A4E71A2C73D6002969AF /* CCStoreBridge.h in Headers */,
 				F8B1A4E81A2C73D6002969AF /* Cocos2dxStore.h in Headers */,
@@ -1193,7 +1177,6 @@
 				9D63D12419B1BFE30054EA87 /* CCPurchaseWithMarket.cpp in Sources */,
 				9D63D11219B1BFE30054EA87 /* CCEquippableVG.cpp in Sources */,
 				F89D67AF1A2A15F7006A06A8 /* CCVirtualCurrencyStorage.cpp in Sources */,
-				9D63D0F319B1BFE30054EA87 /* CCSimpleStoreEventHandler.cpp in Sources */,
 				9D63D1A519B1C13F0054EA87 /* VirtualItem.m in Sources */,
 				F89D679E1A2A15DE006A06A8 /* CCNativeStoreBridge.cpp in Sources */,
 				9D63D0F519B1BFE30054EA87 /* CCSoomlaStore.cpp in Sources */,
@@ -1254,7 +1237,6 @@
 				F8B1A4BC1A2C73B1002969AF /* CCNativeStoreBridge.cpp in Sources */,
 				F8B1A4BD1A2C73B1002969AF /* CCNativeVirtualCurrencyStorage.cpp in Sources */,
 				F8B1A4BE1A2C73B1002969AF /* CCNativeVirtualGoodsStorage.cpp in Sources */,
-				F8B1A4BF1A2C73B1002969AF /* CCSimpleStoreEventHandler.cpp in Sources */,
 				F8B1A4C01A2C73B1002969AF /* CCSoomlaStore.cpp in Sources */,
 				F8B1A4C11A2C73B1002969AF /* CCStoreConsts.cpp in Sources */,
 				F8B1A4C21A2C73B1002969AF /* CCStoreEventDispatcher.cpp in Sources */,

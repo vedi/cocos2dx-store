@@ -88,6 +88,7 @@ namespace soomla {
         item->give(1);
         
         // simulate onMarketPurchase event
-        CCStoreEventDispatcher::getInstance()->onMarketPurchase(item, CCString::create("fake_token_zyxw9876"), CCString::create(payload));
+        CCStoreEventDispatcher::getInstance()->onMarketPurchase(item, CCString::create("fake_token_zyxw9876"), CCString::create(payload),
+                                                                NULL, NULL, NULL);
     }
 }
