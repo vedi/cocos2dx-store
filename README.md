@@ -323,7 +323,7 @@ cocos2d::CCNotificationCenter::sharedNotificationCenter()->addObserver(this, cal
 Continuing the example, here's how you would handle and extract data from such an event:
 
 ```cpp
-void ExampleScene::onItemPurchased(CCDictionary *eventData) {
+void ExampleScene::onItemPurchased(cocos2d::CCDictionary *eventData) {
   soomla::CCPurchasableVirtualItem *purchasable = dynamic_cast<soomla::CCPurchasableVirtualItem *>(eventData->objectForKey(soomla::CCStoreConsts::DICT_ELEMENT_PURCHASABLE));
   cocos2d::CCString *payload = dynamic_cast<cocos2d::CCString *>(eventData->objectForKey(soomla::CCStoreConsts::DICT_ELEMENT_DEVELOPERPAYLOAD));
 
