@@ -137,6 +137,15 @@ Soomla = new function () {
   };
 
   /**
+   * CoreConsts
+   */
+  var CoreConsts = Soomla.Models.CoreConsts = {
+    EVENT_REWARD_GIVEN: "com.soomla.events.RewardGivenEvent",
+    EVENT_REWARD_TAKEN: "com.soomla.events.RewardTakenEvent",
+    EVENT_CUSTOM: "com.soomla.events.CustomEvent"
+  };
+
+  /**
    * DateTimeRange
    */
   var DateTimeRange = Soomla.Models.DateTimeRange = declareClass("DateTimeRange", {
@@ -512,6 +521,35 @@ Soomla = new function () {
   var PURCHASE_TYPE = {
     MARKET: "market",
     VI: "virtualItem"
+  };
+
+  /**
+   * StoreConsts
+   */
+  var StoreConsts = Soomla.Models.StoreConsts = {
+    EVENT_BILLING_NOT_SUPPORTED: "CCStoreEventHandler::onBillingNotSupported",
+    EVENT_BILLING_SUPPORTED: "CCStoreEventHandler::onBillingSupported",
+    EVENT_CURRENCY_BALANCE_CHANGED: "CCStoreEventHandler::onCurrencyBalanceChanged",
+    EVENT_GOOD_BALANCE_CHANGED: "CCStoreEventHandler::onGoodBalanceChanged",
+    EVENT_GOOD_EQUIPPED: "CCStoreEventHandler::onGoodEquipped",
+    EVENT_GOOD_UNEQUIPPED: "CCStoreEventHandler::onGoodUnEquipped",
+    EVENT_GOOD_UPGRADE: "CCStoreEventHandler::onGoodUpgrade",
+    EVENT_ITEM_PURCHASED: "CCStoreEventHandler::onItemPurchased",
+    EVENT_ITEM_PURCHASE_STARTED: "CCStoreEventHandler::onItemPurchaseStarted",
+    EVENT_MARKET_PURCHASE_CANCELED: "CCStoreEventHandler::onMarketPurchaseCancelled",
+    EVENT_MARKET_PURCHASE: "CCStoreEventHandler::onMarketPurchase",
+    EVENT_MARKET_PURCHASE_STARTED: "CCStoreEventHandler::onMarketPurchaseStarted",
+    EVENT_MARKET_ITEMS_REFRESHED: "CCStoreEventHandler::onMarketItemsRefreshed",
+    EVENT_MARKET_ITEMS_REFRESH_STARTED: "CCStoreEventHandler::onMarketItemsRefreshStarted",
+    EVENT_MARKET_ITEMS_REFRESH_FAILED: "CCStoreEventHandler::onMarketItemsRefreshFailed",
+    EVENT_MARKET_PURCHASE_VERIFICATION: "CCStoreEventHandler::onMarketPurchaseVerification",
+    EVENT_RESTORE_TRANSACTION_FINISHED: "CCStoreEventHandler::onRestoreTransactionsFinished",
+    EVENT_RESTORE_TRANSACTION_STARTED: "CCStoreEventHandler::onRestoreTransactionsStarted",
+    EVENT_UNEXPECTED_ERROR_IN_STORE: "CCStoreEventHandler::onUnexpectedErrorInStore",
+    EVENT_SOOMLA_STORE_INITIALIZED: "CCStoreEventHandler::onSoomlaStoreInitialized",
+    EVENT_MARKET_REFUND: "CCStoreEventHandler::onMarketRefund",
+    EVENT_IAB_SERVICE_STARTED: "CCStoreEventHandler::onIabServiceStarted",
+    EVENT_IAB_SERVICE_STOPPED: "CCStoreEventHandler::onIabServiceStopped"
   };
 
   /**
@@ -1032,7 +1070,7 @@ Soomla = new function () {
       }
 
       var pvi = Soomla.storeInfo.getItemByItemId(this.associatedItemId);
-      Soomla.dispatchEvent('onItemPurchaseStarted', pvi, true);
+      Soomla.fireSoomlaEvent(StoreConsts.EVENT_ITEM_PURCHASE_STARTED, [pvi, true]);
       Soomla.soomlaStore.buyMarketItem(this.marketItem.productId, payload);
     },
 
@@ -1086,7 +1124,7 @@ Soomla = new function () {
         return;
       }
 
-      Soomla.dispatchEvent('onItemPurchaseStarted', associatedItem, true);
+      Soomla.fireSoomlaEvent(StoreConsts.EVENT_ITEM_PURCHASE_STARTED, [associatedItem, true]);
 
       var balance = item.getBalance();
 
@@ -1099,7 +1137,7 @@ Soomla = new function () {
 
       associatedItem.give(1);
 
-      Soomla.dispatchEvent('onItemPurchased', associatedItem, payload, true);
+      Soomla.fireSoomlaEvent(StoreConsts.EVENT_ITEM_PURCHASED, [associatedItem, payload, true]);
     },
 
     /**
@@ -1189,6 +1227,31 @@ Soomla = new function () {
     GET_FEED: 4
   };
 
+  /**
+   * ProfileConsts
+   */
+  var ProfileConsts = Soomla.Models.ProfileConsts = {
+    EVENT_PROFILE_INITIALIZED: "com.soomla.profile.events.ProfileInitializedEvent",
+    EVENT_USER_RATING: "com.soomla.profile.events.UserRatingEvent",
+    EVENT_LOGIN_CANCELLED: "com.soomla.profile.events.auth.LoginCancelledEvent",
+    EVENT_LOGIN_FAILED: "com.soomla.profile.events.auth.LoginFailedEvent",
+    EVENT_LOGIN_FINISHED: "com.soomla.profile.events.auth.LoginFinishedEvent",
+    EVENT_LOGIN_STARTED: "com.soomla.profile.events.auth.LoginStartedEvent",
+    EVENT_LOGOUT_FAILED: "com.soomla.profile.events.auth.LogoutFailedEvent",
+    EVENT_LOGOUT_FINISHED: "com.soomla.profile.events.auth.LogoutFinishedEvent",
+    EVENT_LOGOUT_STARTED: "com.soomla.profile.events.auth.LogoutStartedEvent",
+    EVENT_GET_CONTACTS_FAILED: "com.soomla.profile.events.social.GetContactsFailedEvent",
+    EVENT_GET_CONTACTS_FINISHED: "com.soomla.profile.events.social.GetContactsFinishedEvent",
+    EVENT_GET_CONTACTS_STARTED: "com.soomla.profile.events.social.GetContactsStartedEvent",
+    EVENT_GET_FEED_FAILED: "com.soomla.profile.events.social.GetFeedFailedEvent",
+    EVENT_GET_FEED_FINISHED: "com.soomla.profile.events.social.GetFeedFinishedEvent",
+    EVENT_GET_FEED_STARTED: "com.soomla.profile.events.social.GetFeedStartedEvent",
+    EVENT_SOCIAL_ACTION_FAILED: "com.soomla.profile.events.social.SocialActionFailedEvent",
+    EVENT_SOCIAL_ACTION_FINISHED: "com.soomla.profile.events.social.SocialActionFinishedEvent",
+    EVENT_SOCIAL_ACTION_STARTED: "com.soomla.profile.events.social.SocialActionStartedEvent",
+    EVENT_USER_PROFILE_UPDATED: "com.soomla.profile.events.UserProfileUpdatedEvent"
+  };
+
 
   function extractModel(retParams) {
     return retParams.return;
@@ -1205,6 +1268,40 @@ Soomla = new function () {
   }
 
   //------ Highway ------//
+
+  /**
+   * HighwayConsts
+   */
+  var HighwayConsts = Soomla.Models.HighwayConsts = {
+    INTERNAL_EVENT_ON_STATE_CONFLICT: "CCHighwayEventDispatcher::onStateConflict",
+    EVENT_SOOMLA_SYNC_INITIALIZED: "com.soomla.sync.events.SoomlaSyncInitializedEvent",
+    EVENT_META_SYNC_STARTED: "com.soomla.sync.events.MetaDataSyncStartedEvent",
+    EVENT_META_SYNC_FINISHED: "com.soomla.sync.events.MetaDataSyncFinishedEvent",
+    EVENT_META_SYNC_FAILED: "com.soomla.sync.events.MetaDataSyncFailedEvent",
+    EVENT_STATE_SYNC_STARTED: "com.soomla.sync.events.StateSyncStartedEvent",
+    EVENT_STATE_SYNC_FINISHED: "com.soomla.sync.events.StateSyncFinishedEvent",
+    EVENT_STATE_SYNC_FAILED: "com.soomla.sync.events.StateSyncFailedEvent",
+    EVENT_STATE_RESET_STARTED: "com.soomla.sync.events.StateResetStartedEvent",
+    EVENT_STATE_RESET_FINISHED: "com.soomla.sync.events.StateResetFinishedEvent",
+    EVENT_STATE_RESET_FAILED: "com.soomla.sync.events.StateResetFailedEvent",
+    EVENT_SOOMLA_GIFTING_INITIALIZED: "com.soomla.gifting.events.SoomlaGiftingInitializedEvent",
+    EVENT_GIFTS_RETRIEVE_STARTED: "com.soomla.gifting.events.GiftsRetrieveStartedEvent",
+    EVENT_GIFTS_RETRIEVE_FINISHED: "com.soomla.gifting.events.GiftsRetrieveFinishedEvent",
+    EVENT_GIFTS_RETRIEVE_FAILED: "com.soomla.gifting.events.GiftsRetrieveFailedEvent",
+    EVENT_GIFT_SEND_STARTED: "com.soomla.gifting.events.GiftSendStartedEvent",
+    EVENT_GIFT_SEND_FINISHED: "com.soomla.gifting.events.GiftSendFinishedEvent",
+    EVENT_GIFT_SEND_FAILED: "com.soomla.gifting.events.GiftSendFailedEvent",
+    EVENT_GIFT_HAND_OUT_SUCCESS: "com.soomla.gifting.events.GiftHandOutSuccessEvent",
+    EVENT_GIFT_HAND_OUT_FAILED: "com.soomla.gifting.events.GiftHandOutFailedEvent",
+    EVENT_QUERY_FRIENDS_STATES_STARTED: "com.soomla.query.events.QueryFriendsStatesStartedEvent",
+    EVENT_QUERY_FRIENDS_STATES_FINISHED: "com.soomla.query.events.QueryFriendsStatesFinishedEvent",
+    EVENT_QUERY_FRIENDS_STATES_FAILED: "com.soomla.query.events.QueryFriendsStatesFailedEvent",
+    EVENT_SOOMLA_DLC_INITIALIZED: "com.soomla.dlc.events.SoomlaDLCInitializedEvent",
+    EVENT_DLC_PACKAGE_STATUS_UPDATED: "com.soomla.dlc.events.DLCPackagesStatusUpdateEvent",
+    EVENT_DLC_PACKAGE_SYNC_STARTED: "com.soomla.dlc.events.DLCPackageSyncStartedEvent",
+    EVENT_DLC_PACKAGE_SYNC_FINISHED: "com.soomla.dlc.events.DLCPackageSyncFinishedEvent",
+    EVENT_DLC_PACKAGE_SYNC_FAILED: "com.soomla.dlc.events.DLCPackageSyncFailedEvent"
+  };
 
   var Gift = Soomla.Models.Gift = declareClass("Gift", {
     giftId : null,
@@ -1397,7 +1494,7 @@ Soomla = new function () {
       notify = notify || _.isUndefined(notify);
       callNative({
         method: "CCNativeRewardStorage::setRewardStatus",
-        reward: reward,
+        reward: reward.itemId,
         give: give,
         notify: notify
       });
@@ -1405,7 +1502,7 @@ Soomla = new function () {
     getTimesGiven: function getTimesGiven(reward) {
       var result = callNative({
         method: "CCNativeRewardStorage::getTimesGiven",
-        reward: reward
+        reward: reward.itemId
       });
       return result.return;
     },
@@ -1415,14 +1512,14 @@ Soomla = new function () {
     getLastSeqIdxGiven: function getLastSeqIdxGiven(sequenceReward) {
       var result = callNative({
         method: "CCNativeRewardStorage::getLastSeqIdxGiven",
-        reward: sequenceReward
+        reward: sequenceReward.itemId
       });
       return result.return;
     },
     setLastSeqIdxGiven: function setLastSeqIdxGiven(sequenceReward, idx) {
       callNative({
         method: "CCNativeRewardStorage::setLastSeqIdxGiven",
-        reward: sequenceReward,
+        reward: sequenceReward.itemId,
         idx: idx
       });
     }
@@ -1472,9 +1569,9 @@ Soomla = new function () {
 
       if (notify) {
         if (up) {
-          Soomla.dispatchEvent('onRewardGivenEvent', reward);
+          Soomla.fireSoomlaEvent(CoreConsts.EVENT_REWARD_GIVEN, [reward]);
         } else {
-          Soomla.dispatchEvent('onRewardTakenEvent', reward);
+          Soomla.fireSoomlaEvent(CoreConsts.EVENT_REWARD_TAKEN, [reward]);
         }
       }
     },
@@ -1588,7 +1685,7 @@ Soomla = new function () {
       return this.keyCurrencyBalance(itemId);
     },
     postBalanceChangeEvent: function postBalanceChangeEvent(item, balance, amountAdded) {
-      Soomla.dispatchEvent('onCurrencyBalanceChanged', item, balance, amountAdded);
+      Soomla.fireSoomlaEvent(StoreConsts.EVENT_CURRENCY_BALANCE_CHANGED, [item, balance, amountAdded]);
     },
     keyCurrencyBalance: function keyCurrencyBalance(itemId) {
       return 'currency.' + itemId + '.balance';
@@ -1681,7 +1778,7 @@ Soomla = new function () {
       Soomla.keyValueStorage.deleteKeyValue(key);
 
       if (notify) {
-        Soomla.dispatchEvent('onGoodUpgrade', good);
+        Soomla.fireSoomlaEvent(StoreConsts.EVENT_GOOD_UPGRADE, [good]);
       }
     },
 
@@ -1705,7 +1802,7 @@ Soomla = new function () {
       Soomla.keyValueStorage.setValue(key, upItemId);
 
       if (notify) {
-        Soomla.dispatchEvent('onGoodUpgrade', good, upgradeVG);
+        Soomla.fireSoomlaEvent(StoreConsts.EVENT_GOOD_UPGRADE, [good, upgradeVG]);
       }
     },
 
@@ -1780,7 +1877,7 @@ Soomla = new function () {
     },
 
     postBalanceChangeEvent: function postBalanceChangeEvent(item, balance, amountAdded) {
-      Soomla.dispatchEvent('onGoodBalanceChanged', item, balance, amountAdded);
+      Soomla.fireSoomlaEvent(StoreConsts.EVENT_GOOD_BALANCE_CHANGED, [item, balance, amountAdded]);
     },
 
     equipPriv: function equipPriv(good, equip, notify) {
@@ -1790,12 +1887,12 @@ Soomla = new function () {
       if (equip) {
         Soomla.keyValueStorage.setValue(key, 'yes');
         if (notify) {
-          Soomla.dispatchEvent('onGoodEquipped', good);
+          Soomla.fireSoomlaEvent(StoreConsts.EVENT_GOOD_EQUIPPED, [good]);
         }
       } else {
         Soomla.keyValueStorage.deleteKeyValue(key);
         if (notify) {
-          Soomla.dispatchEvent('onGoodUnEquipped', good);
+          Soomla.fireSoomlaEvent(StoreConsts.EVENT_GOOD_UNEQUIPPED, [good]);
         }
       }
     },
@@ -1994,12 +2091,6 @@ Soomla = new function () {
       }
 
       var _this = this;
-      // support reflection call to initializeFromDB
-      Soomla.addEventHandler({
-        initializeFromDB: function () {
-          _this.initializeFromDB();
-        }
-      });
 
       this.setStoreAssets(storeAssets);
 
@@ -2517,6 +2608,7 @@ Soomla = new function () {
 
   /**
    * EventHandler
+   * Here for documentation reasons only, shows signatures for event handlers
    */
   var EventHandler = Soomla.EventHandler = declareClass("EventHandler", {
 
@@ -2848,7 +2940,7 @@ Soomla = new function () {
   /**
    * Root definitions
    */
-  Soomla.eventHandlers = [];
+  Soomla.eventHandlers = {};
 
   /**
    * Dispatch event. Goes through event handlers and calls
@@ -2874,90 +2966,144 @@ Soomla = new function () {
     });
   };
 
-  Soomla.addEventHandler = Soomla.on = function (eventHandler, makeFirst) {
-    if (makeFirst) {
-      Soomla.eventHandlers.unshift(eventHandler);
-    } else {
-      Soomla.eventHandlers.push(eventHandler);
+  Soomla.addEventHandler = Soomla.on = function (eventName, handler, target) {
+    var handlersArray = Soomla.eventHandlers[eventName];
+    if (handlersArray === undefined) {
+      handlersArray = Soomla.eventHandlers[eventName] = [];
     }
+
+    var foundHandler = _.find(handlersArray, function(callbackObject) {
+      return ((callbackObject.obj == target) && (callbackObject.callback == handler));
+    });
+
+    if (foundHandler != null) {
+      return;
+    }
+
+    handlersArray.push({
+      obj: target,
+      callback: handler
+    });
   };
-  Soomla.removeEventHandler = Soomla.off = function (eventHandler) {
-    var idx = Soomla.eventHandlers.indexOf(eventHandler);
-    Soomla.eventHandlers.splice(idx, 1);
+
+  Soomla.removeEventHandler = Soomla.off = function (eventName, handler) {
+    var handlersArray = Soomla.eventHandlers[eventName];
+    if (handlersArray === undefined) {
+      return;
+    }
+
+    var filteredArray =_.filter(handlersArray, function(callbackObject) {
+      return (callbackObject.callback != handler);
+    });
+    Soomla.eventHandlers[eventName] = filteredArray;
   };
+  Soomla.removeEventHandlersWithTarget = function (target) {
+    _.forEach(Soomla.eventHandlers, function(handlers, eventName) {
+      var filteredArray =_.filter(handlers, function(callbackObject) {
+        return (callbackObject.obj != target);
+      });
+      Soomla.eventHandlers[eventName] = filteredArray;
+    });
+  }
+  Soomla.fireSoomlaEvent = function (eventName, args) {
+    var handlersArray = Soomla.eventHandlers[eventName];
+    if (handlersArray === undefined) {
+      return;
+    }
+
+    _.forEach(handlersArray, function(callbackObject){
+      callbackObject.callback.apply(callbackObject.obj, args);
+    });
+  };
+
   Soomla.ndkCallback = function (parameters) {
     parameters = JSON.parse(parameters);
     try {
       var methodName = parameters.method || "";
 
       // ------- Core -------- //
-      if (methodName == "com.soomla.events.RewardGivenEvent") {
+      if (methodName == Soomla.Models.CoreConsts.EVENT_REWARD_GIVEN) {
         var rewardId = parameters['reward'];
-        var result = Soomla.Models.Reward.getReward(rewardId);
-        Soomla.dispatchEvent('onRewardGivenEvent', result);
+        var reward = Soomla.Models.Reward.getReward(rewardId);
+        Soomla.fireSoomlaEvent(methodName, [reward]);
       }
-      else if (methodName == "com.soomla.events.RewardTakenEvent") {
+      else if (methodName == Soomla.Models.CoreConsts.EVENT_REWARD_TAKEN) {
         var rewardId = parameters['reward'];
-        var result = Soomla.Models.Reward.getReward(rewardId);
-        Soomla.dispatchEvent('onRewardTakenEvent', result);
+        var reward = Soomla.Models.Reward.getReward(rewardId);
+        Soomla.fireSoomlaEvent(methodName, [reward]);
       }
-      else if (methodName == "com.soomla.events.CustomEvent") {
+      else if (methodName == Soomla.Models.CoreConsts.EVENT_CUSTOM) {
         var name = parameters['name'];
         var extra = parameters['extra'];
-        Soomla.dispatchEvent('onCustomEvent', name, extra);
+        Soomla.fireSoomlaEvent(methodName, [name, extra]);
       }
 
       // ------- Store -------- //
-      else if (methodName == "CCStoreEventHandler::onBillingNotSupported") {
-        Soomla.dispatchEvent('onBillingNotSupported');
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_BILLING_NOT_SUPPORTED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "CCStoreEventHandler::onBillingSupported") {
-        Soomla.dispatchEvent('onBillingSupported');
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_BILLING_SUPPORTED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "CCStoreEventHandler::onCurrencyBalanceChanged") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_CURRENCY_BALANCE_CHANGED) {
         var virtualCurrency = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        Soomla.dispatchEvent('onCurrencyBalanceChanged', virtualCurrency, parameters.balance, parameters.amountAdded);
+
+        Soomla.storeInventory.refreshOnCurrencyBalanceChanged(virtualCurrency, parameters.balance, parameters.amountAdded);
+
+        Soomla.fireSoomlaEvent(methodName, [virtualCurrency, parameters.balance, parameters.amountAdded]);
       }
-      else if (methodName == "CCStoreEventHandler::onGoodBalanceChanged") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_GOOD_BALANCE_CHANGED) {
         var virtualGood = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        Soomla.dispatchEvent('onGoodBalanceChanged', virtualGood, parameters.balance, parameters.amountAdded);
+
+        Soomla.storeInventory.refreshOnGoodBalanceChanged(virtualGood, parameters.balance, parameters.amountAdded);
+
+        Soomla.fireSoomlaEvent(methodName, [virtualGood, parameters.balance, parameters.amountAdded]);
       }
-      else if (methodName == "CCStoreEventHandler::onGoodEquipped") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_GOOD_EQUIPPED) {
         var equippableVG = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        Soomla.dispatchEvent('onGoodEquipped', equippableVG);
+
+        Soomla.storeInventory.refreshOnGoodEquipped(equippableVG);
+
+        Soomla.fireSoomlaEvent(methodName, [equippableVG]);
       }
-      else if (methodName == "CCStoreEventHandler::onGoodUnEquipped") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_GOOD_UNEQUIPPED) {
         var equippableVG = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        Soomla.dispatchEvent('onGoodUnEquipped', equippableVG);
+
+        Soomla.storeInventory.refreshOnGoodUnEquipped(equippableVG);
+
+        Soomla.fireSoomlaEvent(methodName, [equippableVG]);
       }
-      else if (methodName == "CCStoreEventHandler::onGoodUpgrade") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_GOOD_UPGRADE) {
         var virtualGood = Soomla.storeInfo.getItemByItemId(parameters.itemId);
         var upgradeVG = Soomla.storeInfo.getItemByItemId(parameters.vguItemId);
-        Soomla.dispatchEvent('onGoodUpgrade', virtualGood, upgradeVG);
+
+        Soomla.storeInventory.refreshOnGoodUpgrade(virtualGood, upgradeVG);
+
+        Soomla.fireSoomlaEvent(methodName, [virtualGood, upgradeVG]);
       }
-      else if (methodName == "CCStoreEventHandler::onItemPurchased") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_ITEM_PURCHASED) {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        Soomla.dispatchEvent('onItemPurchased', purchasableVirtualItem);
+        Soomla.fireSoomlaEvent(methodName, [purchasableVirtualItem]);
       }
-      else if (methodName == "CCStoreEventHandler::onItemPurchaseStarted") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_ITEM_PURCHASE_STARTED) {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        Soomla.dispatchEvent('onItemPurchaseStarted', purchasableVirtualItem);
+        Soomla.fireSoomlaEvent(methodName, [purchasableVirtualItem]);
       }
-      else if (methodName == "CCStoreEventHandler::onMarketPurchaseCancelled") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_MARKET_PURCHASE_CANCELED) {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        Soomla.dispatchEvent('onMarketPurchaseCancelled', purchasableVirtualItem);
+        Soomla.fireSoomlaEvent(methodName, [purchasableVirtualItem]);
       }
-      else if (methodName == "CCStoreEventHandler::onMarketPurchase") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_MARKET_PURCHASE) {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
         var token = parameters.token;
         var payload = parameters.payload;
-        Soomla.dispatchEvent('onMarketPurchase', purchasableVirtualItem, token, payload);
+        Soomla.fireSoomlaEvent(methodName, [purchasableVirtualItem, token, payload]);
       }
-      else if (methodName == "CCStoreEventHandler::onMarketPurchaseStarted") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_MARKET_PURCHASE_STARTED) {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        Soomla.dispatchEvent('onMarketPurchaseStarted', purchasableVirtualItem);
+        Soomla.fireSoomlaEvent(methodName, [purchasableVirtualItem]);
       }
-      else if (methodName == "CCStoreEventHandler::onMarketItemsRefreshed") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_MARKET_ITEMS_REFRESHED) {
         var marketItemsDict = parameters.marketItems;
         var marketItems = [];
         _.forEach(marketItemsDict, function(marketItem) {
@@ -2980,242 +3126,157 @@ Soomla = new function () {
           marketItems.push(pvi);
         });
 
-        Soomla.dispatchEvent('onMarketItemsRefreshed', marketItems);
+        Soomla.fireSoomlaEvent(methodName, [marketItems]);
       }
-      else if (methodName == "CCStoreEventHandler::onMarketItemsRefreshStarted") {
-        Soomla.dispatchEvent('onMarketItemsRefreshStarted');
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_MARKET_ITEMS_REFRESH_STARTED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "CCStoreEventHandler::onMarketItemsRefreshFailed") {
-        Soomla.dispatchEvent('onMarketItemsRefreshFailed', parameters.errorMessage);
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_MARKET_ITEMS_REFRESH_FAILED) {
+        Soomla.fireSoomlaEvent(methodName, [parameters.errorMessage]);
       }
-      else if (methodName == "CCStoreEventHandler::onMarketPurchaseVerification") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_MARKET_PURCHASE_VERIFICATION) {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        Soomla.dispatchEvent('onMarketPurchaseVerification', purchasableVirtualItem);
+        Soomla.fireSoomlaEvent(methodName, [purchasableVirtualItem]);
       }
-      else if (methodName == "CCStoreEventHandler::onRestoreTransactionsFinished") {
-        Soomla.dispatchEvent('onRestoreTransactionsFinished', parameters.success);
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_RESTORE_TRANSACTION_FINISHED) {
+        Soomla.fireSoomlaEvent(methodName, [parameters.success]);
       }
-      else if (methodName == "CCStoreEventHandler::onRestoreTransactionsStarted") {
-        Soomla.dispatchEvent('onRestoreTransactionsStarted');
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_RESTORE_TRANSACTION_STARTED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "CCStoreEventHandler::onUnexpectedErrorInStore") {
-        Soomla.dispatchEvent('onUnexpectedErrorInStore');
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_UNEXPECTED_ERROR_IN_STORE) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "CCStoreEventHandler::onSoomlaStoreInitialized") {
-        Soomla.dispatchEvent('onSoomlaStoreInitialized');
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_SOOMLA_STORE_INITIALIZED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
       //  Android specific
-      else if (methodName == "CCStoreEventHandler::onMarketRefund") {
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_MARKET_REFUND) {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        Soomla.dispatchEvent('onMarketRefund', purchasableVirtualItem);
+        Soomla.fireSoomlaEvent(methodName, [purchasableVirtualItem]);
       }
-      else if (methodName == "CCStoreEventHandler::onIabServiceStarted") {
-        Soomla.dispatchEvent('onIabServiceStarted');
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_IAB_SERVICE_STARTED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "CCStoreEventHandler::onIabServiceStopped") {
-        Soomla.dispatchEvent('onIabServiceStopped');
+      else if (methodName == Soomla.Models.StoreConsts.EVENT_IAB_SERVICE_STOPPED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
 
       // Profile
-      else if (methodName == "com.soomla.profile.events.ProfileInitializedEvent") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onProfileInitialized) {
-            eventHandler.onProfileInitialized();
-          }
-        });
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_PROFILE_INITIALIZED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "com.soomla.profile.events.UserRatingEvent") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onUserRatingEvent) {
-            eventHandler.onUserRatingEvent();
-          }
-        });
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_USER_RATING) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "com.soomla.profile.events.auth.LoginCancelledEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_LOGIN_CANCELLED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onLoginCancelledEvent) {
-            eventHandler.onLoginCancelledEvent(provider, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.auth.LoginFailedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_LOGIN_FAILED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var errorDescription = parameters.errorDescription;
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onLoginFailed) {
-            eventHandler.onLoginFailed(provider, errorDescription, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, errorDescription, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.auth.LoginFinishedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_LOGIN_FINISHED) {
         var userProfile = parameters.userProfile;
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onLoginFinished) {
-            eventHandler.onLoginFinished(userProfile, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [userProfile, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.auth.LoginStartedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_LOGIN_STARTED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var payload = parameters.payload;
-
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onLoginStarted) {
-            eventHandler.onLoginStarted(provider, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.auth.LogoutFailedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_LOGOUT_FAILED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var errorDescription = parameters.errorDescription;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onLogoutFailed) {
-            eventHandler.onLogoutFailed(provider, errorDescription);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, errorDescription]);
       }
-      else if (methodName == "com.soomla.profile.events.auth.LogoutFinishedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_LOGOUT_FINISHED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onLogoutFinished) {
-            eventHandler.onLogoutFinished(provider);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider]);
       }
-      else if (methodName == "com.soomla.profile.events.auth.LogoutStartedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_LOGOUT_STARTED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onLogoutStarted) {
-            eventHandler.onLogoutStarted(provider);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider]);
       }
-      else if (methodName == "com.soomla.profile.events.social.GetContactsFailedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_GET_CONTACTS_FAILED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var errorDescription = parameters.errorDescription;
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGetContactsFailed) {
-            eventHandler.onGetContactsFailed(provider, errorDescription, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, errorDescription, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.social.GetContactsFinishedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_GET_CONTACTS_FINISHED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var contacts = parameters.contacts;
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGetContactsFinished) {
-            eventHandler.onGetContactsFinished(provider, errorDescription, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, contacts, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.social.GetContactsStartedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_GET_CONTACTS_STARTED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGetContactsStarted) {
-            eventHandler.onGetContactsStarted(provider, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.social.GetFeedFailedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_GET_FEED_FAILED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var errorDescription = parameters.errorDescription;
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGetFeedFailed) {
-            eventHandler.onGetFeedFailed(provider, errorDescription, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, errorDescription, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.social.GetFeedFinishedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_GET_FEED_FINISHED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var feed = parameters.feed;
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGetFeedFinished) {
-            eventHandler.onGetFeedFinished(provider, feed, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, feed, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.social.GetFeedStartedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_GET_FEED_STARTED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGetFeedStarted) {
-            eventHandler.onGetFeedStarted(provider, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.social.SocialActionFailedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_SOCIAL_ACTION_FAILED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var socialActionType = parameters.socialActionType;
         var errorDescription = parameters.errorDescription;
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onSocialActionFailedEvent) {
-            eventHandler.onSocialActionFailedEvent(provider, socialActionType, errorDescription, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, socialActionType, errorDescription, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.social.SocialActionFinishedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_SOCIAL_ACTION_FINISHED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var socialActionType = parameters.socialActionType;
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onSocialActionFinishedEvent) {
-            eventHandler.onSocialActionFinishedEvent(provider, socialActionType, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, socialActionType, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.social.SocialActionStartedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_SOCIAL_ACTION_STARTED) {
         var providerId = parameters.provider;
         var provider = Provider.findById(providerId);
         var socialActionType = parameters.socialActionType;
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onSocialActionStartedEvent) {
-            eventHandler.onSocialActionStartedEvent(provider, socialActionType, payload);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [provider, socialActionType, payload]);
       }
-      else if (methodName == "com.soomla.profile.events.UserProfileUpdatedEvent") {
+      else if (methodName == Soomla.Models.ProfileConsts.EVENT_USER_PROFILE_UPDATED) {
         var userProfile = parameters.userProfile;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onUserProfileUpdatedEvent) {
-            eventHandler.onUserProfileUpdatedEvent(userProfile);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [userProfile]);
       }
 
-      else if (methodName == "Reflection::CCStoreInfo::initializeFromDB") {
-        Soomla.dispatchEvent('initializeFromDB');
-      }
-
-      else if (methodName == "Reflection::CCStoreInventory::refreshLocalInventory") {
-        Soomla.dispatchEvent('refreshLocalInventory');
-      }
-
-      else if (methodName == "CCHighwayEventDispatcher::onStateConflict") {
+      else if (methodName == Soomla.Models.HighwayConsts.INTERNAL_EVENT_ON_STATE_CONFLICT) {
         var remoteState = parameters.remoteState;
         var currentState = parameters.currentState;
         var stateDiff = parameters.stateDiff;
@@ -3224,225 +3285,128 @@ Soomla = new function () {
           Soomla.soomlaSync.resolveStateConflict(remoteState, currentState, stateDiff);
         }
       }
-      else if (methodName == "com.soomla.sync.events.SoomlaSyncInitializedEvent") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onSoomlaSyncInitialized) {
-            eventHandler.onSoomlaSyncInitialized();
-          }
-        });
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_SOOMLA_SYNC_INITIALIZED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "com.soomla.sync.events.MetaDataSyncStartedEvent") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onMetaDataSyncStarted) {
-            eventHandler.onMetaDataSyncStarted();
-          }
-        });
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_META_SYNC_STARTED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "com.soomla.sync.events.MetaDataSyncFinishedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_META_SYNC_FINISHED) {
         var changedComponents = parameters.changedComponents;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onMetaDataSyncFinished) {
-            eventHandler.onMetaDataSyncFinished(changedComponents);
+        _.forEach(changedComponents, function (component) {
+          if (component === 'store') {
+            Soomla.storeInfo.initializeFromDB();
           }
         });
+
+        Soomla.fireSoomlaEvent(methodName, [changedComponents]);
       }
-      else if (methodName == "com.soomla.sync.events.MetaDataSyncFailedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_META_SYNC_FAILED) {
         var errorCode = parameters.errorCode;
         var errorMessage = parameters.errorMessage;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onMetaDataSyncFailed) {
-            eventHandler.onMetaDataSyncFailed(errorCode, errorMessage);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [errorCode, errorMessage]);
       }
-      else if (methodName == "com.soomla.sync.events.StateSyncStartedEvent") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onStateResetStarted) {
-            eventHandler.onStateSyncStarted();
-          }
-        });
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_STATE_SYNC_STARTED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "com.soomla.sync.events.StateSyncFinishedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_STATE_SYNC_FINISHED) {
         var changedComponents = parameters.changedComponents;
         var failedComponents = parameters.failedComponents;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onStateSyncFinished) {
-            eventHandler.onStateSyncFinished(changedComponents, failedComponents);
+        _.forEach(changedComponents, function (component) {
+          if (component === 'store') {
+            Soomla.storeInventory.refreshLocalInventory();
           }
         });
+        Soomla.fireSoomlaEvent(methodName, [changedComponents, failedComponents]);
       }
-      else if (methodName == "com.soomla.sync.events.StateSyncFailedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_STATE_SYNC_FAILED) {
         var errorCode = parameters.errorCode;
         var errorMessage = parameters.errorMessage;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onStateSyncFailed) {
-            eventHandler.onStateSyncFailed(errorCode, errorMessage);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [errorCode, errorMessage]);
       }
-      else if (methodName == "com.soomla.sync.events.StateResetStartedEvent") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onStateResetStarted) {
-            eventHandler.onStateResetStarted();
-          }
-        });
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_STATE_RESET_STARTED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "com.soomla.sync.events.StateResetFinishedEvent") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onStateResetFinished) {
-            eventHandler.onStateResetFinished();
-          }
-        });
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_STATE_RESET_FINISHED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "com.soomla.sync.events.StateResetFailedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_STATE_RESET_FAILED) {
         var errorCode = parameters.errorCode;
         var errorMessage = parameters.errorMessage;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onStateResetFailed) {
-            eventHandler.onStateResetFailed(errorCode, errorMessage);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [errorCode, errorMessage]);
       }
-      else if (methodName == "com.soomla.gifting.events.SoomlaGiftingInitializedEvent") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onSoomlaGiftingInitialized) {
-            eventHandler.onSoomlaGiftingInitialized();
-          }
-        });
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_SOOMLA_GIFTING_INITIALIZED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "com.soomla.gifting.events.GiftsRetrieveStartedEvent") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGiftsRetrieveStarted) {
-            eventHandler.onGiftsRetrieveStarted();
-          }
-        });
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_GIFTS_RETRIEVE_STARTED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "com.soomla.gifting.events.GiftsRetrieveFinishedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_GIFTS_RETRIEVE_FINISHED) {
         var givenGifts = parameters.givenGifts;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGiftsRetrieveFinished) {
-            eventHandler.onGiftsRetrieveFinished(givenGifts);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [givenGifts]);
       }
-      else if (methodName == "com.soomla.gifting.events.GiftsRetrieveFailedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_GIFTS_RETRIEVE_FAILED) {
         var errorMessage = parameters.errorMessage;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGiftsRetrieveFailed) {
-            eventHandler.onGiftsRetrieveFailed(errorMessage);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [errorMessage]);
       }
-      else if (methodName == "com.soomla.gifting.events.GiftSendStartedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_GIFT_SEND_STARTED) {
         var gift = parameters.gift;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGiftSendStarted) {
-            eventHandler.onGiftSendStarted(gift);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [gift]);
       }
-      else if (methodName == "com.soomla.gifting.events.GiftSendFinishedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_GIFT_SEND_FINISHED) {
         var gift = parameters.gift;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGiftSendFinished) {
-            eventHandler.onGiftSendFinished(gift);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [gift]);
       }
-      else if (methodName == "com.soomla.gifting.events.GiftSendFailedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_GIFT_SEND_FAILED) {
         var gift = parameters.gift;
         var errorMessage = parameters.errorMessage;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGiftSendFailed) {
-            eventHandler.onGiftSendFailed(gift, errorMessage);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [gift, errorMessage]);
       }
-      else if (methodName == "com.soomla.gifting.events.GiftHandOutSuccessEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_GIFT_HAND_OUT_SUCCESS) {
         var gift = parameters.gift;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGiftHandOutSuccess) {
-            eventHandler.onGiftHandOutSuccess(gift);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [gift]);
       }
-      else if (methodName == "com.soomla.gifting.events.GiftHandOutFailedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_GIFT_HAND_OUT_FAILED) {
         var gift = parameters.gift;
         var errorMessage = parameters.errorMessage;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGiftHandOutFailed) {
-            eventHandler.onGiftHandOutFailed(gift, errorMessage);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [gift, errorMessage]);
       }
-      else if (methodName == "com.soomla.query.events.QueryFriendsStatesStartedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_QUERY_FRIENDS_STATES_STARTED) {
         var providerId = parameters.providerId;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onQueryFriendsStatesStarted) {
-            eventHandler.onQueryFriendsStatesStarted(providerId);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [providerId]);
       }
-      else if (methodName == "com.soomla.query.events.QueryFriendsStatesFinishedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_QUERY_FRIENDS_STATES_FINISHED) {
         var providerId = parameters.providerId;
         var friendsStates = parameters.friendsStates;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onQueryFriendsStatesFinished) {
-            eventHandler.onQueryFriendsStatesFinished(providerId, friendsStates);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [providerId, friendsStates]);
       }
-      else if (methodName == "com.soomla.query.events.QueryFriendsStatesFailedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_QUERY_FRIENDS_STATES_FAILED) {
         var providerId = parameters.providerId;
         var errorMessage = parameters.errorMessage;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onQueryFriendsStatesFailed) {
-            eventHandler.onQueryFriendsStatesFailed(providerId, errorMessage);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [providerId, errorMessage]);
       }
-      else if (methodName == "com.soomla.dlc.events.SoomlaDLCInitializedEvent") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onSoomlaDLCInitialized) {
-            eventHandler.onSoomlaDLCInitialized();
-          }
-        });
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_SOOMLA_DLC_INITIALIZED) {
+        Soomla.fireSoomlaEvent(methodName);
       }
-      else if (methodName == "com.soomla.dlc.events.DLCPackagesStatusUpdateEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_DLC_PACKAGE_STATUS_UPDATED) {
         var hasChanges = parameters.hasChanges;
         var packagesToSync = parameters.packagesToSync;
         var packagesDeleted = parameters.packagesDeleted;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onDLCPackagesStatusUpdate) {
-            eventHandler.onDLCPackagesStatusUpdate(hasChanges, packagesToSync, packagesDeleted);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [hasChanges, packagesToSync, packagesDeleted]);
       }
-      else if (methodName == "com.soomla.dlc.events.DLCPackageSyncStartedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_DLC_PACKAGE_SYNC_STARTED) {
         var packageId = parameters.packageId;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onDLCPackageSyncStarted) {
-            eventHandler.onDLCPackageSyncStarted(packageId);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [packageId]);
       }
-      else if (methodName == "com.soomla.dlc.events.DLCPackageSyncFinishedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_DLC_PACKAGE_SYNC_FINISHED) {
         var packageId = parameters.packageId;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onDLCPackageSyncFinished) {
-            eventHandler.onDLCPackageSyncFinished(packageId);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [packageId]);
       }
-      else if (methodName == "com.soomla.dlc.events.DLCPackageSyncFailedEvent") {
+      else if (methodName == Soomla.Models.HighwayConsts.EVENT_DLC_PACKAGE_SYNC_FAILED) {
         var packageId = parameters.packageId;
         var errorCode = parameters.errorCode;
         var errorMessage = parameters.errorMessage;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onDLCPackageSyncFailed()) {
-            eventHandler.onDLCPackageSyncFailed(packageId, errorCode, errorMessage);
-          }
-        });
+        Soomla.fireSoomlaEvent(methodName, [packageId, errorCode, errorMessage]);
       }
     } catch (e) {
       logError("ndkCallback: " + e.message);
@@ -3518,7 +3482,7 @@ Soomla = new function () {
 
       if (this.initialized) {
         var err = "SoomlaStore is already initialized. You can't initialize it twice!";
-        Soomla.dispatchEvent('onUnexpectedErrorInStore', err, true);
+        Soomla.fireSoomlaEvent(StoreConsts.EVENT_UNEXPECTED_ERROR_IN_STORE, [err, true]);
         logError(err);
         return;
       }
@@ -3540,7 +3504,7 @@ Soomla = new function () {
       }
 
       this.initialized = true;
-      Soomla.dispatchEvent('onSoomlaStoreInitialized', true);
+      Soomla.fireSoomlaEvent(StoreConsts.EVENT_SOOMLA_STORE_INITIALIZED, [true]);
 
       return true;
     },
@@ -3552,13 +3516,13 @@ Soomla = new function () {
       }
 
       // simulate onMarketPurchaseStarted event
-      Soomla.dispatchEvent('onMarketPurchaseStarted', item);
+      Soomla.fireSoomlaEvent(StoreConsts.EVENT_MARKET_PURCHASE_STARTED, [item]);
 
       // in the editor we just give the item... no real market.
       item.give(1);
 
       // simulate onMarketPurchase event
-      Soomla.dispatchEvent('onMarketPurchase', item, 'fake_token_zyxw9876', payload);
+      Soomla.fireSoomlaEvent(StoreConsts.EVENT_MARKET_PURCHASE, [item, 'fake_token_zyxw9876', payload]);
     },
     restoreTransactions: function() {
     },
@@ -3641,28 +3605,6 @@ Soomla = new function () {
     mLocalUpgrades: {},
     mLocalEquippedGoods: [],
     init: function () {
-      var _this = this;
-      Soomla.addEventHandler({
-        // support reflection call to refreshLocalInventory
-        refreshLocalInventory: function () {
-          _this.refreshLocalInventory();
-        },
-        onCurrencyBalanceChanged: function (virtualCurrency, balance, amountAdded) {
-          _this.refreshOnCurrencyBalanceChanged(virtualCurrency, balance, amountAdded);
-        },
-        onGoodBalanceChanged: function (virtualGood, balance, amountAdded) {
-          _this.refreshOnGoodBalanceChanged(virtualGood, balance, amountAdded);
-        },
-        onGoodEquipped: function (equippableVG) {
-          _this.refreshOnGoodEquipped(equippableVG);
-        },
-        onGoodUnEquipped: function (equippableVG) {
-          _this.refreshOnGoodUnEquipped(equippableVG);
-        },
-        onGoodUpgrade: function (virtualGood, upgradeVG) {
-          _this.refreshOnGoodUpgrade(virtualGood, upgradeVG);
-        }
-      }, true);
       return true;
     },
     canAfford: function(itemId) {
@@ -4056,7 +3998,7 @@ Soomla = new function () {
 
       callNative(toPassData, true);
     },
-    getContacts: function(provider, filePath, reward, payload) {
+    getContacts: function(provider, reward, payload) {
       var toPassData = {
         method: "CCSoomlaProfile::getContacts",
         provider: provider.key,
