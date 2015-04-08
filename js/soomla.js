@@ -29,11 +29,12 @@ Soomla = new function () {
       data.className = data.className ||
       (data.purchaseType === 'market' && 'PurchaseWithMarket') ||
       (data.purchaseType === 'virtualItem' && 'PurchaseWithVirtualItem');
-      logDebug('Creating: ' + data.className);
       this.checkForClass(data);
       var classFactory = this.classFactories[data.className];
       if (classFactory) {
-        return classFactory.call(this, data);
+        var result = classFactory.call(this, data);
+        result.factored = true;
+        return result;
       } else {
         logError('Cannot find factory for className: ' + data.className);
         return null;
@@ -46,7 +47,6 @@ Soomla = new function () {
           (value.purchaseType === 'market' && 'PurchaseWithMarket') ||
           (value.purchaseType === 'virtualItem' && 'PurchaseWithVirtualItem');
 
-          logDebug('Class ' + data.className + ' has object field: ' + key);
           if (!value.className) {
             this.checkForClass(value);
           } else {
@@ -62,6 +62,7 @@ Soomla = new function () {
     var Clazz = function () {
       var parent = parentClass ? parentClass() : {};
       var __super__ = _.pick(parent, _.methods(parent));
+
       var obj = _.extend(parent, fields ? fields : {}, {
         className: ClassName
       });
@@ -74,8 +75,12 @@ Soomla = new function () {
 
       return obj;
     };
+
     Clazz.create = function (values) {
-      var instance = _.defaults(values ? _.omit(values, "className") : {}, Clazz());
+      var instance = Clazz();
+
+      _.assign(instance, values ? _.omit(values, ['className', '__super__']) : {});
+
       if (_.isFunction(instance.onCreate)) {
         instance.onCreate.call(instance);
       }
@@ -192,7 +197,7 @@ Soomla = new function () {
             logDebug("Now is in one of the time ranges' minutes span.");
 
             if (_this.schedRecurrence == Recurrence.EVERY_HOUR) {
-              logDebug(TAG, "It's a EVERY_HOUR recurrence. APPROVED!");
+              logDebug("It's a EVERY_HOUR recurrence. APPROVED!");
               return true;
             }
 
@@ -1319,11 +1324,14 @@ Soomla = new function () {
 
     getValue: function getValue(key) {
       var defaultValue = "";
-      var result = cc.sys.localStorage.getItem(key);
-      return result || defaultValue;
+      var result = cc.sys.localStorage.getItem(key) || defaultValue;
+      logDebug('getValue with key: ' + key + ', result: ' + result);
+      return result;
     },
     setValue: function setValue(key, val) {
       cc.sys.localStorage.setItem(key, val);
+
+      logDebug('setValue with key: ' + key + ', value: ' + val);
 
       this.addStoredKeys(key);
       this.saveStoredKeys();
@@ -1331,10 +1339,14 @@ Soomla = new function () {
     deleteKeyValue: function deleteKeyValue(key) {
       cc.sys.localStorage.removeItem(key);
 
+      logDebug('deleteKeyValue with key: ' + key);
+
       this.removeStoredKeys(key);
       this.saveStoredKeys();
     },
     purge: function purge() {
+      logDebug('purge');
+
       _.forEach(this.mStoredKeys, function (key) {
         this.deleteKeyValue(key);
       }, this);
@@ -1481,7 +1493,7 @@ Soomla = new function () {
       var key = this.keyBalance(itemId);
       var val = Soomla.keyValueStorage.getValue(key);
 
-      var balance = (!_.isUndefined(val) && !_.isEmpty(val)) ? val : 0;
+      var balance = (!_.isUndefined(val) && !_.isEmpty(val)) ? parseInt(val) : 0;
 
       logDebug('the balance for ' + itemId + ' is ' + balance);
 
@@ -1744,7 +1756,7 @@ Soomla = new function () {
      */
     unequip: function unequip(good, notify) {
       notify = notify || _.isUndefined(notify);
-      if (this.isEquipped(good)) {
+      if (!this.isEquipped(good)) {
         return;
       }
 
@@ -1753,7 +1765,7 @@ Soomla = new function () {
 
 
     keyBalance: function keyBalance(itemId) {
-      this.keyGoodBalance(itemId);
+      return this.keyGoodBalance(itemId);
     },
 
     postBalanceChangeEvent: function postBalanceChangeEvent(item, balance, amountAdded) {
@@ -1996,7 +2008,7 @@ Soomla = new function () {
     initializeFromDB: function () {
       var val = Soomla.keyValueStorage.getValue(this.KEY_META_STORE_INFO);
 
-      if (!val){
+      if (!val) {
         var message = 'store json is not in DB. Make sure you initialized SoomlaStore with your Store assets. The App will shut down now.';
         logError(message);
         throw message;
@@ -2699,19 +2711,28 @@ Soomla = new function () {
   Soomla.dispatchEvent = function (eventName) {
     // TODO: Switch all dispatching to this function
     if (arguments.length === 0) {
-      console.log('dispatchEvent: Wrong arguments number');
+      logError('dispatchEvent: Wrong arguments number');
       return;
     }
-    var functionName = _.take(arguments);
+    var functionName = arguments[0];
+    var params = [];
+    for (var i = 1; i < arguments.length; i++) {
+      params.push(arguments[i]);
+    }
+    logDebug('dispatching: ' + functionName + ' with arguments: ' + dump(params));
     _.forEach(Soomla.eventHandlers, function (eventHandler) {
       if (_.isFunction(eventHandler[functionName])) {
-        eventHandler[functionName].apply(eventHandler, arguments);
+        eventHandler[functionName].apply(eventHandler, params);
       }
     });
   };
 
-  Soomla.addEventHandler = Soomla.on = function (eventHandler) {
-    Soomla.eventHandlers.push(eventHandler);
+  Soomla.addEventHandler = Soomla.on = function (eventHandler, makeFirst) {
+    if (makeFirst) {
+      Soomla.eventHandlers.unshift(eventHandler);
+    } else {
+      Soomla.eventHandlers.push(eventHandler);
+    }
   };
   Soomla.removeEventHandler = Soomla.off = function (eventHandler) {
     var idx = Soomla.eventHandlers.indexOf(eventHandler);
@@ -2725,140 +2746,69 @@ Soomla = new function () {
       // ------- Core -------- //
       if (methodName == "com.soomla.events.RewardGivenEvent") {
         var rewardId = parameters['reward'];
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onRewardGivenEvent) {
-            var result = Soomla.Models.Reward.getReward(rewardId);
-            eventHandler.onRewardGivenEvent(result);
-          }
-        });
+        var result = Soomla.Models.Reward.getReward(rewardId);
+        Soomla.dispatchEvent('onRewardGivenEvent', result);
       }
       else if (methodName == "com.soomla.events.RewardTakenEvent") {
         var rewardId = parameters['reward'];
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onRewardTakenEvent) {
-            var result = Soomla.Models.Reward.getReward(rewardId);
-            eventHandler.onRewardTakenEvent(result);
-          }
-        });
+        var result = Soomla.Models.Reward.getReward(rewardId);
+        Soomla.dispatchEvent('onRewardTakenEvent', result);
       }
       else if (methodName == "com.soomla.events.CustomEvent") {
         var name = parameters['name'];
         var extra = parameters['extra'];
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onCustomEvent) {
-            eventHandler.onCustomEvent(name, extra);
-          }
-        });
+        Soomla.dispatchEvent('onCustomEvent', name, extra);
       }
 
       // ------- Store -------- //
       else if (methodName == "CCStoreEventHandler::onBillingNotSupported") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onBillingNotSupported) {
-            eventHandler.onBillingNotSupported();
-          }
-        });
+        Soomla.dispatchEvent('onBillingNotSupported');
       }
       else if (methodName == "CCStoreEventHandler::onBillingSupported") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onBillingSupported) {
-            eventHandler.onBillingSupported();
-          }
-        });
+        Soomla.dispatchEvent('onBillingSupported');
       }
       else if (methodName == "CCStoreEventHandler::onCurrencyBalanceChanged") {
         var virtualCurrency = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-
-        Soomla.storeInventory.refreshOnCurrencyBalanceChanged(virtualCurrency, parameters.balance, parameters.amountAdded);
-
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onCurrencyBalanceChanged) {
-            eventHandler.onCurrencyBalanceChanged(virtualCurrency, parameters.balance, parameters.amountAdded);
-          }
-        });
+        Soomla.dispatchEvent('onCurrencyBalanceChanged', virtualCurrency, parameters.balance, parameters.amountAdded);
       }
       else if (methodName == "CCStoreEventHandler::onGoodBalanceChanged") {
         var virtualGood = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-
-        Soomla.storeInventory.refreshOnGoodBalanceChanged(virtualGood, parameters.balance, parameters.amountAdded);
-
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGoodBalanceChanged) {
-            eventHandler.onGoodBalanceChanged(virtualGood, parameters.balance, parameters.amountAdded);
-          }
-        });
+        Soomla.dispatchEvent('onGoodBalanceChanged', virtualGood, parameters.balance, parameters.amountAdded);
       }
       else if (methodName == "CCStoreEventHandler::onGoodEquipped") {
         var equippableVG = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        Soomla.storeInventory.refreshOnGoodEquipped(equippableVG);
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGoodEquipped) {
-            eventHandler.onGoodEquipped(equippableVG);
-          }
-        });
+        Soomla.dispatchEvent('onGoodEquipped', equippableVG);
       }
       else if (methodName == "CCStoreEventHandler::onGoodUnEquipped") {
         var equippableVG = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        Soomla.storeInventory.refreshOnGoodUnEquipped(equippableVG);
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGoodUnEquipped) {
-            eventHandler.onGoodUnEquipped(equippableVG);
-          }
-        });
+        Soomla.dispatchEvent('onGoodUnEquipped', equippableVG);
       }
       else if (methodName == "CCStoreEventHandler::onGoodUpgrade") {
         var virtualGood = Soomla.storeInfo.getItemByItemId(parameters.itemId);
         var upgradeVG = Soomla.storeInfo.getItemByItemId(parameters.vguItemId);
-
-        Soomla.storeInventory.refreshOnGoodUpgrade(virtualGood, upgradeVG);
-
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onGoodUpgrade) {
-            eventHandler.onGoodUpgrade(virtualGood, upgradeVG);
-          }
-        });
+        Soomla.dispatchEvent('onGoodUpgrade', virtualGood, upgradeVG);
       }
       else if (methodName == "CCStoreEventHandler::onItemPurchased") {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onItemPurchased) {
-            eventHandler.onItemPurchased(purchasableVirtualItem);
-          }
-        });
+        Soomla.dispatchEvent('onItemPurchased', purchasableVirtualItem);
       }
       else if (methodName == "CCStoreEventHandler::onItemPurchaseStarted") {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onItemPurchaseStarted) {
-            eventHandler.onItemPurchaseStarted(purchasableVirtualItem);
-          }
-        });
+        Soomla.dispatchEvent('onItemPurchaseStarted', purchasableVirtualItem);
       }
       else if (methodName == "CCStoreEventHandler::onMarketPurchaseCancelled") {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onMarketPurchaseCancelled) {
-            eventHandler.onMarketPurchaseCancelled(purchasableVirtualItem);
-          }
-        });
+        Soomla.dispatchEvent('onMarketPurchaseCancelled', purchasableVirtualItem);
       }
       else if (methodName == "CCStoreEventHandler::onMarketPurchase") {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
         var token = parameters.token;
         var payload = parameters.payload;
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onMarketPurchase) {
-            eventHandler.onMarketPurchase(purchasableVirtualItem, token, payload);
-          }
-        });
+        Soomla.dispatchEvent('onMarketPurchase', purchasableVirtualItem, token, payload);
       }
       else if (methodName == "CCStoreEventHandler::onMarketPurchaseStarted") {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onMarketPurchaseStarted) {
-            eventHandler.onMarketPurchaseStarted(purchasableVirtualItem);
-          }
-        });
+        Soomla.dispatchEvent('onMarketPurchaseStarted', purchasableVirtualItem);
       }
       else if (methodName == "CCStoreEventHandler::onMarketItemsRefreshed") {
         var marketItemsDict = parameters.marketItems;
@@ -2883,84 +2833,40 @@ Soomla = new function () {
           marketItems.push(pvi);
         });
 
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onMarketItemsRefreshed) {
-            eventHandler.onMarketItemsRefreshed(marketItems);
-          }
-        });
+        Soomla.dispatchEvent('onMarketItemsRefreshed', marketItems);
       }
       else if (methodName == "CCStoreEventHandler::onMarketItemsRefreshStarted") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onMarketItemsRefreshStarted) {
-            eventHandler.onMarketItemsRefreshStarted();
-          }
-        });
+        Soomla.dispatchEvent('onMarketItemsRefreshStarted');
       }
       else if (methodName == "CCStoreEventHandler::onMarketItemsRefreshFailed") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onMarketItemsRefreshFailed) {
-            eventHandler.onMarketItemsRefreshFailed(parameters.errorMessage);
-          }
-        });
+        Soomla.dispatchEvent('onMarketItemsRefreshFailed', parameters.errorMessage);
       }
       else if (methodName == "CCStoreEventHandler::onMarketPurchaseVerification") {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onMarketPurchaseVerification) {
-            eventHandler.onMarketPurchaseVerification(purchasableVirtualItem);
-          }
-        });
+        Soomla.dispatchEvent('onMarketPurchaseVerification', purchasableVirtualItem);
       }
       else if (methodName == "CCStoreEventHandler::onRestoreTransactionsFinished") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onRestoreTransactionsFinished) {
-            eventHandler.onRestoreTransactionsFinished(parameters.success);
-          }
-        });
+        Soomla.dispatchEvent('onRestoreTransactionsFinished', parameters.success);
       }
       else if (methodName == "CCStoreEventHandler::onRestoreTransactionsStarted") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onRestoreTransactionsStarted) {
-            eventHandler.onRestoreTransactionsStarted();
-          }
-        });
+        Soomla.dispatchEvent('onRestoreTransactionsStarted');
       }
       else if (methodName == "CCStoreEventHandler::onUnexpectedErrorInStore") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onUnexpectedErrorInStore) {
-            eventHandler.onUnexpectedErrorInStore();
-          }
-        });
+        Soomla.dispatchEvent('onUnexpectedErrorInStore');
       }
       else if (methodName == "CCStoreEventHandler::onSoomlaStoreInitialized") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onSoomlaStoreInitialized) {
-            eventHandler.onSoomlaStoreInitialized();
-          }
-        });
+        Soomla.dispatchEvent('onSoomlaStoreInitialized');
       }
       //  Android specific
       else if (methodName == "CCStoreEventHandler::onMarketRefund") {
         var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onMarketRefund) {
-            eventHandler.onMarketRefund(purchasableVirtualItem);
-          }
-        });
+        Soomla.dispatchEvent('onMarketRefund', purchasableVirtualItem);
       }
       else if (methodName == "CCStoreEventHandler::onIabServiceStarted") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onIabServiceStarted) {
-            eventHandler.onIabServiceStarted();
-          }
-        });
+        Soomla.dispatchEvent('onIabServiceStarted');
       }
       else if (methodName == "CCStoreEventHandler::onIabServiceStopped") {
-        _.forEach(Soomla.eventHandlers, function (eventHandler) {
-          if (eventHandler.onIabServiceStopped) {
-            eventHandler.onIabServiceStopped();
-          }
-        });
+        Soomla.dispatchEvent('onIabServiceStopped');
       }
 
       // Profile
@@ -3524,8 +3430,23 @@ Soomla = new function () {
         // support reflection call to refreshLocalInventory
         refreshLocalInventory: function () {
           _this.refreshLocalInventory();
+        },
+        onCurrencyBalanceChanged: function (virtualCurrency, balance, amountAdded) {
+          _this.refreshOnCurrencyBalanceChanged(virtualCurrency, balance, amountAdded);
+        },
+        onGoodBalanceChanged: function (virtualGood, balance, amountAdded) {
+          _this.refreshOnGoodBalanceChanged(virtualGood, balance, amountAdded);
+        },
+        onGoodEquipped: function (equippableVG) {
+          _this.refreshOnGoodEquipped(equippableVG);
+        },
+        onGoodUnEquipped: function (equippableVG) {
+          _this.refreshOnGoodUnEquipped(equippableVG);
+        },
+        onGoodUpgrade: function (virtualGood, upgradeVG) {
+          _this.refreshOnGoodUpgrade(virtualGood, upgradeVG);
         }
-      });
+      }, true);
       return true;
     },
     canAfford: function(itemId) {
@@ -3591,7 +3512,7 @@ Soomla = new function () {
       }
     },
     isVirtualGoodEquipped: function(itemId) {
-      logDebug('UnEquipping: ' + itemId);
+      logDebug('Checking if '  + itemId + ' is equipped');
 
       var item = Soomla.storeInfo.getItemByItemId(itemId);
       if (item) {
@@ -4040,7 +3961,7 @@ Soomla = new function () {
   };
 
   var dump = Soomla.dump = function (obj) {
-    return 'dump : ' + JSON.stringify(obj);
+    return JSON.stringify(obj);
   };
 
   return Soomla
