@@ -1,3 +1,16 @@
+### v4.5.0 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.4.1...v4.5.0)
+
+**BREAKING API VERSION**
+
+* Features
+  * Replacing event handlers with custom events dispatched through Cocos2d-x facilities
+  * Adding more information from Android in Market Purchase event (see inline documentation)
+
+### v4.4.1 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.4.0...v4.4.1)
+
+* Changes
+  * Changing iOS bridge compilation and resulting header location
+
 ### v4.4.0 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.3.3...v4.4.0)
 
 **BREAKING API VERSION**
