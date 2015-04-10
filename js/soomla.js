@@ -57,27 +57,39 @@ Soomla = new function () {
     }
   };
 
-  var declareClass = Soomla.declareClass = function (ClassName, fields, parentClass) {
-    // TODO: It's better if change it to standard constructor
-    var Clazz = function () {
-      var parent = parentClass ? parentClass() : {};
-      var __super__ = _.pick(parent, _.methods(parent));
+  var declareClass = Soomla.declareClass = function (className, extension, parentClass) {
 
-      var obj = _.extend(parent, fields ? fields : {}, {
-        className: ClassName
+    extension = extension || {};
+
+    var fields = _.omit(extension, _.functions(extension));
+    var methods = _.pick(extension, _.functions(extension));
+
+    var Clazz = function () {
+
+      _.extend(this, fields, {
+        className: className
       });
 
-      obj.__super__ = __super__;
-
-      if (_.isFunction(obj.ctor)) {
-        obj.ctor.call(obj);
+      if (_.isFunction(this.ctor)) {
+        this.ctor.call(this);
       }
 
-      return obj;
+      return this;
     };
 
+    Clazz.name = className;
+
+
+    if (parentClass) {
+      Clazz.prototype = new parentClass();
+      Clazz.prototype.constructor = Clazz;
+      Clazz.prototype.__super__ = parentClass.prototype;
+    }
+    _.extend(Clazz.prototype, methods);
+
+
     Clazz.create = function (values) {
-      var instance = Clazz();
+      var instance = new Clazz();
 
       _.assign(instance, values ? _.omit(values, ['className', '__super__']) : {});
 
@@ -87,7 +99,7 @@ Soomla = new function () {
       return instance;
     };
 
-    Soomla.factory.classFactories[ClassName] = Clazz.create;
+    Soomla.factory.classFactories[className] = Clazz.create;
 
     return Clazz;
   };
@@ -2090,8 +2102,6 @@ Soomla = new function () {
         return false;
       }
 
-      var _this = this;
-
       this.setStoreAssets(storeAssets);
 
       // At this point we have StoreInfo JSON saved at the local key-value storage. We can just
@@ -4073,7 +4083,7 @@ Soomla = new function () {
     }
   };
 
-  var callNative = function (params, clean) {
+  var callNative = function callNative(params, clean) {
     var jsonString = null;
 
     var result;
