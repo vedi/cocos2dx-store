@@ -2950,31 +2950,37 @@ Soomla = new function () {
   /**
    * Root definitions
    */
-  Soomla.eventHandlers = {};
 
-  /**
-   * Dispatch event. Goes through event handlers and calls
-   * @param eventName function to call in event handlers
-   * @param {...Mixed} params params to pass to the function of event handlers
-   */
-  Soomla.dispatchEvent = function (eventName) {
-    // TODO: Switch all dispatching to this function
-    if (arguments.length === 0) {
-      logError('dispatchEvent: Wrong arguments number');
-      return;
-    }
-    var functionName = arguments[0];
-    var params = [];
-    for (var i = 1; i < arguments.length; i++) {
-      params.push(arguments[i]);
-    }
-    logDebug('dispatching: ' + functionName + ' with arguments: ' + dump(params));
-    _.forEach(Soomla.eventHandlers, function (eventHandler) {
-      if (_.isFunction(eventHandler[functionName])) {
-        eventHandler[functionName].apply(eventHandler, params);
+  var SoomlaEventDispatcher = Soomla.SoomlaEventDispatcher = function () {
+    Soomla.declareClass('SoomlaEventDispatcher', {
+      eventHandlers: {},
+      ndkCallback: function ndkCallback(parameters) {
+        var eventName = parameters.method;
+        if (!eventName) {
+          // Suppress any events without callbacks (push event probably)
+          return;
+        }
+
+        var handler = this.eventHandlers[eventName];
+
+        if (handler) {
+          handler(parameters);
+        } else {
+          logDebug('Unregistered event happened: ' + eventName);
+        }
+      },
+      registerEventHandler: function registerEventHandler(key, handler) {
+        this.eventHandlers[key] = handler;
+      },
+      unregisterEventHandler: function (key) {
+        delete this.eventHandlers[key];
       }
     });
-  };
+  }();
+
+  Soomla.soomlaEventDispatcher = new SoomlaEventDispatcher();
+
+  Soomla.eventHandlers = {};
 
   Soomla.addEventHandler = Soomla.on = function (eventName, handler, target) {
     var handlersArray = Soomla.eventHandlers[eventName];
@@ -3417,6 +3423,9 @@ Soomla = new function () {
         var errorCode = parameters.errorCode;
         var errorMessage = parameters.errorMessage;
         Soomla.fireSoomlaEvent(methodName, [packageId, errorCode, errorMessage]);
+      } else {
+        // TODO: Replace all above checks with this call
+        Soomla.soomlaEventDispatcher.ndkCallback(parameters);
       }
     } catch (e) {
       logError("ndkCallback: " + e.message);
@@ -3485,13 +3494,13 @@ Soomla = new function () {
   /**
    * SoomlaStore
    */
-  var SoomlaStore = Soomla.SoomlaStore = declareClass("SoomlaStore", {
+  var SoomlaStore = Soomla.SoomlaStore = declareClass('SoomlaStore', {
     SOOMLA_AND_PUB_KEY_DEFAULT: "YOUR GOOGLE PLAY PUBLIC KEY",
     initialized: false,
     initialize: function(storeAssets, storeParams) {
 
       if (this.initialized) {
-        var err = "SoomlaStore is already initialized. You can't initialize it twice!";
+        var err = 'SoomlaStore is already initialized. You can\'t initialize it twice!';
         Soomla.fireSoomlaEvent(StoreConsts.EVENT_UNEXPECTED_ERROR_IN_STORE, [err, true]);
         logError(err);
         return;
@@ -3499,7 +3508,7 @@ Soomla = new function () {
 
       StoreBridge.initShared();
 
-      logDebug("CCSoomlaStore Initializing...");
+      logDebug('CCSoomlaStore Initializing...');
 
       this.loadBillingService();
 
@@ -4083,7 +4092,7 @@ Soomla = new function () {
     }
   };
 
-  var callNative = function callNative(params, clean) {
+  var callNative = Soomla.callNative = function callNative(params, clean) {
     var jsonString = null;
 
     var result;
