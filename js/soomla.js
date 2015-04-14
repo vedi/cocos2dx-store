@@ -503,8 +503,8 @@ Soomla = new function () {
    */
   var MarketItem = Soomla.Models.MarketItem = declareClass("MarketItem", {
     productId: null,
-    androidId: null,
-    iosId: null,
+    // androidId: null,
+    // iosId: null,
     consumable: null,
     price: null,
     marketPrice: 0,
