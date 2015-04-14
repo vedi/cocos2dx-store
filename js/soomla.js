@@ -4063,11 +4063,11 @@ Soomla = new function () {
       });
       return retParams.return;
     },
-    like: function(provider, pageName, reward) {
+    like: function(provider, pageId, reward) {
       var toPassData = {
         method: "CCSoomlaProfile::like",
         provider: provider.key,
-        pageName: pageName
+        pageId: pageId
       };
 
       if (reward) {
