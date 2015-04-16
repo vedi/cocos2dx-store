@@ -35,7 +35,6 @@ namespace soomla {
 	 */
     class CCMarketItem : public CCDomain {
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mProductId, ProductId, CCStoreConsts::JSON_MARKET_ITEM_PRODUCT_ID);
-        SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mConsumable, Consumable, CCStoreConsts::JSON_MARKET_ITEM_CONSUMABLE);
         SL_SYNTHESIZE_DOUBLE_RETAIN_WITH_DICT( mPrice, Price, CCStoreConsts::JSON_MARKET_ITEM_PRICE);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mMarketPriceAndCurrency, MarketPriceAndCurrency, CCStoreConsts::JSON_MARKET_ITEM_MARKET_PRICE);
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__String *, mMarketTitle, MarketTitle, CCStoreConsts::JSON_MARKET_ITEM_MARKET_TITLE);
@@ -47,37 +46,28 @@ namespace soomla {
         SL_SYNTHESIZE_RETAIN_WITH_DICT(cocos2d::__Integer *, mMarketPriceMicros, MarketPriceMicros, CCStoreConsts::JSON_MARKET_ITEM_MARKET_PRICE_MICROS);
     public:
         
-        /**
-         Every item offered in the market (App Store, Google Play...) has one 
-         of the five following purchase types.
-         */
-        enum Consumable {
-            NONCONSUMABLE,
-            CONSUMABLE,
-            SUBSCRIPTION,
-        };
-        CCMarketItem(): mProductId(NULL), mConsumable(NULL), mPrice(NULL), mMarketPriceAndCurrency(NULL), mMarketTitle(NULL), mMarketDescription(NULL),
+
+        CCMarketItem(): mProductId(NULL), mPrice(NULL), mMarketPriceAndCurrency(NULL), mMarketTitle(NULL), mMarketDescription(NULL),
             mMarketCurrencyCode(NULL), mMarketPriceMicros(NULL){};
 
 		/**
          Creates a `CCMarketItem`.
          @param productId The item's id in the native store.
-         @param consumable Whether or not the item is consumable.
          @param price The default price of the item, for display when connection
          to the market is not available
          @return The Market item.
 		 */
-        static CCMarketItem *create(cocos2d::__String *productId, cocos2d::__Integer *consumable, cocos2d::__Double * price);
+        static CCMarketItem *create(cocos2d::__String *productId, cocos2d::__Double * price);
 
 		/**
          Creates a `CCMarketItem` from a dictionary.
          @param dict A dictionary containing keys for the item's product id,
-                price and consumable status.
+                and price.
          @return The Market item.
 		*/
         SL_CREATE_WITH_DICTIONARY(CCMarketItem);
 
-        bool init(cocos2d::__String *productId, cocos2d::__Integer *consumable, cocos2d::__Double * price);
+        bool init(cocos2d::__String *productId, cocos2d::__Double * price);
         virtual bool initWithDictionary(cocos2d::__Dictionary* dict);
 
         virtual ~CCMarketItem();
