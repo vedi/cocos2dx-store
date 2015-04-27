@@ -22,9 +22,9 @@ USING_NS_CC;
 
 namespace soomla {
 
-    CCMarketItem *CCMarketItem::create(__String *productId, __Integer *consumable, __Double *price) {
+    CCMarketItem *CCMarketItem::create(__String *productId, __Double *price) {
         CCMarketItem *ret = new CCMarketItem();
-        if (ret->init(productId, consumable, price)) {
+        if (ret->init(productId, price)) {
             ret->autorelease();
         }
         else {
@@ -34,9 +34,8 @@ namespace soomla {
         return ret;
     }
 
-    bool CCMarketItem::init(__String *productId, __Integer *consumable, __Double *price) {
+    bool CCMarketItem::init(__String *productId, __Double *price) {
         setProductId(productId);
-        setConsumable(consumable);
         setPrice(price);
 
         return true;
@@ -59,7 +58,6 @@ namespace soomla {
             fillProductIdFromDict(dict);
         }
 
-        fillConsumableFromDict(dict);
         fillPriceFromDict(dict);
         
         fillMarketPriceAndCurrencyFromDict(dict);
@@ -73,7 +71,6 @@ namespace soomla {
 
     CCMarketItem::~CCMarketItem() {
         CC_SAFE_RELEASE(mProductId);
-        CC_SAFE_RELEASE(mConsumable);
         CC_SAFE_RELEASE(mPrice);
         CC_SAFE_RELEASE(mMarketPriceAndCurrency);
         CC_SAFE_RELEASE(mMarketTitle);
@@ -86,7 +83,6 @@ namespace soomla {
         __Dictionary *dict = __Dictionary::create();
 
         putProductIdToDict(dict);
-        putConsumableToDict(dict);
         putPriceToDict(dict);
 
         putMarketPriceAndCurrencyToDict(dict);

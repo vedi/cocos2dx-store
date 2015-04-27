@@ -41,7 +41,6 @@ namespace soomla {
         static char const *JSON_MARKET_ITEM_ANDROID_ID;
         static char const *JSON_MARKET_ITEM_IOS_ID;
 
-        static char const *JSON_MARKET_ITEM_CONSUMABLE;
         static char const *JSON_MARKET_ITEM_PRICE;
 
         static char const *JSON_MARKET_ITEM_MARKET_PRICE;
