@@ -3,7 +3,7 @@ LOCAL_PATH := $(call my-dir)
 # cocos2dx-store
 include $(CLEAR_VARS)
 
-COCOS2D_JAVASCRIPT = $(filter %-DCOCOS2D_JAVASCRIPT,$(APP_CPPFLAGS))
+COCOS2D_JAVASCRIPT = $(filter %-DCOCOS2D_JAVASCRIPT=1,$(APP_CPPFLAGS))
 
 LOCAL_MODULE := cocos2dx_store_static
 LOCAL_MODULE_FILENAME := libcocos2dxstore
@@ -46,4 +46,9 @@ LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/Soomla/rewards
 
 include $(BUILD_STATIC_LIBRARY)
 
+ifneq '$(COCOS2D_JAVASCRIPT)' ''
 $(call import-module,soomla-cocos2dx-core)
+else
+$(call import-module,extensions/soomla-cocos2dx-core)
+endif
+
