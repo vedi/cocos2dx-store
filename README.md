@@ -13,21 +13,13 @@ cocos2dx-store
 
 > Draw your attention this page covers integration of C++ based solutions. If you need information regarding JS solution follow the link: https://github.com/soomla/cocos2dx-store/wiki/jsb#cocos2dx-store
 
+**May 21st, 2015**: cocos2dx-v2 is no longer supported. The branch will stay but won't be maintained. Starting to work on cocos2dx-v4 soon.
+
 **April 1st, 2015**: v4.5 Event handlers replaced with Cocos2d-x event system (needs core update as well)
 
 **March 16, 2015**: v4.4 Better integration for all Soomla modules in Cocos2d-x (needs core update as well)
 
-**December 3rd, 2014**:
-Migrating Amazon IAP from v1.0 to v2.0. Read the [instructions](https://github.com/soomla/cocos2dx-store#amazon) carefully!
-
 **December 01, 2014**: v4.3.0 **Work Without a Device!** when working without a device, data is saved to UserDefault, you cannot test in-app purchases without a device
-
-**September 15, 2014**: `CCNonConsumableItem` class was removed.
-To create a non-consumable item, define it as `CCLifeTimeVG` with a `CCPurchaseWithMarket` in your `iStoreAssets` implementation.
-
-**Aug 30, 2014**: Re-Arranged project structure and optimized integration process.
-
-**May 30, 2014**: Support Amazon Billing Provider.
 
 **February 4, 2014**: Added support for js-bindings.
 
@@ -52,8 +44,8 @@ This example is still under development but it can give you a taste of the impor
 
 ####Pre baked zip:
 
-- [soomla-cocos2dx-core 1.2.0](http://library.soom.la/fetch/cocos2dx-core/1.2.0?cf=github)
-- [cocos2dx-store 4.5.0](http://library.soom.la/fetch/cocos2dx-store/4.5.0?cf=github)
+- [soomla-cocos2dx-core 1.2.1](http://library.soom.la/fetch/cocos2dx-core/1.2.1?cf=github)
+- [cocos2dx-store 4.5.1](http://library.soom.la/fetch/cocos2dx-store/4.5.1?cf=github)
 
 ## Getting Started (With pre-built libraries)
 
