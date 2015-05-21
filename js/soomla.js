@@ -505,7 +505,6 @@ Soomla = new function () {
     productId: null,
     // androidId: null,
     // iosId: null,
-    consumable: null,
     price: null,
     marketPrice: 0,
     marketTitle: null,
@@ -523,11 +522,6 @@ Soomla = new function () {
       }
     }
   }, Domain);
-  MarketItem.Consumable = {
-    NONCONSUMABLE: 0,
-    CONSUMABLE: 1,
-    SUBSCRIPTION: 2
-  };
 
   var PURCHASE_TYPE = {
     MARKET: "market",
@@ -1097,7 +1091,6 @@ Soomla = new function () {
   PurchaseWithMarket.createWithMarketItem = function(productId, price) {
     var marketItem = MarketItem.create({
       productId: productId,
-      consumable: MarketItem.Consumable.CONSUMABLE,
       price: price
     });
     return PurchaseWithMarket.create({marketItem: marketItem});

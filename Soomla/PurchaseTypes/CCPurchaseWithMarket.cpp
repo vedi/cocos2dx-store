@@ -21,12 +21,12 @@
 #include "CCStoreInfo.h"
 
 namespace soomla {
-    
+
     #define TAG "SOOMLA PurchaseWithMarket"
-    
+
     CCPurchaseWithMarket *CCPurchaseWithMarket::create(cocos2d::CCString *productId, cocos2d::CCDouble *price) {
         return createWithMarketItem(CCMarketItem::create(
-                productId, cocos2d::CCInteger::create(CCMarketItem::CONSUMABLE), price));
+                productId, price));
     }
 
     CCPurchaseWithMarket *CCPurchaseWithMarket::createWithMarketItem(CCMarketItem *marketItem) {
@@ -50,15 +50,15 @@ namespace soomla {
             return false;
         }
     }
-    
+
     void CCPurchaseWithMarket::buy(const char* payload, CCError **error) {
         CCSoomlaUtils::logDebug(TAG, cocos2d::CCString::createWithFormat("Starting in-app purchase for productId: %s",
                                                                          getMarketItem()->getProductId()->getCString())->getCString());
-        
+
         if (payload == NULL) {
             payload = "";
         }
-        
+
         CCPurchasableVirtualItem *pvi = dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(getAssociatedItemId()->getCString(), error));
         CCStoreEventDispatcher::getInstance()->onItemPurchaseStarted(pvi, true);
         CCSoomlaStore::getInstance()->buyMarketItem(getMarketItem()->getProductId()->getCString(), payload, error);
@@ -67,7 +67,7 @@ namespace soomla {
     CCPurchaseWithMarket::~CCPurchaseWithMarket() {
         CC_SAFE_RELEASE(mMarketItem);
     }
-    
+
     bool CCPurchaseWithMarket::canAfford(CCError **error) {
         // for market purchases, always assume it can be afforded
         return true;

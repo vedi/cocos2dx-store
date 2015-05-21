@@ -1,12 +1,12 @@
 /*
  Copyright (C) 2012-2014 Soomla Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,9 +22,9 @@ USING_NS_CC;
 
 namespace soomla {
 
-    CCMarketItem *CCMarketItem::create(CCString *productId, CCInteger *consumable, CCDouble *price) {
+    CCMarketItem *CCMarketItem::create(CCString *productId, CCDouble *price) {
         CCMarketItem *ret = new CCMarketItem();
-        if (ret->init(productId, consumable, price)) {
+        if (ret->init(productId, price)) {
             ret->autorelease();
         }
         else {
@@ -34,9 +34,8 @@ namespace soomla {
         return ret;
     }
 
-    bool CCMarketItem::init(CCString *productId, CCInteger *consumable, CCDouble *price) {
+    bool CCMarketItem::init(CCString *productId, CCDouble *price) {
         setProductId(productId);
-        setConsumable(consumable);
         setPrice(price);
 
         return true;
@@ -59,9 +58,8 @@ namespace soomla {
             fillProductIdFromDict(dict);
         }
 
-        fillConsumableFromDict(dict);
         fillPriceFromDict(dict);
-        
+
         fillMarketPriceAndCurrencyFromDict(dict);
         fillMarketTitleFromDict(dict);
         fillMarketDescriptionFromDict(dict);
@@ -73,7 +71,6 @@ namespace soomla {
 
     CCMarketItem::~CCMarketItem() {
         CC_SAFE_RELEASE(mProductId);
-        CC_SAFE_RELEASE(mConsumable);
         CC_SAFE_RELEASE(mPrice);
         CC_SAFE_RELEASE(mMarketPriceAndCurrency);
         CC_SAFE_RELEASE(mMarketTitle);
@@ -86,7 +83,6 @@ namespace soomla {
         CCDictionary *dict = CCDictionary::create();
 
         putProductIdToDict(dict);
-        putConsumableToDict(dict);
         putPriceToDict(dict);
 
         putMarketPriceAndCurrencyToDict(dict);
@@ -98,4 +94,3 @@ namespace soomla {
         return this->putTypeData(dict, CCStoreConsts::JSON_JSON_TYPE_MARKET_ITEM);
     }
 };
-
