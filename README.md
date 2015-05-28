@@ -13,7 +13,7 @@ cocos2dx-store
 
 > Draw your attention this page covers integration of C++ based solutions. If you need information regarding JS solution follow the link: https://github.com/soomla/cocos2dx-store/wiki/jsb#cocos2dx-store
 
-**May 21st, 2015**: cocos2dx-v2 is no longer supported. The branch will stay but won't be maintained. Starting to work on cocos2dx-v4 soon.
+**May 21st, 2015**: **cocos2dx-v2 is no longer supported** The branch will stay but won't be maintained. Starting to work on cocos2dx-v4 soon.
 
 **April 1st, 2015**: v4.5 Event handlers replaced with Cocos2d-x event system (needs core update as well)
 
