@@ -179,12 +179,9 @@ namespace soomla {
                         return;
                     }
                     CC_ASSERT(purchasableVirtualItem);
-                    __String *token = (__String *)(parameters->objectForKey("token"));
                     __String *payload = (__String *)(parameters->objectForKey("payload"));
-                    __String *originalJson = (__String *)(parameters->objectForKey("originalJson"));
-                    __String *signature = (__String *)(parameters->objectForKey("signature"));
-                    __String *userId = (__String *)(parameters->objectForKey("userId"));
-                    this->onMarketPurchase(purchasableVirtualItem, token, payload, originalJson, signature, userId);
+                    __Dictionary *extraInfo = (__Dictionary *)(parameters->objectForKey("extraInfo"));
+                    this->onMarketPurchase(purchasableVirtualItem, payload, extraInfo);
                 });
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_PURCHASE_STARTED,
@@ -453,24 +450,13 @@ namespace soomla {
         Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(CCStoreConsts::EVENT_MARKET_PURCHASE_CANCELED, eventDict);
     }
 
-    void CCStoreEventDispatcher::onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *token, cocos2d::__String *payload, cocos2d::__String *originalJson,
-                                                  cocos2d::__String *signature, cocos2d::__String *userId) {
+    void CCStoreEventDispatcher::onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *payload, cocos2d::__Dictionary *extraInfo) {
+
         __Dictionary *eventDict = __Dictionary::create();
         eventDict->setObject(purchasableVirtualItem, CCStoreConsts::DICT_ELEMENT_PURCHASABLE);
-        eventDict->setObject(token, CCStoreConsts::DICT_ELEMENT_TOKEN);
         eventDict->setObject(payload, CCStoreConsts::DICT_ELEMENT_DEVELOPERPAYLOAD);
-        if (originalJson != NULL) {
-            eventDict->setObject(originalJson, CCStoreConsts::DICT_ELEMENT_ORIGINAL_JSON);
-        }
-        
-        if (signature != NULL) {
-            eventDict->setObject(signature, CCStoreConsts::DICT_ELEMENT_SIGNATURE);
-        }
-        
-        if (userId != NULL) {
-            eventDict->setObject(userId, CCStoreConsts::DICT_ELEMENT_USER_ID);
-        }
-        
+        eventDict->setObject(extraInfo, CCStoreConsts::DICT_ELEMENT_EXTRA_INFO);
+
         Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(CCStoreConsts::EVENT_MARKET_PURCHASE, eventDict);
     }
 
