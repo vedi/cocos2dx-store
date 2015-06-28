@@ -1,3 +1,15 @@
+### v4.5.1 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.0...v4.5.1)
+
+* New Features
+  * Implemented new js functionality for all features
+
+* Changes
+  * Removed Consumable enum from MarketItem
+
+* Fixes
+  * Fixed an issue with androidId and iosId being set to null which prevented them from being set in the native code
+
+
 ### v4.5.0 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.4.1...v4.5.0)
 
 **BREAKING API VERSION**
