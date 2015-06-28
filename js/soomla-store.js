@@ -1609,7 +1609,7 @@
        * @param virtualCurrency the currency whose balance was changed
        * @param balance the balance of the currency after the change
        * @param amountAdded the amount that was added to the currency balance (in case the number of currencies was removed this will be a negative value)
-        */
+       */
       onCurrencyBalanceChanged: function (virtualCurrency, balance, amountAdded) {
       },
 
@@ -1947,6 +1947,15 @@
           method: 'CCSoomlaStore::setAndroidPublicKey',
           androidPublicKey: storeParams.androidPublicKey
         });
+
+        if (storeParams.clientId && storeParams.clientSecret && storeParams.refreshToken) {
+          Soomla.callNative({
+            method: 'CCSoomlaStore::configVerifyPurchases',
+            clientId: storeParams.clientId,
+            clientSecret: storeParams.clientSecret,
+            refreshToken: storeParams.refreshToken
+          });
+        }
         Soomla.callNative({
           method: 'CCSoomlaStore::setTestPurchases',
           testPurchases: storeParams.testPurchases
