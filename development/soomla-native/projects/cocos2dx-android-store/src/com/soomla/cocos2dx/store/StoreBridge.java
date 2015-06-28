@@ -26,7 +26,9 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StoreBridge {
 
@@ -150,6 +152,30 @@ public class StoreBridge {
                     setPKMethod.invoke(singleton, publicKey);
                 } catch (Exception e) {
                     SoomlaUtils.LogError("StoreService JNI", "Something happened while we were trying to run CCSoomlaStore::setAndroidPublicKey. error: " + e.getLocalizedMessage());
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCSoomlaStore::configVerifyPurchases", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(final JSONObject params, JSONObject retParams) throws Exception {
+                try {
+                    Map<String, Object> verifyPurchasesParams = new HashMap<String, Object>() {{
+                        put("clientId", params.getString("clientId"));
+                        put("clientSecret", params.getString("clientSecret"));
+                        put("refreshToken", params.getString("refreshToken"));
+                    }};
+
+                    Class googlePlayClass = Class.forName("com.soomla.store.billing.google.GooglePlayIabService");
+                    Method factoryMethod = googlePlayClass.getDeclaredMethod("getInstance");
+                    Object singleton = factoryMethod.invoke(null, null);
+                    Method configVerifyPurchasesMethod = googlePlayClass.getDeclaredMethod("configVerifyPurchases", Map.class);
+                    configVerifyPurchasesMethod.invoke(singleton, verifyPurchasesParams);
+
+                } catch (Exception e) {
+                    SoomlaUtils.LogError("StoreService JNI", "Something happened while we were trying to run CCSoomlaStore::configVerifyPurchases. error: " + e.getLocalizedMessage());
                     e.printStackTrace();
                 }
 
