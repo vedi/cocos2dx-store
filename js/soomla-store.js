@@ -1592,53 +1592,166 @@
    */
   var StoreEventHandler = Soomla.StoreEventHandler = function () {
     return Soomla.declareClass('StoreEventHandler', {
-      onBillingNotSupported: function () {
-      },
+      /**
+       * This event is triggered when the billing service is initialized and ready.
+       */
       onBillingSupported: function () {
       },
+
+      /**
+       * This event is triggered when the billing service fails to initialize.
+       */
+      onBillingNotSupported: function () {
+      },
+
+      /**
+       * This event is triggered when the balance of a specific currency has changed.
+       * @param virtualCurrency the currency whose balance was changed
+       * @param balance the balance of the currency after the change
+       * @param amountAdded the amount that was added to the currency balance (in case the number of currencies was removed this will be a negative value)
+       */
       onCurrencyBalanceChanged: function (virtualCurrency, balance, amountAdded) {
       },
+
+      /**
+       * This event is triggered when the balance of a specific virtual good has changed.
+       * @param virtualGood the virtual good whose balance was changed
+       * @param balance the balance of the good after the change
+       * @param amountAdded the amount that was added to the good balance (in case the number of goods was removed this will be a negative value)
+       */
       onGoodBalanceChanged: function (virtualGood, balance, amountAdded) {
       },
+
+      /**
+       * This event is triggered when a virtual good equipping operation has been completed successfully.
+       * @param equippableVG the virtual good that was just equipped
+       */
       onGoodEquipped: function (equippableVG) {
       },
+
+      /**
+       * This event is triggered when a virtual good un-equipping operation has been completed successfully.
+       * @param equippableVG the virtual good that was just unequipped
+       */
       onGoodUnEquipped: function (equippableVG) {
       },
+
+      /**
+       * This event is triggered when a virtual good upgrading operation has been completed successfully.
+       * @param virtualGood the virtual good that was just upgraded
+       * @param upgradeVG the upgrade after the operation completed
+       */
       onGoodUpgrade: function (virtualGood, upgradeVG) {
       },
-      onItemPurchased: function (purchasableVirtualItem) {
-      },
+
+      /**
+       * This event is triggered when an item purchase operation has started.
+       * @param purchasableVirtualItem the PurchasableVirtualItem whose purchase operation has just started
+       */
       onItemPurchaseStarted: function (purchasableVirtualItem) {
       },
-      onMarketPurchaseCancelled: function (purchasableVirtualItem) {
+
+      /**
+       * This event is triggered when an item purchase operation has completed successfully.
+       * @param purchasableVirtualItem the PurchasableVirtualItem whose purchase operation has just started
+       */
+      onItemPurchased: function (purchasableVirtualItem) {
       },
-      onMarketPurchase: function (purchasableVirtualItem, token, payload) {
-      },
+
+      /**
+       * This event is triggered when a market purchase operation has started.
+       * @param purchasableVirtualItem the PurchasableVirtualItem whose purchase operation has just started
+       */
       onMarketPurchaseStarted: function (purchasableVirtualItem) {
       },
-      onMarketItemsRefreshStarted: function () {
+
+      /**
+       * This event is triggered when a market purchase operation has completed successfully.
+       * @param purchasableVirtualItem the PurchasableVirtualItem whose purchase operation has just started
+       * @param payload a text that you can give when you initiate the purchase operation and you want to receive back upon completion
+       * @param extraInfo contains platform specific information about the market purchase
+       * Android: The "extra" dictionary will contain: 'token', 'orderId', 'originalJson', 'signature', 'userId'
+       * iOS: The "extra" dictionary will contain: 'receiptUrl', 'transactionIdentifier', 'receiptBase64',
+       *    'transactionDate', 'originalTransactionDate', 'originalTransactionIdentifier'
+       */
+      onMarketPurchase: function (purchasableVirtualItem, payload, extraInfo) {
       },
-      onMarketItemsRefreshFailed: function (errorMessage) {
+
+      /**
+       * This event is triggered when a market purchase operation has been cancelled by the user.
+       * @param purchasableVirtualItem the PurchasableVirtualItem whose purchase operation was cancelled
+       */
+      onMarketPurchaseCancelled: function (purchasableVirtualItem) {
       },
-      onMarketItemsRefreshed: function (marketItems) {
-      },
+
+      /**
+       * This event is triggered when a market purchase verification process has started.
+       * @param purchasableVirtualItem the PurchasableVirtualItem whose purchase is being verified
+       */
       onMarketPurchaseVerification: function (purchasableVirtualItem) {
       },
+
+      /**
+       * This event is triggered when a refresh market items operation has started.
+       */
+      onMarketItemsRefreshStarted: function () {
+      },
+
+      /**
+       * This event is triggered when a refresh market items operation has finished.
+       * @param marketItems the list of Market items that was fetched from the Market
+       */
+      onMarketItemsRefreshed: function (marketItems) {
+      },
+
+      /**
+       * This event is triggered when a market item refreshed process has failed.
+       * @param errorMessage The error which caused the failure
+       */
+      onMarketItemsRefreshFailed: function (errorMessage) {
+      },
+
+      /**
+       * This event is triggered when a restore transactions operation has started.
+       */
       onRestoreTransactionsStarted: function () {
       },
+
+      /**
+       * This event is triggered when a restore transactions operation has completed successfully.
+       * @param success true if the restore transactions operation has succeeded
+       */
       onRestoreTransactionsFinished: function (success) {
       },
+
+      /**
+       * This event is triggered an unexpected error occurs in the Store.
+       */
       onUnexpectedErrorInStore: function () {
       },
+
+      /**
+       * This event is triggered when the Soomla Store module is initialized and ready.
+       */
       onSoomlaStoreInitialized: function () {
       },
+
       // For Android only
-      onMarketRefund: function (purchasableVirtualItem) {
-      },
+      /**
+       * This event is triggered when the in-app billing service is started.
+       */
       onIabServiceStarted: function () {
       },
+
+      /**
+       * This event is triggered when the in-app billing service is stopped.
+       */
       onIabServiceStopped: function () {
+      },
+
+      onMarketRefund: function (purchasableVirtualItem) {
       }
+
     });
   }();
 
@@ -1713,9 +1826,9 @@
 
         eventDispatcher.registerEventHandler(StoreConsts.EVENT_MARKET_PURCHASE, _.bind(function (parameters) {
           var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          var token = parameters.token;
           var payload = parameters.payload;
-          Soomla.fireSoomlaEvent(parameters.method, [purchasableVirtualItem, token, payload]);
+          var extraInfo = parameters.extraInfo;
+          Soomla.fireSoomlaEvent(parameters.method, [purchasableVirtualItem, payload, extraInfo]);
         }, this));
 
         eventDispatcher.registerEventHandler(StoreConsts.EVENT_MARKET_PURCHASE_STARTED, _.bind(function (parameters) {
@@ -1834,6 +1947,15 @@
           method: 'CCSoomlaStore::setAndroidPublicKey',
           androidPublicKey: storeParams.androidPublicKey
         });
+
+        if (storeParams.clientId && storeParams.clientSecret && storeParams.refreshToken) {
+          Soomla.callNative({
+            method: 'CCSoomlaStore::configVerifyPurchases',
+            clientId: storeParams.clientId,
+            clientSecret: storeParams.clientSecret,
+            refreshToken: storeParams.refreshToken
+          });
+        }
         Soomla.callNative({
           method: 'CCSoomlaStore::setTestPurchases',
           testPurchases: storeParams.testPurchases
@@ -1914,7 +2036,7 @@
       item.give(1);
 
       // simulate onMarketPurchase event
-      Soomla.fireSoomlaEvent(StoreConsts.EVENT_MARKET_PURCHASE, [item, 'fake_token_zyxw9876', payload]);
+      Soomla.fireSoomlaEvent(StoreConsts.EVENT_MARKET_PURCHASE, [item, payload, {}]);
     },
     restoreTransactions: function () {
     },

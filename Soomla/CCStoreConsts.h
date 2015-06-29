@@ -98,7 +98,7 @@ namespace soomla {
         static char const *DICT_ELEMENT_PURCHASABLE_ID;
         static char const *DICT_ELEMENT_DEVELOPERPAYLOAD;
         static char const *DICT_ELEMENT_RECEIPT;
-        static char const *DICT_ELEMENT_TOKEN;
+        static char const *DICT_ELEMENT_EXTRA_INFO;
         static char const *DICT_ELEMENT_ORIGINAL_JSON;
         static char const *DICT_ELEMENT_SIGNATURE;
         static char const *DICT_ELEMENT_USER_ID;
