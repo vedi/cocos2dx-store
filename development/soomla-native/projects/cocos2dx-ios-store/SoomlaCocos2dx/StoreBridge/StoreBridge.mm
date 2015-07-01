@@ -421,9 +421,10 @@
     }];
     
     [ndkGlue registerCallHandlerForKey:@"CCStoreEventDispatcher::pushOnUnexpectedErrorInStore" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        // TODO: we're ignoring errorMessage here. change it?
-        
-        NSDictionary *userInfo = @{ DICT_ELEMENT_ERROR_CODE: [NSNumber numberWithInt:ERR_GENERAL] };
+        NSDictionary *userInfo = @{
+                DICT_ELEMENT_ERROR_CODE: parameters[@"errorCode"],
+                DICT_ELEMENT_ERROR_MESSAGE: parameters[@"errorMessage"]
+        };
         [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_UNEXPECTED_ERROR_IN_STORE object:[NdkGlue sharedInstance] userInfo:userInfo];
     }];
     
@@ -557,7 +558,11 @@
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_UNEXPECTED_ERROR_IN_STORE withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
-        [parameters setObject:@"CCStoreEventHandler::onUnexpectedErrorInStore" forKey:@"method"];
+        NSNumber* errorCode = notification.userInfo[DICT_ELEMENT_ERROR_CODE];
+        NSString* errorMessage = notification.userInfo[DICT_ELEMENT_ERROR_MESSAGE];
+        parameters[@"method"] = @"CCStoreEventHandler::onUnexpectedErrorInStore";
+        parameters[@"errorCode"] = errorCode;
+        parameters[@"errorMessage"] = errorMessage;
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_SOOMLASTORE_INIT withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {

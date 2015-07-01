@@ -76,6 +76,7 @@ namespace soomla {
                 __String *clientId = dynamic_cast<__String *>(storeParams->objectForKey("clientId"));
                 __String *clientSecret = dynamic_cast<__String *>(storeParams->objectForKey("clientSecret"));
                 __String *refreshToken = dynamic_cast<__String *>(storeParams->objectForKey("refreshToken"));
+                __Bool *verifyOnServerFailure = dynamic_cast<__Bool *>(storeParams->objectForKey("verifyOnServerFailure"));
 
                 if (clientId != NULL && clientId->length() > 0 &&
                         clientSecret != NULL && clientSecret->length() > 0 &&
@@ -87,6 +88,9 @@ namespace soomla {
                     params->setObject(clientId, "clientId");
                     params->setObject(clientSecret, "clientSecret");
                     params->setObject(refreshToken, "refreshToken");
+                    if (verifyOnServerFailure != NULL) {
+                        params->setObject(verifyOnServerFailure, "verifyOnServerFailure");
+                    }
                     CCNdkBridge::callNative(params, NULL);
                 }
 

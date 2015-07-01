@@ -298,8 +298,9 @@ namespace soomla {
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_UNEXPECTED_ERROR_IN_STORE,
                 [this](__Dictionary *parameters) {
+                    __Integer *errorCode = (__Integer *)(parameters->objectForKey("errorCode"));
                     __String *errorMessage = (__String *)(parameters->objectForKey("errorMessage"));
-                    this->onUnexpectedErrorInStore(errorMessage);
+                    this->onUnexpectedErrorInStore(errorCode, errorMessage);
                });
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_SOOMLA_STORE_INITIALIZED,
@@ -485,11 +486,11 @@ namespace soomla {
         Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(CCStoreConsts::EVENT_RESTORE_TRANSACTION_STARTED);
     }
 
-    void CCStoreEventDispatcher::onUnexpectedErrorInStore(cocos2d::__String *errorMessage) {
-        onUnexpectedErrorInStore(errorMessage, false);
+    void CCStoreEventDispatcher::onUnexpectedErrorInStore(cocos2d::__Integer *errorCode, cocos2d::__String *errorMessage) {
+        onUnexpectedErrorInStore(errorCode, errorMessage, false);
     }
 
-    void CCStoreEventDispatcher::onUnexpectedErrorInStore(cocos2d::__String *errorMessage, bool alsoPush) {
+    void CCStoreEventDispatcher::onUnexpectedErrorInStore(cocos2d::__Integer *errorCode, cocos2d::__String *errorMessage, bool alsoPush) {
         if (errorMessage == NULL) {
             errorMessage = __String::create("");
         }
@@ -504,6 +505,7 @@ namespace soomla {
                         
             __Dictionary *params = __Dictionary::create();
             params->setObject(__String::create("CCStoreEventDispatcher::pushOnUnexpectedErrorInStore"), "method");
+            params->setObject(errorCode, "errorCode");
             params->setObject(errorMessage, "errorMessage");
             CCNdkBridge::callNative (params, NULL);
             

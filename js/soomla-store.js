@@ -1726,8 +1726,10 @@
 
       /**
        * This event is triggered an unexpected error occurs in the Store.
+       * @param errorCode
+       * @param errorMessage
        */
-      onUnexpectedErrorInStore: function () {
+      onUnexpectedErrorInStore: function (errorCode, errorMessage) {
       },
 
       /**
@@ -1884,7 +1886,7 @@
         }, this));
 
         eventDispatcher.registerEventHandler(StoreConsts.EVENT_UNEXPECTED_ERROR_IN_STORE, _.bind(function (parameters) {
-          Soomla.fireSoomlaEvent(parameters.method);
+          Soomla.fireSoomlaEvent(parameters.method, [parameters.errorCode, parameters.errorMessage]);
         }, this));
 
         eventDispatcher.registerEventHandler(StoreConsts.EVENT_SOOMLA_STORE_INITIALIZED, _.bind(function (parameters) {
@@ -1953,7 +1955,8 @@
             method: 'CCSoomlaStore::configVerifyPurchases',
             clientId: storeParams.clientId,
             clientSecret: storeParams.clientSecret,
-            refreshToken: storeParams.refreshToken
+            refreshToken: storeParams.refreshToken,
+            verifyOnServerFailure: storeParams.verifyOnServerFailure
           });
         }
         Soomla.callNative({
@@ -1994,9 +1997,10 @@
     initialize: function (storeAssets, storeParams) {
 
       if (this.initialized) {
-        var err = 'SoomlaStore is already initialized. You can\'t initialize it twice!';
-        Soomla.fireSoomlaEvent(StoreConsts.EVENT_UNEXPECTED_ERROR_IN_STORE, [err, true]);
-        Soomla.logError(err);
+        var errorCode = 0;
+        var errorMessage = 'SoomlaStore is already initialized. You can\'t initialize it twice!';
+        Soomla.fireSoomlaEvent(StoreConsts.EVENT_UNEXPECTED_ERROR_IN_STORE, [errorCode, errorMessage, true]);
+        Soomla.logError(errorMessage);
         return;
       }
 

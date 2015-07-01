@@ -191,9 +191,9 @@ namespace soomla {
          CCStoreConsts::DICT_ELEMENT_ERROR_MESSAGE - __String -
          The description of the error which occured (Android Only).
          */
-        virtual void onUnexpectedErrorInStore(cocos2d::__String *errorMessage);
-        
-        virtual void onUnexpectedErrorInStore(cocos2d::__String *errorMessage, bool alsoPush);
+        virtual void onUnexpectedErrorInStore(cocos2d::__Integer *errorCode, cocos2d::__String *errorMessage);
+
+        virtual void onUnexpectedErrorInStore(cocos2d::__Integer *errorCode, cocos2d::__String *errorMessage, bool alsoPush);
 
         /**
          Fired when store controller is initialized.

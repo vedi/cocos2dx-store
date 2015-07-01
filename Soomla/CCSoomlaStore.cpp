@@ -47,7 +47,7 @@ namespace soomla {
         
         if (initialized) {
             const char *err = "SoomlaStore is already initialized. You can't initialize it twice!";
-            CCStoreEventDispatcher::getInstance()->onUnexpectedErrorInStore(__String::create(err), true);
+            CCStoreEventDispatcher::getInstance()->onUnexpectedErrorInStore(__Integer::create(0), __String::create(err), true);
             CCSoomlaUtils::logError(TAG, err);
             return;
         }

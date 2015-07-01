@@ -166,6 +166,7 @@ public class StoreBridge {
                         put("clientId", params.getString("clientId"));
                         put("clientSecret", params.getString("clientSecret"));
                         put("refreshToken", params.getString("refreshToken"));
+                        put("verifyOnServerFailure", params.optBoolean("verifyOnServerFailure", false));
                     }};
 
                     Class googlePlayClass = Class.forName("com.soomla.store.billing.google.GooglePlayIabService");
@@ -608,8 +609,9 @@ public class StoreBridge {
         ndkGlue.registerCallHandler("CCStoreEventDispatcher::pushOnUnexpectedErrorInStore", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
+                int errorCode = params.getInt("errorCode");
                 String errorMessage = params.getString("errorMessage");
-                storeEventHandlerBridge.pushOnUnexpectedErrorInStore(errorMessage);
+                storeEventHandlerBridge.pushOnUnexpectedErrorInStore(errorCode, errorMessage);
             }
         });
 
@@ -619,7 +621,6 @@ public class StoreBridge {
                 storeEventHandlerBridge.pushOnSoomlaStoreInitialized();
             }
         });
-
 
         final NdkGlue.ExceptionHandler exceptionHandler = new NdkGlue.ExceptionHandler() {
             @Override
