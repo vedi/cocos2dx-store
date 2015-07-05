@@ -132,7 +132,7 @@
     EVENT_MARKET_PURCHASE_VERIFICATION: 'CCStoreEventHandler::onMarketPurchaseVerification',
     EVENT_RESTORE_TRANSACTION_FINISHED: 'CCStoreEventHandler::onRestoreTransactionsFinished',
     EVENT_RESTORE_TRANSACTION_STARTED: 'CCStoreEventHandler::onRestoreTransactionsStarted',
-    EVENT_UNEXPECTED_ERROR_IN_STORE: 'CCStoreEventHandler::onUnexpectedErrorInStore',
+    EVENT_UNEXPECTED_STORE_ERROR: 'CCStoreEventHandler::onUnexpectedStoreError',
     EVENT_SOOMLA_STORE_INITIALIZED: 'CCStoreEventHandler::onSoomlaStoreInitialized',
     EVENT_MARKET_REFUND: 'CCStoreEventHandler::onMarketRefund',
     EVENT_IAB_SERVICE_STARTED: 'CCStoreEventHandler::onIabServiceStarted',
@@ -1727,9 +1727,8 @@
       /**
        * This event is triggered an unexpected error occurs in the Store.
        * @param errorCode
-       * @param errorMessage
        */
-      onUnexpectedErrorInStore: function (errorCode, errorMessage) {
+      onUnexpectedStoreError: function (errorCode) {
       },
 
       /**
@@ -1885,8 +1884,8 @@
           Soomla.fireSoomlaEvent(parameters.method);
         }, this));
 
-        eventDispatcher.registerEventHandler(StoreConsts.EVENT_UNEXPECTED_ERROR_IN_STORE, _.bind(function (parameters) {
-          Soomla.fireSoomlaEvent(parameters.method, [parameters.errorCode, parameters.errorMessage]);
+        eventDispatcher.registerEventHandler(StoreConsts.EVENT_UNEXPECTED_STORE_ERROR, _.bind(function (parameters) {
+          Soomla.fireSoomlaEvent(parameters.method, [parameters.errorCode]);
         }, this));
 
         eventDispatcher.registerEventHandler(StoreConsts.EVENT_SOOMLA_STORE_INITIALIZED, _.bind(function (parameters) {
@@ -1999,7 +1998,7 @@
       if (this.initialized) {
         var errorCode = 0;
         var errorMessage = 'SoomlaStore is already initialized. You can\'t initialize it twice!';
-        Soomla.fireSoomlaEvent(StoreConsts.EVENT_UNEXPECTED_ERROR_IN_STORE, [errorCode, errorMessage, true]);
+        Soomla.fireSoomlaEvent(StoreConsts.EVENT_UNEXPECTED_STORE_ERROR, [errorCode, true]);
         Soomla.logError(errorMessage);
         return;
       }

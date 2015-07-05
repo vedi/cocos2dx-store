@@ -420,12 +420,11 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_ITEM_PURCHASE_STARTED object:[NdkGlue sharedInstance] userInfo:userInfo];
     }];
     
-    [ndkGlue registerCallHandlerForKey:@"CCStoreEventDispatcher::pushOnUnexpectedErrorInStore" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
+    [ndkGlue registerCallHandlerForKey:@"CCStoreEventDispatcher::pushOnUnexpectedStoreError" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSDictionary *userInfo = @{
-                DICT_ELEMENT_ERROR_CODE: parameters[@"errorCode"],
-                DICT_ELEMENT_ERROR_MESSAGE: parameters[@"errorMessage"]
+                DICT_ELEMENT_ERROR_CODE: parameters[@"errorCode"]
         };
-        [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_UNEXPECTED_ERROR_IN_STORE object:[NdkGlue sharedInstance] userInfo:userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_UNEXPECTED_STORE_ERROR object:[NdkGlue sharedInstance] userInfo:userInfo];
     }];
     
     [ndkGlue registerCallHandlerForKey:@"CCStoreEventDispatcher::pushOnSoomlaStoreInitialized" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
@@ -557,12 +556,9 @@
         [parameters setObject:@"CCStoreEventHandler::onRestoreTransactionsStarted" forKey:@"method"];
     }];
 
-    [ndkGlue registerCallbackHandlerForKey:EVENT_UNEXPECTED_ERROR_IN_STORE withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
+    [ndkGlue registerCallbackHandlerForKey:EVENT_UNEXPECTED_STORE_ERROR withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
         NSNumber* errorCode = notification.userInfo[DICT_ELEMENT_ERROR_CODE];
-        NSString* errorMessage = notification.userInfo[DICT_ELEMENT_ERROR_MESSAGE];
-        parameters[@"method"] = @"CCStoreEventHandler::onUnexpectedErrorInStore";
-        parameters[@"errorCode"] = errorCode;
-        parameters[@"errorMessage"] = errorMessage;
+        parameters[@"method"] = @"CCStoreEventHandler::onUnexpectedStoreError";
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_SOOMLASTORE_INIT withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {

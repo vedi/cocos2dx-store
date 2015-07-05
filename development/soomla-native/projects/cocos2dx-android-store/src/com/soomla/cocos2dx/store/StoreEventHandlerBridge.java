@@ -29,9 +29,9 @@ public class StoreEventHandlerBridge {
         BusProvider.getInstance().post(new ItemPurchaseStartedEvent(itemId, this));
     }
 
-    public void pushOnUnexpectedErrorInStore(int errorCode, String errorMessage) {
+    public void pushOnUnexpectedStoreError(int errorCode) {
         BusProvider.getInstance().post(new UnexpectedStoreErrorEvent(
-                UnexpectedStoreErrorEvent.ErrorCode.GENERAL, errorMessage, this));
+                UnexpectedStoreErrorEvent.ErrorCode.values()[errorCode], this));
     }
 
     public void pushOnSoomlaStoreInitialized() {
@@ -399,7 +399,7 @@ public class StoreEventHandlerBridge {
     }
 
     @Subscribe
-    public void onUnexpectedErrorInStore(final UnexpectedStoreErrorEvent unexpectedStoreErrorEvent) {
+    public void onUnexpectedStoreError(final UnexpectedStoreErrorEvent unexpectedStoreErrorEvent) {
         if (unexpectedStoreErrorEvent.Sender == this) {
             return;
         }
@@ -408,9 +408,8 @@ public class StoreEventHandlerBridge {
             public void run() {
                 try {
                     JSONObject parameters = new JSONObject();
-                    parameters.put("method", "CCStoreEventHandler::onUnexpectedErrorInStore");
+                    parameters.put("method", "CCStoreEventHandler::onUnexpectedStoreError");
                     parameters.put("errorCode", unexpectedStoreErrorEvent.getErrorCode());
-                    parameters.put("errorMessage", unexpectedStoreErrorEvent.getMessage());
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);

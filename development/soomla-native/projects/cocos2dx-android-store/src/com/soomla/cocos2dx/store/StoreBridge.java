@@ -606,12 +606,11 @@ public class StoreBridge {
             }
         });
 
-        ndkGlue.registerCallHandler("CCStoreEventDispatcher::pushOnUnexpectedErrorInStore", new NdkGlue.CallHandler() {
+        ndkGlue.registerCallHandler("CCStoreEventDispatcher::pushOnUnexpectedStoreError", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
                 int errorCode = params.getInt("errorCode");
-                String errorMessage = params.getString("errorMessage");
-                storeEventHandlerBridge.pushOnUnexpectedErrorInStore(errorCode, errorMessage);
+                storeEventHandlerBridge.pushOnUnexpectedStoreError(errorCode);
             }
         });
 

@@ -296,11 +296,10 @@ namespace soomla {
                     this->onRestoreTransactionsStarted();
                });
 
-        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_UNEXPECTED_ERROR_IN_STORE,
+        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_UNEXPECTED_STORE_ERROR,
                 [this](__Dictionary *parameters) {
                     __Integer *errorCode = (__Integer *)(parameters->objectForKey("errorCode"));
-                    __String *errorMessage = (__String *)(parameters->objectForKey("errorMessage"));
-                    this->onUnexpectedErrorInStore(errorCode, errorMessage);
+                    this->onUnexpectedStoreError(errorCode);
                });
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_SOOMLA_STORE_INITIALIZED,
@@ -486,11 +485,11 @@ namespace soomla {
         Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(CCStoreConsts::EVENT_RESTORE_TRANSACTION_STARTED);
     }
 
-    void CCStoreEventDispatcher::onUnexpectedErrorInStore(cocos2d::__Integer *errorCode, cocos2d::__String *errorMessage) {
-        onUnexpectedErrorInStore(errorCode, errorMessage, false);
+    void CCStoreEventDispatcher::onUnexpectedStoreError(cocos2d::__Integer *errorCode, cocos2d::__String *errorMessage) {
+        onUnexpectedStoreError(errorCode, errorMessage, false);
     }
 
-    void CCStoreEventDispatcher::onUnexpectedErrorInStore(cocos2d::__Integer *errorCode, cocos2d::__String *errorMessage, bool alsoPush) {
+    void CCStoreEventDispatcher::onUnexpectedStoreError(cocos2d::__Integer *errorCode, cocos2d::__String *errorMessage, bool alsoPush) {
         if (errorMessage == NULL) {
             errorMessage = __String::create("");
         }
@@ -498,13 +497,13 @@ namespace soomla {
         __Dictionary *eventDict = __Dictionary::create();
         eventDict->setObject(errorMessage, CCStoreConsts::DICT_ELEMENT_ERROR_MESSAGE);
         
-        Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(CCStoreConsts::EVENT_UNEXPECTED_ERROR_IN_STORE, eventDict);
+        Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(CCStoreConsts::EVENT_UNEXPECTED_STORE_ERROR, eventDict);
 
         if (alsoPush) {
             #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
                         
             __Dictionary *params = __Dictionary::create();
-            params->setObject(__String::create("CCStoreEventDispatcher::pushOnUnexpectedErrorInStore"), "method");
+            params->setObject(__String::create("CCStoreEventDispatcher::pushOnUnexpectedStoreError"), "method");
             params->setObject(errorCode, "errorCode");
             params->setObject(errorMessage, "errorMessage");
             CCNdkBridge::callNative (params, NULL);
