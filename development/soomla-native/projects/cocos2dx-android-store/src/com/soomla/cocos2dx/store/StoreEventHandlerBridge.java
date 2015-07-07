@@ -409,7 +409,7 @@ public class StoreEventHandlerBridge {
                 try {
                     JSONObject parameters = new JSONObject();
                     parameters.put("method", "CCStoreEventHandler::onUnexpectedStoreError");
-                    parameters.put("errorCode", unexpectedStoreErrorEvent.getErrorCode());
+                    parameters.put("errorCode", unexpectedStoreErrorEvent.getErrorCode().ordinal());
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
