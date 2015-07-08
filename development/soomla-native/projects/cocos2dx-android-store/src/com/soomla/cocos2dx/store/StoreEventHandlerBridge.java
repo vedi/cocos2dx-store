@@ -10,6 +10,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * This bridge is used to populate events from the store to cocos2dx (through JNI).
  */
@@ -259,7 +263,13 @@ public class StoreEventHandlerBridge {
                     parameters.put("method", "CCStoreEventHandler::onMarketPurchase");
                     parameters.put("itemId", marketPurchaseEvent.PurchasableVirtualItem.getItemId());
                     parameters.put("payload", marketPurchaseEvent.Payload);
-                    parameters.put("extraInfo", marketPurchaseEvent.ExtraInfo);
+                    if (marketPurchaseEvent.ExtraInfo != null) {
+                        JSONObject extraInfo = new JSONObject();
+                        for (Map.Entry<String, String> entry : marketPurchaseEvent.ExtraInfo.entrySet()) {
+                            extraInfo.put(entry.getKey(), entry.getValue());
+                        }
+                        parameters.put("extraInfo", extraInfo);
+                    }
                     NdkGlue.getInstance().sendMessageWithParameters(parameters);
                 } catch (JSONException e) {
                     throw new IllegalStateException(e);
