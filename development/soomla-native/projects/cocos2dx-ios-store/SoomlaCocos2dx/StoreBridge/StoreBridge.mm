@@ -559,6 +559,7 @@
     [ndkGlue registerCallbackHandlerForKey:EVENT_UNEXPECTED_STORE_ERROR withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
         NSNumber* errorCode = notification.userInfo[DICT_ELEMENT_ERROR_CODE];
         parameters[@"method"] = @"CCStoreEventHandler::onUnexpectedStoreError";
+        parameters[@"errorCode"] = errorCode;
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_SOOMLASTORE_INIT withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
