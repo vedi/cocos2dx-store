@@ -186,14 +186,14 @@ namespace soomla {
         /**
          Fired when an unexpected error occurs in the store.
          
-         Event Name - CCStoreConsts::EVENT_UNEXPECTED_ERROR_IN_STORE
+         Event Name - CCStoreConsts::EVENT_UNEXPECTED_STORE_ERROR
          Event Data (__Dictionary):
-         CCStoreConsts::DICT_ELEMENT_ERROR_MESSAGE - __String -
-         The description of the error which occured (Android Only).
+         CCStoreConsts::DICT_ELEMENT_ERROR_CODE - __Integer -
+         The description of the error which occured.
          */
-        virtual void onUnexpectedErrorInStore(cocos2d::__String *errorMessage);
-        
-        virtual void onUnexpectedErrorInStore(cocos2d::__String *errorMessage, bool alsoPush);
+        virtual void onUnexpectedStoreError(cocos2d::__Integer *errorCode);
+
+        virtual void onUnexpectedStoreError(cocos2d::__Integer *errorCode, bool alsoPush);
 
         /**
          Fired when store controller is initialized.

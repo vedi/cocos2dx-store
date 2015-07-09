@@ -46,9 +46,8 @@ namespace soomla {
     void CCSoomlaStore::initialize(CCStoreAssets *storeAssets, cocos2d::__Dictionary *storeParams) {
         
         if (initialized) {
-            const char *err = "SoomlaStore is already initialized. You can't initialize it twice!";
-            CCStoreEventDispatcher::getInstance()->onUnexpectedErrorInStore(__String::create(err), true);
-            CCSoomlaUtils::logError(TAG, err);
+            CCStoreEventDispatcher::getInstance()->onUnexpectedStoreError(__Integer::create(0), true);
+            CCSoomlaUtils::logError(TAG, "SoomlaStore is already initialized. You can't initialize it twice!");
             return;
         }
         

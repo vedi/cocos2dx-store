@@ -132,7 +132,7 @@
     EVENT_MARKET_PURCHASE_VERIFICATION: 'CCStoreEventHandler::onMarketPurchaseVerification',
     EVENT_RESTORE_TRANSACTION_FINISHED: 'CCStoreEventHandler::onRestoreTransactionsFinished',
     EVENT_RESTORE_TRANSACTION_STARTED: 'CCStoreEventHandler::onRestoreTransactionsStarted',
-    EVENT_UNEXPECTED_ERROR_IN_STORE: 'CCStoreEventHandler::onUnexpectedErrorInStore',
+    EVENT_UNEXPECTED_STORE_ERROR: 'CCStoreEventHandler::onUnexpectedStoreError',
     EVENT_SOOMLA_STORE_INITIALIZED: 'CCStoreEventHandler::onSoomlaStoreInitialized',
     EVENT_MARKET_REFUND: 'CCStoreEventHandler::onMarketRefund',
     EVENT_IAB_SERVICE_STARTED: 'CCStoreEventHandler::onIabServiceStarted',
@@ -1726,8 +1726,9 @@
 
       /**
        * This event is triggered an unexpected error occurs in the Store.
+       * @param errorCode
        */
-      onUnexpectedErrorInStore: function () {
+      onUnexpectedStoreError: function (errorCode) {
       },
 
       /**
@@ -1883,8 +1884,8 @@
           Soomla.fireSoomlaEvent(parameters.method);
         }, this));
 
-        eventDispatcher.registerEventHandler(StoreConsts.EVENT_UNEXPECTED_ERROR_IN_STORE, _.bind(function (parameters) {
-          Soomla.fireSoomlaEvent(parameters.method);
+        eventDispatcher.registerEventHandler(StoreConsts.EVENT_UNEXPECTED_STORE_ERROR, _.bind(function (parameters) {
+          Soomla.fireSoomlaEvent(parameters.method, [parameters.errorCode]);
         }, this));
 
         eventDispatcher.registerEventHandler(StoreConsts.EVENT_SOOMLA_STORE_INITIALIZED, _.bind(function (parameters) {
@@ -1953,7 +1954,8 @@
             method: 'CCSoomlaStore::configVerifyPurchases',
             clientId: storeParams.clientId,
             clientSecret: storeParams.clientSecret,
-            refreshToken: storeParams.refreshToken
+            refreshToken: storeParams.refreshToken,
+            verifyOnServerFailure: storeParams.verifyOnServerFailure
           });
         }
         Soomla.callNative({
@@ -1994,9 +1996,10 @@
     initialize: function (storeAssets, storeParams) {
 
       if (this.initialized) {
-        var err = 'SoomlaStore is already initialized. You can\'t initialize it twice!';
-        Soomla.fireSoomlaEvent(StoreConsts.EVENT_UNEXPECTED_ERROR_IN_STORE, [err, true]);
-        Soomla.logError(err);
+        var errorCode = 0;
+        var errorMessage = 'SoomlaStore is already initialized. You can\'t initialize it twice!';
+        Soomla.fireSoomlaEvent(StoreConsts.EVENT_UNEXPECTED_STORE_ERROR, [errorCode, true]);
+        Soomla.logError(errorMessage);
         return;
       }
 
