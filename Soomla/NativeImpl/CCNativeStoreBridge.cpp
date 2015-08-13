@@ -54,6 +54,13 @@ namespace soomla {
             __Dictionary *params = __Dictionary::create();
             params->setObject(__String::create("CCSoomlaStore::setSSV"), "method");
             params->setObject(SSV, "ssv");
+            if (SSV->getValue()) {
+                __Bool *verifyOnServerFailure = dynamic_cast<__Bool *>(storeParams->objectForKey("verifyOnServerFailure"));
+                if (verifyOnServerFailure == nullptr) {
+                    verifyOnServerFailure = __Bool::create(false);
+                }
+                params->setObject(verifyOnServerFailure, "verifyOnServerFailure");
+            }
             CCNdkBridge::callNative (params, NULL);
         }
 #endif
