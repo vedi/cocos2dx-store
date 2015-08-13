@@ -1939,7 +1939,8 @@
       if (Soomla.platform.isIos()) {
         Soomla.callNative({
           method: 'CCSoomlaStore::setSSV',
-          ssv: storeParams.SSV
+          ssv: storeParams.SSV,
+          verifyOnServerFailure: storeParams.verifyOnServerFailure
         });
       }
 

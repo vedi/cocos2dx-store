@@ -159,9 +159,14 @@
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCSoomlaStore::setSSV" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        bool ssv = [(NSNumber*)[parameters objectForKey:@"ssv"] boolValue];
+        bool ssv = [(NSNumber*) parameters[@"ssv"] boolValue];
         LogDebug(@"SOOMLA SoomlaStoreBridge", ([NSString stringWithFormat:@"Setting iOS SSV to: %@", ssv ?@"true":@"false"]));
         VERIFY_PURCHASES = ssv;
+        if (ssv) {
+            VERIFY_ON_ITUNES_FAILURE = [parameters[@"verifyOnServerFailure"] boolValue];
+            LogDebug(@"SOOMLA SoomlaStoreBridge",
+                    ([NSString stringWithFormat:@"Setting iOS verifyOnServerFailure to: %@", VERIFY_ON_ITUNES_FAILURE ?@"true":@"false"]));
+        }
     }];
     
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::loadFromDB" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
