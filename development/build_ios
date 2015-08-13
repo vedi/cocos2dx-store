@@ -6,9 +6,6 @@ rm -rf $build
 mkdir -p $build
 mkdir -p $build_headers
 
-cd submodules/ios-store
-./build_all
-cd -
 cp -L submodules/ios-store/build/libSoomlaiOSStore.a $build/
 cp -RL submodules/ios-store/build/headers/SoomlaiOSStore $build_headers/
 
