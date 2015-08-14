@@ -22,7 +22,7 @@
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>0B85DBE279053F21B02174F265DFCECE24CFF08B</key>
-		<string>../../../../../../../../../..</string>
+		<string>../../../../../../..</string>
 		<key>7F41E3A86218147E742AB88280559E2C4A837E7E</key>
 		<string>../../../../../..</string>
 		<key>852ED3691A47A99B0D19C820A500AE9772B2A44E</key>
@@ -40,7 +40,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>852ED3691A47A99B0D19C820A500AE9772B2A44E</string>
+			<string>0B85DBE279053F21B02174F265DFCECE24CFF08B</string>
 			<key>IDESourceControlWCCName</key>
 			<string></string>
 		</dict>
@@ -48,9 +48,9 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>0B85DBE279053F21B02174F265DFCECE24CFF08B</string>
+			<string>852ED3691A47A99B0D19C820A500AE9772B2A44E</string>
 			<key>IDESourceControlWCCName</key>
-			<string>..</string>
+			<string></string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

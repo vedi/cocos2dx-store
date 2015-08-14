@@ -1,3 +1,13 @@
+### v4.5.2 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.1...v4.5.2)
+
+* New Features
+  * Support Google Play verification
+  * Support iOS param VERIFY_ON_ITUNES_FAILURE
+
+* Changes
+  * Support new structure of market purchase event
+
+
 ### v4.5.1 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.0...v4.5.1)
 
 * New Features
