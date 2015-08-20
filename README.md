@@ -102,8 +102,8 @@ This example is still under development but it can give you a taste of the impor
 	- *verifyOnServerFailure* - if you use Fraud Protection, optionally you set this param, if you want to get purchases 
 	automatically verified in case of network failures during the verification process.
 
-	<div class="warning-box">Choose the secret wisely. You can't change it after you launch your game!
-	Initialize `CCSoomlaStore` ONLY ONCE when your application loads.</div>
+	> Choose the secret wisely. You can't change it after you launch your game!
+	> Initialize `CCSoomlaStore` ONLY ONCE when your application loads.
 
 6. You'll need to subscribe to store events to get notified about in-app purchasing related events. refer to the [Event Handling](/cocos2dx/cpp/store/Store_Events) section for more information.
 
