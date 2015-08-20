@@ -49,101 +49,133 @@ This example is still under development but it can give you a taste of the impor
 
 ## Getting Started (With pre-built libraries)
 
-*If you want to develop with sources, refer to the [Working with sources](https://github.com/soomla/cocos2dx-store#working-with-sources) section below*
+*If you want to develop with sources, refer to the "Working with Sources" section below.*
 
-> If you didn't do that already, clone the Cocos2d-x framework from [here](https://github.com/cocos2d/cocos2d-x) or download it from the [Cocos2d-x website](http://www.cocos2d-x.org/download). Make sure the version you clone is supported by cocos2dx-store (the tag is the version).
+> If you didn't already, clone the Cocos2d-x framework from [here](https://github.com/cocos2d/cocos2d-x), or download it from the [Cocos2d-x website](http://www.cocos2d-x.org/download). Make sure the version you clone is supported by SOOMLA's cocos2dx-store (the tag is the version).
 
 1. Clone [soomla-cocos2dx-core](https://github.com/soomla/soomla-cocos2dx-core) and cocos2dx-store into the `extensions` folder located at the root of your Cocos2d-x framework.
-    ```
-    $ git clone git@github.com:soomla/soomla-cocos2dx-core.git extensions/soomla-cocos2dx-core
 
-    $ git clone git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
-    ```
+	```
+	$ git clone git@github.com:soomla/soomla-cocos2dx-core.git extensions/soomla-cocos2dx-core
 
-1. cocos2dx-store uses a [fork](https://github.com/soomla/jansson) of the jansson library for json parsing, clone it into the `external` directory at the root of your cocos2d-x framework.
-    ```
-    $ git clone git@github.com:soomla/jansson.git external/jansson
-    ```
+	$ git clone git@github.com:soomla/cocos2dx-store.git extensions/cocos2dx-store
+	```
 
-1. Create your own implementation of `CCStoreAssets` in order to describe your specific game's assets ([example](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp)).
+2. cocos2dx-store uses a [fork](https://github.com/soomla/jansson) of the jansson library for JSON parsing. Clone it into the `external` directory at the root of your Cocos2d-x framework.
 
-1. Make sure to include the `Cocos2dxStore.h` header whenever you use any of the *cocos2dx-store* functions:
-    ```cpp
-    #include "Cocos2dxStore.h"
-    ```
+	```
+	$ git clone git@github.com:soomla/jansson.git external/jansson
+	```
 
-1. Initialize `CCSoomla` and `CCSoomlaStore` with the class you just created, a `customSecret` and other params:
+3. Create your own implementation of `CCStoreAssets` that will represent the assets in your specific game. For a complete example refer to [cocos2dx-store-example](https://github.com/soomla/cocos2dx-store-example/blob/master/Classes/MuffinRushAssets.cpp).
 
-    ```cpp
-    soomla::CCSoomla::initialize("customSecret");
-    ```
+4. Make sure to include the `Cocos2dxStore.h` header whenever you use any of the *cocos2dx-store* functions:
 
-    ```cpp
-    __Dictionary *storeParams = __Dictionary::create();
-    storeParams->setObject(__String::create("ExamplePublicKey"), "androidPublicKey");
-    storeParams->setObject(__Bool::create(true), "testPurchases");
+	```cpp
+	#include "Cocos2dxStore.h"
+	```
 
-    soomla::CCSoomlaStore::initialize(assets, storeParams);
-    ```
-    - *Custom Secret* - is an encryption secret you provide that will be used to secure your data.
-    **Choose the secret wisely. You can't change them after you launch your game!**
-    - *Android Public Key* - is the public key given to you from Google. (iOS doesn't have a public key).
-    - *Test Purchases* - allows testing IAP on Google Play. (iOS doesn't have this functionality).
+5. Initialize `CCSoomla` and `CCSoomlaStore` with the class you just created, a `customSecret` and other params:
 
-    > Initialize `CCSoomlaStore` ONLY ONCE when your application loads.
+	``` cpp
+	soomla::CCSoomla::initialize("ExampleCustomSecret");
 
-1. You'll need to subscribe to store events to get notified about in-app purchasing related events. refer to the [Event Handling](https://github.com/soomla/cocos2dx-store#event-handling) section for more information.
+	YourImplementationAssets *assets = YourImplementationAssets::create();
 
-The next steps are different for the different platforms.
+	__Dictionary *storeParams = __Dictionary::create();
+	 storeParams->setObject(__String::create("ExamplePublicKey"), "androidPublicKey");
+	 storeParams->setObject(__Bool::create(true), "testPurchases");
+	 storeParams->setObject(__Bool::create(true), "SSV");
+	 storeParams->setObject(__Bool::create(true), "verifyOnServerFailure");
 
-#### Instructions for iOS
+	soomla::CCSoomlaStore::initialize(assets, storeParams);
+	```
 
-In your XCode project, perform following steps:
+	- *Custom Secret* - is an encryption secret you provide that will be used to secure your data.
+
+	- *Android Public Key* - is the public key given to you from Google. (iOS doesn't have a public key).
+
+	- *Test Purchases* - allows testing IAP on Google Play. (iOS doesn't have this functionality).
+
+	- *SSV* - enables _Fraud Protection_. (in order to activate it in Google Play see the related section below).
+	
+	- *verifyOnServerFailure* - if you use Fraud Protection, optionally you set this param, if you want to get purchases 
+	automatically verified in case of network failures during the verification process.
+
+	> Choose the secret wisely. You can't change it after you launch your game!
+	> Initialize `CCSoomlaStore` ONLY ONCE when your application loads.
+
+6. You'll need to subscribe to store events to get notified about in-app purchasing related events. refer to the [Event Handling](/cocos2dx/cpp/store/Store_Events) section for more information.
+
+**The next steps are different according to which platform you're using.**
+
+<br>
+
+###**Instructions for iOS**
+
+In your XCode project, perform the following steps:
 
 1. Add `jansson` (**external/jansson/**) to your project (just add it as a source folder, make sure to check "create group").
 
-1. For the following XCode projects:
+2. For each of the following XCode projects:
 
- * `Cocos2dXCore.xcodeproj` (**extensions/soomla-cocos2dx-core/**).  
+ * `Cocos2dXCore.xcodeproj` (**extensions/soomla-cocos2dx-core/**).
+
  * `Cocos2dXStore.xcodeproj` (**extensions/cocos2dx-store/**).
 
-    1. Drag them to your project.
-    1. Add their targets to your **Build Phases->Target Dependencies**.
-    1. Add the *.a of these projects to **Build Phases->Link Binary With Libraries**.
+    a. Drag the project into your project.
 
-1. Add the following directories to **Build Settings->Header Search Paths** (with `recursive` option):
-> This article assumes you have a `cocos2d` folder under your project folder and which either contains the Cocos2d-x framework, or links to to its root folder
+    b. Add its targets to your **Build Phases->Target Dependencies**.
 
- - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/Soomla`
- - `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/build/ios/headers`
- - `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/Soomla`
+    c. Add its `.a` files to **Build Phases->Link Binary With Libraries**.
 
-1. Add `-ObjC` to your project **Build Setting->Other Linker Flags**.
+ ![alt text](http://know.soom.la/img/tutorial_img/cocos2dx_getting_started/ios_steps1to4.png "iOS Integration")
 
-1. Make sure you have these 3 Frameworks linked to your XCode project: **Security, libsqlite3.0.dylib, StoreKit**.
+3. Add the following directories to **Build Settings->Header Search Paths** (with the `recursive` option):
 
-That's it! Now all you have to do is build your XCode project and run your game with cocos2dx-store.
+	- `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/Soomla`
 
-#### Instructions for Android
+	- `$(SRCROOT)/../cocos2d/extensions/soomla-cocos2dx-core/build/ios/headers`
+
+	- `$(SRCROOT)/../cocos2d/extensions/cocos2dx-store/Soomla`
+
+ ![alt text](http://know.soom.la/img/tutorial_img/cocos2dx_getting_started/headerSP.png "Header search paths")
+
+4. Add `-ObjC` to your project **Build Settings->Other Linker Flags**.
+
+	![alt text](http://know.soom.la/img/tutorial_img/cocos2dx_getting_started/objc.png "Other Linker Flags")
+
+5. Make sure you have these 3 Frameworks linked to your XCode project: **Security, libsqlite3.0.dylib, StoreKit**.
+
+**That's it! Now all you have to do is build your XCode project and run your game with cocos2dx-store.**
+
+<br>
+###**Instructions for Android**
 
 1. Import cocos2dx-store module into your project's Android.mk by adding the following:
+
+    ``` cpp
+    //Add this line along with your other LOCAL_WHOLE_STATIC_LIBRARIES
+    LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_store_static
+
+	//Add this line at the end of the file, along with the other import-module calls
+    $(call import-module, extensions/cocos2dx-store)  
     ```
-    LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_store_static        # add this line along with your other LOCAL_WHOLE_STATIC_LIBRARIES
 
-    $(call import-module, extensions/cocos2dx-store) # add this line at the end of the file, along with the other import-module calls
-    ```
+2. Add the following jars to your android project's classpath:
 
-1. Add the following jars from to your android project's classpath:
-    - from `extensions/soomla-cocos2dx-core/build/android`
-        1. SoomlaAndroidCore.jar
-        2. Cocos2dxAndroidCore.jar
-        3. square-otto-1.3.2.jar
+    From `extensions/soomla-cocos2dx-core/build/android`:
 
-    - from `extensions/cocos2dx-store/build/android`
-        1. SoomlaAndroidStore.jar
-        2. Cocos2dxAndroidStore.jar
+    - SoomlaAndroidCore.jar
+    - Cocos2dxAndroidCore.jar
+    - square-otto-1.3.2.jar
 
-1. Update your AndroidManifest.xml to include permissions and the SoomlaApp:
+  From `extensions/cocos2dx-store/build/android`:
+
+    - SoomlaAndroidStore.jar
+    - Cocos2dxAndroidStore.jar
+
+3. Update your AndroidManifest.xml to include permissions and the SoomlaApp:
 
     ```xml
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -155,64 +187,97 @@ That's it! Now all you have to do is build your XCode project and run your game 
     </application>
     ```
 
-1. The following steps should be done according to the target billing service:
 
-  ##### Google Play
+##**Select a Billing Service**
 
-  1. Add `AndroidStoreGooglePlay.jar` from `extensions/cocos2dx-store/build/android/billing-services/google-play` to your classpath:
+SOOMLA's cocos2dx-store knows how to contact Google Play, Amazon Appstore, or Apple App Store for you and will redirect your users to their purchasing system to complete the transaction.
 
-  1. Update your AndroidManifest.xml:
+###Google Play
 
-      ```xml
-      ...
-      <uses-permission android:name="com.android.vending.BILLING"/>
+1. Add `AndroidStoreGooglePlay.jar` from `extensions/cocos2dx-store/build/android/billing-services/google-play` to your classpath:
 
-      <application ...
-          <activity android:name="com.soomla.store.billing.google.GooglePlayIabService$IabActivity"
-                    android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
-          <meta-data android:name="billing.service" android:value="google.GooglePlayIabService" />
-      </application>
-      ```
+2. Update your AndroidManifest.xml:
 
-  ##### Amazon
+	``` xml
+	...
+	<uses-permission android:name="com.android.vending.BILLING"/>
 
-  1. Add `in-app-purchasing-2.0.1.jar` and `AndroidStoreAmazon.jar` from `extensions/cocos2dx-store/build/android/billing-services/amazon` to your classpath:
+	<application ...
+	 <activity android:name="com.soomla.store.billing.google.GooglePlayIabService$IabActivity"
+	            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+	 <meta-data android:name="billing.service" android:value="google.GooglePlayIabService"/>
+	</application>
+	```
 
-  1. Update your manifest:
+3. Read our [tutorial](/android/store/Store_GooglePlayIAB) on how to define your in-app products in Google Play.
 
-      ```xml
-      ...
-      <receiver android:name = "com.amazon.device.iap.ResponseReceiver" >
-      <intent-filter>
-          <action android:name = "com.amazon.inapp.purchasing.NOTIFY"
-                  android:permission = "com.amazon.inapp.purchasing.Permission.NOTIFY" />
-      </intent-filter>
-      </receiver>
-      <meta-data android:name="billing.service" android:value="amazon.AmazonIabService" />
-      ```
+4. Start IAB Service in background **(optional)**
 
-That's it! Don't forget to run the **build_native.sh** script so cocos2dx-store sources will be built with cocos2d-x.
+    ``` cpp
+    // Start Iab Service
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+        CCSoomlaStore::getInstance()->startIabServiceInBg();
+    #endif
 
-#### (optional on Android and Google Play) Starting IAB Service in the background
+    // Stop Iab Service
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+        CCSoomlaStore::getInstance()->stopIabServiceInBg();
+    #endif
+    ```
 
-If you have your own storefront implemented inside your game, it's recommended that you open the IAB Service in the background when the store opens and close it when the store is closed.
+    This is not mandatory, your game will work without this, but we recommend it because it enhances performance. The idea here is to preemptively start the in-app billing setup process with Google's servers.
 
-C++
-```cpp
-// Start Iab Service
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	CCSoomlaStore::getInstance()->startIabServiceInBg();
-#endif
+    In many games the user has to navigate into the in-game store, or start a game session in order to reach the point of making purchases. You want the user experience to be fast and smooth and prevent any lag that could be caused by network latency and setup routines you could have done silently in the background.
 
-// Stop Iab Service
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-	CCSoomlaStore::getInstance()->stopIabServiceInBg();
-#endif
-```
+    > Don't forget to close the Iab Service when your store is closed.
 
-Don't forget to close the Iab Service when your store is closed. You don't have to do this at all, this is just an optimization.
+5. In case you want to turn on Fraud Protection you need to get clientId, clientSecret and refreshToken as explained in 
+[Google Play Purchase Verification](/android/store/Store_GooglePlayVerification) and use them like this:
 
-And that's it! You now have storage and in-app purchasing capabilities.
+	``` cpp
+	storeParams->setObject(__String::create(<YOU_CLIENT_ID>), "clientId");
+	storeParams->setObject(__String::create(<YOUR_CLIENT_SECRET>), "clientSecret");
+	storeParams->setObject(__String::create(<YOUR_REFRESH_TOKEN>), "refreshToken");
+	```
+
+###Amazon
+
+1. Add `in-app-purchasing-1.0.3.jar` and `AndroidStoreAmazon.jar` from `extensions/cocos2dx-store/build/android/billing-services/amazon` to your classpath:
+
+2. Update your manifest:
+
+	``` xml
+	<receiver android:name = "com.amazon.inapp.purchasing.ResponseReceiver" >
+		<intent-filter>
+	    <action android:name = "com.amazon.inapp.purchasing.NOTIFY"
+	            android:permission = "com.amazon.inapp.purchasing.Permission.NOTIFY" />
+		</intent-filter>
+	</receiver>
+	<meta-data android:name="billing.service" android:value="amazon.AmazonIabService" />
+	```
+
+3. Read our [tutorial](/android/store/Store_AmazonIAB) on how to define your in-app products in the Amazon Appstore.
+
+###Apple App Store
+
+1. Read our [tutorial](/ios/store/Store_AppStoreIAB) on how to define your in-app products in the App Store.
+
+2. Use SOOMLA's Fraud Protection **(Optional)**
+
+	As you probably know, fraud on IAP is pretty common. Hackers can crack their smartphones to think that a purchase 
+	was made when the payment isn't actually transferred to you. To help game developers with this issue, we created 
+	a verification server that you can use instantly through the framework.
+
+	All you need to do is let cocos2dx-store know that you want to verify purchases. You can do this by passing an extra 
+	parameter to `CCSoomlaStore`:
+
+	```cpp
+	storeParams->setObject(Bool::create(true), "SSV");
+	soomla::CCStoreService::initShared(assets, storeParams);
+	```
+
+**That's it! Now all you have to do is run the *build_native.sh* script and you can begin using cocos2dx-store in your game.**
+
 
 ## What's next? In App Purchasing.
 
@@ -334,7 +399,7 @@ if (err != NULL) {
             // itemNotFoundException was raised
             break;
         case SOOMLA_EXCEPTION_INSUFFICIENT_FUNDS:
-            // insufficienFundsException was raised
+            // insufficientFundsException was raised
             break;
         case SOOMLA_EXCEPTION_NOT_ENOUGH_GOODS:
             // notEnoughGoodsException was raised
@@ -344,16 +409,6 @@ if (err != NULL) {
 ```
 
 You can choose to handle each exception on its own, handle all three at once, or not handle the exceptions at all. The `CCError` parameter is entirely optional, you can pass NULL instead if you do not wish to handle errors, but remember, error handling is *your* responsibility. cocos2dx-store doesn't do any external error handling (i.e. error handling that uses `CCError`) for you.
-
-## iOS Server Side Verification
-
-As you probably know, fraud on IAP is pretty common. Hackers can crack their smartphones to think that a purchase is made when payment wasn't actually transferred to you. We want to help you with it so we created our verification server and we let you instantly use it through the framework.
-All you need to do is let cocos2dx-store know you want to verify purchases. You can do this by passing an extra parameter to `CCSoomlaStore`:
-
-```cpp
-storeParams->setObject(Bool::create(true), "SSV");
-soomla::CCSoomlaStore::initialize(assets, storeParams);
-```
 
 ## Debugging
 
