@@ -51,7 +51,7 @@ This example is still under development but it can give you a taste of the impor
 
 *If you want to develop with sources, refer to the "Working with Sources" section below.*
 
-<div class="info-box">If you didn't already, clone the Cocos2d-x framework from [here](https://github.com/cocos2d/cocos2d-x), or download it from the [Cocos2d-x website](http://www.cocos2d-x.org/download). Make sure the version you clone is supported by SOOMLA's cocos2dx-store (the tag is the version).</div>
+> If you didn't already, clone the Cocos2d-x framework from [here](https://github.com/cocos2d/cocos2d-x), or download it from the [Cocos2d-x website](http://www.cocos2d-x.org/download). Make sure the version you clone is supported by SOOMLA's cocos2dx-store (the tag is the version).
 
 1. Clone [soomla-cocos2dx-core](https://github.com/soomla/soomla-cocos2dx-core) and cocos2dx-store into the `extensions` folder located at the root of your Cocos2d-x framework.
 
@@ -229,7 +229,7 @@ SOOMLA's cocos2dx-store knows how to contact Google Play, Amazon Appstore, or Ap
 
     In many games the user has to navigate into the in-game store, or start a game session in order to reach the point of making purchases. You want the user experience to be fast and smooth and prevent any lag that could be caused by network latency and setup routines you could have done silently in the background.
 
-    <div class="info-box">Don't forget to close the Iab Service when your store is closed.</div>
+    > Don't forget to close the Iab Service when your store is closed.
 
 5. In case you want to turn on Fraud Protection you need to get clientId, clientSecret and refreshToken as explained in 
 [Google Play Purchase Verification](/android/store/Store_GooglePlayVerification) and use them like this:
