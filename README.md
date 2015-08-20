@@ -44,8 +44,8 @@ This example is still under development but it can give you a taste of the impor
 
 ####Pre baked zip:
 
-- [soomla-cocos2dx-core 1.2.1](http://library.soom.la/fetch/cocos2dx-core/1.2.1?cf=github)
-- [cocos2dx-store 4.5.1](http://library.soom.la/fetch/cocos2dx-store/4.5.1?cf=github)
+- [soomla-cocos2dx-core 1.2.2](http://library.soom.la/fetch/cocos2dx-core/1.2.2?cf=github)
+- [cocos2dx-store 4.5.2](http://library.soom.la/fetch/cocos2dx-store/4.5.2?cf=github)
 
 ## Getting Started (With pre-built libraries)
 
