@@ -2037,10 +2037,13 @@
       Soomla.fireSoomlaEvent(StoreConsts.EVENT_MARKET_PURCHASE_STARTED, [item]);
 
       // in the editor we just give the item... no real market.
-      item.give(1);
-
       // simulate onMarketPurchase event
       Soomla.fireSoomlaEvent(StoreConsts.EVENT_MARKET_PURCHASE, [item, payload, {}]);
+
+      item.give(1);
+
+      //complete purchasing routine
+      Soomla.fireSoomlaEvent(StoreConsts.EVENT_ITEM_PURCHASED, [item, payload]);
     },
     restoreTransactions: function () {
     },
