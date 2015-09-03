@@ -157,6 +157,8 @@ namespace soomla {
         cocos2d::__Dictionary *storeAssetsToDictionary(CCStoreAssets *storeAssets);
     private:
         cocos2d::Ref *createWithRetParams(cocos2d::__Dictionary *retParams);
+        bool validateStoreAssets(CCStoreAssets *storeAssets);
+        bool assetsArrayHasMarketIdDuplicates(cocos2d::__Array *assetsArray);
     };
 };
 
