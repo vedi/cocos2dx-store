@@ -60,22 +60,23 @@ namespace soomla {
         }
     }
 
-    bool CCStoreInfo::assetsArrayHasMarketIdDuplicates(cocos2d::__Array *assetsArray) {
+    bool CCStoreInfo::hasMarketIdDuplicates(cocos2d::__Array *assetsArray) {
         std::set<std::string> *marketIds = new std::set<std::string>();
+        bool result = true;
         for (unsigned int i = 0; i < assetsArray->count(); i++) {
             CCPurchasableVirtualItem *pvi = (CCPurchasableVirtualItem *)assetsArray->getObjectAtIndex(i);
             if (typeid(*(pvi->getPurchaseType())) == typeid(CCPurchaseWithMarket)) {
                 std::string currentMarketId = ((CCPurchaseWithMarket *)pvi->getPurchaseType())->getMarketItem()->getProductId()->_string;
                 if (marketIds->find(currentMarketId) != marketIds->end()) {
-                    delete marketIds;
-                    return false;
+                    result = false;
+                    break;
                 } else {
                     marketIds->insert(currentMarketId);
                 }
             }
         }
         delete marketIds;
-        return true;
+        return result;
     }
 
     bool CCStoreInfo::validateStoreAssets(CCStoreAssets *storeAssets) {
@@ -83,8 +84,8 @@ namespace soomla {
             CCSoomlaUtils::logError(TAG, "The given store assets can't be null!");
             return false;
         }
-        if (!CCStoreInfo::assetsArrayHasMarketIdDuplicates(storeAssets->getGoods())
-                || !CCStoreInfo::assetsArrayHasMarketIdDuplicates(storeAssets->getCurrencyPacks())) {
+        if (!CCStoreInfo::hasMarketIdDuplicates(storeAssets->getGoods())
+                || !CCStoreInfo::hasMarketIdDuplicates(storeAssets->getCurrencyPacks())) {
             CCSoomlaUtils::logError(TAG, "The given store assets has duplicates at marketItem productId!");
             return false;
         }
