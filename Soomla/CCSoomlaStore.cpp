@@ -79,14 +79,17 @@ namespace soomla {
         if (item == NULL) {
             return;
         }
-        
+
         // simulate onMarketPurchaseStarted event
         CCStoreEventDispatcher::getInstance()->onMarketPurchaseStarted(item);
-        
+
         // in the editor we just give the item... no real market.
-        item->give(1);
-        
         // simulate onMarketPurchase event
         CCStoreEventDispatcher::getInstance()->onMarketPurchase(item, __String::create(payload), __Dictionary::create());
+
+        item->give(1);
+
+        //complete purchasing routine
+        CCStoreEventDispatcher::getInstance()->onItemPurchased(item, __String::create(payload));
     }
 }
