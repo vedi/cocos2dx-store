@@ -1,3 +1,9 @@
+### v4.5.3 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.2...v4.5.3)
+
+* Changes
+  * Improved docs
+  * Updated submodules
+
 ### v4.5.2 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.1...v4.5.2)
 
 * New Features
