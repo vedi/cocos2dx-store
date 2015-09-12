@@ -1,3 +1,8 @@
+#!/bin/sh
+set -e
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+cd $DIR
+
 build=../build/ios
 build_headers=$build/headers
 
@@ -5,15 +10,12 @@ rm -rf $build
 mkdir -p $build
 mkdir -p $build_headers
 
-cd submodules/ios-store
-./build_all
-cd -
+submodules/ios-store/build_all
 cp -L submodules/ios-store/build/libSoomlaiOSStore.a $build/
 cp -RL submodules/ios-store/build/headers/SoomlaiOSStore $build_headers/
 
 path="soomla-native/projects/cocos2dx-ios-store"
-cd $path
-./build_jsb
-cd -
+$path/build_jsb
 cp -R $path/build/* $build/
 
+cd - > /dev/null
