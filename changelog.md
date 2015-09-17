@@ -1,3 +1,8 @@
+### v4.5.4 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.3...v4.5.4)
+
+* Changes
+  * Removed binaries and improved build scripts
+
 ### v4.5.3 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.2...v4.5.3)
 
 * Changes
