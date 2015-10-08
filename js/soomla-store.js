@@ -81,7 +81,6 @@
     productId: null,
     //androidId: null,
     //iosId: null,
-    consumable: null,
     price: null,
     marketPrice: 0,
     marketTitle: null,
@@ -99,11 +98,6 @@
       }
     }
   }, Soomla.Models.Domain);
-  MarketItem.Consumable = {
-    NONCONSUMABLE: 0,
-    CONSUMABLE: 1,
-    SUBSCRIPTION: 2
-  };
 
   var PURCHASE_TYPE = {
     MARKET: 'market',
@@ -672,7 +666,6 @@
   PurchaseWithMarket.createWithMarketItem = function (productId, price) {
     var marketItem = MarketItem.create({
       productId: productId,
-      consumable: MarketItem.Consumable.CONSUMABLE,
       price: price
     });
     return PurchaseWithMarket.create({marketItem: marketItem});
@@ -1812,7 +1805,8 @@
 
         eventDispatcher.registerEventHandler(StoreConsts.EVENT_ITEM_PURCHASED, _.bind(function (parameters) {
           var purchasableVirtualItem = Soomla.storeInfo.getItemByItemId(parameters.itemId);
-          Soomla.fireSoomlaEvent(parameters.method, [purchasableVirtualItem]);
+          var payload = parameters.payload;
+          Soomla.fireSoomlaEvent(parameters.method, [purchasableVirtualItem, payload]);
         }, this));
 
         eventDispatcher.registerEventHandler(StoreConsts.EVENT_ITEM_PURCHASE_STARTED, _.bind(function (parameters) {
