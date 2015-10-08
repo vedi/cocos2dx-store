@@ -115,13 +115,15 @@ namespace soomla {
                     CC_ASSERT(virtualGood);
 
                     error = NULL;
-                    CCUpgradeVG *upgradeVG =
-                            dynamic_cast<CCUpgradeVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(vguItemId->getCString(), &error));
-                    if (error) {
-                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_GOOD_UPGRADE, error);
-                        return;
+                    CCUpgradeVG *upgradeVG = NULL;
+                    if (vguItemId) {
+                        upgradeVG = dynamic_cast<CCUpgradeVG *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(vguItemId->getCString(), &error));
+                        if (error) {
+                            CCSoomlaUtils::logException(CCStoreConsts::EVENT_GOOD_UPGRADE, error);
+                            return;
+                        }
+                        CC_ASSERT(upgradeVG);
                     }
-                    CC_ASSERT(upgradeVG);
                     this->onGoodUpgrade(virtualGood, upgradeVG);
                 });
 
@@ -388,7 +390,9 @@ namespace soomla {
         
         __Dictionary *eventDict = __Dictionary::create();
         eventDict->setObject(virtualGood, CCStoreConsts::DICT_ELEMENT_GOOD);
-        eventDict->setObject(upgradeVG, CCStoreConsts::DICT_ELEMENT_UPGRADEVG);
+        if (upgradeVG != NULL) {
+            eventDict->setObject(upgradeVG, CCStoreConsts::DICT_ELEMENT_UPGRADEVG);
+        }
         
         Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(CCStoreConsts::EVENT_GOOD_UPGRADE, eventDict);
     }
