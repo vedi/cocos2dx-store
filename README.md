@@ -42,10 +42,15 @@ This example is still under development but it can give you a taste of the impor
 
 ## Download
 
-####Pre baked zip:
+#### Pre baked zip:
 
-- [soomla-cocos2dx-core 1.2.3](http://library.soom.la/fetch/cocos2dx-core/1.2.3?cf=github)
-- [cocos2dx-store 4.5.4](http://library.soom.la/fetch/cocos2dx-store/4.5.4?cf=github)
+- The latest [soomla-cocos2dx-core](http://library.soom.la/fetch/cocos2dx-core/latest?cf=github) release
+- The latest [cocos2dx-store](http://library.soom.la/fetch/cocos2dx-store/latest?cf=github) release
+
+#### From sources:
+ - Clone this repository;
+ - Run `./build_all` from project directory;
+ - Take created binaries from `build` directory and use it!
 
 ## Getting Started (With pre-built libraries)
 
