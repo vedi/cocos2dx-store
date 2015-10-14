@@ -138,7 +138,7 @@ namespace soomla {
          CCStoreConsts::DICT_ELEMENT_PURCHASABLE - CCPurchasableVirtualItem -
          the item whose purchase is being deferred.
          */
-        virtual void onMarketPurchaseDeferred(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String payload);
+        virtual void onMarketPurchaseDeferred(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *payload);
 
         /**
          Fired when a market item from the store (App Store, Google Play, etc..) 

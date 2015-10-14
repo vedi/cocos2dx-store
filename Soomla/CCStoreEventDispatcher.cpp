@@ -170,6 +170,21 @@ namespace soomla {
                     this->onMarketPurchaseCancelled(purchasableVirtualItem);
                 });
 
+        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_PURCHASE_DEFERRED,
+                [this](__Dictionary *parameters) {
+                    __String *itemId = (__String *)(parameters->objectForKey("itemId"));
+                    __String *payload = (__String *)(parameters->objectForKey("payload"));
+                    CCError *error = NULL;
+                    CCPurchasableVirtualItem *purchasableVirtualItem =
+                            dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
+                    if (error) {
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_MARKET_PURCHASE_DEFERRED, error);
+                        return;
+                    }
+                    CC_ASSERT(purchasableVirtualItem);
+                    this->onMarketPurchaseDeferred(purchasableVirtualItem, payload);
+                });
+
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_PURCHASE,
                 [this](__Dictionary *parameters) {
                     __String *itemId = (__String *)(parameters->objectForKey("itemId"));
@@ -454,7 +469,7 @@ namespace soomla {
         Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(CCStoreConsts::EVENT_MARKET_PURCHASE_CANCELED, eventDict);
     }
 
-    void CCStoreEventDispatcher::onMarketPurchaseDeferred(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String payload) {
+    void CCStoreEventDispatcher::onMarketPurchaseDeferred(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *payload) {
         __Dictionary *eventDict = __Dictionary::create();
         eventDict->setObject(purchasableVirtualItem, CCStoreConsts::DICT_ELEMENT_PURCHASABLE);
         eventDict->setObject(payload, CCStoreConsts::DICT_ELEMENT_DEVELOPERPAYLOAD);
