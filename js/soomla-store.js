@@ -118,6 +118,7 @@
     EVENT_ITEM_PURCHASED: 'CCStoreEventHandler::onItemPurchased',
     EVENT_ITEM_PURCHASE_STARTED: 'CCStoreEventHandler::onItemPurchaseStarted',
     EVENT_MARKET_PURCHASE_CANCELED: 'CCStoreEventHandler::onMarketPurchaseCancelled',
+    EVENT_MARKET_PURCHASE_DEFERRED: 'CCStoreEventHandler::onMarketPurchaseDeferred',
     EVENT_MARKET_PURCHASE: 'CCStoreEventHandler::onMarketPurchase',
     EVENT_MARKET_PURCHASE_STARTED: 'CCStoreEventHandler::onMarketPurchaseStarted',
     EVENT_MARKET_ITEMS_REFRESHED: 'CCStoreEventHandler::onMarketItemsRefreshed',
@@ -1675,6 +1676,13 @@
        * @param purchasableVirtualItem the PurchasableVirtualItem whose purchase operation was cancelled
        */
       onMarketPurchaseCancelled: function (purchasableVirtualItem) {
+      },
+
+      /**
+       * This event is triggered when a market purchase operation has been deferred by ask-to-buy feature (iOS only).
+       * @param purchasableVirtualItem the PurchasableVirtualItem whose purchase operation was deferred
+       */
+      onMarketPurchaseDeferred: function (purchasableVirtualItem) {
       },
 
       /**

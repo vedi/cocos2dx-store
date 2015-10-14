@@ -501,6 +501,14 @@
         [parameters setObject:[pvi itemId] forKey:@"itemId"];
     }];
 
+    [ndkGlue registerCallbackHandlerForKey:EVENT_MARKET_PURCHASE_DEFERRED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
+        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
+        NSString* payload = [notification.userInfo objectForKey:DICT_ELEMENT_DEVELOPERPAYLOAD];
+        [parameters setObject:@"CCStoreEventHandler::onMarketPurchaseDeferred" forKey:@"method"];
+        [parameters setObject:[pvi itemId] forKey:@"itemId"];
+        [parameters setObject:payload forKey:@"payload"];
+    }];
+
     [ndkGlue registerCallbackHandlerForKey:EVENT_MARKET_PURCHASED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
         PurchasableVirtualItem* pvi = (PurchasableVirtualItem*) notification.userInfo[DICT_ELEMENT_PURCHASABLE];
         NSString* payload = notification.userInfo[DICT_ELEMENT_DEVELOPERPAYLOAD];
