@@ -298,7 +298,7 @@ namespace soomla {
 
         void handle__EVENT_RESTORE_TRANSACTION_STARTED(cocos2d::CCDictionary *parameters);
 
-        void handle__EVENT_UNEXPECTED_ERROR_IN_STORE(cocos2d::CCDictionary *parameters);
+        void handle__EVENT_ON_UNEXPECTED_STORE_ERROR(cocos2d::CCDictionary *parameters);
 
         void handle__EVENT_STORE_CONTROLLER_INITIALIZED(cocos2d::CCDictionary *parameters);
 

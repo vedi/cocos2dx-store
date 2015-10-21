@@ -85,7 +85,7 @@ namespace soomla {
                 this, (SEL_EventHandler) (&CCStoreEventDispatcher::handle__EVENT_RESTORE_TRANSACTION_STARTED));
         
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_UNEXPECTED_STORE_ERROR,
-                this, (SEL_EventHandler) (&CCStoreEventDispatcher::handle__EVENT_UNEXPECTED_ERROR_IN_STORE));
+                this, (SEL_EventHandler) (&CCStoreEventDispatcher::handle__EVENT_ON_UNEXPECTED_STORE_ERROR));
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_SOOMLA_STORE_INITIALIZED,
                 this, (SEL_EventHandler) (&CCStoreEventDispatcher::handle__EVENT_STORE_CONTROLLER_INITIALIZED));
@@ -475,8 +475,8 @@ namespace soomla {
         }
         CC_ASSERT(purchasableVirtualItem);
         CCString *payload = (CCString *)(parameters->objectForKey("payload"));
-        CCDictionary *extra = (CCDictionary *)(parameters->objectForKey(""));
-        this->onMarketPurchase(purchasableVirtualItem, payload, extra);
+        CCDictionary *extraDict = (CCDictionary *)(parameters->objectForKey("extraInfo"));
+        this->onMarketPurchase(purchasableVirtualItem, payload, extraDict);
     }
 
     void CCStoreEventDispatcher::handle__EVENT_MARKET_PURCHASE_STARTED(cocos2d::CCDictionary *parameters) {
@@ -571,9 +571,9 @@ namespace soomla {
         this->onRestoreTransactionsStarted();
     }
 
-    void CCStoreEventDispatcher::handle__EVENT_UNEXPECTED_ERROR_IN_STORE(cocos2d::CCDictionary *parameters) {
-                    CCString *errorMessage = (CCString *)(parameters->objectForKey("errorMessage"));
-                    this->onUnexpectedErrorInStore(errorMessage);
+    void CCStoreEventDispatcher::handle__EVENT_ON_UNEXPECTED_STORE_ERROR(cocos2d::CCDictionary *parameters) {
+                    CCInteger *errorCode = (CCInteger *)(parameters->objectForKey("errorCode"));
+                    this->onUnexpectedStoreError(errorCode);
     }
 
     void CCStoreEventDispatcher::handle__EVENT_STORE_CONTROLLER_INITIALIZED(cocos2d::CCDictionary *parameters) {
