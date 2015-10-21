@@ -80,18 +80,18 @@ namespace soomla {
             }
 
             {
-                __String *clientId = dynamic_cast<__String *>(storeParams->objectForKey("clientId"));
-                __String *clientSecret = dynamic_cast<__String *>(storeParams->objectForKey("clientSecret"));
-                __String *refreshToken = dynamic_cast<__String *>(storeParams->objectForKey("refreshToken"));
-                __Bool *verifyOnServerFailure = dynamic_cast<__Bool *>(storeParams->objectForKey("verifyOnServerFailure"));
+                CCString *clientId = dynamic_cast<CCString *>(storeParams->objectForKey("clientId"));
+                CCString *clientSecret = dynamic_cast<CCString *>(storeParams->objectForKey("clientSecret"));
+                CCString *refreshToken = dynamic_cast<CCString *>(storeParams->objectForKey("refreshToken"));
+                CCBool *verifyOnServerFailure = dynamic_cast<CCBool *>(storeParams->objectForKey("verifyOnServerFailure"));
 
                 if (clientId != NULL && clientId->length() > 0 &&
                         clientSecret != NULL && clientSecret->length() > 0 &&
                         refreshToken != NULL && refreshToken->length() > 0) {
 
 
-                    __Dictionary *params = __Dictionary::create();
-                    params->setObject(__String::create("CCSoomlaStore::configVerifyPurchases"), "method");
+                    CCDictionary *params = CCDictionary::create();
+                    params->setObject(CCString::create("CCSoomlaStore::configVerifyPurchases"), "method");
                     params->setObject(clientId, "clientId");
                     params->setObject(clientSecret, "clientSecret");
                     params->setObject(refreshToken, "refreshToken");
