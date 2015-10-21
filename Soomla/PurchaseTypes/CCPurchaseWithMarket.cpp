@@ -26,7 +26,7 @@ namespace soomla {
     
     CCPurchaseWithMarket *CCPurchaseWithMarket::create(cocos2d::CCString *productId, cocos2d::CCDouble *price) {
         return createWithMarketItem(CCMarketItem::create(
-                productId, cocos2d::CCInteger::create(CCMarketItem::CONSUMABLE), price));
+                productId, price));
     }
 
     CCPurchaseWithMarket *CCPurchaseWithMarket::createWithMarketItem(CCMarketItem *marketItem) {

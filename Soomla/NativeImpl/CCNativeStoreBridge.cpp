@@ -54,12 +54,19 @@ namespace soomla {
             CCDictionary *params = CCDictionary::create();
             params->setObject(CCString::create("CCSoomlaStore::setSSV"), "method");
             params->setObject(SSV, "ssv");
+            if (SSV->getValue()) {
+                __Bool *verifyOnServerFailure = dynamic_cast<__Bool *>(storeParams->objectForKey("verifyOnServerFailure"));
+                if (verifyOnServerFailure == nullptr) {
+                    verifyOnServerFailure = __Bool::create(false);
+                }
+                params->setObject(verifyOnServerFailure, "verifyOnServerFailure");
+            }
             CCNdkBridge::callNative (params, NULL);
         }
 #endif
-        
+
         {
-            
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
             {
                 CCString *androidPublicKey = dynamic_cast<CCString *>(storeParams->objectForKey("androidPublicKey"));
@@ -69,9 +76,33 @@ namespace soomla {
                     params->setObject(androidPublicKey, "androidPublicKey");
                     CCNdkBridge::callNative (params, NULL);
                 }
-                
+
             }
-            
+
+            {
+                __String *clientId = dynamic_cast<__String *>(storeParams->objectForKey("clientId"));
+                __String *clientSecret = dynamic_cast<__String *>(storeParams->objectForKey("clientSecret"));
+                __String *refreshToken = dynamic_cast<__String *>(storeParams->objectForKey("refreshToken"));
+                __Bool *verifyOnServerFailure = dynamic_cast<__Bool *>(storeParams->objectForKey("verifyOnServerFailure"));
+
+                if (clientId != NULL && clientId->length() > 0 &&
+                        clientSecret != NULL && clientSecret->length() > 0 &&
+                        refreshToken != NULL && refreshToken->length() > 0) {
+
+
+                    __Dictionary *params = __Dictionary::create();
+                    params->setObject(__String::create("CCSoomlaStore::configVerifyPurchases"), "method");
+                    params->setObject(clientId, "clientId");
+                    params->setObject(clientSecret, "clientSecret");
+                    params->setObject(refreshToken, "refreshToken");
+                    if (verifyOnServerFailure != NULL) {
+                        params->setObject(verifyOnServerFailure, "verifyOnServerFailure");
+                    }
+                    CCNdkBridge::callNative(params, NULL);
+                }
+
+            }
+
             {
                 CCBool *testPurchases = dynamic_cast<CCBool *>(storeParams->objectForKey("testPurchases"));
                 if (testPurchases == NULL) {

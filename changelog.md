@@ -1,3 +1,37 @@
+### v4.5.4 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.3...v4.5.4)
+
+* Changes
+  * Removed binaries and improved build scripts
+
+### v4.5.3 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.2...v4.5.3)
+
+* Changes
+  * Improved docs
+  * Updated submodules
+
+### v4.5.2 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.1...v4.5.2)
+
+* New Features
+  * Support Google Play verification
+  * Support iOS param VERIFY_ON_ITUNES_FAILURE
+
+* Changes
+  * Support new structure of market purchase event
+
+
+### v4.5.1 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.0...v4.5.1)
+
+* New Features
+  * Implemented new js functionality for all features
+
+* Changes
+  * Removed Consumable enum from MarketItem
+
+* Fixes
+  * Fixed an issue with androidId and iosId being set to null which prevented them from being set in the native code
+
+
+### v4.5.0 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.4.1...v4.5.0)
 ### v4.5.0 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/cocos2dx-v2-v4.4.1...cocos2dx-v2-v4.5.0)
 
 **BREAKING API VERSION**

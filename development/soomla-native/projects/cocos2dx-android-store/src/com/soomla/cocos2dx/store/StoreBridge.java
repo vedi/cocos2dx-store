@@ -22,10 +22,13 @@ import com.soomla.store.purchaseTypes.PurchaseWithMarket;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StoreBridge {
 
@@ -71,7 +74,6 @@ public class StoreBridge {
                 int version = params.getInt("version");
                 JSONObject storeAssetsJson = params.getJSONObject("storeAssets");
                 StoreInfo.setStoreAssets(version, storeAssetsJson.toString());
-                mStoreAssets = new StoreAssetsBridge(version, storeAssetsJson);
             }
         });
 
@@ -150,6 +152,31 @@ public class StoreBridge {
                     setPKMethod.invoke(singleton, publicKey);
                 } catch (Exception e) {
                     SoomlaUtils.LogError("StoreService JNI", "Something happened while we were trying to run CCSoomlaStore::setAndroidPublicKey. error: " + e.getLocalizedMessage());
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        ndkGlue.registerCallHandler("CCSoomlaStore::configVerifyPurchases", new NdkGlue.CallHandler() {
+            @Override
+            public void handle(final JSONObject params, JSONObject retParams) throws Exception {
+                try {
+                    Map<String, Object> verifyPurchasesParams = new HashMap<String, Object>() {{
+                        put("clientId", params.getString("clientId"));
+                        put("clientSecret", params.getString("clientSecret"));
+                        put("refreshToken", params.getString("refreshToken"));
+                        put("verifyOnServerFailure", params.optBoolean("verifyOnServerFailure", false));
+                    }};
+
+                    Class googlePlayClass = Class.forName("com.soomla.store.billing.google.GooglePlayIabService");
+                    Method factoryMethod = googlePlayClass.getDeclaredMethod("getInstance");
+                    Object singleton = factoryMethod.invoke(null, null);
+                    Method configVerifyPurchasesMethod = googlePlayClass.getDeclaredMethod("configVerifyPurchases", Map.class);
+                    configVerifyPurchasesMethod.invoke(singleton, verifyPurchasesParams);
+
+                } catch (Exception e) {
+                    SoomlaUtils.LogError("StoreService JNI", "Something happened while we were trying to run CCSoomlaStore::configVerifyPurchases. error: " + e.getLocalizedMessage());
                     e.printStackTrace();
                 }
 
@@ -579,11 +606,11 @@ public class StoreBridge {
             }
         });
 
-        ndkGlue.registerCallHandler("CCStoreEventDispatcher::pushOnUnexpectedErrorInStore", new NdkGlue.CallHandler() {
+        ndkGlue.registerCallHandler("CCStoreEventDispatcher::pushOnUnexpectedStoreError", new NdkGlue.CallHandler() {
             @Override
             public void handle(JSONObject params, JSONObject retParams) throws Exception {
-                String errorMessage = params.getString("errorMessage");
-                storeEventHandlerBridge.pushOnUnexpectedErrorInStore(errorMessage);
+                int errorCode = params.getInt("errorCode");
+                storeEventHandlerBridge.pushOnUnexpectedStoreError(errorCode);
             }
         });
 
@@ -593,7 +620,6 @@ public class StoreBridge {
                 storeEventHandlerBridge.pushOnSoomlaStoreInitialized();
             }
         });
-
 
         final NdkGlue.ExceptionHandler exceptionHandler = new NdkGlue.ExceptionHandler() {
             @Override

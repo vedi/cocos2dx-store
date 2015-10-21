@@ -46,9 +46,8 @@ namespace soomla {
     void CCSoomlaStore::initialize(CCStoreAssets *storeAssets, cocos2d::CCDictionary *storeParams) {
         
         if (initialized) {
-            const char *err = "SoomlaStore is already initialized. You can't initialize it twice!";
-            CCStoreEventDispatcher::getInstance()->onUnexpectedErrorInStore(CCString::create(err), true);
-            CCSoomlaUtils::logError(TAG, err);
+            CCStoreEventDispatcher::getInstance()->onUnexpectedStoreError(CCInteger::create(0), true);
+            CCSoomlaUtils::logError(TAG, "SoomlaStore is already initialized. You can't initialize it twice!");
             return;
         }
         
@@ -80,15 +79,17 @@ namespace soomla {
         if (item == NULL) {
             return;
         }
-        
+
         // simulate onMarketPurchaseStarted event
         CCStoreEventDispatcher::getInstance()->onMarketPurchaseStarted(item);
-        
+
         // in the editor we just give the item... no real market.
-        item->give(1);
-        
         // simulate onMarketPurchase event
-        CCStoreEventDispatcher::getInstance()->onMarketPurchase(item, CCString::create("fake_token_zyxw9876"), CCString::create(payload),
-                                                                NULL, NULL, NULL);
+        CCStoreEventDispatcher::getInstance()->onMarketPurchase(item, CCString::create(payload), CCDictionary::create());
+
+        item->give(1);
+
+        //complete purchasing routine
+        CCStoreEventDispatcher::getInstance()->onItemPurchased(item, CCString::create(payload));
     }
 }

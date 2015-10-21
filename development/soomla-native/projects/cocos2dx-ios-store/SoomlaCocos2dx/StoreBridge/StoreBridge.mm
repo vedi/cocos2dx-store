@@ -37,6 +37,10 @@
 
 }
 
++ (id)initShared {
+    return [[StoreBridge sharedStoreBridge] init];
+}
+
 + (id)sharedStoreBridge {
     static StoreBridge *sharedStoreBridge = nil;
     static dispatch_once_t onceToken;
@@ -124,7 +128,6 @@
         NSNumber *version = (NSNumber *) [parameters objectForKey:@"version"];
         NSDictionary *storeAssetsDict = (NSDictionary *) [parameters objectForKey:@"storeAssets"];
         [[StoreInfo getInstance] setStoreAssetsJSON:[SoomlaUtils dictToJsonString:storeAssetsDict] withVersion:[version intValue]];
-        [[StoreAssetsBridge sharedInstance] initializeWithStoreAssetsDict:storeAssetsDict andVersion:version.intValue];
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCSoomlaStore::buyMarketItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
@@ -156,9 +159,14 @@
     }];
 
     [ndkGlue registerCallHandlerForKey:@"CCSoomlaStore::setSSV" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        bool ssv = [(NSNumber*)[parameters objectForKey:@"ssv"] boolValue];
+        bool ssv = [(NSNumber*) parameters[@"ssv"] boolValue];
         LogDebug(@"SOOMLA SoomlaStoreBridge", ([NSString stringWithFormat:@"Setting iOS SSV to: %@", ssv ?@"true":@"false"]));
         VERIFY_PURCHASES = ssv;
+        if (ssv) {
+            VERIFY_ON_ITUNES_FAILURE = [parameters[@"verifyOnServerFailure"] boolValue];
+            LogDebug(@"SOOMLA SoomlaStoreBridge",
+                    ([NSString stringWithFormat:@"Setting iOS verifyOnServerFailure to: %@", VERIFY_ON_ITUNES_FAILURE ?@"true":@"false"]));
+        }
     }];
     
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::loadFromDB" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
@@ -263,145 +271,145 @@
         bool notify = [(NSNumber*)[parameters objectForKey:@"notify"] boolValue];
         [[[StorageManager getInstance] virtualGoodStorage] unequipGood:itemId withEvent:notify];
     }];
-    
+
     /******* Old Bridge (Here for JSB ONLY) *******/
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreServiceJsb::init" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         [[SoomlaStore getInstance] initializeWithStoreAssets:[StoreAssetsBridge sharedInstance]];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::buyItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *itemId = [parameters objectForKey:@"itemId"];
         NSString *payload = [parameters objectForKey:@"payload"];
         [StoreInventory buyItemWithItemId:itemId andPayload:payload];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::getItemBalance" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
         int res = [StoreInventory getItemBalance:itemId];
         [retParameters setObject:[NSNumber numberWithInt:res] forKey:@"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::giveItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
         NSNumber *amount = (NSNumber *) [parameters objectForKey:@"amount"];
         [StoreInventory giveAmount:[amount intValue] ofItem:itemId];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::takeItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
         NSNumber *amount = (NSNumber *) [parameters objectForKey:@"amount"];
         [StoreInventory takeAmount:[amount intValue] ofItem:itemId];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::equipVirtualGood" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
         [StoreInventory equipVirtualGoodWithItemId:itemId];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::unEquipVirtualGood" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
         [StoreInventory unEquipVirtualGoodWithItemId:itemId];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::isVirtualGoodEquipped" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
         bool res = [StoreInventory isVirtualGoodWithItemIdEquipped:itemId];
         [retParameters setObject:[NSNumber numberWithBool:res] forKey:@"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::getGoodUpgradeLevel" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
         int res = [StoreInventory goodUpgradeLevel:goodItemId];
         [retParameters setObject:[NSNumber numberWithInt:res] forKey:@"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::getGoodCurrentUpgrade" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
         NSString *res = [StoreInventory goodCurrentUpgrade:goodItemId];
         [retParameters setObject:res forKey:@"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::upgradeGood" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
         [StoreInventory upgradeVirtualGood:goodItemId];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInventory::removeGoodUpgrades" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
         [StoreInventory removeUpgrades:goodItemId];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getItemByItemId" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *itemId = (NSString *) [parameters objectForKey:@"itemId"];
         VirtualItem* vi = [[StoreInfo getInstance] virtualItemWithId:itemId];
         NSDictionary *retObj = [[DomainHelper sharedDomainHelper] domainToDict:vi];
         [retParameters setObject: retObj forKey: @"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getPurchasableItemWithProductId" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *productId = (NSString *) [parameters objectForKey:@"productId"];
         PurchasableVirtualItem*pvi = [[StoreInfo getInstance] purchasableItemWithProductId:productId];
         NSDictionary *retObj = [[DomainHelper sharedDomainHelper] domainToDict:pvi];
         [retParameters setObject: retObj forKey: @"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getCategoryForVirtualGood" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
         NSDictionary *retObj = [[DomainHelper sharedDomainHelper] domainToDict:[[StoreInfo getInstance] categoryForGoodWithItemId:goodItemId]];
         [retParameters setObject: retObj forKey: @"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getFirstUpgradeForVirtualGood" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
         UpgradeVG *upgradeVG = [[StoreInfo getInstance] firstUpgradeForGoodWithItemId:goodItemId];
         NSDictionary *retObj = [[DomainHelper sharedDomainHelper] domainToDict:upgradeVG];
         [retParameters setObject: retObj forKey: @"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getLastUpgradeForVirtualGood" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
         UpgradeVG *upgradeVG = [[StoreInfo getInstance] lastUpgradeForGoodWithItemId:goodItemId];
         NSDictionary *retObj = [[DomainHelper sharedDomainHelper] domainToDict:upgradeVG];
         [retParameters setObject: retObj forKey: @"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getUpgradesForVirtualGood" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSString *goodItemId = (NSString *) [parameters objectForKey:@"goodItemId"];
         NSArray *upgrades = [[StoreInfo getInstance] upgradesForGoodWithItemId:goodItemId];
         NSArray *retObj = [[DomainHelper sharedDomainHelper] getDictListFromDomains:upgrades];
         [retParameters setObject: retObj forKey: @"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getVirtualCurrencies" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSArray *virtualCurrencies = [[StoreInfo getInstance] virtualCurrencies];
         NSArray *retObj = [[DomainHelper sharedDomainHelper] getDictListFromDomains:virtualCurrencies];
         [retParameters setObject: retObj forKey: @"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getVirtualGoods" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSArray *virtualGoods = [[StoreInfo getInstance] virtualGoods];
         NSArray *retObj = [[DomainHelper sharedDomainHelper] getDictListFromDomains:virtualGoods];
         [retParameters setObject: retObj forKey: @"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getVirtualCurrencyPacks" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSArray *virtualCurrencyPacks = [[StoreInfo getInstance] virtualCurrencyPacks];
         NSArray *retObj = [[DomainHelper sharedDomainHelper] getDictListFromDomains:virtualCurrencyPacks];
         [retParameters setObject: retObj forKey: @"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::getVirtualCategories" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSArray *virtualCategories = [[StoreInfo getInstance] virtualCategories];
         NSArray *retObj = [[DomainHelper sharedDomainHelper] getDictListFromDomains:virtualCategories];
         [retParameters setObject: retObj forKey: @"return"];
     }];
-    
+
     [ndkGlue registerCallHandlerForKey:@"CCStoreInfo::saveItem" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
         NSDictionary *viDict = parameters[@"virtualItem"];
         [[StoreInfo getInstance] save:[[DomainFactory sharedDomainFactory] createWithDict:viDict]];
     }];
-    
+
     /******* Event Pusher *******/
     
     [ndkGlue registerCallHandlerForKey:@"CCStoreEventDispatcher::pushOnItemPurchased" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
@@ -417,11 +425,11 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_ITEM_PURCHASE_STARTED object:[NdkGlue sharedInstance] userInfo:userInfo];
     }];
     
-    [ndkGlue registerCallHandlerForKey:@"CCStoreEventDispatcher::pushOnUnexpectedErrorInStore" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
-        // TODO: we're ignoring errorMessage here. change it?
-        
-        NSDictionary *userInfo = @{ DICT_ELEMENT_ERROR_CODE: [NSNumber numberWithInt:ERR_GENERAL] };
-        [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_UNEXPECTED_ERROR_IN_STORE object:[NdkGlue sharedInstance] userInfo:userInfo];
+    [ndkGlue registerCallHandlerForKey:@"CCStoreEventDispatcher::pushOnUnexpectedStoreError" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
+        NSDictionary *userInfo = @{
+                DICT_ELEMENT_ERROR_CODE: parameters[@"errorCode"]
+        };
+        [[NSNotificationCenter defaultCenter] postNotificationName:EVENT_UNEXPECTED_STORE_ERROR object:[NdkGlue sharedInstance] userInfo:userInfo];
     }];
     
     [ndkGlue registerCallHandlerForKey:@"CCStoreEventDispatcher::pushOnSoomlaStoreInitialized" withBlock:^(NSDictionary *parameters, NSMutableDictionary *retParameters) {
@@ -494,12 +502,14 @@
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_MARKET_PURCHASED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
-        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*)[notification.userInfo objectForKey:DICT_ELEMENT_PURCHASABLE];
-        NSString* purchaseToken = [notification.userInfo objectForKey:DICT_ELEMENT_TOKEN];
-        [parameters setObject:@"CCStoreEventHandler::onMarketPurchase" forKey:@"method"];
-        [parameters setObject:[pvi itemId] forKey:@"itemId"];
-        [parameters setObject:@"[iOS Purchase no payload]" forKey:@"payload"];
-        [parameters setObject:purchaseToken forKey:@"token"];
+        PurchasableVirtualItem* pvi = (PurchasableVirtualItem*) notification.userInfo[DICT_ELEMENT_PURCHASABLE];
+        NSString* payload = notification.userInfo[DICT_ELEMENT_DEVELOPERPAYLOAD];
+        NSString* extraInfo = notification.userInfo[DICT_ELEMENT_EXTRA_INFO];
+
+        parameters[@"method"] = @"CCStoreEventHandler::onMarketPurchase";
+        parameters[@"itemId"] = [pvi itemId];
+        parameters[@"payload"] = payload;
+        parameters[@"extraInfo"] = extraInfo;
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_MARKET_PURCHASE_STARTED withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
@@ -551,8 +561,10 @@
         [parameters setObject:@"CCStoreEventHandler::onRestoreTransactionsStarted" forKey:@"method"];
     }];
 
-    [ndkGlue registerCallbackHandlerForKey:EVENT_UNEXPECTED_ERROR_IN_STORE withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
-        [parameters setObject:@"CCStoreEventHandler::onUnexpectedErrorInStore" forKey:@"method"];
+    [ndkGlue registerCallbackHandlerForKey:EVENT_UNEXPECTED_STORE_ERROR withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {
+        NSNumber* errorCode = notification.userInfo[DICT_ELEMENT_ERROR_CODE];
+        parameters[@"method"] = @"CCStoreEventHandler::onUnexpectedStoreError";
+        parameters[@"errorCode"] = errorCode;
     }];
 
     [ndkGlue registerCallbackHandlerForKey:EVENT_SOOMLASTORE_INIT withBlock:^(NSNotification *notification, NSMutableDictionary *parameters) {

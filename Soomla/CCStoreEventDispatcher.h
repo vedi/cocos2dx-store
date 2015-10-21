@@ -135,20 +135,15 @@ namespace soomla {
          
          Event Name - CCStoreConsts::EVENT_MARKET_PURCHASE
          Event Data (CCDictionary):
-         CCStoreConsts::DICT_ELEMENT_PURCHASABLE - CCPurchasableVirtualItem -
-         The market item being purchased.
-         CCStoreConsts::DICT_ELEMENT_TOKEN - CCString - The purchase token.
-         CCStoreConsts::DICT_ELEMENT_DEVELOPERPAYLOAD - CCString -
-         The developer payload.
-         CCStoreConsts::DICT_ELEMENT_ORIGINAL_JSON - CCString - Original JSON of
-         the purchase (Google Only)
-         CCStoreConsts::DICT_ELEMENT_SIGNATURE - CCString - Purchase signature
-         (Google Only)
-         CCStoreConsts::DICT_ELEMENT_USER_ID - CCString - The purchasing user ID
-         (Amazon Only)
-         */
-        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *token, cocos2d::CCString *payload, cocos2d::CCString *originalJson,
-                                      cocos2d::CCString *signature, cocos2d::CCString *userId);
+         CCStoreConsts::DICT_ELEMENT_PURCHASABLE - CCPurchasableVirtualItem - The market item being purchased.
+         CCStoreConsts::DICT_ELEMENT_DEVELOPERPAYLOAD - CCString - The developer payload.
+         CCStoreConsts::DICT_ELEMENT_EXTRA_INFO - contains platform specific information about the market purchase
+            Android: The "extra" dictionary will contain: 'token', 'orderId', 'originalJson', 'signature', 'userId'
+            iOS: The "extra" dictionary will contain: 'receiptUrl', 'transactionIdentifier', 'receiptBase64',
+                'transactionDate', 'originalTransactionDate', 'originalTransactionIdentifier'
+        */
+        virtual void onMarketPurchase(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::CCString *payload,
+                cocos2d::CCDictionary *extraInfo);
 
         /**
          Fired when a purchase process has started, where the item is being 
@@ -191,14 +186,14 @@ namespace soomla {
         /**
          Fired when an unexpected error occurs in the store.
          
-         Event Name - CCStoreConsts::EVENT_UNEXPECTED_ERROR_IN_STORE
+         Event Name - CCStoreConsts::EVENT_UNEXPECTED_STORE_ERROR
          Event Data (CCDictionary):
-         CCStoreConsts::DICT_ELEMENT_ERROR_MESSAGE - CCString -
-         The description of the error which occured (Android Only).
+         CCStoreConsts::DICT_ELEMENT_ERROR_CODE - CCInteger -
+         The description of the error which occured.
          */
-        virtual void onUnexpectedErrorInStore(cocos2d::CCString *errorMessage);
-        
-        virtual void onUnexpectedErrorInStore(cocos2d::CCString *errorMessage, bool alsoPush);
+        virtual void onUnexpectedStoreError(cocos2d::CCInteger *errorCode);
+
+        virtual void onUnexpectedStoreError(cocos2d::CCInteger *errorCode, bool alsoPush);
 
         /**
          Fired when store controller is initialized.
