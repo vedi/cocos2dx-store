@@ -55,9 +55,9 @@ namespace soomla {
             params->setObject(CCString::create("CCSoomlaStore::setSSV"), "method");
             params->setObject(SSV, "ssv");
             if (SSV->getValue()) {
-                __Bool *verifyOnServerFailure = dynamic_cast<__Bool *>(storeParams->objectForKey("verifyOnServerFailure"));
-                if (verifyOnServerFailure == nullptr) {
-                    verifyOnServerFailure = __Bool::create(false);
+                CCBool *verifyOnServerFailure = dynamic_cast<CCBool *>(storeParams->objectForKey("verifyOnServerFailure"));
+                if (verifyOnServerFailure == NULL) {
+                    verifyOnServerFailure = CCBool::create(false);
                 }
                 params->setObject(verifyOnServerFailure, "verifyOnServerFailure");
             }

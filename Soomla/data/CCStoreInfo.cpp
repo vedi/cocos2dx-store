@@ -60,13 +60,13 @@ namespace soomla {
         }
     }
 
-    bool CCStoreInfo::hasMarketIdDuplicates(cocos2d::__Array *assetsArray) {
+    bool CCStoreInfo::hasMarketIdDuplicates(cocos2d::CCArray *assetsArray) {
         std::set<std::string> *marketIds = new std::set<std::string>();
         bool result = true;
         for (unsigned int i = 0; i < assetsArray->count(); i++) {
-            CCPurchasableVirtualItem *pvi = (CCPurchasableVirtualItem *)assetsArray->getObjectAtIndex(i);
+            CCPurchasableVirtualItem *pvi = (CCPurchasableVirtualItem *)assetsArray->objectAtIndex(i);
             if (typeid(*(pvi->getPurchaseType())) == typeid(CCPurchaseWithMarket)) {
-                std::string currentMarketId = ((CCPurchaseWithMarket *)pvi->getPurchaseType())->getMarketItem()->getProductId()->_string;
+                std::string currentMarketId = ((CCPurchaseWithMarket *)pvi->getPurchaseType())->getMarketItem()->getProductId()->m_sString;
                 if (marketIds->find(currentMarketId) != marketIds->end()) {
                     result = false;
                     break;

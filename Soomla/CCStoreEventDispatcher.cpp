@@ -253,12 +253,12 @@ namespace soomla {
         CCNotificationCenter::sharedNotificationCenter()->postNotification(CCStoreConsts::EVENT_RESTORE_TRANSACTION_STARTED);
     }
 
-    void CCStoreEventDispatcher::onUnexpectedStoreError(cocos2d::__Integer *errorCode) {
+    void CCStoreEventDispatcher::onUnexpectedStoreError(cocos2d::CCInteger *errorCode) {
         onUnexpectedStoreError(errorCode, false);
     }
 
-    void CCStoreEventDispatcher::onUnexpectedStoreError(cocos2d::__Integer *errorCode, bool alsoPush) {
-        __Dictionary *eventDict = __Dictionary::create();
+    void CCStoreEventDispatcher::onUnexpectedStoreError(cocos2d::CCInteger *errorCode, bool alsoPush) {
+        CCDictionary *eventDict = CCDictionary::create();
         eventDict->setObject(errorCode, CCStoreConsts::DICT_ELEMENT_ERROR_CODE);
         
         CCNotificationCenter::sharedNotificationCenter()->postNotification(CCStoreConsts::EVENT_UNEXPECTED_STORE_ERROR, eventDict);
@@ -474,12 +474,9 @@ namespace soomla {
             return;
         }
         CC_ASSERT(purchasableVirtualItem);
-        CCString *token = (CCString *)(parameters->objectForKey("token"));
         CCString *payload = (CCString *)(parameters->objectForKey("payload"));
-        CCString *originalJson = (CCString *)(parameters->objectForKey("originalJson"));
-        CCString *signature = (CCString *)(parameters->objectForKey("signature"));
-        CCString *userId = (CCString *)(parameters->objectForKey("userId"));
-        this->onMarketPurchase(purchasableVirtualItem, token, payload, originalJson, signature, userId);
+        CCDictionary *extra = (CCDictionary *)(parameters->objectForKey(""));
+        this->onMarketPurchase(purchasableVirtualItem, payload, extra);
     }
 
     void CCStoreEventDispatcher::handle__EVENT_MARKET_PURCHASE_STARTED(cocos2d::CCDictionary *parameters) {
