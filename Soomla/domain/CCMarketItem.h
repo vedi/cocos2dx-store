@@ -25,12 +25,12 @@
 #include "CCStoreConsts.h"
 
 namespace soomla {
-	/** 
+	/**
      @class CCMarketItem
      @brief An item you can purchase in the market (App Store, Google Play...).
 
      This class represents an item in the market (App Store, Google Play...).
-     Every `CCPurchasableVirtualItem` with `CCPurchaseType` of 
+     Every `CCPurchasableVirtualItem` with `CCPurchaseType` of
      `CCPurchaseWithMarket` has an instance of this class.
 	 */
     class CCMarketItem : public CCDomain {
