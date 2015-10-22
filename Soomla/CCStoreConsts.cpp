@@ -117,6 +117,7 @@ namespace soomla {
     char const *CCStoreConsts::EVENT_ITEM_PURCHASED = "CCStoreEventHandler::onItemPurchased";
     char const *CCStoreConsts::EVENT_ITEM_PURCHASE_STARTED = "CCStoreEventHandler::onItemPurchaseStarted";
     char const *CCStoreConsts::EVENT_MARKET_PURCHASE_CANCELED = "CCStoreEventHandler::onMarketPurchaseCancelled";
+    char const *CCStoreConsts::EVENT_MARKET_PURCHASE_DEFERRED = "CCStoreEventHandler::onMarketPurchaseDeferred";
     char const *CCStoreConsts::EVENT_MARKET_PURCHASE = "CCStoreEventHandler::onMarketPurchase";
     char const *CCStoreConsts::EVENT_MARKET_PURCHASE_STARTED = "CCStoreEventHandler::onMarketPurchaseStarted";
     char const *CCStoreConsts::EVENT_MARKET_ITEMS_REFRESHED = "CCStoreEventHandler::onMarketItemsRefreshed";

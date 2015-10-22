@@ -123,6 +123,7 @@ namespace soomla {
         static char const *EVENT_ITEM_PURCHASED;
         static char const *EVENT_ITEM_PURCHASE_STARTED;
         static char const *EVENT_MARKET_PURCHASE_CANCELED;
+        static char const *EVENT_MARKET_PURCHASE_DEFERRED;
         static char const *EVENT_MARKET_PURCHASE;
         static char const *EVENT_MARKET_PURCHASE_STARTED;
         static char const *EVENT_MARKET_ITEMS_REFRESHED;
