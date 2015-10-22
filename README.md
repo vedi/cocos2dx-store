@@ -44,8 +44,7 @@ This example is still under development but it can give you a taste of the impor
 
 #### Pre baked zip:
 
-- The latest [soomla-cocos2dx-core](http://library.soom.la/fetch/cocos2dx-core/latest?cf=github) release
-- The latest [cocos2dx-store](http://library.soom.la/fetch/cocos2dx-store/latest?cf=github) release
+- [cocos2dx-store 4.5.5](http://library.soom.la/fetch/cocos2dx-store/4.5.5?cf=github)
 
 #### From sources:
  - Clone this repository;

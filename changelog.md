@@ -1,3 +1,11 @@
+### v4.5.5 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.4...v4.5.5)
+
+* Fixes
+  * StoreInventory.RemoveGoodUpgrades crash in iOS when upgrade id is null
+
+* Changes
+  * Aligned JS implementation with C++
+
 ### v4.5.4 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.3...v4.5.4)
 
 * Changes
