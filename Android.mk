@@ -9,6 +9,7 @@ LOCAL_MODULE := cocos2dx_store_static
 LOCAL_MODULE_FILENAME := libcocos2dxstore
 
 STORE_SRC_LIST := $(wildcard $(LOCAL_PATH)/Soomla/*.cpp)
+STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/config/*.cpp)
 STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/NativeImpl/*.cpp)
 STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/PurchaseTypes/*.cpp)
 STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/data/*.cpp)
@@ -20,6 +21,7 @@ STORE_SRC_LIST += $(wildcard $(LOCAL_PATH)/Soomla/rewards/*.cpp)
 LOCAL_SRC_FILES := $(STORE_SRC_LIST:$(LOCAL_PATH)/%=%)
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/Soomla
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/Soomla/config
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/Soomla/data
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/Soomla/domain
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/Soomla/domain/virtualCurrencies
@@ -36,6 +38,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_soomla_common_static
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/Soomla
+LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/Soomla/config
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/Soomla/data
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/Soomla/domain
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/Soomla/domain/virtualCurrencies

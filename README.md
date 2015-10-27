@@ -42,9 +42,14 @@ This example is still under development but it can give you a taste of the impor
 
 ## Download
 
-####Pre baked zip:
+#### Pre baked zip:
 
 - [cocos2dx-store 4.5.5](http://library.soom.la/fetch/cocos2dx-store/4.5.5?cf=github)
+
+#### From sources:
+ - Clone this repository recursively: `git clone --recursive https://github.com/soomla/cocos2dx-store.git`;
+ - Run `./build_all` from project directory;
+ - Take created binaries from `build` directory and use it!
 
 ## Getting Started (With pre-built libraries)
 

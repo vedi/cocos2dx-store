@@ -130,6 +130,17 @@ namespace soomla {
         virtual void onMarketPurchaseCancelled(CCPurchasableVirtualItem *purchasableVirtualItem);
 
         /**
+         Fired when a market (App Store, Google Play, etc..) purchase has been
+         deferred (iOS only).
+
+         Event Name - CCStoreConsts::EVENT_MARKET_PURCHASE_DEFERRED
+         Event Data (__Dictionary):
+         CCStoreConsts::DICT_ELEMENT_PURCHASABLE - CCPurchasableVirtualItem -
+         the item whose purchase is being deferred.
+         */
+        virtual void onMarketPurchaseDeferred(CCPurchasableVirtualItem *purchasableVirtualItem, cocos2d::__String *payload);
+
+        /**
          Fired when a market item from the store (App Store, Google Play, etc..) 
          has been purchased.
          
