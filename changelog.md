@@ -1,3 +1,11 @@
+### v4.6.0 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.5...v4.6.0)
+
+* Features
+  * Added Market Purchase Deferred handling
+
+* Changes
+  * Added builder classes for initializarion params
+
 ### v4.5.5 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.4...v4.5.5)
 
 * Fixes
