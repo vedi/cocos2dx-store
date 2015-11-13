@@ -287,6 +287,20 @@ namespace soomla {
                     __String *errorMessage = (__String *)(parameters->objectForKey("errorMessage"));
                     this->onMarketItemsRefreshFailed(errorMessage);
                 });
+        
+        eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_VERIFICATION_STARTED,
+                [this](__Dictionary *parameters) {
+                    __String *itemId = (__String *)(parameters->objectForKey("itemId"));
+                    CCError *error = NULL;
+                    CCPurchasableVirtualItem *purchasableVirtualItem =
+                            dynamic_cast<CCPurchasableVirtualItem *>(CCStoreInfo::sharedStoreInfo()->getItemByItemId(itemId->getCString(), &error));
+                    if (error) {
+                        CCSoomlaUtils::logException(CCStoreConsts::EVENT_VERIFICATION_STARTED, error);
+                        return;
+                    }
+                    CC_ASSERT(purchasableVirtualItem);
+                    this->onVerificationStarted(purchasableVirtualItem);
+                });
 
         eventDispatcher->registerEventHandler(CCStoreConsts::EVENT_MARKET_PURCHASE_VERIFICATION,
                 [this](__Dictionary *parameters) {
