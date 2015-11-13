@@ -494,6 +494,13 @@ namespace soomla {
         Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(CCStoreConsts::EVENT_MARKET_PURCHASE_STARTED, eventDict);
     }
 
+    void CCStoreEventDispatcher::onVerificationStarted(CCPurchasableVirtualItem *purchasableVirtualItem) {
+        __Dictionary *eventDict = __Dictionary::create();
+        eventDict->setObject(purchasableVirtualItem, CCStoreConsts::DICT_ELEMENT_PURCHASABLE);
+
+        Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(CCStoreConsts::EVENT_VERIFICATION_STARTED, eventDict);
+    }
+
     void CCStoreEventDispatcher::onMarketPurchaseVerification(CCPurchasableVirtualItem *purchasableVirtualItem) {
         __Dictionary *eventDict = __Dictionary::create();
         eventDict->setObject(purchasableVirtualItem, CCStoreConsts::DICT_ELEMENT_PURCHASABLE);
