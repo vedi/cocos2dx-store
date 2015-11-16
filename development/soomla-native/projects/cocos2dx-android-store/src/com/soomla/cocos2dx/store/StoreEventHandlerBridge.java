@@ -296,6 +296,23 @@ public class StoreEventHandlerBridge {
     }
 
     @Subscribe
+    public void onVerificationStarted(final VerificationStartedEvent verificationStartedEvent) {
+        mGLThread.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject parameters = new JSONObject();
+                    parameters.put("itemId", verificationStartedEvent.getPurchasableVirtualItem().getItemId());
+                    parameters.put("method", "CCStoreEventHandler::onVerificationStarted");
+                    NdkGlue.getInstance().sendMessageWithParameters(parameters);
+                } catch (JSONException e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        });
+    }
+
+    @Subscribe
     public void onMarketItemsRefreshStarted(final MarketItemsRefreshStartedEvent marketItemsRefreshStartedEvent) {
         mGLThread.queueEvent(new Runnable() {
             @Override

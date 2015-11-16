@@ -169,6 +169,16 @@ namespace soomla {
 
         /**
          Fired when a market purchase verification process has started.
+
+         Event Name - CCStoreConsts::EVENT_VERIFICATION_STARTED
+         Event Data (__Dictionary):
+         CCStoreConsts::DICT_ELEMENT_PURCHASABLE - CCPurchasableVirtualItem -
+         The market item whose purchase is being verified.
+         */
+        virtual void onVerificationStarted(CCPurchasableVirtualItem *purchasableVirtualItem);
+
+        /**
+         Fired when a market purchase verification process has finished.
          
          Event Name - CCStoreConsts::EVENT_MARKET_PURCHASE_VERIFICATION
          Event Data (__Dictionary):
