@@ -81,7 +81,7 @@ namespace soomla {
     char const *CCStoreConsts::JSON_JSON_TYPE_SINGLE_USE_VG = "SingleUseVG";
     char const *CCStoreConsts::JSON_JSON_TYPE_UPGRADE_VG = "UpgradeVG";
     char const *CCStoreConsts::JSON_JSON_TYPE_ITEM = "VirtualItemReward";
-    
+
     char const *CCStoreConsts::DICT_ELEMENT_BALANCE = "balance";
     char const *CCStoreConsts::DICT_ELEMENT_CURRENCY = "VirtualCurrency";
     char const *CCStoreConsts::DICT_ELEMENT_AMOUNT_ADDED = "amountAdded";
@@ -127,6 +127,7 @@ namespace soomla {
     char const *CCStoreConsts::EVENT_RESTORE_TRANSACTION_FINISHED = "CCStoreEventHandler::onRestoreTransactionsFinished";
     char const *CCStoreConsts::EVENT_RESTORE_TRANSACTION_STARTED = "CCStoreEventHandler::onRestoreTransactionsStarted";
     char const *CCStoreConsts::EVENT_UNEXPECTED_STORE_ERROR = "CCStoreEventHandler::onUnexpectedStoreError";
+    char const *CCStoreConsts::EVENT_VERIFICATION_STARTED = "CCStoreEventHandler::onVerificationStarted";
     char const *CCStoreConsts::EVENT_SOOMLA_STORE_INITIALIZED = "CCStoreEventHandler::onSoomlaStoreInitialized";
     char const *CCStoreConsts::EVENT_MARKET_REFUND = "CCStoreEventHandler::onMarketRefund";
     char const *CCStoreConsts::EVENT_IAB_SERVICE_STARTED = "CCStoreEventHandler::onIabServiceStarted";
