@@ -1,3 +1,8 @@
+### v4.6.1 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.6.0...v4.6.1)
+
+* New Features
+  * Added OnVerificationStarted event
+
 ### v4.6.0 [view commit logs](https://github.com/soomla/cocos2dx-store/compare/v4.5.5...v4.6.0)
 
 * Features
