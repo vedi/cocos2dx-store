@@ -58,12 +58,6 @@ namespace soomla {
         getInstance()->loadBillingService();
         
         CCStoreInfo::createShared(storeAssets);
-
-        if (!CCStoreInfo::sharedStoreInfo()) {
-            CCStoreEventDispatcher::getInstance()->onUnexpectedStoreError(__Integer::create(0), true);
-            CCSoomlaUtils::logError(TAG, "Can't initialize StoreInfo, see description above! SOOMLA Store initialization failed.");
-            return;
-        }
         
         CCStoreBridge::getInstance()->applyParams(storeParams);
         
