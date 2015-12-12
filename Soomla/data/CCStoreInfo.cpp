@@ -84,6 +84,15 @@ namespace soomla {
             CCSoomlaUtils::logError(TAG, "The given store assets can't be null!");
             return false;
         }
+
+        if (storeAssets->getCurrencies() == NULL ||
+                storeAssets->getCurrencyPacks() == NULL ||
+                storeAssets->getGoods() == NULL ||
+                storeAssets->getCategories() == NULL) {
+            CCSoomlaUtils::logError(TAG, "All IStoreAssets methods shouldn't return NULL-pointer references!");
+            return false;
+        }
+
         if (!CCStoreInfo::hasMarketIdDuplicates(storeAssets->getGoods())
                 || !CCStoreInfo::hasMarketIdDuplicates(storeAssets->getCurrencyPacks())) {
             CCSoomlaUtils::logError(TAG, "The given store assets has duplicates at marketItem productId!");
