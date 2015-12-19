@@ -4,3 +4,9 @@
 [submodule "development/submodules/ios-store"]
 	path = development/submodules/ios-store
 	url = git@github.com:soomla/ios-store.git
+[submodule "development/submodules/android-store-google-play"]
+	path = development/submodules/android-store-google-play
+	url = git@github.com:soomla/android-store-google-play.git
+[submodule "development/submodules/android-store-amazon"]
+	path = development/submodules/android-store-amazon
+	url = git@github.com:soomla/android-store-amazon.git

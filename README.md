@@ -44,7 +44,7 @@ This example is still under development but it can give you a taste of the impor
 
 #### Pre baked zip:
 
-- [cocos2dx-store 4.6.0](http://library.soom.la/fetch/cocos2dx-store/4.6.0?cf=github)
+- [cocos2dx-store 4.6.1](http://library.soom.la/fetch/cocos2dx-store/4.6.1?cf=github)
 
 #### From sources:
  - Clone this repository recursively: `git clone --recursive https://github.com/soomla/cocos2dx-store.git`
